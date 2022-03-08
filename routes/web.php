@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EkspedisiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+// PELANGGAN
+Route::get('/pelanggan', [PelangganController::class, "index"]);
+Route::get('/pelanggan/pelanggan-detail', [PelangganController::class, "pelanggan_detail"]);
+Route::get('/pelanggan/pelanggan-baru', [PelangganController::class, "pelanggan_baru"])->middleware('auth');
+
+/**
+ * EKSPEDISI
+ */
+Route::get('/ekspedisi', [EkspedisiController::class, "index"]);

@@ -15,5 +15,24 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+        $this->call([
+            // UserSeeder::class,
+            // PelangganSeeder::class,
+            EkspedisiSeeder::class,
+            // PelangganEkspedisiSeeder::class,
+            // BahanSeeder::class,
+            // VariasiSeeder::class,
+            // UkuranSeeder::class,
+            // JahitSeeder::class,
+            // KombiSeeder::class,
+            // SPJapsSeeder::class,
+            // StandarSeeder::class,
+            // TankpadSeeder::class,
+            // BusastangSeeder::class,
+            // StikerSeeder::class,
+            // SiteSettingSeeder::class,
+            // ProdukSeeder::class,
+            // SpkSeeder::class,
+        ]);
     }
 }
