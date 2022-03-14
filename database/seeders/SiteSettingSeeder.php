@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SiteSetting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,14 @@ class SiteSettingSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $site_settings = [
+            ['setting' => 'load_num', 'value' => 0]
+        ];
+        for ($i = 0; $i < count($site_settings); $i++) {
+            SiteSetting::create([
+                'setting' => $site_settings[$i]['setting'],
+                'value' => $site_settings[$i]['value'],
+            ]);
+        }
     }
 }
