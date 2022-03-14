@@ -32,12 +32,20 @@
             text-decoration: underline;
             color: #0d6efd;
         }
+        #loading-progress-icon {
+            position: fixed;
+            width: 5rem;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 
     <title>MC-Parts Smart System</title>
 </head>
 
 <body>
+    <img id="loading-progress-icon" src="/img/icons/loading/gear_loading-violet.gif" alt="">
     
     @yield('content')
 </body>
@@ -227,7 +235,7 @@
     }
 
     reload_page(reloadable_page);
-
+    $('#loading-progress-icon').hide();
 </script>
 
 </html>
