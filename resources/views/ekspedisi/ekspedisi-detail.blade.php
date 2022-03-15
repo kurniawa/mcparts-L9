@@ -1,9 +1,9 @@
-@extends('layouts.main-layout')
+@extends('layouts.main_layout')
 
 @section('content')
     
 <div class="header grid-2-auto">
-    <img class="w-0_8em ml-1_5em" src="img/icons/back-button-white.svg" alt="" onclick="goBack();">
+    <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 </div>
 
 <div class="threeDotMenu">
@@ -23,7 +23,7 @@
             <button id="" type="submit" class="threeDotMenuItem">
                 <img src="/img/icons/edit.svg" alt=""><span>Edit Ekspedisi</span>
             </button>
-            <input type="hidden" name="ekspedisi_id" value={{ $nota['id'] }}>
+            <input type="hidden" name="ekspedisi_id" value={{ $ekspedisi['id'] }}>
         </form>
         {{-- <form action="/nota/nota-hapus" method='POST'>
             @csrf
@@ -51,13 +51,13 @@
     </div>
 
     <div class="grid-2-15-auto grid-row-gap-0_5em">
-        <img class="w-2_5em" src="img/icons/real-estate.svg" alt="">
+        <img class="w-2_5em" src="/img/icons/address.svg" alt="">
         <div id="alamatEkspedisi"></div>
-        <div><img class="w-2_5em" src="img/icons/phonebook.svg" alt=""></div>
+        <div><img class="w-2_5em" src="/img/icons/call.svg" alt=""></div>
         <div id="kontakEkspedisi"></div>
-        <img class="w-2_5em" src="img/icons/pencil.svg" alt="">
+        <img class="w-2_5em" src="/img/icons/boy.svg" alt="">
         <div class="font-weight-bold">Daftar Pelanggan dengan Ekspedisi ini:</div>
-        <img class="w-2_5em" src="img/icons/email.svg" alt="">
+        <img class="w-2_5em" src="/img/icons/letter.svg" alt="">
         <div class="font-weight-bold">Daftar Surat Jalan dengan Ekspedisi ini:</div>
     </div>
 </div>
@@ -88,6 +88,22 @@
 </style>
 
 <script>
+    const ekspedisi = {!! json_encode($ekspedisi, JSON_HEX_TAG) !!};
+    const arr_alamat_eks = ekspedisi.alamat.split('[br]');
+
+    console.log('ekspedisi');
+    console.log(ekspedisi);
+    console.log('arr_alamat_eks');
+    console.log(arr_alamat_eks);
+
+    var htmlAlamatEkspedisi = "";
+    arr_alamat_eks.forEach(alamat_eks => {
+        htmlAlamatEkspedisi += `${alamat_eks}<br>`;
+    });
+
+    document.getElementById('alamatEkspedisi').innerHTML = htmlAlamatEkspedisi;
+    document.getElementById('kontakEkspedisi').textContent = ekspedisi.no_kontak;
+
     // $id = <-?php echo $id ?>;
 
     // $(document).ready(function() {

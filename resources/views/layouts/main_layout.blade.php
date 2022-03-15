@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <script>
         var reloadable_page = true;
+        const show_console = true;
     </script>
     <script src="/js/functions_h.js"></script>
     <script src="/js/functions.js"></script>
@@ -236,7 +237,15 @@
     }
 
     reload_page(reloadable_page);
-    $('#loading-progress-icon').hide();
+    // $('#loading-progress-icon').hide();
+    document.onreadystatechange = function () {
+        if (document.readyState === 'complete') {
+            console.log(document.readyState);
+            // document.getElementById("PreLoaderBar").style.display = "none";
+            // $('#loading-progress-icon').hide(300);
+            $('#loading-progress-icon').hide(500);
+        }
+    };
 </script>
 
 </html>

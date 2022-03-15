@@ -29,9 +29,7 @@
 <table id="list_ekspedisi" style="width:100%">
 </table>
 
-<script>
-    const show_console = true;
-     
+<script>     
     const ekspedisis = {!! json_encode($ekspedisis, JSON_HEX_TAG) !!};
 
     if (show_console === true) {

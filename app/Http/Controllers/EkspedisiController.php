@@ -59,10 +59,10 @@ class EkspedisiController extends Controller
             $load_num->save();
         }
 
-        $show_dump = true; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = false; // true apabila siap melakukan CRUD ke DB
         $load_num_ignore = true; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = true;
+        $show_hidden_dump = false;
 
         if ($show_hidden_dump === true) {
             dump("load_num_value: " . $load_num->value);
@@ -76,10 +76,13 @@ class EkspedisiController extends Controller
 
         if ($show_dump === true) {
             dump("get:");
-            dd($get);
+            dump($get);
         }
+        $ekspedisi = Ekspedisi::find($get['ekspedisi_id']);
 
-        $data = [];
+        $data = [
+            'ekspedisi' => $ekspedisi
+        ];
 
         return view('ekspedisi.ekspedisi-detail', $data);
     }

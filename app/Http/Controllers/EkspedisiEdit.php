@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ekspedisi;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 
@@ -31,11 +32,16 @@ class EkspedisiEdit extends Controller
         $get = $request->input();
 
         if ($show_dump === true) {
-            dump("get: $get");
+            dump("get");
+            dump($get);
         }
 
-        $data = [];
+        $ekspedisi = Ekspedisi::find($get['ekspedisi_id']);
 
-        return view('ekspedisi.ekspedisi-detail', $data);
+        $data = [
+            'ekspedisi' => $ekspedisi
+        ];
+
+        return view('ekspedisi.ekspedisi-edit', $data);
     }
 }
