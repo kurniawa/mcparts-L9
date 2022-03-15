@@ -36,6 +36,9 @@ class EkspedisiBaru extends Controller
         return view('ekspedisi.ekspedisi-baru', $data);
     }
 
+    /**
+     * Nanti setelah selesai menjalankan fungsi dibawah ini, maka setelah menekan tombol kembali, app akan pindah ke halaman sebelumnya yang sudah ditentukan oleh developer, mesti kembali ke belakang yang ke berapa. Lalu di halaman tersebut, app akan reload, karena sudah di setting dari go-back-page terdapat javascript yang mengatur supaya session storage men set sebuah key-value pair. Key-value pair ini akan dipanggil di halaman kembali nya untuk cek apakah perlu reload atau tidak.
+     */
     public function ekspedisi_baru_db(Request $request)
     {
         $load_num = SiteSetting::find(1);

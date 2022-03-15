@@ -55,15 +55,16 @@
 
 <script>
     function showDropDown(id) {
-        // console.log("run dropdown!");
+        // console.log(`run dropdown! ID=${id}`);
         $selectedDiv = $("#divDetailDropDown-" + id);
         $selectedDiv.toggle(400);
 
         setTimeout(() => {
-            if ($selectedDiv.css("display") === "block") {
-                $("#divDropdown-" + id + " img").attr("src", "img/icons/dropup.svg");
+            // console.log(`$selectedDiv.css("display") = ${$selectedDiv.css("display")}`);
+            if ($selectedDiv.css("display") === "block" || $selectedDiv.css("display") === "table-row") {
+                $("#divDropdown-" + id + " img").attr("src", "/img/icons/dropup.svg");
             } else {
-                $("#divDropdown-" + id + " img").attr("src", "img/icons/dropdown.svg");
+                $("#divDropdown-" + id + " img").attr("src", "/img/icons/dropdown.svg");
             }
         }, 450);
     }

@@ -31,9 +31,16 @@ Route::get('/pelanggan/pelanggan-baru', [PelangganController::class, "pelanggan_
 /**
  * EKSPEDISI
  */
-Route::get('/ekspedisi', [EkspedisiController::class, "index"]);
+// Route::get('/ekspedisi', [EkspedisiController::class, "index"]);
+Route::controller(EkspedisiController::class)->group(function () {
+    Route::get('/ekspedisi', "index");
+    Route::get('/ekspedisi/detail', 'ekspedisi_detail');
+});
 // group route by controller. Dapat dilakukan mulai dari Laravel 9:
 Route::controller(EkspedisiBaru::class)->group(function () {
     Route::get('/ekspedisi/ekspedisi-baru', "index");
     Route::post('/ekspedisi/ekspedisi-baru-db', "ekspedisi_baru_db");
+});
+Route::controller(EkspedisiEdit::class)->group(function () {
+    Route::get('/ekspedisi/edit', "ekspedisi_edit");
 });
