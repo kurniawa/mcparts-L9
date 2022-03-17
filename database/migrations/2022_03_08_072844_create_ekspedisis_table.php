@@ -20,8 +20,10 @@ return new class extends Migration
             $table->string('nama');
             $table->string('alamat');
             $table->string('no_kontak', 50)->nullable();
+            $table->string('ktrg')->nullable();
             $table->foreignId('ekspedisi_daerah_id')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 

@@ -57,16 +57,45 @@ class EkspedisiBaru extends Controller
         }
 
         $post = $request->input();
+        $arr_alamat_eks = $post['alamat_ekspedisi'];
+        $bentuk_perusahaan = null;
+        if (isset($post['bentuk_perusahaan']) && $post['bentuk_perusahaan'] !== null && $post['bentuk_perusahaan'] !== '') {
+            $bentuk_perusahaan = $post['bentuk_perusahaan'];
+        }
+
         if ($show_dump === true) {
             dump('$post: ', $post);
+            dump('count($arr_alamat_eks)', count($arr_alamat_eks));
+        }
+
+        $alamat_ekspedisi = "";
+
+        $i_arrAlamatEks = 0;
+        foreach ($arr_alamat_eks as $alamat_eks) {
+            if ($alamat_eks === null || $alamat_eks === "") {
+                # Kalau tidak diisi, maka tidak perlu ada yang diinput
+            } else {
+                if ($i_arrAlamatEks !== 0) {
+                    $alamat_ekspedisi .= "[br]";
+                }
+                $alamat_ekspedisi .= $alamat_eks;
+            }
+            $i_arrAlamatEks++;
+        }
+
+        $keterangan = $post['keterangan'];
+
+        if ($keterangan === null || $keterangan === '') {
+            $keterangan = null;
         }
 
         if ($run_db === true) {
             Ekspedisi::create([
-                'bentuk' => $post['bentuk_perusahaan'],
+                'bentuk' => $bentuk_perusahaan,
                 'nama' => $post['nama_ekspedisi'],
-                'alamat' => $post['alamat_ekspedisi'],
+                'alamat' => $alamat_ekspedisi,
                 'no_kontak' => $post['kontak_ekspedisi'],
+                'ktrg' => $keterangan,
             ]);
         }
 

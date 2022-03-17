@@ -6,7 +6,7 @@
     <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 </div>
 
-<div class="threeDotMenu">
+<div class="threeDotMenu" style="z-index: 200">
     <div class="threeDot">
         <div class="dot"></div>
         <div class="dot"></div>

@@ -29,7 +29,13 @@
             <input id="nama-ekspedisi" name="nama_ekspedisi" class="input-1 pb-1em" type="text" placeholder="Nama Ekspedisi" required>
         </div>
 
-        <textarea id="alamat" class="mt-1em pt-1em pl-1em" name="alamat_ekspedisi" placeholder="Alamat" required></textarea>
+        {{-- <textarea id="alamat" class="mt-1em pt-1em pl-1em" name="alamat_ekspedisi" placeholder="Alamat" required></textarea> --}}
+        <label for="">Alamat:</label>
+        <input type="text" class="form-control" name="alamat_ekspedisi[]" placeholder="Baris 1">
+        <input type="text" class="form-control" name="alamat_ekspedisi[]" placeholder="Baris 2">
+        <input type="text" class="form-control" name="alamat_ekspedisi[]" placeholder="Baris 3">
+        <input type="text" class="form-control" name="alamat_ekspedisi[]" placeholder="Baris 4">
+        <input type="text" class="form-control" name="alamat_ekspedisi[]" placeholder="Baris 5"><br>
         <div class="mt-1em">
             <input id="kontak" class="input-1 pb-1em" type="text" placeholder="No. Kontak" name="kontak_ekspedisi">
         </div>
