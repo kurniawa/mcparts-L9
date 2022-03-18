@@ -13,7 +13,8 @@
     <h1>Edit Data Ekspedisi</h1>
 </div>
 
-<form action="05-06-edit-ekspedisi-2.php" method="POST" class="ml-1em mr-1em mt-2em">
+<form action="/ekspedisi/edit-db" method="POST" class="ml-1em mr-1em mt-2em">
+    @csrf
     <input type="hidden" name="ekspedisi_id" value="{{ $ekspedisi['id'] }}">
     <div class="grid-2-auto grid-column-gap-1em">
         <div class="bb-0_5px-grey pb-1em">
@@ -40,6 +41,7 @@
     <br>
     <label style="font-weight:bold">Alamat:</label>
     <div id="div_alamat_eks"></div>
+    <div id="btn_tbh_baris" class="btn btn-secondary">+ Tambah Baris</div>
 
     {{-- <textarea id="alamatEdited" class="text-area-mode-1 mt-1em pt-1em pl-1em" name="alamat_ekspedisi" placeholder="Alamat">{{ $ekspedisi['alamat'] }}</textarea> --}}
 
@@ -57,7 +59,7 @@
 
     <br>
     <label for="keteranganEdited">Keterangan:</label>
-    {{-- <textarea id="keteranganEdited" class="text-area-mode-1 mt-1em pt-1em pl-1em" name="keterangan" placeholder="Keterangan lain (opsional)" value="{{ $ekspedisi['keterangan'] }}"></textarea> --}}
+    <textarea id="keteranganEdited" class="text-area-mode-1 mt-1em pt-1em pl-1em" name="keterangan" placeholder="Keterangan lain (opsional)" value="{{ $ekspedisi['keterangan'] }}"></textarea>
 
     <div id="peringatan" class="d-none color-red p-1em">
 
@@ -91,6 +93,19 @@
     });
 
     document.getElementById('div_alamat_eks').innerHTML = htmlAlamatEks;
+
+    document.getElementById('btn_tbh_baris').addEventListener('click', function () {
+        var label_tbh_baris = document.createElement('label');
+        label_tbh_baris.textContent = `Baris ${i_arrAlamatEks}:`;
+        var ipt_tbh_baris = document.createElement('input');
+        ipt_tbh_baris.name = "alamat_ekspedisi[]";
+        ipt_tbh_baris.className = "form-control";
+        ipt_tbh_baris.type = "text";
+        document.getElementById('div_alamat_eks').appendChild(label_tbh_baris);
+        document.getElementById('div_alamat_eks').appendChild(ipt_tbh_baris);
+        i_arrAlamatEks++;
+        // https://stackoverflow.com/questions/195951/how-can-i-change-an-elements-class-with-javascript
+    });
     
 </script>
 

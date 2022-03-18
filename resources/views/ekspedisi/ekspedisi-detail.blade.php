@@ -27,12 +27,12 @@
         </form>
         {{-- <form action="/nota/nota-hapus" method='POST'>
             @csrf
-            <button id="hapusNota" type="submit" class="threeDotMenuItem" id="konfirmasiHapusNota" style="width: 100%">
+            <button id="hapusNota" type="submit" class="threeDotMenuItem" id="konfirmasiHapusEkspedisi" style="width: 100%">
                 <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Nota</span>
             </button>
             <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
         </form> --}}
-        <div id="konfirmasiHapusNota" class="threeDotMenuItem">
+        <div id="konfirmasiHapusEkspedisi" class="threeDotMenuItem">
             <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Ekspedisi</span>
         </div>
         <!-- <div id="deleteSPK" class="threeDotMenuItem" onclick="goToDeleteSPK();">
@@ -157,6 +157,24 @@
     // function backToEkspedisi() {
     //     window.location.replace("05-01-ekspedisi.php");
     // }
+
+    document.getElementById("konfirmasiHapusEkspedisi").addEventListener("click", function() {
+        var deleteProperties = {
+            title: "Yakin ingin menghapus Ekspedisi ini?",
+            yes: "Ya",
+            no: "Batal",
+            table: "ekspedisis",
+            column: "id",
+            columnValue: ekspedisi.id,
+            action: "/ekspedisi/hapus",
+            csrf: my_csrf,
+            goBackNumber: -2,
+            goBackStatement: "Daftar Ekspedisi"
+        };
+
+        var deletePropertiesStringified = JSON.stringify(deleteProperties);
+        showLightBoxGlobal(deletePropertiesStringified);
+    });
 </script>
 
 @endsection
