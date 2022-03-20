@@ -699,6 +699,7 @@ option {
     right: 0;
     background-color: black;
     opacity: 0.2;
+    z-index: 300;
 }
 
 #divLightBoxGlobal {
@@ -709,6 +710,7 @@ option {
     height: 13em;
     background-color: white;
     padding: 1em;
+    z-index: 400;
 }
 /* END of LIGHTBOX GLOBAL */
 

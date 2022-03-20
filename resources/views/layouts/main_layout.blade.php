@@ -22,7 +22,7 @@
     </script>
     <script src="/js/functions_h.js"></script>
     <script src="/js/functions.js"></script>
-    
+
     <style>
         a {
             text-decoration: none;
@@ -47,7 +47,7 @@
 
 <body>
     <img id="loading-progress-icon" src="/img/icons/loading/gear_loading-violet.gif" alt="">
-    
+
     @yield('content')
 </body>
 

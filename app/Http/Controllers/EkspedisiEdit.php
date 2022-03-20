@@ -106,11 +106,50 @@ class EkspedisiEdit extends Controller
         }
 
         $data = [
+            'go_back_number' => -2,
+        ];
+
+        $load_num->value += 1;
+        $load_num->save();
+        return view('layouts.go-back-page', $data);
+    }
+
+    public function ekspedisi_hapus(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+
+        $show_dump = true; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $run_db = true; // true apabila siap melakukan CRUD ke DB
+        $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
+        $show_hidden_dump = true;
+
+        if ($show_hidden_dump === true) {
+            dump("load_num_value: " . $load_num->value);
+        }
+
+        if ($load_num->value > 0 && $load_num_ignore === false) {
+            $run_db = false;
+        }
+
+        $post = $request->input();
+
+        if ($show_dump === true) {
+            dump('$post: ', $post);
+        }
+
+        $ekspedisi = Ekspedisi::find($post['id']);
+
+        if ($run_db === true) {
+            $ekspedisi->delete();
+        }
+
+        $data = [
             'go_back_number' => -2
         ];
 
         $load_num->value += 1;
         $load_num->save();
+
         return view('layouts.go-back-page', $data);
     }
 }

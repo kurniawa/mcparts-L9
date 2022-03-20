@@ -81,7 +81,8 @@ class EkspedisiController extends Controller
         $ekspedisi = Ekspedisi::find($get['ekspedisi_id']);
 
         $data = [
-            'ekspedisi' => $ekspedisi
+            'ekspedisi' => $ekspedisi,
+            'csrf' => csrf_token()
         ];
 
         return view('ekspedisi.ekspedisi-detail', $data);

@@ -48,4 +48,5 @@ Route::controller(EkspedisiBaru::class)->group(function () {
 Route::controller(EkspedisiEdit::class)->group(function () {
     Route::get('/ekspedisi/edit', "ekspedisi_edit");
     Route::post('/ekspedisi/edit-db', "ekspedisi_edit_db");
+    Route::post('/ekspedisi/hapus', "ekspedisi_hapus");
 });

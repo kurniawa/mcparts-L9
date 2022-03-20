@@ -552,7 +552,7 @@ function createCheckboxConfirmList (params, my_csrf) {
  * input nya nanti dalam bentuk array misal name="deviasi_jml[]".
  * Nanti kalo ke disable otomatis array length nya jg mengikuti jadi berkurang.
  * Nanti di file db nya tinggal diproses secara loop
- * 
+ *
  * var isCheckedParams = {
         id_dd: `#dd_checkbox_show-${k}`,
         class_checkbox: ".dd_checkbox",
@@ -563,7 +563,7 @@ function createCheckboxConfirmList (params, my_csrf) {
     isCheckedParamsAll.push(isCheckedParams);
 
     isCheckedParams = JSON.stringify(isCheckedParams);
- * 
+ *
  */
 
 function isChecked (params) {
@@ -637,10 +637,12 @@ function getDateToday () {
 
 function showLightBoxGlobal (deletePropertiesStrigified) {
     $(".divThreeDotMenuContent").hide();
+    document.getElementById("divClosingArea").remove();
 
     var deleteProperties = JSON.parse(deletePropertiesStrigified);
     var divLightBoxGlobal = document.createElement("div");
     divLightBoxGlobal.id = "divLightBoxGlobal";
+
     var htmlDivLightBoxGlobal = `
         <div class="grid-2-10_auto">
             <div><img src="/img/icons/speech-bubble.svg" alt="" style="width: 2em;"></div>
@@ -655,7 +657,7 @@ function showLightBoxGlobal (deletePropertiesStrigified) {
                 </button>
                 <input type="hidden" name="${deleteProperties.column}" value=${deleteProperties.columnValue}>
             </form>
-            
+
             <button class="text-center btn-1 bg-color-orange-1" onclick='lightBoxGlobalNo();'>
                 <span>${deleteProperties.no}</span>
             </button>
@@ -665,6 +667,7 @@ function showLightBoxGlobal (deletePropertiesStrigified) {
 
     var divClosingGreyAreaGlobal = document.createElement("div");
     divClosingGreyAreaGlobal.id = "divClosingGreyAreaGlobal";
+
     // var htmlDivClosingGreyAreaGlobal = `
     // <div id="divClosingGreyAreaGlobal"></div>
     // `;
@@ -676,4 +679,10 @@ function showLightBoxGlobal (deletePropertiesStrigified) {
 
     document.body.appendChild(divClosingGreyAreaGlobal);
     document.body.appendChild(divLightBoxGlobal);
+
+    divClosingGreyAreaGlobal = document.getElementById('divClosingGreyAreaGlobal');
+    divClosingGreyAreaGlobal.addEventListener('click', function () {
+        document.getElementById('divLightBoxGlobal').remove();
+        this.remove();
+    });
 }

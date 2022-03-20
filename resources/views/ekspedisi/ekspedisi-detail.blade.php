@@ -1,7 +1,7 @@
 @extends('layouts.main_layout')
 
 @section('content')
-    
+
 <div class="header grid-2-auto">
     <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 </div>
@@ -89,6 +89,7 @@
 
 <script>
     const ekspedisi = {!! json_encode($ekspedisi, JSON_HEX_TAG) !!};
+    const my_csrf = {!! json_encode($csrf, JSON_HEX_TAG) !!};
     const arr_alamat_eks = ekspedisi.alamat.split('[br]');
 
     console.log('ekspedisi');
