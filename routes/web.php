@@ -1,8 +1,13 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EkspedisiBaru;
 use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\EkspedisiEdit;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PelangganBaruController;
+use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,10 +32,26 @@ Route::get('/about', function () {
     return view('/about/about');
 });
 
+// LOGIN & REGISTER
+Route::get('/login', [LoginController::class, "index"])->middleware('guest')->name('login');
+Route::post('/login', [LoginController::class, "authenticate"]);
+Route::get('/register', [RegisterController::class, "index"])->middleware('guest');
+Route::post('/register', [RegisterController::class, "store"]);
+Route::get('/dashboard', [DashboardController::class, "index"])->middleware('auth');
+
+Route::post('/logout', [LoginController::class, "logout"])->middleware('auth');
+
 // PELANGGAN
-Route::get('/pelanggan', [PelangganController::class, "index"]);
-Route::get('/pelanggan/pelanggan-detail', [PelangganController::class, "pelanggan_detail"]);
-Route::get('/pelanggan/pelanggan-baru', [PelangganController::class, "pelanggan_baru"])->middleware('auth');
+Route::controller(PelangganController::class)->group(function ()
+{
+    Route::get('/pelanggan', 'index');
+    Route::get('/pelanggan/pelanggan-detail', 'pelanggan_detail');
+});
+Route::controller(PelangganBaruController::class)->group(function ()
+{
+   Route::get('/pelanggan/pelanggan-baru', 'pelanggan_baru')->middleware('auth');
+   Route::post('/pelanggan/pelanggan-baru-db', 'create')->middleware('auth');
+});
 
 /**
  * EKSPEDISI
