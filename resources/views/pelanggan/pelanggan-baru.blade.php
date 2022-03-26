@@ -16,10 +16,29 @@
         @error('nama_pelanggan')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
-        <textarea class="mt-1em pt-1em pl-1em text-area-mode-1" name="alamat_pelanggan" id="alamat" placeholder="Alamat"></textarea>
+
+        <label for="">Alamat:</label>
+        <input type="text" class="form-control" name="alamat_pelanggan[]" placeholder="Baris 1">
+        <input type="text" class="form-control" name="alamat_pelanggan[]" placeholder="Baris 2">
+        <input type="text" class="form-control" name="alamat_pelanggan[]" placeholder="Baris 3">
+        <input type="text" class="form-control" name="alamat_pelanggan[]" placeholder="Baris 4">
+        <input type="text" class="form-control" name="alamat_pelanggan[]" placeholder="Baris 5">
+        <br>
+
         <div class="grid-2-auto grid-column-gap-1em mt-1em">
-            <input name="pulau" id="pulau" class="input-1 pb-1em" type="text" placeholder="Pulau">
-            <input name="daerah" id="daerah" class="input-1 pb-1em" type="text" placeholder="Daerah">
+            <div>
+                <input name="pulau" id="pulau" class="form-control @error('pulau') is-invalid @enderror" type="text" placeholder="Pulau">
+                @error('pulau')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <input name="daerah" id="daerah" class="form-control @error('daerah') is-invalid @enderror" type="text" placeholder="Daerah">
+                @error('daerah')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
         </div>
         <div class="grid-2-auto grid-column-gap-1em mt-1em">
             <input name="kontak_pelanggan" id="kontak" class="input-1 pb-1em" type="text" placeholder="No. Kontak">
