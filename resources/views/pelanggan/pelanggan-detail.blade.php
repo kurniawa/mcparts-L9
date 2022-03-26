@@ -6,7 +6,7 @@
     <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 </div>
 
-<div class="threeDotMenu">
+<div class="threeDotMenu" style="z-index: 200">
     <div class="threeDot">
         <div class="dot"></div>
         <div class="dot"></div>
@@ -25,38 +25,17 @@
             <img class="w-1em" src="/img/icons/edit.svg" alt="">
             <div class="">Tetapkan Reseller</div>
         </div>
-        <div class="threeDotMenuItem" onclick="deleteCustomer();">
-            <img class="w-1em" src="/img/icons/trash-can.svg" alt="">
-            <div class="">Hapus Pelanggan ini</div>
-        </div>
         <form action="/sj/sj-printOut" method='POST'>
             <button id="downloadExcel" type="submit" class="threeDotMenuItem">
                 <img src="/img/icons/download.svg" alt=""><span>Print Out Surat Jalan</span>
             </button>
             @csrf
         </form>
-        <div id="konfirmasiHapussj" class="threeDotMenuItem">
-            <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Surat Jalan</span>
+        <div id="konfirmasiHapusPelanggan" class="threeDotMenuItem">
+            <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Pelanggan</span>
         </div>
-        
     </div>
 </div>
-
-{{-- <div id="showDotMenuContent" class="position-absolute bg-color-white z-index-3">
-    
-    <div class="dotMenuItem grid-2-10_auto grid-column-gap-0_5em pl-1em pr-1em pt-0_5em pb-0_5em" onclick="toTambahEkspedisi();">
-        <img class="w-1em" src="/img/icons/edit.svg" alt="">
-        <div class="">Tambah Ekspedisi</div>
-    </div>
-    <div class="dotMenuItem grid-2-10_auto grid-column-gap-0_5em pl-1em pr-1em pt-0_5em pb-0_5em" onclick="moveToEditReseller();">
-        <img class="w-1em" src="/img/icons/edit.svg" alt="">
-        <div class="">Tetapkan Reseller</div>
-    </div>
-    <div class="dotMenuItem grid-2-10_auto grid-column-gap-0_5em pl-1em pr-1em pt-0_5em pb-0_5em" onclick="deleteCustomer();">
-        <img class="w-1em" src="/img/icons/trash-can.svg" alt="">
-        <div class="">Hapus Pelanggan ini</div>
-    </div>
-</div> --}}
 
 <div id="areaClosingDotMenu" onclick="closingDotMenuContent();"></div>
 
@@ -79,12 +58,8 @@
             <div id="customerInfo" class="mt-0_5em font-size-0_9em font-weight-bold">Alamat Customer</div>
         </div>
 
-        <!-- <div class="grid-1-auto justify-items-right">
-            <img class="w-1em" src="/img/icons/edit-grey.svg" alt="">
-        </div> -->
-
     </div>
-    
+
     <?php
     function createElementEkspedisi($index)
     {
@@ -94,7 +69,7 @@
                 <div class='grid-1-auto justify-items-center'>
                     <img class='w-2_5em' src='/img/icons/truck.svg' alt=''>
                 </div>
-                <div id='customerExpedition-$index' class='mt-0_5em font-size-0_9em font-weight-bold'>Info Ekspedisi</div>
+                <div id='customerExpedition-$index' class='mt-0_5em font-size-0_9em font-weight-bold'>Data ekspedisi belum ada</div>
             </div>
 
             <!-- <div class='grid-1-auto justify-items-right'>
@@ -113,7 +88,7 @@
         }
     }
     ?>
-    
+
 
 </div>
 <!-- END - INFO PELANGGAN DAN EKSPEDISI -->
@@ -134,19 +109,21 @@
 </div>
 
 <script>
-const show_console = true;
-;
+// const show_console = true;
 
 const cust_id = {!! json_encode($cust_id, JSON_HEX_TAG) !!};
 var pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
 var pelanggan_ekspedisi = {!! json_encode($pelanggan_ekspedisi, JSON_HEX_TAG) !!};
 var ekspedisis = {!! json_encode($ekspedisis, JSON_HEX_TAG) !!};
+const my_csrf = {!! json_encode($csrf, JSON_HEX_TAG) !!}
 
 if (show_console === true) {
-    console.log("DAFTAR EKSPEDISI:");
-    console.log(ekspedisis);
+    console.log("pelanggan:");
+    console.log(pelanggan);
     console.log("pelanggan_ekspedisi:");
     console.log(pelanggan_ekspedisi);
+    console.log("DAFTAR EKSPEDISI:");
+    console.log(ekspedisis);
 }
 
 const arr_alamat = pelanggan.alamat.split('[br]');
@@ -161,7 +138,7 @@ $("#customerName").html(pelanggan.nama);
 $("#customerInfo").html(html_alamat).append("<br>" + pelanggan.no_kontak);
 
 // SET DATA EKSPEDISI
-if (ekspedisis !== "EMPTY" && ekspedisis !== "ERROR") {
+if (ekspedisis !== "EMPTY" && ekspedisis !== "ERROR" && ekspedisis.length !== 0) {
     for (var i = 0; i < ekspedisis.length; i++) {
         $htmlEkspedisi = "";
         var namaLengkapEkspedisi = "";
@@ -182,7 +159,7 @@ if (ekspedisis !== "EMPTY" && ekspedisis !== "ERROR") {
             <br>
             <div style="text-align:right" class="p-1em">
             <img id='btnHapusEkspedisi-${i}' src='/img/icons/trash-can.svg' style="width: 1.5em" onclick="dbDelete('pelanggan_ekspedisi', 'id', ${pelanggan_ekspedisi[i].id});">
-            
+
             </div>
             `;
 
@@ -266,8 +243,26 @@ if (reseller !== null) {
 
     document.getElementById('divReseller').classList = "m-1em";
     $('#divReseller').html(html_reseller + ListReseller);
-    
+
 }
+
+document.getElementById("konfirmasiHapusPelanggan").addEventListener("click", function() {
+        var deleteProperties = {
+            title: "Yakin ingin menghapus Pelanggan ini?",
+            yes: "Ya",
+            no: "Batal",
+            table: "pelanggans",
+            column: "id",
+            columnValue: pelanggan.id,
+            action: "/pelanggan/hapus",
+            csrf: my_csrf,
+            goBackNumber: -2,
+            goBackStatement: "Daftar Pelanggan"
+        };
+
+        var deletePropertiesStringified = JSON.stringify(deleteProperties);
+        showLightBoxGlobal(deletePropertiesStringified);
+    });
 
 </script>
 

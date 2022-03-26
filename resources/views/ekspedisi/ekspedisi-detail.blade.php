@@ -75,16 +75,6 @@
     .dotMenuItem:hover {
         background-color: grey;
     }
-
-    #areaClosingDotMenu {
-        display: none;
-        position: absolute;
-        top: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 2;
-        /* border: 1px solid red; */
-    }
 </style>
 
 <script>

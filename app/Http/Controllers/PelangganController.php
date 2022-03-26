@@ -92,9 +92,11 @@ class PelangganController extends Controller
             $reseller = Pelanggan::find($pelanggan['reseller_id']);
         }
 
-        for ($i_pelangganEkspedisi=0; $i_pelangganEkspedisi < count($pelanggan_ekspedisi); $i_pelangganEkspedisi++) {
-            $ekspedisi = Ekspedisi::find($pelanggan_ekspedisi[$i_pelangganEkspedisi]['id']);
-            array_push($ekspedisis, $ekspedisi);
+        if (count($pelanggan_ekspedisi) !== 0) {
+            for ($i_pelangganEkspedisi=0; $i_pelangganEkspedisi < count($pelanggan_ekspedisi); $i_pelangganEkspedisi++) {
+                $ekspedisi = Ekspedisi::find($pelanggan_ekspedisi[$i_pelangganEkspedisi]['id']);
+                array_push($ekspedisis, $ekspedisi);
+            }
         }
 
         if ($show_dump === true) {
@@ -102,8 +104,10 @@ class PelangganController extends Controller
             dump($get);
             dump('pelanggan');
             dump($pelanggan);
-            dump('ekspedisi');
-            dump($ekspedisi);
+            dump('pelanggan_ekspedisi:', $pelanggan_ekspedisi);
+            dump('count(pelanggan_ekspedisi):', count($pelanggan_ekspedisi));
+            dump('ekspedisis');
+            dump($ekspedisis);
             dump('reseller');
             dump($reseller);
         }
@@ -115,6 +119,7 @@ class PelangganController extends Controller
             "ekspedisis" => $ekspedisis,
             "jml_ekspedisi" => $jml_ekspedisi,
             "reseller" => $reseller,
+            "csrf" => csrf_token(),
         ];
 
         return view('pelanggan.pelanggan-detail', $data);

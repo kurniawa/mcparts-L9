@@ -7,6 +7,7 @@ use App\Http\Controllers\EkspedisiEdit;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PelangganBaruController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\PelangganEkspedisiController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,6 +61,14 @@ Route::controller(PelangganBaruController::class)->group(function ()
 Route::controller(EkspedisiController::class)->group(function () {
     Route::get('/ekspedisi', "index");
     Route::get('/ekspedisi/detail', 'ekspedisi_detail');
+});
+
+/**
+ * PELANGGAN EKSPEDISI
+ */
+Route::controller(PelangganEkspedisiController::class)->group(function ()
+{
+
 });
 // group route by controller. Dapat dilakukan mulai dari Laravel 9:
 Route::controller(EkspedisiBaru::class)->group(function () {

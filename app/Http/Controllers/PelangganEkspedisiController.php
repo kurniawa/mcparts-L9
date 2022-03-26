@@ -2,85 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePelangganEkspedisiRequest;
-use App\Http\Requests\UpdatePelangganEkspedisiRequest;
-use App\Models\PelangganEkspedisi;
+use App\Models\SiteSetting;
+use Illuminate\Http\Request;
 
 class PelangganEkspedisiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
-    }
+        $load_num = SiteSetting::find(1);
+        if ($load_num !== 0) {
+            $load_num->value = 0;
+            $load_num->save();
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $show_dump = false;
+        $show_hidden_dump = false;
+        $run_db = false;
+        $load_num_ignore = true;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePelangganEkspedisiRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePelangganEkspedisiRequest $request)
-    {
-        //
-    }
+        if ($show_hidden_dump === true) {
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PelangganEkspedisi  $pelangganEkspedisi
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PelangganEkspedisi $pelangganEkspedisi)
-    {
-        //
-    }
+        if ($load_num->value > 0 && $load_num_ignore === false) {
+            $run_db = false;
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PelangganEkspedisi  $pelangganEkspedisi
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PelangganEkspedisi $pelangganEkspedisi)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePelangganEkspedisiRequest  $request
-     * @param  \App\Models\PelangganEkspedisi  $pelangganEkspedisi
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePelangganEkspedisiRequest $request, PelangganEkspedisi $pelangganEkspedisi)
-    {
-        //
-    }
+        if ($show_dump === true) {
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PelangganEkspedisi  $pelangganEkspedisi
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PelangganEkspedisi $pelangganEkspedisi)
-    {
-        //
+
+        $data = [
+
+        ];
+
+        if ($show_dump === true) {
+            dump("data: ", $data);
+        }
+        return view('pelanggan.pelanggan-ekspedisi', $data);
     }
 }
