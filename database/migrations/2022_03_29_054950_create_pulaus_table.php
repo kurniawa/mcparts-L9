@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('pulaus', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 20);
+            $table->string('nama', 50);
             $table->foreignId('negara_id')->nullable()->constrained('negaras');
         });
     }

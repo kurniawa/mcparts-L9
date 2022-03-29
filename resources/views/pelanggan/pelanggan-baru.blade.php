@@ -28,12 +28,14 @@
         <div class="grid-2-auto grid-column-gap-1em mt-1em">
             <div>
                 <input name="pulau" id="pulau" class="form-control @error('pulau') is-invalid @enderror" type="text" placeholder="Pulau">
+                <input type="hidden" id="pulau_id" name="pulau_id">
                 @error('pulau')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div>
                 <input name="daerah" id="daerah" class="form-control @error('daerah') is-invalid @enderror" type="text" placeholder="Daerah">
+                <input type="hidden" id="daerah_id" name="daerah_id">
                 @error('daerah')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -87,6 +89,43 @@
         </button>
     </div>
 </form>
+
+<script>
+    const label_pulaus = {!! json_encode($label_pulaus, JSON_HEX_TAG) !!};
+    const arr_label_daerahs = {!! json_encode($arr_label_daerahs, JSON_HEX_TAG) !!};
+
+    if (show_console) {
+        console.log('label_pulaus');console.log(label_pulaus);
+        console.log('arr_label_daerahs');console.log(arr_label_daerahs);
+    }
+
+    $("#pulau").autocomplete({
+        source: label_pulaus,
+        select: function(event, ui) {
+            if (show_console) {
+                console.log(ui.item);
+            }
+            $("#pulau_id").val(ui.item.id);
+            autcompleteIptDaerah();
+        }
+    });
+
+    function autcompleteIptDaerah() {
+        iLabelDaerahs = $('#pulau_id').val()-1;
+        if (show_console) {
+            console.log('iLabelDaerahs:');console.log(iLabelDaerahs);
+        }
+        $('#daerah').autocomplete({
+            source: arr_label_daerahs[iLabelDaerahs],
+            select: function(event, ui) {
+                if (show_console) {
+                    console.log(ui.item);
+                }
+                $('#daerah_id').val(ui.item.id);
+            }
+        });
+    }
+</script>
 
 <style>
     #divToggleReseller {
