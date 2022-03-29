@@ -68,7 +68,7 @@ Route::controller(EkspedisiController::class)->group(function () {
  */
 Route::controller(PelangganEkspedisiController::class)->group(function ()
 {
-
+    Route::get('pelanggan/pelanggan-ekspedisi', 'index');
 });
 // group route by controller. Dapat dilakukan mulai dari Laravel 9:
 Route::controller(EkspedisiBaru::class)->group(function () {

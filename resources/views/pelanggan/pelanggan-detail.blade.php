@@ -13,14 +13,17 @@
         <div class="dot"></div>
     </div>
     <div class="divThreeDotMenuContent">
-        <div class="threeDotMenuItem" onclick="moveToPageEditCustomer();">
+        <div class="threeDotMenuItem">
             <img class="w-1em" src="/img/icons/edit.svg" alt="">
             <div class="">Edit Informasi Pelanggan</div>
         </div>
-        <div class="threeDotMenuItem" onclick="toTambahEkspedisi();">
-            <img class="w-1em" src="/img/icons/edit.svg" alt="">
-            <div class="">Tambah Ekspedisi</div>
-        </div>
+        <form action="/pelanggan/pelanggan-ekspedisi" method="GET">
+            <button style="width: 100%" class="threeDotMenuItem">
+                <img class="w-1em" src="/img/icons/edit.svg" alt="">
+                <span class="">Pelanggan <-> Ekspedisi</span>
+            </button>
+            <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
+        </form>
         <div class="threeDotMenuItem" onclick="moveToEditReseller();">
             <img class="w-1em" src="/img/icons/edit.svg" alt="">
             <div class="">Tetapkan Reseller</div>
@@ -182,29 +185,9 @@ function closingDotMenuContent() {
 
 }
 
-function moveToPageEditCustomer() {
-    location.href = `04-07-edit-data-pelanggan.php?cust_id=${cust_id}`;
-}
-
-function moveToEditEkspedisiPelanggan() {
-    location.href = `04-07-editEkspedisiPelanggan.php?cust_id=${cust_id}`;
-}
-
-function moveToEditReseller() {
-    location.href = `04-07-editReseller.php?cust_id=${cust_id}`;
-}
-
-function deleteCustomer() {
-    location.href = `04-07-hapusPelanggan.php?cust_id=${cust_id}`;
-}
-
 function backToCustomer() {
     // window.location.replace("04-01-pelanggan.php");
     window.history.back();
-}
-
-function toTambahEkspedisi() {
-    location.href = `04-07-tambah-ekspedisi.php?cust_id=${cust_id}`;
 }
 
 var reseller = {!! json_encode($reseller, JSON_HEX_TAG) !!};

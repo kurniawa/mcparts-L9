@@ -60,36 +60,6 @@
 
     </div>
 
-    <?php
-    function createElementEkspedisi($index)
-    {
-        echo "<div class='b-1px-solid-grey'>
-
-            <div class='h-10em'>
-                <div class='grid-1-auto justify-items-center'>
-                    <img class='w-2_5em' src='/img/icons/truck.svg' alt=''>
-                </div>
-                <div id='customerExpedition-$index' class='mt-0_5em font-size-0_9em font-weight-bold'>Data ekspedisi belum ada</div>
-            </div>
-
-            <!-- <div class='grid-1-auto justify-items-right'>
-    <img class='w-1em' src='/img/icons/edit-grey.svg' alt=''>
-</div> -->
-
-        </div>";
-    }
-    // echo $jml_ekspedisi;
-    // br_2x();
-    if ($jml_ekspedisi == 0) {
-        createElementEkspedisi(0);
-    } elseif ($jml_ekspedisi >= 1) {
-        for ($i = 0; $i < $jml_ekspedisi; $i++) {
-            createElementEkspedisi($i);
-        }
-    }
-    ?>
-
-
 </div>
 <!-- END - INFO PELANGGAN DAN EKSPEDISI -->
 
@@ -111,11 +81,19 @@
 <script>
 // const show_console = true;
 
-const cust_id = {!! json_encode($cust_id, JSON_HEX_TAG) !!};
 var pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
-var pelanggan_ekspedisi = {!! json_encode($pelanggan_ekspedisi, JSON_HEX_TAG) !!};
+var pelanggan_ekspedisis = {!! json_encode($pelanggan_ekspedisis, JSON_HEX_TAG) !!};
 var ekspedisis = {!! json_encode($ekspedisis, JSON_HEX_TAG) !!};
 const my_csrf = {!! json_encode($csrf, JSON_HEX_TAG) !!}
+
+if (show_console) {
+    console.log("pelanggan");
+    console.log(pelanggan);
+    console.log("pelanggan_ekspedisis");
+    console.log(pelanggan_ekspedisis);
+    console.log("ekspedisis");
+    console.log(ekspedisis);
+}
 
 
 
