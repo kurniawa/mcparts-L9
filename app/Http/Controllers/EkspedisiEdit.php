@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ekspedisi;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class EkspedisiEdit extends Controller
 {
@@ -64,7 +65,6 @@ class EkspedisiEdit extends Controller
 
         $post = $request->input();
         $ekspedisi = Ekspedisi::find($post['ekspedisi_id']);
-        $arr_alamat_eks = $post['alamat_ekspedisi'];
         $bentuk_perusahaan = null;
         if (isset($post['bentuk_perusahaan']) && $post['bentuk_perusahaan'] !== null && $post['bentuk_perusahaan'] !== '') {
             $bentuk_perusahaan = $post['bentuk_perusahaan'];
@@ -72,23 +72,10 @@ class EkspedisiEdit extends Controller
 
         if ($show_dump === true) {
             dump('$post: ', $post);
-            dump('count($arr_alamat_eks)', count($arr_alamat_eks));
         }
 
-        $alamat_ekspedisi = "";
-
-        $i_arrAlamatEks = 0;
-        foreach ($arr_alamat_eks as $alamat_eks) {
-            if ($alamat_eks === null || $alamat_eks === "") {
-                # Kalau tidak diisi, maka tidak perlu ada yang diinput
-            } else {
-                if ($i_arrAlamatEks !== 0) {
-                    $alamat_ekspedisi .= "[br]";
-                }
-                $alamat_ekspedisi .= $alamat_eks;
-            }
-            $i_arrAlamatEks++;
-        }
+        // $alamat_ekspedisi = json_encode(Arr::whereNotNull($post['alamat_ekspedisi']));
+        $alamat_ekspedisi = json_encode(array_filter($post['alamat_ekspedisi']));
 
         $keterangan = $post['keterangan'];
 
@@ -96,12 +83,12 @@ class EkspedisiEdit extends Controller
             $keterangan = null;
         }
 
-        $ekspedisi->bentuk = $bentuk_perusahaan;
-        $ekspedisi->nama = $post['nama_ekspedisi'];
-        $ekspedisi->alamat = $alamat_ekspedisi;
-        $ekspedisi->no_kontak = $post['kontak_ekspedisi'];
-        $ekspedisi->ktrg = $keterangan;
         if ($run_db === true) {
+            $ekspedisi->bentuk = $bentuk_perusahaan;
+            $ekspedisi->nama = $post['nama_ekspedisi'];
+            $ekspedisi->alamat = $alamat_ekspedisi;
+            $ekspedisi->no_kontak = $post['kontak_ekspedisi'];
+            $ekspedisi->ktrg = $keterangan;
             $ekspedisi->save();
         }
 
@@ -109,8 +96,11 @@ class EkspedisiEdit extends Controller
             'go_back_number' => -2,
         ];
 
-        $load_num->value += 1;
-        $load_num->save();
+        if ($run_db) {
+            $load_num->value += 1;
+            $load_num->save();
+        }
+
         return view('layouts.go-back-page', $data);
     }
 
@@ -147,9 +137,11 @@ class EkspedisiEdit extends Controller
             'go_back_number' => -2
         ];
 
-        $load_num->value += 1;
-        $load_num->save();
 
+        if ($run_db) {
+            $load_num->value += 1;
+            $load_num->save();
+        }
         return view('layouts.go-back-page', $data);
     }
 }

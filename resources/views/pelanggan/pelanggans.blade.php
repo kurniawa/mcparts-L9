@@ -34,71 +34,81 @@
 
     const pelanggans = {!! json_encode($pelanggans, JSON_HEX_TAG) !!};
     const resellers = {!! json_encode($resellers, JSON_HEX_TAG) !!};
+    const negaras = {!! json_encode($negaras, JSON_HEX_TAG) !!};
+    const pulaus = {!! json_encode($pulaus, JSON_HEX_TAG) !!};
+    const daerahs = {!! json_encode($daerahs, JSON_HEX_TAG) !!};
 
     if (show_console === true) {
         console.log('pelanggans');
         console.log(pelanggans);
         console.log('resellers');
         console.log(resellers);
+        console.log('negaras');
+        console.log(negaras);
+        console.log('pulaus');
+        console.log(pulaus);
+        console.log('daerahs');
+        console.log(daerahs);
     }
 
     if (pelanggans == undefined || pelanggans.length == 0) {
         console.log("Tidak ada list pelanggan di database!");
-    } else {
-        $arrayBgColors = ["#FFB08E", "#DEDEDE", "#D1FFCA", "#FFB800"];
-        var i_pelanggan = 0;
-        for (const pelanggan of pelanggans) {
-            $randomIndex = Math.floor(Math.random() * 4);
-            console.log("$randomIndex: " + $randomIndex);
-            var initial = "";
-            if (pelanggan.initial === null || typeof pelanggan.initial === 'undefined') {
-
-            } else {
-                initial = pelanggan.initial;
-            }
-
-            const arr_alamat = pelanggan.alamat.split('[br]');
-            var html_alamat = '';
-            for (let i_arrAlamat = 0; i_arrAlamat < arr_alamat.length; i_arrAlamat++) {
-                html_alamat += `${arr_alamat[i_arrAlamat]}<br>`;
-            }
-
-            var nama_x_reseller = pelanggan.nama;
-            if (pelanggan.reseller_id !== null) {
-                nama_x_reseller = `${resellers[i_pelanggan].nama}: ${pelanggan.nama}`;
-            }
-
-            $htmlPelanggan = "<div class='ml-1em mr-1em pb-1em bb-1px-solid-grey pt-1em font-size-0_9em'>" +
-                "<div class='grid-3-10_80_10'>" +
-                "<div class='initial circle-medium grid-1-auto justify-items-center font-weight-bold' style='background-color: " + $arrayBgColors[$randomIndex] + "'>" + initial + "</div>" +
-                "<div class='justify-self-left font-weight-bold'>" + nama_x_reseller + " - " + pelanggan.daerah + "</div>" +
-                "<div id='divDropdown-" + pelanggan.id + "' class='justify-self-right' onclick='showDropDown(" + pelanggan.id + ");'><img class='w-0_7em' src='img/icons/dropdown.svg'></div>" +
-                "</div>" +
-
-                // DROPDOWN
-                "<div id='divDetailDropDown-" + pelanggan.id + "' class='b-1px-solid-grey p-0_5em mt-1em' style='display:none'>" +
-
-                "<div class='grid-2-10_auto'>" +
-
-                "<div><img class='w-2em' src='/img/icons/address.svg'></div>" +
-                "<div>" + html_alamat + "</div>" +
-                "<div><img class='w-2em' src='/img/icons/call.svg'></div>" +
-                "<div>" + pelanggan.no_kontak + "</div>" +
-
-                "</div>" +
-
-                "<div class='grid-1-auto justify-items-right mt-1em'>" +
-                "<a href='pelanggan/pelanggan-detail?cust_id=" + pelanggan.id + "' class='bg-color-orange-1 b-radius-50px pl-1em pr-1em'>Lebih Detail >></a>" +
-                "</div>" +
-                "</div>" +
-                // END OF DROPDOWN
-
-                "</div>";
-            $("#list_pelanggan").append($htmlPelanggan);
-
-            i_pelanggan++;
-        }
+        throw new Error('Tidak ada list pelanggan di database, jadi program di stop disini.');
     }
+
+    $arrayBgColors = ["#FFB08E", "#DEDEDE", "#D1FFCA", "#FFB800"];
+    var iPelanggan = 0;
+    for (const pelanggan of pelanggans) {
+        $randomIndex = Math.floor(Math.random() * 4);
+        console.log("$randomIndex: " + $randomIndex);
+        var initial = "";
+
+        if (pelanggan.initial !== null && typeof pelanggan.initial !== 'undefined') {
+            initial = pelanggan.initial;
+        }
+
+        const arr_alamat = JSON.parse(pelanggan.alamat);
+        var html_alamat = '';
+        for (let i_arrAlamat = 0; i_arrAlamat < arr_alamat.length; i_arrAlamat++) {
+            html_alamat += `${arr_alamat[i_arrAlamat]}<br>`;
+        }
+
+        var nama_x_reseller = pelanggan.nama;
+        if (pelanggan.reseller_id !== null) {
+            nama_x_reseller = `${resellers[iPelanggan].nama}: ${pelanggan.nama}`;
+        }
+
+        $htmlPelanggan = "<div class='ml-1em mr-1em pb-1em bb-1px-solid-grey pt-1em font-size-0_9em'>" +
+            "<div class='grid-3-10_80_10'>" +
+            "<div class='initial circle-medium grid-1-auto justify-items-center font-weight-bold' style='background-color: " + $arrayBgColors[$randomIndex] + "'>" + initial + "</div>" +
+            "<div class='justify-self-left font-weight-bold'>" + nama_x_reseller + " - " + daerahs[iPelanggan].nama + "</div>" +
+            "<div id='divDropdown-" + pelanggan.id + "' class='justify-self-right' onclick='showDropDown(" + pelanggan.id + ");'><img class='w-0_7em' src='img/icons/dropdown.svg'></div>" +
+            "</div>" +
+
+            // DROPDOWN
+            "<div id='divDetailDropDown-" + pelanggan.id + "' class='b-1px-solid-grey p-0_5em mt-1em' style='display:none'>" +
+
+            "<div class='grid-2-10_auto'>" +
+
+            "<div><img class='w-2em' src='/img/icons/address.svg'></div>" +
+            "<div>" + html_alamat + "</div>" +
+            "<div><img class='w-2em' src='/img/icons/call.svg'></div>" +
+            "<div>" + pelanggan.no_kontak + "</div>" +
+
+            "</div>" +
+
+            "<div class='grid-1-auto justify-items-right mt-1em'>" +
+            "<a href='pelanggan/pelanggan-detail?cust_id=" + pelanggan.id + "' class='bg-color-orange-1 b-radius-50px pl-1em pr-1em'>Lebih Detail >></a>" +
+            "</div>" +
+            "</div>" +
+            // END OF DROPDOWN
+
+            "</div>";
+        $("#list_pelanggan").append($htmlPelanggan);
+
+        iPelanggan++;
+    }
+
 
 </script>
 

@@ -13,10 +13,13 @@
         <div class="dot"></div>
     </div>
     <div class="divThreeDotMenuContent">
-        <div class="threeDotMenuItem">
-            <img class="w-1em" src="/img/icons/edit.svg" alt="">
-            <div class="">Edit Informasi Pelanggan</div>
-        </div>
+        <form action="/pelanggan/pelanggan-edit" method="GET">
+            <button style="width: 100%" class="threeDotMenuItem">
+                <img class="w-1em" src="/img/icons/edit.svg" alt="">
+                <span class="">Edit Informasi Pelanggan</span>
+            </button>
+            <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
+        </form>
         <form action="/pelanggan/pelanggan-ekspedisi" method="GET">
             <button style="width: 100%" class="threeDotMenuItem">
                 <img class="w-1em" src="/img/icons/edit.svg" alt="">
@@ -28,15 +31,18 @@
             <img class="w-1em" src="/img/icons/edit.svg" alt="">
             <div class="">Tetapkan Reseller</div>
         </div>
-        <form action="/sj/sj-printOut" method='POST'>
-            <button id="downloadExcel" type="submit" class="threeDotMenuItem">
-                <img src="/img/icons/download.svg" alt=""><span>Print Out Surat Jalan</span>
-            </button>
-            @csrf
-        </form>
         <div id="konfirmasiHapusPelanggan" class="threeDotMenuItem">
             <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Pelanggan</span>
         </div>
+        <form action="/pelanggan/hapus" method="POST" onsubmit="return confirm('Yakin ingin menghapus Pelanggan ini?')">
+            @csrf
+            <button style="width: 100%" class="threeDotMenuItem">
+                <img class="w-1em" src="/img/icons/trash-can.svg" alt="">
+                <span class="">Hapus Pelanggan</span>
+            </button>
+            <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
+        </form>
+
     </div>
 </div>
 
@@ -129,7 +135,7 @@ if (show_console === true) {
     console.log(ekspedisis);
 }
 
-const arr_alamat = pelanggan.alamat.split('[br]');
+const arr_alamat = JSON.parse(pelanggan.alamat);
 var html_alamat = '';
 for (let i_arrAlamat = 0; i_arrAlamat < arr_alamat.length; i_arrAlamat++) {
     html_alamat += `${arr_alamat[i_arrAlamat]}<br>`;

@@ -1,7 +1,7 @@
 @extends('layouts/main_layout')
 
 @section('content')
-    
+
 <header class="header grid-2-auto">
     <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
     <div class="justify-self-right pr-0_5em">
@@ -29,25 +29,30 @@
 <table id="list_ekspedisi" style="width:100%">
 </table>
 
-<script>     
+<script>
     const ekspedisis = {!! json_encode($ekspedisis, JSON_HEX_TAG) !!};
 
     if (show_console === true) {
         console.log('ekspedisis');
         console.log(ekspedisis);
     }
-    
+
     for (const ekspedisi of ekspedisis) {
-        const arr_alamat_eks = ekspedisi.alamat.split('[br]');
+        const arr_alamat_eks = JSON.parse(ekspedisi.alamat);
         var html_alamat_eks = '';
         arr_alamat_eks.forEach(alamat_eks => {
             html_alamat_eks += alamat_eks + '<br>';
         });
 
+        var eks_nama_x_bentuk = ekspedisi.nama;
+        if (ekspedisi.bentuk !== null) {
+            eks_nama_x_bentuk = `${ekspedisi.nama} - ${ekspedisi.bentuk}`;
+        }
+
             // "<div class='grid-4-8-auto-auto-5'>" +
-        $htmlEkspedisi = 
+        $htmlEkspedisi =
             "<tr>" +
-                "<td class='font-weight-bold'>" + ekspedisi.nama + "</td>" +
+                "<td class='font-weight-bold'>" + eks_nama_x_bentuk + "</td>" +
                 "<td class='font-weight-bold color-blue-purple'>" + ekspedisi.no_kontak + "</td>" +
                 "<td id='divDropdown-" + ekspedisi.id + "' onclick='showDropDown(" + ekspedisi.id + ");'><img src='/img/icons/dropdown.svg' style='width:0.7em'></td>" +
             "</tr>" +

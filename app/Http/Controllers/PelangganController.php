@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePelangganRequest;
 use App\Http\Requests\UpdatePelangganRequest;
+use App\Models\Daerah;
 use App\Models\Ekspedisi;
+use App\Models\Negara;
 use App\Models\Pelanggan;
 use App\Models\PelangganEkspedisi;
+use App\Models\Pulau;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 
@@ -42,18 +45,36 @@ class PelangganController extends Controller
         if ($show_dump === true) {
             dump("pelanggans: ", $pelanggans);
         }
-        $resellers = array();
+
+        /**LOOPING UNTUK DATA NEGARA, PULAU, DAERAH & RESELLER */
+        $negaras = $pulaus = $daerahs = $resellers = array();
+
         foreach ($pelanggans as $pelanggan) {
-            $reseller = null;
+            $negara = $pulau = $daerah = $reseller = null;
             if ($pelanggan['reseller_id'] !== null) {
                 $reseller = Pelanggan::find($pelanggan['reseller_id']);
             }
+            if ($pelanggan['negara_id'] !== null) {
+                $negara = Negara::find($pelanggan['negara_id']);
+            }
+            if ($pelanggan['pulau_id'] !== null) {
+                $pulau = Pulau::find($pelanggan['pulau_id']);
+            }
+            if ($pelanggan['daerah_id'] !== null) {
+                $daerah = Daerah::find($pelanggan['daerah_id']);
+            }
+            array_push($negaras, $negara);
+            array_push($pulaus, $pulau);
+            array_push($daerahs, $daerah);
             array_push($resellers, $reseller);
         }
 
         $data = [
             "pelanggans" => $pelanggans,
             "resellers" => $resellers,
+            "negaras" => $negaras,
+            "pulaus" => $pulaus,
+            "daerahs" => $daerahs,
         ];
 
         if ($show_dump === true) {

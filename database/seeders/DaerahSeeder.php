@@ -17,10 +17,11 @@ class DaerahSeeder extends Seeder
     {
         $daerahs = [
             // Kalimantan
+            ['nama'=>'Banjarmasin', 'negara_id'=>1, 'pulau_id'=>1],
             ['nama'=>'Ketapang', 'negara_id'=>1, 'pulau_id'=>1],
             ['nama'=>'Pontianak', 'negara_id'=>1, 'pulau_id'=>1],
-            ['nama'=>'Sei Pinyuh', 'negara_id'=>1, 'pulau_id'=>1],
             ['nama'=>'Samarinda', 'negara_id'=>1, 'pulau_id'=>1],
+            ['nama'=>'Sei Pinyuh', 'negara_id'=>1, 'pulau_id'=>1],
             // Jawa
             ['nama'=>'Bandung', 'negara_id'=>1, 'pulau_id'=>2],
             ['nama'=>'Bekasi', 'negara_id'=>1, 'pulau_id'=>2],
@@ -40,6 +41,7 @@ class DaerahSeeder extends Seeder
             ['nama'=>'Kuningan', 'negara_id'=>1, 'pulau_id'=>2],
             ['nama'=>'Malang', 'negara_id'=>1, 'pulau_id'=>2],
             ['nama'=>'Pamanukan', 'negara_id'=>1, 'pulau_id'=>2],
+            ['nama'=>'Pluit', 'negara_id'=>1, 'pulau_id'=>2],
             ['nama'=>'Semarang', 'negara_id'=>1, 'pulau_id'=>2],
             ['nama'=>'Sukabumi', 'negara_id'=>1, 'pulau_id'=>2],
             ['nama'=>'Sumenep', 'negara_id'=>1, 'pulau_id'=>2],

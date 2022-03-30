@@ -18,9 +18,10 @@ return new class extends Migration
             $table->id();
             $table->string("nama", 100);
             $table->string("alamat");
-            $table->string("daerah", 50);
             $table->string("no_kontak", 50)->nullable();
-            $table->string("pulau", 50);
+            $table->foreignId("negara_id")->nullable()->default(1)->constrained()->onDelete('NO ACTION');
+            $table->foreignId("pulau_id")->nullable()->constrained()->onDelete('NO ACTION');
+            $table->foreignId("daerah_id")->nullable()->constrained()->onDelete('NO ACTION');
             $table->string("initial", 10)->nullable();
             $table->string("ktrg")->nullable();
             $table->bigInteger("reseller_id")->nullable();

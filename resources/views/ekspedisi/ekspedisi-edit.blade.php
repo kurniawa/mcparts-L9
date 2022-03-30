@@ -1,14 +1,14 @@
 @extends('layouts.main_layout')
 
 @section('content')
-    
+
 <div class="header grid-1-auto">
     <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 </div>
 
 <div class="grid-2-10_auto mt-1em ml-1em">
     <div>
-        <img class="w-2em" src="/img/icons/pencil.svg" alt="Data Pelanggan Baru">
+        <img class="w-2em" src="/img/icons/pencil.svg">
     </div>
     <h1>Edit Data Ekspedisi</h1>
 </div>
@@ -51,15 +51,15 @@
     </div>
 
     <br>
-    <label for="divTujuanEkspedisi">Tujuan Ekspedisi:</label>
+    {{-- <label for="divTujuanEkspedisi">Tujuan Ekspedisi:</label>
     <div id="divTujuanEkspedisi" class="mt-1em grid-2-auto grid-column-gap-1em">
         <input id="pulauTujuan" class="input-1 pb-1em" type="text" placeholder="Pulau Tujuan Ekspedisi" name="pulau_tujuan">
         <input id="daerahTujuan" class="input-1 pb-1em" type="text" placeholder="Daerah Tujuan Ekspedisi" name="daerah_tujuan">
-    </div>
+    </div> --}}
 
     <br>
     <label for="keteranganEdited">Keterangan:</label>
-    <textarea id="keteranganEdited" class="text-area-mode-1 mt-1em pt-1em pl-1em" name="keterangan" placeholder="Keterangan lain (opsional)" value="{{ $ekspedisi['keterangan'] }}"></textarea>
+    <textarea id="keteranganEdited" class="text-area-mode-1 mt-1em pt-1em pl-1em" name="keterangan" placeholder="Keterangan lain (opsional)">{{ $ekspedisi['ktrg'] }}</textarea>
 
     <div id="peringatan" class="d-none color-red p-1em">
 
@@ -76,7 +76,7 @@
 <script>
     const ekspedisi = {!! json_encode($ekspedisi, JSON_HEX_TAG) !!};
 
-    const arr_alamat_eks = ekspedisi.alamat.split('[br]');
+    const arr_alamat_eks = JSON.parse(ekspedisi.alamat);
 
     if (show_console === true) {
         console.log("ekspedisi");
@@ -106,7 +106,7 @@
         i_arrAlamatEks++;
         // https://stackoverflow.com/questions/195951/how-can-i-change-an-elements-class-with-javascript
     });
-    
+
 </script>
 
 @endsection

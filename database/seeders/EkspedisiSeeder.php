@@ -20,12 +20,12 @@ class EkspedisiSeeder extends Seeder
             [
                 'bentuk' => 'CV',
                 'nama' => 'Angkasa',
-                'alamat' => 'Jl. Mangga Dua Raya[br]Ruko Mangga Dua Plaza[br]Blok B, No. 06',
+                'alamat' => '["Jl. Mangga Dua Raya", "Ruko Mangga Dua Plaza", "Blok B, No. 06"]',
                 'no_kontak' => '(021)6120 705',
             ], [
                 'bentuk' => null,
                 'nama' => 'Wira Agung',
-                'alamat' => 'Jl. Tubagus Angke Blok D 1/9,[br]Ruko Taman Duta Mas',
+                'alamat' => '["Jl. Tubagus Angke Blok D 1/9", "Ruko Taman Duta Mas"]',
                 'no_kontak' => '(021) 5678 067',
             ]
         ]);

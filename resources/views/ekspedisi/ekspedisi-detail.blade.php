@@ -43,26 +43,28 @@
 
 <div id="areaClosingDotMenu" onclick="closingDotMenuContent();"></div>
 
-<div class="ml-1em mr-1em">
-    <div class="grid-2-10-auto">
-        <h3 id="bentukPerusahaan"></h3>
-        <h3 id="namaEkspedisi"></h3>
-
+<div class="grid-2-10_auto mt-1em ml-1em">
+    <div>
+        <img class="w-2em" src="/img/icons/truck.svg">
     </div>
+    <h2>Detail Ekspedisi:</h2>
+</div>
+<div style="text-align: center"><h1 id="nama_ekspedisi"></h1></div>
+<div class="ml-1em mr-1em">
 
     <div class="grid-2-15-auto grid-row-gap-0_5em">
         <img class="w-2_5em" src="/img/icons/address.svg" alt="">
         <div id="alamatEkspedisi"></div>
         <div><img class="w-2_5em" src="/img/icons/call.svg" alt=""></div>
         <div id="kontakEkspedisi"></div>
+        <span>Ktrg.:</span>
+        <textarea class="form-control" readonly>{{ $ekspedisi['ktrg'] }}</textarea>
         <img class="w-2_5em" src="/img/icons/boy.svg" alt="">
         <div class="font-weight-bold">Daftar Pelanggan dengan Ekspedisi ini:</div>
         <img class="w-2_5em" src="/img/icons/letter.svg" alt="">
         <div class="font-weight-bold">Daftar Surat Jalan dengan Ekspedisi ini:</div>
     </div>
 </div>
-
-
 
 <style>
     #showDotMenuContent {
@@ -80,12 +82,18 @@
 <script>
     const ekspedisi = {!! json_encode($ekspedisi, JSON_HEX_TAG) !!};
     const my_csrf = {!! json_encode($csrf, JSON_HEX_TAG) !!};
-    const arr_alamat_eks = ekspedisi.alamat.split('[br]');
+    const arr_alamat_eks = JSON.parse(ekspedisi.alamat);
 
     console.log('ekspedisi');
     console.log(ekspedisi);
     console.log('arr_alamat_eks');
     console.log(arr_alamat_eks);
+
+    var nama_ekspedisi = ekspedisi.nama;
+    if (ekspedisi.bentuk !== null) {
+        nama_ekspedisi = `${ekspedisi.bentuk}. ${ekspedisi.nama}`;
+    }
+    document.getElementById('nama_ekspedisi').textContent = nama_ekspedisi;
 
     var htmlAlamatEkspedisi = "";
     arr_alamat_eks.forEach(alamat_eks => {

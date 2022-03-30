@@ -192,6 +192,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // ...
+        'SiteSettings' => App\Helpers\SiteSettings::class
     ])->toArray(),
 
 ];

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SiteSettings;
 use App\Models\Daerah;
 use App\Models\Pelanggan;
 use App\Models\Pulau;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class PelangganBaruController extends Controller
 {
@@ -18,8 +20,8 @@ class PelangganBaruController extends Controller
             $load_num->save();
         }
 
-        $show_dump = true;
-        $show_hidden_dump = true;
+        $show_dump = false;
+        $show_hidden_dump = false;
         $run_db = false;
         $load_num_ignore = true;
 
@@ -30,32 +32,19 @@ class PelangganBaruController extends Controller
             $run_db = false;
         }
 
-        $pulaus = new Pulau();
-        $label_pulaus = $pulaus->label_pulaus();
-        $daerahs = new Daerah();
-        $label_daerahs = $daerahs->label_daerahs();
-        $arr_label_daerahs = array();
-        // lihat doc bagian collection, nanti ada helper func nya, lumayan bermanfaat
-        $arr_label_daerahs[0] = $label_daerahs->where('pulau_id', 1)->toArray();
-        $arr_label_daerahs[1] = $label_daerahs->where('pulau_id', 2)->toArray();
-        $arr_label_daerahs[1] = array_values($arr_label_daerahs[1]);
-        $arr_label_daerahs[2] = $label_daerahs->where('pulau_id', 3)->toArray();
-        $arr_label_daerahs[2] = array_values($arr_label_daerahs[2]);
-        $arr_label_daerahs[3] = $label_daerahs->where('pulau_id', 4)->toArray();
-        $arr_label_daerahs[3] = array_values($arr_label_daerahs[3]);
-        $arr_label_daerahs[4] = $label_daerahs->where('pulau_id', 5)->toArray();
-        $arr_label_daerahs[4] = array_values($arr_label_daerahs[4]);
-        $arr_label_daerahs[5] = $label_daerahs->where('pulau_id', 6)->toArray();
-        $arr_label_daerahs[5] = array_values($arr_label_daerahs[5]);
+        $label_negaras = getLabelNegara();
+        $label_pulaus = getLabelPulau();
+        $arr_label_daerahs = getLabelDaerah();
 
 
         if ($show_dump === true) {
+            dump('label_negaras:', $label_negaras);
             dump('label_pulaus:', $label_pulaus);
-            dump('label_daerahs:', $label_daerahs);
             dump('arr_label_daerahs:', $arr_label_daerahs);
         }
 
         $data = [
+            'label_negaras' => $label_negaras,
             'label_pulaus' => $label_pulaus,
             'arr_label_daerahs' => $arr_label_daerahs
         ];
@@ -65,25 +54,22 @@ class PelangganBaruController extends Controller
 
     public function create(Request $request)
     {
+        /**SETTINGAN AWAL UNTUK CONTROLLER YANG DIGUNAKAN UNTUK INSERT DAN UPDATE DB */
         $load_num = SiteSetting::find(1);
+        [$show_dump, $show_hidden_dump, $load_num_ignore, $run_db] = SiteSettings::variablesNeeded();
 
-        $show_dump = true;
-        $show_hidden_dump = true;
-        $run_db = true;
-        $load_num_ignore = false;
-
-        if ($show_hidden_dump === true) {
+        if ($show_hidden_dump) {
         }
 
         if ($load_num->value > 0 && $load_num_ignore === false) {
             $run_db = false;
         }
+        /**END OF SETTINGAN AWAL */
 
         $request->validate([
             'nama_pelanggan' => 'required',
             // 'alamat_pelanggan[]' => 'required',
             'daerah' => 'required',
-            'pulau' => 'required',
         ]);
 
         $post = $request->input();
@@ -93,30 +79,23 @@ class PelangganBaruController extends Controller
         }
 
         // ALAMAT
-        $arr_alamat_pelanggan = $post['alamat_pelanggan'];
-        $alamat_pelanggan = "";
+        // FILTER BARIS YANG VALUE NYA NULL DAN empty string, JANGAN MASUK KE DB
 
-        $i_arrAlamaCust = 0;
-        foreach ($arr_alamat_pelanggan as $baris_alamat_pelanggan) {
-            if ($baris_alamat_pelanggan === null || $baris_alamat_pelanggan === "") {
-                # Kalau tidak diisi, maka tidak perlu ada yang diinput
-            } else {
-                if ($i_arrAlamaCust !== 0) {
-                    $alamat_pelanggan .= "[br]";
-                }
-                $alamat_pelanggan .= $baris_alamat_pelanggan;
-            }
-            $i_arrAlamaCust++;
+        $arr_alamat = array_filter($post['alamat_pelanggan']);
+
+        if ($show_dump) {
+            dump('$arr_alamat');
+            dump($arr_alamat);
         }
-
 
         if ($run_db === true) {
             Pelanggan::create([
                 'nama' => $post['nama_pelanggan'],
-                'alamat' => $alamat_pelanggan,
-                'daerah' => $post['daerah'],
+                'alamat' => json_encode($arr_alamat),
                 'no_kontak' => $post['kontak_pelanggan'],
-                'pulau' => $post['pulau'],
+                'negara_id' => $post['negara_id'],
+                'pulau_id' => $post['pulau_id'],
+                'daerah_id' => $post['daerah_id'],
                 'initial' => $post['singkatan_pelanggan'],
                 'ktrg' => $post['keterangan'],
             ]);

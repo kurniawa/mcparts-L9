@@ -1,6 +1,6 @@
 @extends('layouts.main_layout')
 @section('content')
-    
+
 <header class="header grid-2-auto">
     <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 </header>
@@ -40,11 +40,11 @@
             <input id="kontak" class="input-1 pb-1em" type="text" placeholder="No. Kontak" name="kontak_ekspedisi">
         </div>
         <br>
-        <label for="divTujuanEkspedisi">Tujuan Ekspedisi:</label>
+        {{-- <label for="divTujuanEkspedisi">Tujuan Ekspedisi:</label>
         <div id="divTujuanEkspedisi" class="mt-1em grid-2-auto grid-column-gap-1em">
             <input id="pulauTujuan" class="input-1 pb-1em" type="text" placeholder="Pulau Tujuan Ekspedisi" name="pulau_tujuan">
             <input id="daerahTujuan" class="input-1 pb-1em" type="text" placeholder="Daerah Tujuan Ekspedisi" name="daerah_tujuan">
-        </div>
+        </div> --}}
         <textarea id="keterangan" class="mt-1em pt-1em pl-1em" name="keterangan" placeholder="Keterangan lain (opsional)"></textarea>
     </div>
     <div id="peringatan" class="d-none color-red p-1em">
