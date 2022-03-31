@@ -105,15 +105,15 @@ class PelangganEditController extends Controller
             dump($alamat_pelanggan);
         }
 
-        $pelanggan->nama = $post['nama_pelanggan'];
-        $pelanggan->alamat = $alamat_pelanggan;
-        $pelanggan->negara_id = $post['negara_id'];
-        $pelanggan->pulau_id = $post['pulau_id'];
-        $pelanggan->daerah_id = $post['daerah_id'];
-        $pelanggan->no_kontak = $post['kontak_pelanggan'];
-        $pelanggan->initial = $post['singkatan_pelanggan'];
-        $pelanggan->ktrg = $post['keterangan'];
         if ($run_db) {
+            $pelanggan->nama = $post['nama_pelanggan'];
+            $pelanggan->alamat = $alamat_pelanggan;
+            $pelanggan->negara_id = $post['negara_id'];
+            $pelanggan->pulau_id = $post['pulau_id'];
+            $pelanggan->daerah_id = $post['daerah_id'];
+            $pelanggan->no_kontak = $post['kontak_pelanggan'];
+            $pelanggan->initial = $post['singkatan_pelanggan'];
+            $pelanggan->ktrg = $post['keterangan'];
             $pelanggan->save();
         }
 
@@ -121,9 +121,9 @@ class PelangganEditController extends Controller
             'go_back_number' => -2
         ];
 
-        $load_num->value += 1;
 
         if ($run_db) {
+            $load_num->value += 1;
             $load_num->save();
         }
         return view('layouts.go-back-page', $data);
@@ -132,9 +132,43 @@ class PelangganEditController extends Controller
     public function destroy(Request $request)
     {
 
+        $load_num = SiteSetting::find(1);
+
+        $show_dump = true; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $run_db = true; // true apabila siap melakukan CRUD ke DB
+        $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
+        $show_hidden_dump = true;
+
+        if ($show_hidden_dump === true) {
+            dump("load_num_value: " . $load_num->value);
+        }
+
+        if ($load_num->value > 0 && $load_num_ignore === false) {
+            $run_db = false;
+        }
+
+        $post = $request->post();
+
+        if ($show_dump) {
+            dump('$post:');
+            dump($post);
+        }
+
+        $pelanggan = Pelanggan::find($post['pelanggan_id']);
+
+        if ($run_db) {
+            $pelanggan->delete();
+        }
+
         $data = [
             'go_back_number' => -2
         ];
+
+        if ($run_db) {
+            $load_num->value += 1;
+            $load_num->save();
+        }
+
         return view('layouts.go-back-page', $data);
     }
 }

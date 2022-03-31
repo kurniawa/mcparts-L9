@@ -27,10 +27,13 @@
             </button>
             <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
         </form>
-        <div class="threeDotMenuItem" onclick="moveToEditReseller();">
-            <img class="w-1em" src="/img/icons/edit.svg" alt="">
-            <div class="">Tetapkan Reseller</div>
-        </div>
+        <form action="/pelanggan/tetapkan-reseller" method="GET">
+            <button style="width: 100%" class="threeDotMenuItem">
+                <img class="w-1em" src="/img/icons/edit.svg" alt="">
+                <span class="">Pelanggan <-> Reseller</span>
+            </button>
+            <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
+        </form>
         <div id="konfirmasiHapusPelanggan" class="threeDotMenuItem">
             <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Pelanggan</span>
         </div>
@@ -235,23 +238,23 @@ if (reseller !== null) {
 
 }
 
-document.getElementById("konfirmasiHapusPelanggan").addEventListener("click", function() {
-        var deleteProperties = {
-            title: "Yakin ingin menghapus Pelanggan ini?",
-            yes: "Ya",
-            no: "Batal",
-            table: "pelanggans",
-            column: "id",
-            columnValue: pelanggan.id,
-            action: "/pelanggan/hapus",
-            csrf: my_csrf,
-            goBackNumber: -2,
-            goBackStatement: "Daftar Pelanggan"
-        };
+// document.getElementById("konfirmasiHapusPelanggan").addEventListener("click", function() {
+//         var deleteProperties = {
+//             title: "Yakin ingin menghapus Pelanggan ini?",
+//             yes: "Ya",
+//             no: "Batal",
+//             table: "pelanggans",
+//             column: "id",
+//             columnValue: pelanggan.id,
+//             action: "/pelanggan/hapus",
+//             csrf: my_csrf,
+//             goBackNumber: -2,
+//             goBackStatement: "Daftar Pelanggan"
+//         };
 
-        var deletePropertiesStringified = JSON.stringify(deleteProperties);
-        showLightBoxGlobal(deletePropertiesStringified);
-    });
+//         var deletePropertiesStringified = JSON.stringify(deleteProperties);
+//         showLightBoxGlobal(deletePropertiesStringified);
+//     });
 
 </script>
 

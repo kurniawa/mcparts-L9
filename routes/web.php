@@ -9,6 +9,7 @@ use App\Http\Controllers\PelangganBaruController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PelangganEditController;
 use App\Http\Controllers\PelangganEkspedisiController;
+use App\Http\Controllers\PelangganResellerController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +60,11 @@ Route::controller(PelangganEditController::class)->group(function ()
    Route::get('/pelanggan/pelanggan-edit', 'pelanggan_edit')->middleware('auth');
    Route::post('/pelanggan/pelanggan-edit-db', 'edit_db')->middleware('auth');
    Route::post('/pelanggan/hapus', 'destroy')->middleware('auth');
+});
+Route::controller(PelangganResellerController::class)->group(function ()
+{
+   Route::get('/pelanggan/tetapkan-reseller', 'show');
+   Route::get('/pelanggan/tetapkan-reseller-db', 'create')->middleware('auth');
 });
 // Route::delete('/pelanggan/hapus/{id}', PelangganEditController::class, 'destroy')->name('pelanggan.hapus');
 

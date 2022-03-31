@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignId("daerah_id")->nullable()->constrained()->onDelete('NO ACTION');
             $table->string("initial", 10)->nullable();
             $table->string("ktrg")->nullable();
-            $table->bigInteger("reseller_id")->nullable();
+            $table->enum("is_reseller", ['yes', 'no'])->default('no');
             $table->timestamp("created_at")->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp("updated_at")->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

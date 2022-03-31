@@ -64,9 +64,16 @@
         <br>
         <label for="keterangan" style="font-weight:bold">Keterangan lain:</label>
         <textarea id="keterangan" class="mt-1em pt-1em pl-1em text-area-mode-1" name="keterangan" placeholder="Keterangan lain (opsional)"></textarea>
+        <br>
+        <br>
+        <h6>Apakah Pelanggan ini akan ditetapkan sebagai Reseller juga?</h6>
+        <input type="radio" name="is_reseller" id="is_reseller_no" value="tidak" checked> <label for="is_reseller_no">TIDAK</label>
+        <br>
+        <input type="radio" name="is_reseller" id="is_reseller_yes" value="yes"> <label for="is_reseller_yes">YA</label>
     </div>
 
     <br><br>
+
 
     <div class="m-1em">
         <button type="submit" class="h-4em bg-color-orange-2 w-100 grid-1-auto">
