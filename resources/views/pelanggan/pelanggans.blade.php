@@ -33,7 +33,7 @@
     // const show_console = true;
 
     const pelanggans = {!! json_encode($pelanggans, JSON_HEX_TAG) !!};
-    const resellers = {!! json_encode($resellers, JSON_HEX_TAG) !!};
+    const arr_resellers = {!! json_encode($arr_resellers, JSON_HEX_TAG) !!};
     const negaras = {!! json_encode($negaras, JSON_HEX_TAG) !!};
     const pulaus = {!! json_encode($pulaus, JSON_HEX_TAG) !!};
     const daerahs = {!! json_encode($daerahs, JSON_HEX_TAG) !!};
@@ -41,8 +41,8 @@
     if (show_console === true) {
         console.log('pelanggans');
         console.log(pelanggans);
-        console.log('resellers');
-        console.log(resellers);
+        console.log('arr_resellers');
+        console.log(arr_resellers);
         console.log('negaras');
         console.log(negaras);
         console.log('pulaus');
@@ -74,8 +74,8 @@
         }
 
         var nama_x_reseller = pelanggan.nama;
-        if (pelanggan.reseller_id !== null) {
-            nama_x_reseller = `${resellers[iPelanggan].nama}: ${pelanggan.nama}`;
+        if (arr_resellers[iPelanggan].length !== 0) {
+            nama_x_reseller = `${arr_resellers[iPelanggan][0].nama}: ${pelanggan.nama}`;
         }
 
         $htmlPelanggan = "<div class='ml-1em mr-1em pb-1em bb-1px-solid-grey pt-1em font-size-0_9em'>" +

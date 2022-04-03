@@ -34,9 +34,6 @@
             </button>
             <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
         </form>
-        <div id="konfirmasiHapusPelanggan" class="threeDotMenuItem">
-            <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Pelanggan</span>
-        </div>
         <form action="/pelanggan/hapus" method="POST" onsubmit="return confirm('Yakin ingin menghapus Pelanggan ini?')">
             @csrf
             <button style="width: 100%" class="threeDotMenuItem">
@@ -63,7 +60,7 @@
 
     <div class="b-1px-solid-grey">
 
-        <div class="h-10em">
+        <div class="p-2">
             <div class="grid-1-auto justify-items-center">
                 <img class="w-2_5em" src="/img/icons/address.svg" alt="">
             </div>
@@ -77,7 +74,7 @@
     {
         echo "<div class='b-1px-solid-grey'>
 
-            <div class='h-10em'>
+            <div class='p-2'>
                 <div class='grid-1-auto justify-items-center'>
                     <img class='w-2_5em' src='/img/icons/truck.svg' alt=''>
                 </div>
@@ -105,7 +102,7 @@
 </div>
 <!-- END - INFO PELANGGAN DAN EKSPEDISI -->
 
-<div id="divReseller"></div>
+<div id="divReseller" class="m-2"></div>
 
 <!-- DAFTAR PRODUK CUSTOMER INI -->
 <div class="ml-0_5em mr-0_5em mt-1em">
@@ -158,7 +155,7 @@ if (ekspedisis !== "EMPTY" && ekspedisis !== "ERROR" && ekspedisis.length !== 0)
         namaLengkapEkspedisi += `${ekspedisis[i].nama} - <small style="font-weight: normal;">${pelanggan_ekspedisi[i]['tipe']}</small>`
         namaLengkapEkspedisi = namaLengkapEkspedisi.trim();
 
-        const arr_alamat_eks = ekspedisis[i].alamat.split('[br]');
+        const arr_alamat_eks = JSON.parse(ekspedisis[i].alamat);
         var html_alamat_eks = '';
         for (let i_arrAlamatEks = 0; i_arrAlamatEks < arr_alamat_eks.length; i_arrAlamatEks++) {
             html_alamat_eks += `${arr_alamat_eks[i_arrAlamatEks]}<br>`;
@@ -168,11 +165,6 @@ if (ekspedisis !== "EMPTY" && ekspedisis !== "ERROR" && ekspedisis.length !== 0)
             `
             <span style='font-weight: 900;font-size:1.4em;'>${namaLengkapEkspedisi}</span><br>
             ${html_alamat_eks}
-            <br>
-            <div style="text-align:right" class="p-1em">
-            <img id='btnHapusEkspedisi-${i}' src='/img/icons/trash-can.svg' style="width: 1.5em" onclick="dbDelete('pelanggan_ekspedisi', 'id', ${pelanggan_ekspedisi[i].id});">
-
-            </div>
             `;
 
         $(`#customerExpedition-${i}`).html($htmlEkspedisi);
@@ -199,44 +191,88 @@ function backToCustomer() {
     window.history.back();
 }
 
-var reseller = {!! json_encode($reseller, JSON_HEX_TAG) !!};
-console.log("reseller");
-console.log(reseller);
+var resellers = {!! json_encode($resellers, JSON_HEX_TAG) !!};
+console.log("resellers");
+console.log(resellers);
 
-if (reseller !== null) {
+if (resellers.length !== 0) {
     var html_reseller = `
         <span style="font-weight: bold">Perhatian! Pelanggan ini memiliki Reseller, yakni:</span>
     `;
     // console.log("cust_id");
     // console.log(cust_id);
-    var list_params = {
-        json_obj: [reseller],
-        keys: ['nama', 'daerah'],
-        dd_keys: ['alamat', 'no_kontak'],
-        delete: {
-            table: 'pelanggan_reseller',
-            input: [{
-                key: 'id',
-                name: 'id_reseller'
-            }, {
-                value: cust_id,
-                name: 'cust_id'
-            }],
-            goBackNum: -2
-        },
-        detail: {
-            link: `04-06-detail-pelanggan.php?id=`,
-            key: 'id'
-        }
-    };
 
-    var ListReseller = createList(list_params);
+    html_reseller += '<table style="width:100%">';
+    i_reseller=0;
+    resellers.forEach(reseller => {
+        var html_alamat_reseller = '';
+        var arr_alamat_reseller = JSON.parse(reseller.alamat);
+        arr_alamat_reseller.forEach(baris_alamat_reseller => {
+            html_alamat_reseller += baris_alamat_reseller + '<br>';
+        });
+
+        var html_reseller_dropdown = `
+        <div id="dd-${i_reseller}" class='border p-2' style='display:none'>
+            <table style='width:100%'>
+                <tr><td style='padding:1rem'><img src='/img/icons/address.svg' style='width:2em'></td><td>${html_alamat_reseller}</td></tr>
+                <tr>
+                    <td style='padding:1rem'><img src='/img/icons/call.svg' style='width:2em'></td><td>${reseller.no_kontak}</td>
+                    <td style='text-align:right'>
+                        <form action='/pelanggan/pelanggan-detail' method='GET' style='display:inline-block'>
+                            <input type='hidden' name='cust_id' value='${reseller.id}'>
+                            <button type='submit' class='btn btn-warning'>Detail</button>
+                        </form>
+                        <form action='/pelanggan/hapus-reseller' method='POST' style='display:inline-block' onsubmit='return confirm("Anda yakin ingin menghapus reseller ${reseller.nama}? (${reseller.nama} nantinya tidak lagi menjadi reseller dari ${pelanggan.nama}!)")'>
+                            <input type='hidden' name='_token' value='${my_csrf}'>
+                            <input type='hidden' name='pelanggan_id' value='${pelanggan.id}'>
+                            <input type='hidden' name='reseller_id' value='${reseller.id}'>
+                            <button type='submit' class='btn btn-danger'>Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        `;
+
+        html_reseller += `
+        <tr><td><span style='font-size:3rem'>&#8729;</span> ${reseller.nama}<br></td><td id='dd-icon-${i_reseller}' style="text-align:center" onclick="showDD('#dd-${i_reseller}', '#dd-icon-${i_reseller}');"><img src="/img/icons/dropdown.svg" style="width:1em"></td></tr>
+        <tr><td colspan='2'>${html_reseller_dropdown}</td></tr>
+        `;
+        i_reseller++;
+    });
+    html_reseller += `</table>`;
+
+    $('#divReseller').html(html_reseller);
+
+    // var list_params = {
+    //     json_obj: [reseller[0]],
+    //     keys: ['nama', 'daerah'],
+    //     dd_keys: ['alamat', 'no_kontak'],
+    //     delete: {
+    //         table: 'pelanggan_reseller',
+    //         input: [{
+    //             key: 'id',
+    //             name: 'id_reseller'
+    //         }, {
+    //             value: cust_id,
+    //             name: 'cust_id'
+    //         }],
+    //         goBackNum: -2
+    //     },
+    //     detail: {
+    //         link: `/pelanggan/pelanggan-detail`,
+    //         key: 'id'
+    //     }
+    // };
+
+    // var ListReseller = createList(list_params);
 
 
-    document.getElementById('divReseller').classList = "m-1em";
-    $('#divReseller').html(html_reseller + ListReseller);
+    // document.getElementById('divReseller').classList = "m-1em";
+    // $('#divReseller').html(html_reseller + ListReseller);
 
 }
+
 
 // document.getElementById("konfirmasiHapusPelanggan").addEventListener("click", function() {
 //         var deleteProperties = {

@@ -9,77 +9,73 @@
     </div>
 </header>
 
-<form action="/pelanggan/tetapkan-reseller-db" method="POST">
+<form action="/pelanggan/tetapkan-reseller-db" method="POST" class="m-3">
     @csrf
+    <div id="divKeteranganReseller"></div>
+    <div style="font-weight:bold">Tambah Reseller:</div>
+    <input name="reseller_nama" id="ipt_pilih_reseller" type="text" class="form-control" >
+    {{-- <input name="pulau" id="pulau" class="form-control" type="text" placeholder="Pulau"> --}}
+    <input id="ipt_id_reseller_terpilih" type="hidden" name="reseller_id">
     <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
-    <div class="ml-1em mr-1em mt-2em">
-        <label for="nama" style="font-weight: bold">Nama:</label>
-        <input name="nama_pelanggan" id="nama" class="form-control @error('nama_pelanggan') is-invalid @enderror" type="text" placeholder="Nama/Perusahaan/Pabrik" value="{{ $pelanggan['nama'] }}">
-        @error('nama_pelanggan')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-
-        <label style="font-weight:bold">Alamat:</label>
-        <div id="div_alamat_cust"></div>
-        <div id="btn_tbh_baris" class="btn btn-secondary">+ Tambah Baris Alamat</div>
-        <br><br>
-
-        <label for="ipt_negara" style="font-weight: bold">Negara:</label>
-        <input id="ipt_negara" type="text" name="negara" class="form-control" placeholder="Negara">
-        <input id="ipt_negara_id" type="hidden" name="negara_id">
-
-        <div class="grid-2-auto grid-column-gap-1em mt-1em">
-            <div>
-                <label for="pulau" style="font-weight: bold">Pulau:</label>
-                <input name="pulau" id="pulau" class="form-control @error('pulau') is-invalid @enderror" type="text" placeholder="Pulau">
-                <input type="hidden" id="pulau_id" name="pulau_id">
-                @error('pulau')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="daerah" style="font-weight: bold">Daerah:</label>
-                <input name="daerah" id="daerah" class="form-control @error('daerah') is-invalid @enderror" type="text" placeholder="Daerah">
-                <input type="hidden" id="daerah_id" name="daerah_id">
-                @error('daerah')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-        </div>
-        <div class="grid-2-auto grid-column-gap-1em mt-1em">
-            <div>
-                <label for="kontak" style="font-weight: bold">No. Kontak:</label>
-                <input name="kontak_pelanggan" id="kontak" class="input-1 pb-1em" type="text" placeholder="No. Kontak">
-            </div>
-            <div>
-                <label for="singkatan" style="font-weight: bold">Initial/Singkatan:</label>
-                <input name="singkatan_pelanggan" id="singkatan" class="input-1 pb-1em" type="text" placeholder="Singkatan (opsional)">
-            </div>
-        </div>
-
-        <br>
-        <label for="keterangan" style="font-weight:bold">Keterangan lain:</label>
-        <textarea id="keterangan" class="mt-1em pt-1em pl-1em text-area-mode-1" name="keterangan" placeholder="Keterangan lain (opsional)"></textarea>
-    </div>
-
     <br><br>
 
-    <div class="m-1em">
+    <div>
         <button type="submit" class="h-4em bg-color-orange-2 w-100 grid-1-auto">
-            <span class="justify-self-center font-weight-bold">Konfirmasi Perubahan</span>
+            <span class="justify-self-center font-weight-bold">Konfirmasi</span>
         </button>
     </div>
 </form>
 
 <script>
     const pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
-
-    var iLabelDaerahs = 0;
+    const resellers = {!! json_encode($resellers, JSON_HEX_TAG) !!};
+    const list_of_resellers = {!! json_encode($list_of_resellers, JSON_HEX_TAG) !!};
+    // const list_of_pulaus = {-!! json_encode($list_of_pulaus, JSON_HEX_TAG) !!};
 
     if (show_console) {
         console.log('pelanggan');console.log(pelanggan);
+        console.log('resellers');console.log(resellers);
+        console.log('resellers.length');console.log(resellers.length);
+        console.log('list_of_resellers');console.log(list_of_resellers);
+        // console.log('list_of_pulaus');console.log(list_of_pulaus);
     }
+
+    var htmlKetReseller = 'Pelanggan ini belum memiliki Reseller.';
+
+    if (resellers.length !== 0) {
+        var listReseller = '<ul>'
+        resellers.forEach(reseller => {
+            listReseller += `<li>${reseller.nama}</li>`;
+        });
+        listReseller += '</ul>'
+        htmlKetReseller = `
+        Pelanggan ini telah memiliki reseller:
+        ${listReseller}
+        `;
+    }
+
+    document.getElementById('divKeteranganReseller').innerHTML = htmlKetReseller;
+
+    $('#ipt_pilih_reseller').autocomplete({
+        source: list_of_resellers,
+        select: function (event, ui) {
+            if (show_console) {
+                console.log(ui.item);
+            }
+            $('#ipt_id_reseller_terpilih').val(ui.item.id);
+        }
+    });
+
+    // $("#pulau").autocomplete({
+    //     source: list_of_pulaus,
+    //     select: function(event, ui) {
+    //         if (show_console) {
+    //             console.log(ui.item);
+    //         }
+    //         $("#pulau_id").val(ui.item.id);
+    //         autcompleteIptDaerah();
+    //     }
+    // });
 
 
 </script>

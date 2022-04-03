@@ -63,8 +63,9 @@ Route::controller(PelangganEditController::class)->group(function ()
 });
 Route::controller(PelangganResellerController::class)->group(function ()
 {
-   Route::get('/pelanggan/tetapkan-reseller', 'show');
-   Route::get('/pelanggan/tetapkan-reseller-db', 'create')->middleware('auth');
+   Route::get('/pelanggan/tetapkan-reseller', 'index');
+   Route::post('/pelanggan/tetapkan-reseller-db', 'tetapkan_reseller_db')->middleware('auth');
+   Route::post('/pelanggan/hapus-reseller', 'hapus_reseller')->middleware('auth');
 });
 // Route::delete('/pelanggan/hapus/{id}', PelangganEditController::class, 'destroy')->name('pelanggan.hapus');
 

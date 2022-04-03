@@ -87,7 +87,7 @@ class PelangganBaruController extends Controller
             dump('$arr_alamat');
             dump($arr_alamat);
         }
-
+        $msg = 'Something went wrong!';
         if ($run_db === true) {
             Pelanggan::create([
                 'nama' => $post['nama_pelanggan'],
@@ -98,11 +98,14 @@ class PelangganBaruController extends Controller
                 'daerah_id' => $post['daerah_id'],
                 'initial' => $post['singkatan_pelanggan'],
                 'ktrg' => $post['keterangan'],
+                'is_reseller' => $post['is_reseller'],
             ]);
+            $msg = 'Pelanggan Baru berhasil diinput ke Database!';
         }
 
         $data = [
-            'go_back_number'=>-2
+            'msg'=>$msg,
+            'go_back_number'=>-2,
         ];
 
         if ($run_db === true) {

@@ -47,13 +47,14 @@ class PelangganController extends Controller
         }
 
         /**LOOPING UNTUK DATA NEGARA, PULAU, DAERAH & RESELLER */
-        $negaras = $pulaus = $daerahs = $resellers = array();
+        $negaras = $pulaus = $daerahs = $arr_resellers = array();
 
         foreach ($pelanggans as $pelanggan) {
             $negara = $pulau = $daerah = $reseller = null;
-            if ($pelanggan['reseller_id'] !== null) {
-                $reseller = Pelanggan::find($pelanggan['reseller_id']);
-            }
+            $resellers = $pelanggan->resellers;
+
+            // dump('$reseller:');
+            // dump($reseller);
             if ($pelanggan['negara_id'] !== null) {
                 $negara = Negara::find($pelanggan['negara_id']);
             }
@@ -66,12 +67,12 @@ class PelangganController extends Controller
             array_push($negaras, $negara);
             array_push($pulaus, $pulau);
             array_push($daerahs, $daerah);
-            array_push($resellers, $reseller);
+            array_push($arr_resellers, $resellers);
         }
 
         $data = [
             "pelanggans" => $pelanggans,
-            "resellers" => $resellers,
+            "arr_resellers" => $arr_resellers,
             "negaras" => $negaras,
             "pulaus" => $pulaus,
             "daerahs" => $daerahs,
@@ -108,10 +109,7 @@ class PelangganController extends Controller
         $pelanggan_ekspedisi = PelangganEkspedisi::where('pelanggan_id', $pelanggan['id'])->get();
         $ekspedisis = array();
         $jml_ekspedisi = count($pelanggan_ekspedisi);
-        $reseller = null;
-        if ($pelanggan['reseller_id'] !== null) {
-            $reseller = Pelanggan::find($pelanggan['reseller_id']);
-        }
+        $resellers = $pelanggan->resellers;
 
         if (count($pelanggan_ekspedisi) !== 0) {
             for ($i_pelangganEkspedisi=0; $i_pelangganEkspedisi < count($pelanggan_ekspedisi); $i_pelangganEkspedisi++) {
@@ -129,8 +127,8 @@ class PelangganController extends Controller
             dump('count(pelanggan_ekspedisi):', count($pelanggan_ekspedisi));
             dump('ekspedisis');
             dump($ekspedisis);
-            dump('reseller');
-            dump($reseller);
+            dump('resellers');
+            dump($resellers);
         }
 
         $data = [
@@ -139,7 +137,7 @@ class PelangganController extends Controller
             "pelanggan_ekspedisi" => $pelanggan_ekspedisi,
             "ekspedisis" => $ekspedisis,
             "jml_ekspedisi" => $jml_ekspedisi,
-            "reseller" => $reseller,
+            "resellers" => $resellers,
             "csrf" => csrf_token(),
         ];
 
