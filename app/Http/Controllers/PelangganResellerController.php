@@ -148,7 +148,7 @@ class PelangganResellerController extends Controller
         $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
         $show_hidden_dump = true;
         $ada_error = true;
-        $pesan_db = 'Ooops! Ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
         if ($show_hidden_dump === true) {
