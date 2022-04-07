@@ -17,10 +17,10 @@ class PelangganEditController extends Controller
         $load_num = SiteSettings::loadNumToZero();
         [$show_dump, $show_hidden_dump, $load_num_ignore, $run_db] = SiteSettings::variablesNeeded();
 
-        if ($show_hidden_dump === true) {
+        if ($show_hidden_dump) {
         }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
         }
 
@@ -44,7 +44,7 @@ class PelangganEditController extends Controller
         $arr_label_daerahs = getLabelDaerah();
 
 
-        if ($show_dump === true) {
+        if ($show_dump) {
             // dump('load_num', $load_num);
             // dump('label_pulaus:', $label_pulaus);
             // dd('arr_label_daerahs:', $arr_label_daerahs);
@@ -74,11 +74,19 @@ class PelangganEditController extends Controller
         $load_num = SiteSetting::find(1);
         [$show_dump, $show_hidden_dump, $load_num_ignore, $run_db] = SiteSettings::variablesNeeded();
 
+        $ada_error = true;
+        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem ini, coba hubungi Admin atau Developer sistem ini!';
+        $class_div_pesan_db = 'alert-danger';
+
         if ($show_hidden_dump) {
+            dump('$load_num->value:', $load_num->value);
         }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
+            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $ada_error = true;
+            $class_div_pesan_db = 'alert-danger';
         }
         /**END OF SETTINGAN AWAL */
 
@@ -114,18 +122,22 @@ class PelangganEditController extends Controller
             $pelanggan->no_kontak = $post['kontak_pelanggan'];
             $pelanggan->initial = $post['singkatan_pelanggan'];
             $pelanggan->ktrg = $post['keterangan'];
+            $pelanggan->is_reseller = $post['is_reseller'];
             $pelanggan->save();
+            $load_num->value += 1;
+            $load_num->save();
+            $pesan_db = "Data Pelanggan: $pelanggan[nama] BERHASIL DIUBAH.";
+            $class_div_pesan_db = 'alert-success';
+            $ada_error = false;
         }
 
         $data = [
-            'go_back_number' => -2
+            'go_back_number' => -2,
+            'ada_error' => $ada_error,
+            'pesan_db' => $pesan_db,
+            'class_div_pesan_db' => $class_div_pesan_db,
         ];
 
-
-        if ($run_db) {
-            $load_num->value += 1;
-            $load_num->save();
-        }
         return view('layouts.go-back-page', $data);
     }
 
@@ -134,16 +146,16 @@ class PelangganEditController extends Controller
 
         $load_num = SiteSetting::find(1);
 
-        $show_dump = true; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = true; // true apabila siap melakukan CRUD ke DB
         $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = true;
+        $show_hidden_dump = false;
 
-        if ($show_hidden_dump === true) {
+        if ($show_hidden_dump) {
             dump("load_num_value: " . $load_num->value);
         }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
         }
 

@@ -27,7 +27,7 @@ class PelangganResellerController extends Controller
         $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $show_hidden_dump = false;
 
-        if ($show_hidden_dump === true) {
+        if ($show_hidden_dump) {
             dump("load_num_value: " . $load_num->value);
         }
 
@@ -58,6 +58,7 @@ class PelangganResellerController extends Controller
             'resellers' => $resellers,
             'pelanggan_resellers' => $pelanggan_resellers,
             'list_of_resellers' => $list_of_resellers,
+            'csrf' => csrf_token(),
             // 'list_of_pulaus' => $list_of_pulaus
         ];
 
@@ -73,19 +74,19 @@ class PelangganResellerController extends Controller
     {
         $load_num = SiteSetting::find(1);
 
-        $show_dump = true; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = true; // true apabila siap melakukan CRUD ke DB
         $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = true;
+        $show_hidden_dump = false;
         $ada_error = true;
         $pesan_db = 'Ooops! Ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
-        if ($show_hidden_dump === true) {
+        if ($show_hidden_dump) {
             dump("load_num_value: " . $load_num->value);
         }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
             $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
             $ada_error = true;
@@ -94,7 +95,7 @@ class PelangganResellerController extends Controller
 
         $post = $request->post();
 
-        if ($show_dump === true) {
+        if ($show_dump) {
             dump("post:");
             dump($post);
         }
@@ -143,19 +144,19 @@ class PelangganResellerController extends Controller
     {
         $load_num = SiteSetting::find(1);
 
-        $show_dump = true; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = true; // true apabila siap melakukan CRUD ke DB
         $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = true;
+        $show_hidden_dump = false;
         $ada_error = true;
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
-        if ($show_hidden_dump === true) {
+        if ($show_hidden_dump) {
             dump("load_num_value: " . $load_num->value);
         }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
             $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
             $ada_error = true;
@@ -164,7 +165,7 @@ class PelangganResellerController extends Controller
 
         $post = $request->post();
 
-        if ($show_dump === true) {
+        if ($show_dump) {
             dump("post:");
             dump($post);
         }
@@ -178,11 +179,12 @@ class PelangganResellerController extends Controller
 
             $pelanggan_reseller->delete();
 
+            $load_num->value += 1;
+            $load_num->save();
+
             $pesan_db = "SUCCESS: $reseller[nama] berhasil dihapus dari data Reseller $pelanggan[nama]";
             $ada_error = false;
             $class_div_pesan_db = 'alert-success';
-            $load_num->value += 1;
-            $load_num->save();
         }
         $data = [
             'go_back_number' => -2,

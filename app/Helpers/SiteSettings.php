@@ -20,8 +20,8 @@ class SiteSettings {
 
     static function variablesNeeded()
     {
-        $show_dump = true;
-        $show_hidden_dump = true;
+        $show_dump = false;
+        $show_hidden_dump = false;
         $load_num_ignore = false;
         $run_db = true;
 

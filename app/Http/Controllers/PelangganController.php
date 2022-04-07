@@ -33,16 +33,16 @@ class PelangganController extends Controller
         $run_db = false;
         $load_num_ignore = true;
 
-        if ($show_hidden_dump === true) {
+        if ($show_hidden_dump) {
         }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
         }
 
         $pelanggans = Pelanggan::all();
 
-        if ($show_dump === true) {
+        if ($show_dump) {
             dump("pelanggans: ", $pelanggans);
         }
 
@@ -78,7 +78,7 @@ class PelangganController extends Controller
             "daerahs" => $daerahs,
         ];
 
-        if ($show_dump === true) {
+        if ($show_dump) {
             dump("data: ", $data);
         }
         return view('pelanggan/pelanggans', $data);
@@ -93,14 +93,14 @@ class PelangganController extends Controller
         }
 
         $show_dump = false;
-        $show_hidden_dump = true;
+        $show_hidden_dump = false;
         $run_db = false;
         $load_num_ignore = true;
 
-        if ($show_hidden_dump === true) {
+        if ($show_hidden_dump) {
         }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
         }
 
@@ -113,12 +113,12 @@ class PelangganController extends Controller
 
         if (count($pelanggan_ekspedisi) !== 0) {
             for ($i_pelangganEkspedisi=0; $i_pelangganEkspedisi < count($pelanggan_ekspedisi); $i_pelangganEkspedisi++) {
-                $ekspedisi = Ekspedisi::find($pelanggan_ekspedisi[$i_pelangganEkspedisi]['id']);
+                $ekspedisi = Ekspedisi::find($pelanggan_ekspedisi[$i_pelangganEkspedisi]['ekspedisi_id']);
                 array_push($ekspedisis, $ekspedisi);
             }
         }
 
-        if ($show_dump === true) {
+        if ($show_dump) {
             dump('get');
             dump($get);
             dump('pelanggan');

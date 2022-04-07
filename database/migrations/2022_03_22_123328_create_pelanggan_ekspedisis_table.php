@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('ekspedisi_id')->nullable()->constrained()->onDelete('NO ACTION');
             $table->string('tipe', 20)->nullable()->default('UTAMA');
             $table->timestamp('used_since')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('last_used')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->timestamp('last_used')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

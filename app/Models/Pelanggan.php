@@ -37,4 +37,13 @@ class Pelanggan extends Model
 
         return $label_pelanggans_certain_id;
     }
+
+    public function label_pelanggans()
+    {
+        $label_pelanggans = DB::table('pelanggans')
+        ->select('pelanggans.id', 'pelanggans.nama AS label', 'pelanggans.nama AS value')
+        ->orderBy('pelanggans.nama')->get();
+
+        return $label_pelanggans;
+    }
 }

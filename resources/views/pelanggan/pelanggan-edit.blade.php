@@ -66,7 +66,7 @@
         <h6>Apakah Pelanggan ini akan ditetapkan sebagai Reseller juga?</h6>
         <input type="radio" name="is_reseller" id="is_reseller_no" value="no" checked> <label for="is_reseller_no">TIDAK</label>
         <br>
-        <input type="radio" name="is_reseller" id="is_reseller_yes" value="yes"> <label for="is_reseller_yes">YA</label>
+        <input type="radio" name="is_reseller" id="is_reseller_yes" value="yes" @if ($pelanggan['is_reseller']==='yes') checked @endif> <label for="is_reseller_yes">YA</label>
     </div>
 
     <br><br>

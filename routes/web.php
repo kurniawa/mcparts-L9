@@ -11,6 +11,8 @@ use App\Http\Controllers\PelangganEditController;
 use App\Http\Controllers\PelangganEkspedisiController;
 use App\Http\Controllers\PelangganResellerController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SpkBaruController;
+use App\Http\Controllers\SpkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -78,20 +80,38 @@ Route::controller(EkspedisiController::class)->group(function () {
     Route::get('/ekspedisi/detail', 'ekspedisi_detail');
 });
 
+// group route by controller. Dapat dilakukan mulai dari Laravel 9:
+Route::controller(EkspedisiBaru::class)->group(function () {
+    Route::get('/ekspedisi/ekspedisi-baru', "index");
+    Route::post('/ekspedisi/ekspedisi-baru-db', "ekspedisi_baru_db")->middleware('auth');
+});
+Route::controller(EkspedisiEdit::class)->group(function () {
+    Route::get('/ekspedisi/edit', "ekspedisi_edit");
+    Route::post('/ekspedisi/edit-db', "ekspedisi_edit_db")->middleware('auth');
+    Route::post('/ekspedisi/hapus', "ekspedisi_hapus")->middleware('auth');
+});
+
 /**
  * PELANGGAN EKSPEDISI
  */
 Route::controller(PelangganEkspedisiController::class)->group(function ()
 {
-    Route::get('pelanggan/pelanggan-ekspedisi', 'index');
+    Route::get('/pelanggan/pelanggan-ekspedisi', 'index');
+    Route::post('/pelanggan/tambah-ekspedisi-db', 'tambah_ekspedisi_db')->middleware('auth');
+    Route::post('/pelanggan/hapus-relasi-ekspedisi', 'hapus_relasi_ekspedisi')->middleware('auth');
 });
-// group route by controller. Dapat dilakukan mulai dari Laravel 9:
-Route::controller(EkspedisiBaru::class)->group(function () {
-    Route::get('/ekspedisi/ekspedisi-baru', "index");
-    Route::post('/ekspedisi/ekspedisi-baru-db', "ekspedisi_baru_db");
+
+
+/**
+ * SPK
+ */
+Route::controller(SpkController::class)->group(function ()
+{
+    Route::get('/spk', 'index');
 });
-Route::controller(EkspedisiEdit::class)->group(function () {
-    Route::get('/ekspedisi/edit', "ekspedisi_edit");
-    Route::post('/ekspedisi/edit-db', "ekspedisi_edit_db");
-    Route::post('/ekspedisi/hapus', "ekspedisi_hapus");
+
+Route::controller(SpkBaruController::class)->group(function ()
+{
+    Route::get('/spk/spk-baru', 'index');
+    Route::get('/spk/spk_baru-inserting_spk_items', 'inserting_spk_items');
 });

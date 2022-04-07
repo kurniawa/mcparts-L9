@@ -25,10 +25,10 @@ class PelangganBaruController extends Controller
         $run_db = false;
         $load_num_ignore = true;
 
-        if ($show_hidden_dump === true) {
+        if ($show_hidden_dump) {
         }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
         }
 
@@ -37,7 +37,7 @@ class PelangganBaruController extends Controller
         $arr_label_daerahs = getLabelDaerah();
 
 
-        if ($show_dump === true) {
+        if ($show_dump) {
             dump('label_negaras:', $label_negaras);
             dump('label_pulaus:', $label_pulaus);
             dump('arr_label_daerahs:', $arr_label_daerahs);
@@ -61,7 +61,7 @@ class PelangganBaruController extends Controller
         if ($show_hidden_dump) {
         }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
         }
         /**END OF SETTINGAN AWAL */
@@ -74,7 +74,7 @@ class PelangganBaruController extends Controller
 
         $post = $request->input();
 
-        if ($show_dump === true) {
+        if ($show_dump) {
             dump("post:", $post);
         }
 

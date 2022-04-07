@@ -17,22 +17,22 @@ class EkspedisiEdit extends Controller
             $load_num->save();
         }
 
-        $show_dump = true; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = false; // true apabila siap melakukan CRUD ke DB
         $load_num_ignore = true; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = true;
+        $show_hidden_dump = false;
 
-        if ($show_hidden_dump === true) {
+        if ($show_hidden_dump) {
             dump("load_num_value: " . $load_num->value);
         }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
         }
 
         $get = $request->input();
 
-        if ($show_dump === true) {
+        if ($show_dump) {
             dump("get");
             dump($get);
         }
@@ -50,17 +50,24 @@ class EkspedisiEdit extends Controller
     {
         $load_num = SiteSetting::find(1);
 
-        $show_dump = true; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = true; // true apabila siap melakukan CRUD ke DB
         $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = true;
+        $show_hidden_dump = false;
 
-        if ($show_hidden_dump === true) {
+        $ada_error = true;
+        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $class_div_pesan_db = 'alert-danger';
+
+        if ($show_hidden_dump) {
             dump("load_num_value: " . $load_num->value);
         }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
+            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $ada_error = true;
+            $class_div_pesan_db = 'alert-danger';
         }
 
         $post = $request->input();
@@ -70,7 +77,7 @@ class EkspedisiEdit extends Controller
             $bentuk_perusahaan = $post['bentuk_perusahaan'];
         }
 
-        if ($show_dump === true) {
+        if ($show_dump) {
             dump('$post: ', $post);
         }
 
@@ -90,16 +97,21 @@ class EkspedisiEdit extends Controller
             $ekspedisi->no_kontak = $post['kontak_ekspedisi'];
             $ekspedisi->ktrg = $keterangan;
             $ekspedisi->save();
+
+            $load_num->value += 1;
+            $load_num->save();
+
+            $pesan_db = "SUCCESS: Data $ekspedisi[nama] berhasil diubah!";
+            $ada_error = false;
+            $class_div_pesan_db = 'alert-success';
         }
 
         $data = [
             'go_back_number' => -2,
+            'pesan_db' => $pesan_db,
+            'ada_error' => $ada_error,
+            'class_div_pesan_db' => $class_div_pesan_db
         ];
-
-        if ($run_db) {
-            $load_num->value += 1;
-            $load_num->save();
-        }
 
         return view('layouts.go-back-page', $data);
     }
@@ -108,22 +120,22 @@ class EkspedisiEdit extends Controller
     {
         $load_num = SiteSetting::find(1);
 
-        $show_dump = true; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = true; // true apabila siap melakukan CRUD ke DB
         $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = true;
+        $show_hidden_dump = false;
 
-        if ($show_hidden_dump === true) {
+        if ($show_hidden_dump) {
             dump("load_num_value: " . $load_num->value);
         }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
         }
 
         $post = $request->input();
 
-        if ($show_dump === true) {
+        if ($show_dump) {
             dump('$post: ', $post);
         }
 
