@@ -19,8 +19,8 @@ class Bahan extends Model
         ON bahan.id=bahan_terbaru.bahan_id";
 
         $bahan_terbaru = DB::table('bahan_hargas')
-            ->selectRaw('id, bahan_id, harga, MAX(created_at)')
-            ->groupBy('bahan_id');
+            ->select('id', 'bahan_id', 'harga', DB::raw('MAX(created_at)'))
+            ->groupBy('id', 'bahan_id', 'harga', 'created_at');
 
         // $bahan_terbaru = DB::table('bahan_hargas')
         //     ->selectRaw('id, bahan_id, harga, MAX(created_at) GROUP BY bahan_id');

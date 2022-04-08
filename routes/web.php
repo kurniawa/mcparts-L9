@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EkspedisiBaru;
 use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\EkspedisiEdit;
+use App\Http\Controllers\InsertingVariaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PelangganBaruController;
 use App\Http\Controllers\PelangganController;
@@ -113,5 +114,27 @@ Route::controller(SpkController::class)->group(function ()
 Route::controller(SpkBaruController::class)->group(function ()
 {
     Route::get('/spk/spk-baru', 'index');
-    Route::get('/spk/spk_baru-inserting_spk_items', 'inserting_spk_items');
+    Route::get('/spk/spk_baru-inserting_spk_items', 'inserting_spk_items')->middleware('auth');
+    Route::post('/spk/spk_baru-inserting_spk_items-db', "inserting_spk_items_db")->middleware('auth');
+    Route::get('/spk/inserting_kombi', [SpkController::class, "inserting_kombi"])->middleware('auth');
+    Route::get('/spk/inserting_std', [SpkController::class, "inserting_std"])->middleware('auth');
+    Route::get('/spk/inserting_tankpad', [SpkController::class, "inserting_tankpad"])->middleware('auth');
+    Route::get('/spk/inserting_busastang', [SpkController::class, "inserting_busastang"])->middleware('auth');
+    Route::get('/spk/inserting_spjap', [SpkController::class, "inserting_spjap"])->middleware('auth');
+    Route::get('/spk/inserting_stiker', [SpkController::class, "inserting_stiker"])->middleware('auth');
+    Route::post('/spk/proceed_spk', [SpkBaru::class, "proceed_spk"])->middleware('auth');
 });
+
+Route::controller(InsertingVariaController::class)->group(function ()
+{
+    Route::get('/spk/inserting_varia', "inserting_varia")->middleware('auth');
+});
+Route::get('/spk/detail_spk', [DetailSPKController::class, "index"]);
+Route::get('/spk/edit_spk_item', [DetailSPKController::class, "editSPKItem"])->middleware('auth');
+Route::post('/spk/edit_spk_item-db', [EditSPKFDetail::class, "index"])->middleware('auth');
+Route::post('/spk/hapus-SPK', [DetailSPKController::class, "hapus_SPK"])->middleware('auth');
+Route::post('/spk/delete_spk_item', [EditSPKFDetail::class, "deleteSPKItem"])->middleware('auth');
+Route::get('/spk/penetapan_item_selesai', [SPKItemSelesai::class, "index"])->middleware('auth');
+Route::post('/spk/penetapan_item_selesai-db', [SPKItemSelesai::class, "setItemSelesai"])->middleware('auth');
+// Print SPK
+Route::get('/spk/print_out_spk', [PrintOutSPK::class, "index"]);

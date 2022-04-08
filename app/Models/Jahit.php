@@ -19,8 +19,8 @@ class Jahit extends Model
         // ON jahit_kepala.id=jk_terbaru.id_jk";
 
         $jahit_terbaru = DB::table('jahit_hargas')
-            ->selectRaw('id, jahit_id, harga, MAX(created_at)')
-            ->groupBy('jahit_id');
+            ->select('id', 'jahit_id', 'harga', DB::raw('MAX(created_at)'))
+            ->groupBy('id', 'jahit_id', 'harga', 'created_at');
 
         // $jahit_terbaru = DB::table('jahit_hargas')
         //     ->selectRaw('id, jahit_id, harga, MAX(created_at) GROUP BY jahit_id');

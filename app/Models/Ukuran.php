@@ -19,8 +19,8 @@ class Ukuran extends Model
         ON sj_ukuran.id=sj_ukuran_terbaru.id_ukuran";
 
         $ukuran_terbaru = DB::table('ukuran_hargas')
-            ->selectRaw('id, ukuran_id, harga, MAX(created_at)')
-            ->groupBy('ukuran_id');
+            ->select('id', 'ukuran_id', 'harga', DB::raw('MAX(created_at)'))
+            ->groupBy('id', 'ukuran_id', 'harga', 'created_at');
 
         // $ukuran_terbaru = DB::table('ukuran_hargas')
         //     ->selectRaw('id, ukuran_id, harga, MAX(created_at) GROUP BY ukuran_id');

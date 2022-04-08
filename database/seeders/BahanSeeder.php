@@ -63,27 +63,27 @@ class BahanSeeder extends Seeder
         ], [
             'nama' => 'LuckyHole Warna',
             'tipe' => 'B',
-            'id' => 9,
+            'id' => 10,
             'harga' => 10000
         ], [
             'nama' => 'Navaro(MC)',
             'tipe' => 'A',
-            'id' => 10,
+            'id' => 11,
             'harga' => 13000
         ], [
             'nama' => 'U-Tangan(MC)',
             'tipe' => 'A',
-            'id' => 11,
+            'id' => 12,
             'harga' => 13000
         ], [
             'nama' => 'Vario(M)',
             'tipe' => 'A',
-            'id' => 12,
+            'id' => 13,
             'harga' => 13000
         ], [
             'nama' => 'Vario(MC)',
             'tipe' => 'A',
-            'id' => 13,
+            'id' => 14,
             'harga' => 13000
         ]];
 

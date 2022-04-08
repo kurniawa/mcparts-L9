@@ -19,8 +19,8 @@ class Variasi extends Model
         ON sj_variasi.id=sj_variasi_terbaru.id_variasi";
 
         $variasi_terbaru = DB::table('variasi_hargas')
-            ->selectRaw('id, variasi_id, harga, MAX(created_at)')
-            ->groupBy('variasi_id');
+            ->select('id', 'variasi_id', 'harga', DB::raw('MAX(created_at)'))
+            ->groupBy('id', 'variasi_id', 'harga', 'created_at');
 
         // $variasi_terbaru = DB::table('variasi_hargas')
         //     ->selectRaw('id, variasi_id, harga, MAX(created_at) GROUP BY variasi_id');
