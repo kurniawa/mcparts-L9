@@ -63,7 +63,7 @@ class EkspedisiBaru extends Controller
             $class_div_pesan_db = 'alert-danger';
         }
 
-        $post = $request->input();
+        $post = $request->post();
         $bentuk_perusahaan = null;
         if (isset($post['bentuk_perusahaan']) && $post['bentuk_perusahaan'] !== null && $post['bentuk_perusahaan'] !== '') {
             $bentuk_perusahaan = $post['bentuk_perusahaan'];

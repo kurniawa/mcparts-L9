@@ -5,58 +5,34 @@ namespace App\Http\Controllers;
 use App\Helpers\SiteSettings;
 use App\Models\Bahan;
 use App\Models\Jahit;
+use App\Models\Kombi;
 use App\Models\SiteSetting;
 use App\Models\TempSpkProduk;
 use App\Models\Ukuran;
 use App\Models\Variasi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class InsertingVariaController extends Controller
+class InsertingKombiController extends Controller
 {
-    public function inserting_varia()
+    public function inserting_kombi()
     {
         SiteSettings::loadNumToZero();
-        $show_dump = false;
-
-        $bahan = new Bahan();
-        $varia = new Variasi();
-        $ukuran = new Ukuran();
-        $jahit = new Jahit();
-
-        $label_bahans = $bahan->label_bahans();
-        $varias_harga = $varia->varias_harga();
-        $ukurans_harga = $ukuran->ukurans_harga();
-        $jahits_harga = $jahit->jahits_harga();
-
-        $att_varia = [
-            'label_bahans' => $label_bahans,
-            'varias_harga' => $varias_harga,
-            'ukurans_harga' => $ukurans_harga,
-            'jahits_harga' => $jahits_harga,
-        ];
-
-        // dump($label_bahans);
-        // dump($varias_harga);
-        // dump($ukurans_harga);
-        // dump($jahits_harga);
+        $kombi = new Kombi();
+        $label_kombis = $kombi->label_kombis();
 
         $data = [
-            'tipe' => 'varia',
-            'bahans' => $label_bahans,
-            'varias' => $varias_harga,
-            'ukurans' => $ukurans_harga,
-            'jahits' => $jahits_harga,
-            'att_varia' => $att_varia,
+            'tipe' => 'kombi',
+            'kombis' => $label_kombis,
             'mode' => 'SPK_BARU',
             'spk_item' => null,
             'produk' => null,
-            'link_insert_db' => 'inserting-varia-db',
+            'link_insert_db' => 'inserting-kombi-db',
         ];
-        return view('/spk/inserting_spk_item-2', $data);
+
+        return view('spk.inserting_spk_item-2', $data);
     }
 
-    public function inserting_varia_db(Request $request)
+    public function inserting_kombi_db(Request $request)
     {
         $load_num = SiteSetting::find(1);
 
@@ -86,34 +62,9 @@ class InsertingVariaController extends Controller
         }
 
         $request->validate([
-            'bahan' => 'required',
-            'variasi' => 'required',
+            'kombi' => 'required',
             'jumlah' => 'required|numeric|min:1',
         ]);
-
-        /**
-         * Menentukan semua variable yang nantinya akan diinsert ke table temp_spk_item
-         * Banyak variable akan di set value nya menjadi NULL
-         */
-        /*
-        $table->id();
-        $table->string('tipe', 50);
-        $table->foreignId('bahan_id')->nullable();
-        $table->foreignId('variasi_id')->nullable();
-        $table->foreignId('ukuran_id')->nullable();
-        $table->foreignId('jahit_id')->nullable();
-        $table->foreignId('std_id')->nullable();
-        $table->foreignId('kombi_id')->nullable();
-        $table->foreignId('busastang_id')->nullable();
-        $table->foreignId('tankpad_id')->nullable();
-        $table->foreignId('spjap_id')->nullable();
-        $table->foreignId('stiker_id')->nullable();
-        $table->string('nama');
-        $table->string('nama_nota');
-        $table->string('jumlah');
-        $table->integer('harga');
-        $table->string('ktrg')->nullable();
-        */
 
         $tipe = $post['tipe'];
         $jumlah = $post['jumlah'];
@@ -121,28 +72,16 @@ class InsertingVariaController extends Controller
         $bahan_id = $variasi_id = $ukuran_id = $jahit_id = null;
         $standar_id = $kombi_id = $busastang_id = $tankpad_id = $spjap_id = $tipe_bahan = $stiker_id = null;
 
-        if (isset($post['bahan_id'])) {
-            $bahan_id = $post['bahan_id'];
-        }
-        if (isset($post['ukuran_id'])) {
-            $ukuran_id = $post['ukuran_id'];
-        }
-        if (isset($post['jahit_id'])) {
-            $jahit_id = $post['jahit_id'];
+        if (isset($post['kombi_id'])) {
+            $kombi_id = $post['kombi_id'];
         }
         if (isset($post['ktrg'])) {
             $ktrg = $post['ktrg'];
         }
 
-        // dd($tipe);
-
-        $variasi = json_decode($post['variasi'], true);
-        $variasi_id = $variasi['id'];
-        $harga = $post['bahan_harga'] + $variasi['harga'];
-        $nama = "$post[bahan] $variasi[nama]";
+        $nama = $post['kombi'];
         $nama_nota = $nama;
-        // dd($variasi);
-
+        $harga = $post['kombi_harga'];
 
         if (isset($post['ukuran'])) {
             $ukuran = json_decode($post['ukuran'], true);
@@ -164,7 +103,6 @@ class InsertingVariaController extends Controller
 
         if ($show_dump) {
             dump('$tipe', $tipe);
-            dump('$variasi', $variasi);
             dump('$harga', $harga);
             dump('$nama_nota', $nama_nota);
             dump('$nama', $nama);
@@ -174,10 +112,7 @@ class InsertingVariaController extends Controller
         if ($run_db) {
             $spk_item = TempSpkProduk::create([
                 'tipe' => $tipe,
-                'bahan_id' => $bahan_id,
-                'variasi_id' => $variasi_id,
-                'ukuran_id' => $ukuran_id,
-                'jahit_id' => $jahit_id,
+                'kombi_id' => $kombi_id,
                 'nama' => $nama,
                 'nama_nota' => $nama_nota,
                 'jumlah' => $jumlah,
@@ -190,7 +125,7 @@ class InsertingVariaController extends Controller
 
             // dd($spk_item);
 
-            $pesan_db = "SUCCESS: Item<br><br><span style='font-weight:bold'>$spk_item[nama_nota]</span><br></br>berhasil di input ke dalam SPK!";
+            $pesan_db = "SUCCESS: Item $spk_item[nama_nota] berhasil di input ke dalam SPK!";
             $ada_error = false;
             $class_div_pesan_db = 'alert-success';
         }

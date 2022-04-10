@@ -1,19 +1,18 @@
 <script>
     const mode = {!! json_encode($mode, JSON_HEX_TAG) !!};
-    const att_std = {!! json_encode($att_std, JSON_HEX_TAG) !!};
     const tipe = {!! json_encode($tipe, JSON_HEX_TAG) !!};
-    const stds = {!! json_encode($stds, JSON_HEX_TAG) !!};
-    console.log('att_std');
-    console.log(att_std);
+    const standars = {!! json_encode($standars, JSON_HEX_TAG) !!};
 
-    console.log('stds');
-    console.log(stds);
+    if (show_console) {
+        console.log('standars');
+        console.log(standars);
+    }
 
     document.getElementById('container_property_spk_item').innerHTML = `
         <div id='div_pilih_standar'></div>
     `;
 
-    const pilih_stds = `
+    const pilih_standars = `
         <div>Pilih Standar:</div>
         <input type="text" id="standar" name="standar" class="input-normal" style="border-radius:5px;">
         <input type="hidden" id="standar_id" name="standar_id">
@@ -21,13 +20,13 @@
     `;
 
     document.getElementById("tipe").value = "std";
-    document.getElementById("div_pilih_standar").innerHTML = pilih_stds;
+    document.getElementById("div_pilih_standar").innerHTML = pilih_standars;
     document.getElementById("div_option_jml").innerHTML = box_jml;
     document.getElementById("div_input_jml").innerHTML = input_jml;
     document.getElementById("div_option_ktrg").innerHTML = box_ktrg;
     document.getElementById("div_ta_ktrg").innerHTML = ta_ktrg;
 
-    /* 
+    /*
     Karena ini mode edit, maka kita perlu untuk menentukan value yang sesuai dengan spk_item yang ingin
     diedit. Untuk assign value nya dibantu dengan looping. Looping ini di butuhkan karena sebelumnya
     kita tidak get kombi_id dan harga nya. Lalu fungsi autocompletenya nanti tetap akan berjalan.
@@ -47,11 +46,11 @@
         const produk_props = JSON.parse(produk.properties);
         console.log(produk_props);
 
-        for (let i = 0; i < stds.length; i++) {
-            if (`Standar ${stds[i].label}` === produk.nama) {
+        for (let i = 0; i < standars.length; i++) {
+            if (`Standar ${standars[i].label}` === produk.nama) {
                 document.getElementById('standar').value = produk.nama;
-                document.getElementById('standar_id').value = stds[i].id; 
-                document.getElementById('standar_harga').value = stds[i].harga; 
+                document.getElementById('standar_id').value = standars[i].id;
+                document.getElementById('standar_harga').value = standars[i].harga;
             }
         }
 
@@ -81,7 +80,7 @@
     const available_options = ["box_jml", "box_ktrg"];
 
     $("#standar").autocomplete({
-        source: stds,
+        source: standars,
         select: function(event, ui) {
             // console.log(ui.item);
             $("#standar_id").val(ui.item.id);
@@ -91,6 +90,6 @@
         }
     });
 
-    
+
 
 </script>

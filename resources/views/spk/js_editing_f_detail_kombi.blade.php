@@ -1,10 +1,12 @@
 <script>
     const mode = {!! json_encode($mode, JSON_HEX_TAG) !!};
-    const att_kombi = {!! json_encode($att_kombi, JSON_HEX_TAG) !!};
     const tipe = {!! json_encode($tipe, JSON_HEX_TAG) !!};
     const kombis = {!! json_encode($kombis, JSON_HEX_TAG) !!};
-    console.log('att_kombi');
-    console.log(att_kombi);
+
+    if (show_console) {
+        console.log('kombis');
+        console.log(kombis);
+    }
 
     // var props_alternate_ukuran = {
     //     btn_hide: "close_ukuran",
@@ -71,7 +73,7 @@
     -input yang sudah terisi di mode edit
     */
 
-    /* 
+    /*
     Karena ini mode edit, maka kita perlu untuk menentukan value yang sesuai dengan spk_item yang ingin
     diedit. Untuk assign value nya dibantu dengan looping. Looping ini di butuhkan karena sebelumnya
     kita tidak get kombi_id dan harga nya. Lalu fungsi autocompletenya nanti tetap akan berjalan.
@@ -88,12 +90,12 @@
         console.log(produk);
         const produk_props = JSON.parse(produk.properties);
         console.log(produk_props);
-        
+
         for (let i = 0; i < kombis.length; i++) {
             if (kombis[i].label === produk.nama) {
                 document.getElementById('kombi').value = produk.nama;
-                document.getElementById('kombi_id').value = kombis[i].id; 
-                document.getElementById('kombi_harga').value = kombis[i].harga; 
+                document.getElementById('kombi_id').value = kombis[i].id;
+                document.getElementById('kombi_harga').value = kombis[i].harga;
             }
         }
 

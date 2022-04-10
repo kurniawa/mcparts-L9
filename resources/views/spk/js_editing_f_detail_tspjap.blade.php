@@ -1,19 +1,21 @@
 <script>
     const mode = {!! json_encode($mode, JSON_HEX_TAG) !!};
-    const att_spjap = {!! json_encode($att_spjap, JSON_HEX_TAG) !!};
     const tipe = {!! json_encode($tipe, JSON_HEX_TAG) !!};
-    const spjaps = {!! json_encode($spjaps, JSON_HEX_TAG) !!};
-    console.log('spjaps');
-    console.log(spjaps);
+    const tspjaps = {!! json_encode($tspjaps, JSON_HEX_TAG) !!};
 
-    /*Untuk spjap ada tambahan variable, yakni d_bahan_a dan d_bahan_b*/
+
+    /*Untuk tspjap ada tambahan variable, yakni d_bahan_a dan d_bahan_b*/
     const d_bahan_a = {!! json_encode($d_bahan_a, JSON_HEX_TAG) !!};
     const d_bahan_b = {!! json_encode($d_bahan_b, JSON_HEX_TAG) !!};
 
-    console.log('d_bahan_a');
-    console.log(d_bahan_a);
-    console.log('d_bahan_b');
-    console.log(d_bahan_b);
+    if (show_console) {
+        console.log('tspjaps');
+        console.log(tspjaps);
+        console.log('d_bahan_a');
+        console.log(d_bahan_a);
+        console.log('d_bahan_b');
+        console.log(d_bahan_b);
+    }
 
     const element_properties = `
         <br>
@@ -32,28 +34,28 @@
         </div>
         <br>
         <div>Pilih T.Sixpack/Japstyle:</div>
-        <select id='select_spjap' name='spjap_id' class='form-select' onchange='assignSPJapIDValue(this.selectedIndex);'></select>
-        <input type='hidden' id='spjap' name='spjap'>
-        <input type='hidden' id='spjap_harga' name='spjap_harga'>
+        <select id='select_tspjap' name='tspjap_id' class='form-select' onchange='assignTspjapIDValue(this.selectedIndex);'></select>
+        <input type='hidden' id='tspjap' name='tspjap'>
+        <input type='hidden' id='tspjap_harga' name='tspjap_harga'>
         `;
 
     document.getElementById('container_property_spk_item').innerHTML = element_properties;
 
-    var htmlSelectSpjap = '';
-    for (let i = 0; i < spjaps.length; i++) {
-        htmlSelectSpjap += `
-            <option value=${spjaps[i].id}>${spjaps[i].value}</option>
+    var htmlSelectTspjap = '';
+    for (let i = 0; i < tspjaps.length; i++) {
+        htmlSelectTspjap += `
+            <option value=${tspjaps[i].id}>${tspjaps[i].value}</option>
         `;
     }
 
-    document.getElementById("tipe").value = "spjap";
-    document.getElementById("select_spjap").innerHTML = htmlSelectSpjap;
+    document.getElementById("tipe").value = "tspjap";
+    document.getElementById("select_tspjap").innerHTML = htmlSelectTspjap;
     document.getElementById("div_option_jml").innerHTML = box_jml;
     document.getElementById("div_input_jml").innerHTML = input_jml;
     document.getElementById("div_option_ktrg").innerHTML = box_ktrg;
     document.getElementById("div_ta_ktrg").innerHTML = ta_ktrg;
 
-    /* 
+    /*
     Karena ini mode edit, maka kita perlu untuk menentukan value yang sesuai dengan spk_item yang ingin
     diedit. Untuk assign value nya dibantu dengan looping. Looping ini di butuhkan karena sebelumnya
     kita tidak get kombi_id dan harga nya. Lalu fungsi autocompletenya nanti tetap akan berjalan.
@@ -64,15 +66,15 @@
     */
 
     /*
-    Untuk spjap, perlu perbandingan assign beberapa value, yakni tipe bahan dari spk_item
+    Untuk tspjap, perlu perbandingan assign beberapa value, yakni tipe bahan dari spk_item
     bahan_id dari spk_item
-    spjap_id dari spk_item
+    tspjap_id dari spk_item
     dan properti ini harusnya dapat ditemukan pada produk properties
     */
 
     var judul = '<h2>';
     if (mode === 'SPK_BARU') {
-        assignSPJapIDValue(0);
+        assignTspjapIDValue(0);
         judul += 'SPK Baru - ';
     } else if (mode === 'edit') {
         judul += 'Edit SPK Item - ';
@@ -88,7 +90,7 @@
         console.log('produk_props:');
         console.log(produk_props);
 
-        // Untuk spjap ini dibandingkan dengan yang ada di properties nya saja.
+        // Untuk tspjap ini dibandingkan dengan yang ada di properties nya saja.
 
         /*
         PEMILIHAN TIPE BAHAN
@@ -131,29 +133,29 @@
         }
 
         /*
-        PEMILIHAN JENIS spjap
-        Ikuti petunjuk PEMILIHAN TIPE BAHAN untuk melakukan PEMILIHAN JENIS spjap ini. Artinya kita
-        perlu mengakses kembali produk.props dan ambil value dari spjap_id.
+        PEMILIHAN JENIS tspjap
+        Ikuti petunjuk PEMILIHAN TIPE BAHAN untuk melakukan PEMILIHAN JENIS tspjap ini. Artinya kita
+        perlu mengakses kembali produk.props dan ambil value dari tspjap_id.
 
-        Setelah value disamakan, tentunya kita perlu set spjap dan harganya
+        Setelah value disamakan, tentunya kita perlu set tspjap dan harganya
 
-        Menentukan harga dari produk.props['spjap_id']. Dengan diketahuinya spjap_id maka kita dapat
-        mencari pada array spjaps yang memiliki id yang sesuai.
+        Menentukan harga dari produk.props['tspjap_id']. Dengan diketahuinya tspjap_id maka kita dapat
+        mencari pada array tspjaps yang memiliki id yang sesuai.
         */
 
-        var selected_spjap = document.querySelector(`#select_spjap option[value="${produk_props.spjap_id}"]`);
-        var index_selected_spjap = selected_spjap.index;
-        document.getElementById('select_spjap').selectedIndex = index_selected_spjap;
-        var spjap_now = spjaps.find(({ id }) => id === produk_props['spjap_id']);
-        console.log('spjap_now');
-        console.log(spjap_now);
-        document.getElementById('spjap').value = spjap_now['label'];
-        document.getElementById('spjap_harga').value = spjap_now['harga'];
-        // for (let i = 0; i < spjaps.length; i++) {
-        //     if (spjaps[i].id === produk_props.spjap_id) {
-        //         document.getElementById('spjap').value = produk.nama;
-        //         // document.getElementById('spjap_id').value = spjaps[i].id;
-        //         document.getElementById('spjap_harga').value = spjaps[i].harga; 
+        var selected_tspjap = document.querySelector(`#select_tspjap option[value="${produk_props.tspjap_id}"]`);
+        var index_selected_tspjap = selected_tspjap.index;
+        document.getElementById('select_tspjap').selectedIndex = index_selected_tspjap;
+        var tspjap_now = tspjaps.find(({ id }) => id === produk_props['tspjap_id']);
+        console.log('tspjap_now');
+        console.log(tspjap_now);
+        document.getElementById('tspjap').value = tspjap_now['label'];
+        document.getElementById('tspjap_harga').value = tspjap_now['harga'];
+        // for (let i = 0; i < tspjaps.length; i++) {
+        //     if (tspjaps[i].id === produk_props.tspjap_id) {
+        //         document.getElementById('tspjap').value = produk.nama;
+        //         // document.getElementById('tspjap_id').value = tspjaps[i].id;
+        //         document.getElementById('tspjap_harga').value = tspjaps[i].harga;
         //     }
         // }
 
@@ -199,7 +201,7 @@
             // console.log(ui.item);
             $("#bahan_id").val(ui.item.id);
             // show_select_variasi();
-            // show_options(available_options);
+            show_options(available_options);
         }
     });
     }
@@ -208,12 +210,12 @@
     Secara default, select akan terpilih index 0.
     Oleh karena itu di assign terlebih dahulu value2 yang berkaitan dengan index 0 ini.
     */
-    function assignSPJapIDValue(selectedIndex) {
+    function assignTspjapIDValue(selectedIndex) {
         // console.log(selectedIndex);
-        document.getElementById('spjap').value = spjaps[selectedIndex].value;
-        document.getElementById('spjap_harga').value = spjaps[selectedIndex].harga;
+        document.getElementById('tspjap').value = tspjaps[selectedIndex].value;
+        document.getElementById('tspjap_harga').value = tspjaps[selectedIndex].harga;
     }
 
-    
+
 
 </script>

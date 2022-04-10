@@ -1,6 +1,9 @@
 <script>
     const kombis = {!! json_encode($kombis, JSON_HEX_TAG) !!};
-    console.log(kombis);
+
+    if (show_console) {
+        console.log(kombis);
+    }
 
     const pilih_kombis = `
         <div>Pilih Kombinasi:</div>

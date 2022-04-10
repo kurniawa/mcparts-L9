@@ -2,8 +2,11 @@
     const mode = {!! json_encode($mode, JSON_HEX_TAG) !!};
     const tipe = {!! json_encode($tipe, JSON_HEX_TAG) !!};
     const stikers = {!! json_encode($stikers, JSON_HEX_TAG) !!};
-    const att_stiker = {!! json_encode($att_stiker, JSON_HEX_TAG) !!};
-    console.log(stikers);
+
+    if (show_console) {
+        console.log('stikers:');
+        console.log(stikers);
+    }
 
     document.getElementById('container_property_spk_item').innerHTML = '<div id="div_pilih_stiker"></div>';
 
@@ -43,7 +46,7 @@
         for (let i = 0; i < stikers.length; i++) {
             if (stikers[i].id === produk_props.stiker_id) {
                 document.getElementById('stiker').value = stikers[i].label;
-                document.getElementById('stiker_id').value = stikers[i].id; 
+                document.getElementById('stiker_id').value = stikers[i].id;
                 document.getElementById('stiker_harga').value = stikers[i].harga;
             }
         }

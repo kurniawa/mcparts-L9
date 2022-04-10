@@ -15,8 +15,8 @@ class Kombi extends Model
     public function label_kombis()
     {
         $kombi_terbaru = DB::table('kombi_hargas')
-            ->selectRaw('id, kombi_id, harga, MAX(created_at)')
-            ->groupBy('kombi_id');
+            ->select('id', 'kombi_id', 'harga', DB::raw('MAX(created_at)'))
+            ->groupBy('id', 'kombi_id', 'harga', 'created_at');
 
         $label_kombis = DB::table('kombis')
             ->select('kombis.id', 'kombis.nama AS label', 'kombis.nama AS value', 'kombi_terbaru.harga', 'kombis.ktrg')

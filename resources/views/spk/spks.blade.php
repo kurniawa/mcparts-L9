@@ -34,6 +34,7 @@
 
 const spks = {!! json_encode($spks, JSON_HEX_TAG) !!};
 const pelanggans = {!! json_encode($pelanggans, JSON_HEX_TAG) !!};
+const daerahs = {!! json_encode($daerahs, JSON_HEX_TAG) !!};
 const resellers = {!! json_encode($resellers, JSON_HEX_TAG) !!};
 
 if (show_console) {
@@ -41,6 +42,8 @@ if (show_console) {
     console.log(spks);
     console.log("pelanggans");
     console.log(pelanggans);
+    console.log("daerahs");
+    console.log(daerahs);
     console.log("resellers");
     console.log(resellers);
 }
@@ -67,7 +70,7 @@ if (spks == undefined || spks.length == 0) {
         // apabila tanggal selesai telah ada
         var html_tgl_sls = "";
 
-        var nama_pelanggan = `${pelanggans[i].nama} - ${pelanggans[i].daerah}`;
+        var nama_pelanggan = `${pelanggans[i].nama} - ${daerahs[i].nama}`;
         if (resellers[i] !== 'none') {
             nama_pelanggan = `${resellers[i].nama}: ${nama_pelanggan}`;
         }

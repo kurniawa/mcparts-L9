@@ -12,19 +12,19 @@ class Busastang extends Model
     protected $guarded = ['id'];
     public $timestamps = false;
 
-    public function label_busastang()
+    public function label_busastangs()
     {
         $busastang_terbaru = DB::table('busastang_hargas')
-            ->selectRaw('id, busastang_id, harga, MAX(created_at)')
-            ->groupBy('busastang_id');
+            ->select('id', 'busastang_id', 'harga', DB::raw('MAX(created_at)'))
+            ->groupBy('id', 'busastang_id', 'harga', 'created_at');
 
-        $label_busastang = DB::table('busastangs')
+        $label_busastangs = DB::table('busastangs')
             ->select('busastangs.id', 'busastangs.nama AS label', 'busastangs.nama AS value', 'busastang_terbaru.harga', 'busastangs.ktrg')
             ->joinSub($busastang_terbaru, 'busastang_terbaru', function ($join) {
                 $join->on('busastangs.id', '=', 'busastang_terbaru.busastang_id');
             })
             ->orderBy('busastangs.nama')->get();
 
-        return $label_busastang;
+        return $label_busastangs;
     }
 }

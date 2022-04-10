@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Helpers\SiteSettings;
 use App\Http\Requests\StoreSpkRequest;
 use App\Http\Requests\UpdateSpkRequest;
+use App\Models\Daerah;
 use App\Models\Pelanggan;
 use App\Models\Spk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class SpkController extends Controller
 {
@@ -30,9 +32,11 @@ class SpkController extends Controller
 
         $spks = Spk::limit(100)->orderByDesc('created_at')->get();
         $pelanggans = array();
+        $daerahs = array();
         $resellers = array();
         for ($i = 0; $i < count($spks); $i++) {
             $pelanggan = Spk::find($spks[$i]->id)->pelanggan;
+            $daerah = Daerah::find($pelanggan['daerah_id']);
             if ($spks[$i]->reseller_id !== null && $spks[$i]->reseller_id !== '') {
                 $reseller = Pelanggan::find($spks[$i]->reseller_id);
                 array_push($resellers, $reseller);
@@ -40,11 +44,13 @@ class SpkController extends Controller
                 array_push($resellers, 'none');
             }
             array_push($pelanggans, $pelanggan);
+            array_push($daerahs, $daerah);
         }
 
         $data = [
             'spks' => $spks,
             'pelanggans' => $pelanggans,
+            'daerahs' => $daerahs,
             'resellers' => $resellers,
         ];
 

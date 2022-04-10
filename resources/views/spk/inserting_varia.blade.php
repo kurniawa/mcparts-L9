@@ -1,4 +1,4 @@
-{{-- 
+{{--
 include_once "01-header.php";
 include_once "01-config.php";
 
@@ -12,7 +12,7 @@ $tipe = $_GET["tipe"];
 // dd($tipe);
 
 // GET ARRAY BAHAN, VARIASI, UKURAN, JAHIT BESERTA HARGA NYA MASING2
-include_once "01-getProduk2.php"; 
+include_once "01-getProduk2.php";
 
 <-?= $input_container; ?>
 <-?= $available_options; ?>
@@ -24,8 +24,8 @@ console.log("tipe: " + tipe);
 @extends('layouts/main_layout')
 
 @section('content')
-    
-<form action="/spk/inserting_item-db" method="POST" id="form_properti_item_spk" class="m-1em">
+
+<form action="/spk/inserting-varia-db" method="POST" id="form_properti_item_spk" class="m-1em">
 @csrf
     <div>
         <h2>Tipe: SJ Variasi</h2>
@@ -203,7 +203,7 @@ console.log("tipe: " + tipe);
     }
     select_jht += `
                 </select>
-                <span id="close_jht" class="ui-icon ui-icon-closethick justify-self-center" onclick='alternate_show(this.id, ${props_alternate_jht});'></span>        
+                <span id="close_jht" class="ui-icon ui-icon-closethick justify-self-center" onclick='alternate_show(this.id, ${props_alternate_jht});'></span>
             </div>
         </div>`;
 

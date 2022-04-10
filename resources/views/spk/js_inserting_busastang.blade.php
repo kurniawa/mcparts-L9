@@ -2,9 +2,11 @@
     const mode = {!! json_encode($mode, JSON_HEX_TAG) !!};
     const tipe = {!! json_encode($tipe, JSON_HEX_TAG) !!};
     const busastangs = {!! json_encode($busastangs, JSON_HEX_TAG) !!};
-    const att_busastang = {!! json_encode($att_busastang, JSON_HEX_TAG) !!};
 
-    console.log(busastangs);
+    if (show_console) {
+        console.log('busastangs');
+        console.log(busastangs);
+    }
 
     document.getElementById('container_property_spk_item').innerHTML = `<div id='div_pilih_busastang'></div>`;
 
@@ -51,7 +53,7 @@
         for (let i = 0; i < busastangs.length; i++) {
             if (busastangs[i].id === produk_props.busastang_id) {
                 document.getElementById('busastang').value = busastangs[i].label;
-                document.getElementById('busastang_id').value = busastangs[i].id; 
+                document.getElementById('busastang_id').value = busastangs[i].id;
                 document.getElementById('busastang_harga').value = busastangs[i].harga;
             }
         }

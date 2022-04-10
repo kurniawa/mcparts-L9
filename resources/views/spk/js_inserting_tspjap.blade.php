@@ -1,38 +1,41 @@
 <script>
     const d_bahan_a = {!! json_encode($d_bahan_a, JSON_HEX_TAG) !!};
     const d_bahan_b = {!! json_encode($d_bahan_b, JSON_HEX_TAG) !!};
-    const spjaps = {!! json_encode($spjaps, JSON_HEX_TAG) !!};
-    console.log(d_bahan_a);
-    console.log(d_bahan_b);
-    console.log(spjaps);
+    const tspjaps = {!! json_encode($tspjaps, JSON_HEX_TAG) !!};
 
-    // const pilih_spjaps = `
+    if (show_console) {
+        console.log(d_bahan_a);
+        console.log(d_bahan_b);
+        console.log(tspjaps);
+    }
+
+    // const pilih_tspjaps = `
     //     <div>Pilih Sixpack/Japstyle:</div>
     //     <input type="text" id="spjap" name="spjap" class="input-normal" style="border-radius:5px;">
     //     <input type="hidden" id="spjap_id" name="spjap_id">
     //     <input type="hidden" id="spjap_harga" name="spjap_harga">
     // `;
 
-    var htmlSelectSpjap = '';
-    for (let i = 0; i < spjaps.length; i++) {
-        htmlSelectSpjap += `
-            <option value=${spjaps[i].id}>${spjaps[i].value}</option>
+    var htmlSelectTspjap = '';
+    for (let i = 0; i < tspjaps.length; i++) {
+        htmlSelectTspjap += `
+            <option value=${tspjaps[i].id}>${tspjaps[i].value}</option>
         `;
-        
+
     }
 
-    document.getElementById("tipe").value = "spjap";
-    document.getElementById("div_pilih_spjap").innerHTML = htmlSelectSpjap;
+    document.getElementById("tipe").value = "tspjap";
+    document.getElementById("div_pilih_tspjap").innerHTML = htmlSelectTspjap;
     document.getElementById("div_option_jml").innerHTML = box_jml;
     document.getElementById("div_input_jml").innerHTML = input_jml;
     document.getElementById("div_option_ktrg").innerHTML = box_ktrg;
     document.getElementById("div_ta_ktrg").innerHTML = ta_ktrg;
 
     const available_options = ["box_jml", "box_ktrg"];
-    
+
 
     // $("#spjap").autocomplete({
-    //     source: spjaps,
+    //     source: tspjaps,
     //     select: function(event, ui) {
     //         // console.log(ui.item);
     //         $("#spjap_id").val(ui.item.id);
@@ -71,12 +74,12 @@
     Oleh karena itu di assign terlebih dahulu value2 yang berkaitan dengan index 0 ini.
     */
 
-    assignSPJapIDValue(0);
+    assignTspjapIDValue(0);
 
-    function assignSPJapIDValue(selectedIndex) {
+    function assignTspjapIDValue(selectedIndex) {
         // console.log(selectedIndex);
-        document.getElementById('spjap').value = spjaps[selectedIndex].value;
-        document.getElementById('spjap_harga').value = spjaps[selectedIndex].harga;
+        document.getElementById('tspjap').value = tspjaps[selectedIndex].value;
+        document.getElementById('tspjap_harga').value = tspjaps[selectedIndex].harga;
     }
 
 

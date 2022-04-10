@@ -5,17 +5,16 @@
     tergantung tipe nya, maka akan dikirim att yang berkaitan
     */
     const mode = {!! json_encode($mode, JSON_HEX_TAG) !!};
-    const att_varia = {!! json_encode($att_varia, JSON_HEX_TAG) !!};
     const tipe = {!! json_encode($tipe, JSON_HEX_TAG) !!};
-    // console.log(att_varia);
-
     const bahans = {!! json_encode($bahans, JSON_HEX_TAG) !!};
     const varias = {!! json_encode($varias, JSON_HEX_TAG) !!};
     const ukurans = {!! json_encode($ukurans, JSON_HEX_TAG) !!};
     const jahits = {!! json_encode($jahits, JSON_HEX_TAG) !!};
 
-    console.log(bahans);
-    
+    if (show_console) {
+        console.log('bahans');
+        console.log(bahans);
+    }
 
     var props_alternate_ukuran = {
         btn_hide: "close_ukuran",
@@ -42,7 +41,7 @@
         <input type="hidden" id="bahan_id" name="bahan_id">
         <input type="hidden" id="bahan_harga" name="bahan_harga">
     `;
-    
+
 
     var pilih_variasi = `
         <div class="mt-1em">Pilih Variasi:</div>
@@ -123,10 +122,10 @@
     }
     select_jht += `
                 </select>
-                <span id="close_jht" class="ui-icon ui-icon-closethick justify-self-center" onclick='alternate_show(this.id, ${props_alternate_jht});'></span>        
+                <span id="close_jht" class="ui-icon ui-icon-closethick justify-self-center" onclick='alternate_show(this.id, ${props_alternate_jht});'></span>
             </div>
         </div>`;
-    
+
     // const tankpads = json_encode($tankpads, JSON_HEX_TAG);
     // console.log(tankpads);
 

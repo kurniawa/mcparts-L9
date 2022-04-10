@@ -1,13 +1,10 @@
 <script>
     const mode = {!! json_encode($mode, JSON_HEX_TAG) !!};
-    const att_varia = {!! json_encode($att_varia, JSON_HEX_TAG) !!};
     const tipe = {!! json_encode($tipe, JSON_HEX_TAG) !!};
-    // console.log(att_varia);
     const bahans = {!! json_encode($bahans, JSON_HEX_TAG) !!};
     const varias = {!! json_encode($varias, JSON_HEX_TAG) !!};
     const ukurans = {!! json_encode($ukurans, JSON_HEX_TAG) !!};
     const jahits = {!! json_encode($jahits, JSON_HEX_TAG) !!};
-    // console.log(bahans);
 
     var props_alternate_ukuran = {
         btn_hide: "close_ukuran",
@@ -41,7 +38,7 @@
         <input type="hidden" id="bahan_harga" name="bahan_harga">
     `;
 
-    
+
     document.getElementById('container_property_spk_item').innerHTML = `
         <div id='div_pilih_bahan'></div>
         <div id='div_pilih_variasi'></div><br>
@@ -76,7 +73,7 @@
             <div class="grid-2-auto_10">
                 <select id="sel_jahit" name="jahit" style="border-radius:5px;padding:0.5em;">
                     <option value="" disabled selected>Pilih Jenis Jahit</option>`;
-    
+
     /*
     Ketiga elemen diatas masih belum selesai, karena masih harus dicek terlebih dahulu, apakah
     laman ini berkenaan dengan SPK_BARU atau edit.
@@ -119,11 +116,11 @@
                 harga: varia.harga
             };
             value = JSON.stringify(value);
-           
+
             pilih_variasi += `
             <option value='${value}'>${varia.nama}</option>
             `;
-            
+
         });
 
         if (typeof ukurans !== "undefined") {
@@ -138,7 +135,7 @@
 
                 select_ukuran += `
                     <option value='${value}'>${uk.nama}</option>
-                `;       
+                `;
             });
         }
 
@@ -150,11 +147,11 @@
                     harga: jht.harga
                 };
                 value = JSON.stringify(value);
-                
+
                 select_jht += `
                     <option value='${value}'>${jht.nama}</option>
                 `;
-                
+
             });
         }
 
@@ -211,7 +208,7 @@
                 };
                 value = JSON.stringify(value);
 
-                if (uk.id === produk_props.ukuran_id) {    
+                if (uk.id === produk_props.ukuran_id) {
                     select_ukuran += `
                         <option value='${value}' selected>${uk.nama}</option>
                     `;
@@ -237,7 +234,7 @@
                 if (jht.id === produk_props.jahit_id) {
                     select_jht += `
                         <option value='${value}' selected>${jht.nama}</option>
-                    `;    
+                    `;
                 } else {
                     select_jht += `
                         <option value='${value}'>${jht.nama}</option>
@@ -278,7 +275,7 @@
             <input type='hidden' name='produk_id_old' value=${produk.id}>
             <input type='hidden' name='spk_produk_id' value=${spk_item.id}>
         `;
-        
+
     }
 
     pilih_variasi += `
@@ -293,7 +290,7 @@
 
     select_jht += `
                 </select>
-                <span id="close_jht" class="ui-icon ui-icon-closethick justify-self-center" onclick='alternate_show(this.id, ${props_alternate_jht});'></span>        
+                <span id="close_jht" class="ui-icon ui-icon-closethick justify-self-center" onclick='alternate_show(this.id, ${props_alternate_jht});'></span>
             </div>
         </div>`;
 
@@ -304,7 +301,7 @@
     document.getElementById("div_select_ukuran").innerHTML = select_ukuran;
     document.getElementById("div_box_jht").innerHTML = box_jht;
     document.getElementById("div_select_jht").innerHTML = select_jht;
-    
+
     const available_options = ["box_jml", "box_jht", "box_ukuran", "box_ktrg"];
 
     /*

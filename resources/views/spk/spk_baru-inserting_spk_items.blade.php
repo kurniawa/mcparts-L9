@@ -57,25 +57,25 @@
     </div>
 
     <div id="divAddItems" class="h-9em position-relative mt-1em">
-        <a href="/spk/inserting_varia" class="productType position-absolute top-0 left-50 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
+        <a href="/spk/inserting-varia" class="productType position-absolute top-0 left-50 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
             <span class="font-size-0_8em text-center fw-bold">SJ<br>Varia</span>
         </a>
-        <a href="/spk/inserting_kombi" class="productType position-absolute top-1em left-35 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
+        <a href="/spk/inserting-kombi" class="productType position-absolute top-1em left-35 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
             <span class="font-size-0_8em text-center fw-bold">SJ<br>Kombi</span>
         </a>
-        <a href="/spk/inserting_std" class="productType position-absolute top-1em left-65 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
+        <a href="/spk/inserting-standar" class="productType position-absolute top-1em left-65 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
             <span class="font-size-0_8em text-center fw-bold">SJ<br>Std</span>
         </a>
-        <a href="/spk/inserting_tankpad" class="productType position-absolute top-5em left-30 transform-translate--50_0 circle-L bg-color-soft-red grid-1-auto justify-items-center">
+        <a href="/spk/inserting-tankpad" class="productType position-absolute top-5em left-30 transform-translate--50_0 circle-L bg-color-soft-red grid-1-auto justify-items-center">
             <span class="font-size-0_8em text-center fw-bold">Tank<br>Pad</span>
         </a>
-        <a href="/spk/inserting_busastang" class="productType position-absolute top-5em left-70 transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center">
+        <a href="/spk/inserting-busastang" class="productType position-absolute top-5em left-70 transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center">
             <span class="font-size-0_8em text-center fw-bold">Busa<br>Stang</span>
         </a>
-        <a href="/spk/inserting_spjap" class="productType position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:30%">
+        <a href="/spk/inserting-tspjap" class="productType position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:30%">
             <span class="font-size-0_8em text-center fw-bold">T.SP<br>Jap</span>
         </a>
-        <a href="/spk/inserting_stiker" class="productType position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:70%">
+        <a href="/spk/inserting-stiker" class="productType position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:70%">
             <span class="font-size-0_8em text-center fw-bold">Stiker</span>
         </a>
         <div style="height:50vh;visibility:hidden;"></div>

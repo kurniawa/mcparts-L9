@@ -2,9 +2,11 @@
     const mode = {!! json_encode($mode, JSON_HEX_TAG) !!};
     const tipe = {!! json_encode($tipe, JSON_HEX_TAG) !!};
     const tankpads = {!! json_encode($tankpads, JSON_HEX_TAG) !!};
-    const att_tp = {!! json_encode($att_tp, JSON_HEX_TAG) !!};
-    console.log(tankpads);
-    console.log(tankpads);
+
+    if (show_console) {
+        console.log('tankpads:');
+        console.log(tankpads);
+    }
 
     document.getElementById('container_property_spk_item').innerHTML = `
         <div id='div_pilih_tp'></div>
@@ -53,7 +55,7 @@
         for (let i = 0; i < tankpads.length; i++) {
             if (tankpads[i].id === produk_props.tankpad_id) {
                 document.getElementById('tankpad').value = tankpads[i].label;
-                document.getElementById('tankpad_id').value = tankpads[i].id; 
+                document.getElementById('tankpad_id').value = tankpads[i].id;
                 document.getElementById('tankpad_harga').value = tankpads[i].harga;
             }
         }

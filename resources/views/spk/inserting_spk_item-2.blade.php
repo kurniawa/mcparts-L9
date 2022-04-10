@@ -1,8 +1,8 @@
 @extends('layouts/main_layout')
 
 @section('content')
-    
-<form action="/spk/inserting_item-db" method="POST" id="form_spk_item" class="m-1em" name="form_spk_item">
+
+<form action="/spk/{{ $link_insert_db }}" method="POST" id="form_spk_item" class="m-1em" name="form_spk_item">
 @csrf
     <div>
         <h2 id="judul"></h2>
@@ -24,6 +24,11 @@
         </div>
 
     </div>
+
+    @error('jumlah')
+        <div class='invalid-feedback'>{{ $message }}</div>
+    @enderror
+
     <div class="position-fixed bottom-0_5em w-calc-100-2em">
         <button type="submit" id="bottomDiv" class="btn-warning-full grid-1-auto">
 
@@ -89,14 +94,14 @@
 @elseif($tipe === 'varia')
     @include('spk.js_editing_f_detail_varia')
 
-@elseif($tipe === 'spjap')
-@include('spk.js_editing_f_detail_spjap')
+@elseif($tipe === 'tspjap')
+@include('spk.js_editing_f_detail_tspjap')
     {{-- @if ($mode === 'edit')
     @else
-    @include('spk.js_inserting_spjap')
+    @include('spk.js_inserting_tspjap')
     @endif --}}
-    
-@elseif($tipe === 'std')
+
+@elseif($tipe === 'standar')
     {{-- @include('spk.js_inserting_std') --}}
     @include('spk.js_editing_f_detail_std')
 
@@ -141,7 +146,7 @@
             } else if (props.type === 'select') {
                 console.log('opt_to_reset:');
                 console.log(props.opt_to_reset);
-                document.getElementById(props.opt_to_reset).selectedIndex = 0;   
+                document.getElementById(props.opt_to_reset).selectedIndex = 0;
             }
 
         }

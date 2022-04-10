@@ -15,8 +15,8 @@ class Tspjap extends Model
     public function label_tspjaps()
     {
         $tspjap_terbaru = DB::table('tspjap_bahan_hargas')
-            ->selectRaw('id, tspjap_id, harga, tipe_bahan, MAX(created_at)')
-            ->groupBy('tspjap_id', 'tipe_bahan');
+            ->select('id', 'tspjap_id', 'harga', 'tipe_bahan', DB::raw('MAX(created_at)'))
+            ->groupBy('id', 'tspjap_id', 'harga', 'tipe_bahan', 'created_at');
 
         $label_tspjaps = DB::table('tspjaps')
             ->select('tspjaps.id', 'tspjaps.nama AS label', 'tspjaps.nama AS value', 'tspjap_terbaru.harga', 'tspjap_terbaru.tipe_bahan', 'tspjaps.ktrg')
