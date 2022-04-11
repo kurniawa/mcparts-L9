@@ -15,8 +15,8 @@ class Stiker extends Model
     public function label_stiker()
     {
         $stiker_terbaru = DB::table('stiker_hargas')
-            ->selectRaw('id, stiker_id, harga, MAX(created_at)')
-            ->groupBy('stiker_id');
+            ->select('id', 'stiker_id', 'harga', DB::raw('MAX(created_at)'))
+            ->groupBy('id', 'stiker_id', 'harga', 'created_at');
 
         $label_stiker = DB::table('stikers')
             ->select('stikers.id', 'stikers.nama AS label', 'stikers.nama AS value', 'stiker_terbaru.harga', 'stikers.ktrg')
