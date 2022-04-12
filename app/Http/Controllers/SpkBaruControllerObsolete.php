@@ -229,8 +229,6 @@ class SpkBaruController extends Controller
 
         $ada_error = true;
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
-        $success_messages = array();
-        $error_messages = array();
         $class_div_pesan_db = 'alert-danger';
 
         if ($show_hidden_dump) {
@@ -286,6 +284,117 @@ class SpkBaruController extends Controller
             // dump($produk);
             // dump($produk['id']);
             // MENENTUKAN PROPERTIES UNTUK PRODUK BARU DAN MENYEDERHANAKAN DATA PRODUK
+            // $bahan_id = $spk_item[$i]->bahan_id;
+            // $variasi_id = $spk_item[$i]->variasi_id;
+            // $ukuran_id = $spk_item[$i]->ukuran_id;
+            // $jahit_id = $spk_item[$i]->jahit_id;
+            // $standar_id = $spk_item[$i]->standar_id;
+            // $kombi_id = $spk_item[$i]->kombi_id;
+            // $busastang_id = $spk_item[$i]->busastang_id;
+            // $tankpad_id = $spk_item[$i]->tankpad_id;
+            // $tspjap_id = $spk_item[$i]->tspjap_id;
+            // $tipe_bahan = $spk_item[$i]->tipe_bahan;
+            // $stiker_id = $spk_item[$i]->stiker_id;
+
+            if ($spk_item[$i]->tipe === 'varia') {
+                $properties = [
+                    'bahan_id' => $spk_item[$i]->bahan_id,
+                    'variasi_id' => $spk_item[$i]->variasi_id,
+                    'ukuran_id' => $spk_item[$i]->ukuran_id,
+                    'jahit_id' => $spk_item[$i]->jahit_id,
+                ];
+                $spk_item_simple[$i] = [
+                    // 'bahan' => $spk_item[$i]->bahan,
+                    'bahan_id' => $spk_item[$i]->bahan_id,
+                    'variasi_id' => $spk_item[$i]->variasi_id,
+                    'ukuran_id' => $spk_item[$i]->ukuran_id,
+                    'jahit_id' => $spk_item[$i]->jahit_id,
+                    'nama' => $spk_item[$i]->nama,
+                    'nama_nota' => $spk_item[$i]->nama_nota,
+                    'jumlah' => $spk_item[$i]->jumlah,
+                    'harga' => $spk_item[$i]->harga,
+                    'ktrg' => $spk_item[$i]->ktrg,
+                ];
+            } elseif ($spk_item[$i]->tipe === 'kombinasi') {
+                $properties = [
+                    'kombi_id' => $spk_item[$i]->kombi_id,
+                ];
+                $spk_item_simple[$i] = [
+                    'kombi_id' => $spk_item[$i]->kombi_id,
+                    'nama' => $spk_item[$i]->nama,
+                    'nama_nota' => $spk_item[$i]->nama_nota,
+                    'harga' => $spk_item[$i]->harga,
+                    'jumlah' => $spk_item[$i]->jumlah,
+                    'ktrg' => $spk_item[$i]->ktrg,
+                ];
+            } elseif ($spk_item[$i]->tipe === 'std') {
+                $properties = [
+                    'standar_id' => $spk_item[$i]->standar_id,
+                ];
+                $spk_item_simple[$i] = [
+                    'standar_id' => $spk_item[$i]->standar_id,
+                    'nama' => $spk_item[$i]->nama,
+                    'nama_nota' => $spk_item[$i]->nama_nota,
+                    'harga' => $spk_item[$i]->harga,
+                    'jumlah' => $spk_item[$i]->jumlah,
+                    'ktrg' => $spk_item[$i]->ktrg,
+                ];
+            } elseif ($spk_item[$i]->tipe === 'tankpad') {
+                $properties = [
+                    'tankpad_id' => $spk_item[$i]->tankpad_id,
+                ];
+                $spk_item_simple[$i] = [
+                    'tankpad_id' => $spk_item[$i]->tankpad_id,
+                    'nama' => $spk_item[$i]->nama,
+                    'nama_nota' => $spk_item[$i]->nama_nota,
+                    'harga' => $spk_item[$i]->harga,
+                    'jumlah' => $spk_item[$i]->jumlah,
+                    'ktrg' => $spk_item[$i]->ktrg,
+                ];
+            } elseif ($spk_item[$i]->tipe === 'busastang') {
+                $properties = [
+                    'busastang_id' => $spk_item[$i]->busastang_id,
+                ];
+                $spk_item_simple[$i] = [
+                    'busastang_id' => $spk_item[$i]->busastang_id,
+                    'nama' => $spk_item[$i]->nama,
+                    'nama_nota' => $spk_item[$i]->nama_nota,
+                    'harga' => $spk_item[$i]->harga,
+                    'jumlah' => $spk_item[$i]->jumlah,
+                    'ktrg' => $spk_item[$i]->ktrg,
+                ];
+            } elseif ($spk_item[$i]->tipe === 'tspjap') {
+                $properties = [
+                    'tspjap_id' => $spk_item[$i]->tspjap_id,
+                    'tipe_bahan' => $spk_item[$i]->tipe_bahan,
+                ];
+                if ($spk_item[$i]->bahan_id !== null) {
+                    $arr_to_push = [
+                        'bahan_id' => $spk_item[$i]->bahan_id,
+                    ];
+                    array_push($properties, $arr_to_push);
+                }
+                $spk_item_simple[$i] = [
+                    'tspjap_id' => $spk_item[$i]->tspjap_id,
+                    'nama' => $spk_item[$i]->nama,
+                    'nama_nota' => $spk_item[$i]->nama_nota,
+                    'harga' => $spk_item[$i]->harga,
+                    'jumlah' => $spk_item[$i]->jumlah,
+                    'ktrg' => $spk_item[$i]->ktrg,
+                ];
+            } elseif ($spk_item[$i]->tipe === 'stiker') {
+                $properties = [
+                    'stiker_id' => $spk_item[$i]->stiker_id,
+                ];
+                $spk_item_simple[$i] = [
+                    'stiker_id' => $spk_item[$i]->stiker_id,
+                    'nama' => $spk_item[$i]->nama,
+                    'nama_nota' => $spk_item[$i]->nama_nota,
+                    'harga' => $spk_item[$i]->harga,
+                    'jumlah' => $spk_item[$i]->jumlah,
+                    'ktrg' => $spk_item[$i]->ktrg,
+                ];
+            }
 
             // APABILA EXIST MAKA PERLU DI UPDATE HARGA LAMA NYA.
             $produk = Produk::where('nama', '=', $spk_item[$i]->nama)->first();
@@ -293,9 +402,6 @@ class SpkBaruController extends Controller
             // dd($produk);
             if ($produk !== null) {
                 $produk_harga = ProdukHarga::latest()->where('produk_id', '=', $produk['id'])->first();
-
-                $produk_id = $produk_harga['produk_id'];
-
                 if ($produk_harga['harga'] < $spk_item[$i]->harga) {
                     // uncomment
 
@@ -312,6 +418,9 @@ class SpkBaruController extends Controller
                     // uncomment
                     // dd($produk_harga_updated['produk_id']);
                     // $produk_id = $produk_harga_terbaru['id'];
+                } else {
+                    // dd($produk_harga['produk_id']);
+                    $produk_id = $produk_harga['produk_id'];
                 }
 
                 array_push($d_produk_id, $produk_id);
@@ -321,33 +430,21 @@ class SpkBaruController extends Controller
                 // uncomment
 
                 if ($run_db) {
-                    $produk = Produk::create([
+                    $produk_id = DB::table('produks')->insertGetId([
                         'tipe' => $spk_item[$i]->tipe,
-                        'bahan_id' => $spk_item[$i]->bahan_id,
-                        'variasi_id' => $spk_item[$i]->variasi_id,
-                        'ukuran_id' => $spk_item[$i]->ukuran_id,
-                        'jahit_id' => $spk_item[$i]->jahit_id,
-                        'standar_id' => $spk_item[$i]->standar_id,
-                        'kombi_id' => $spk_item[$i]->kombi_id,
-                        'busastang_id' => $spk_item[$i]->busastang_id,
-                        'tankpad_id' => $spk_item[$i]->tankpad_id,
-                        'tspjap_id' => $spk_item[$i]->tspjap_id,
-                        'tipe_bahan' => $spk_item[$i]->tipe_bahan,
-                        'stiker_id' => $spk_item[$i]->stiker_id,
+                        'properties' => json_encode($properties),
                         'nama' => $spk_item[$i]->nama,
                         'nama_nota' => $spk_item[$i]->nama_nota,
                     ]);
                     DB::table('produk_hargas')->insert([
-                        'produk_id' => $produk['id'],
+                        'produk_id' => $produk_id,
                         'harga' => $spk_item[$i]->harga,
                     ]);
-
-                    array_push($success_messages, "SUCCESS: Item $produk[nama] merupakan produk baru dan berhasil di tambahkan ke dalam database.");
                 }
 
                 // echo ('produk_id: ');
                 // dd($produk_id);
-                array_push($d_produk_id, $produk['id']);
+                array_push($d_produk_id, $produk_id);
 
                 // uncomment
 
@@ -374,6 +471,7 @@ class SpkBaruController extends Controller
                 'reseller_id' => $reseller_id,
                 'status' => 'PROSES',
                 'judul' => $post['judul'],
+                // 'data_spk_item' => $string_spk_item_simple,
                 'jumlah_total' => $jumlah_total,
                 'harga_total' => $harga_total,
             ]);
@@ -412,27 +510,32 @@ class SpkBaruController extends Controller
                 ]);
 
                 $spk_produk = SpkProduk::find($spk_produk_id);
-            }
-
-            if ($j >= count($spk_item)) {
-                array_push($success_messages, 'SUCCESS: Inserting all item in spk_produk_id.');
+                $spk_item_simple[$j]['spk_produk_id'] = $spk_produk_id;
+                $spk_item_simple[$j]['status'] = 'PROSES';
+                // $spk_item_simple[$j]['status'] = $spk_produk['status'];
+                // $spk_item_simple[$j]['created_at'] = $spk_produk['created_at'];
+                // $spk_item_simple[$j]['updated_at'] = $spk_produk['updated_at'];
             }
         }
+        $string_spk_item_simple = json_encode($spk_item_simple);
+        dump('string_spk_item_simple');
+        dump($string_spk_item_simple);
 
         if ($run_db) {
-            DB::table('temp_spk_produks')->truncate();
-            array_push($success_messages, 'SUCCESS: Truncating all item in temp_spk_produks.');
+            $spk = Spk::find($spk_id);
+            $spk->data_spk_item = $string_spk_item_simple;
+            $spk->save();
         }
 
+        DB::table('temp_spk_produks')->truncate();
+
+        // uncomment
+
+        // $request->session()->put('reload_page', true);
         $data = [
             'spk_item' => $spk_item,
             'spks' => $post,
-            'go_back_number' => -3,
-            'pesan_db' => $pesan_db,
-            'success_messages' => $success_messages,
-            'error_messages' => $error_messages,
-            'ada_error' => $ada_error,
-            'class_div_pesan_db' => $class_div_pesan_db,
+            'go_back_number' => -3
         ];
 
         return view('layouts.go-back-page', $data);

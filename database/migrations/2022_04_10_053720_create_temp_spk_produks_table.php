@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignId('kombi_id')->nullable();
             $table->foreignId('busastang_id')->nullable();
             $table->foreignId('tankpad_id')->nullable();
-            $table->foreignId('spjap_id')->nullable();
+            $table->foreignId('tspjap_id')->nullable();
             $table->string('tipe_bahan', 5)->nullable();
             $table->foreignId('stiker_id')->nullable();
             $table->string('nama');

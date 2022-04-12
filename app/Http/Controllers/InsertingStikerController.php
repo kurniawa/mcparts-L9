@@ -75,7 +75,7 @@ class InsertingStikerController extends Controller
             $ktrg = $post['ktrg'];
         }
 
-        $nama = "TP $post[stiker]";
+        $nama = $post['stiker'];
         $nama_nota = $nama;
         $harga = $post['stiker_harga'];
 
