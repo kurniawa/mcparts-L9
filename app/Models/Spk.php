@@ -19,7 +19,8 @@ class Spk extends Model
     {
         return $this->belongsToMany(Produk::class, 'spk_produks');
     }
-    public function spk_item()
+
+    public function spk_produks()
     {
         return $this->hasMany(SpkProduk::class);
     }

@@ -16,19 +16,39 @@ class ProdukSeeder extends Seeder
      */
     public function run()
     {
+        // $produk = [
+        //     ['tipe' => 'varia', 'properties' => '{"bahan_id":2,"variasi_id":1,"ukuran_id":1,"jahit_id":2}', 'nama' => 'BigDot(MC) Polos uk.JB 93x53 + jht.JB', 'nama_nota' => 'SJ BigDot(MC) Polos uk.JB + jht.JB', 'tipe_packing' => 'colly', 'aturan_packing' => 150],
+        //     ['tipe' => 'kombi', 'properties' => '{"kombi_id":6}', 'nama' => 'Motif Sixpack 2 Warna + jht.Univ', 'nama_nota' => 'SJ Motif Sixpack 2 Warna + jht.Univ', 'tipe_packing' => 'colly', 'aturan_packing' => 100],
+        //     ['tipe' => 'std', 'properties' => '{"standar_id":20}', 'nama' => 'Standar Supra Fit', 'nama_nota' => 'SJ Standar Supra Fit', 'tipe_packing' => 'colly', 'aturan_packing' => 150],
+        //     ['tipe' => 'tankpad', 'properties' => '{"tankpad_id":5}', 'nama' => 'TP Fox Dimensi', 'nama_nota' => 'TP Fox Dimensi', 'tipe_packing' => 'dus', 'aturan_packing' => 500],
+        //     ['tipe' => 'busastang', 'properties' => '{"busastang_id":1}', 'nama' => 'Busa-Stang', 'nama_nota' => 'Busa-Stang', 'tipe_packing' => 'bal', 'aturan_packing' => 72],
+        //     ['tipe' => 'spjap', 'properties' => '{"spjap_id":2, "tipe_bahan":"A"}', 'nama' => 'Bahan(A) T.Sixpack + Busa uk.JB + jht.JB', 'nama_nota' => 'SJ Bahan(A) T.Sixpack + Busa uk.JB + jht.JB', 'tipe_packing' => 'colly', 'aturan_packing' => 100],
+        //     ['tipe' => 'stiker', 'properties' => '{"stiker_id":1}', 'nama' => 'Stiker Api', 'nama_nota' => 'Stiker Api', 'tipe_packing' => null, 'aturan_packing' => null],
+        // ];
         $produk = [
-            ['tipe' => 'varia', 'properties' => '{"bahan_id":2,"variasi_id":1,"ukuran_id":1,"jahit_id":2}', 'nama' => 'BigDot(MC) Polos uk.JB 93x53 + jht.JB', 'nama_nota' => 'SJ BigDot(MC) Polos uk.JB + jht.JB', 'tipe_packing' => 'colly', 'aturan_packing' => 150],
-            ['tipe' => 'kombi', 'properties' => '{"kombi_id":6}', 'nama' => 'Motif Sixpack 2 Warna + jht.Univ', 'nama_nota' => 'SJ Motif Sixpack 2 Warna + jht.Univ', 'tipe_packing' => 'colly', 'aturan_packing' => 100],
-            ['tipe' => 'std', 'properties' => '{"standar_id":20}', 'nama' => 'Standar Supra Fit', 'nama_nota' => 'SJ Standar Supra Fit', 'tipe_packing' => 'colly', 'aturan_packing' => 150],
-            ['tipe' => 'tankpad', 'properties' => '{"tankpad_id":5}', 'nama' => 'TP Fox Dimensi', 'nama_nota' => 'TP Fox Dimensi', 'tipe_packing' => 'dus', 'aturan_packing' => 500],
-            ['tipe' => 'busastang', 'properties' => '{"busastang_id":1}', 'nama' => 'Busa-Stang', 'nama_nota' => 'Busa-Stang', 'tipe_packing' => 'bal', 'aturan_packing' => 72],
-            ['tipe' => 'spjap', 'properties' => '{"spjap_id":2, "tipe_bahan":"A"}', 'nama' => 'Bahan(A) T.Sixpack + Busa uk.JB + jht.JB', 'nama_nota' => 'SJ Bahan(A) T.Sixpack + Busa uk.JB + jht.JB', 'tipe_packing' => 'colly', 'aturan_packing' => 100],
-            ['tipe' => 'stiker', 'properties' => '{"stiker_id":1}', 'nama' => 'Stiker Api', 'nama_nota' => 'Stiker Api', 'tipe_packing' => null, 'aturan_packing' => null],
+            ['tipe' => 'varia', 'bahan_id' => 2, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 2, 'standar_id' => null, 'kombi_id' => null, 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null, 'nama' => 'BigDot(MC) Polos uk.JB 93x53 + jht.JB', 'nama_nota' => 'SJ BigDot(MC) Polos uk.JB + jht.JB', 'tipe_packing' => 'colly', 'aturan_packing' => 150],
+            ['tipe' => 'kombi', 'bahan_id' => null, 'variasi_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => 6, 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null, 'nama' => 'Motif Sixpack 2 Warna + jht.Univ', 'nama_nota' => 'SJ Motif Sixpack 2 Warna + jht.Univ', 'tipe_packing' => 'colly', 'aturan_packing' => 100],
+            ['tipe' => 'std', 'bahan_id' => null, 'variasi_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => 20, 'kombi_id' => null, 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null, 'nama' => 'Standar Supra Fit', 'nama_nota' => 'SJ Standar Supra Fit', 'tipe_packing' => 'colly', 'aturan_packing' => 150],
+            ['tipe' => 'tankpad', 'bahan_id' => null, 'variasi_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null, 'busastang_id' => null, 'tankpad_id' => 5, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null, 'nama' => 'TP Fox Dimensi', 'nama_nota' => 'TP Fox Dimensi', 'tipe_packing' => 'dus', 'aturan_packing' => 500],
+            ['tipe' => 'busastang', 'bahan_id' => null, 'variasi_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null, 'busastang_id' => 1, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null, 'nama' => 'Busa-Stang', 'nama_nota' => 'Busa-Stang', 'tipe_packing' => 'bal', 'aturan_packing' => 72],
+            ['tipe' => 'spjap', 'bahan_id' => null, 'variasi_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null, 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => 2, 'tipe_bahan' => 'A', 'stiker_id' => null, 'nama' => 'Bahan(A) T.Sixpack + Busa uk.JB + jht.JB', 'nama_nota' => 'SJ Bahan(A) T.Sixpack + Busa uk.JB + jht.JB', 'tipe_packing' => 'colly', 'aturan_packing' => 100],
+            ['tipe' => 'stiker', 'bahan_id' => null, 'variasi_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null, 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => 1, 'nama' => 'Stiker Api', 'nama_nota' => 'Stiker Api', 'tipe_packing' => null, 'aturan_packing' => null],
         ];
         for ($i = 0; $i < count($produk); $i++) {
             Produk::create([
                 'tipe' => $produk[$i]['tipe'],
-                'properties' => $produk[$i]['properties'],
+                // 'properties' => $produk[$i]['properties'],
+                'bahan_id' => $produk[$i]['bahan_id'],
+                'variasi_id' => $produk[$i]['variasi_id'],
+                'ukuran_id' => $produk[$i]['ukuran_id'],
+                'jahit_id' => $produk[$i]['jahit_id'],
+                'standar_id' => $produk[$i]['standar_id'],
+                'kombi_id' => $produk[$i]['kombi_id'],
+                'busastang_id' => $produk[$i]['busastang_id'],
+                'tankpad_id' => $produk[$i]['tankpad_id'],
+                'tspjap_id' => $produk[$i]['tspjap_id'],
+                'tipe_bahan' => $produk[$i]['tipe_bahan'],
+                'stiker_id' => $produk[$i]['stiker_id'],
                 'nama' => $produk[$i]['nama'],
                 'nama_nota' => $produk[$i]['nama_nota'],
                 'tipe_packing' => $produk[$i]['tipe_packing'],

@@ -34,8 +34,11 @@ class SpkController extends Controller
         $pelanggans = array();
         $daerahs = array();
         $resellers = array();
+        $arr_spk_produks = array();
+        $arr_produks = array();
         for ($i = 0; $i < count($spks); $i++) {
-            $pelanggan = Spk::find($spks[$i]->id)->pelanggan;
+            $spk = Spk::find($spks[$i]->id);
+            $pelanggan = $spk->pelanggan;
             $daerah = Daerah::find($pelanggan['daerah_id']);
             if ($spks[$i]->reseller_id !== null && $spks[$i]->reseller_id !== '') {
                 $reseller = Pelanggan::find($spks[$i]->reseller_id);
@@ -43,6 +46,10 @@ class SpkController extends Controller
             } else {
                 array_push($resellers, 'none');
             }
+            $produks = $spk->produks;
+            $spk_produks = $spk->spk_produks;
+            array_push($arr_produks, $produks);
+            array_push($arr_spk_produks, $produks);
             array_push($pelanggans, $pelanggan);
             array_push($daerahs, $daerah);
         }
@@ -52,6 +59,8 @@ class SpkController extends Controller
             'pelanggans' => $pelanggans,
             'daerahs' => $daerahs,
             'resellers' => $resellers,
+            'arr_produks' => $arr_produks,
+            'arr_spk_produks' => $arr_spk_produks,
         ];
 
         return view('spk.spks', $data);

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('reseller_id')->nullable()->constrained('pelanggans')->onDelete('NO ACTION');
             $table->string('status', 50);
             $table->string('judul')->nullable();
-            $table->text('data_spk_item');
+            // $table->text('data_spk_item');
             $table->integer('jumlah_total');
             $table->integer('harga_total');
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('NO ACTION');

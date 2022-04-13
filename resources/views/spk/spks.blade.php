@@ -36,6 +36,8 @@ const spks = {!! json_encode($spks, JSON_HEX_TAG) !!};
 const pelanggans = {!! json_encode($pelanggans, JSON_HEX_TAG) !!};
 const daerahs = {!! json_encode($daerahs, JSON_HEX_TAG) !!};
 const resellers = {!! json_encode($resellers, JSON_HEX_TAG) !!};
+const arr_produks = {!! json_encode($arr_produks, JSON_HEX_TAG) !!};
+const arr_spk_produks = {!! json_encode($arr_spk_produks, JSON_HEX_TAG) !!};
 
 if (show_console) {
     console.log("spks:");
@@ -46,6 +48,8 @@ if (show_console) {
     console.log(daerahs);
     console.log("resellers");
     console.log(resellers);
+    console.log("arr_spk_produks");
+    console.log(arr_spk_produks);
 }
 
 if (spks == undefined || spks.length == 0) {
@@ -128,16 +132,16 @@ if (spks == undefined || spks.length == 0) {
         // HTML Item each SPK
         var htmlItemsEachSPK = '';
 
-        const spk_item = JSON.parse(spks[i].data_spk_item);
-        console.log('spk_item');
-        console.log(spk_item);
+        // const spk_item = JSON.parse(spks[i].data_spk_item);
+        // console.log('spk_item');
+        // console.log(spk_item);
 
-        for (var k = 0; k < spk_item.length; k++) {
-            var textContent_jumlah = `${spk_item[k].jumlah}`;
+        for (var k = 0; k < arr_spk_produks.length; k++) {
+            var textContent_jumlah = `${arr_spk_produks[k].jumlah}`;
             console.log('define textContent_jumlah');
-            if (typeof spk_item[k].deviasi_jml !== 'undefined') {
+            if (typeof arr_spk_produks[k].deviasi_jml !== 'undefined') {
                 console.log('deviasi_jml is defined!');
-                const deviasi_jml = spk_item[k].deviasi_jml;
+                const deviasi_jml = arr_spk_produks[k].deviasi_jml;
                 if (deviasi_jml < 0) {
                     textContent_jumlah += ` ${deviasi_jml}`;
                 } else if (deviasi_jml > 0) {
