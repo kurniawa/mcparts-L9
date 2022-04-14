@@ -19,6 +19,7 @@ class SpkBaruController extends Controller
 {
     public function index()
     {
+        echo "<img style='position:fixed;width:5rem;top:20%;left:50%;transform:translate(-50%,-50%);' id='loading-progress-icon2' src='/img/icons/loading/gear_loading-violet.gif' alt=''>";
         //**SETTINGAN AWAL PAGE NETRAL TANPA INSERT ATAU UPDATE DB */
         $load_num = SiteSettings::loadNumToZero();
 
@@ -220,6 +221,15 @@ class SpkBaruController extends Controller
 
     public function proceed_spk(Request $request)
     {
+        // #loading-progress-icon {
+        //     position: fixed;
+        //     width: 5rem;
+        //     top: 20%;
+        //     left: 50%;
+        //     transform: translate(-50%, -50%);
+        // }
+        // echo "<img style='position:fixed;width:5rem;top:20%;left:50%;transform:translate(-50%,-50%);' id='loading-progress-icon' src='/img/icons/loading/gear_loading-violet.gif' alt=''>";
+
         $load_num = SiteSetting::find(1);
 
         $show_dump = true;
@@ -422,6 +432,8 @@ class SpkBaruController extends Controller
         if ($run_db) {
             DB::table('temp_spk_produks')->truncate();
             array_push($success_messages, 'SUCCESS: Truncating all item in temp_spk_produks.');
+
+            $pesan_db = "SUCCESS: SPK baru telah dibuat. Semua item telah diinput ke SPK tersebut dan temp_spk_produks telah di truncate";
         }
 
         $data = [

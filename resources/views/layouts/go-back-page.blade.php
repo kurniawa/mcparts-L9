@@ -5,6 +5,18 @@
 
 <div class="alert {{ $class_div_pesan_db }}" role="alert">{{ $pesan_db }}</div>
 
+@if (isset($error_messages))
+@foreach ($error_messages as $error_message)
+    <div class="alert alert-danger" role="alert">{{ $error_message }}</div>
+@endforeach
+@endif
+
+@if (isset($success_messages))
+@foreach ($success_messages as $success_message)
+    <div class="alert alert-success" role="alert">{{ $success_message }}</div>
+@endforeach
+@endif
+
 <div class="mt-2em text-center">
     <button id='backToSPK' class="btn-1 d-inline-block bg-color-orange-1" onclick="windowHistoryGo({{ $go_back_number }});">Kembali</button>
 </div>

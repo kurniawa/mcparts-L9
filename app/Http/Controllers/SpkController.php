@@ -20,6 +20,8 @@ class SpkController extends Controller
      */
     public function index()
     {
+        echo "<img style='position:fixed;width:5rem;top:20%;left:50%;transform:translate(-50%,-50%);' id='loading-progress-icon2' src='/img/icons/loading/gear_loading-violet.gif' alt=''>";
+
         //**SETTINGAN AWAL PAGE NETRAL TANPA INSERT ATAU UPDATE DB */
         $load_num = SiteSettings::loadNumToZero();
 
@@ -49,7 +51,7 @@ class SpkController extends Controller
             $produks = $spk->produks;
             $spk_produks = $spk->spk_produks;
             array_push($arr_produks, $produks);
-            array_push($arr_spk_produks, $produks);
+            array_push($arr_spk_produks, $spk_produks);
             array_push($pelanggans, $pelanggan);
             array_push($daerahs, $daerah);
         }
@@ -64,6 +66,40 @@ class SpkController extends Controller
         ];
 
         return view('spk.spks', $data);
+    }
+
+    public function spk_detail(Request $request)
+    {
+        $load_num = SiteSettings::loadNumToZero();
+
+        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $show_hidden_dump = false;
+
+        $get = $request->query();
+
+        if ($show_dump) {
+            dump('$get:', $get);
+        }
+
+        $spk = Spk::find($get['spk_id']);
+        $pelanggan = Pelanggan::find($spk['pelanggan_id']);
+        $reseller = null;
+        if ($spk['reseller_id'] !== null) {
+            $reseller = Pelanggan::find($spk['reseller_id']);
+        }
+        $produks = $spk->produks;
+        $spk_produks = $spk->spk_produks;
+
+        $data = [
+            'spk' => $spk,
+            'pelanggan' => $pelanggan,
+            'reseller' => $reseller,
+            'spk_produks' => $spk_produks,
+            'produks' => $produks,
+            'my_csrf' => csrf_token(),
+        ];
+
+        return view('spk.spk-detail', $data);
     }
 
     /**

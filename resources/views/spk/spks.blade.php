@@ -48,6 +48,8 @@ if (show_console) {
     console.log(daerahs);
     console.log("resellers");
     console.log(resellers);
+    console.log("arr_produks");
+    console.log(arr_produks);
     console.log("arr_spk_produks");
     console.log(arr_spk_produks);
 }
@@ -136,12 +138,18 @@ if (spks == undefined || spks.length == 0) {
         // console.log('spk_item');
         // console.log(spk_item);
 
-        for (var k = 0; k < arr_spk_produks.length; k++) {
-            var textContent_jumlah = `${arr_spk_produks[k].jumlah}`;
+        for (var k = 0; k < arr_spk_produks[i].length; k++) {
+            var textContent_jumlah = `${arr_spk_produks[i][k].jumlah}`;
             console.log('define textContent_jumlah');
-            if (typeof arr_spk_produks[k].deviasi_jml !== 'undefined') {
+            const deviasi_jml = arr_spk_produks[i][k].deviasi_jml;
+
+            // if (show_console) {
+            //     console.log('deviasi_jml:');
+            //     console.log(deviasi_jml);
+            // }
+
+            if (deviasi_jml !== 0) {
                 console.log('deviasi_jml is defined!');
-                const deviasi_jml = arr_spk_produks[k].deviasi_jml;
                 if (deviasi_jml < 0) {
                     textContent_jumlah += ` ${deviasi_jml}`;
                 } else if (deviasi_jml > 0) {
@@ -149,12 +157,12 @@ if (spks == undefined || spks.length == 0) {
                 }
             }
             htmlItemsEachSPK = htmlItemsEachSPK +
-                `<div>${spk_item[k].nama}</div><div>${textContent_jumlah}</div>`;
+                `<div>${arr_produks[i][k].nama}</div><div>${textContent_jumlah}</div>`;
         }
 
 
         var htmlDaftarSPK =
-            `<form method='GET' action='/spk/detail_spk' class='pb-0_5em pt-0_5em bb-1px-solid-grey'>
+            `<form method='GET' action='/spk/spk-detail' class='pb-0_5em pt-0_5em bb-1px-solid-grey'>
                 <div class='grid-5-9_45_25_18_5'>
                 <div class='circle-medium grid-1-auto justify-items-center font-weight-bold' style='background-color: ${randomColor()}'>${pelanggans[i].initial}</div>
                 <div>
@@ -172,10 +180,10 @@ if (spks == undefined || spks.length == 0) {
                 <div class='justify-self-right font-size-1_2em' style="color:green;font-weight:bold;">${spks[i].jumlah_total}</div>
                 <div class='justify-self-right' style='color:grey'>Jumlah</div>
                 </div>
-                <div class='justify-self-center'><img class='w-0_7em' src='img/icons/dropdown.svg' onclick='elementToToggle(${element_to_toggle});'></div>
+                <div id='divDropdown-${i}' class='justify-self-center'><img class='w-0_7em' src='img/icons/dropdown.svg' onclick='showDropdown(${i});'></div>
                 </div>` +
             // DROPDOWN
-            `<div id='divSPKItems-${i}' class='p-0_5em b-1px-solid-grey' style='display: none'>
+            `<div id='divDetailDropdown-${i}' class='p-0_5em b-1px-solid-grey' style='display: none'>
             <div class='font-weight-bold color-grey'>No. ${spks[i].no_spk}</div>
             <input type='hidden' name='spk_id' value=${spks[i].id}>
             <div class='grid-2-auto'>${htmlItemsEachSPK}</div>

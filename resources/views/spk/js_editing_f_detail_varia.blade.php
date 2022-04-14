@@ -6,6 +6,15 @@
     const ukurans = {!! json_encode($ukurans, JSON_HEX_TAG) !!};
     const jahits = {!! json_encode($jahits, JSON_HEX_TAG) !!};
 
+    if (show_console) {
+        console.log('mode:');console.log(mode);
+        console.log('tipe:');console.log(tipe);
+        console.log('bahans:');console.log(bahans);
+        console.log('varias:');console.log(varias);
+        console.log('ukurans:');console.log(ukurans);
+        console.log('jahits:');console.log(jahits);
+    }
+
     var props_alternate_ukuran = {
         btn_hide: "close_ukuran",
         btn_show: "box_ukuran",
@@ -95,7 +104,7 @@
     document.getElementById("div_ta_ktrg").innerHTML = ta_ktrg;
 
 
-    if (mode === 'SPK_BARU') {
+    if (mode === 'SPK_BARU' || mode === 'INSERTING VARIA FROM DETAIL') {
 
         /*
         Dibawah ini ada beberapa elemen yang saya set sebagai hidden, karena saya pikir pada saat

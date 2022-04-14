@@ -38,6 +38,8 @@
     </div>
     <input id="tipe" type="hidden" name="tipe">
     <input id="mode" type="hidden" name="mode">
+    {{-- Pada mode insert baru, spk_id akan bernilai null, sedangkan pada mode inserting from detail, spk_id akan diketahui --}}
+    <input id="spk_id" type="hidden" name="spk_id" value="{{ $spk_id }}">
     <div id="container_input_hidden"></div>
 </form>
 

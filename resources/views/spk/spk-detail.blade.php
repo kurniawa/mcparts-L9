@@ -1,6 +1,6 @@
 @extends('layouts.main_layout')
 @section('content')
-    
+
 <div class="header grid-2-auto">
     <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 
@@ -108,31 +108,45 @@
 </div>
 
 <div id="divAddItems" class="h-9em position-relative mt-1em">
-    <a href="/spk/inserting_varia" class="productType position-absolute top-0 left-50 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
-        <span class="font-size-0_8em text-center">SJ<br>Varia</span>
-    </a>
-    <a href="/spk/inserting_kombi" class="productType position-absolute top-1em left-35 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
-        <span class="font-size-0_8em text-center">SJ<br>Kombi</span>
-    </a>
-    <a href="/spk/inserting_std" class="productType position-absolute top-1em left-65 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
-        <span class="font-size-0_8em text-center">SJ<br>Std</span>
-    </a>
-    <a href="/spk/inserting_tankpad" class="productType position-absolute top-5em left-30 transform-translate--50_0 circle-L bg-color-soft-red grid-1-auto justify-items-center">
-        <span class="font-size-0_8em text-center">Tank<br>Pad</span>
-    </a>
-    <a href="/spk/inserting_busastang" class="productType position-absolute top-5em left-70 transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center">
-        <span class="font-size-0_8em text-center">Busa<br>Stang</span>
-    </a>
-    <a href="/spk/inserting_spjap" class="productType position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:30%">
-        <span class="font-size-0_8em text-center">T.SP<br>Jap</span>
-    </a>
-    <a href="/spk/inserting_stiker" class="productType position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:70%">
-        <span class="font-size-0_8em text-center">Stiker</span>
-    </a>
+    <form method='POST' action="/spk/inserting-varia-from-detail" class="productType grid-1-auto justify-items-center">
+        @csrf
+        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
+        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-0 left-50 transform-translate--50_0 circle-L bg-color-orange-1 ">SJ<br>Varia</button>
+    </form>
+    <form method='POST' action="/spk/inserting-kombi-from-detail" class="productType grid-1-auto justify-items-center">
+        @csrf
+        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
+        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-1em left-35 transform-translate--50_0 circle-L bg-color-orange-1">SJ<br>Kombi</button>
+    </form>
+    <form method='POST' action="/spk/inserting-standar-from-detail" class="productType grid-1-auto justify-items-center">
+        @csrf
+        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
+        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-1em left-65 transform-translate--50_0 circle-L bg-color-orange-1">SJ<br>Std</button>
+    </form>
+    <form method='POST' action="/spk/inserting-tankpad-from-detail" class="productType justify-items-center">
+        @csrf
+        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
+        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-5em left-30 transform-translate--50_0 circle-L bg-color-soft-red grid-1-auto">Tank<br>Pad</button>
+    </form>
+    <form method='POST' action="/spk/inserting-busastang-from-detail" class="productType grid-1-auto justify-items-center">
+        @csrf
+        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
+        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-5em left-70 transform-translate--50_0 circle-L bg-color-grey">Busa<br>Stang</button>
+    </form>
+    <form method='POST' action="/spk/inserting-tspjap-from-detail" class="productType grid-1-auto justify-items-center">
+        @csrf
+        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
+        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute transform-translate--50_0 circle-L bg-color-grey" style="top:10em;left:30%">T.SP<br>Jap</button>
+    </form>
+    <form method='POST' action="/spk/inserting-stiker-from-detail" class="productType grid-1-auto justify-items-center">
+        @csrf
+        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
+        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute transform-translate--50_0 circle-L bg-color-grey" style="top:10em;left:70%">Stiker</button>
+    </form>
     <div class="position-absolute top-5em left-50 transform-translate--50_0 grid-1-auto justify-items-center" onclick="toggleProductType();">
-        <div class="circle-medium bg-color-orange-2 grid-1-auto justify-items-center">
+        <button class="circle-medium bg-color-orange-2 grid-1-auto justify-items-center">
             <span class="color-white font-weight-bold font-size-1_5em">+</span>
-        </div>
+        </button>
     </div>
 
 </div>
@@ -167,21 +181,21 @@
 </style>
 
 <script>
-    const show_console = true;
     const spk = {!! json_encode($spk, JSON_HEX_TAG) !!};
     const pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
     const reseller = {!! json_encode($reseller, JSON_HEX_TAG) !!};
     const produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
-    const spk_item = {!! json_encode($spk_item, JSON_HEX_TAG) !!};
+    const spk_produks = {!! json_encode($spk_produks, JSON_HEX_TAG) !!};
     const my_csrf = {!! json_encode($my_csrf, JSON_HEX_TAG) !!};
-    
-    if (show_console === true) {
+
+    if (show_console) {
+        console.log("spk:");
         console.log(spk);
         console.log(pelanggan);
         console.log("produks:");
         console.log(produks);
-        console.log("spk_item:");
-        console.log(spk_item);
+        console.log("spk_produks:");
+        console.log(spk_produks);
     }
 
     // var produk = json_encode($array_produk)
@@ -200,7 +214,7 @@
     var htmlSPKItem = '';
     var element_to_toggle = "";
 
-    for (var i = 0; i < spk_item.length; i++) {
+    for (var i = 0; i < spk_produks.length; i++) {
         var action = "";
         element_to_toggle = [{
             id: `#divOpsiSPKItem-${i}`,
@@ -230,15 +244,15 @@
         console.log(jumlahSisa);
         if (jumlahSisa == 0) {
             fColor = "color-red";
-        } else if (jumlahSisa >= 0 && jumlahSisa < spk_item[i].jumlah) {
+        } else if (jumlahSisa >= 0 && jumlahSisa < spk_produks[i].jumlah) {
             fColor = "color-blue-purple";
         }
 
         // UNTUK PENENTUAN WARNA, METODE diatas kita timpa dengan metode berikut:
 
-        if (spk_item[i].status === 'SELESAI') {
+        if (spk_produks[i].status === 'SELESAI') {
             fColor = "color-blue-purple";
-        } else if(spk_item[i].status === 'SEBAGIAN') {
+        } else if(spk_produks[i].status === 'SEBAGIAN') {
             fColor = 'color-indigo';
         } else {
             fColor = "color-red";
@@ -247,10 +261,10 @@
         // END MENENTUKAN warna nama item
 
         // MENAMPILKAN DEVIASI JUMLAH
-        var textContent_deviasi_jml = `${spk_item[i].jumlah} <span style='color:salmon'>`;
+        var textContent_deviasi_jml = `${spk_produks[i].jumlah} <span style='color:salmon'>`;
         var textContent_jumlah = ``;
-        if (typeof spk_item[i].deviasi_jml !== 'undefined' && spk_item[i].deviasi_jml !== null) {
-            const deviasi_jml = spk_item[i].deviasi_jml;
+        if (typeof spk_produks[i].deviasi_jml !== 'undefined' && spk_produks[i].deviasi_jml !== null) {
+            const deviasi_jml = spk_produks[i].deviasi_jml;
             if (deviasi_jml > 0) {
                 textContent_deviasi_jml += ` +${deviasi_jml}`;
             } else if (deviasi_jml < 0) {
@@ -258,12 +272,12 @@
             }
         }
         textContent_deviasi_jml += '</span>';
-        
+
         textContent_jumlah += `
             <div style:"color:black;text-align:right;font-weight:normal">${textContent_deviasi_jml}</div>
         `;
-        
-        var ktrg = spk_item[i].ktrg;
+
+        var ktrg = spk_produks[i].ktrg;
         if (ktrg == null) {
             ktrg = "";
         } else {
@@ -294,14 +308,14 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
             <!-- DROPDOWN -->
             <div id='divOpsiSPKItem-${i}' class='p-0_5em b-1px-solid-grey text-center' style='display: none'>
                 <button id='editSPKItem-${i}' class="d-inline-block bg-color-purple-blue pl-1em pr-1em b-radius-50px" style='border: none;'>
-                    <a href='/spk/edit_spk_item?spk_id=${spk.id}&spk_item_id=${spk_item[i].id}&produk_id=${produks[i].id}'>Edit</a>
+                    <a href='/spk/edit_spk_produks?spk_id=${spk.id}&spk_produks_id=${spk_produks[i].id}&produk_id=${produks[i].id}'>Edit</a>
                 </button>
-                <form action='/spk/delete_spk_item' method='POST' class='d-inline-block'>
+                <form action='/spk/delete_spk_produks' method='POST' class='d-inline-block'>
                 @csrf
                 <button id='hapusSPKItem-${i}' class="bg-color-grey pl-1em pr-1em b-radius-50px" style='border: none;'>
                     Hapus
                 </button>
-                <input type="hidden" name="spk_item_id" value="${spk_item[i].id}">
+                <input type="hidden" name="spk_produks_id" value="${spk_produks[i].id}">
                 </form>
                 <!--
                 <button id='notaSPKItem-${i}' class="d-inline-block bg-color-orange-1 pl-1em pr-1em b-radius-50px" style='border: none;' onclick='goToNotaSPKItem("${i}")'>
@@ -315,8 +329,8 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
             </div>
             `;
 
-        $jmlTotalSPK += parseFloat(spk_item[i].jumlah) + parseFloat(spk_item[i].deviasi_jml);
-        console.log(spk_item[i].jumlah, spk_item[i].deviasi_jml, $jmlTotalSPK);
+        $jmlTotalSPK += parseFloat(spk_produks[i].jumlah) + parseFloat(spk_produks[i].deviasi_jml);
+        console.log(spk_produks[i].jumlah, spk_produks[i].deviasi_jml, $jmlTotalSPK);
     }
 
     $('#divTitleDesc').html(spk.ktrg);
@@ -350,19 +364,19 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
         location.href = `03-03-01-deleteSPK.php?id_spk=${spk.id}`;
     }
 
-    function goToEditSPKItem(index) {
-        if (produk[index].tipe == "sj-varia") {
-            location.href = `03-03-02-editVariaFDetailSPK.php?id_spk=${spk.id}&id_produks=${produks[index].id}&id_produk=${produk[index].id}`;
-        } else if (produk[index].tipe == "sj-kombi") {
-            location.href = `03-03-03-editKombiFDetailSPK.php?id_spk=${spk.id}&id_produks=${produks[index].id}&id_produk=${produk[index].id}`;
-        } else if (produk[index].tipe == "sj-std") {
-            location.href = `03-03-04-editStdFDetailSPK.php?id_spk=${spk.id}&id_produks=${produks[index].id}&id_produk=${produk[index].id}`;
-        } else if (produk[index].tipe == "tankpad") {
-            location.href = `03-03-05-editTPFDetailSPK.php?id_spk=${spk.id}&id_produks=${produks[index].id}&id_produk=${produk[index].id}`;
-        } else if (produk[index].tipe == "busa-stang") {
-            location.href = `03-03-06-editBusaStangFDetailSPK.php?id_spk=${spk.id}&id_produks=${produks[index].id}&id_produk=${produk[index].id}`;
-        }
-    }
+    // function goToEditSPKItem(index) {
+    //     if (produk[index].tipe == "sj-varia") {
+    //         location.href = `03-03-02-editVariaFDetailSPK.php?id_spk=${spk.id}&id_produks=${produks[index].id}&id_produk=${produk[index].id}`;
+    //     } else if (produk[index].tipe == "sj-kombi") {
+    //         location.href = `03-03-03-editKombiFDetailSPK.php?id_spk=${spk.id}&id_produks=${produks[index].id}&id_produk=${produk[index].id}`;
+    //     } else if (produk[index].tipe == "sj-std") {
+    //         location.href = `03-03-04-editStdFDetailSPK.php?id_spk=${spk.id}&id_produks=${produks[index].id}&id_produk=${produk[index].id}`;
+    //     } else if (produk[index].tipe == "tankpad") {
+    //         location.href = `03-03-05-editTPFDetailSPK.php?id_spk=${spk.id}&id_produks=${produks[index].id}&id_produk=${produk[index].id}`;
+    //     } else if (produk[index].tipe == "busa-stang") {
+    //         location.href = `03-03-06-editBusaStangFDetailSPK.php?id_spk=${spk.id}&id_produks=${produks[index].id}&id_produk=${produk[index].id}`;
+    //     }
+    // }
 
     function goToNotaSPKItem(index) {
         window.location.href = `03-03-01-pembuatanNota.php?idSPKCP=${produks[index].id}`;
@@ -435,7 +449,7 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
     //     goBackNumber: -2,
     //     goBackStatement: "Daftar SPK"
     // }];
-    
+
     // document.getElementById('deleteSPK').addEventListener('click', function () {
     //     bubbleWarning(deleteProperties);
     // });
@@ -465,10 +479,10 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
     // const reload_page2 = {-!! json_encode($reload_page, JSON_HEX_TAG) !!};
     // console.log('reload_page2');
     // console.log(reload_page2);
-    
+
     // reloadPage(reload_page);
-    
-    
+
+
 </script>
 
 <style>

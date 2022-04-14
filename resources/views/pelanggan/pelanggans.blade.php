@@ -82,11 +82,11 @@
             "<div class='grid-3-10_80_10'>" +
             "<div class='initial circle-medium grid-1-auto justify-items-center font-weight-bold' style='background-color: " + $arrayBgColors[$randomIndex] + "'>" + initial + "</div>" +
             "<div class='justify-self-left font-weight-bold'>" + nama_x_reseller + " - " + daerahs[iPelanggan].nama + "</div>" +
-            "<div id='divDropdown-" + pelanggan.id + "' class='justify-self-right' onclick='showDropDown(" + pelanggan.id + ");'><img class='w-0_7em' src='img/icons/dropdown.svg'></div>" +
+            "<div id='divDropdown-" + pelanggan.id + "' class='justify-self-right' onclick='showDropdown(" + pelanggan.id + ");'><img class='w-0_7em' src='img/icons/dropdown.svg'></div>" +
             "</div>" +
 
             // DROPDOWN
-            "<div id='divDetailDropDown-" + pelanggan.id + "' class='b-1px-solid-grey p-0_5em mt-1em' style='display:none'>" +
+            "<div id='divDetailDropdown-" + pelanggan.id + "' class='b-1px-solid-grey p-0_5em mt-1em' style='display:none'>" +
 
             "<div class='grid-2-10_auto'>" +
 

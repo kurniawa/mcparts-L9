@@ -115,19 +115,13 @@ Route::controller(PelangganEkspedisiController::class)->group(function ()
 Route::controller(SpkController::class)->group(function ()
 {
     Route::get('/spk', 'index');
+    Route::get('/spk/spk-detail', 'spk_detail');
 });
 
 Route::controller(SpkBaruController::class)->group(function ()
 {
     Route::get('/spk/spk-baru', 'index');
     Route::get('/spk/spk_baru-inserting_spk_items', 'inserting_spk_items')->middleware('auth');
-    // Route::post('/spk/spk_baru-inserting_spk_items-db', "inserting_spk_items_db")->middleware('auth');
-    // Route::get('/spk/inserting_kombi', [SpkController::class, "inserting_kombi"])->middleware('auth');
-    // Route::get('/spk/inserting_std', [SpkController::class, "inserting_std"])->middleware('auth');
-    // Route::get('/spk/inserting_tankpad', [SpkController::class, "inserting_tankpad"])->middleware('auth');
-    // Route::get('/spk/inserting_busastang', [SpkController::class, "inserting_busastang"])->middleware('auth');
-    // Route::get('/spk/inserting_spjap', [SpkController::class, "inserting_spjap"])->middleware('auth');
-    // Route::get('/spk/inserting_stiker', [SpkController::class, "inserting_stiker"])->middleware('auth');
     Route::post('/spk/spkBaru-spkItem-editDelete', 'spkBaru_spkItem_editDelete')->middleware('auth');
     Route::post('/spk/proceed-spk', 'proceed_spk')->middleware('auth');
 });
@@ -136,38 +130,51 @@ Route::controller(InsertingVariaController::class)->group(function ()
 {
     Route::get('/spk/inserting-varia', "inserting_varia")->middleware('auth');
     Route::post('/spk/inserting-varia-db', "inserting_varia_db")->middleware('auth');
+    Route::post('/spk/inserting-varia-from-detail', "inserting_varia_from_detail")->middleware('auth');
+    Route::post('/spk/inserting-varia-from-detail-db', "inserting_varia_from_detail_db")->middleware('auth');
 });
 Route::controller(InsertingKombiController::class)->group(function ()
 {
     Route::get('/spk/inserting-kombi', "inserting_kombi")->middleware('auth');
     Route::post('/spk/inserting-kombi-db', "inserting_kombi_db")->middleware('auth');
+    Route::post('/spk/inserting-kombi-from-detail', "inserting_kombi_from_detail")->middleware('auth');
+    Route::post('/spk/inserting-kombi-from-detail-db', "inserting_kombi_from_detail_db")->middleware('auth');
 });
 Route::controller(InsertingStdController::class)->group(function ()
 {
     Route::get('/spk/inserting-standar', "inserting_standar")->middleware('auth');
     Route::post('/spk/inserting-standar-db', "inserting_standar_db")->middleware('auth');
+    Route::post('/spk/inserting-standar-from-detail', "inserting_standar_from_detail")->middleware('auth');
+    Route::post('/spk/inserting-standar-from-detail-db', "inserting_standar_from_detail_db")->middleware('auth');
 });
 Route::controller(InsertingTankpadController::class)->group(function ()
 {
     Route::get('/spk/inserting-tankpad', "inserting_tankpad")->middleware('auth');
     Route::post('/spk/inserting-tankpad-db', "inserting_tankpad_db")->middleware('auth');
+    Route::post('/spk/inserting-tankpad-from-detail', "inserting_tankpad_from_detail")->middleware('auth');
+    Route::post('/spk/inserting-tankpad-from-detail-db', "inserting_tankpad_from_detail_db")->middleware('auth');
 });
 Route::controller(InsertingBusastangController::class)->group(function ()
 {
     Route::get('/spk/inserting-busastang', "inserting_busastang")->middleware('auth');
     Route::post('/spk/inserting-busastang-db', "inserting_busastang_db")->middleware('auth');
+    Route::post('/spk/inserting-busastang-from-detail', "inserting_busastang_from_detail")->middleware('auth');
+    Route::post('/spk/inserting-busastang-from-detail-db', "inserting_busastang_from_detail_db")->middleware('auth');
 });
 Route::controller(InsertingTspjapController::class)->group(function ()
 {
     Route::get('/spk/inserting-tspjap', "inserting_tspjap")->middleware('auth');
     Route::post('/spk/inserting-tspjap-db', "inserting_tspjap_db")->middleware('auth');
+    Route::post('/spk/inserting-tspjap-from-detail', "inserting_tspjap_from_detail")->middleware('auth');
+    Route::post('/spk/inserting-tspjap-from-detail-db', "inserting_tspjap_from_detail_db")->middleware('auth');
 });
 Route::controller(InsertingStikerController::class)->group(function ()
 {
     Route::get('/spk/inserting-stiker', "inserting_stiker")->middleware('auth');
     Route::post('/spk/inserting-stiker-db', "inserting_stiker_db")->middleware('auth');
+    Route::post('/spk/inserting-stiker-from-detail', "inserting_stiker_from_detail")->middleware('auth');
+    Route::post('/spk/inserting-stiker-from-detail-db', "inserting_stiker_from_detail_db")->middleware('auth');
 });
-Route::get('/spk/detail_spk', [DetailSPKController::class, "index"]);
 Route::get('/spk/edit_spk_item', [DetailSPKController::class, "editSPKItem"])->middleware('auth');
 Route::post('/spk/edit_spk_item-db', [EditSPKFDetail::class, "index"])->middleware('auth');
 Route::post('/spk/hapus-SPK', [DetailSPKController::class, "hapus_SPK"])->middleware('auth');

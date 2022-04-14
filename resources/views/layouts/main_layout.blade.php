@@ -33,21 +33,13 @@
             text-decoration: underline;
             color: #0d6efd;
         }
-        #loading-progress-icon {
-            position: fixed;
-            width: 5rem;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
     </style>
 
     <title>MC-Parts Smart System</title>
 </head>
 
 <body>
-    <img id="loading-progress-icon" src="/img/icons/loading/gear_loading-violet.gif" alt="">
-
+    <img style='position:fixed;width:5rem;top:20%;left:50%;transform:translate(-50%,-50%);' id='loading-progress-icon' src='/img/icons/loading/gear_loading-violet.gif' alt=''>
     @yield('content')
 </body>
 
@@ -55,9 +47,9 @@
 <script src="/bootstrap-js/bootstrap.min.js" crossorigin="anonymous"></script>
 
 <script>
-    function showDropDown(id) {
+    function showDropdown(id) {
         // console.log(`run dropdown! ID=${id}`);
-        $selectedDiv = $("#divDetailDropDown-" + id);
+        $selectedDiv = $("#divDetailDropdown-" + id);
         $selectedDiv.toggle(400);
 
         setTimeout(() => {
@@ -244,6 +236,7 @@
             // document.getElementById("PreLoaderBar").style.display = "none";
             // $('#loading-progress-icon').hide(300);
             $('#loading-progress-icon').hide(500);
+            $('#loading-progress-icon2').hide(500);
         }
     };
 </script>
