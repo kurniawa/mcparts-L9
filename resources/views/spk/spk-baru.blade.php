@@ -62,7 +62,7 @@ const d_nama_pelanggan_2 = {!! json_encode($d_nama_pelanggan_2, JSON_HEX_TAG) !!
         </a> -->
     </div>
 </header>
-<form action="/spk/spk_baru-inserting_spk_items" method="GET" id="SPKBaru">
+<form action="/spk/spk_baru-spk_review" method="GET" id="SPKBaru">
     {{-- diputuskan untuk memakai get, supaya tidak pusing ketika berpindah-pindah halaman --}}
     @csrf
 

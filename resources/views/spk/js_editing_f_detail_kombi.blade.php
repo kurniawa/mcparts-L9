@@ -80,7 +80,7 @@
     */
 
     var judul = '<h2>';
-    if (mode === 'SPK_BARU') {
+    if (mode === 'SPK_BARU' || mode==='INSERTING KOMBI FROM DETAIL') {
         judul += 'SPK Baru - ';
     } else if (mode === 'edit') {
         judul += 'Edit SPK Item - ';

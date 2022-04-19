@@ -50,32 +50,44 @@
 </div>
 
 <div id="divAddItems" class="h-9em position-relative mt-1em">
-    <a href="/spk/inserting-varia" class="productType position-absolute top-0 left-50 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
-        <span class="font-size-0_8em text-center fw-bold">SJ<br>Varia</span>
-    </a>
-    <a href="/spk/inserting-kombi" class="productType position-absolute top-1em left-35 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
-        <span class="font-size-0_8em text-center fw-bold">SJ<br>Kombi</span>
-    </a>
-    <a href="/spk/inserting-standar" class="productType position-absolute top-1em left-65 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
-        <span class="font-size-0_8em text-center fw-bold">SJ<br>Std</span>
-    </a>
-    <a href="/spk/inserting-tankpad" class="productType position-absolute top-5em left-30 transform-translate--50_0 circle-L bg-color-soft-red grid-1-auto justify-items-center">
-        <span class="font-size-0_8em text-center fw-bold">Tank<br>Pad</span>
-    </a>
-    <a href="/spk/inserting-busastang" class="productType position-absolute top-5em left-70 transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center">
-        <span class="font-size-0_8em text-center fw-bold">Busa<br>Stang</span>
-    </a>
-    <a href="/spk/inserting-tspjap" class="productType position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:30%">
-        <span class="font-size-0_8em text-center fw-bold">T.SP<br>Jap</span>
-    </a>
-    <a href="/spk/inserting-stiker" class="productType position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:70%">
-        <span class="font-size-0_8em text-center fw-bold">Stiker</span>
-    </a>
+    <form method="GET" action="/spk/inserting-general" class="text-center productType">
+        @csrf
+        <input type="hidden" name="spk_id" value=null>
+        <input type="hidden" name="mode" value="SPK_BARU">
+        <button type="submit" name="tipe" value="varia" class="fw-bold position-absolute top-0 left-50 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">SJ<br>Varia</button>
+        <button type="submit" name="tipe" value="kombinasi" class="fw-bold position-absolute top-1em left-35 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">SJ<br>Kombi</button>
+        <button type="submit" name="tipe" value="standar" class="fw-bold position-absolute top-1em left-65 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">SJ<br>Std</button>
+        <button type="submit" name="tipe" value="tankpad" class="fw-bold position-absolute top-5em left-30 transform-translate--50_0 circle-L bg-color-soft-red grid-1-auto justify-items-center">TP</button>
+        <button type="submit" name="tipe" value="busastang" class="fw-bold position-absolute top-5em left-70 transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center">Busa<br>Stang</button>
+        <button type="submit" name="tipe" value="tspjap" class="fw-bold position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:30%">T.SP<br>Jap</button>
+        <button type="submit" name="tipe" value="stiker" class="fw-bold position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:70%">Stiker</button>
+        {{-- <a href="/spk/inserting-varia" class="productType position-absolute top-0 left-50 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
+            <span class="font-size-0_8em text-center fw-bold">SJ<br>Varia</span>
+        </a>
+        <a href="/spk/inserting-kombi" class="productType position-absolute top-1em left-35 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
+            <span class="font-size-0_8em text-center fw-bold">SJ<br>Kombi</span>
+        </a>
+        <a href="/spk/inserting-standar" class="productType position-absolute top-1em left-65 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">
+            <span class="font-size-0_8em text-center fw-bold">SJ<br>Std</span>
+        </a>
+        <a href="/spk/inserting-tankpad" class="productType position-absolute top-5em left-30 transform-translate--50_0 circle-L bg-color-soft-red grid-1-auto justify-items-center">
+            <span class="font-size-0_8em text-center fw-bold">Tank<br>Pad</span>
+        </a>
+        <a href="/spk/inserting-busastang" class="productType position-absolute top-5em left-70 transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center">
+            <span class="font-size-0_8em text-center fw-bold">Busa<br>Stang</span>
+        </a>
+        <a href="/spk/inserting-tspjap" class="productType position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:30%">
+            <span class="font-size-0_8em text-center fw-bold">T.SP<br>Jap</span>
+        </a>
+        <a href="/spk/inserting-stiker" class="productType position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:70%">
+            <span class="font-size-0_8em text-center fw-bold">Stiker</span>
+        </a> --}}
+    </form>
     <div style="height:50vh;visibility:hidden;"></div>
     <div class="position-absolute top-5em left-50 transform-translate--50_0 grid-1-auto justify-items-center" onclick="toggleProductType();">
-        <div class="circle-medium bg-color-orange-2 grid-1-auto justify-items-center">
-            <span class="color-white fw-bold font-size-1_5em">+</span>
-        </div>
+        <button class="circle-medium bg-color-orange-2 grid-1-auto justify-items-center">
+            <span class="color-white font-weight-bold font-size-1_5em">+</span>
+        </button>
     </div>
 
 </div>

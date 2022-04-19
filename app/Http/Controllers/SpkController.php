@@ -84,6 +84,7 @@ class SpkController extends Controller
         $spk = Spk::find($get['spk_id']);
         $pelanggan = Pelanggan::find($spk['pelanggan_id']);
         $reseller = null;
+        $daerah = Daerah::find($pelanggan['daerah_id']);
         if ($spk['reseller_id'] !== null) {
             $reseller = Pelanggan::find($spk['reseller_id']);
         }
@@ -93,6 +94,7 @@ class SpkController extends Controller
         $data = [
             'spk' => $spk,
             'pelanggan' => $pelanggan,
+            'daerah' => $daerah,
             'reseller' => $reseller,
             'spk_produks' => $spk_produks,
             'produks' => $produks,

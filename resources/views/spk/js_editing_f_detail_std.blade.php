@@ -19,7 +19,7 @@
         <input type="hidden" id="standar_harga" name="standar_harga">
     `;
 
-    document.getElementById("tipe").value = "std";
+    document.getElementById("tipe").value = "standar";
     document.getElementById("div_pilih_standar").innerHTML = pilih_standars;
     document.getElementById("div_option_jml").innerHTML = box_jml;
     document.getElementById("div_input_jml").innerHTML = input_jml;

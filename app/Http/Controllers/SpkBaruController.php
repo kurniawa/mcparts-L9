@@ -96,7 +96,7 @@ class SpkBaruController extends Controller
         return view('spk.spk-baru', $data);
     }
 
-    public function inserting_spk_items(Request $request)
+    public function spk_review(Request $request)
     {
         //**SETTINGAN AWAL PAGE NETRAL TANPA INSERT ATAU UPDATE DB */
         $load_num = SiteSettings::loadNumToZero();
@@ -145,7 +145,7 @@ class SpkBaruController extends Controller
             'tanggal' => $tanggal,
         ];
 
-        return view('spk.spk_baru-inserting_spk_items', $data);
+        return view('spk.spk_baru-spk_review', $data);
     }
 
     public function spkBaru_spkItem_editDelete(Request $request)
@@ -352,7 +352,7 @@ class SpkBaruController extends Controller
                         'harga' => $spk_item[$i]->harga,
                     ]);
 
-                    array_push($success_messages, "SUCCESS: Item $produk[nama] merupakan produk baru dan berhasil di tambahkan ke dalam database.");
+                    array_push($success_messages, "success_detail: Item $produk[nama] merupakan produk baru dan berhasil di tambahkan ke dalam database.");
                 }
 
                 // echo ('produk_id: ');
@@ -425,15 +425,16 @@ class SpkBaruController extends Controller
             }
 
             if ($j >= count($spk_item)) {
-                array_push($success_messages, 'SUCCESS: Inserting all item in spk_produk_id.');
+                array_push($success_messages, 'success_detail: Inserting all item in spk_produk_id.');
             }
         }
 
         if ($run_db) {
             DB::table('temp_spk_produks')->truncate();
-            array_push($success_messages, 'SUCCESS: Truncating all item in temp_spk_produks.');
+            array_push($success_messages, 'success_detail: Truncating all item in temp_spk_produks.');
 
             $pesan_db = "SUCCESS: SPK baru telah dibuat. Semua item telah diinput ke SPK tersebut dan temp_spk_produks telah di truncate";
+            $class_div_pesan_db = 'alert-success';
         }
 
         $data = [

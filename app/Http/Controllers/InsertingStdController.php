@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\SiteSettings;
 use App\Models\SiteSetting;
+use App\Models\Spk;
 use App\Models\Standar;
 use App\Models\TempSpkProduk;
 use Illuminate\Http\Request;
@@ -121,5 +122,35 @@ class InsertingStdController extends Controller
         ];
 
         return view('layouts.go-back-page', $data);
+    }
+
+    public function inserting_standar_from_detail(Request $request)
+    {
+        echo "<img style='position:fixed;width:5rem;top:20%;left:50%;transform:translate(-50%,-50%);' id='loading-progress-icon2' src='/img/icons/loading/gear_loading-violet.gif' alt=''>";
+        SiteSettings::loadNumToZero();
+        $show_dump = false;
+
+        $post = $request->post();
+
+        if ($show_dump) {
+            dump('$post:', $post);
+        }
+
+        $spk = Spk::find($post['spk_id']);
+
+        $standar = new Standar();
+
+        $label_standars = $standar->label_standars();
+
+        $data = [
+            'tipe' => 'standar',
+            'standars' => $label_standars,
+            'mode' => 'INSERTING FROM DETAIL',
+            'spk_id' => $spk['id'],
+            'spk_item' => null,
+            'produk' => null,
+            'link_insert_db' => 'inserting-general-db',
+        ];
+        return view('spk.inserting_spk_item-2', $data);
     }
 }

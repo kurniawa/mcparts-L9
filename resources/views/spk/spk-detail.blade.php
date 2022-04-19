@@ -108,37 +108,39 @@
 </div>
 
 <div id="divAddItems" class="h-9em position-relative mt-1em">
-    <form method='POST' action="/spk/inserting-varia-from-detail" class="productType grid-1-auto justify-items-center">
+    {{-- <form method='POST' action="/spk/inserting-varia-from-detail" class="productType grid-1-auto justify-items-center"> --}}
+    <form method='GET' action="/spk/inserting-general" class="productType grid-1-auto justify-items-center">
         @csrf
         <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
+        <input type="hidden" name="tipe" value="varia">
         <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-0 left-50 transform-translate--50_0 circle-L bg-color-orange-1 ">SJ<br>Varia</button>
     </form>
-    <form method='POST' action="/spk/inserting-kombi-from-detail" class="productType grid-1-auto justify-items-center">
+    <form method='GET' action="/spk/inserting-kombi-from-detail" class="productType grid-1-auto justify-items-center">
         @csrf
         <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
         <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-1em left-35 transform-translate--50_0 circle-L bg-color-orange-1">SJ<br>Kombi</button>
     </form>
-    <form method='POST' action="/spk/inserting-standar-from-detail" class="productType grid-1-auto justify-items-center">
+    <form method='GET' action="/spk/inserting-standar-from-detail" class="productType grid-1-auto justify-items-center">
         @csrf
         <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
         <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-1em left-65 transform-translate--50_0 circle-L bg-color-orange-1">SJ<br>Std</button>
     </form>
-    <form method='POST' action="/spk/inserting-tankpad-from-detail" class="productType justify-items-center">
+    <form method='GET' action="/spk/inserting-tankpad-from-detail" class="productType justify-items-center">
         @csrf
         <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
         <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-5em left-30 transform-translate--50_0 circle-L bg-color-soft-red grid-1-auto">Tank<br>Pad</button>
     </form>
-    <form method='POST' action="/spk/inserting-busastang-from-detail" class="productType grid-1-auto justify-items-center">
+    <form method='GET' action="/spk/inserting-busastang-from-detail" class="productType grid-1-auto justify-items-center">
         @csrf
         <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
         <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-5em left-70 transform-translate--50_0 circle-L bg-color-grey">Busa<br>Stang</button>
     </form>
-    <form method='POST' action="/spk/inserting-tspjap-from-detail" class="productType grid-1-auto justify-items-center">
+    <form method='GET' action="/spk/inserting-tspjap-from-detail" class="productType grid-1-auto justify-items-center">
         @csrf
         <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
         <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute transform-translate--50_0 circle-L bg-color-grey" style="top:10em;left:30%">T.SP<br>Jap</button>
     </form>
-    <form method='POST' action="/spk/inserting-stiker-from-detail" class="productType grid-1-auto justify-items-center">
+    <form method='GET' action="/spk/inserting-stiker-from-detail" class="productType grid-1-auto justify-items-center">
         @csrf
         <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
         <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute transform-translate--50_0 circle-L bg-color-grey" style="top:10em;left:70%">Stiker</button>
@@ -183,6 +185,7 @@
 <script>
     const spk = {!! json_encode($spk, JSON_HEX_TAG) !!};
     const pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
+    const daerah = {!! json_encode($daerah, JSON_HEX_TAG) !!};
     const reseller = {!! json_encode($reseller, JSON_HEX_TAG) !!};
     const produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
     const spk_produks = {!! json_encode($spk_produks, JSON_HEX_TAG) !!};
@@ -191,7 +194,12 @@
     if (show_console) {
         console.log("spk:");
         console.log(spk);
+        console.log('pelanggan');
         console.log(pelanggan);
+        console.log('reseller');
+        console.log(reseller);
+        console.log('daerah');
+        console.log(daerah);
         console.log("produks:");
         console.log(produks);
         console.log("spk_produks:");
@@ -339,9 +347,9 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
 
     $('#divTglPembuatan').html(spk.tgl_pembuatan);
     if (reseller !== null) {
-        $('#divSPKCustomer').html(`${reseller.nama}: ${pelanggan.nama} - ${pelanggan.daerah}`);
+        $('#divSPKCustomer').html(`${reseller.nama}: ${pelanggan.nama} - ${daerah.nama}`);
     } else {
-        $('#divSPKCustomer').html(`${pelanggan.nama} - ${pelanggan.daerah}`);
+        $('#divSPKCustomer').html(`${pelanggan.nama} - ${daerah.nama}`);
     }
     $('#divTitleDesc').html(spk.ket_judul);
     $('#taKeteranganTambahan').html(spk.ktrg);

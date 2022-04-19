@@ -5,6 +5,7 @@ use App\Http\Controllers\EkspedisiBaru;
 use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\EkspedisiEdit;
 use App\Http\Controllers\InsertingBusastangController;
+use App\Http\Controllers\InsertingGeneralController;
 use App\Http\Controllers\InsertingKombiController;
 use App\Http\Controllers\InsertingStdController;
 use App\Http\Controllers\InsertingStikerController;
@@ -121,7 +122,7 @@ Route::controller(SpkController::class)->group(function ()
 Route::controller(SpkBaruController::class)->group(function ()
 {
     Route::get('/spk/spk-baru', 'index');
-    Route::get('/spk/spk_baru-inserting_spk_items', 'inserting_spk_items')->middleware('auth');
+    Route::get('/spk/spk_baru-spk_review', 'spk_review')->middleware('auth');
     Route::post('/spk/spkBaru-spkItem-editDelete', 'spkBaru_spkItem_editDelete')->middleware('auth');
     Route::post('/spk/proceed-spk', 'proceed_spk')->middleware('auth');
 });
@@ -174,6 +175,11 @@ Route::controller(InsertingStikerController::class)->group(function ()
     Route::post('/spk/inserting-stiker-db', "inserting_stiker_db")->middleware('auth');
     Route::post('/spk/inserting-stiker-from-detail', "inserting_stiker_from_detail")->middleware('auth');
     Route::post('/spk/inserting-stiker-from-detail-db', "inserting_stiker_from_detail_db")->middleware('auth');
+});
+Route::controller(InsertingGeneralController::class)->group(function ()
+{
+    Route::get('/spk/inserting-general', "inserting_general")->middleware('auth');
+    Route::post('/spk/inserting-general-db', "inserting_general_db")->middleware('auth');
 });
 Route::get('/spk/edit_spk_item', [DetailSPKController::class, "editSPKItem"])->middleware('auth');
 Route::post('/spk/edit_spk_item-db', [EditSPKFDetail::class, "index"])->middleware('auth');

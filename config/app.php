@@ -192,7 +192,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // ...
-        'SiteSettings' => App\Helpers\SiteSettings::class
+        'SiteSettings' => App\Helpers\SiteSettings::class,
+        'InsertingProductHelper' => App\Helpers\InsertingProductHelper::class,
     ])->toArray(),
 
 ];
