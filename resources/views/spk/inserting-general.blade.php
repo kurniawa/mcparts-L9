@@ -48,11 +48,62 @@
 </div>
 {{-- ELEMENT UNTUK SJ KOMBINASI --}}
 <div id="container-kombinasi" class="mb-3 element-sj-kombinasi" style="display: none">
-    <div>Pilih Kombinasi:</div>
+    <label>Pilih Kombinasi:</label>
     <input type="text" id="kombi" name="kombi" class="input-normal" style="border-radius:5px;">
+    @error('kombi')
+    <div class='invalid-feedback'>{{ $message }}</div>
+    @enderror
     <input type="hidden" id="kombi_id" name="kombi_id">
     <input type="hidden" id="kombi_harga" name="kombi_harga">
 </div>
+
+{{-- ELEMENT UNTUK SJ STANDAR --}}
+<div id="container-standar" class="mb-3 element-sj-standar" style="display: none">
+    <label>Pilih Standar:</label>
+    <input type="text" id="standar" name="standar" class="input-normal" style="border-radius:5px;">
+    @error('standar')
+    <div class='invalid-feedback'>{{ $message }}</div>
+    @enderror
+    <input type="hidden" id="standar_id" name="standar_id">
+    <input type="hidden" id="standar_harga" name="standar_harga">
+</div>
+
+{{-- ELEMENT UNTUK TANKPAD --}}
+<div id="container-tankpad" class="mb-3 element-sj-tankpad" style="display: none">
+
+</div>
+
+{{-- ELEMENT UNTUK BUSASTANG --}}
+<div id="container-busastang" class="mb-3 element-sj-busastang" style="display: none">
+
+</div>
+
+{{-- ELEMENT UNTUK T.SIXPACK JAPSTYLE --}}
+<div id="container-tspjap" class="mb-3 element-sj-tspjap" style="display: none">
+    <label for="">Pilih Tipe Bahan:</label>
+    <div id='div_pilih_tipe_bahan'>
+        <select id='tipe_bahan' name='tipe_bahan' class='form-select' onchange='setAutocomplete_D_Bahan();'>
+            <option value='A'>Bahan(A)</option>
+            <option value='B'>Bahan(B)</option>
+        </select>
+    </div>
+    <br>
+    Pilih Bahan:
+    <div id='div_pilih_bahan'>
+        <input type='text' id='bahan' name='bahan' class='input-normal' style='border-radius:5px;'>
+        <input type='hidden' id='bahan_id' name='bahan_id'>
+    </div>
+    <br>
+    <div>Pilih T.Sixpack/Japstyle:</div>
+    <select id='select_tspjap' name='tspjap_id' class='form-select' onchange='assignTspjapIDValue(this.selectedIndex);'></select>
+    <input type='hidden' id='tspjap' name='tspjap'>
+    <input type='hidden' id='tspjap_harga' name='tspjap_harga'>
+</div>
+
+{{-- ELEMENT UNTUK STIKER --}}
+<div id="container-stiker" class="mb-3 element-sj-stiker" style="display: none">
+</div>
+
 <div id="container-jumlah" class="mb-3">
     <label for="">Jumlah:</label>
     <input id='ipt_jumlah' type="number" name="jumlah" min="0" step="1" placeholder="Jumlah" class="p-0_5em" style="border-radius:5px;">
@@ -122,9 +173,7 @@
             }
         });
 
-    }
-
-    if (tipe === 'kombinasi') {
+    } else if (tipe === 'kombinasi') {
         document.querySelector('.element-sj-kombinasi').style.display = 'block';
 
         const kombis = {!! json_encode($kombis, JSON_HEX_TAG) !!};
@@ -141,9 +190,62 @@
                 $("#kombi_id").val(ui.item.id);
                 $("#kombi_harga").val(ui.item.harga);
                 // show_select_variasi();
-                show_options(available_options);
+                // show_options(available_options);
             }
         });
+    } else if (tipe === 'standar') {
+        document.querySelector('.element-sj-standar').style.display = 'block';
+
+        const standars = {!! json_encode($standars, JSON_HEX_TAG) !!};
+
+        if (show_console) {
+            console.log('standars');
+            console.log(standars);
+        }
+
+        $("#standar").autocomplete({
+            source: standars,
+            select: function(event, ui) {
+                // console.log(ui.item);
+                $("#standar_id").val(ui.item.id);
+                $("#standar_harga").val(ui.item.harga);
+                // show_select_variasi();
+                // show_options(available_options);
+            }
+        });
+    } else if (tipe === 'tankpad') {
+
+    } else if (tipe === 'busastang') {
+
+    } else if (tipe === 'tspjap') {
+        setAutocomplete_D_Bahan();
+    } else if (tipe === 'stiker') {
+
+    }
+
+    function setAutocomplete_D_Bahan() {
+        document.querySelector('.element-sj-tspjap').style.display = 'block';
+
+        const d_bahan_a = {!! json_encode($d_bahan_a, JSON_HEX_TAG) !!};
+        const d_bahan_b = {!! json_encode($d_bahan_b, JSON_HEX_TAG) !!};
+
+        const tipe_bahan = document.getElementById('tipe_bahan').value;
+        var label_bahan = new Array();
+        if (tipe_bahan === 'A') {
+            label_bahan = d_bahan_a;
+        } else {
+            label_bahan = d_bahan_b;
+        }
+        console.log(tipe_bahan);
+        $("#bahan").autocomplete({
+        source: label_bahan,
+        select: function(event, ui) {
+            // console.log(ui.item);
+            $("#bahan_id").val(ui.item.id);
+            // show_select_variasi();
+            // show_options(available_options);
+        }
+    });
     }
 </script>
 

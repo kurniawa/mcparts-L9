@@ -12,6 +12,7 @@ use App\Models\ProdukHarga;
 use App\Models\SiteSetting;
 use App\Models\Spk;
 use App\Models\SpkProduk;
+use App\Models\Standar;
 use App\Models\Ukuran;
 use App\Models\Variasi;
 use Illuminate\Http\Request;
@@ -40,12 +41,14 @@ class InsertingGeneralController extends Controller
         $ukuran = new Ukuran();
         $jahit = new Jahit();
         $kombi = new Kombi();
+        $standar = new Standar();
 
         $label_bahans = $bahan->label_bahans();
         $varias_harga = $varia->varias_harga();
         $ukurans_harga = $ukuran->ukurans_harga();
         $jahits_harga = $jahit->jahits_harga();
         $label_kombis = $kombi->label_kombis();
+        $label_standars = $standar->label_standars();
 
         $mode = $get['mode'];
         $tipe = $get['tipe'];
@@ -55,12 +58,16 @@ class InsertingGeneralController extends Controller
                 $judul = 'SPK Baru: Tambah SJ Variasi';
             } elseif ($tipe === 'kombinasi') {
                 $judul = 'SPK BARU: Tambah SJ Kombinasi';
+            } elseif ($tipe = 'standar') {
+                $judul = 'SPK BARU: Tambah SJ Standar';
             }
-        }
-
-        if ($mode === 'ADD PRODUCT FROM DETAIL') {
+        } elseif ($mode === 'ADD PRODUCT FROM DETAIL') {
             if ($tipe === 'varia') {
                 $judul = 'Edit SPK: Tambah SJ Variasi';
+            } elseif ($tipe === 'kombinasi') {
+                $judul = 'Edit SPK: Tambah SJ Kombinasi';
+            } elseif ($tipe === 'standar') {
+                $judul = 'Edit SPK: Tambah SJ Standar';
             }
         }
 
@@ -74,6 +81,7 @@ class InsertingGeneralController extends Controller
             'ukurans' => $ukurans_harga,
             'jahits' => $jahits_harga,
             'kombis' => $label_kombis,
+            'standars' => $label_standars,
         ];
 
         if ($show_dump) {
@@ -122,6 +130,38 @@ class InsertingGeneralController extends Controller
             $request->validate([
                 'bahan' => 'required',
                 'variasi' => 'required',
+                'jumlah' => 'numeric|required|min:1',
+            ]);
+        } elseif ($tipe === 'kombinasi') {
+            $request->validate([
+                'kombi' => 'required',
+                'jumlah' => 'numeric|required|min:1',
+            ]);
+        } elseif ($tipe === 'standar') {
+            $request->validate([
+                'standar' => 'required',
+                'jumlah' => 'numeric|required|min:1',
+            ]);
+        } elseif ($tipe === 'tankpad') {
+            $request->validate([
+                'tankpad' => 'required',
+                'jumlah' => 'numeric|required|min:1',
+            ]);
+        } elseif ($tipe === 'busastang') {
+            $request->validate([
+                'busastang' => 'required',
+                'jumlah' => 'numeric|required|min:1',
+            ]);
+        } elseif ($tipe === 'tspjap') {
+            $request->validate([
+                'tspjap' => 'required',
+                'tipe_bahan' => 'required',
+                'bahan' => 'required',
+                'jumlah' => 'numeric|required|min:1',
+            ]);
+        } elseif ($tipe === 'stiker') {
+            $request->validate([
+                'stiker' => 'required',
                 'jumlah' => 'numeric|required|min:1',
             ]);
         }
@@ -183,21 +223,15 @@ class InsertingGeneralController extends Controller
                 $nama_nota .= " + jht.$jahit[nama]";
                 $jahit_id = $jahit['id'];
             }
-        }
-
-        if ($tipe === 'kombinasi') {
+        } elseif ($tipe === 'kombinasi') {
             $nama = $post['kombi'];
             $nama_nota = $nama;
             $harga = $post['kombi_harga'];
-        }
-
-        if ($tipe === 'standar') {
+        } elseif ($tipe === 'standar') {
             $nama = "Standar $post[standar]";
             $nama_nota = $nama;
             $harga = $post['standar_harga'];
-        }
-
-        if ($tipe === 'tspjap') {
+        } elseif ($tipe === 'tspjap') {
             $nama = $post['tspjap'];
             $harga = $post['tspjap_harga'];
             $tipe_bahan = $post['tipe_bahan'];
@@ -208,29 +242,23 @@ class InsertingGeneralController extends Controller
                 $nama = "Bahan($tipe_bahan) $nama";
             }
             $nama_nota = $nama;
+        } elseif ($tipe === 'tankpad') {
+            $nama = "TP $post[tankpad]";
+            $nama_nota = $nama;
+            $harga = $post['tankpad_harga'];
+        } elseif ($tipe === 'busastang') {
+            $nama = $post['busastang'];
+            $nama_nota = $nama;
+            $harga = $post['busastang_harga'];
+        } elseif ($tipe === 'stiker') {
+            $nama = $post['stiker'];
+            $nama_nota = $nama;
+            $harga = $post['stiker_harga'];
         }
 
         // MELENGKAPI NAMA NOTA SEKALI LAGI
         if ($tipe === 'varia' || $tipe === 'kombinasi' || $tipe === 'standar' || $tipe === 'tspjap') {
             $nama_nota = "SJ $nama_nota";
-        }
-
-        if ($tipe === 'tankpad') {
-            $nama = "TP $post[tankpad]";
-            $nama_nota = $nama;
-            $harga = $post['tankpad_harga'];
-        }
-
-        if ($tipe === 'busastang') {
-            $nama = $post['busastang'];
-            $nama_nota = $nama;
-            $harga = $post['busastang_harga'];
-        }
-
-        if ($tipe === 'stiker') {
-            $nama = $post['stiker'];
-            $nama_nota = $nama;
-            $harga = $post['stiker_harga'];
         }
 
         if ($show_dump) {
@@ -243,15 +271,12 @@ class InsertingGeneralController extends Controller
         }
 
         if ($mode === 'SPK_BARU') {
-            $inserted_product = InsertingProductHelper::InsertingToTempSpkProduks($show_dump, $run_db, $tipe, $bahan_id, $variasi_id, $ukuran_id, $jahit_id, $kombi_id, $standar_id, $tankpad_id, $busastang_id, $tspjap_id, $tipe_bahan, $stiker_id, $nama, $nama_nota, $jumlah, $harga, $ktrg);
-            array_push($success_messages, "success_message: Item $inserted_product[nama_nota] berhasil di input ke dalam temp_spk_produk!");
-        }
-
-        if ($mode === 'ADD PRODUCT FROM DETAIL') {
+            list($pesan_db, $ada_error, $class_div_pesan_db, $success_messages) = InsertingProductHelper::InsertingToTempSpkProduks($show_dump, $run_db, $pesan_db, $ada_error, $class_div_pesan_db, $success_messages, $tipe, $bahan_id, $variasi_id, $ukuran_id, $jahit_id, $kombi_id, $standar_id, $tankpad_id, $busastang_id, $tspjap_id, $tipe_bahan, $stiker_id, $nama, $nama_nota, $jumlah, $harga, $ktrg);
+        } elseif ($mode === 'ADD PRODUCT FROM DETAIL') {
             $spk = Spk::find($post['spk_id']);
             $jumlah_total = $spk['jumlah_total'] + $jumlah;
             $harga_total = $spk['harga_total'] + $harga;
-            $inserted_product = InsertingProductHelper::InsertingFromDetail($show_dump, $run_db, $load_num, $mode, $tipe, $bahan_id, $variasi_id, $ukuran_id, $jahit_id, $kombi_id, $standar_id, $tankpad_id, $busastang_id, $tspjap_id, $tipe_bahan, $stiker_id, $nama, $nama_nota, $jumlah, $harga, $ktrg, $spk, $jumlah_total, $harga_total, $success_messages);
+            list($pesan_db, $ada_error, $class_div_pesan_db, $success_messages) = InsertingProductHelper::InsertingFromDetail($show_dump, $run_db, $load_num, $mode, $tipe, $bahan_id, $variasi_id, $ukuran_id, $jahit_id, $kombi_id, $standar_id, $tankpad_id, $busastang_id, $tspjap_id, $tipe_bahan, $stiker_id, $nama, $nama_nota, $jumlah, $harga, $ktrg, $spk, $jumlah_total, $harga_total, $success_messages);
         }
 
 

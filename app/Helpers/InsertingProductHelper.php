@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class InsertingProductHelper {
 
-    static function InsertingToTempSpkProduks($show_dump, $run_db, $tipe, $bahan_id, $variasi_id, $ukuran_id, $jahit_id, $kombi_id, $standar_id, $tankpad_id, $busastang_id, $tspjap_id, $tipe_bahan, $stiker_id, $nama, $nama_nota, $jumlah, $harga, $ktrg)
+    static function InsertingToTempSpkProduks($show_dump, $run_db, $pesan_db, $ada_error, $class_div_pesan_db, $success_messages, $tipe, $bahan_id, $variasi_id, $ukuran_id, $jahit_id, $kombi_id, $standar_id, $tankpad_id, $busastang_id, $tspjap_id, $tipe_bahan, $stiker_id, $nama, $nama_nota, $jumlah, $harga, $ktrg)
     {
         if ($run_db) {
             $inserted_product = TempSpkProduk::create([
@@ -33,9 +33,16 @@ class InsertingProductHelper {
                 'harga' => $harga,
                 'ktrg' => $ktrg,
             ]);
+
+            $pesan_db = 'SUCCESS: Berhasil input ke dalam temp_spk_produk';
+            $ada_error = false;
+            $class_div_pesan_db = 'alert-success';
+
+            array_push($success_messages, "success_message: Item $inserted_product[nama_nota] berhasil di input ke dalam temp_spk_produk!");
+
         }
 
-        return $inserted_product;
+        return array($pesan_db, $ada_error, $class_div_pesan_db, $success_messages);
     }
 
     static function InsertingFromDetail($show_dump, $run_db, $load_num, $mode, $tipe, $bahan_id, $variasi_id, $ukuran_id, $jahit_id, $kombi_id, $standar_id, $tankpad_id, $busastang_id, $tspjap_id, $tipe_bahan, $stiker_id, $nama, $nama_nota, $jumlah, $harga, $ktrg, $spk, $jumlah_total, $harga_total, $success_messages)
@@ -116,6 +123,8 @@ class InsertingProductHelper {
             $ada_error = false;
             $class_div_pesan_db = 'alert-success';
         }
+
+        return array($pesan_db, $ada_error, $class_div_pesan_db, $success_messages);
     }
 
 }
