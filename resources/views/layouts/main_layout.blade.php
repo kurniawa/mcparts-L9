@@ -48,9 +48,14 @@
 
 <script>
     function showDropdown(id) {
-        // console.log(`run dropdown! ID=${id}`);
         $selectedDiv = $("#divDetailDropdown-" + id);
         $selectedDiv.toggle(400);
+
+        if (show_console) {
+            console.log(`run dropdown! ID=${id}`);
+            console.log('#divDetailDropdown:');console.log($selectedDiv);
+            console.log('#divDetailDropdown.css(display):');console.log($selectedDiv.css('display'));
+        }
 
         setTimeout(() => {
             // console.log(`$selectedDiv.css("display") = ${$selectedDiv.css("display")}`);

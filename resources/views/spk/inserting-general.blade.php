@@ -9,7 +9,7 @@
 {{-- ELEMENT UNTUK SJ VARIASI --}}
 <div id="container-bahan" class="mb-3 element-sj-variasi" style="display: none">
     <div>Pilih Bahan:</div>
-    <input type="text" id="bahan" name="bahan" class="input-normal" style="border-radius:5px;">
+    <input type="text" id="bahan" name="bahan" class="input-normal @error('bahan') is-invalid @enderror" style="border-radius:5px;">
     @error('bahan')
     <div class='invalid-feedback'>{{ $message }}</div>
     @enderror
@@ -49,7 +49,7 @@
 {{-- ELEMENT UNTUK SJ KOMBINASI --}}
 <div id="container-kombinasi" class="mb-3 element-sj-kombinasi" style="display: none">
     <label>Pilih Kombinasi:</label>
-    <input type="text" id="kombi" name="kombi" class="input-normal" style="border-radius:5px;">
+    <input type="text" id="kombi" name="kombi" class="input-normal @error('kombi') is-invalid @enderror" style="border-radius:5px;">
     @error('kombi')
     <div class='invalid-feedback'>{{ $message }}</div>
     @enderror
@@ -60,7 +60,7 @@
 {{-- ELEMENT UNTUK SJ STANDAR --}}
 <div id="container-standar" class="mb-3 element-sj-standar" style="display: none">
     <label>Pilih Standar:</label>
-    <input type="text" id="standar" name="standar" class="input-normal" style="border-radius:5px;">
+    <input type="text" id="standar" name="standar" class="input-normal @error('standar') is-invalid @enderror" style="border-radius:5px;">
     @error('standar')
     <div class='invalid-feedback'>{{ $message }}</div>
     @enderror
@@ -70,12 +70,28 @@
 
 {{-- ELEMENT UNTUK TANKPAD --}}
 <div id="container-tankpad" class="mb-3 element-sj-tankpad" style="display: none">
-
+    <label for="">Pilih Tankpad:</label>
+    <div>
+    <input type='text' id='tankpad' name='tankpad' class='input-normal @error('tankpad') is-invalid @enderror' style='border-radius:5px;'>
+    @error('tankpad')
+    <div class='invalid-feedback'>{{ $message }}</div>
+    @enderror
+    <input type='hidden' id='tankpad_id' name='tankpad_id'>
+    <input type='hidden' id='tankpad_harga' name='tankpad_harga'>
+    </div>
 </div>
 
 {{-- ELEMENT UNTUK BUSASTANG --}}
 <div id="container-busastang" class="mb-3 element-sj-busastang" style="display: none">
-
+    <br>
+    <div id='div_input_busastang'>
+    <input type='text' id='busastang' name='busastang' class='input-normal @error('busastang') is-invalid @enderror' style='border-radius:5px;' value='Busa-Stang'>
+    @error('busastang')
+    <div class='invalid-feedback'>{{ $message }}</div>
+    @enderror
+    <input type='hidden' id='busastang_id' name='busastang_id'>
+    <input type='hidden' id='busastang_harga' name='busastang_harga'>
+    </div>
 </div>
 
 {{-- ELEMENT UNTUK T.SIXPACK JAPSTYLE --}}
@@ -89,9 +105,12 @@
     </div>
     <br>
     Pilih Bahan:
-    <div id='div_pilih_bahan'>
-        <input type='text' id='bahan' name='bahan' class='input-normal' style='border-radius:5px;'>
-        <input type='hidden' id='bahan_id' name='bahan_id'>
+    <div id='div_pilih_bahan_tspjap'>
+        <input type='text' id='bahan_tspjap' name='bahan_tspjap' class='input-normal @error('bahan_tspjap') is-invalid @enderror' style='border-radius:5px;'>
+        @error('bahan_tspjap')
+        <div class='invalid-feedback'>{{ $message }}</div>
+        @enderror
+        <input type='hidden' id='bahan_tspjap_id' name='bahan_tspjap_id'>
     </div>
     <br>
     <div>Pilih T.Sixpack/Japstyle:</div>
@@ -102,11 +121,20 @@
 
 {{-- ELEMENT UNTUK STIKER --}}
 <div id="container-stiker" class="mb-3 element-sj-stiker" style="display: none">
+    <label for="">Pilih Stiker:</label>
+    <div id='div_input_stiker'>
+    <input type='text' id='stiker' name='stiker' class='input-normal @error('stiker') is-invalid @enderror' style='border-radius:5px;'>
+    @error('stiker')
+    <div class='invalid-feedback'>{{ $message }}</div>
+    @enderror
+    <input type='hidden' id='stiker_id' name='stiker_id'>
+    <input type='hidden' id='stiker_harga' name='stiker_harga'>
+    </div>
 </div>
 
 <div id="container-jumlah" class="mb-3">
     <label for="">Jumlah:</label>
-    <input id='ipt_jumlah' type="number" name="jumlah" min="0" step="1" placeholder="Jumlah" class="p-0_5em" style="border-radius:5px;">
+    <input id='ipt_jumlah' type="number" name="jumlah" min="0" step="1" placeholder="Jumlah" class="p-0_5em @error('jumlah') is-invalid @enderror" style="border-radius:5px;">
     @error('jumlah')
     <div class='invalid-feedback'>{{ $message }}</div>
     @enderror
@@ -146,6 +174,20 @@
 <script>
     const mode = {!! json_encode($mode, JSON_HEX_TAG) !!};
     const tipe = {!! json_encode($tipe, JSON_HEX_TAG) !!};
+
+    const tspjaps = {!! json_encode($tspjaps, JSON_HEX_TAG) !!};
+    const label_tspjap_a = {!! json_encode($label_tspjap_a, JSON_HEX_TAG) !!};
+    const label_tspjap_b = {!! json_encode($label_tspjap_b, JSON_HEX_TAG) !!};
+    const d_bahan_a = {!! json_encode($d_bahan_a, JSON_HEX_TAG) !!};
+    const d_bahan_b = {!! json_encode($d_bahan_b, JSON_HEX_TAG) !!};
+
+    if (show_console) {
+        console.log('tspjaps:'); console.log(tspjaps);
+        console.log('label_tspjap_a:'); console.log(label_tspjap_a);
+        console.log('label_tspjap_b:'); console.log(label_tspjap_b);
+        console.log('d_bahan_a:'); console.log(d_bahan_a);
+        console.log('d_bahan_b:'); console.log(d_bahan_b);
+    }
 
     if (tipe === 'varia') {
         document.querySelector('.element-sj-variasi').style.display = 'block';
@@ -214,38 +256,128 @@
             }
         });
     } else if (tipe === 'tankpad') {
+        document.querySelector('.element-sj-tankpad').style.display = 'block';
+
+        const tankpads = {!! json_encode($tankpads, JSON_HEX_TAG) !!};
+
+        if (show_console) {
+            console.log('tankpads');
+            console.log(tankpads);
+        }
+
+        $("#tankpad").autocomplete({
+            source: tankpads,
+            select: function(event, ui) {
+                // console.log(ui.item);
+                $("#tankpad_id").val(ui.item.id);
+                $("#tankpad_harga").val(ui.item.harga);
+                // show_select_variasi();
+                // show_options(available_options);
+            }
+        });
 
     } else if (tipe === 'busastang') {
+        document.querySelector('.element-sj-busastang').style.display = 'block';
+
+        const busastangs = {!! json_encode($busastangs, JSON_HEX_TAG) !!};
+
+        if (show_console) {
+            console.log('busastangs');
+            console.log(busastangs);
+        }
+
+        $("#busastang").autocomplete({
+            source: busastangs,
+            select: function(event, ui) {
+                // console.log(ui.item);
+                $("#busastang_id").val(ui.item.id);
+                $("#busastang_harga").val(ui.item.harga);
+                // show_select_variasi();
+                // show_options(available_options);
+            }
+        });
+
+        if (busastangs.length === 1) {
+            document.getElementById('busastang').value = busastangs[0].value;
+            document.getElementById('busastang').readOnly = true;
+            document.getElementById('busastang_id').value = busastangs[0].id;
+            document.getElementById('busastang_harga').value = busastangs[0].harga;
+        }
 
     } else if (tipe === 'tspjap') {
+        document.querySelector('.element-sj-tspjap').style.display = 'block';
         setAutocomplete_D_Bahan();
     } else if (tipe === 'stiker') {
+        document.querySelector('.element-sj-stiker').style.display = 'block';
 
+        const stikers = {!! json_encode($stikers, JSON_HEX_TAG) !!};
+
+        if (show_console) {
+            console.log('stikers');
+            console.log(stikers);
+        }
+
+        $("#stiker").autocomplete({
+            source: stikers,
+            select: function(event, ui) {
+                // console.log(ui.item);
+                $("#stiker_id").val(ui.item.id);
+                $("#stiker_harga").val(ui.item.harga);
+                // show_select_variasi();
+                // show_options(available_options);
+            }
+        });
     }
 
     function setAutocomplete_D_Bahan() {
-        document.querySelector('.element-sj-tspjap').style.display = 'block';
-
-        const d_bahan_a = {!! json_encode($d_bahan_a, JSON_HEX_TAG) !!};
-        const d_bahan_b = {!! json_encode($d_bahan_b, JSON_HEX_TAG) !!};
-
         const tipe_bahan = document.getElementById('tipe_bahan').value;
+        var label_tspjap = null;
         var label_bahan = new Array();
         if (tipe_bahan === 'A') {
             label_bahan = d_bahan_a;
+            label_tspjap = label_tspjap_a;
         } else {
             label_bahan = d_bahan_b;
+            label_tspjap = label_tspjap_b;
         }
         console.log(tipe_bahan);
-        $("#bahan").autocomplete({
-        source: label_bahan,
-        select: function(event, ui) {
-            // console.log(ui.item);
-            $("#bahan_id").val(ui.item.id);
-            // show_select_variasi();
-            // show_options(available_options);
+        $("#bahan_tspjap").autocomplete({
+            source: label_bahan,
+            select: function(event, ui) {
+                // console.log(ui.item);
+                $("#bahan_tspjap_id").val(ui.item.id);
+                // show_select_variasi();
+                // show_options(available_options);
+            }
+        });
+
+        var optionTspjap = '';
+
+        label_tspjap.forEach(l_tspjap => {
+            optionTspjap += `<option value=${l_tspjap.id}>${l_tspjap.label}</option>`;
+        });
+
+        document.getElementById('select_tspjap').innerHTML = optionTspjap;
+
+        assignTspjapIDValue(0);
+    }
+
+    function assignTspjapIDValue(selectedIndex) {
+        // console.log(selectedIndex);
+        const tipe_bahan = document.getElementById('tipe_bahan').value;
+        var label_tspjap = null;
+        if (tipe_bahan === 'A') {
+            label_tspjap = label_tspjap_a;
+        } else {
+            label_tspjap = label_tspjap_b;
         }
-    });
+        document.getElementById('tspjap').value = label_tspjap[selectedIndex].value;
+        document.getElementById('tspjap_harga').value = label_tspjap[selectedIndex].harga;
+
+        if (show_console) {
+            console.log('selectedIndex:');console.log(selectedIndex);
+            console.log('tipe_bahan:');console.log(tipe_bahan);
+        }
     }
 </script>
 

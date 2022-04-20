@@ -1,56 +1,4 @@
 @extends('layouts/main_layout')
-{{-- // SELECT list dari nama pelanggan terlebih dahulu, untuk fitur live search
-$sql = "SELECT pelanggan.id, pelanggan.nama, pelanggan.daerah, pelanggan_reseller.id_reseller
-FROM pelanggan LEFT JOIN pelanggan_reseller ON pelanggan.id=pelanggan_reseller.id_pelanggan ORDER BY pelanggan.nama ASC";
-
-$dPelanggan = mysqliQuery("SELECT", $sql);
-
-// dd($dPelanggan);
-
-$i = 0;
-$dLabelValPelanggan = array();
-foreach ($dPelanggan as $pelanggan) {
-    if ($pelanggan["id_reseller"] !== null) {
-        $sql = "SELECT pelanggan.nama FROM pelanggan WHERE id=" . $pelanggan["id_reseller"];
-
-        $nama_reseller = mysqliQuery("SELECT", $sql);
-
-        $dPelanggan[$i]["nama_reseller"] = $nama_reseller[0]["nama"];
-        // dd($dPelanggan[$i]);
-    }
-    array_push($dLabelValPelanggan, array("label" => $pelanggan["nama"], "value" => $pelanggan["nama"], "id" => $pelanggan["id"], "daerah" => $pelanggan["daerah"]));
-
-    $i++;
-}
-
-// dd($dPelanggan); --}}
-
-{{-- {{ dd($d_nama_pelanggan) }} --}}
-
-{{-- const dPelanggan = {!! json_encode($dPelanggan) !!};
-// console.log("dPelanggan");
-// console.log(dPelanggan);
-const dLabelValPelanggan = {!! json_encode($dLabelValPelanggan) !!};
-console.log("dLabelValPelanggan");
-console.log(dLabelValPelanggan);
-
-$("#inputCustomerName").autocomplete({
-    source: dLabelValPelanggan,
-    select: function(event, ui) {
-        console.log(ui);
-        $("#inputIDCust").val(ui.item.id);
-        $("#daerahCust").val(ui.item.daerah);
-        // console.log(event);
-        // alert(ui.item.name);
-    }
-});
-
-const d_nama_pelanggan_2 = {!! json_encode($d_nama_pelanggan_2, JSON_HEX_TAG) !!}
-    console.log("d_nama_pelanggan_2");
-    console.log(d_nama_pelanggan_2);
-
-    {{ date_default_timezone_set("Asia/Jakarta") }}
---}}
 
 @section('content')
 
@@ -79,6 +27,7 @@ const d_nama_pelanggan_2 = {!! json_encode($d_nama_pelanggan_2, JSON_HEX_TAG) !!
 
         <div class="grid-2-auto grid-column-gap-1em mt-1em">
             <input id="SPKNo" class="input-1 pb-1em" type="text" placeholder="No." disabled>
+            {{-- <input type="datetime-local" class="input-select-option-1 pb-1em" name="tanggal" id="date"> --}}
             <input type="datetime-local" class="input-select-option-1 pb-1em" name="tanggal" id="date" value="{{ date('Y-m-d\TH:i:s') }}">
         </div>
 

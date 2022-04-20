@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\InsertingProductHelper;
 use App\Helpers\SiteSettings;
 use App\Models\Bahan;
+use App\Models\Busastang;
 use App\Models\Jahit;
 use App\Models\Kombi;
 use App\Models\Produk;
@@ -13,6 +14,9 @@ use App\Models\SiteSetting;
 use App\Models\Spk;
 use App\Models\SpkProduk;
 use App\Models\Standar;
+use App\Models\Stiker;
+use App\Models\Tankpad;
+use App\Models\Tspjap;
 use App\Models\Ukuran;
 use App\Models\Variasi;
 use Illuminate\Http\Request;
@@ -42,6 +46,10 @@ class InsertingGeneralController extends Controller
         $jahit = new Jahit();
         $kombi = new Kombi();
         $standar = new Standar();
+        $tankpad = new Tankpad();
+        $busastang = new Busastang();
+        $tspjap = new Tspjap();
+        $stiker = new Stiker();
 
         $label_bahans = $bahan->label_bahans();
         $varias_harga = $varia->varias_harga();
@@ -49,6 +57,14 @@ class InsertingGeneralController extends Controller
         $jahits_harga = $jahit->jahits_harga();
         $label_kombis = $kombi->label_kombis();
         $label_standars = $standar->label_standars();
+        $label_tankpads = $tankpad->label_tankpads();
+        $label_busastangs = $busastang->label_busastangs();
+        $label_tspjaps = $tspjap->label_tspjaps();
+        $label_stikers = $stiker->label_stikers();
+        $label_tspjap_a = $tspjap->label_tspjaps_a();
+        $label_tspjap_b = $tspjap->label_tspjaps_b();
+        $d_bahan_a = $bahan->d_bahan_a();
+        $d_bahan_b = $bahan->d_bahan_b();
 
         $mode = $get['mode'];
         $tipe = $get['tipe'];
@@ -58,8 +74,16 @@ class InsertingGeneralController extends Controller
                 $judul = 'SPK Baru: Tambah SJ Variasi';
             } elseif ($tipe === 'kombinasi') {
                 $judul = 'SPK BARU: Tambah SJ Kombinasi';
-            } elseif ($tipe = 'standar') {
+            } elseif ($tipe === 'standar') {
                 $judul = 'SPK BARU: Tambah SJ Standar';
+            } elseif ($tipe === 'tankpad') {
+                $judul = 'SPK BARU: Tambah SJ Tankpad';
+            } elseif ($tipe === 'busastang') {
+                $judul = 'SPK BARU: Tambah SJ Busastang';
+            } elseif ($tipe === 'tspjap') {
+                $judul = 'SPK BARU: Tambah SJ T.Sixpack/Japstyle';
+            } elseif ($tipe === 'stiker') {
+                $judul = 'SPK BARU: Tambah SJ Stiker';
             }
         } elseif ($mode === 'ADD PRODUCT FROM DETAIL') {
             if ($tipe === 'varia') {
@@ -68,6 +92,14 @@ class InsertingGeneralController extends Controller
                 $judul = 'Edit SPK: Tambah SJ Kombinasi';
             } elseif ($tipe === 'standar') {
                 $judul = 'Edit SPK: Tambah SJ Standar';
+            } elseif ($tipe === 'tankpad') {
+                $judul = 'Edit SPK: Tambah SJ Tankpad';
+            } elseif ($tipe === 'busastang') {
+                $judul = 'Edit SPK: Tambah SJ Busastang';
+            } elseif ($tipe === 'tspjap') {
+                $judul = 'Edit SPK: Tambah SJ T.Sixpack/Japstyle';
+            } elseif ($tipe === 'stiker') {
+                $judul = 'Edit SPK: Tambah SJ Stiker';
             }
         }
 
@@ -82,10 +114,18 @@ class InsertingGeneralController extends Controller
             'jahits' => $jahits_harga,
             'kombis' => $label_kombis,
             'standars' => $label_standars,
+            'tankpads' => $label_tankpads,
+            'busastangs' => $label_busastangs,
+            'tspjaps' => $label_tspjaps,
+            'label_tspjap_a' => $label_tspjap_a,
+            'label_tspjap_b' => $label_tspjap_b,
+            'stikers' => $label_stikers,
+            'd_bahan_a' => $d_bahan_a,
+            'd_bahan_b' => $d_bahan_b,
         ];
 
         if ($show_dump) {
-            dump($data);
+            dump('$data:', $data);
         }
 
         return view('spk.inserting-general', $data);
@@ -154,9 +194,9 @@ class InsertingGeneralController extends Controller
             ]);
         } elseif ($tipe === 'tspjap') {
             $request->validate([
-                'tspjap' => 'required',
                 'tipe_bahan' => 'required',
-                'bahan' => 'required',
+                'bahan_tspjap' => 'required',
+                'tspjap' => 'required',
                 'jumlah' => 'numeric|required|min:1',
             ]);
         } elseif ($tipe === 'stiker') {

@@ -117,6 +117,9 @@ Route::controller(SpkController::class)->group(function ()
 {
     Route::get('/spk', 'index');
     Route::get('/spk/spk-detail', 'spk_detail');
+    Route::post('/spk/delete-item-from-spk-detail', 'delete_item_from_spk_detail');
+    Route::get('/spk/edit-kop-spk', 'edit_kop_spk');
+    Route::post('/spk/edit-kop-spk-db', 'edit_kop_spk_db');
 });
 
 Route::controller(SpkBaruController::class)->group(function ()

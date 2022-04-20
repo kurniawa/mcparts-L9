@@ -6,16 +6,19 @@
 
 </div>
 
-<div class="threeDotMenu">
+<div class="threeDotMenu" style="z-index:200">
     <div class="threeDot">
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
     </div>
     <div class="divThreeDotMenuContent">
-        <div id="editKopSPK" class="threeDotMenuItem">
-            <img src="/img/icons/edit.svg" alt=""><span>Edit Kop SPK</span>
-        </div>
+        <form action="/spk/edit-kop-spk" method="GET">
+            <input type="hidden" name="spk_id" value={{ $spk['id'] }}>
+            <button type="submit" class="threeDotMenuItem" style="width: 100%">
+                <img src="/img/icons/edit.svg" alt=""><span>Edit Kop SPK</span>
+            </button>
+        </form>
         <form action="/spk/print_out_spk" method='GET'>
             <button id="downloadExcel" type="submit" class="threeDotMenuItem">
                 <img src="/img/icons/download.svg" alt=""><span>Download Excel</span>
@@ -112,38 +115,14 @@
     <form method='GET' action="/spk/inserting-general" class="productType grid-1-auto justify-items-center">
         @csrf
         <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
-        <input type="hidden" name="tipe" value="varia">
-        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-0 left-50 transform-translate--50_0 circle-L bg-color-orange-1 ">SJ<br>Varia</button>
-    </form>
-    <form method='GET' action="/spk/inserting-kombi-from-detail" class="productType grid-1-auto justify-items-center">
-        @csrf
-        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
-        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-1em left-35 transform-translate--50_0 circle-L bg-color-orange-1">SJ<br>Kombi</button>
-    </form>
-    <form method='GET' action="/spk/inserting-standar-from-detail" class="productType grid-1-auto justify-items-center">
-        @csrf
-        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
-        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-1em left-65 transform-translate--50_0 circle-L bg-color-orange-1">SJ<br>Std</button>
-    </form>
-    <form method='GET' action="/spk/inserting-tankpad-from-detail" class="productType justify-items-center">
-        @csrf
-        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
-        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-5em left-30 transform-translate--50_0 circle-L bg-color-soft-red grid-1-auto">Tank<br>Pad</button>
-    </form>
-    <form method='GET' action="/spk/inserting-busastang-from-detail" class="productType grid-1-auto justify-items-center">
-        @csrf
-        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
-        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute top-5em left-70 transform-translate--50_0 circle-L bg-color-grey">Busa<br>Stang</button>
-    </form>
-    <form method='GET' action="/spk/inserting-tspjap-from-detail" class="productType grid-1-auto justify-items-center">
-        @csrf
-        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
-        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute transform-translate--50_0 circle-L bg-color-grey" style="top:10em;left:30%">T.SP<br>Jap</button>
-    </form>
-    <form method='GET' action="/spk/inserting-stiker-from-detail" class="productType grid-1-auto justify-items-center">
-        @csrf
-        <input type="hidden" name="spk_id" value="{{ $spk['id'] }}">
-        <button type="submit" name="mode" value="ADD PRODUCT FROM DETAIL" class="font-size-0_8em text-center position-absolute transform-translate--50_0 circle-L bg-color-grey" style="top:10em;left:70%">Stiker</button>
+        <input type="hidden" name="mode" value="ADD PRODUCT FROM DETAIL">
+        <button type="submit" name="tipe" value="varia" class="font-size-0_8em text-center position-absolute top-0 left-50 transform-translate--50_0 circle-L bg-color-orange-1 ">SJ<br>Varia</button>
+        <button type="submit" name="tipe" value="kombinasi" class="font-size-0_8em text-center position-absolute top-1em left-35 transform-translate--50_0 circle-L bg-color-orange-1">SJ<br>Kombi</button>
+        <button type="submit" name="tipe" value="standar" class="font-size-0_8em text-center position-absolute top-1em left-65 transform-translate--50_0 circle-L bg-color-orange-1">SJ<br>Std</button>
+        <button type="submit" name="tipe" value="tankpad" class="font-size-0_8em text-center position-absolute top-5em left-30 transform-translate--50_0 circle-L bg-color-soft-red grid-1-auto">Tank<br>Pad</button>
+        <button type="submit" name="tipe" value="busastang" class="font-size-0_8em text-center position-absolute top-5em left-70 transform-translate--50_0 circle-L bg-color-grey">Busa<br>Stang</button>
+        <button type="submit" name="tipe" value="tspjap" class="font-size-0_8em text-center position-absolute transform-translate--50_0 circle-L bg-color-grey" style="top:10em;left:30%">T.SP<br>Jap</button>
+        <button type="submit" name="tipe" value="stiker" class="font-size-0_8em text-center position-absolute transform-translate--50_0 circle-L bg-color-grey" style="top:10em;left:70%">Stiker</button>
     </form>
     <div class="position-absolute top-5em left-50 transform-translate--50_0 grid-1-auto justify-items-center" onclick="toggleProductType();">
         <button class="circle-medium bg-color-orange-2 grid-1-auto justify-items-center">
@@ -300,7 +279,7 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
 
         htmlSPKItem = htmlSPKItem +
             `<div>
-            <div class='divItem p-0_5em grid-3-75_15_10 pt-0_5em pb-0_5em bb-1px-solid-grey'>
+            <div class='divItem p-0_5em grid-3-75_15_10 pt-0_5em pb-0_5em'>
                 <div class='divItemName ${fColor}'>
                     <span style="">${produks[i].nama}</span>
                 </div>
@@ -310,15 +289,17 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
                     </div>
                     <div class='justify-self-right' style='color:grey'>Jumlah</div>
                 </div>
-                <div class='justify-self-center' onclick='elementToToggle(${element_to_toggle});'><img class='w-0_7em' src='/img/icons/dropdown.svg'></div>
+                <div id='divDropdown-${i}' class='justify-self-center' onclick='showDropdown(${i});'><img class='w-0_7em' src='/img/icons/dropdown.svg'></div>
             </div>
 
             <!-- DROPDOWN -->
-            <div id='divOpsiSPKItem-${i}' class='p-0_5em b-1px-solid-grey text-center' style='display: none'>
-                <button id='editSPKItem-${i}' class="d-inline-block bg-color-purple-blue pl-1em pr-1em b-radius-50px" style='border: none;'>
-                    <a href='/spk/edit_spk_produks?spk_id=${spk.id}&spk_produks_id=${spk_produks[i].id}&produk_id=${produks[i].id}'>Edit</a>
-                </button>
-                <form action='/spk/delete_spk_produks' method='POST' class='d-inline-block'>
+            <div id='divDetailDropdown-${i}' class='p-0_5em text-center bb-1px-solid-grey' style='display: none'>
+                <!--
+                    <button id='editSPKItem-${i}' class="d-inline-block bg-color-purple-blue pl-1em pr-1em b-radius-50px" style='border: none;'>
+                        <a href='/spk/edit_spk_produks?spk_id=${spk.id}&spk_produks_id=${spk_produks[i].id}&produk_id=${produks[i].id}'>Edit</a>
+                    </button>
+                -->
+                <form action='/spk/delete-item-from-spk-detail' method='POST' class='d-inline-block'>
                 @csrf
                 <button id='hapusSPKItem-${i}' class="bg-color-grey pl-1em pr-1em b-radius-50px" style='border: none;'>
                     Hapus
@@ -389,11 +370,6 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
     function goToNotaSPKItem(index) {
         window.location.href = `03-03-01-pembuatanNota.php?idSPKCP=${produks[index].id}`;
     }
-
-    document.getElementById('editKopSPK').addEventListener('click', function() {
-        console.log('clicked');
-        window.location.href = `03-05-edit-kop-spk.php?id_spk=${spk.id}`;
-    });
 
     // function finishSPK() {
     //     $('.closingGreyArea').show();

@@ -156,7 +156,9 @@
                     </div>
                     <div class='color-grey justify-self-right'>Jumlah</div>
                 </div>
-                <button type='submit' name='tipe_submit' value='edit' id='btnEditItem-${i}' class='btnEditItem grid-1-auto justify-items-center circle-medium bg-color-purple-blue'><img style='width: 1.3em;' src='/img/icons/pencil2-white.svg'></button>
+                <!--
+                    <button type='submit' name='tipe_submit' value='edit' id='btnEditItem-${i}' class='btnEditItem grid-1-auto justify-items-center circle-medium bg-color-purple-blue'><img style='width: 1.3em;' src='/img/icons/pencil2-white.svg'></button>
+                -->
                 <div class='pl-0_5em color-blue-purple'>${keterangan}</div>
             </form>`;
 

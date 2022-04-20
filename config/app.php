@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -194,6 +194,7 @@ return [
         // ...
         'SiteSettings' => App\Helpers\SiteSettings::class,
         'InsertingProductHelper' => App\Helpers\InsertingProductHelper::class,
+        'PelangganHelper' => App\Helpers\PelangganHelper::class,
     ])->toArray(),
 
 ];
