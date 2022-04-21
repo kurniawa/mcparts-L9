@@ -19,18 +19,25 @@
                 <img src="/img/icons/edit.svg" alt=""><span>Edit Kop SPK</span>
             </button>
         </form>
-        <form action="/spk/print_out_spk" method='GET'>
-            <button id="downloadExcel" type="submit" class="threeDotMenuItem">
-                <img src="/img/icons/download.svg" alt=""><span>Download Excel</span>
+        <form action="/spk/print-out-spk" method='POST'>
+            @csrf
+            <button id="downloadExcel" type="submit" class="threeDotMenuItem" style="width: 100%">
+                <img src="/img/icons/download.svg" alt=""><span>Print Out SPK</span>
             </button>
             <input type="hidden" name="spk_id" value={{ $spk['id'] }}>
         </form>
         <!-- <a href="03-03-01-pembuatanNota.php?id_spk=<a?= $id_spk" id="" class="threeDotMenuItem">
             <img src="/img/icons/pencil.svg" alt=""><span>Buat Nota</span>
         </a> -->
-        <div id="konfirmasiHapusSPK" class="threeDotMenuItem">
+        <form action="/spk/hapus-spk" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus SPK ini?');">
+            @csrf
+            <button type="submit" class="threeDotMenuItem" style="width:100%">
+                <img src="/img/icons/trash-can.svg" alt=""><span>Cancel/Hapus SPK</span>
+            </button>
+        </form>
+        {{-- <div id="konfirmasiHapusSPK" class="threeDotMenuItem">
             <img src="/img/icons/trash-can.svg" alt=""><span>Cancel/Hapus SPK</span>
-        </div>
+        </div> --}}
         <a href="/spk/penetapan_item_selesai?spk_id={{ $spk['id'] }}" id="SPKSelesai" class="threeDotMenuItem">
             <img src="/img/icons/edit.svg" alt=""><span>Tetapkan Item Selesai</span>
         </a>
@@ -137,29 +144,6 @@
 </div> --}}
 
 <div id="divMarginBottom" style="height: 20vh;"></div>
-
-
-<style>
-    /* .closingGreyArea {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: black;
-        opacity: 0.2;
-    }
-
-    .lightBox {
-        position: absolute;
-        top: 25vh;
-        left: 0.5em;
-        right: 0.5em;
-        height: 13em;
-        background-color: white;
-        padding: 1em;
-    } */
-</style>
 
 <script>
     const spk = {!! json_encode($spk, JSON_HEX_TAG) !!};
@@ -345,13 +329,13 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
     // $('#divBtnSPKSelesai').hide();
     $('#btnEditSPKItem').hide();
 
-    function goToPrintOutSPK() {
-        location.href = `03-06-print-out-spk.php?id_spk=${spk.id}`;
-    }
+    // function goToPrintOutSPK() {
+    //     location.href = `03-06-print-out-spk.php?id_spk=${spk.id}`;
+    // }
 
-    function goToDeleteSPK() {
-        location.href = `03-03-01-deleteSPK.php?id_spk=${spk.id}`;
-    }
+    // function goToDeleteSPK() {
+    //     location.href = `03-03-01-deleteSPK.php?id_spk=${spk.id}`;
+    // }
 
     // function goToEditSPKItem(index) {
     //     if (produk[index].tipe == "sj-varia") {
@@ -367,9 +351,9 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
     //     }
     // }
 
-    function goToNotaSPKItem(index) {
-        window.location.href = `03-03-01-pembuatanNota.php?idSPKCP=${produks[index].id}`;
-    }
+    // function goToNotaSPKItem(index) {
+    //     window.location.href = `03-03-01-pembuatanNota.php?idSPKCP=${produks[index].id}`;
+    // }
 
     // function finishSPK() {
     //     $('.closingGreyArea').show();

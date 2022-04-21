@@ -12,6 +12,7 @@
 </header>
 
 <form action="/spk/edit-kop-spk-db" method="POST">
+    @csrf
     <div class="mt-1em ml-1em grid-2-10_auto">
         <div class="">
             <img class="w-2em" src="/img/icons/pencil.svg" alt="">
@@ -24,12 +25,15 @@
         <div class="grid-2-auto grid-column-gap-1em mt-1em">
             <div class="pb-1em">
                 <label class="color-grey" for="SPKNo">No. SPK:</label>
-                <input id="SPKNo" class="input-1" type="text" placeholder="No." value={{ $spk['id'] }} disabled="true">
-                <input type="hidden" name="id_spk" value={{ $spk['id'] }}>
+                <input id="SPKNo" class="input-1" type="text" placeholder="No." value="{{ $spk['id'] }}" disabled="true">
+                <input type="hidden" name="spk_id" value={{ $spk['id'] }}>
             </div>
             <div class="pb-1em">
                 <label for="date" class="color-grey">Tgl.:</label>
-                <input type="datetime-local" class="input-select-option-1" name="tgl_pembuatan" id="date" value="{{ date('Y-m-d\TH:i:s', strtotime($spk['created_at'])) }}">
+                <input type="datetime-local" class="input-select-option-1 @error('created_at') is-invalid @enderror" name="created_at" id="date" value="{{ date('Y-m-d\TH:i:s', strtotime($spk['created_at'])) }}">
+                @error('created_at')
+                <div class='invalid-feedback'>{{ $message }}</div>
+                @enderror
             </div>
         </div>
 
@@ -39,7 +43,10 @@
                     <label class="color-grey" for="inputCustomerName">Nama Pelanggan:</label>
                     <input id="inputCustomerName" class="input-1 bb-none" type="text" value="{{ $pelanggan_nama }}">
                     {{--  onkeyup="findCustomer(this.value);" --}}
-                    <input id="inputPelangganID" type="hidden" name="pelanggan_id" value={{ $pelanggan['id'] }}>
+                    <input id="inputPelangganID" type="hidden" name="pelanggan_id" class="@error('pelanggan_id') is-invalid @enderror" value={{ $pelanggan['id'] }}>
+                    @error('pelanggan_id')
+                    <div class='invalid-feedback'>{{ $message }}</div>
+                    @enderror
                     <input id="inputResellerID" type="hidden" name="reseller_id" value={{ $reseller_id }}>
                 </div>
                 <div id="searchResults" class="d-none b-1px-solid-grey bb-none"></div>

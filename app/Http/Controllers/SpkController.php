@@ -203,7 +203,6 @@ class SpkController extends Controller
             'pelanggan' => $pelanggan,
             'reseller' => $reseller,
             'reseller_id' => $reseller_id,
-            'pelanggan' => $pelanggan,
             'pelanggan_nama' => $pelanggan_nama,
             'label_pelanggan_resellers' => $label_pelanggan_resellers,
         ];
@@ -213,6 +212,121 @@ class SpkController extends Controller
             dump('$pelanggan[nama]:', $pelanggan['nama']);
         }
         return view('spk.edit-kop-spk', $data);
+    }
+
+    public function edit_kop_spk_db(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $show_dump = true;
+        $run_db = true;
+        $success_messages = $error_messages = array();
+        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $class_div_pesan_db = 'alert-danger';
+        $ada_error = true;
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $ada_error = true;
+            $class_div_pesan_db = 'alert-danger';
+        }
+
+        $request->validate([
+            'pelanggan_id' => 'required',
+            'created_at' => 'required|date_format:Y-m-d\TH:i:s',
+        ]);
+
+        $post = $request->post();
+
+        if ($show_dump) {
+            dump('$post:', $post);
+        }
+
+        $spk = Spk::find($post['spk_id']);
+        $pelanggan = Pelanggan::find($spk['pelanggan_id']);
+        $reseller = null;
+        $reseller_id = null;
+        $created_at = $post['created_at'];
+
+        if ($post['reseller_id'] !== null) {
+            $reseller = Pelanggan::find($post['reseller_id']);
+            $reseller_id = $reseller['id'];
+        }
+
+        if ($run_db) {
+            $spk->pelanggan_id = $pelanggan['id'];
+            $spk->reseller_id = $reseller_id;
+            $spk->created_at = $created_at;
+            $spk->save();
+
+            $pesan_db = "SUCCESS: Kop SPK dengan ID: $spk[id] berhasil diubah/-update.";
+            $class_div_pesan_db = 'alert-success';
+            $ada_error = false;
+        }
+
+
+        $data = [
+            'success_messages' => $success_messages,
+            'error_messages' => $error_messages,
+            'pesan_db' => $pesan_db,
+            'class_div_pesan_db' => $class_div_pesan_db,
+            'ada_error' => $ada_error,
+            'go_back_number' => -2,
+        ];
+
+        if ($show_dump) {
+            dump('$data:', $data);
+        }
+
+        return view('layouts.go-back-page', $data);
+    }
+
+    public function print_out_spk(Request $request)
+    {
+        SiteSettings::loadNumToZero();
+        $show_dump = false;
+
+        $post = $request->post();
+
+        if ($show_dump) {
+            dump('$post:', $post);
+        }
+
+        $spk = Spk::find($post['spk_id']);
+        $pelanggan = Pelanggan::find($spk['pelanggan_id']);
+        $reseller = null;
+        $reseller_id = null;
+        $pelanggan_nama = $pelanggan['nama'];
+
+        $spk_produks = SpkProduk::where('spk_id', $spk['id'])->get();
+        $produks = array();
+        foreach ($spk_produks as $spk_produk) {
+            $produk = Produk::find($spk_produk['produk_id']);
+            array_push($produks, $produk);
+        }
+
+        $label_pelanggan_resellers = PelangganHelper::label_pelanggan_resellers();
+
+        if ($spk['reseller_id'] !== null) {
+            $reseller = Pelanggan::find($spk['reseller_id']);
+            $reseller_id = $reseller['id'];
+            $pelanggan_nama = "$reseller[nama]: $pelanggan[nama]";
+        }
+
+        $data = [
+            'spk' => $spk,
+            'pelanggan' => $pelanggan,
+            'reseller' => $reseller,
+            'reseller_id' => $reseller_id,
+            'spk_produks' => $spk_produks,
+            'produks' => $produks,
+            'pelanggan_nama' => $pelanggan_nama,
+        ];
+
+        if ($show_dump) {
+            dump('$data:', $data);
+        }
+        return view('spk.print-out-spk', $data);
     }
 
     /**
