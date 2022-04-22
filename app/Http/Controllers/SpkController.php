@@ -329,6 +329,56 @@ class SpkController extends Controller
         return view('spk.print-out-spk', $data);
     }
 
+    public function hapus_spk(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $show_dump = true;
+        $run_db = true;
+        $success_messages = $error_messages = array();
+        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $class_div_pesan_db = 'alert-danger';
+        $ada_error = true;
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $ada_error = true;
+            $class_div_pesan_db = 'alert-danger';
+        }
+
+        $post = $request->post();
+
+        if ($show_dump) {
+            dump('$post:', $post);
+        }
+
+        $spk = Spk::find($post['spk_id']);
+
+        if ($run_db) {
+            $spk->delete();
+
+            $pesan_db = "SUCCESS: SPK dengan ID: $spk[id] berhasil dihapus!";
+            $class_div_pesan_db = 'alert-warning';
+            $ada_error = false;
+        }
+
+
+        $data = [
+            'success_messages' => $success_messages,
+            'error_messages' => $error_messages,
+            'pesan_db' => $pesan_db,
+            'class_div_pesan_db' => $class_div_pesan_db,
+            'ada_error' => $ada_error,
+            'go_back_number' => -2,
+        ];
+
+        if ($show_dump) {
+            dump('$data:', $data);
+        }
+
+        return view('layouts.go-back-page', $data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

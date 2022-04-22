@@ -31,6 +31,7 @@
         </a> -->
         <form action="/spk/hapus-spk" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus SPK ini?');">
             @csrf
+            <input type="hidden" name="spk_id" value={{ $spk['id'] }}>
             <button type="submit" class="threeDotMenuItem" style="width:100%">
                 <img src="/img/icons/trash-can.svg" alt=""><span>Cancel/Hapus SPK</span>
             </button>
@@ -38,6 +39,12 @@
         {{-- <div id="konfirmasiHapusSPK" class="threeDotMenuItem">
             <img src="/img/icons/trash-can.svg" alt=""><span>Cancel/Hapus SPK</span>
         </div> --}}
+        <form action="/spk/tetapkan-item-selesai" method="GET">
+            <input type="hidden" name="spk_id" value={{ $spk['id'] }}>
+            <button type="submit" class="threeDotMenuItem" style="width: 100%">
+                <img src="/img/icons/edit.svg" alt=""><span>Tetapkan Item Selesai</span>
+            </button>
+        </form>
         <a href="/spk/penetapan_item_selesai?spk_id={{ $spk['id'] }}" id="SPKSelesai" class="threeDotMenuItem">
             <img src="/img/icons/edit.svg" alt=""><span>Tetapkan Item Selesai</span>
         </a>
@@ -422,23 +429,23 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
     //     bubbleWarning(deleteProperties);
     // });
 
-    document.getElementById("konfirmasiHapusSPK").addEventListener("click", function() {
-        var deleteProperties = {
-            title: "Yakin ingin menghapus SPK ini?",
-            yes: "Ya",
-            no: "Batal",
-            table: "spks",
-            column: "id",
-            columnValue: spk.id,
-            action: "/spk/hapus-SPK",
-            csrf: my_csrf,
-            goBackNumber: -2,
-            goBackStatement: "Daftar SPK"
-        };
+    // document.getElementById("konfirmasiHapusSPK").addEventListener("click", function() {
+    //     var deleteProperties = {
+    //         title: "Yakin ingin menghapus SPK ini?",
+    //         yes: "Ya",
+    //         no: "Batal",
+    //         table: "spks",
+    //         column: "id",
+    //         columnValue: spk.id,
+    //         action: "/spk/hapus-SPK",
+    //         csrf: my_csrf,
+    //         goBackNumber: -2,
+    //         goBackStatement: "Daftar SPK"
+    //     };
 
-        var deletePropertiesStringified = JSON.stringify(deleteProperties);
-        showLightBoxGlobal(deletePropertiesStringified);
-    });
+    //     var deletePropertiesStringified = JSON.stringify(deleteProperties);
+    //     showLightBoxGlobal(deletePropertiesStringified);
+    // });
 
     /*
     Reload Page di lakukan dengan 2 tahap untuk jaga2 apabila tidak ter reload
