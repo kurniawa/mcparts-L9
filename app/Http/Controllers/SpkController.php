@@ -379,6 +379,102 @@ class SpkController extends Controller
         return view('layouts.go-back-page', $data);
     }
 
+    public function tetapkan_item_selesai(Request $request)
+    {
+        SiteSettings::loadNumToZero();
+        $show_dump = true;
+
+        $get = $request->query();
+
+        if ($show_dump) {
+            dump('$get:', $get);
+        }
+
+        $spk = Spk::find($get['spk_id']);
+        $pelanggan = Pelanggan::find($spk['pelanggan_id']);
+        $reseller = null;
+
+        if ($spk['reseller_id'] !== null) {
+            $reseller = Pelanggan::find($spk['reseller_id']);
+        }
+
+        $spk_produks = $spk->spk_produks;
+        $produks = $spk->produks;
+
+        if ($show_dump) {
+            dump('$spk:', $spk);
+            dump('$pelanggan:', $pelanggan);
+            dump('$reseller:', $reseller);
+            dump('$spk_produks:', $spk_produks);
+            dump('$produks:', $produks);
+        }
+
+
+        $data = [
+            'spk' => $spk,
+            'pelanggan' => $pelanggan,
+            'reseller' => $reseller,
+            'spk_produks' => $spk_produks,
+            'produks' => $produks,
+        ];
+
+        if ($show_dump) {
+            dump('$data:', $data);
+        }
+
+        return view('spk.tetapkan-item-selesai', $data);
+    }
+
+    public function tetapkan_item_selesai_db(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $show_dump = true;
+        $run_db = true;
+        $success_messages = $error_messages = array();
+        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $class_div_pesan_db = 'alert-danger';
+        $ada_error = true;
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $ada_error = true;
+            $class_div_pesan_db = 'alert-danger';
+        }
+
+        $get = $request->query();
+
+        if ($show_dump) {
+            dd('$get:', $get);
+        }
+
+        $spk = Spk::find($get['spk_id']);
+
+        if ($run_db) {
+            $spk->delete();
+
+            $pesan_db = "SUCCESS: SPK dengan ID: $spk[id] berhasil dihapus!";
+            $class_div_pesan_db = 'alert-warning';
+            $ada_error = false;
+        }
+
+
+        $data = [
+            'success_messages' => $success_messages,
+            'error_messages' => $error_messages,
+            'pesan_db' => $pesan_db,
+            'class_div_pesan_db' => $class_div_pesan_db,
+            'ada_error' => $ada_error,
+            'go_back_number' => -2,
+        ];
+
+        if ($show_dump) {
+            dump('$data:', $data);
+        }
+
+        return view('layouts.go-back-page', $data);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

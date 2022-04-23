@@ -122,6 +122,8 @@ Route::controller(SpkController::class)->group(function ()
     Route::post('/spk/edit-kop-spk-db', 'edit_kop_spk_db')->middleware('auth');
     Route::post('/spk/print-out-spk', 'print_out_spk')->middleware('auth');
     Route::post('/spk/hapus-spk', 'hapus_spk')->middleware('auth');
+    Route::get('/spk/tetapkan-item-selesai', 'tetapkan_item_selesai')->middleware('auth');
+    Route::post('/spk/tetapkan-item-selesai-db', 'tetapkan_item_selesai_db')->middleware('auth');
 });
 
 Route::controller(SpkBaruController::class)->group(function ()
