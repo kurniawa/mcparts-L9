@@ -19,13 +19,13 @@
             <div id="divSPKNumber" class="font-weight-bold"></div>
             <div>Tanggal</div>
             <div>:</div>
-            <div id="divTglPembuatan" class="font-weight-bold"></div>
+            <div id="divTglPembuatan" class="font-weight-bold">{{ date('d-m-Y H:i:s', strtotime($spk['created_at'])) }}</div>
             <div>Untuk</div>
             <div>:</div>
             <div id="divSPKCustomer" class="font-weight-bold">@if ($reseller !== null)
-                {{ $reseller['nama'] }}: {{ $pelanggan['nama'] }} - {{ $pelanggan['daerah'] }}
+                {{ $reseller['nama'] }}: {{ $pelanggan['nama'] }} - {{ $daerah['nama'] }}
             @else
-                {{ $pelanggan['nama'] }} - {{ $pelanggan['daerah'] }}
+                {{ $pelanggan['nama'] }} - {{ $daerah['nama'] }}
             @endif</div>
             <input id="inputIDCustomer" type="hidden" name="inputIDCustomer">
         </div>
@@ -55,7 +55,7 @@ GUA BUAT MANUAL LAGI AJA DAH!
 <div id="divItemList"></div>
 
 <div id="divItemList2" class="p-1em">
-    <form action="/spk/penetapan_item_selesai-db" method="POST">
+    <form action="/spk/tetapkan-item-selesai-db" method="POST">
         @csrf
         <input type='checkbox' name='main_checkbox' id='main_checkbox' onclick="checkAll(this.id, 'dd');"> Pilih Semua
         <table style="width:100%;" id="tableItemList"></table>

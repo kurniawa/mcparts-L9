@@ -380,6 +380,7 @@ class SpkBaruController extends Controller
                     'spk_id' => $spk_id,
                     'produk_id' => $d_produk_id[$j],
                     'jumlah' => $spk_item[$j]->jumlah,
+                    'jml_blm_sls' => $spk_item[$j]->jumlah,
                     'harga' => $spk_item[$j]->harga,
                     'ktrg' => $spk_item[$j]->ktrg,
                     'status' => 'PROSES',
