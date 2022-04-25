@@ -38,20 +38,16 @@ const daerahs = {!! json_encode($daerahs, JSON_HEX_TAG) !!};
 const resellers = {!! json_encode($resellers, JSON_HEX_TAG) !!};
 const arr_produks = {!! json_encode($arr_produks, JSON_HEX_TAG) !!};
 const arr_spk_produks = {!! json_encode($arr_spk_produks, JSON_HEX_TAG) !!};
+const arr_finished_at_last = {!! json_encode($arr_finished_at_last, JSON_HEX_TAG) !!};
 
 if (show_console) {
-    console.log("spks:");
-    console.log(spks);
-    console.log("pelanggans");
-    console.log(pelanggans);
-    console.log("daerahs");
-    console.log(daerahs);
-    console.log("resellers");
-    console.log(resellers);
-    console.log("arr_produks");
-    console.log(arr_produks);
-    console.log("arr_spk_produks");
-    console.log(arr_spk_produks);
+    console.log("spks:");console.log(spks);
+    console.log("pelanggans");console.log(pelanggans);
+    console.log("daerahs");console.log(daerahs);
+    console.log("resellers");console.log(resellers);
+    console.log("arr_produks");console.log(arr_produks);
+    console.log("arr_spk_produks");console.log(arr_spk_produks);
+    console.log("arr_finished_at_last");console.log(arr_finished_at_last);
 }
 
 if (spks == undefined || spks.length == 0) {
@@ -81,8 +77,8 @@ if (spks == undefined || spks.length == 0) {
             nama_pelanggan = `${resellers[i].nama}: ${nama_pelanggan}`;
         }
 
-        if (spks[i].finished_at !== '' && spks[i].finished_at !== null) {
-            const SPKDateSls = spks[i].finished_at.split(' ')[0];
+        if (arr_finished_at_last[i] !== null) {
+            const SPKDateSls = arr_finished_at_last[i].split(' ')[0];
             const arrayDateSls = SPKDateSls.split('-');
             const getYearSls = arrayDateSls[0];
             const getMonthSls = arrayDateSls[1];
@@ -197,138 +193,6 @@ if (spks == undefined || spks.length == 0) {
 
         $('#div-daftar-spk').append(htmlDaftarSPK);
     }
-}
-
-// function daftarSPK() {
-//     let i = 0;
-//     console.log('function dafarSPK dijalankan.');
-//     console.log('daftarIDSPK: ' + daftarIDSPK);
-//     daftarIDSPK.forEach(idSPK => {
-//         let arrayDate = daftarTglPembuatan[i].split('-');
-//         let getYear = arrayDate[0];
-//         let getMonth = arrayDate[1];
-//         let getDay = arrayDate[2];
-//         console.log('getYear: ' + getYear);
-//         console.log('getMonth: ' + getMonth);
-//         console.log('getDay: ' + getDay);
-//         let subGetYear = getYear.substr(2);
-//         console.log('subGetYear: ' + subGetYear);
-//         let warnaTglPembuatan = 'bg-color-soft-red';
-
-//         // apabila tanggal selesai telah ada
-//         let arrayDateSls = '';
-//         let getYearSls = '';
-//         let getMonthSls = '';
-//         let getDaySls = '';
-//         let warnaTglSls = '';
-//         let subGetYearSls = '';
-
-//         if (daftarTglSelesai[i] != '') {
-//             arrayDateSls = daftarTglSelesai[i].split('-');
-//             getYearSls = arrayDateSls[0];
-//             getMonthSls = arrayDateSls[1];
-//             getDaySls = arrayDateSls[2];
-
-//             console.log('getYearSls: ' + getYearSls);
-//             console.log('getMonthSls: ' + getMonthSls);
-//             console.log('getDaySls: ' + getDaySls);
-//             subGetYearSls = getYearSls.substr(2);
-//             console.log('subGetYearSls: ' + subGetYearSls);
-//             warnaTglSls = 'bg-color-orange-2';
-//             warnaTglPembuatan = 'bg-color-purple-blue';
-//         }
-
-//         console.log(`daftarNamaPelangganSPK[${i}]: ${daftarNamaPelangganSPK[i]}`);
-//         console.log(`daftarJumlahTotalSPK[${i}]: ${daftarJumlahTotalSPK[i]}`);
-//         console.log(`daftarNamaProdukEachSPK[${i}]: ${JSON.stringify(daftarNamaProdukEachSPK[i])}`);
-//         let elementToToggle = [{
-//             id: `#divSPKItems-${i}`,
-//             time: 300
-//         }];
-//         // console.log('elementToToggle:');
-//         // console.log(elementToToggle);
-//         elementToToggle = JSON.stringify(elementToToggle);
-//         // console.log(elementToToggle);
-//         let htmlItemsEachSPK = '';
-//         let htmlHiddenInput =
-//             `
-//             <input type='hidden' name='SPKID' value='${daftarIDSPK[i]}'>
-//             <input type='hidden' name='custID' value='${daftarIDPelangganSPK[i]}'>
-//             <input type='hidden' name='custName' value='${daftarNamaPelangganSPK[i]}'>
-//             <input type='hidden' name='daerah' value='${daftarDaerahPelangganSPK[i]}'>
-//             <input type='hidden' name='tglPembuatan' value='${daftarTglPembuatan[i]}'>
-//             <input type='hidden' name='tglSelesai' value='${daftarTglSelesai[i]}'>
-//             <input type='hidden' name='ketSPK' value='${daftarKetSPK[i]}'>
-//             <input type='hidden' name='jmlTotal' value='${daftarJumlahTotalSPK[i]}'>
-//             <input type='hidden' name='keteranganTambahan' value='${daftarKeteranganTambahanSPK[i]}'>
-//         `;
-//         for (let j = 0; j < daftarNamaProdukEachSPK[i].length; j++) {
-//             htmlItemsEachSPK = htmlItemsEachSPK +
-//                 `<div>${daftarNamaProdukEachSPK[i][j]}</div><div>${daftarJumlahItemSPK[i][j]}</div>`;
-//             htmlHiddenInput = htmlHiddenInput +
-//                 `
-//                 <input type='hidden' name='SPKItem[]' value='${daftarNamaProdukEachSPK[i][j]}'>
-//                 <input type='hidden' name='jmlItem[]' value='${daftarJumlahItemSPK[i][j]}'>
-//                 <input type='hidden' name='descEachItem[]' value='${daftarDescEachItem[i][j]}'>
-//                 <input type='hidden' name='hargaPcs[]' value='${daftarHargaPerPcs[i][j]}'>
-//                 <input type='hidden' name='hargaItem[]' value='${daftarHargaItemSPK[i][j]}'>
-//                 <input type='hidden' name='bahan[]' value='${daftarBahan[i][j]}'>
-//                 <input type='hidden' name='varia[]' value='${daftarVaria[i][j]}'>
-//                 <input type='hidden' name='ukuran[]' value='${daftarUkuran[i][j]}'>
-//                 <input type='hidden' name='logo[]' value='${daftarLogo[i][j]}'>
-//                 <input type='hidden' name='tato[]' value='${daftarTato[i][j]}'>
-//                 <input type='hidden' name='jahit[]' value='${daftarJahit[i][j]}'>
-//                 <input type='hidden' name='japstyle[]' value='${daftarJapstyle[i][j]}'>
-//                 <input type='hidden' name='tipe[]' value='${daftarTipeProduk[i][j]}'>
-//                 `;
-//         }
-//         let htmlDaftarSPK =
-//             `<form method='POST' action='03-03-01-inserting-items.php' class='pb-0_5em pt-0_5em bb-1px-solid-grey'>
-//                 <div class='grid-5-9_45_25_18_5'>
-//                 <div class='circle-medium grid-1-auto justify-items-center font-weight-bold' style='background-color: ${randomColor()}'>${daftarSingkatanPelangganSPK[i]}</div>
-//                 <div>${daftarNamaPelangganSPK[i]} - ${daftarDaerahPelangganSPK[i]}</div>
-//                 <div class='grid-3-auto'>
-//                 <div class='grid-1-auto justify-items-center ${warnaTglPembuatan} color-white b-radius-5px w-3_5em'>
-//                 <div class='font-size-2_5em'>${getDay}</div><div>${getMonth}-${subGetYear}</div>
-//                 </div>
-//                 -
-//                 <div class='grid-1-auto justify-items-center ${warnaTglSls} color-white b-radius-5px w-3_5em'>
-//                 <div class='font-size-2_5em'>${getDaySls}</div><div>${getMonthSls}-${subGetYearSls}</div>
-//                 </div>
-//                 </div>
-//                 <div class='grid-1-auto'>
-//                 <div class='color-green justify-self-right font-size-1_2em font-weight-bold'>${daftarJumlahTotalSPK[i]}</div>
-//                 <div class='color-grey justify-self-right'>Jumlah</div>
-//                 </div>
-//                 <div class='justify-self-center'><img class='w-0_7em' src='img/icons/dropdown.svg' onclick='elementToToggle(${elementToToggle});'></div>
-//                 </div>` + htmlHiddenInput +
-//             // DROPDOWN
-//             `<div id='divSPKItems-${i}' class='p-0_5em b-1px-solid-grey' style='display: none'>
-//             <div class='font-weight-bold color-grey'>No. ${daftarIDSPK[i]}</div>
-//             <div class='grid-2-auto'>` + htmlItemsEachSPK + `</div>
-//             <div class='text-right'>
-//             <button type='submit' class="d-inline-block bg-color-orange-1 pl-1em pr-1em b-radius-50px" style='border: none'>
-//             Lebih Detail >>
-//             </button>
-//             </div>
-//             </div>
-//             </form>`;
-
-//         $('#div-daftar-spk').append(htmlDaftarSPK);
-//         i++;
-//         console.log('i: ' + i);
-//     });
-// }
-
-// function addNewSPK() {
-//     localStorage.setItem('SPKItems', '');
-//     window.location.href = '03-03-spk-baru.php';
-// }
-
-// set keadaan awal dimana JSON SPKToEdit dihilangkan
-if (localStorage.getItem('dataSPKToEdit') !== null || localStorage.getItem('dataSPKBefore') !== null) {
-    localStorage.removeItem('dataSPKToEdit');
-    localStorage.removeItem('dataSPKBefore');
 }
 
 </script>

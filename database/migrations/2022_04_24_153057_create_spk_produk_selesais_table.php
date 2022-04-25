@@ -16,6 +16,7 @@ return new class extends Migration
     {
         Schema::create('spk_produk_selesais', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('spk_id')->constrained()->onDelete('CASCADE');
             $table->foreignId('spk_produk_id')->constrained()->onDelete('CASCADE');
             $table->smallInteger('jumlah')->nullable();
             $table->smallInteger('tahapan_selesai')->nullable();

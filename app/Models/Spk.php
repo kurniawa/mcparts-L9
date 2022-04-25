@@ -24,4 +24,10 @@ class Spk extends Model
     {
         return $this->hasMany(SpkProduk::class);
     }
+
+    public function spk_produk_selesais()
+    {
+        return $this->hasMany(SpkProdukSelesai::class);
+    }
+
 }

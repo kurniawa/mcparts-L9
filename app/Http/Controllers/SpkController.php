@@ -43,6 +43,7 @@ class SpkController extends Controller
         $resellers = array();
         $arr_spk_produks = array();
         $arr_produks = array();
+        $arr_finished_at_last = array();
         for ($i = 0; $i < count($spks); $i++) {
             $spk = Spk::find($spks[$i]->id);
             $pelanggan = $spk->pelanggan;
@@ -59,6 +60,10 @@ class SpkController extends Controller
             array_push($arr_spk_produks, $spk_produks);
             array_push($pelanggans, $pelanggan);
             array_push($daerahs, $daerah);
+
+            $spk_produk_selesai = new SpkProdukSelesai();
+            $finished_at_last = $spk_produk_selesai->get_finished_at_last($spk['id']);
+            array_push($arr_finished_at_last, $finished_at_last);
         }
 
         $data = [
@@ -68,6 +73,7 @@ class SpkController extends Controller
             'resellers' => $resellers,
             'arr_produks' => $arr_produks,
             'arr_spk_produks' => $arr_spk_produks,
+            'arr_finished_at_last' => $arr_finished_at_last,
         ];
 
         return view('spk.spks', $data);
@@ -492,6 +498,12 @@ class SpkController extends Controller
             $jml_selesai_old = $spk_produk_ini['jml_selesai'];
             $jml_selesai_new = $jml_selesai_old + $tbh_jml_selesai;
 
+            if ($show_dump) {
+                dump('$jml_selesai_old:', $jml_selesai_old);
+                dump('$tbh_jml_selesai:', $tbh_jml_selesai);
+                dump('$jml_selesai_new:', $jml_selesai_new);
+            }
+
             if ($spk_produk_ini['deviasi_jml'] !== $deviasi_jml) {
                 $deviasi_jml_old = $spk_produk_ini['deviasi_jml'];
                 if ($deviasi_jml_old === null) {
@@ -530,7 +542,7 @@ class SpkController extends Controller
                 $spk_produk_ini->jml_selesai = $jml_selesai_new;
                 $spk_produk_ini->jml_blm_sls = $jumlah_akhir - $jml_selesai_new;
                 $spk_produk_ini->status = $status;
-                // $spk_produk_ini->save();
+                $spk_produk_ini->save();
 
 
                 if ($jml_selesai_old !== $jml_selesai_new) {
@@ -538,22 +550,31 @@ class SpkController extends Controller
 
                         $spk_produk_selesai = new SpkProdukSelesai();
                         $tahapan_selesai_last = $spk_produk_selesai->get_tahapan_last($spk_produk_ini['id']);
+                        $tahapan_selesai_next = $tahapan_selesai_last+1;
 
                         if ($show_dump) {
-                            dd('$tahapan_selesai_last:', $tahapan_selesai_last);
+                            dump('$tahapan_selesai_next:', $tahapan_selesai_next);
                         }
 
                         SpkProdukSelesai::create([
+                            'spk_id' => $spk['id'],
                             'spk_produk_id' => $spk_produk_ini['id'],
                             'jumlah' => $tbh_jml_selesai,
                             'finished_at' => $finished_at,
+                            'tahapan_selesai' => $tahapan_selesai_next,
                         ]);
+
+                        $load_num->value += 1;
+                        $load_num->save();
+
+                        array_push($success_messages, 'success_: Ditemukan adanya penambahan jumlah selesai dari item terkait. Relasi dengan table spk_produk_selesais berhasil dibuat.');
                     } else {
                         // Kalau $jml_selesai_new, kurang dari $jml_selesai_old, berarti ini masuk ke kasus pengurangan.
                         $spk_produk_selesai = SpkProdukSelesai::where('spk_produk_id', $spk_produk_ini['id'])->get();
 
                         if ($show_dump) {
-                            dd('$spk_produk_selesai:', $spk_produk_selesai);
+                            dump('$spk_produk_selesai:', $spk_produk_selesai);
+                            dump('count($spk_produk_selesai):', count($spk_produk_selesai));
                         }
 
                         $pengurangan_jumlah = $tbh_jml_selesai * -1;
@@ -574,6 +595,11 @@ class SpkController extends Controller
                             }
 
                         }
+
+                        $load_num->value += 1;
+                        $load_num->save();
+
+                        array_push($success_messages, 'success_: Ditemukan adanya PENGURANGAN jumlah selesai dari item terkait. Relasi dengan table_spk_produk berhasil di update.');
                     }
 
                 }
@@ -581,7 +607,25 @@ class SpkController extends Controller
             }
         }
 
+        // UPDATE STATUS SPK
+        $spk_produks = SpkProduk::where('spk_id', $spk['id'])->get();
+        $jumlah_status_selesai = 0;
+
+        for ($i=0; $i < count($spk_produks); $i++) {
+            if ($spk_produks[$i]['status'] === 'SELESAI') {
+                $jumlah_status_selesai++;
+            }
+        }
+
+        $status_spk = 'PROSES';
+        if ($jumlah_status_selesai === count($spk_produks)) {
+            $status_spk = 'SELESAI';
+        } elseif ($jumlah_status_selesai > 0) {
+            $status_spk = 'SEBAGIAN';
+        }
+
         if ($run_db) {
+            $spk->status = $status_spk;
             $spk->jumlah_total = $jumlah_total_new;
             $spk->harga_total = $harga_total_new;
             $spk->save();
@@ -589,6 +633,8 @@ class SpkController extends Controller
             $load_num->value += 1;
             $load_num->save();
 
+            $pesan_db = 'SUCCESS:';
+            $class_div_pesan_db = 'alert-success';
             array_push($success_messages, 'success_: Jumlah Total dan Harga Total SPK berhasil diupdate!');
         }
 

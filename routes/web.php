@@ -4,15 +4,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EkspedisiBaru;
 use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\EkspedisiEdit;
-use App\Http\Controllers\InsertingBusastangController;
 use App\Http\Controllers\InsertingGeneralController;
-use App\Http\Controllers\InsertingKombiController;
-use App\Http\Controllers\InsertingStdController;
-use App\Http\Controllers\InsertingStikerController;
-use App\Http\Controllers\InsertingTankpadController;
-use App\Http\Controllers\InsertingTspjapController;
-use App\Http\Controllers\InsertingVariaController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NotaController;
 use App\Http\Controllers\PelangganBaruController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PelangganEditController;
@@ -138,11 +132,14 @@ Route::controller(InsertingGeneralController::class)->group(function ()
     Route::get('/spk/inserting-general', "inserting_general")->middleware('auth');
     Route::post('/spk/inserting-general-db', "inserting_general_db")->middleware('auth');
 });
-Route::get('/spk/edit_spk_item', [DetailSPKController::class, "editSPKItem"])->middleware('auth');
-Route::post('/spk/edit_spk_item-db', [EditSPKFDetail::class, "index"])->middleware('auth');
-Route::post('/spk/hapus-SPK', [DetailSPKController::class, "hapus_SPK"])->middleware('auth');
-Route::post('/spk/delete_spk_item', [EditSPKFDetail::class, "deleteSPKItem"])->middleware('auth');
-Route::get('/spk/penetapan_item_selesai', [SPKItemSelesai::class, "index"])->middleware('auth');
-Route::post('/spk/penetapan_item_selesai-db', [SPKItemSelesai::class, "setItemSelesai"])->middleware('auth');
-// Print SPK
-Route::get('/spk/print_out_spk', [PrintOutSPK::class, "index"]);
+
+Route::controller(NotaController::class)->group(function ()
+{
+    Route::get('/nota', 'index');
+    Route::get('/nota/nota_baru-pilih_spk', 'notaBaru_pilihSPK')->middleware('auth');
+    Route::get('/nota/notaBaru-pSPK-pItem', 'notaBaru_pSPK_pItem')->middleware('auth');
+    Route::post('/nota/notaBaru-pSPK-pItem-DB', 'notaBaru_pSPK_pItem_DB')->middleware('auth');
+    Route::get('/nota/nota-detailNota', 'nota_detailNota');
+    Route::get('/nota/nota-printOut', 'nota_printOut');
+    Route::post('/nota/nota-hapus', 'nota_hapus')->middleware('auth');
+});
