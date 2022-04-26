@@ -58,8 +58,16 @@ class NotaController extends Controller
          * Form pilihan spk yang ingin dibuatkan nota nya akan muncul. Daftar spk yang ada di pilihan adalah SPK dengan status "SELESAI"
          * atau "SEBAGIAN"
          */
-        $av_spks = Spk::where('status', 'SEBAGIAN')->orWhere('status', 'SELESAI')->orderByDesc('created_at')->groupBy('pelanggan_id')->get();
+        $spk = new Spk();
+        list($pelanggans, $available_spks) = $spk->get_available_spks_dan_pelanggan_terkait();
+
+        if ($show_dump) {
+            dump('$pelanggans', $pelanggans);
+            dd('$available_spks', $available_spks);
+        }
+
         $pelanggan_spks = array();
+
         foreach ($av_spks as $av_spk) {
             $pelanggan = Pelanggan::find($av_spk['pelanggan_id']);
             $reseller = null;
