@@ -45,9 +45,6 @@
                 <img src="/img/icons/edit.svg" alt=""><span>Tetapkan Item Selesai</span>
             </button>
         </form>
-        <a href="/spk/penetapan_item_selesai?spk_id={{ $spk['id'] }}" id="SPKSelesai" class="threeDotMenuItem">
-            <img src="/img/icons/edit.svg" alt=""><span>Tetapkan Item Selesai</span>
-        </a>
     </div>
 </div>
 

@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('spk_notas', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('spk_id')->nullable()->constrained()->onDelete('NO ACTION');
+            $table->foreignId('nota_id')->nullable()->constrained()->onDelete('NO ACTION');
         });
     }
 

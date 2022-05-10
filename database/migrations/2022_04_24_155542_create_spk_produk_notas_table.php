@@ -18,7 +18,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('spk_produk_id')->nullable()->constrained()->onDelete('CASCADE');
             $table->foreignId('nota_id')->nullable()->constrained()->onDelete('CASCADE');
-            $table->integer('jml');
+            $table->smallInteger('jumlah');
+            $table->integer('harga');
+            $table->integer('harga_t');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

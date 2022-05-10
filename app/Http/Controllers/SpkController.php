@@ -608,19 +608,36 @@ class SpkController extends Controller
         }
 
         // UPDATE STATUS SPK
-        $spk_produks = SpkProduk::where('spk_id', $spk['id'])->get();
-        $jumlah_status_selesai = 0;
+        // $spk_produks = SpkProduk::where('spk_id', $spk['id'])->get();
+        // $jumlah_status_selesai = 0;
 
-        for ($i=0; $i < count($spk_produks); $i++) {
-            if ($spk_produks[$i]['status'] === 'SELESAI') {
-                $jumlah_status_selesai++;
-            }
+        // for ($i=0; $i < count($spk_produks); $i++) {
+        //     if ($spk_produks[$i]['status'] === 'SELESAI') {
+        //         $jumlah_status_selesai++;
+        //     }
+        // }
+
+        // $status_spk = 'PROSES';
+        // if ($jumlah_status_selesai === count($spk_produks)) {
+        //     $status_spk = 'SELESAI';
+        // } elseif ($jumlah_status_selesai > 0) {
+        //     $status_spk = 'SEBAGIAN';
+        // }
+
+        /**
+         * UPDATE STATUS SPK BERDASARKAN jumlah_total_new
+         */
+
+        $spk_produks = SpkProduk::where('spk_id', $spk['id'])->get()->toArray();
+        $jumlah_selesai_total = 0;
+        foreach ($spk_produks as $spk_produk) {
+            $jumlah_selesai_total += $spk_produk['jml_selesai'];
         }
 
         $status_spk = 'PROSES';
-        if ($jumlah_status_selesai === count($spk_produks)) {
+        if ($jumlah_selesai_total === $jumlah_total_new) {
             $status_spk = 'SELESAI';
-        } elseif ($jumlah_status_selesai > 0) {
+        } elseif ($jumlah_selesai_total > 0) {
             $status_spk = 'SEBAGIAN';
         }
 

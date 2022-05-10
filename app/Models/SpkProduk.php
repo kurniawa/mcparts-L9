@@ -10,4 +10,9 @@ class SpkProduk extends Model
     use HasFactory;
     protected $guarded = ['id'];
     // public $timestamps = false;
+
+    public function produks()
+    {
+        return $this->belongsTo(Produk::class);
+    }
 }

@@ -17,6 +17,16 @@ class Pelanggan extends Model
         return $this->belongsToMany(Ekspedisi::class, 'pelanggan_ekspedisis');
     }
 
+    public function get_ekspedisi_utama_id($pelanggan_id)
+    {
+        $ekspedisi_utama_id = PelangganEkspedisi::select('ekspedisi_id')
+        ->where('pelanggan_id', $pelanggan_id)
+        ->where('tipe', 'UTAMA')
+        ->groupBy('pelanggan_id', 'ekspedisi_id')->get()->toArray();
+
+        return $ekspedisi_utama_id[0]['ekspedisi_id'];
+    }
+
     public function pelanggan_ekspedisis()
     {
         return $this->hasMany(PelangganEkspedisi::class);

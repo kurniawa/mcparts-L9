@@ -59,56 +59,69 @@
     // console.log('my_csrf');
     // console.log(my_csrf);
 
-    const pelanggan_spks = {!! json_encode($pelanggan_spks, JSON_HEX_TAG) !!};
-    console.log('pelanggan_spks');
-    console.log(pelanggan_spks);
+    const pelanggans = {!! json_encode($pelanggans, JSON_HEX_TAG) !!};
+    const daerahs = {!! json_encode($daerahs, JSON_HEX_TAG) !!};
+    const arr_resellers = {!! json_encode($arr_resellers, JSON_HEX_TAG) !!};
+    const available_spks = {!! json_encode($available_spks, JSON_HEX_TAG) !!};
+    const list_arr_spk_produks = {!! json_encode($list_arr_spk_produks, JSON_HEX_TAG) !!};
+    const list_arr_produks = {!! json_encode($list_arr_produks, JSON_HEX_TAG) !!};
+
+    if (show_console) {
+        console.log('pelanggans');console.log(pelanggans);
+        console.log('arr_resellers');console.log(arr_resellers);
+        console.log('available_spks');console.log(available_spks);
+        console.log('list_arr_spk_produks');console.log(list_arr_spk_produks);
+        console.log('list_arr_produks');console.log(list_arr_produks);
+    }
 
     // Menentukan head dari table
     var htmlCusts = ``;
     var date_today = getDateToday();
     // console.log('date_today');
     // console.log(date_today);
-    
-    for (let i0 = 0; i0 < pelanggan_spks.length; i0++) {
-        const cust = pelanggan_spks[i0].pelanggan;
-        const reseller = pelanggan_spks[i0].reseller;
+
+    for (let i0 = 0; i0 < pelanggans.length; i0++) {
         /*
         htmlCusts: menampung element html untuk List Nota Item
         htmlDD: Dropdown pertama, nanti nya akan disisipkan ke htmlCusts
         htmlDD2: Dropdown kedua, nanti nya akan disisipkan ke htmlCusts
         */
-        const spks = pelanggan_spks[i0].spks;
+        // const spks = pelanggans[i0].spks;
         /*
         variable dinamakan dengan sebutan jamak, karena bisa jadi pelanggan tersebut dibuatkan
         beberapa nota yang memang belum ada surat jalan nya.
         */
-        console.log('spks:');
-        console.log(spks);
+        // console.log('spks:');
+        // console.log(spks);
 
         var htmlCheckboxspks = '';
-        for (let i_checkboxSPK = 0; i_checkboxSPK < spks.length; i_checkboxSPK++) {
-            var spkItem = JSON.parse(spks[i_checkboxSPK].data_spk_item)
-            console.log('nota_item');
-            console.log(spkItem);
-
+        for (let i_checkboxSPK = 0; i_checkboxSPK < available_spks[i0].length; i_checkboxSPK++) {
             var htmlDataSPKItem = '';
-            for (let i_spkItem = 0; i_spkItem < spkItem.length; i_spkItem++) {
+            for (let i_spkItem = 0; i_spkItem < list_arr_spk_produks[i0][i_checkboxSPK].length; i_spkItem++) {
                 htmlDataSPKItem += `
                 <tr>
-                <td>${spkItem[i_spkItem].nama_nota}</td>
-                <td>${formatHarga(spkItem[i_spkItem].jumlah.toString())}</td>
+                <td>${list_arr_produks[i0][i_checkboxSPK][i_spkItem].nama_nota}</td>
+                <td>${formatHarga(list_arr_spk_produks[i0][i_checkboxSPK][i_spkItem].jumlah.toString())}</td>
                 </tr>
                 `;
+            }
+
+            var nama_spk = available_spks[i0][i_checkboxSPK].no_spk;
+            var reseller_id = null;
+            if (arr_resellers[i0][i_checkboxSPK] !== null) {
+                nama_spk = `${available_spks[i0][i_checkboxSPK].no_spk} Reseller: ${arr_resellers[i0][i_checkboxSPK].nama}`;
+                reseller_id = arr_resellers[i0][i_checkboxSPK].id;
             }
 
             htmlCheckboxspks += `
             <tr>
             <td class='p-2'>
-                <input type='checkbox' name='' value='' onclick='showBtnKonfirmasi(this.className, "iptHidden_notaID-${i0}")' class='c-boxPNota-${i0}'>
-                <input type="hidden" name="spk_id[]" value=${spks[i_checkboxSPK].id} class='iptHidden_notaID-${i0}' disabled>
+                <input type='checkbox' name='' value='' onclick='showBtnKonfirmasi(${i0}, ${i_checkboxSPK})' class='c-boxPNota c-boxPNota-${i0} c-boxPNota-${i0}${i_checkboxSPK}'>
+                <input type="hidden" name="spk_id[]" value=${available_spks[i0][i_checkboxSPK].id} class='iptHidden iptHidden-${i0} iptHidden-${i0}${i_checkboxSPK} iptHidden_notaID-${i0}${i_checkboxSPK}' disabled>
+                <input type="hidden" name="reseller_id[]" value=${reseller_id} class='iptHidden iptHidden-${i0} iptHidden-${i0}${i_checkboxSPK} iptHidden_resellerID-${i0}${i_checkboxSPK}' disabled>
             </td>
-            <td class='p-2'>${spks[i_checkboxSPK].no_spk}</td>
-            <td class='p-2'>Jumlah.T: ${formatHarga(spks[i_checkboxSPK].jumlah_total.toString())}</td>
+            <td class='p-2'>${nama_spk}</td>
+            <td class='p-2'>Jumlah.T: ${formatHarga(available_spks[i0][i_checkboxSPK].jumlah_total.toString())}</td>
             <td class='p-2' onclick='showNotaItem("DD2-${i0}${i_checkboxSPK}", "ddImgRotate-${i0}${i_checkboxSPK}")'><img class='w-0_7em' src='/img/icons/dropdown.svg' id='ddImgRotate-${i0}${i_checkboxSPK}'></td>
             </tr>
             <tr id='DD2-${i0}${i_checkboxSPK}' style='display:none'>
@@ -137,7 +150,7 @@
         /*
         Parameter untuk Dropdown pertama yang akan di kirim ke function isChecked
         */
-        
+
         var params_dd = {
             id_dd: `#DD-${i0}`,
             class_checkbox: ".dd",
@@ -149,17 +162,17 @@
         params_dd = JSON.stringify(params_dd);
 
         // <tr class='bb-1px-solid-grey'><td><input type='radio' name='pCust' value='test'>test</td></tr>
-        var nama_pelanggan_spk = cust.nama;
-        if (reseller !== null) {
-            nama_pelanggan_spk = `${reseller.nama}: ${cust.nama}`;
-        }
+        var nama_pelanggan_spk = pelanggans[i0].nama;
+        // if (arr_resellers[i0] !== null) {
+        //     nama_pelanggan_spk = `${arr_resellers[i0].nama}: ${pelanggans[i0].nama}`;
+        // }
         htmlCusts += `
-            <tr class='bb-1px-solid-grey DD'><td><input id='rad_pCust-${i0}' type='radio' name='pCust' value='${cust.id}' onclick='pSPK_showDD("DD-${i0}", ${i0});'> <label for='rad_pCust-${i0}'>${nama_pelanggan_spk} - ${cust.daerah}</label></td></tr>
+            <tr class='bb-1px-solid-grey DD'><td><input id='rad_pCust-${i0}' type='radio' name='pCust' value='${pelanggans[i0].id}' onclick='pSPK_showDD("DD-${i0}", ${i0});'> <label for='rad_pCust-${i0}'>${nama_pelanggan_spk} - ${daerahs[i0].nama}</label></td></tr>
             <!-- <tr class='bb-1px-solid-grey'><td><input type='radio' name='pCust' value='test'>test</td></tr> -->
             <tr id='DD-${i0}' style='display:none'><td colspan=3>${htmlDD}</td></tr>
             <tr class='bb-1px-solid-grey'><td></td></tr>
         `;
-        
+
             // <tr id='DD2-${i}' style='display:none'><td colspan=3>${htmlDD2}</td></tr>
     }
 
@@ -181,12 +194,12 @@
                 for (let i_cBoxes_toUncheck = 0; i_cBoxes_toUncheck < cBoxes_toUncheck.length; i_cBoxes_toUncheck++) {
                     cBoxes_toUncheck[i_cBoxes_toUncheck].checked = false;
                     inputHidden_toDisable[i_cBoxes_toUncheck].disabled = true;
-                    showBtnKonfirmasi(cBoxes_toUncheck[i_cBoxes_toUncheck].className, inputHidden_toDisable[i_cBoxes_toUncheck].className);
+                    // showBtnKonfirmasi(i_radio, i_cBoxes_toUncheck);
                 }
-            }            
+            }
         }
         // console.log(`DD_id: ${DD_id}; DD_index: ${DD_index}`);
-        // var nota = JSON.parse(pelanggan_spks[DD_index].spks);
+        // var nota = JSON.parse(pelanggans[DD_index].spks);
         // console.log(nota);
         $(`#${DD_id}`).show(300);
         // $DD.show();
@@ -206,19 +219,32 @@
 
     }
 
-    function showBtnKonfirmasi(c_box_class, ipt_hidden_class) {
-        // console.log(c_box_class);
-        var arr_indexInputToEnable = new Array();
-        var c_boxes = document.querySelectorAll(`.${c_box_class}`);
-        var ipt_hidden = document.querySelectorAll(`.${ipt_hidden_class}`);
+    function showBtnKonfirmasi(i, j) {
+        // console.log(i,j);
+        var jumlah_checked = 0;
+        var c_boxes = document.querySelectorAll(`.c-boxPNota-${i}`);
+        var ipt_hiddens = document.querySelectorAll(`.iptHidden-${i}${j}`);
+        // console.log(ipt_hiddens);
+        // var ipt_hidden2 = document.querySelectorAll(`.${ipt_hidden_class2}`);
         // console.log(c_boxes)
-        for (let i_cBox = 0; i_cBox < c_boxes.length; i_cBox++) {
-            if (c_boxes[i_cBox].checked === true) {
-                arr_indexInputToEnable.push(i_cBox);
-                ipt_hidden[i_cBox].disabled = false;
+        var ipt_hidden_all = document.querySelectorAll('.iptHidden');
+
+        ipt_hidden_all.forEach(ipt_hidden => {
+            ipt_hidden.disabled = true;
+        });
+
+        for (let k = 0; k < c_boxes.length; k++) {
+            // console.log(c_boxes[k]);
+            if (c_boxes[k].checked === true) {
+                // console.log(ipt_hiddens);
+                document.querySelector(`.iptHidden_notaID-${i}${k}`).disabled = false;
+                document.querySelector(`.iptHidden_resellerID-${i}${k}`).disabled = false;
+                jumlah_checked++;
             }
         }
-        if (arr_indexInputToEnable.length > 0) {
+
+
+        if (jumlah_checked > 0) {
             document.getElementById("btnKonfirmasi").style.display = "block";
         } else {
             document.getElementById("btnKonfirmasi").style.display = "none";
@@ -231,7 +257,7 @@
     //         $DD = document.getElementById(`DD-${i}`);
     //         console.log($DD);
     //         // $DD.show();
-            
+
     //     });
     //     // radio_pCust[i].addEventListener('change', function() {
     //     //     (prev) ? console.log(prev.value): null;

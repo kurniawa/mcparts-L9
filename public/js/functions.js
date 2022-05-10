@@ -567,8 +567,7 @@ function createCheckboxConfirmList (params, my_csrf) {
  */
 
 function isChecked (params) {
-    console.log("params");
-    console.log(params);
+    // console.log("params");console.log(params);
     const checkbox_all = document.querySelectorAll(
         `${params.class_checkbox}:checked`
     );

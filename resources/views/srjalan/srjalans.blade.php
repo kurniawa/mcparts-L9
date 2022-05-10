@@ -2,11 +2,14 @@
 
 @section('content')
 
-<header class="header grid-2-auto">
+<header class="header grid-3-auto">
     <img class="w-0_8em ml-1_5em" src="img/icons/back-button-white.svg" alt="" onclick="goBack();">
+    <div>
+        <h2 style="color: white">SJ</h2>
+    </div>
     <div class="justify-self-right pr-0_5em">
-        <a href="/nota/nota_baru-pilih_spk" id="btn-spk-baru" class="btn-atas-kanan2">
-            + Buat Nota Baru
+        <a href="/sj/sjBaru-pCust" id="btn-spk-baru" class="btn-atas-kanan2">
+            + Buat Surat Jalan Baru
         </a>
     </div>
 </header>
@@ -31,32 +34,36 @@
 
 <script>
 
-const notas = {!! json_encode($notas, JSON_HEX_TAG) !!};
+const srjalans = {!! json_encode($srjalans, JSON_HEX_TAG) !!};
 const pelanggans = {!! json_encode($pelanggans, JSON_HEX_TAG) !!};
 const daerahs = {!! json_encode($daerahs, JSON_HEX_TAG) !!};
 const resellers = {!! json_encode($resellers, JSON_HEX_TAG) !!};
+const ekspedisis = {!! json_encode($ekspedisis, JSON_HEX_TAG) !!};
+const arr_spk_produk_nota_srjalans = {!! json_encode($arr_spk_produk_nota_srjalans, JSON_HEX_TAG) !!};
 const arr_spk_produk_notas = {!! json_encode($arr_spk_produk_notas, JSON_HEX_TAG) !!};
 const arr_spk_produks = {!! json_encode($arr_spk_produks, JSON_HEX_TAG) !!};
 const arr_produks = {!! json_encode($arr_produks, JSON_HEX_TAG) !!};
 
 if (show_console) {
-    console.log("notas:");console.log(notas);
+    console.log("srjalans:");console.log(srjalans);
     console.log('pelanggans');console.log(pelanggans);
+    console.log('daerahs');console.log(daerahs);
     console.log('resellers');console.log(resellers);
+    console.log('ekspedisis');console.log(ekspedisis);
+    console.log('arr_spk_produk_nota_srjalans');console.log(arr_spk_produk_nota_srjalans);
     console.log('arr_spk_produk_notas');console.log(arr_spk_produk_notas);
     console.log('arr_spk_produks');console.log(arr_spk_produks);
     console.log('arr_produks');console.log(arr_produks);
 }
 
-if (notas == undefined || notas.length == 0) {
-    console.log('Belum ada daftar Nota');
+if (srjalans == undefined || srjalans.length == 0) {
+    console.log('Belum ada daftar Surat Jalan');
 } else {
-    for (var i = 0; i < notas.length; i++) {
-        // console.log(notas[i].created_at);
-        // const SPKDate = notas[i].created_at.split('T')[0];
-        const SPKDate = notas[i].created_at.split(' ')[0];
-        console.log(SPKDate);
-        var arrayDate = SPKDate.split('-');
+    var i_srjalan = 0;
+    srjalans.forEach(srjalan => {
+        const SJDate = srjalan.created_at.split(' ')[0];
+        console.log(SJDate);
+        var arrayDate = SJDate.split('-');
         var getYear = arrayDate[0];
         var getMonth = arrayDate[1];
         var getDay = arrayDate[2];
@@ -70,8 +77,8 @@ if (notas == undefined || notas.length == 0) {
         // apabila tanggal selesai telah ada
         var html_tgl_sls = "";
 
-        if (notas[i].finished_at !== '' && notas[i].finished_at !== null) {
-            const arrayDateSls = notas[i].finished_at.split('-');
+        if (srjalan.finished_at !== '' && srjalan.finished_at !== null) {
+            const arrayDateSls = srjalan.finished_at.split('-');
             const getYearSls = arrayDateSls[0];
             const getMonthSls = arrayDateSls[1];
             const getDaySls = arrayDateSls[2];
@@ -92,13 +99,13 @@ if (notas == undefined || notas.length == 0) {
 
         // else {
         //     var statusColor = "";
-        //     if (notas[i].status == "PROSES") {
+        //     if (srjalan.status == "PROSES") {
         //         statusColor = "tomato";
         //     } else {
         //         statusColor = "slateblue";
         //     }
         //     html_tgl_sls = `
-        //         <div style="font-weight:bold;color:${statusColor}">${notas[i].status}</div>
+        //         <div style="font-weight:bold;color:${statusColor}">${srjalan.status}</div>
         //     `;
         // }
 
@@ -112,7 +119,7 @@ if (notas == undefined || notas.length == 0) {
 
         // ELEMENT to toggle
         var element_to_toggle = [{
-            id: `#divSPKItems-${i}`,
+            id: `#divSPKItems-${i_srjalan}`,
             time: 300
         }];
         // console.log('element_to_toggle:');
@@ -121,14 +128,15 @@ if (notas == undefined || notas.length == 0) {
         // console.log(element_to_toggle);
 
         // HTML Item each SPK
-        var htmlItemsEachSPK = '<tr><th>Nama Nota</th><th>Jml.</th><th>Hrg./pcs</th><th>Hrg.t</th></tr>';
+        var htmlItemsEachSPK = '<tr><th>Nama Produk</th><th>Jml.</th><th>Koli</th></tr>';
 
-        for (var k = 0; k < arr_spk_produk_notas[i].length; k++) {
-            var textContent_jumlah = `${arr_spk_produk_notas[i][k].jumlah}`;
+        var i_spk_produk_nota_srjalan = 0;
+        arr_spk_produk_nota_srjalans[i_srjalan].forEach(spk_produk_nota_srjalan => {
+            var textContent_jumlah = `${spk_produk_nota_srjalan.jumlah}`;
             console.log('define textContent_jumlah');
-            if (typeof arr_spk_produk_notas[i][k].deviasi_jml !== 'undefined') {
+            if (arr_spk_produks[i_srjalan][i_spk_produk_nota_srjalan].deviasi_jml !== null) {
                 console.log('deviasi_jml is defined!');
-                const deviasi_jml = arr_spk_produk_notas[i][k].deviasi_jml;
+                const deviasi_jml = arr_spk_produks[i_srjalan][i_spk_produk_nota_srjalan].deviasi_jml;
                 if (deviasi_jml < 0) {
                     textContent_jumlah += ` ${deviasi_jml}`;
                 } else {
@@ -137,23 +145,23 @@ if (notas == undefined || notas.length == 0) {
             }
             htmlItemsEachSPK = htmlItemsEachSPK +
                 `<tr>
-                    <td>${arr_produks[i][k].nama_nota}</td>
-                    <td>${arr_spk_produk_notas[i][k].jumlah}</td>
-                    <td>${formatHarga(arr_spk_produk_notas[i][k].harga.toString())}</td>
-                    <td>${formatHarga(arr_spk_produk_notas[i][k].harga_t.toString())}</td>
+                    <td>${arr_produks[i_srjalan][i_spk_produk_nota_srjalan].nama_nota}</td>
+                    <td>${spk_produk_nota_srjalan.jumlah}</td>
+                    <td>${spk_produk_nota_srjalan.colly}</td>
                 </tr>`;
+
+            i_spk_produk_nota_srjalan++;
+
+        });
+
+        var nama_pelanggan = `${pelanggans[i_srjalan].nama} - ${daerahs[i_srjalan].nama}`;
+        if (resellers[i_srjalan] !== null) {
+            nama_pelanggan = `${resellers[i_srjalan].nama}: ${nama_pelanggan}`;
         }
-
-        var nama_pelanggan = `${pelanggans[i].nama} - ${daerahs[i].nama}`;
-        if (resellers[i] !== null) {
-            nama_pelanggan = `${resellers[i].nama}: ${nama_pelanggan}`;
-        }
-
-
         var htmlDaftarSPK =
-            `<form method='GET' action='/nota/nota-detail' class='pb-0_5em pt-0_5em bb-1px-solid-grey'>
+            `<form method='GET' action='/sj/sj-detailSJ' class='pb-0_5em pt-0_5em bb-1px-solid-grey'>
                 <div class='grid-5-9_45_25_18_5'>
-                    <div class='circle-medium grid-1-auto justify-items-center font-weight-bold' style='background-color: ${randomColor()}'>${pelanggans[i].initial}</div>
+                    <div class='circle-medium grid-1-auto justify-items-center font-weight-bold' style='background-color: ${randomColor()}'>${pelanggans[i_srjalan].initial}</div>
                     <div>${nama_pelanggan}</div>
                     <div class='grid-3-auto'>
                         <div class='grid-1-auto justify-items-center ${warnaTglPembuatan} b-radius-5px w-3_5em' style="color:white;">
@@ -163,15 +171,24 @@ if (notas == undefined || notas.length == 0) {
                         ${html_tgl_sls}
                     </div>
                     <div class='grid-1-auto'>
-                        <div class='justify-self-right font-size-1_2em' style="color:green;font-weight:bold;">${formatHarga(notas[i].harga_total.toString())}</div>
-                        <div class='justify-self-right' style='color:grey'>Rp.</div>
+                        <div class='justify-self-right font-size-1_2em' style="color:green;font-weight:bold;">${srjalan.colly}</div>
+                        <div class='justify-self-right' style='color:grey'>Koli T</div>
                     </div>
-                    <div id='divDropdown-${i}' class='justify-self-center'><img class='w-0_7em' src='img/icons/dropdown.svg' onclick='showDropdown(${i});'></div>
+                    <div id='divDropdown-${i_srjalan}' class='justify-self-center'><img class='w-0_7em' src='img/icons/dropdown.svg' onclick='showDropdown(${i_srjalan});'></div>
                 </div>` +
             // DROPDOWN
-            `<div id='divDetailDropdown-${i}' class='p-0_5em b-1px-solid-grey' style='display: none'>
-            <div class='font-weight-bold color-grey'>No. ${notas[i].no_nota}</div>
-            <input type='hidden' name='nota_id' value=${notas[i].id}>
+            `<div id='divDetailDropdown-${i_srjalan}' class='p-0_5em b-1px-solid-grey' style='display: none'>
+            <div class='font-weight-bold color-grey'>No. ${srjalan.no_srjalan}</div>
+            <input type='hidden' name='srjalan_id' value=${srjalan.id}>
+            <input type='hidden' name='srjalan' value='${JSON.stringify(srjalan)}'>
+            <input type='hidden' name='pelanggan' value='${JSON.stringify(pelanggans[i_srjalan])}'>
+            <input type='hidden' name='daerah' value='${JSON.stringify(daerahs[i_srjalan])}'>
+            <input type='hidden' name='reseller' value='${JSON.stringify(resellers[i_srjalan])}'>
+            <input type='hidden' name='ekspedisi' value='${JSON.stringify(ekspedisis[i_srjalan])}'>
+            <input type='hidden' name='spk_produk_nota_srjalans' value='${JSON.stringify(arr_spk_produk_nota_srjalans[i_srjalan])}'>
+            <input type='hidden' name='spk_produk_notas' value='${JSON.stringify(arr_spk_produk_notas[i_srjalan])}'>
+            <input type='hidden' name='spk_produks' value='${JSON.stringify(arr_spk_produks[i_srjalan])}'>
+            <input type='hidden' name='produks' value='${JSON.stringify(arr_produks[i_srjalan])}'>
             <table style='width:100%'>${htmlItemsEachSPK}</table>
             <div class='text-right'>
             <button type='submit' class="d-inline-block bg-color-orange-1 pl-1em pr-1em b-radius-50px" style='border: none'>
@@ -182,20 +199,12 @@ if (notas == undefined || notas.length == 0) {
             </form>`;
 
         $('#div-daftar-spk').append(htmlDaftarSPK);
-    }
+
+        i_srjalan++;
+    });
+
 }
 
-
-
-// // set keadaan awal dimana JSON SPKToEdit dihilangkan
-// if (localStorage.getItem('dataSPKToEdit') !== null || localStorage.getItem('dataSPKBefore') !== null) {
-//     localStorage.removeItem('dataSPKToEdit');
-//     localStorage.removeItem('dataSPKBefore');
-// }
-
-// // Reload Page
-// const reload_page2 = {-!! json_encode($reload_page, JSON_HEX_TAG) !!};
-// reloadPage(reload_page2);
 </script>
 
 <style>

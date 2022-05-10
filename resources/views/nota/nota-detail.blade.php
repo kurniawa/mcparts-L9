@@ -6,7 +6,7 @@
     <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 </header>
 
-<div class="threeDotMenu">
+<div class="threeDotMenu" style="z-index:200">
     <div class="threeDot">
         <div class="dot"></div>
         <div class="dot"></div>
@@ -19,7 +19,7 @@
         <!-- <div id="downloadExcel" class="threeDotMenuItem" onclick="goToPrintOutSPK();">
             <img src="img/icons/download.svg" alt=""><span>Download Excel</span>
         </div> -->
-        <form action="/nota/nota-printOut" method='GET'>
+        <form action="/nota/nota-print-out" method='GET'>
             <button id="downloadExcel" type="submit" class="threeDotMenuItem">
                 <img src="/img/icons/download.svg" alt=""><span>Print Out Nota</span>
             </button>
@@ -58,17 +58,22 @@
 
 <script>
     const nota = {!! json_encode($nota, JSON_HEX_TAG) !!};
-    console.log("nota");
-    console.log(nota);
+    const pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
+    const reseller = {!! json_encode($reseller, JSON_HEX_TAG) !!};
+    const spk_produk_notas = {!! json_encode($spk_produk_notas, JSON_HEX_TAG) !!};
+    const spk_produks = {!! json_encode($spk_produks, JSON_HEX_TAG) !!};
+    const produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
 
-    const d_nota_item = JSON.parse(nota['data_nota_item']);
-    console.log("d_nota_item");
-    console.log(d_nota_item);
+    if (show_console) {
+        console.log("nota");console.log(nota);
+        console.log("pelanggan");console.log(pelanggan);
+        console.log("reseller");console.log(reseller);
+        console.log("spk_produk_notas");console.log(spk_produk_notas);
+        console.log("spk_produks");console.log(spk_produks);
+        console.log("produks");console.log(produks);
+    }
 
-    const my_csrf = {!! json_encode($csrf, JSON_HEX_TAG) !!};
-
-
-    for (var i = 0; i < d_nota_item.length; i++) {
+    for (var i = 0; i < spk_produk_notas.length; i++) {
         var nomorUrutItem = i + 1;
 
         var opsiEditToToggle = [{
@@ -102,12 +107,12 @@
             <div><input id="checkboxShowInputJumlah-${i}" type="checkbox" onclick='onMultipleCheckToggleWithORLogic(${inputJumlahToToggle});'>Edit Jumlah</div>
             <div id="divInputJumlah-${i}" class="mt-0_5em" style="display:none">
                 Jumlah tersedia:
-                Jumlah Tambahan yang Ingin diinput: <input class="p-0_5em" type="number" value="${d_nota_item[i].jml_item}">
+                Jumlah Tambahan yang Ingin diinput: <input class="p-0_5em" type="number" value="${spk_produk_notas[i].jumlah}">
             </div>
             <div class="mt-0_5em"><input id="checkboxShowInputNamaHrg-${i}" type="checkbox" onclick='onMultipleCheckToggleWithORLogic(${inputNamaHrgToToggle});'>Edit Nama Nota & Hrg/pcs</div>
             <div id="divInputNamaHrg-${i}" style="display:none">
-                <div class="mt-0_5em">Nama Nota: <input class="p-0_5em w-70" type="text" value="${d_nota_item[i].nama_nota}"></div>
-                <div class="mt-0_5em">Hrg/pcs: <input class="p-0_5em" type="number" value="${d_nota_item[i].hrg_per_item}"></div>
+                <div class="mt-0_5em">Nama Nota: <input class="p-0_5em w-70" type="text" value="${produks[i].nama_nota}"></div>
+                <div class="mt-0_5em">Hrg/pcs: <input class="p-0_5em" type="number" value="${spk_produk_notas[i].harga}"></div>
             </div>
             <br>
             <div id="divBtnHapusEdit-${i}" class="text-center">
@@ -119,21 +124,21 @@
         `;
 
         // console.log(`nomorUrutItem: ${nomorUrutItem}`);
-        // console.log(`d_nota_item[${i}].jml_item: ${d_nota_item[i].jml_item}`);
-        // console.log(`d_nota_item[${i}].nama_nota: ${d_nota_item[i].nama_nota}`);
-        // console.log(`d_nota_item[${i}].hrg_per_item: ${d_nota_item[i].hrg_per_item}`);
-        // console.log(`d_nota_item[${i}].hrg_total_item: ${d_nota_item[i].hrg_total_item}`);
-        
+        // console.log(`spk_produks[${i}].jml_item: ${spk_produks[i].jml_item}`);
+        // console.log(`spk_produks[${i}].nama_nota: ${spk_produks[i].nama_nota}`);
+        // console.log(`spk_produks[${i}].hrg_per_item: ${spk_produks[i].hrg_per_item}`);
+        // console.log(`spk_produks[${i}].harga_t: ${spk_produks[i].harga_t}`);
+
         var htmlItem =
             `
             <form action="07-02-editDetailNota.php" method="POST" class="bb-1px-solid-grey pb-0_5em pt-0_5em">
 
             <div>${nomorUrutItem}.</div>
             <div class="grid-4-10_52_18_20">
-                <div>${d_nota_item[i].jml_item}</div>
-                <div>${d_nota_item[i].nama_nota}</div>
-                <div>${formatHarga(d_nota_item[i].hrg_per_item.toString())}</div>
-                <div>${formatHarga(d_nota_item[i].hrg_total_item.toString())}</div>
+                <div>${spk_produk_notas[i].jumlah}</div>
+                <div>${produks[i].nama_nota}</div>
+                <div>${formatHarga(spk_produk_notas[i].harga.toString())}</div>
+                <div>${formatHarga(spk_produk_notas[i].harga_t.toString())}</div>
 
                 <div>Jml.</div>
                 <div>Nama Item Pada Nota</div>
@@ -143,15 +148,15 @@
             <div class="mt-0_5em text-right">Tampilkan Opsi Edit <input id="checkboxShowOpsiEdit-${i}" type="checkbox" onclick='onCheckToggle(${opsiEditToToggle});'></div>
 
             ${htmlElementDropdown}
-           
+
             </form>
         `;
         // console.log(htmlItem);
         $('#divDaftarItemNota').append(htmlItem);
-        // totalHarga += parseInt(d_nota_item[i].hrg_total_item);
+        // totalHarga += parseInt(spk_produks[i].harga_t);
     }
 
-   
+
 
     var htmlTotalHarga =
         `
@@ -164,7 +169,7 @@
     $('#divDaftarItemNota').append(htmlTotalHarga);
 
     $('.divThreeDotMenuContent').hide();
-    
+
     function showLightBox() {
         $('.lightBox').show();
         $('#closingGreyArea').show();

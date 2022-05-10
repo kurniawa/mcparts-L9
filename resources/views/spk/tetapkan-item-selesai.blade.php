@@ -152,18 +152,18 @@ GUA BUAT MANUAL LAGI AJA DAH!
         */
        var htmlTahapSelesai = '';
 
-       if (spk_produks[i].jmlSelesai_kapan !== null && spk_produks[i].jmlSelesai_kapan !== '') {
+       if (spk_produks[i].data_selesai !== null && spk_produks[i].data_selesai !== '') {
 
-            var jmlSelesai_kapan_i = spk_produks[i].jmlSelesai_kapan;
-            jmlSelesai_kapan_i = JSON.parse(jmlSelesai_kapan_i);
+            var data_selesai_i = spk_produks[i].data_selesai;
+            data_selesai_i = JSON.parse(data_selesai_i);
 
-            console.log('jmlSelesai_kapan_i');
-            console.log(jmlSelesai_kapan_i);
+            console.log('data_selesai_i');
+            console.log(data_selesai_i);
 
-            if (jmlSelesai_kapan_i.length !== 0) {
+            if (data_selesai_i.length !== 0) {
                 let i2 = 0
-                for ( i2 ; i2 < jmlSelesai_kapan_i.length; i2++) {
-                    htmlTahapSelesai += `<option value=${jmlSelesai_kapan_i[i2].tahap}>Tahap - ${jmlSelesai_kapan_i[i2].tahap}</option>`;
+                for ( i2 ; i2 < data_selesai_i.length; i2++) {
+                    htmlTahapSelesai += `<option value=${data_selesai_i[i2].tahap}>Tahap - ${data_selesai_i[i2].tahap}</option>`;
                 }
                 i2++;
                 htmlTahapSelesai += `<option value=${i2}>Tahap - ${i2}</option>`;

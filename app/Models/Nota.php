@@ -15,13 +15,18 @@ class Nota extends Model
     {
         return $this->belongsTo(Pelanggan::class);
     }
-
-    public function produks()
-    {
-        return $this->belongsToMany(Produk::class, 'spk_produks');
-    }
     public function nota_item()
     {
         return $this->hasMany(SpkProduk::class);
     }
+
+    public function spk_produk_notas()
+    {
+        return $this->hasMany(SpkProdukNota::class);
+    }
+    public function spk_produks()
+    {
+        return $this->belongsToMany(SpkProduk::class, 'spk_produk_notas');
+    }
+
 }

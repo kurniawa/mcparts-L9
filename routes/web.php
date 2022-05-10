@@ -15,6 +15,7 @@ use App\Http\Controllers\PelangganResellerController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SpkBaruController;
 use App\Http\Controllers\SpkController;
+use App\Http\Controllers\SrjalanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,9 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', function () {
+    return view('home');
+});
+Route::get('/home', function () {
     return view('home');
 });
 Route::get('/about', function () {
@@ -139,7 +143,21 @@ Route::controller(NotaController::class)->group(function ()
     Route::get('/nota/nota_baru-pilih_spk', 'notaBaru_pilihSPK')->middleware('auth');
     Route::get('/nota/notaBaru-pSPK-pItem', 'notaBaru_pSPK_pItem')->middleware('auth');
     Route::post('/nota/notaBaru-pSPK-pItem-DB', 'notaBaru_pSPK_pItem_DB')->middleware('auth');
-    Route::get('/nota/nota-detailNota', 'nota_detailNota');
-    Route::get('/nota/nota-printOut', 'nota_printOut');
+    Route::get('/nota/nota-detail', 'nota_detail');
+    Route::get('/nota/nota-print-out', 'nota_print_out');
     Route::post('/nota/nota-hapus', 'nota_hapus')->middleware('auth');
+});
+
+/**
+ * SURAT JALAN
+ */
+Route::controller(SrjalanController::class)->group(function ()
+{
+    Route::get('/sj', 'index');
+    Route::get('/sj/sjBaru-pCust', 'sjBaru_pCust')->middleware('auth');
+    Route::get('/sj/sjBaru-pPelanggan-pProduk', 'sjBaru_pPelanggan_pProduk')->middleware('auth');
+    Route::post('/sj/sjBaru-pNota-pProduk-DB', 'sjBaru_pNota_pProduk_DB')->middleware('auth');
+    Route::get('/sj/sj-detailSJ', 'sj_detailSJ');
+    Route::post('/sj/sj-printOut', 'sj_printOut');
+    Route::post('/sj/sj-hapus', 'sj_hapus')->middleware('auth');
 });

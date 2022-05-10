@@ -25,12 +25,15 @@ return new class extends Migration
             $table->smallInteger('jml_selesai')->nullable()->default(0);
             $table->smallInteger('jml_blm_sls')->nullable();
             $table->smallInteger('jml_sdh_nota')->nullable()->default(0);
+            $table->smallInteger('jumlah_sudah_srjalan')->nullable()->default(0);
             $table->integer('harga');
             $table->integer('koreksi_harga')->nullable();
             $table->string('status', 20)->nullable(); // Status yang berkaitan dengan sudah selesai di produksi atau belum
-            $table->string('jmlSelesai_kapan')->nullable();
-            $table->string('nota_jml_kapan')->nullable();
+            $table->string('data_selesai')->nullable();
+            $table->string('data_nota')->nullable();
+            $table->string('data_srjalan')->nullable();
             $table->string('status_nota')->nullable()->default('BELUM');
+            $table->string('status_srjalan')->nullable()->default('BELUM');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             // $table->timestamp('finished_at')->nullable();
