@@ -358,7 +358,7 @@ class SrjalanController extends Controller
     {
         SiteSettings::loadNumToZero();
 
-        $show_dump = true;
+        $show_dump = false;
 
         $get = $request->query();
 
@@ -366,19 +366,8 @@ class SrjalanController extends Controller
             dump('get', $get);
         }
 
-        $srjalan = json_decode($get['srjalan'], true);
-        $pelanggan = json_decode($get['pelanggan'], true);
-        $daerah = json_decode($get['daerah'], true);
-        $reseller = json_decode($get['reseller'], true);
-        $ekspedisi = json_decode($get['ekspedisi'], true);
-        $spk_produk_nota_srjalans = json_decode($get['spk_produk_nota_srjalans'], true);
-        $spk_produk_notas = json_decode($get['spk_produk_notas'], true);
-        $spk_produks = json_decode($get['spk_produks'], true);
-        $produks = json_decode($get['produks'], true);
-
-        if ($srjalan['reseller_id'] !== null) {
-            $reseller = Pelanggan::find($srjalan['reseller_id']);
-        }
+        $sj = new Srjalan();
+        list($srjalan, $pelanggan, $daerah, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks) = $sj->get_one_srjalan_and_components($get['srjalan_id']);
 
         $data = [
             'srjalan' => $srjalan,
@@ -397,55 +386,41 @@ class SrjalanController extends Controller
 
     public function sj_printOut(Request $request)
     {
-        $load_num = SiteSetting::find(1);
-        if ($load_num !== 0) {
-            $load_num->value = 0;
-            $load_num->save();
-        }
+        SiteSettings::loadNumToZero();
 
         $show_dump = false;
-        $show_hidden_dump = false;
-        $run_db = true;
-        $load_num_ignore = true;
         // Pada development mode, load number boleh diignore. Yang perlu diperhatikan adalah
         // insert dan update database supaya tidak berantakan
-        if ($show_hidden_dump === true) {
-            dump("load_num_value: " . $load_num->value);
-        }
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
-            $run_db = false;
-        }
-
-        $post = $request->input();
-        $sj = json_decode($post['sj'], true);
-        $pelanggan = json_decode($post['pelanggan'], true);
-        $reseller = json_decode($post['reseller'], true);
-        $ekspedisi = json_decode($post['ekspedisi'], true);
-
+        $get = $request->query();
 
         if ($show_dump === true) {
-            dump('post');
-            dump($post);
-            dump('sj:');
-            dump($sj);
-            dump('pelanggan:');
-            dump($pelanggan);
-            dump('reseller:');
-            dump($reseller);
-            dump('ekspedisi:');
-            dump($ekspedisi);
+            dump('get:', $get);
         }
 
+        $sj = new Srjalan();
+        list($srjalan, $pelanggan, $daerah, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks) = $sj->get_one_srjalan_and_components($get['srjalan_id']);
+
+        $alamat_reseller = null;
+        if ($reseller !== null) {
+            $alamat_reseller = json_decode($reseller['alamat'], true);
+        }
+        $alamat_ekspedisi = json_decode($ekspedisi['alamat'], true);
         $data = [
-            'sj' => $sj,
+            'srjalan' => $srjalan,
             'pelanggan' => $pelanggan,
+            'daerah' => $daerah,
             'reseller' => $reseller,
+            'alamat_reseller' => $alamat_reseller,
             'ekspedisi' => $ekspedisi,
-            'csrf' => csrf_token()
+            'alamat_ekspedisi' => $alamat_ekspedisi,
+            'spk_produk_nota_srjalans' => $spk_produk_nota_srjalans,
+            'spk_produk_notas' => $spk_produk_notas,
+            'spk_produks' => $spk_produks,
+            'produks' => $produks,
         ];
 
-        return view('sj.sj-printOut', $data);
+        return view('srjalan.sj-printOut', $data);
     }
 
     public function sj_hapus(Request $request)

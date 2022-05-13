@@ -55,17 +55,43 @@ class Spk extends Model
             /**
              * CEK, APAKAH ITEM YANG ADA PADA SPK INI, SUDAH ADA YANG DIBUAT NOTA NYA.
              */
+            $av_spks = array();
+            foreach ($spk_selesai_or_sebagian as $spk) {
+                $spk_produks = SpkProduk::where('spk_id', $spk['id'])->where(function ($query) {
+                    $query->where('status', 'SELESAI')
+                        ->orWhere('status', 'SEBAGIAN');
+                })->get()->toArray();
 
-            // dd('$spk_selesai_or_sebagian', $spk_selesai_or_sebagian);
+                dump('$av_spks', $av_spks);
+
+                $item_sudah_nota = 0;
+
+                foreach ($spk_produks as $spk_produk) {
+                    $jumlah_sudah_nota = $spk_produk['jml_sdh_nota'];
+                    if ($jumlah_sudah_nota === null) {
+                        $jumlah_sudah_nota = 0;
+                    }
+
+                    if ($jumlah_sudah_nota === $spk_produk['jml_selesai']) {
+                        $item_sudah_nota++;
+                    }
+                }
+
+                if ($item_sudah_nota < count($spk_produk)) {
+                    $av_spks[] = $spk;
+                }
+            }
+
+            dd('$av_spks', $av_spks);
 
 
-            array_push($available_spks, $spk_selesai_or_sebagian);
+            array_push($available_spks, $av_spks);
             array_push($pelanggans, $pelanggan);
             array_push($daerahs, $daerah);
 
             $resellers = $arr_produks = $arr_spk_produks = array();
 
-            foreach ($spk_selesai_or_sebagian as $av_spk) {
+            foreach ($av_spks as $av_spk) {
                 $arr_produk = $arr_spk_produk = array();
                 // foreach ($av_spks as $av_spk) {
                 $spk_produks = SpkProduk::where('spk_id', $av_spk['id'])->get()->toArray();

@@ -78,7 +78,7 @@ class NotaController extends Controller
     {
         SiteSettings::loadNumToZero();
 
-        $show_dump = true;
+        $show_dump = false;
 
         /**
          * Form pilihan spk yang ingin dibuatkan nota nya akan muncul. Daftar spk yang ada di pilihan adalah SPK dengan status "SELESAI"
@@ -131,7 +131,7 @@ class NotaController extends Controller
     public function notaBaru_pSPK_pItem(Request $request)
     {
         SiteSettings::loadNumToZero();
-        $show_dump = true;
+        $show_dump = false;
 
         // $reload_page = $request->session()->get('reload_page');
         // if ($reload_page === true) {

@@ -158,6 +158,6 @@ Route::controller(SrjalanController::class)->group(function ()
     Route::get('/sj/sjBaru-pPelanggan-pProduk', 'sjBaru_pPelanggan_pProduk')->middleware('auth');
     Route::post('/sj/sjBaru-pNota-pProduk-DB', 'sjBaru_pNota_pProduk_DB')->middleware('auth');
     Route::get('/sj/sj-detailSJ', 'sj_detailSJ');
-    Route::post('/sj/sj-printOut', 'sj_printOut');
+    Route::get('/srjalan/srjalan-printOut', 'sj_printOut');
     Route::post('/sj/sj-hapus', 'sj_hapus')->middleware('auth');
 });

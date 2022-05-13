@@ -143,11 +143,16 @@ if (srjalans == undefined || srjalans.length == 0) {
                     textContent_jumlah += ` +${deviasi_jml}`;
                 }
             }
+
+            var colly_item = spk_produk_nota_srjalan.colly;
+            if (colly_item === null) {
+                colly_item = '-';
+            }
             htmlItemsEachSPK = htmlItemsEachSPK +
                 `<tr>
                     <td>${arr_produks[i_srjalan][i_spk_produk_nota_srjalan].nama_nota}</td>
                     <td>${spk_produk_nota_srjalan.jumlah}</td>
-                    <td>${spk_produk_nota_srjalan.colly}</td>
+                    <td>${colly_item}</td>
                 </tr>`;
 
             i_spk_produk_nota_srjalan++;
@@ -158,6 +163,7 @@ if (srjalans == undefined || srjalans.length == 0) {
         if (resellers[i_srjalan] !== null) {
             nama_pelanggan = `${resellers[i_srjalan].nama}: ${nama_pelanggan}`;
         }
+
         var htmlDaftarSPK =
             `<form method='GET' action='/sj/sj-detailSJ' class='pb-0_5em pt-0_5em bb-1px-solid-grey'>
                 <div class='grid-5-9_45_25_18_5'>
@@ -180,15 +186,10 @@ if (srjalans == undefined || srjalans.length == 0) {
             `<div id='divDetailDropdown-${i_srjalan}' class='p-0_5em b-1px-solid-grey' style='display: none'>
             <div class='font-weight-bold color-grey'>No. ${srjalan.no_srjalan}</div>
             <input type='hidden' name='srjalan_id' value=${srjalan.id}>
-            <input type='hidden' name='srjalan' value='${JSON.stringify(srjalan)}'>
-            <input type='hidden' name='pelanggan' value='${JSON.stringify(pelanggans[i_srjalan])}'>
-            <input type='hidden' name='daerah' value='${JSON.stringify(daerahs[i_srjalan])}'>
-            <input type='hidden' name='reseller' value='${JSON.stringify(resellers[i_srjalan])}'>
-            <input type='hidden' name='ekspedisi' value='${JSON.stringify(ekspedisis[i_srjalan])}'>
-            <input type='hidden' name='spk_produk_nota_srjalans' value='${JSON.stringify(arr_spk_produk_nota_srjalans[i_srjalan])}'>
-            <input type='hidden' name='spk_produk_notas' value='${JSON.stringify(arr_spk_produk_notas[i_srjalan])}'>
-            <input type='hidden' name='spk_produks' value='${JSON.stringify(arr_spk_produks[i_srjalan])}'>
-            <input type='hidden' name='produks' value='${JSON.stringify(arr_produks[i_srjalan])}'>
+            <input type='hidden' name='pelanggan_id' value='${pelanggans[i_srjalan]['id']}'>
+            <input type='hidden' name='daerah_id' value='${daerahs[i_srjalan]['id']}'>
+            <input type='hidden' name='reseller_id' value='${resellers[i_srjalan]['id']}'>
+            <input type='hidden' name='ekspedisi_id' value='${ekspedisis[i_srjalan]['id']}'>
             <table style='width:100%'>${htmlItemsEachSPK}</table>
             <div class='text-right'>
             <button type='submit' class="d-inline-block bg-color-orange-1 pl-1em pr-1em b-radius-50px" style='border: none'>
