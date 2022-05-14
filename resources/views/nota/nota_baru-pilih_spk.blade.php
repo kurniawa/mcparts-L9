@@ -6,40 +6,25 @@
     <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 </header>
 
-{{-- <div class="container m-1em">
-    <form action="/nota/notaBaru-pSPK-pItem" method="get">
-        <input type="hidden" name="_token" value="{{ $csrf }}">
-        <span style="font-weight:bold">Pilihan SPK yang Sebagian atau Seluruhnya SELESAI:</span><br>
-        <select name="spk_id" id="selectIDSPK" class="p-1em">
-            @for ($i = 0; $i < count($available_spk); $i++)
-                <option value="{{ $available_spk[$i]['id'] }}">{{ $available_spk[$i]['no_spk'] }}</option>
-            @endfor
-        </select>
-        <br><br>
-        <button type="submit" class="btn-warning">Lanjut -> Pilih Item</button>
-    </form>
-</div> --}}
-
 <div class="m-0_5em">
 
     <div>
         <h2>Pilihan SPK Berdasarkan Pelanggan</h2>
     </div>
+    @if (count($pelanggans) === 0)
+    <div class="alert alert-primary">
+        Belum ada pilihan SPK atau Item dari SPK yang tersedia untuk dibuatkan Nota nya!
+    </div>
+    @endif
 
     <div id="divTitleDesc" class="grid-1-auto justify-items-center mt-0_5em"></div>
 
     <input id="inputHargaTotalSPK" type="hidden">
 
-    <!-- <div id="divJmlTotal" class="text-right p-1em">
-        <div id="divJmlTotal2" class="font-weight-bold font-size-2em color-green"></div>
-        <div class="font-weight-bold color-red font-size-1_5em">Total</div>
-    </div> -->
-
 </div>
 <div id="divItemList2" class="p-1em">
     <form action="/nota/notaBaru-pSPK-pItem" method="GET" name="form_pCust_pSPK">
         @csrf
-        {{-- <input type='checkbox' name='main_checkbox' id='main_checkbox' onclick="checkAll(this.id, 'dd');"> Pilih Semua --}}
         <table style="width:100%;" id="tableItemList"></table>
 
         <div id="divMarginBottom" style="height: 20vh;"></div>

@@ -82,51 +82,10 @@ class SrjalanController extends Controller
     public function sjBaru_pCust()
     {
         SiteSettings::loadNumToZero();
-        $show_dump = true;
+        $show_dump = false;
 
-        $pelanggan_id_sj_blm_kirim = Nota::select('pelanggan_id')->where('status_sj', 'BELUM SJ')->orderByDesc('created_at')->groupBy('pelanggan_id')->get();
-        if ($show_dump) {
-            dump('pelanggan_id_sj_blm_kirim', $pelanggan_id_sj_blm_kirim);
-        }
-
-        $pelanggans = $daerahs = $arr_notas = $resellers = $arr2_spk_produk_notas = $arr2_spk_produks = $arr2_produks = array();
-        for ($i0 = 0; $i0 < count($pelanggan_id_sj_blm_kirim); $i0++) {
-            $pelanggan = Pelanggan::find($pelanggan_id_sj_blm_kirim[$i0]['pelanggan_id']);
-            $daerah = Daerah::find($pelanggan['daerah_id'])->toArray();
-            $notas = Nota::where('pelanggan_id', $pelanggan['id'])->where('status_sj', 'BELUM SJ')->orderByDesc('created_at')->get();
-
-            $pelanggans[] = $pelanggan;
-            $daerahs[] = $daerah;
-            $arr_notas[] = $notas;
-
-            $resellers = $arr_spk_produk_notas = $arr_spk_produks = array();
-            for ($i = 0; $i < count($notas); $i++) {
-                if ($notas[$i]['reseller_id'] !== null) {
-                    $reseller = Pelanggan::find($notas[$i]['reseller_id'])->toArray();
-                    $resellers[] = $reseller;
-                } else {
-                    $reseller[] = null;
-                }
-
-                $spk_produk_notas = SpkProdukNota::where('nota_id', $notas[$i]['id'])->get()->toArray();
-                $spk_produks = $produks = array();
-                foreach ($spk_produk_notas as $spk_produk_nota) {
-                    $spk_produk = SpkProduk::find($spk_produk_nota['spk_produk_id'])->toArray();
-                    $produk = Produk::find($spk_produk['produk_id'])->toArray();
-                    $spk_produks[] = $spk_produk;
-                    $produks[] = $produk;
-                }
-
-                $arr_spk_produk_notas[] = $spk_produk_notas;
-                $arr_spk_produks[] = $spk_produks;
-                $arr_produks[] = $produks;
-            }
-            $arr_resellers[] = $resellers;
-            $arr2_spk_produk_notas[] = $arr_spk_produk_notas;
-            $arr2_spk_produks[] = $arr_spk_produks;
-            $arr2_produks[] = $arr_produks;
-
-        }
+        $sj = new Srjalan();
+        list($pelanggans, $daerahs, $arr_notas, $arr_resellers, $arr2_spk_produk_notas, $arr2_spk_produks, $arr2_produks) = $sj->get_available_notas_for_srjalan();
 
         $data = [
             'pelanggans' => $pelanggans,
@@ -257,6 +216,7 @@ class SrjalanController extends Controller
 
         $colly_total = 0;
         $i_nota_id = 0;
+        $status_sj = 'BELUM SJ';
         foreach ($post['nota_id'] as $nota_id) {
             $nota = Nota::find($nota_id);
             if ($i_nota_id === 0) {
@@ -307,9 +267,17 @@ class SrjalanController extends Controller
                      * UPDATE TABLE spk_produk
                      */
 
-                    $status_srjalan = 'SUDAH SEMUA';
-                    if ($jml_input < $spk_produk->jml_t) {
+                    if ($jml_input === $spk_produk->jml_t) {
+                        $status_srjalan = 'SUDAH SEMUA';
+                        /** INI CARA SMART SAYA UNTUK MENGHINDARI PENGECEKAN ARRAY semua status sj MELALUI LOOPING */
+                        if ($status_sj !== 'SUDAH SEBAGIAN' || $status_sj !== 'SUDAH SEMUA') {
+                            $status_sj = 'SUDAH_SEMUA';
+                        }
+                    } elseif ($jml_input < $spk_produk->jml_t) {
                         $status_srjalan = 'SUDAH SEBAGIAN';
+                        if ($status_sj !== 'SUDAH SEBAGIAN') {
+                            $status_sj = 'SUDAH SEBAGIAN';
+                        }
                     }
                     $spk_produk->jumlah_sudah_srjalan = $jml_input;
                     $spk_produk->status_srjalan = $status_srjalan;

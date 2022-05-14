@@ -62,7 +62,7 @@ class Spk extends Model
                         ->orWhere('status', 'SEBAGIAN');
                 })->get()->toArray();
 
-                dump('$av_spks', $av_spks);
+                // dump('$spk_produks', $spk_produks);
 
                 $item_sudah_nota = 0;
 
@@ -77,55 +77,56 @@ class Spk extends Model
                     }
                 }
 
-                if ($item_sudah_nota < count($spk_produk)) {
+                if ($item_sudah_nota < count($spk_produks)) {
                     $av_spks[] = $spk;
                 }
             }
 
-            dd('$av_spks', $av_spks);
+            if (count($av_spks) !== 0) {
+                array_push($pelanggans, $pelanggan);
+                array_push($daerahs, $daerah);
+                array_push($available_spks, $av_spks);
 
+                // dd('$av_spks', $av_spks);
 
-            array_push($available_spks, $av_spks);
-            array_push($pelanggans, $pelanggan);
-            array_push($daerahs, $daerah);
+                $resellers = $arr_produks = $arr_spk_produks = array();
 
-            $resellers = $arr_produks = $arr_spk_produks = array();
+                foreach ($av_spks as $av_spk) {
+                    $arr_produk = $arr_spk_produk = array();
+                    // foreach ($av_spks as $av_spk) {
+                    $spk_produks = SpkProduk::where('spk_id', $av_spk['id'])->get()->toArray();
+                    $produks = array();
+                    foreach ($spk_produks as $spk_produk) {
+                        $produk = Produk::find($spk_produk['produk_id'])->toArray();
+                        // dump('$produk:', $produk);
+                        array_push($produks, $produk);
+                    }
+                    array_push($arr_produks, $produks);
+                    array_push($arr_spk_produks, $spk_produks);
 
-            foreach ($av_spks as $av_spk) {
-                $arr_produk = $arr_spk_produk = array();
-                // foreach ($av_spks as $av_spk) {
-                $spk_produks = SpkProduk::where('spk_id', $av_spk['id'])->get()->toArray();
-                $produks = array();
-                foreach ($spk_produks as $spk_produk) {
-                    $produk = Produk::find($spk_produk['produk_id'])->toArray();
-                    // dump('$produk:', $produk);
-                    array_push($produks, $produk);
+                    // dump('$av_spk', $av_spk);
+                    // dump('$arr_produks', $arr_produks);
+                    // dump('$arr_spk_produks', $arr_spk_produks);
+
+                    $reseller = null;
+                    if ($av_spk['reseller_id'] !== null) {
+                        $reseller = Pelanggan::find($av_spk['reseller_id'])->toArray();
+                    }
+
+                    array_push($resellers, $reseller);
+                    // }
+
+                    // array_push($arr_spk_produks, $spk_produks);
+                    // array_push($arr_produks, $arr_produk);
+
                 }
-                array_push($arr_produks, $produks);
-                array_push($arr_spk_produks, $spk_produks);
+                array_push($arr_resellers, $resellers);
+                array_push($list_arr_produks, $arr_produks);
+                array_push($list_arr_spk_produks, $arr_spk_produks);
 
-                // dump('$av_spk', $av_spk);
-                // dump('$arr_produks', $arr_produks);
-                // dump('$arr_spk_produks', $arr_spk_produks);
-
-                $reseller = null;
-                if ($av_spk['reseller_id'] !== null) {
-                    $reseller = Pelanggan::find($av_spk['reseller_id'])->toArray();
-                }
-
-                array_push($resellers, $reseller);
-                // }
-
-                // array_push($arr_spk_produks, $spk_produks);
-                // array_push($arr_produks, $arr_produk);
-
+                // dump('$list_arr_produks', $list_arr_produks);
+                // dump('$list_arr_spk_produks', $list_arr_spk_produks);
             }
-            array_push($arr_resellers, $resellers);
-            array_push($list_arr_produks, $arr_produks);
-            array_push($list_arr_spk_produks, $arr_spk_produks);
-
-            // dump('$list_arr_produks', $list_arr_produks);
-            // dump('$list_arr_spk_produks', $list_arr_spk_produks);
 
         }
 

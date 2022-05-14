@@ -27,7 +27,7 @@ class InsertingGeneralController extends Controller
     public function inserting_general(Request $request)
     {
         SiteSettings::loadNumToZero();
-        $show_dump = true;
+        $show_dump = false;
 
         $get = $request->query();
 
@@ -135,9 +135,8 @@ class InsertingGeneralController extends Controller
     {
         $load_num = SiteSetting::find(1);
 
-        $show_dump = true; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = true; // true apabila siap melakukan CRUD ke DB
-        $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
         $show_hidden_dump = false;
         $ada_error = true;
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
@@ -149,7 +148,7 @@ class InsertingGeneralController extends Controller
             dump("load_num_value: " . $load_num->value);
         }
 
-        if ($load_num->value > 0 && !$load_num_ignore) {
+        if ($load_num->value > 0) {
             $run_db = false;
             $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
             $ada_error = true;

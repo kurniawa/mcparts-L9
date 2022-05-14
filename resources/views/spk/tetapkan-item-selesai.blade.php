@@ -181,10 +181,12 @@ GUA BUAT MANUAL LAGI AJA DAH!
                 <tr><td>Tgl. Selesai</td><td>:</td><td><input type='date' id='date_today-${i}' name='tgl_selesai[]' value='${date_today}' disabled></td></tr>
                 <tr><td><input type='hidden' name='spk_produk_id[]' value='${spk_produks[i].id}' disabled></td></tr>
             </table>
-            <table>
-                <tr><td><input type='checkbox' class='dd_checkbox2' id='ddCheckbox2-${i}' name='tahapan[]' value='${i}' onclick='isChecked(${params_dd2});'></td><td>Anda ingin tambahkan tahapan?</td></tr>
-            </table>
+            <!-- <table>
+                <tr><td><input type='checkbox' class='dd_checkbox2' id='ddCheckbox2-${i}' name='tahapan[]' value='${i}'></td><td>Anda ingin tambahkan tahapan?</td></tr>
+            </table> -->
         `;
+
+        // onclick='isChecked(${params_dd2});'
 
         htmlDD2 += `
             <table>
@@ -202,7 +204,7 @@ GUA BUAT MANUAL LAGI AJA DAH!
             class_checkbox: ".dd",
             id_checkbox: `#ddCheckbox-${i}`,
             id_button: `#btnSelesai_new`,
-            to_uncheck: params_dd2,
+            // to_uncheck: params_dd2,
         }
 
         params_dd = JSON.stringify(params_dd);
@@ -214,7 +216,7 @@ GUA BUAT MANUAL LAGI AJA DAH!
                 <td><input type='checkbox' id='ddCheckbox-${i}' class='dd' onclick='isChecked(${params_dd});'></td>
             </tr>
             <tr id='DD-${i}' style='display:none'><td colspan=3>${htmlDD}</td></tr>
-            <tr id='DD2-${i}' style='display:none'><td colspan=3>${htmlDD2}</td></tr>
+            <!-- <tr id='DD2-${i}' style='display:none'><td colspan=3>${htmlDD2}</td></tr> -->
         `;
 
     }

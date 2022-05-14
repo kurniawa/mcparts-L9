@@ -56,7 +56,7 @@
             Stok
         </div>
         <div class="gridMenuItem">
-            <a href="06-01-produk.php" class="menuIcons">
+            <a href="#" class="menuIcons">
                 <img src="img/icons/products.svg" alt="Icon SPK">
                 <div>Produk</div>
             </a>
@@ -117,5 +117,5 @@
         background: rgba(63, 191, 63, 0.5);
     }
 </style>
-    
+
 @endsection
