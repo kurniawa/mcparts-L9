@@ -13,28 +13,19 @@
         <div class="dot"></div>
     </div>
     <div class="divThreeDotMenuContent">
-        {{-- <form method='post' action="srjalan/srjalan-editsrjalan" id="" class="threeDotMenuItem">
-            <img src="/img/icons/edit.svg" alt=""><span>Edit srjalan</span>
-        </form> --}}
-        <!-- <div id="downloadExcel" class="threeDotMenuItem" onclick="goToPrintOutSPK();">
-            <img src="img/icons/download.svg" alt=""><span>Download Excel</span>
-        </div> -->
         <form action="/srjalan/srjalan-printOut" method='GET'>
             <button id="downloadExcel" type="submit" class="threeDotMenuItem">
                 <img src="/img/icons/download.svg" alt=""><span>Print Out Surat Jalan</span>
             </button>
             <input type="hidden" name="srjalan_id" value='{{ $srjalan['id'] }}'>
         </form>
-        {{-- <form action="/srjalan/srjalan-hapus" method='POST'>
+        <form action="/srjalan/srjalan-hapus" method='POST' onsubmit="return confirm('Apakah Anda yakin ingin menghapus Surat Jalan ini?');">
             @csrf
-            <button id="hapussrjalan" type="submit" class="threeDotMenuItem" id="konfirmasiHapussrjalan" style="width: 100%">
-                <img src="/img/icons/trash-can.svg" alt=""><span>Hapus srjalan</span>
+            <button id="hapussrjalan" type="submit" class="threeDotMenuItem" style="width: 100%">
+                <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Surat Jalan</span>
             </button>
             <input type="hidden" name="srjalan_id" value={{ $srjalan['id'] }}>
-        </form> --}}
-        <div id="konfirmasiHapussrjalan" class="threeDotMenuItem">
-            <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Surat Jalan</span>
-        </div>
+        </form>
         <!-- <div id="deleteSPK" class="threeDotMenuItem" onclick="goToDeleteSPK();">
             <img src="img/icons/trash-can.svg" alt=""><span>Cancel/Hapus SPK</span>
         </div> -->

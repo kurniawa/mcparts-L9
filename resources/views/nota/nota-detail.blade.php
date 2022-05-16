@@ -25,16 +25,16 @@
             </button>
             <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
         </form>
-        {{-- <form action="/nota/nota-hapus" method='POST'>
+        <form action="/nota/nota-hapus" method='POST' onsubmit="return confirm('Apakah Anda yakin ingin menghapus Nota ini?');">
             @csrf
             <button id="hapusNota" type="submit" class="threeDotMenuItem" id="konfirmasiHapusNota" style="width: 100%">
                 <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Nota</span>
             </button>
             <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
-        </form> --}}
-        <div id="konfirmasiHapusNota" class="threeDotMenuItem">
+        </form>
+        {{-- <div id="konfirmasiHapusNota" class="threeDotMenuItem">
             <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Nota</span>
-        </div>
+        </div> --}}
         <!-- <div id="deleteSPK" class="threeDotMenuItem" onclick="goToDeleteSPK();">
             <img src="img/icons/trash-can.svg" alt=""><span>Cancel/Hapus SPK</span>
         </div> -->
@@ -181,23 +181,23 @@
         $('.lightBox').hide();
     }
 
-    document.getElementById("konfirmasiHapusNota").addEventListener("click", function() {
-        var deleteProperties = {
-            title: "Yakin ingin menghapus Nota ini?",
-            yes: "Ya",
-            no: "Batal",
-            table: "notas",
-            column: "nota_id",
-            columnValue: nota.id,
-            action: "/nota/nota-hapus",
-            csrf: my_csrf,
-            goBackNumber: -2,
-            goBackStatement: "Daftar Nota"
-        };
+    // document.getElementById("konfirmasiHapusNota").addEventListener("click", function() {
+    //     var deleteProperties = {
+    //         title: "Yakin ingin menghapus Nota ini?",
+    //         yes: "Ya",
+    //         no: "Batal",
+    //         table: "notas",
+    //         column: "nota_id",
+    //         columnValue: nota.id,
+    //         action: "/nota/nota-hapus",
+    //         csrf: my_csrf,
+    //         goBackNumber: -2,
+    //         goBackStatement: "Daftar Nota"
+    //     };
 
-        var deletePropertiesStringified = JSON.stringify(deleteProperties);
-        showLightBoxGlobal(deletePropertiesStringified);
-    });
+    //     var deletePropertiesStringified = JSON.stringify(deleteProperties);
+    //     showLightBoxGlobal(deletePropertiesStringified);
+    // });
 
 </script>
 

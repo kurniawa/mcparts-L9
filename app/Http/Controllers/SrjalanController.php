@@ -161,7 +161,7 @@ class SrjalanController extends Controller
     {
         $load_num = SiteSetting::find(1);
 
-        $show_dump = true;
+        $show_dump = false;
         $run_db = true;
         $error_messages = $success_messages = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
@@ -216,9 +216,9 @@ class SrjalanController extends Controller
 
         $colly_total = 0;
         $i_nota_id = 0;
-        $status_sj = 'BELUM SJ';
         foreach ($post['nota_id'] as $nota_id) {
             $nota = Nota::find($nota_id);
+            $status_sj = 'BELUM SJ';
             if ($i_nota_id === 0) {
                 $pelanggan = Pelanggan::find($nota['pelanggan_id']);
                 if ($nota['reseller_id'] !== null) {
@@ -286,6 +286,12 @@ class SrjalanController extends Controller
                     $success_messages[] = "success_: UPDATE table spk_produk: jumlah_sudah_srjalan dan status_srjalan";
                 }
                 $i_spk_produk_id++;
+            }
+
+            if ($run_db) {
+                $nota->status_sj = $status_sj;
+                $nota->save();
+                $success_messages[] = "success_: UPDATE status_sj = $status_sj pada table notas dengan ID: $nota->id";
             }
             $i_nota_id++;
         }
@@ -394,41 +400,93 @@ class SrjalanController extends Controller
     public function sj_hapus(Request $request)
     {
         $load_num = SiteSetting::find(1);
+        dump($load_num);
 
         $show_dump = true;
-        $show_hidden_dump = false;
         $run_db = true;
-        $load_num_ignore = true;
 
-        if ($show_hidden_dump === true) {
-            dump("load_num_value: " . $load_num->value);
-        }
+        $error_messages = $success_messages = array();
+        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $class_div_pesan_db = 'alert-danger';
 
-        if ($load_num->value > 0 && $load_num_ignore === false) {
+        if ($load_num->value > 0) {
             $run_db = false;
+            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $class_div_pesan_db = 'alert-danger';
         }
 
-        $post = $request->input();
-        $sj = Srjalan::find($post['sj_id']);
+        $post = $request->post();
 
         if ($show_dump === true) {
             dump('post');
             dump($post);
         }
 
+        $sj = Srjalan::find($post['srjalan_id']);
+
+        /** SEBELUM DELETE, concern ke table spk_produk_nota_srjalan terlebih dahulu,
+         * untuk cek apakah produk pada nota yang terkait dengan srjalan yang ingin dihapus ini, masih ada yang tercantum
+         * pada srjalan yang lain, sehingga nanti status nota nya jadi 'SUDAH SEBAGIAN'
+         */
+        $nota = new Nota();
+        $related_nota_ids = $nota->SpkProdukNotaSrjalan_groupBy_nota_id($sj['id']);
+
+        if ($show_dump) {
+            dump('$related_nota_ids', $related_nota_ids);
+        }
+
+        foreach ($related_nota_ids as $nota_id) {
+            dump('$nota_id', $nota_id);
+            $srjalan_ids = SpkProdukNotaSrjalan::select('srjalan_id')
+            ->where('nota_id', $nota_id['nota_id'])
+            ->where('srjalan_id', '!=', $sj['id'])->get()->toArray();
+
+            if ($show_dump) {
+                dump('Apakah ada $srjalan_ids lain yang terkait dengan nota yang sama, jadi seperti satu nota dengan 2 surat jalan:');
+                dump($srjalan_ids);
+            }
+
+            if (count($srjalan_ids) === 0) {
+                $status_sj = 'BELUM SJ';
+            } else {
+                $status_sj = 'SUDAH SEBAGIAN';
+            }
+
+            if ($run_db) {
+                $related_nota = Nota::find($nota_id['nota_id']);
+                if ($show_dump) {
+                    dump('$related_nota', $related_nota);
+                }
+                $related_nota->status_sj = $status_sj;
+                $related_nota->save();
+
+                $success_messages[] = 'success_: $status_sj pada nota yang ada, telah diubah';
+            }
+        }
+
+
         if ($run_db === true) {
             $sj->delete();
+
+            $success_messages[] = 'success_: Surat Jalan ini berhasil dihapus!';
+            $pesan_db = 'SUCCESS:';
+            $class_div_pesan_db = 'alert-success';
+
+            $load_num->value += 1;
+            $load_num->save();
         }
 
         $data = [
             'go_back_number' => -2,
-            'csrf' => csrf_token()
+            'pesan_db' => $pesan_db,
+            'class_div_pesan_db' => $class_div_pesan_db,
+            'error_messages' => $error_messages,
+            'success_messages' => $success_messages,
         ];
 
-        $load_num->value += 1;
-        $load_num->save();
-
-        dump('DELETE PROSES FINISHED!');
+        if ($show_dump) {
+            dump('DELETE PROSES FINISHED!');
+        }
 
         return view('layouts.go-back-page', $data);
     }

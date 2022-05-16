@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SiteSettings;
 use App\Http\Requests\StorePelangganRequest;
 use App\Http\Requests\UpdatePelangganRequest;
 use App\Models\Daerah;
@@ -9,6 +10,7 @@ use App\Models\Ekspedisi;
 use App\Models\Negara;
 use App\Models\Pelanggan;
 use App\Models\PelangganEkspedisi;
+use App\Models\Produk;
 use App\Models\Pulau;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
@@ -86,25 +88,10 @@ class PelangganController extends Controller
 
     public function pelanggan_detail(Request $request)
     {
-        $load_num = SiteSetting::find(1);
-        if ($load_num !== 0) {
-            $load_num->value = 0;
-            $load_num->save();
-        }
-
+        SiteSettings::loadNumToZero();
         $show_dump = false;
-        $show_hidden_dump = false;
-        $run_db = false;
-        $load_num_ignore = true;
 
-        if ($show_hidden_dump) {
-        }
-
-        if ($load_num->value > 0 && !$load_num_ignore) {
-            $run_db = false;
-        }
-
-        $get = $request->input();
+        $get = $request->query();
         $pelanggan = Pelanggan::find($get['cust_id']);
         $pelanggan_ekspedisi = PelangganEkspedisi::where('pelanggan_id', $pelanggan['id'])->get();
         $ekspedisis = array();
@@ -119,16 +106,12 @@ class PelangganController extends Controller
         }
 
         if ($show_dump) {
-            dump('get');
-            dump($get);
-            dump('pelanggan');
-            dump($pelanggan);
+            dump('get', $get);
+            dump('pelanggan', $pelanggan);
             dump('pelanggan_ekspedisi:', $pelanggan_ekspedisi);
             dump('count(pelanggan_ekspedisi):', count($pelanggan_ekspedisi));
-            dump('ekspedisis');
-            dump($ekspedisis);
-            dump('resellers');
-            dump($resellers);
+            dump('ekspedisis', $ekspedisis);
+            dump('resellers', $resellers);
         }
 
         $data = [

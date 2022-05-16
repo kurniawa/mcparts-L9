@@ -120,7 +120,7 @@ class SpkController extends Controller
         /**SETTINGAN AWAL PAGE NETRAL TANPA INSERT ATAU UPDATE DB */
 
         $load_num = SiteSetting::find(1);
-        $show_dump = true;
+        $show_dump = false;
         $show_hidden_dump = false;
         $run_db = true;
         $load_num_ignore = true;
@@ -224,7 +224,7 @@ class SpkController extends Controller
     public function edit_kop_spk_db(Request $request)
     {
         $load_num = SiteSetting::find(1);
-        $show_dump = true;
+        $show_dump = false;
         $run_db = true;
         $success_messages = $error_messages = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
@@ -339,7 +339,7 @@ class SpkController extends Controller
     public function hapus_spk(Request $request)
     {
         $load_num = SiteSetting::find(1);
-        $show_dump = true;
+        $show_dump = false;
         $run_db = true;
         $success_messages = $error_messages = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
@@ -438,7 +438,7 @@ class SpkController extends Controller
     public function tetapkan_item_selesai_db(Request $request)
     {
         $load_num = SiteSetting::find(1);
-        $show_dump = true;
+        $show_dump = false;
         $run_db = true;
         $success_messages = $error_messages = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
@@ -488,7 +488,11 @@ class SpkController extends Controller
             $tbh_jml_selesai = (int)$post['tbh_jml_selesai'][$i];
             // $jumlah_akhir adalah jumlah masing-masing item setelah adanya deviasi jumlah
             $jumlah_akhir = $spk_produk_ini['jumlah'] + $spk_produk_ini['deviasi_jml'];
-            dump("jumlah_akhir=$jumlah_akhir");
+
+            if ($show_dump) {
+                dump("jumlah_akhir=$jumlah_akhir");
+            }
+
             $harga_item = $spk_produk_ini['harga'];
 
             $finished_at = date('Y-m-d', strtotime($post['tgl_selesai'][$i]));

@@ -117,7 +117,7 @@ class SpkBaruController extends Controller
         //**SETTINGAN AWAL PAGE NETRAL TANPA INSERT ATAU UPDATE DB */
         // $load_num = SiteSettings::loadNumToZero();
 
-        $show_dump = true;
+        $show_dump = false;
         $show_hidden_dump = false;
         $run_db = true;
         $load_num_ignore = true;
@@ -196,7 +196,7 @@ class SpkBaruController extends Controller
 
         $load_num = SiteSetting::find(1);
 
-        $show_dump = true;
+        $show_dump = false;
         $show_hidden_dump = false;
         $run_db = true;
         $load_num_ignore = true;

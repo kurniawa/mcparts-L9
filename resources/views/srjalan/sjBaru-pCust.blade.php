@@ -12,6 +12,11 @@
     <div>
         <h2>Pilihan Nota Berdasarkan Pelanggan</h2>
     </div>
+    @if (count($pelanggans) === 0)
+    <div class="alert alert-primary">
+        Belum ada pilihan Nota atau Item dari Nota yang tersedia untuk dibuatkan Surat-Jalannya!
+    </div>
+    @endif
 
     <div id="divTitleDesc" class="grid-1-auto justify-items-center mt-0_5em"></div>
 

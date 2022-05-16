@@ -112,32 +112,40 @@
 </style>
 
 <script>
+    // OVERWRITE BEBERAPA VARIABLE DIATAS DENGAN VERSI BARU
+    var nota = {!! json_encode($nota, JSON_HEX_TAG) !!};
+    var pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
+    var daerah = {!! json_encode($daerah, JSON_HEX_TAG) !!};
+    var reseller = {!! json_encode($reseller, JSON_HEX_TAG) !!};
+    var spk_produk_notas = {!! json_encode($spk_produk_notas, JSON_HEX_TAG) !!};
+    var spk_produks = {!! json_encode($spk_produks, JSON_HEX_TAG) !!};
+    var produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
+
+    if (show_console) {
+        console.log("nota");console.log(nota);
+        console.log("pelanggan");console.log(pelanggan);
+        console.log("daerah");console.log(daerah);
+        console.log("reseller");console.log(reseller);
+        console.log("spk_produk_notas");console.log(spk_produk_notas);
+        console.log("spk_produks");console.log(spk_produks);
+        console.log("produks");console.log(produks);
+    }
 
     var tglNota = ' $tglNota';
     var namaPelanggan = ' $namaPelanggan';
     var daerahPelanggan = ' $daerahPelanggan';
     var alamatPelanggan = ` $alamatPelanggan`;
-
     var totalHarga = 0;
 
-    // OVERWRITE BEBERAPA VARIABLE DIATAS DENGAN VERSI BARU
-    var nota = {!! json_encode($nota, JSON_HEX_TAG) !!};
-    console.log("nota");
-    console.log(nota);
-
-    const d_nota_item = JSON.parse(nota['data_nota_item']);
-    console.log("d_nota_item");
-    console.log(d_nota_item);
-
-    for (var i = 0; i < d_nota_item.length; i++) {
+    for (var i = 0; i < spk_produk_notas.length; i++) {
         var htmlItem =
             `
-        <tr class='tr-border-left-right height-1_5em'><td>${formatHarga(d_nota_item[i].jml_item.toString())}</td><td>${d_nota_item[i].nama_nota}</td><td>${formatHarga(d_nota_item[i].hrg_per_item.toString())}</td><td>${formatHarga(d_nota_item[i].hrg_total_item.toString())}</td></tr>
+        <tr class='tr-border-left-right height-1_5em'><td>${formatHarga(spk_produk_notas[i].jumlah.toString())}</td><td>${produks[i].nama_nota}</td><td>${formatHarga(spk_produk_notas[i].harga.toString())}</td><td>${formatHarga(spk_produk_notas[i].harga_t.toString())}</td></tr>
         `;
         $('#tableItemNota').append(htmlItem);
     }
 
-    var restRow = 16 - d_nota_item.length;
+    var restRow = 16 - spk_produk_notas.length;
     console.log("restRow");
     console.log(restRow);
 

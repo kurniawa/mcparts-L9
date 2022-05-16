@@ -33,7 +33,7 @@ class InsertingStdController extends Controller
     {
         $load_num = SiteSetting::find(1);
 
-        $show_dump = true; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = true; // true apabila siap melakukan CRUD ke DB
         $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
         $show_hidden_dump = false;

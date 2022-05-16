@@ -5,16 +5,20 @@
 
 <div class="alert {{ $class_div_pesan_db }}" role="alert">{{ $pesan_db }}</div>
 
-@if (isset($error_messages))
+@if (isset($error_messages) && count($error_messages) !== 0)
+<div class="alert alert-danger" role="alert">
 @foreach ($error_messages as $error_message)
-    <div class="alert alert-danger" role="alert">{{ $error_message }}</div>
+    {{ $error_message }}<br>
 @endforeach
+</div>
 @endif
 
-@if (isset($success_messages))
+@if (isset($success_messages) && count($success_messages) !== 0)
+<div class="alert alert-success" role="alert">
 @foreach ($success_messages as $success_message)
-    <div class="alert alert-success" role="alert">{{ $success_message }}</div>
+    {{ $success_message }}<br>
 @endforeach
+</div>
 @endif
 
 <div class="mt-2em text-center">

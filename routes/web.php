@@ -159,5 +159,5 @@ Route::controller(SrjalanController::class)->group(function ()
     Route::post('/sj/sjBaru-pNota-pProduk-DB', 'sjBaru_pNota_pProduk_DB')->middleware('auth');
     Route::get('/sj/sj-detailSJ', 'sj_detailSJ');
     Route::get('/srjalan/srjalan-printOut', 'sj_printOut');
-    Route::post('/sj/sj-hapus', 'sj_hapus')->middleware('auth');
+    Route::post('/srjalan/srjalan-hapus', 'sj_hapus')->middleware('auth');
 });
