@@ -77,8 +77,8 @@ if (spks == undefined || spks.length == 0) {
             nama_pelanggan = `${resellers[i].nama}: ${nama_pelanggan}`;
         }
 
-        if (arr_finished_at_last[i] !== null) {
-            const SPKDateSls = arr_finished_at_last[i].split(' ')[0];
+        if (spks[i].finished_at !== null) {
+            const SPKDateSls = spks[i].finished_at.split(' ')[0];
             const arrayDateSls = SPKDateSls.split('-');
             const getYearSls = arrayDateSls[0];
             const getMonthSls = arrayDateSls[1];

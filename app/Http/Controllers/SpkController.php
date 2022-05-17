@@ -443,12 +443,10 @@ class SpkController extends Controller
         $success_messages = $error_messages = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
-        $ada_error = true;
 
         if ($load_num->value > 0) {
             $run_db = false;
             $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
-            $ada_error = true;
             $class_div_pesan_db = 'alert-danger';
         }
 
@@ -649,6 +647,13 @@ class SpkController extends Controller
             $spk->status = $status_spk;
             $spk->jumlah_total = $jumlah_total_new;
             $spk->harga_total = $harga_total_new;
+            $spk->finished_at = null;
+            if ($status_spk === 'SELESAI') {
+                $obj_SPKProdukSelesai = new SpkProdukSelesai();
+                $last_finished_at = $obj_SPKProdukSelesai->get_finished_at_last($spk['id']);
+                $spk->finished_at = $last_finished_at;
+            }
+
             $spk->save();
 
             $load_num->value += 1;
@@ -659,13 +664,11 @@ class SpkController extends Controller
             array_push($success_messages, 'success_: Jumlah Total dan Harga Total SPK berhasil diupdate!');
         }
 
-
         $data = [
             'success_messages' => $success_messages,
             'error_messages' => $error_messages,
             'pesan_db' => $pesan_db,
             'class_div_pesan_db' => $class_div_pesan_db,
-            'ada_error' => $ada_error,
             'go_back_number' => -2,
         ];
 

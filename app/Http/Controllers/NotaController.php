@@ -6,6 +6,7 @@ use App\Helpers\SiteSettings;
 use App\Models\Daerah;
 use App\Models\Nota;
 use App\Models\Pelanggan;
+use App\Models\PelangganProduk;
 use App\Models\Produk;
 use App\Models\SiteSetting;
 use App\Models\Spk;
@@ -524,7 +525,9 @@ class NotaController extends Controller
             // dump('d_idx_nota_jml_kpn: ', $d_idx_nota_jml_kpn);
         }
 
+        $iSPKProdukNota1 = 0;
         foreach ($d_spk_produk_nota_ids as $spk_produk_nota_ids) {
+            $iSPKProdukNota2 = 0;
             foreach ($spk_produk_nota_ids as $spk_produk_nota_id) {
                 $spk_produk_nota = SpkProdukNota::find($spk_produk_nota_id);
                 $spk_produk_nota->nota_id = $nota_id;
@@ -532,7 +535,46 @@ class NotaController extends Controller
                     $spk_produk_nota->save();
                     $success_messages[] = 'success_: update nota_id pada table spk_produk_nota';
                 }
+
+                /**CEK APAKAH PELANGGAN INI TELAH SEMPAT ORDER PRODUK INI SEBELUMNYA
+                 * kalau belum, berarti create relasi baru. Kalau sudah ada, tinggal update saja
+                 * nota_id nya jadi nota_id yang terbaru.
+                */
+
+                $spk_produk = SpkProduk::find($d_spk_produk_ids[$iSPKProdukNota1][$iSPKProdukNota2]);
+
+                $pelanggan_produk = PelangganProduk::where('pelanggan_id', $post['pelanggan_id'])
+                ->where('reseller_id', $post['reseller_id'])
+                ->where('produk_id', $spk_produk['produk_id'])
+                ->where('harga_price_list', $spk_produk_nota['harga'])->get()->toArray();
+
+                if (count($pelanggan_produk) === 0) {
+                    if ($run_db) {
+                        $pelanggan_produk = PelangganProduk::create([
+                            'pelanggan_id' => $post['pelanggan_id'],
+                            'reseller_id' => $post['reseller_id'],
+                            'produk_id' => $spk_produk['produk_id'],
+                            'nota_id' => $nota_id,
+                            'harga_price_list' => $spk_produk_nota['harga'],
+                        ]);
+
+                        $success_messages[] = 'Berhasil create relasi pelanggan_produk yang baru';
+                    }
+                } else {
+                    if ($pelanggan_produk[0]['nota_id'] !== $nota_id) {
+                        $pelanggan_produk = PelangganProduk::find($pelanggan_produk[0]['id']);
+                        $pelanggan_produk->nota_id = $nota_id;
+                        if ($run_db) {
+                            $pelanggan_produk->save();
+
+                            $success_messages[] = 'Ditemukan ada pelanggan_produk yang sesuai -> update nota_id pada data pelanggan_produk terkait';
+                        }
+                    }
+                }
+
+                $iSPKProdukNota2++;
             }
+            $iSPKProdukNota1++;
         }
 
         /**

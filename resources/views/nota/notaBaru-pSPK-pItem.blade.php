@@ -53,6 +53,8 @@
         <div id="divMarginBottom" style="height: 20vh;"></div>
 
         <button id="btnSelesai_new" type="submit" class="btn-warning-full" style="display:none">Konfirmasi</button>
+        <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
+        <input type="hidden" name="reseller_id" value=@if ($reseller !== null)  {{ $reseller['id'] }} @else null @endif>
     </form>
 </div>
 
