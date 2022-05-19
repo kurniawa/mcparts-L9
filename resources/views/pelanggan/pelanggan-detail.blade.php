@@ -113,26 +113,38 @@
     </div>
 </div>
 <!-- END - DAFTAR PRODUK CUSTOMER INI -->
-
-<div id="containerOrderanPelanggan" class="m-1em"></div>
-</div>
+@if (count($produks) !== 0)
+<table id="containerOrderanPelanggan" class="m-1em" style="width: 100%">
+    <tr><th>Nama Nota</th><th>Price List</th><th>Harga Khusus</th><th>Nota Terakhir</th></tr>
+    @for ($i = 0; $i < count($produks); $i++)
+        <tr>
+            <td>{{ $produks[$i]['nama_nota'] }}</td>
+            <td>{{ $hargas[$i]['harga'] }}</td>
+            <td>{{ $pelanggan_produks[$i]['harga_khusus'] }}</td>
+            <td>
+                <a href="/nota/nota-detail?nota_id={{ $pelanggan_produks[$i]['nota_id'] }}">
+                    <span style="color: royalblue">N-{{ $pelanggan_produks[$i]['nota_id'] }}</span>
+                </a>
+            </td>
+        </tr>
+    @endfor
+</table>
+@endif
 
 <script>
-// const show_console = true;
-
 const cust_id = {!! json_encode($cust_id, JSON_HEX_TAG) !!};
 var pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
 var pelanggan_ekspedisi = {!! json_encode($pelanggan_ekspedisi, JSON_HEX_TAG) !!};
 var ekspedisis = {!! json_encode($ekspedisis, JSON_HEX_TAG) !!};
-const my_csrf = {!! json_encode($csrf, JSON_HEX_TAG) !!}
+var pelanggan_produks = {!! json_encode($pelanggan_produks, JSON_HEX_TAG) !!};
+var produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
 
 if (show_console === true) {
-    console.log("pelanggan:");
-    console.log(pelanggan);
-    console.log("pelanggan_ekspedisi:");
-    console.log(pelanggan_ekspedisi);
-    console.log("DAFTAR EKSPEDISI:");
-    console.log(ekspedisis);
+    console.log("pelanggan:");console.log(pelanggan);
+    console.log("pelanggan_ekspedisi:");console.log(pelanggan_ekspedisi);
+    console.log("DAFTAR EKSPEDISI:");console.log(ekspedisis);
+    console.log("pelanggan_produks:");console.log(pelanggan_produks);
+    console.log("produks:");console.log(produks);
 }
 
 const arr_alamat = JSON.parse(pelanggan.alamat);

@@ -33,22 +33,15 @@
     // const show_console = true;
 
     const pelanggans = {!! json_encode($pelanggans, JSON_HEX_TAG) !!};
-    const arr_resellers = {!! json_encode($arr_resellers, JSON_HEX_TAG) !!};
     const negaras = {!! json_encode($negaras, JSON_HEX_TAG) !!};
     const pulaus = {!! json_encode($pulaus, JSON_HEX_TAG) !!};
     const daerahs = {!! json_encode($daerahs, JSON_HEX_TAG) !!};
 
     if (show_console === true) {
-        console.log('pelanggans');
-        console.log(pelanggans);
-        console.log('arr_resellers');
-        console.log(arr_resellers);
-        console.log('negaras');
-        console.log(negaras);
-        console.log('pulaus');
-        console.log(pulaus);
-        console.log('daerahs');
-        console.log(daerahs);
+        console.log('pelanggans');console.log(pelanggans);
+        console.log('negaras');console.log(negaras);
+        console.log('pulaus');console.log(pulaus);
+        console.log('daerahs');console.log(daerahs);
     }
 
     if (pelanggans == undefined || pelanggans.length == 0) {
@@ -60,7 +53,6 @@
     var iPelanggan = 0;
     for (const pelanggan of pelanggans) {
         $randomIndex = Math.floor(Math.random() * 4);
-        console.log("$randomIndex: " + $randomIndex);
         var initial = "";
 
         if (pelanggan.initial !== null && typeof pelanggan.initial !== 'undefined') {
@@ -73,15 +65,10 @@
             html_alamat += `${arr_alamat[i_arrAlamat]}<br>`;
         }
 
-        var nama_x_reseller = pelanggan.nama;
-        if (arr_resellers[iPelanggan].length !== 0) {
-            nama_x_reseller = `${arr_resellers[iPelanggan][0].nama}: ${pelanggan.nama}`;
-        }
-
         $htmlPelanggan = "<div class='ml-1em mr-1em pb-1em bb-1px-solid-grey pt-1em font-size-0_9em'>" +
             "<div class='grid-3-10_80_10'>" +
             "<div class='initial circle-medium grid-1-auto justify-items-center font-weight-bold' style='background-color: " + $arrayBgColors[$randomIndex] + "'>" + initial + "</div>" +
-            "<div class='justify-self-left font-weight-bold'>" + nama_x_reseller + " - " + daerahs[iPelanggan].nama + "</div>" +
+            "<div class='justify-self-left font-weight-bold'>" + pelanggan.nama + " - " + daerahs[iPelanggan].nama + "</div>" +
             "<div id='divDropdown-" + pelanggan.id + "' class='justify-self-right' onclick='showDropdown(" + pelanggan.id + ");'><img class='w-0_7em' src='img/icons/dropdown.svg'></div>" +
             "</div>" +
 

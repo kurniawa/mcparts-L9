@@ -41,8 +41,6 @@ class Nota extends Model
 
     public function getOneNotaAndComponents($nota_id)
     {
-        $show_dump = false;
-
         $nota = Nota::find($nota_id);
 
         $pelanggan = Pelanggan::find($nota['pelanggan_id']);
@@ -62,6 +60,9 @@ class Nota extends Model
             $spk_produks[] = $spk_produk;
             $produks[] = $produk;
         }
+
+        // dump('$spk_produk_notas:', $spk_produk_notas);
+        // dump('$spk_produks:', $spk_produks);
 
         return array($nota, $pelanggan, $daerah, $reseller, $spk_produk_notas, $spk_produks, $produks);
     }

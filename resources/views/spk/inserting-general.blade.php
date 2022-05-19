@@ -30,7 +30,7 @@
         <select id="select_ukuran" name="ukuran" style="border-radius:5px;padding:0.5em;">
             <option value="" disabled selected>Pilih Jenis Ukuran</option>
             @for ($i = 0; $i < count($ukurans); $i++)
-            <option value='{"id":{{ $ukurans[$i]->id }}, "nama":"{{ $ukurans[$i]->nama }}", "harga":{{ $ukurans[$i]->harga }}}'>{{ $ukurans[$i]->nama }}</option>
+            <option value='{"id":{{ $ukurans[$i]->id }}, "nama":"{{ $ukurans[$i]->nama }}", "nama_nota":"{{ $ukurans[$i]->nama_nota }}", "harga":{{ $ukurans[$i]->harga }}}'>{{ $ukurans[$i]->nama }}</option>
             @endfor
         </select>
     </div>
@@ -183,6 +183,8 @@
 
     if (show_console) {
         console.log('tspjaps:'); console.log(tspjaps);
+        console.log('mode:'); console.log(mode);
+        console.log('tipe:'); console.log(tipe);
         console.log('label_tspjap_a:'); console.log(label_tspjap_a);
         console.log('label_tspjap_b:'); console.log(label_tspjap_b);
         console.log('d_bahan_a:'); console.log(d_bahan_a);
@@ -190,7 +192,11 @@
     }
 
     if (tipe === 'varia') {
-        document.querySelector('.element-sj-variasi').style.display = 'block';
+        const element_sj_variasi = document.querySelectorAll('.element-sj-variasi');
+
+        element_sj_variasi.forEach(element => {
+            element.style.display = 'block';
+        });
 
         const bahans = {!! json_encode($bahans, JSON_HEX_TAG) !!};
         const varias = {!! json_encode($varias, JSON_HEX_TAG) !!};

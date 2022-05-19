@@ -45,7 +45,49 @@
     <img class="w-2em" src="/img/icons/pencil.svg" alt="">
     <h2 class="">Detail Nota: {{ $nota['no_nota'] }} </h2>
 </div>
-<div id="divDaftarItemNota" class="p-0_5em"></div>
+
+<table style="border-collapse:unset;border-spacing:0.5rem">
+    <tr><th>Pelanggan</th><th>:</th><th>{{ $pelanggan['nama'] }}</th></tr>
+    @if ($reseller !== null)
+    <tr><td></td><td></td><td><span style="font-weight: bold">{{ $reseller['nama'] }}</span> sebagai Reseller untuk Nota ini</td></tr>
+    @endif
+    <tr><th>No. Nota</th><th>:</th><td>{{ $nota['no_nota'] }}</td></tr>
+    <tr><th>Tanggal</th><th>:</th><td>{{ date('d-m-Y', strtotime($nota['created_at'])) }}</td></tr>
+    <tr>
+        <th style="vertical-align: top;">Alamat</th>
+        <th style="vertical-align: top;">:</th>
+        <td>
+        @foreach (json_decode($pelanggan['alamat'], true) as $alamat)
+        {{ $alamat }}<br>
+        @endforeach
+        </td>
+    </tr>
+</table>
+<form action="/nota/edit-item-nota" method="GET" class="p-0_5em">
+    <table id="divDaftarItemNota" style="width: 100%">
+        <tr><th>No.</th><th>Nama Nota</th><th>Jml.</th><th>Hrg/Pcs</th><th>Harga</th><th>Opsi</th></tr>
+        @for ($i = 0; $i < count($produks); $i++)
+        <tr>
+            <td>{{ $i+1 }}</td>
+            <td>{{ $produks[$i]['nama_nota'] }}</td>
+            <td>{{ $spk_produk_notas[$i]['jumlah'] }}</td>
+            <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga'] }}</td>
+            <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga_t'] }}</td>
+            <td>
+                <button type="submit" class="btn btn-primary" name="spk_produk_nota_id" value={{ $spk_produk_notas[$i]['id'] }}>Edit</button>
+                <input type="hidden" name="spk_produk_id" value={{ $spk_produks[$i]['id'] }}>
+                <input type="hidden" name="produk_id" value={{ $produks[$i]['id'] }}>
+            </td>
+        </tr>
+        @endfor
+    </table>
+    <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
+    <input type="hidden" name="pelanggan_id" value={{ $pelanggan['id'] }}>
+</form>
+<div class="text-right p-1em">
+    <div class="font-weight-bold font-size-2em color-green numberToFormat">{{ $nota['harga_total'] }}</div>
+    <div class="font-weight-bold color-red font-size-1_5em">Total</div>
+</div>
 
 <style>
     @media print {
@@ -73,131 +115,13 @@
         console.log("produks");console.log(produks);
     }
 
-    for (var i = 0; i < spk_produk_notas.length; i++) {
-        var nomorUrutItem = i + 1;
-
-        var opsiEditToToggle = [{
-            idCheckbox: `#checkboxShowOpsiEdit-${i}`,
-            elementToToggle: `#divOpsiEdit-${i}`,
-            time: 300
-        }];
-
-        opsiEditToToggle = JSON.stringify(opsiEditToToggle);
-
-        var inputJumlahToToggle = [{
-            idCheckboxORLogic: [`#checkboxShowInputJumlah-${i}`, `#checkboxShowInputNamaHrg-${i}`],
-            elementToToggle: `#divInputJumlah-${i}`,
-            elementORLogicToToggle: `#btnEdit-${i}`,
-            time: 300
-        }];
-
-        inputJumlahToToggle = JSON.stringify(inputJumlahToToggle);
-
-        var inputNamaHrgToToggle = [{
-            idCheckboxORLogic: [`#checkboxShowInputNamaHrg-${i}`, `#checkboxShowInputJumlah-${i}`],
-            elementToToggle: `#divInputNamaHrg-${i}`,
-            elementORLogicToToggle: `#btnEdit-${i}`,
-            time: 300
-        }];
-
-        inputNamaHrgToToggle = JSON.stringify(inputNamaHrgToToggle);
-
-        var htmlElementDropdown = `
-        <div id="divOpsiEdit-${i}" style="display:none">
-            <div><input id="checkboxShowInputJumlah-${i}" type="checkbox" onclick='onMultipleCheckToggleWithORLogic(${inputJumlahToToggle});'>Edit Jumlah</div>
-            <div id="divInputJumlah-${i}" class="mt-0_5em" style="display:none">
-                Jumlah tersedia:
-                Jumlah Tambahan yang Ingin diinput: <input class="p-0_5em" type="number" value="${spk_produk_notas[i].jumlah}">
-            </div>
-            <div class="mt-0_5em"><input id="checkboxShowInputNamaHrg-${i}" type="checkbox" onclick='onMultipleCheckToggleWithORLogic(${inputNamaHrgToToggle});'>Edit Nama Nota & Hrg/pcs</div>
-            <div id="divInputNamaHrg-${i}" style="display:none">
-                <div class="mt-0_5em">Nama Nota: <input class="p-0_5em w-70" type="text" value="${produks[i].nama_nota}"></div>
-                <div class="mt-0_5em">Hrg/pcs: <input class="p-0_5em" type="number" value="${spk_produk_notas[i].harga}"></div>
-            </div>
-            <br>
-            <div id="divBtnHapusEdit-${i}" class="text-center">
-                <input type="hidden" name="nota_id" value="${nota.id}">
-                <button class="btn-1 bg-color-soft-red" type="submit" name="hapus">Hapus</button>
-                <button id="btnEdit-${i}" class="btn-1 bg-color-orange-1" type="submit" name="edit" style="display:none">Konfirmasi Edit</button>
-            </div>
-        </div>
-        `;
-
-        // console.log(`nomorUrutItem: ${nomorUrutItem}`);
-        // console.log(`spk_produks[${i}].jml_item: ${spk_produks[i].jml_item}`);
-        // console.log(`spk_produks[${i}].nama_nota: ${spk_produks[i].nama_nota}`);
-        // console.log(`spk_produks[${i}].hrg_per_item: ${spk_produks[i].hrg_per_item}`);
-        // console.log(`spk_produks[${i}].harga_t: ${spk_produks[i].harga_t}`);
-
-        var htmlItem =
-            `
-            <form action="07-02-editDetailNota.php" method="POST" class="bb-1px-solid-grey pb-0_5em pt-0_5em">
-
-            <div>${nomorUrutItem}.</div>
-            <div class="grid-4-10_52_18_20">
-                <div>${spk_produk_notas[i].jumlah}</div>
-                <div>${produks[i].nama_nota}</div>
-                <div>${formatHarga(spk_produk_notas[i].harga.toString())}</div>
-                <div>${formatHarga(spk_produk_notas[i].harga_t.toString())}</div>
-
-                <div>Jml.</div>
-                <div>Nama Item Pada Nota</div>
-                <div>Hrg/Pcs</div>
-                <div>Harga</div>
-            </div>
-            <div class="mt-0_5em text-right">Tampilkan Opsi Edit <input id="checkboxShowOpsiEdit-${i}" type="checkbox" onclick='onCheckToggle(${opsiEditToToggle});'></div>
-
-            ${htmlElementDropdown}
-
-            </form>
-        `;
-        // console.log(htmlItem);
-        $('#divDaftarItemNota').append(htmlItem);
-        // totalHarga += parseInt(spk_produks[i].harga_t);
-    }
-
-
-
-    var htmlTotalHarga =
-        `
-        <div class="text-right p-1em">
-            <div class="font-weight-bold font-size-2em color-green">${formatHarga(nota.harga_total.toString())}</div>
-            <div class="font-weight-bold color-red font-size-1_5em">Total</div>
-        </div>
-        `;
-
-    $('#divDaftarItemNota').append(htmlTotalHarga);
-
-    $('.divThreeDotMenuContent').hide();
-
-    function showLightBox() {
-        $('.lightBox').show();
-        $('#closingGreyArea').show();
-        $('.divThreeDotMenuContent').hide();
-    }
-
-    function closingLightBox() {
-        $('.closingGreyArea').hide();
-        $('.lightBox').hide();
-    }
-
-    // document.getElementById("konfirmasiHapusNota").addEventListener("click", function() {
-    //     var deleteProperties = {
-    //         title: "Yakin ingin menghapus Nota ini?",
-    //         yes: "Ya",
-    //         no: "Batal",
-    //         table: "notas",
-    //         column: "nota_id",
-    //         columnValue: nota.id,
-    //         action: "/nota/nota-hapus",
-    //         csrf: my_csrf,
-    //         goBackNumber: -2,
-    //         goBackStatement: "Daftar Nota"
-    //     };
-
-    //     var deletePropertiesStringified = JSON.stringify(deleteProperties);
-    //     showLightBoxGlobal(deletePropertiesStringified);
-    // });
+    const numberToFormat = document.querySelectorAll('.numberToFormat');
+    numberToFormat.forEach(element => {
+        const unformattedNumber = element.textContent;
+        // console.log(element.textContent);
+        const formattedNumber = formatHarga(unformattedNumber);
+        element.textContent = formattedNumber;
+    });
 
 </script>
 

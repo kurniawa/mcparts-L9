@@ -620,29 +620,8 @@ class NotaController extends Controller
             dump($get);
         }
 
-        $nota = Nota::find($get['nota_id']);
-
-        /**
-         * PENGEN CARI TAU, SPKCPNota
-         * implementasi nya sama2 merasa rumit, jadi kita jalanin aja pake JSON dlu.
-         */
-
-        $pelanggan = Nota::find($nota->id)->pelanggan->toArray();
-        $daerah = Daerah::find($pelanggan['daerah_id'])->toArray();
-
-        $reseller = null;
-        if ($nota['reseller_id'] !== null) {
-            $reseller = Pelanggan::find($nota['reseller_id'])->toArray();
-        }
-
-        $spk_produk_notas = SpkProdukNota::where('nota_id', $nota['id'])->get()->toArray();
-        $spk_produks = $produks = array();
-        foreach ($spk_produk_notas as $spk_produk_nota) {
-            $spk_produk = SpkProduk::find($spk_produk_nota['spk_produk_id'])->toArray();
-            $produk = Produk::find($spk_produk['produk_id'])->toArray();
-            $spk_produks[] = $spk_produk;
-            $produks[] = $produk;
-        }
+        $obj_nota = new Nota();
+        list($nota, $pelanggan, $daerah, $reseller, $spk_produk_notas, $spk_produks, $produks) = $obj_nota->getOneNotaAndComponents($get['nota_id']);
 
 
         $data = [
@@ -771,5 +750,21 @@ class NotaController extends Controller
 
 
         return view('layouts.go-back-page', $data);
+    }
+
+    public function edit_item_nota(Request $request)
+    {
+        SiteSettings::loadNumToZero();
+        $show_dump = true;
+
+        $get = $request->query();
+
+        if ($show_dump) {
+            dd('$get:', $get);
+        }
+
+        $data = [];
+
+        return view('nota.edit_item_nota', $data);
     }
 }

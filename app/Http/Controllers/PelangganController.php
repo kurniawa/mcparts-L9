@@ -24,23 +24,9 @@ class PelangganController extends Controller
      */
     public function index()
     {
-        $load_num = SiteSetting::find(1);
-        if ($load_num !== 0) {
-            $load_num->value = 0;
-            $load_num->save();
-        }
+        SiteSettings::loadNumToZero();
 
         $show_dump = false;
-        $show_hidden_dump = false;
-        $run_db = false;
-        $load_num_ignore = true;
-
-        if ($show_hidden_dump) {
-        }
-
-        if ($load_num->value > 0 && !$load_num_ignore) {
-            $run_db = false;
-        }
 
         $pelanggans = Pelanggan::all();
 
@@ -49,11 +35,10 @@ class PelangganController extends Controller
         }
 
         /**LOOPING UNTUK DATA NEGARA, PULAU, DAERAH & RESELLER */
-        $negaras = $pulaus = $daerahs = $arr_resellers = array();
+        $negaras = $pulaus = $daerahs = array();
 
         foreach ($pelanggans as $pelanggan) {
             $negara = $pulau = $daerah = $reseller = null;
-            $resellers = $pelanggan->resellers;
 
             // dump('$reseller:');
             // dump($reseller);
@@ -69,12 +54,10 @@ class PelangganController extends Controller
             array_push($negaras, $negara);
             array_push($pulaus, $pulau);
             array_push($daerahs, $daerah);
-            array_push($arr_resellers, $resellers);
         }
 
         $data = [
             "pelanggans" => $pelanggans,
-            "arr_resellers" => $arr_resellers,
             "negaras" => $negaras,
             "pulaus" => $pulaus,
             "daerahs" => $daerahs,
@@ -83,7 +66,7 @@ class PelangganController extends Controller
         if ($show_dump) {
             dump("data: ", $data);
         }
-        return view('pelanggan/pelanggans', $data);
+        return view('pelanggan.pelanggans', $data);
     }
 
     public function pelanggan_detail(Request $request)
@@ -105,6 +88,9 @@ class PelangganController extends Controller
             }
         }
 
+        $obj_produk = new Produk();
+        list($pelanggan_produks, $produks, $hargas) = $obj_produk->produksThisPelanggan($pelanggan['id']);
+
         if ($show_dump) {
             dump('get', $get);
             dump('pelanggan', $pelanggan);
@@ -121,7 +107,9 @@ class PelangganController extends Controller
             "ekspedisis" => $ekspedisis,
             "jml_ekspedisi" => $jml_ekspedisi,
             "resellers" => $resellers,
-            "csrf" => csrf_token(),
+            "pelanggan_produks" => $pelanggan_produks,
+            "produks" => $produks,
+            "hargas" => $hargas,
         ];
 
         return view('pelanggan.pelanggan-detail', $data);
