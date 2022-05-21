@@ -760,10 +760,29 @@ class NotaController extends Controller
         $get = $request->query();
 
         if ($show_dump) {
-            dd('$get:', $get);
+            dump('$get:', $get);
         }
 
-        $data = [];
+        $spk_produk_nota = SpkProdukNota::find($get['spk_produk_nota_id']);
+        $spk_produk = SpkProduk::find($get['spk_produk_id']);
+        $produk = Produk::find($get['produk_id']);
+        $nota = Nota::find($get['nota_id']);
+        $pelanggan = Pelanggan::find($get['pelanggan_id']);
+        $daerah = Daerah::find($pelanggan['daerah_id']);
+        $reseller = null;
+        if ($nota['reseller_id'] !== null) {
+            $reseller = Pelanggan::find($nota['reseller_id']);
+        }
+
+        $data = [
+            'nota' => $nota,
+            'pelanggan' => $pelanggan,
+            'daerah' => $daerah,
+            'reseller' => $reseller,
+            'spk_produk_nota' => $spk_produk_nota,
+            'spk_produk' => $spk_produk,
+            'produk' => $produk,
+        ];
 
         return view('nota.edit_item_nota', $data);
     }
