@@ -52,19 +52,26 @@ class Nota extends Model
         }
 
         $spk_produk_notas = SpkProdukNota::where('nota_id', $nota['id'])->get()->toArray();
-        $spk_produks = $produks = array();
+        $spk_produks = $produks = $data_items = array();
         foreach ($spk_produk_notas as $spk_produk_nota) {
             $spk_produk = SpkProduk::find($spk_produk_nota['spk_produk_id'])->toArray();
             $produk = Produk::find($spk_produk['produk_id'])->toArray();
 
             $spk_produks[] = $spk_produk;
             $produks[] = $produk;
+            // dump($spk_produk_nota['id'], $spk_produk['id']);
+
+            $data_items[] = [
+                'spk_produk_nota_id' => $spk_produk_nota['id'],
+                'spk_produk_id' => $spk_produk['id'],
+                'produk_id' => $produk['id'],
+            ];
         }
 
         // dump('$spk_produk_notas:', $spk_produk_notas);
         // dump('$spk_produks:', $spk_produks);
 
-        return array($nota, $pelanggan, $daerah, $reseller, $spk_produk_notas, $spk_produks, $produks);
+        return array($nota, $pelanggan, $daerah, $reseller, $spk_produk_notas, $spk_produks, $produks, $data_items);
     }
 
 }

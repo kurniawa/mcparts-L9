@@ -74,9 +74,7 @@
             <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga'] }}</td>
             <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga_t'] }}</td>
             <td>
-                <button type="submit" class="btn btn-primary" name="spk_produk_nota_id" value={{ $spk_produk_notas[$i]['id'] }}>Edit</button>
-                <input type="hidden" name="spk_produk_id" value={{ $spk_produks[$i]['id'] }}>
-                <input type="hidden" name="produk_id" value={{ $produks[$i]['id'] }}>
+                <button type="submit" class="btn btn-primary" name="data_item" value='{{ json_encode($data_items[$i]) }}'>Edit</button>
             </td>
         </tr>
         @endfor

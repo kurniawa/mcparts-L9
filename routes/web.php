@@ -147,6 +147,8 @@ Route::controller(NotaController::class)->group(function ()
     Route::get('/nota/nota-print-out', 'nota_print_out');
     Route::post('/nota/nota-hapus', 'nota_hapus')->middleware('auth');
     Route::get('/nota/edit-item-nota', 'edit_item_nota')->middleware('auth');
+    Route::post('/nota/edit-item-nota-DB', 'edit_item_nota_db')->middleware('auth');
+    Route::post('/nota/hapus-item-nota', 'hapus_item_nota')->middleware('auth');
 });
 
 /**

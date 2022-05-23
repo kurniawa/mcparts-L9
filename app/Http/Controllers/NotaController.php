@@ -621,7 +621,7 @@ class NotaController extends Controller
         }
 
         $obj_nota = new Nota();
-        list($nota, $pelanggan, $daerah, $reseller, $spk_produk_notas, $spk_produks, $produks) = $obj_nota->getOneNotaAndComponents($get['nota_id']);
+        list($nota, $pelanggan, $daerah, $reseller, $spk_produk_notas, $spk_produks, $produks, $data_items) = $obj_nota->getOneNotaAndComponents($get['nota_id']);
 
 
         $data = [
@@ -632,6 +632,7 @@ class NotaController extends Controller
             'spk_produk_notas' => $spk_produk_notas,
             'spk_produks' => $spk_produks,
             'produks' => $produks,
+            'data_items' => $data_items,
         ];
         return view('nota.nota-detail', $data);
     }
@@ -755,7 +756,7 @@ class NotaController extends Controller
     public function edit_item_nota(Request $request)
     {
         SiteSettings::loadNumToZero();
-        $show_dump = true;
+        $show_dump = false;
 
         $get = $request->query();
 
@@ -763,15 +764,25 @@ class NotaController extends Controller
             dump('$get:', $get);
         }
 
-        $spk_produk_nota = SpkProdukNota::find($get['spk_produk_nota_id']);
-        $spk_produk = SpkProduk::find($get['spk_produk_id']);
-        $produk = Produk::find($get['produk_id']);
+        $data_item = json_decode($get['data_item'], true);
+
+        $spk_produk_nota = SpkProdukNota::find($data_item['spk_produk_nota_id']);
+        $spk_produk = SpkProduk::find($data_item['spk_produk_id']);
+        $produk = Produk::find($data_item['produk_id']);
         $nota = Nota::find($get['nota_id']);
         $pelanggan = Pelanggan::find($get['pelanggan_id']);
         $daerah = Daerah::find($pelanggan['daerah_id']);
         $reseller = null;
         if ($nota['reseller_id'] !== null) {
             $reseller = Pelanggan::find($nota['reseller_id']);
+        }
+
+        $jumlahYangAdaPadaNotaLain = 0;
+        $spkProdukNotas = SpkProdukNota::where('spk_produk_id', $spk_produk['id'])->where('id', '!=', $spk_produk_nota['id'])->get()->toArray();
+        if (count($spkProdukNotas) !== 0) {
+            foreach ($spkProdukNotas as $spkProdukNota) {
+                $jumlahYangAdaPadaNotaLain += $spkProdukNota['jumlah'];
+            }
         }
 
         $data = [
@@ -782,8 +793,168 @@ class NotaController extends Controller
             'spk_produk_nota' => $spk_produk_nota,
             'spk_produk' => $spk_produk,
             'produk' => $produk,
+            'jumlahYangAdaPadaNotaLain' => $jumlahYangAdaPadaNotaLain,
         ];
 
+        // dump($data);
+
         return view('nota.edit_item_nota', $data);
+    }
+
+    public function edit_item_nota_db(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $show_dump = true;
+        $run_db = true;
+
+        $success_messages = $error_messages = array();
+        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $class_div_pesan_db = 'alert-danger';
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $class_div_pesan_db = 'alert-danger';
+        }
+
+        $post = $request->post();
+
+        $jumlah_selesai = $post['jumlah_selesai'];
+        $request->validate([
+            'jumlah_input' => "required|numeric|min:1|max:$jumlah_selesai",
+        ]);
+
+        if ($show_dump) {
+            dump('post', $post);
+        }
+
+        $spk_produk_nota = SpkProdukNota::find($post['spk_produk_nota_id']);
+        $spk_produk = SpkProduk::find($post['spk_produk_id']);
+        $produk = Produk::find($post['produk_id']);
+        $nota = Nota::find($post['nota_id']);
+
+        if ($spk_produk_nota['jumlah'] !== (int)$post['jumlah_input']) {
+            $jml_sdh_nota = (int)$post['jumlah_input'] + (int)$post['jumlah_yang_ada_pada_nota_lain'];
+            dump('$jml_sdh_nota', $jml_sdh_nota);
+            dump('$spk_produk[jml_selesai]', $spk_produk['jml_selesai']);
+            if ($run_db) {
+                $harga_t = (int)$post['jumlah_input'] * $spk_produk_nota['harga'];
+                $harga_total_nota = $nota['harga_total'] - $spk_produk_nota['harga_t'] + $harga_t; // dikurang dengan jumlah yang lama, ditambah dengan jumlah yang baru
+
+                $spk_produk_nota->jumlah = $post['jumlah_input'];
+                $spk_produk_nota->harga_t = $harga_t;
+                $spk_produk_nota->save();
+
+                $success_messages[] = "update spk_produk_nota: jumlah=$spk_produk_nota[jumlah] dan harga_t=$spk_produk_nota[harga_t]";
+
+                $nota->harga_total = $harga_total_nota;
+                $nota->save();
+
+                $success_messages[] = "update nota: harga_total=$harga_total_nota";
+
+                $spk_produk->jml_sdh_nota = $jml_sdh_nota;
+                $status_nota = 'BELUM';
+                if ($jml_sdh_nota === $spk_produk['jml_selesai']) {
+                    $status_nota = 'SEMUA';
+                } elseif ($jml_sdh_nota > 0 && $jml_sdh_nota < $spk_produk['jml_selesai']) {
+                    $status_nota = 'SEBAGIAN';
+                }
+                $spk_produk->status_nota = $status_nota;
+                $spk_produk->save();
+
+                $success_messages[] = "update spk_produk: jml_sdh_nota=$spk_produk[jml_sdh_nota] dan status_nota=$spk_produk[status_nota]";
+
+                $pesan_db = 'SUCCESS';
+                $class_div_pesan_db = 'alert-success';
+            }
+        } else {
+            $pesan_db = 'OK';
+            $class_div_pesan_db = 'alert-secondary';
+            $success_messages[] = 'Tidak ada diubah, karena jumlah yang diinput sama seperti jumlah sebelumnya';
+        }
+
+        $data = [
+            'go_back_number' => -2,
+            'pesan_db' => $pesan_db,
+            'class_div_pesan_db' => $class_div_pesan_db,
+            'error_messages' => $error_messages,
+            'success_messages' => $success_messages,
+        ];
+
+        return view('layouts.go-back-page', $data);
+    }
+
+    public function hapus_item_nota(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $show_dump = true;
+        $run_db = true;
+
+        $success_messages = $error_messages = array();
+        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $class_div_pesan_db = 'alert-danger';
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $class_div_pesan_db = 'alert-danger';
+        }
+
+        $post = $request->post();
+
+        if ($show_dump) {
+            dd('post', $post);
+        }
+
+        $spk_produk_nota = SpkProdukNota::find($post['spk_produk_nota_id']);
+        $spk_produk = SpkProduk::find($post['spk_produk_id']);
+        $produk = Produk::find($post['produk_id']);
+        $nota = Nota::find($post['nota_id']);
+
+        if ($run_db) {
+            # spk_produk: jml_sdh_nota dan status_nota
+            $jml_sdh_nota = $spk_produk['jml_sdh_nota'] - $spk_produk_nota['jumlah'];
+            $spk_produk->jml_sdh_nota = $jml_sdh_nota;
+            $status_nota = 'BELUM';
+            if ($jml_sdh_nota === $spk_produk['jml_selesai']) {
+                $status_nota = 'SEMUA';
+            } elseif ($jml_sdh_nota > 0 && $jml_sdh_nota < $spk_produk['jml_selesai']) {
+                $status_nota = 'SEBAGIAN';
+            }
+            $spk_produk->status_nota = $status_nota;
+            $spk_produk->save();
+
+            $success_messages[] = "update spk_produk: jml_sdh_nota=$spk_produk[jml_sdh_nota] dan status_nota=$spk_produk[status_nota]";
+            # nota: harga_total
+            $harga_total = $nota['harga_total'] - $spk_produk_nota['harga_t'];
+            $nota->harga_total = $harga_total;
+            $nota->save();
+
+            $success_messages[] = "update nota: harga_total=$harga_total";
+
+            # hapus dari relasi antara pelanggan dan produk dan nota yang berkaitan
+            $pelanggan_produk = PelangganProduk::where('produk_id', $produk['id'])
+            ->where('nota_id', $nota['id'])->first()->delete();
+
+
+
+            $success_messages[] = "update spk_produk_nota: jumlah=$spk_produk_nota[jumlah] dan harga_t=$spk_produk_nota[harga_t]";
+
+
+
+
+            $pesan_db = 'SUCCESS';
+            $class_div_pesan_db = 'alert-success';
+        }
+
+        $data = [
+            'go_back_number' => -2,
+            'pesan_db' => $pesan_db,
+            'class_div_pesan_db' => $class_div_pesan_db,
+            'error_messages' => $error_messages,
+            'success_messages' => $success_messages,
+        ];
+
+        return view('layouts.go-back-page', $data);
     }
 }
