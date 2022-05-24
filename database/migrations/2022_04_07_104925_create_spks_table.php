@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('no_spk', 20)->nullable();
             $table->foreignId('pelanggan_id')->nullable()->constrained('pelanggans')->onDelete('NO ACTION');
             $table->foreignId('reseller_id')->nullable()->constrained('pelanggans')->onDelete('NO ACTION');
-            $table->string('status', 50);
+            $table->string('status', 50)->nullable()->default('PROSES');
+            $table->string('status_nota', 50)->nullable()->default('BELUM');
+            $table->string('status_sj', 50)->nullable()->default('BELUM');
             $table->string('judul')->nullable();
             // $table->text('data_spk_item');
             $table->integer('jumlah_total');

@@ -19,25 +19,26 @@
         <!-- <div id="downloadExcel" class="threeDotMenuItem" onclick="goToPrintOutSPK();">
             <img src="img/icons/download.svg" alt=""><span>Download Excel</span>
         </div> -->
-        <form action="/nota/nota-print-out" method='GET'>
+        <form action="/nota/nota-print-out" method="GET">
             <button id="downloadExcel" type="submit" class="threeDotMenuItem">
                 <img src="/img/icons/download.svg" alt=""><span>Print Out Nota</span>
             </button>
             <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
         </form>
-        <form action="/nota/nota-hapus" method='POST' onsubmit="return confirm('Apakah Anda yakin ingin menghapus Nota ini?');">
+        <form action="/nota/tambah-item" method="GET">
             @csrf
-            <button id="hapusNota" type="submit" class="threeDotMenuItem" id="konfirmasiHapusNota" style="width: 100%">
+            <button type="submit" class="threeDotMenuItem" style="width: 100%">
+                <img src="/img/icons/add.svg" alt=""><span>Tambah Item</span>
+            </button>
+            <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
+        </form>
+        <form action="/nota/nota-hapus" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus Nota ini?');">
+            @csrf
+            <button type="submit" class="threeDotMenuItem" style="width: 100%">
                 <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Nota</span>
             </button>
             <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
         </form>
-        {{-- <div id="konfirmasiHapusNota" class="threeDotMenuItem">
-            <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Nota</span>
-        </div> --}}
-        <!-- <div id="deleteSPK" class="threeDotMenuItem" onclick="goToDeleteSPK();">
-            <img src="img/icons/trash-can.svg" alt=""><span>Cancel/Hapus SPK</span>
-        </div> -->
     </div>
 </div>
 

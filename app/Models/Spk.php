@@ -140,4 +140,29 @@ class Spk extends Model
         return array($pelanggans, $daerahs, $arr_resellers, $available_spks, $list_arr_spk_produks, $list_arr_produks);
     }
 
+    /**
+     * Update status_nota pada spk, berdasarkan jumlah_sudah_nota pada spk_produks pada spk yang terkait
+     */
+    public function updateStatusNota($spk_id)
+    {
+        $spk = Spk::find($spk_id);
+        $spk_produks = SpkProduk::where('spk_id', $spk['id'])->get()->toArray();
+        $jumlahSudahNotaDariSPKProduks = 0;
+
+        foreach ($spk_produks as $spk_produk) {
+            $jumlahSudahNotaDariSPKProduks += $spk_produk['jml_sdh_nota'];
+        }
+
+        $status_nota = 'BELUM';
+        if ($jumlahSudahNotaDariSPKProduks === $spk['jumlah_total']) {
+            $status_nota = 'SEMUA';
+        } elseif ($jumlahSudahNotaDariSPKProduks > 0 && $jumlahSudahNotaDariSPKProduks < $spk['jumlah_total']) {
+            $status_nota = 'SEBAGIAN';
+        } elseif ($jumlahSudahNotaDariSPKProduks < 0 || $jumlahSudahNotaDariSPKProduks > $spk['jumlah_total']) {
+            dd('error: Ada Kesalahan pada saat membandingkan jumlahSudahNota dengan jumlah_total pada $spk.');
+        }
+
+        return array($spk, $status_nota);
+    }
+
 }

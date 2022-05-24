@@ -16,6 +16,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SpkBaruController;
 use App\Http\Controllers\SpkController;
 use App\Http\Controllers\SrjalanController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -149,6 +150,7 @@ Route::controller(NotaController::class)->group(function ()
     Route::get('/nota/edit-item-nota', 'edit_item_nota')->middleware('auth');
     Route::post('/nota/edit-item-nota-DB', 'edit_item_nota_db')->middleware('auth');
     Route::post('/nota/hapus-item-nota', 'hapus_item_nota')->middleware('auth');
+    Route::get('/nota/tambah-item', 'tambah_item')->middleware('auth');
 });
 
 /**
@@ -163,4 +165,12 @@ Route::controller(SrjalanController::class)->group(function ()
     Route::get('/sj/sj-detailSJ', 'sj_detailSJ');
     Route::get('/srjalan/srjalan-printOut', 'sj_printOut');
     Route::post('/srjalan/srjalan-hapus', 'sj_hapus')->middleware('auth');
+});
+
+/**
+ * TESTING CONTROLLER
+ */
+Route::controller(TestController::class)->group(function ()
+{
+    Route::get('/test', 'index');
 });

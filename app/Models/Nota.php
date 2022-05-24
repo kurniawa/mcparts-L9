@@ -74,4 +74,23 @@ class Nota extends Model
         return array($nota, $pelanggan, $daerah, $reseller, $spk_produk_notas, $spk_produks, $produks, $data_items);
     }
 
+    public function getAvailableSPKItemFromNotaID($nota_id)
+    {
+        $nota = Nota::find($nota_id);
+        $pelanggan = Pelanggan::find($nota['pelanggan_id']);
+        $reseller_id = null;
+        if ($nota['reseller_id'] !== null) {
+            $reseller = Pelanggan::find($nota['reseller_id']);
+            $reseller_id = $reseller['id'];
+        }
+
+        $av_spks = Spk::where('pelanggan_id', $pelanggan['id'])->where('reseller_id', $reseller_id)->where(function ($query)
+        {
+            $query->where('status', 'SEBAGIAN')->orWhere('status', 'SELESAI');
+        })->where(function ($query)
+        {
+            $query->where('status_nota', 'BELUM')->orWhere('status_nota', 'SEBAGIAN');
+        })->get()->toArray();
+    }
+
 }

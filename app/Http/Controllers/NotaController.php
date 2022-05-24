@@ -328,6 +328,7 @@ class NotaController extends Controller
             $spk_produk_nota_ids = array();
             $nota_jml_kapan = array();
             $jml_item = array();
+
             for ($i = 0; $i < count($spk_produk_ids); $i++) {
                 $spk_produk = SpkProduk::find($spk_produk_ids[$i]);
                 // $spkcpnota = SpkcpNota::where('spkcp_id', $spk_produk['id']);
@@ -359,7 +360,7 @@ class NotaController extends Controller
 
                 // UPDATE spk_produks kolom nota_jml_kapan dan status_nota
 
-                $jml_sdh_nota = $spk_produk['jml_sdh_nota']; // Secara defaulut value=0 sudah diatur pada pembuatan database nya
+                $jml_sdh_nota = $spk_produk['jml_sdh_nota']; // Secara default value=0 sudah diatur pada pembuatan database nya
                 // Concern Untuk KOLOM status_nota pada spk_produk
 
                 // if ($spk_produk['nota_jml_kapan'] !== null && $spk_produk['nota_jml_kapan'] !== '') {
@@ -472,13 +473,22 @@ class NotaController extends Controller
 
                         }
 
-                        DB::table('spk_notas')->insert([
-                            'spk_id' => $spk['id'],
-                            'nota_id' => $nota_id,
-                        ]);
+                        /**
+                         * INSERT ke spk_notas
+                         * keterangan: dengan catatan belum ada yang diinsert dengan spk_id dan nota_id yang sama
+                         */
+                        $spk_nota = SpkNota::where('spk_id', $spk['id'])->where('nota_id', $nota_id)->first();
 
-                        array_push($success_messages, 'success_: create relasi spk_notas');
+                        if ($spk_nota === null) {
+                            DB::table('spk_notas')->insert([
+                                'spk_id' => $spk['id'],
+                                'nota_id' => $nota_id,
+                            ]);
 
+                            array_push($success_messages, 'success_: create relasi spk_notas');
+                        } else {
+                            $success_messages[] = 'relasi spk_notas sudah exist';
+                        }
                     }
 
 
@@ -597,6 +607,22 @@ class NotaController extends Controller
             $load_num->save();
         }
 
+        /**
+         * UPDATE status_nota pada $spk
+         * keterangan: ini dicoding terpisah dari codingan di atas, karena memang harus dihitung ulang dari awal jml_sdh_nota
+         */
+        foreach ($post['spk_id'] as $spk_id) {
+            $obj_spk = new Spk();
+            list($spk, $status_nota) = $obj_spk->updateStatusNota($spk_id);
+
+            if ($run_db) {
+                $spk->status_nota = $status_nota;
+                $spk->save();
+                $success_messages[] = "status_nota pada spk di update menjadi $status_nota";
+            }
+        }
+
+
         $data = [
             'go_back_number' => -3,
             'pesan_db' => $pesan_db,
@@ -701,6 +727,7 @@ class NotaController extends Controller
             dump($spkcp_notas);
         }
 
+        ## STATUS_NOTA PADA SPK
         foreach ($spkcp_notas as $spkcp_nota) {
             $spk_produk = SpkProduk::find($spkcp_nota['spk_produk_id']);
 
@@ -867,6 +894,18 @@ class NotaController extends Controller
                 $pesan_db = 'SUCCESS';
                 $class_div_pesan_db = 'alert-success';
             }
+
+            /**
+             * Update status_nota pada spk
+             */
+            $obj_spk = new Spk();
+            list($spk, $status_nota) = $obj_spk->updateStatusNota($spk_produk['spk_id']);
+
+            if ($run_db) {
+                $spk->status_nota = $status_nota;
+                $spk->save();
+                $success_messages[] = "status_nota pada spk di update menjadi $status_nota";
+            }
         } else {
             $pesan_db = 'OK';
             $class_div_pesan_db = 'alert-secondary';
@@ -903,7 +942,7 @@ class NotaController extends Controller
         $post = $request->post();
 
         if ($show_dump) {
-            dd('post', $post);
+            dump('post', $post);
         }
 
         $spk_produk_nota = SpkProdukNota::find($post['spk_produk_nota_id']);
@@ -915,6 +954,7 @@ class NotaController extends Controller
             # spk_produk: jml_sdh_nota dan status_nota
             $jml_sdh_nota = $spk_produk['jml_sdh_nota'] - $spk_produk_nota['jumlah'];
             $spk_produk->jml_sdh_nota = $jml_sdh_nota;
+
             $status_nota = 'BELUM';
             if ($jml_sdh_nota === $spk_produk['jml_selesai']) {
                 $status_nota = 'SEMUA';
@@ -934,14 +974,13 @@ class NotaController extends Controller
 
             # hapus dari relasi antara pelanggan dan produk dan nota yang berkaitan
             $pelanggan_produk = PelangganProduk::where('produk_id', $produk['id'])
-            ->where('nota_id', $nota['id'])->first()->delete();
+            ->where('nota_id', $nota['id'])->orderBy('updated_at', 'desc')->first()->delete();
+            // dd($pelanggan_produk);
+            $success_messages[] = "hapus relasi pelanggan_produk";
 
-
-
-            $success_messages[] = "update spk_produk_nota: jumlah=$spk_produk_nota[jumlah] dan harga_t=$spk_produk_nota[harga_t]";
-
-
-
+            # hapus spk_produk_nota
+            $spk_produk_nota->delete();
+            $success_messages[] = "hapus spk_produk_nota";
 
             $pesan_db = 'SUCCESS';
             $class_div_pesan_db = 'alert-success';
@@ -956,5 +995,22 @@ class NotaController extends Controller
         ];
 
         return view('layouts.go-back-page', $data);
+    }
+
+    public function tambah_item(Request $request)
+    {
+        SiteSettings::loadNumToZero();
+        $show_dump = true;
+        $get = $request->query();
+
+        if ($show_dump) {
+            dump('$get', $get);
+        }
+
+        $obj_nota = new Nota();
+        list($x) = $obj_nota->getAvailableSPKItemFromNotaID($get['nota_id']);
+
+        $data = [];
+        return view('nota.tambah_item', $data);
     }
 }
