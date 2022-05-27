@@ -329,6 +329,7 @@ class NotaController extends Controller
             $nota_jml_kapan = array();
             $jml_item = array();
 
+            $jumlah_nota_total = 0;
             for ($i = 0; $i < count($spk_produk_ids); $i++) {
                 $spk_produk = SpkProduk::find($spk_produk_ids[$i]);
                 // $spkcpnota = SpkcpNota::where('spkcp_id', $spk_produk['id']);
@@ -374,6 +375,7 @@ class NotaController extends Controller
                 // }
 
                 $jml_sdh_nota += $jml_inputs[$i];
+                $jumlah_nota_total += $jml_sdh_nota;
                 $jml_total_item_ini = $spk_produk['jumlah'] + $spk_produk['deviasi_jml'];
 
                 $status_nota = 'BELUM';
@@ -395,6 +397,7 @@ class NotaController extends Controller
                 if ($run_db) {
                     $spk_produk->save();
                     $spk_produk_nota_id = SpkProdukNota::insertGetId([
+                        'spk_id' => $post['spk_id'][$i],
                         'spk_produk_id' => $spk_produk['id'],
                         'jumlah' => $jml_inputs[$i],
                         'harga' => $hrg_per_item,
@@ -596,6 +599,7 @@ class NotaController extends Controller
             $nota = Nota::find($nota_id);
             $nota->no_nota = "N-$nota_id";
             // $nota->data_nota_item = $data_nota_items;
+            $nota->jumlah_total = $jumlah_nota_total;
             $nota->harga_total = $hrg_total_nota;
             $nota->save();
 
@@ -613,12 +617,13 @@ class NotaController extends Controller
          */
         foreach ($post['spk_id'] as $spk_id) {
             $obj_spk = new Spk();
-            list($spk, $status_nota) = $obj_spk->updateStatusNota($spk_id);
+            list($spk, $status_nota, $jumlah_sudah_nota) = $obj_spk->updateStatusNota($spk_id);
 
             if ($run_db) {
                 $spk->status_nota = $status_nota;
+                $spk->jumlah_sudah_nota = $jumlah_sudah_nota;
                 $spk->save();
-                $success_messages[] = "status_nota pada spk di update menjadi $status_nota";
+                $success_messages[] = "status_nota pada spk di update menjadi $status_nota dan jumlah_sudah_nota menjadi $jumlah_sudah_nota";
             }
         }
 
@@ -727,9 +732,9 @@ class NotaController extends Controller
             dump($spkcp_notas);
         }
 
-        ## STATUS_NOTA PADA SPK
         foreach ($spkcp_notas as $spkcp_nota) {
             $spk_produk = SpkProduk::find($spkcp_nota['spk_produk_id']);
+            $spk = Spk::find($spkcp_nota['spk_id']);
 
             // dump($spkcp_nota);
             // dump($spk_produk);
@@ -754,8 +759,13 @@ class NotaController extends Controller
                 $spk_produk->jml_sdh_nota = $jml_sdh_nota;
                 $spk_produk->save();
                 $success_messages[] = 'success_: UPDATE status_nota pada table spk_produk terkait!';
+
+                $obj_spk = new Spk();
+                $success_messages[] = $obj_spk->updateStatusNota_JumlahSudahNota($spk['id']);
             }
         }
+
+        # UPDATE status_nota PADA SPK
 
         if ($run_db) {
             $nota->delete();
@@ -860,6 +870,8 @@ class NotaController extends Controller
         $produk = Produk::find($post['produk_id']);
         $nota = Nota::find($post['nota_id']);
 
+        $spk_id = $spk_produk_nota['spk_id'];
+
         if ($spk_produk_nota['jumlah'] !== (int)$post['jumlah_input']) {
             $jml_sdh_nota = (int)$post['jumlah_input'] + (int)$post['jumlah_yang_ada_pada_nota_lain'];
             dump('$jml_sdh_nota', $jml_sdh_nota);
@@ -899,10 +911,11 @@ class NotaController extends Controller
              * Update status_nota pada spk
              */
             $obj_spk = new Spk();
-            list($spk, $status_nota) = $obj_spk->updateStatusNota($spk_produk['spk_id']);
+            list($spk, $status_nota, $jumlah_sudah_nota) = $obj_spk->updateStatusNota($spk_produk['spk_id']);
 
             if ($run_db) {
                 $spk->status_nota = $status_nota;
+                $spk->jumlah_sudah_nota = $jumlah_sudah_nota;
                 $spk->save();
                 $success_messages[] = "status_nota pada spk di update menjadi $status_nota";
             }
@@ -985,6 +998,10 @@ class NotaController extends Controller
             $pesan_db = 'SUCCESS';
             $class_div_pesan_db = 'alert-success';
         }
+
+        # UPDATE status_nota dan jumlah_sudah_nota pada spk
+        $obj_spk = new Spk();
+        $success_messages[] = $obj_spk->updateStatusNota_JumlahSudahNota($spk_produk_nota['spk_id']);
 
         $data = [
             'go_back_number' => -2,
