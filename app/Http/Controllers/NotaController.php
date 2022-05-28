@@ -870,8 +870,6 @@ class NotaController extends Controller
         $produk = Produk::find($post['produk_id']);
         $nota = Nota::find($post['nota_id']);
 
-        $spk_id = $spk_produk_nota['spk_id'];
-
         if ($spk_produk_nota['jumlah'] !== (int)$post['jumlah_input']) {
             $jml_sdh_nota = (int)$post['jumlah_input'] + (int)$post['jumlah_yang_ada_pada_nota_lain'];
             dump('$jml_sdh_nota', $jml_sdh_nota);
@@ -1025,9 +1023,17 @@ class NotaController extends Controller
         }
 
         $obj_nota = new Nota();
-        list($x) = $obj_nota->getAvailableSPKItemFromNotaID($get['nota_id']);
+        list($pelanggan, $daerah, $reseller, $av_spks, $arr_spk_produks, $arr_produks) = $obj_nota->getAvailableSPKItemFromNotaID($get['nota_id']);
 
-        $data = [];
+        $data = [
+            'pelanggan' => $pelanggan,
+            'daerah' => $daerah,
+            'reseller' => $reseller,
+            'av_spks' => $av_spks,
+            'arr_spk_produks' => $arr_spk_produks,
+            'arr_produks' => $arr_produks,
+        ];
+
         return view('nota.tambah_item', $data);
     }
 }
