@@ -1023,15 +1023,17 @@ class NotaController extends Controller
         }
 
         $obj_nota = new Nota();
-        list($pelanggan, $daerah, $reseller, $av_spks, $arr_spk_produks, $arr_produks) = $obj_nota->getAvailableSPKItemFromNotaID($get['nota_id']);
+        list($pelanggan, $daerah, $reseller, $reseller_id, $av_spks, $arr_spk_produks, $arr_produks, $nama_spks) = $obj_nota->getAvailableSPKItemFromNotaID($get['nota_id']);
 
         $data = [
             'pelanggan' => $pelanggan,
             'daerah' => $daerah,
             'reseller' => $reseller,
+            'reseller_id' => $reseller_id,
             'av_spks' => $av_spks,
             'arr_spk_produks' => $arr_spk_produks,
             'arr_produks' => $arr_produks,
+            'nama_spks' => $nama_spks,
         ];
 
         return view('nota.tambah_item', $data);

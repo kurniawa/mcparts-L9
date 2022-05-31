@@ -78,12 +78,13 @@ class Nota extends Model
     {
         $nota = Nota::find($nota_id);
         $pelanggan = Pelanggan::find($nota['pelanggan_id']);
+        $daerah = Daerah::find($pelanggan['daerah_id']);
+        $reseller = null;
         $reseller_id = null;
         if ($nota['reseller_id'] !== null) {
             $reseller = Pelanggan::find($nota['reseller_id']);
             $reseller_id = $reseller['id'];
         }
-        $daerah = Daerah::find($pelanggan['daerah_id']);
 
         $av_spks = Spk::where('pelanggan_id', $pelanggan['id'])->where('reseller_id', $reseller_id)->where(function ($query)
         {
@@ -93,8 +94,12 @@ class Nota extends Model
             $query->where('status_nota', 'BELUM')->orWhere('status_nota', 'SEBAGIAN');
         })->get()->toArray();
 
-        $arr_spk_produks = $arr_produks = array();
+        $arr_spk_produks = $arr_produks = $nama_spks = array();
         foreach ($av_spks as $av_spk) {
+            $nama_spk = null;
+            if ($reseller !== null) {
+                $nama_spk = "Reseller: $reseller[nama]";
+            }
             $spk_produks = SpkProduk::where('spk_id', $av_spk['id'])->where(function ($query)
             {
                 $query->where('status_nota', 'BELUM')->orWhere('status_nota','SEBAGIAN');
@@ -108,9 +113,10 @@ class Nota extends Model
 
             $arr_spk_produks[] = $spk_produks;
             $arr_produks[] = $produks;
+            $nama_spks[] = $nama_spk;
         }
 
-        return array($pelanggan, $daerah, $reseller, $av_spks, $arr_spk_produks, $arr_produks);
+        return array($pelanggan, $daerah, $reseller, $reseller_id, $av_spks, $arr_spk_produks, $arr_produks, $nama_spks);
     }
 
 }

@@ -25,11 +25,37 @@
 <div id="divItemList2" class="p-1em">
     <form action="/nota/notaBaru-pSPK-pItem" method="GET" name="form_pCust_pSPK">
         @csrf
-        <table style="width:100%;" id="tableItemList"></table>
+        <table style="width:100%;" id="tableItemList">
+            @for ($i = 0 ; $i < count($av_spks) ; $i++)
+            <tr>
+                <td class='p-2'>
+                    <input type='checkbox' name='' value='' class='cbox' id="cbox-{{ $i }}">
+                    <input type="hidden" name="spk_id[]" value={{ $av_spks[$i]['id'] }} class='cbox-data-{{ $i }}'>
+                    <input type="hidden" name="reseller_id[]" value={{ $reseller_id }} class='cbox-data-{{ $i }}'>
+                </td>
+                <td class='p-2'>{{ $nama_spks[$i] }}</td>
+                <td class='p-2'>Jumlah.T: {{ $av_spks[$i]['jumlah_total'] }}</td>
+                <td class='p-2 dd-toggle' id='dd-toggle-{{ $i }}'><img class='w-0_7em' src='/img/icons/dropdown.svg'></td>
+            </tr>
+            <tr id='dd-{{ $i }}' class="dd">
+                <td colspan=4>
+                    <table style='width:100%'>
+                        <tr><th>Nama</th><th>Jml.</th></tr>
+                        @for ($j = 0 ; $j < count($arr_spk_produks[$i]) ; $j++)
+                        <tr>
+                        <td>{{ $arr_produks[$i][$j]['nama_nota'] }}</td>
+                        <td>{{ $arr_spk_produks[$i][$j]['jumlah'] }}</td>
+                        </tr>
+                        @endfor
+                    </table>
+                </td>
+            </tr>
+            @endfor
+        </table>
 
         <div id="divMarginBottom" style="height: 20vh;"></div>
 
-        <button id="btnKonfirmasi" type="submit" class="btn-warning-full" style="display:">Konfirmasi</button>
+        <button id="btnKonfirmasi" type="submit" class="btn-warning-full" style="display:">Lanjut</button>
     </form>
 </div>
 
@@ -51,143 +77,51 @@
         console.log('arr_produks');console.log(arr_produks);
     }
 
+    var cbox = document.querySelectorAll('.cbox');
+    if (cbox.length !== null) {
+        for (let i = 0; i < cbox.length; i++) {
+            var a_cbox = document.getElementById(`cbox-${i}`);
+            var cbox_data = document.querySelectorAll(`.cbox-data-${i}`);
+            // SET AS DISABLED
+            cbox_data.forEach(data => {
+                data.disabled = true;
+            });
+            a_cbox.addEventListener('click', function () {
+                if (a_cbox.checked === true) {
+                    cbox_data.forEach(data => {
+                        data.disabled = false;
+                    });
+                } else {
+                    cbox_data.forEach(data => {
+                        data.disabled = true;
+                    });
+                }
+            });
+        }
+    }
+    var dd_length = document.querySelectorAll('.dd-toggle').length;
+    if (dd_length !== 0) {
+        for (let i = 0; i < dd_length; i++) {
+            $dd_toggle = $(`#dd-toggle-${i}`);
+            $dd = $(`#dd-${i}`);
+            // SET DISPLAY NONE
+            $dd.hide();
+            $dd_toggle.click(function () {
+                if ($dd.css('display') === 'none') {
+                    $dd.show(300);
+                    $(`#dd-toggle-${i} img`).attr("src", "/img/icons/dropup.svg");
+                } else {
+                    $dd.hide(300);
+                    $(`#dd-toggle-${i} img`).attr("src", "/img/icons/dropdown.svg");
+                }
+            });
+        }
+
+    }
+
     // Menentukan head dari table
     var htmlCusts = ``;
     var date_today = getDateToday();
-    // console.log('date_today');
-    // console.log(date_today);
-
-    /*
-    htmlCusts: menampung element html untuk List Nota Item
-    htmlDD: Dropdown pertama, nanti nya akan disisipkan ke htmlCusts
-    htmlDD2: Dropdown kedua, nanti nya akan disisipkan ke htmlCusts
-    */
-    // const spks = pelanggan.spks;
-    /*
-    variable dinamakan dengan sebutan jamak, karena bisa jadi pelanggan tersebut dibuatkan
-    beberapa nota yang memang belum ada surat jalan nya.
-    */
-    // console.log('spks:');
-    // console.log(spks);
-
-    var htmlCheckboxspks = '';
-    for (let i_checkboxSPK = 0; i_checkboxSPK < av_spks.length; i_checkboxSPK++) {
-        var htmlDataSPKItem = '';
-        for (let i_spkItem = 0; i_spkItem < arr_spk_produks[i_checkboxSPK].length; i_spkItem++) {
-            htmlDataSPKItem += `
-            <tr>
-            <td>${arr_produks[i_checkboxSPK][i_spkItem].nama_nota}</td>
-            <td>${formatHarga(arr_spk_produks[i_checkboxSPK][i_spkItem].jumlah.toString())}</td>
-            </tr>
-            `;
-        }
-
-        var nama_spk = av_spks[i_checkboxSPK].no_spk;
-        var reseller_id = null;
-        if (reseller !== null) {
-            nama_spk = `${av_spks[i_checkboxSPK].no_spk} Reseller: ${reseller.nama}`;
-            reseller_id = reseller.id;
-        }
-
-        htmlCheckboxspks += `
-        <tr>
-        <td class='p-2'>
-            <input type='checkbox' name='' value='' class='c${i_checkboxSPK}'>
-            <input type="hidden" name="spk_id[]" value=${av_spks[i_checkboxSPK].id} class='iptHidden-${i_checkboxSPK}' disabled>
-            <input type="hidden" name="reseller_id[]" value=${reseller_id} class='iptHidden${i_checkboxSPK} iptHidden_resellerID-${i_checkboxSPK}' disabled>
-        </td>
-        <td class='p-2'>${nama_spk}</td>
-        <td class='p-2'>Jumlah.T: ${formatHarga(av_spks[i_checkboxSPK].jumlah_total.toString())}</td>
-        <td class='p-2'><img class='w-0_7em' src='/img/icons/dropdown.svg' id='ddImgRotate-${i_checkboxSPK}'></td>
-        </tr>
-        <tr id='DD2-${i_checkboxSPK}' style='display:'>
-            <td colspan=4>
-                <table style='width:100%'>
-                    <tr><th>Nama</th><th>Jml.</th></tr>
-                    ${htmlDataSPKItem}
-                </table>
-            </td>
-        </tr>
-        `;
-    }
-
-    /*
-    Parameter untuk Dropdown kedua yang akan di kirim ke function isChecked
-    */
-
-    var htmlDD = '';
-
-    htmlDD += `
-        <table style='width:100%'>
-            ${htmlCheckboxspks}
-        </table>
-    `;
-
-    /*
-    Parameter untuk Dropdown pertama yang akan di kirim ke function isChecked
-    */
-
-    var params_dd = {
-        id_dd: `#DD-`,
-        class_checkbox: ".dd",
-        id_checkbox: `#ddCheckbox-`,
-        id_button: `#btnSelesai_new`,
-        // to_uncheck: params_dd2,
-    }
-
-    params_dd = JSON.stringify(params_dd);
-
-    var nama_pelanggan_spk = pelanggan.nama;
-    htmlCusts += `
-        <tr class='bb-1px-solid-grey DD'><td><input id='rad_pCust-' type='radio' name='pCust' value='${pelanggan.id}'> <label for='rad_pCust-'>${nama_pelanggan_spk} - ${daerah.nama}</label></td></tr>
-        <!-- <tr class='bb-1px-solid-grey'><td><input type='radio' name='pCust' value='test'>test</td></tr> -->
-        <tr id='DD-' style='display:'><td colspan=3>${htmlDD}</td></tr>
-        <tr class='bb-1px-solid-grey'><td></td></tr>
-    `;
-
-
-    $('#tableItemList').html(htmlCusts);
-
-    var radio_pCust = document.form_pCust_pSPK.pCust;
-    console.log('radio_pCust');
-    console.log(radio_pCust);
-
-    function pSPK_showDD(DD_id, DD_index) {
-        const radioDD = document.querySelectorAll(".DD");
-        for (let i_radio = 0; i_radio < radioDD.length; i_radio++) {
-            // console.log('i_radio: ' + i_radio);
-            // console.log('DD_index: ' + DD_index);
-            if (DD_index !== i_radio) {
-                $(`#DD-${i_radio}`).hide();
-                var cBoxes_toUncheck = document.querySelectorAll(`#DD-${i_radio} input[type=checkbox]`);
-                var inputHidden_toDisable = document.querySelectorAll(`#DD-${i_radio} input[type=hidden]`);
-                for (let i_cBoxes_toUncheck = 0; i_cBoxes_toUncheck < cBoxes_toUncheck.length; i_cBoxes_toUncheck++) {
-                    cBoxes_toUncheck[i_cBoxes_toUncheck].checked = false;
-                    inputHidden_toDisable[i_cBoxes_toUncheck].disabled = true;
-                    // showBtnKonfirmasi(i_radio, i_cBoxes_toUncheck);
-                }
-            }
-        }
-        // console.log(`DD_id: ${DD_id}; DD_index: ${DD_index}`);
-        // var nota = JSON.parse(pelanggan[DD_index].spks);
-        // console.log(nota);
-        $(`#${DD_id}`).show(300);
-        // $DD.show();
-    }
-
-    function showNotaItem(idNotaItem, idRotateImg) {
-        // console.log(idNotaItem);
-        console.log(idRotateImg);
-        $selectedElement = $(`#${idNotaItem}`);
-        if ($selectedElement.css('display') === 'none') {
-            $selectedElement.show(300);
-            $("#" + idRotateImg).attr("src", "/img/icons/dropup.svg");
-        } else {
-            $selectedElement.hide();
-            $("#" + idRotateImg).attr("src", "/img/icons/dropdown.svg");
-        }
-
-    }
 
     function showBtnKonfirmasi(i, j) {
         // console.log(i,j);
@@ -220,57 +154,7 @@
             document.getElementById("btnKonfirmasi").style.display = "none";
         }
     }
-    // for (var i = 0; i < radio_pCust.length; i++) {
-    //     radio_pCust[i].addEventListener('click', function() {
-    //         console.log(`i: ${i}`);
-    //         console.log(this);
-    //         $DD = document.getElementById(`DD-${i}`);
-    //         console.log($DD);
-    //         // $DD.show();
 
-    //     });
-    //     // radio_pCust[i].addEventListener('change', function() {
-    //     //     (prev) ? console.log(prev.value): null;
-    //     //     if (this !== prev) {
-    //     //         prev = this;
-    //     //     }
-    //     //     console.log(this.value)
-    //     // });
-    // }
-
-    $jmlTotalSPK = 0;
-    var element_to_toggle = "";
-
-    // $('#divSPKNumber').html(spk.id);
-    $('#divSPKNumber').text('Ditentukan Secara Otomatis Setelah Konfirmasi Pembuatan Nota Baru');
-    // $('#divItemList').html(htmlCusts);
-    // $('#divTglPembuatan').html(tgl_pembuatan_dmY);
-
-    function checkAll(mainCheckbox_id, classCheckboxChilds) {
-        // console.log('mainCheckbox_id, classCheckboxChilds');
-        // console.log(mainCheckbox_id, classCheckboxChilds);
-        var checkboxChilds = document.querySelectorAll(`.${classCheckboxChilds}`);
-        // console.log(checkboxChilds);
-        // console.log(checkboxChilds[0]);
-        // console.log(checkboxChilds[0].id);
-
-        var i = 0;
-        checkboxChilds.forEach(checkboxChild => {
-            document.getElementById(checkboxChild.id).checked = true;
-
-            var params_dd = {
-                id_dd: `#DD-${i}`,
-                class_checkbox: ".dd",
-                id_checkbox: `#ddCheckbox-${i}`,
-                id_button: `#btnSelesai_new`
-            }
-
-            // params_dd = JSON.stringify(params_dd);
-            isChecked(params_dd);
-
-            i++;
-        });
-    }
 </script>
 
 @endsection
