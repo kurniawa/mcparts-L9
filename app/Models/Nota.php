@@ -96,9 +96,9 @@ class Nota extends Model
 
         $arr_spk_produks = $arr_produks = $nama_spks = array();
         foreach ($av_spks as $av_spk) {
-            $nama_spk = null;
+            $nama_spk = $pelanggan['nama'];
             if ($reseller !== null) {
-                $nama_spk = "Reseller: $reseller[nama]";
+                $nama_spk = "$nama_spk, Reseller: $reseller[nama]";
             }
             $spk_produks = SpkProduk::where('spk_id', $av_spk['id'])->where(function ($query)
             {
@@ -117,6 +117,23 @@ class Nota extends Model
         }
 
         return array($pelanggan, $daerah, $reseller, $reseller_id, $av_spks, $arr_spk_produks, $arr_produks, $nama_spks);
+    }
+
+    public function getAvailableSpkItemToAddToNotaFromSPK($spk_id)
+    {
+        $spk = Spk::find($spk_id);
+        $spk_produks = SpkProduk::where('spk_id', $spk_id)->where('jml_selesai', '!=', 0)->where(function ($query)
+        {
+            $query->where('status_nota', 'BELUM')->orWhere('status_nota', 'SEBAGIAN');
+        })->get()->toArray();
+
+        $produks = array();
+        foreach ($spk_produks as $spk_produk) {
+            $produk = Produk::find($spk_produk['produk_id']);
+            $produks[] = $produk;
+        }
+
+        return array($spk, $spk_produks, $produks);
     }
 
 }

@@ -23,17 +23,17 @@
 
 </div>
 <div id="divItemList2" class="p-1em">
-    <form action="/nota/notaBaru-pSPK-pItem" method="GET" name="form_pCust_pSPK">
-        @csrf
+    <form action="/nota/tambah-item-pilih-item" method="GET">
+        <input type="hidden" name="reseller_id" value={{ $reseller_id }}>
+        <input type="hidden" name="nota_id" value={{ $nota_id }}>
         <table style="width:100%;" id="tableItemList">
             @for ($i = 0 ; $i < count($av_spks) ; $i++)
             <tr>
                 <td class='p-2'>
                     <input type='checkbox' name='' value='' class='cbox' id="cbox-{{ $i }}">
                     <input type="hidden" name="spk_id[]" value={{ $av_spks[$i]['id'] }} class='cbox-data-{{ $i }}'>
-                    <input type="hidden" name="reseller_id[]" value={{ $reseller_id }} class='cbox-data-{{ $i }}'>
                 </td>
-                <td class='p-2'>{{ $nama_spks[$i] }}</td>
+                <td class='p-2'>{{ $av_spks[$i]['no_spk'] }}, {{ $nama_spks[$i] }}</td>
                 <td class='p-2'>Jumlah.T: {{ $av_spks[$i]['jumlah_total'] }}</td>
                 <td class='p-2 dd-toggle' id='dd-toggle-{{ $i }}'><img class='w-0_7em' src='/img/icons/dropdown.svg'></td>
             </tr>

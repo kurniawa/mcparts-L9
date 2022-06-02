@@ -1026,6 +1026,7 @@ class NotaController extends Controller
         list($pelanggan, $daerah, $reseller, $reseller_id, $av_spks, $arr_spk_produks, $arr_produks, $nama_spks) = $obj_nota->getAvailableSPKItemFromNotaID($get['nota_id']);
 
         $data = [
+            'nota_id' => $get['nota_id'],
             'pelanggan' => $pelanggan,
             'daerah' => $daerah,
             'reseller' => $reseller,
@@ -1037,5 +1038,65 @@ class NotaController extends Controller
         ];
 
         return view('nota.tambah_item', $data);
+    }
+
+    public function tambah_item_pilih_item(Request $request)
+    {
+        SiteSettings::loadNumToZero();
+        $show_dump = true;
+        $get = $request->query();
+
+        if ($show_dump) {
+            dump('$get', $get);
+        }
+
+        $obj_nota = new Nota();
+        $spks = $arr_spk_produks = $arr_produks = array();
+        foreach ($get['spk_id'] as $spk_id) {
+            list($spk, $spk_produks, $produks) = $obj_nota->getAvailableSpkItemToAddToNotaFromSPK($spk_id);
+            if (count($spk_produks) !== 0) {
+                $arr_spk_produks[] = $spk_produks;
+                $arr_produks[] = $produks;
+                $spks[] = $spk;
+            }
+        }
+
+        $data = [
+            'nota_id' => $get['nota_id'],
+            'spks' => $spks,
+            'arr_spk_produks' => $arr_spk_produks,
+            'arr_produks' => $arr_produks,
+        ];
+
+        dump($data);
+
+        return view('nota.tambah_item_pilih_item', $data);
+    }
+
+    public function tambah_item_db(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $show_dump = true;
+        $run_db = true;
+
+        $success_messages = $error_messages = array();
+        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $class_div_pesan_db = 'alert-danger';
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $class_div_pesan_db = 'alert-danger';
+        }
+
+        $post = $request->post();
+
+        if ($show_dump) {
+            dump('post', $post);
+        }
+
+        $data = [];
+
+        return view('nota.nota-detail', $data);
     }
 }
