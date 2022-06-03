@@ -1092,8 +1092,10 @@ class NotaController extends Controller
         $post = $request->post();
 
         if ($show_dump) {
-            dump('post', $post);
+            dd('post', $post);
         }
+
+        $spk_ids = $post['spk_ids'];
 
         $data = [];
 

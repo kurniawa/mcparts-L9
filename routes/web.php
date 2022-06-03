@@ -152,6 +152,7 @@ Route::controller(NotaController::class)->group(function ()
     Route::post('/nota/hapus-item-nota', 'hapus_item_nota')->middleware('auth');
     Route::get('/nota/tambah-item', 'tambah_item')->middleware('auth');
     Route::get('/nota/tambah-item-pilih-item', 'tambah_item_pilih_item')->middleware('auth');
+    Route::post('/nota/tambah-item-db', 'tambah_item_db')->middleware('auth');
 });
 
 /**
