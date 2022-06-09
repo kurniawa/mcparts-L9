@@ -18,29 +18,32 @@
     <table style="width:100%;" id="tableItemList">
     </table>
 
-    @for ($i = 0; $i < count($spks); $i++)
-    <div class="row">
-        <div class="col">{{ $spks[$i]['no_spk'] }}</div>
-        <input type="hidden" name="spk_ids[{{ $i }}]" value="{{ $spks[$i]['id'] }}">
-    </div>
     <table style="width: 100%">
-        <tr><th>Nama</th><th>jml.T</th><th>jml.Av</th><th><th></tr>
+    <tr><th>Nama</th><th>jml.T</th><th>jml.Av</th><th><th></tr>
+    @for ($i = 0; $i < count($spks); $i++)
+    <tr>
+        <td class="fw-bold">{{ $spks[$i]['no_spk'] }}</td>
+    </tr>
     @for ($j = 0; $j < count($arr_spk_produks[$i]); $j++)
+    @php
+        $jml_av = $arr_spk_produks[$i][$j]['jml_selesai'] - $arr_spk_produks[$i][$j]['jml_sdh_nota'];
+    @endphp
     <tr class='bb-1px-solid-grey'>
-        <td style='color:;font-weight:bold;font-size:1em;padding-bottom:1em;padding-top:1em;' class=''>{{ $arr_produks[$i][$j]['nama'] }}</td>
+        <td style='padding-bottom:1em;padding-top:1em;' class=''>{{ $arr_produks[$i][$j]['nama'] }}</td>
         <td style='color:slateblue;font-weight:bold;'>{{ $arr_spk_produks[$i][$j]['jml_t'] }}</td>
-        <td style='color:green;font-weight:bold;'>{{ $arr_spk_produks[$i][$j]['jml_selesai'] - $arr_spk_produks[$i][$j]['jml_sdh_nota'] }}</td>
+        <td style='color:green;font-weight:bold;'>{{ $jml_av }}</td>
         <td><input type='checkbox' id="toggle-cbox-dd-2-{{ $i }}{{ $j }}" class='toggle-cbox-dd-2 toggle-cbox-dd-2-{{ $i }}'></td>
     </tr>
     <tr id="cbox-dd-2-{{ $i }}{{ $j }}" class="cbox-dd-2 cbox-dd-2-{{ $i }} cbox-dd-2-pilsem">
         <td colspan="4">
             <table>
-                <tr><td>Jml.sdh.Nota</td><td>:</td><td><input class="form-control data-cbox-dd-2-{{ $i }}{{ $j }}" type="number" name="jml_sdh_nota" id="" value="{{ $arr_spk_produks[$i][$j]['jml_sdh_nota'] }}" readonly></td></tr>
-                <tr><td>Jml. input</td><td>:</td><td><input class="form-control data-cbox-dd-2-{{ $i }}{{ $j }}" type="number" name="jml_input" id=""></td></tr>
+                <tr><td>Jml.sdh.Nota</td><td>:</td><td><input class="form-control data-cbox-dd-2-{{ $i }}{{ $j }}" type="number" name="jml_sdh_nota[]" id="" value="{{ $arr_spk_produks[$i][$j]['jml_sdh_nota'] }}" readonly></td></tr>
+                <tr><td>Jml. input</td><td>:</td><td><input class="form-control data-cbox-dd-2-{{ $i }}{{ $j }}" type="number" name="jml_input[]" id="" value={{ $jml_av }}></td></tr>
                 <tr>
                     <td>
                         <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='jml_t[{{$i}}][]' value={{ $arr_spk_produks[$i][$j]['jml_t'] }}>
-                        <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='jml_av[{{$i}}][]' value={{ $arr_spk_produks[$i][$j]['jml_selesai'] - $arr_spk_produks[$i][$j]['jml_sdh_nota'] }}>
+                        <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='jml_av[{{$i}}][]' value={{ $jml_av }}>
+                        <input type="hidden" class="data-cbox-dd-2-{{ $i }}{{ $j }}" name="spk_ids[{{ $i }}]" value="{{ $spks[$i]['id'] }}">
                     </td>
                 </tr>
             </table>
@@ -48,8 +51,9 @@
     </tr>
 
     @endfor
-    </table>
     @endfor
+
+    </table>
 
     <div id="divMarginBottom" style="height: 20vh;"></div>
 
@@ -77,24 +81,24 @@
             // SET DISPLAY NONE
             // console.log($cbox_dd_2[i]);
             $cbox_dd_2[i].style.display = 'none'; // dari querySelectorAll, ga bisa pake fungsi hide
-            var cbox_dd_2_i = document.querySelectorAll(`.cbox-dd-2-${i}`);
+            let cbox_dd_2_i = document.querySelectorAll(`.cbox-dd-2-${i}`);
             for (let j = 0; j < cbox_dd_2_i.length; j++) {
-                $toggle_cbox_dd_2_i_j = $(`#toggle-cbox-dd-2-${i}${j}`);
-                $cbox_dd_2_i_j = $(`#cbox-dd-2-${i}${j}`);
-                var data_cbox_dd_2 = document.querySelectorAll(`.data-cbox-dd-2-${i}${j}`);
+                let toggle_cbox_dd_2_i_j = document.getElementById(`toggle-cbox-dd-2-${i}${j}`);
+                $cbox_dd_2[i][j] = $(`#cbox-dd-2-${i}${j}`);
+                let data_cbox_dd_2 = document.querySelectorAll(`.data-cbox-dd-2-${i}${j}`);
                 // console.log($data_cbox_dd_2);
                 data_cbox_dd_2.forEach(data => {
                     data.disabled = true;
                 });
-                $toggle_cbox_dd_2_i_j.click(function () {
+                toggle_cbox_dd_2_i_j.addEventListener('click', function () {
                     // console.log($toggle_cbox_dd_2_i_j.is(':checked'));
-                    if ($toggle_cbox_dd_2_i_j.is(':checked')) {
-                        $cbox_dd_2_i_j.show(300);
+                    if (toggle_cbox_dd_2_i_j.checked) {
+                        $cbox_dd_2[i][j].show(300);
                         data_cbox_dd_2.forEach(data => {
                             data.disabled = false;
                         });
                     } else {
-                        $cbox_dd_2_i_j.hide(300);
+                        $cbox_dd_2[i][j].hide(300);
                         data_cbox_dd_2.forEach(data => {
                             data.disabled = true;
                         });
@@ -113,11 +117,11 @@
         $toggle_cbox_dd_2_pilsem.click(function () {
             if ($toggle_cbox_dd_2_pilsem.is(':checked')) {
                 for (let i = 0; i < $cbox_dd_2.length; i++) {
-                    var cbox_dd_2_i = document.querySelectorAll(`.cbox-dd-2-${i}`);
+                    let cbox_dd_2_i = document.querySelectorAll(`.cbox-dd-2-${i}`);
                     for (let j = 0; j < cbox_dd_2_i.length; j++) {
                         $toggle_cbox_dd_2_i_j = $(`#toggle-cbox-dd-2-${i}${j}`);
                         $cbox_dd_2_i_j = $(`#cbox-dd-2-${i}${j}`);
-                        var data_cbox_dd_2 = document.querySelectorAll(`.data-cbox-dd-2-${i}${j}`);
+                        let data_cbox_dd_2 = document.querySelectorAll(`.data-cbox-dd-2-${i}${j}`);
                             // console.log($data_cbox_dd_2);
                         $toggle_cbox_dd_2_i_j.prop('checked', true);
                         $cbox_dd_2_i_j.show(300);
@@ -128,11 +132,11 @@
                 }
             } else {
                 for (let i = 0; i < $cbox_dd_2.length; i++) {
-                    var cbox_dd_2_i = document.querySelectorAll(`.cbox-dd-2-${i}`);
+                    let cbox_dd_2_i = document.querySelectorAll(`.cbox-dd-2-${i}`);
                     for (let j = 0; j < cbox_dd_2_i.length; j++) {
                         $toggle_cbox_dd_2_i_j = $(`#toggle-cbox-dd-2-${i}${j}`);
                         $cbox_dd_2_i_j = $(`#cbox-dd-2-${i}${j}`);
-                        var data_cbox_dd_2 = document.querySelectorAll(`.data-cbox-dd-2-${i}${j}`);
+                        let data_cbox_dd_2 = document.querySelectorAll(`.data-cbox-dd-2-${i}${j}`);
                             // console.log($data_cbox_dd_2);
                         $toggle_cbox_dd_2_i_j.prop('checked', false);
                         $cbox_dd_2_i_j.hide(300);

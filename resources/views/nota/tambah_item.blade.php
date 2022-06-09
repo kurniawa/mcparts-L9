@@ -80,13 +80,18 @@
     var cbox = document.querySelectorAll('.cbox');
     if (cbox.length !== null) {
         for (let i = 0; i < cbox.length; i++) {
-            var a_cbox = document.getElementById(`cbox-${i}`);
-            var cbox_data = document.querySelectorAll(`.cbox-data-${i}`);
+            let a_cbox = document.getElementById(`cbox-${i}`); // mesti pake let supaya bisa bind, jadi tidak kehilangan fungsi eventHandler nya
+            let cbox_data = document.querySelectorAll(`.cbox-data-${i}`);
+            // if (show_console) {
+            //     console.log(`cbox-${i}`);console.log(a_cbox);
+            //     console.log(`.cbox-data-${i}`);console.log(cbox_data);
+            // }
             // SET AS DISABLED
             cbox_data.forEach(data => {
                 data.disabled = true;
             });
             a_cbox.addEventListener('click', function () {
+                console.log('clicked');
                 if (a_cbox.checked === true) {
                     cbox_data.forEach(data => {
                         data.disabled = false;
