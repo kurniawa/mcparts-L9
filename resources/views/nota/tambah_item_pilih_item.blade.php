@@ -38,7 +38,16 @@
         <td colspan="4">
             <table>
                 <tr><td>Jml.sdh.Nota</td><td>:</td><td><input class="form-control data-cbox-dd-2-{{ $i }}{{ $j }}" type="number" name="jml_sdh_nota[]" id="" value="{{ $arr_spk_produks[$i][$j]['jml_sdh_nota'] }}" readonly></td></tr>
-                <tr><td>Jml. input</td><td>:</td><td><input class="form-control data-cbox-dd-2-{{ $i }}{{ $j }}" type="number" name="jml_input[]" id="" value={{ $jml_av }}></td></tr>
+                <tr>
+                    <td>Jml. input</td>
+                    <td>:</td>
+                    <td>
+                        <input class="form-control data-cbox-dd-2-{{ $i }}{{ $j }} @error('jml_input') is-invalid @enderror" type="number" name="jml_input[]" id="" value={{ $jml_av }}>
+                        @error('jml_input')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='jml_t[{{$i}}][]' value={{ $arr_spk_produks[$i][$j]['jml_t'] }}>

@@ -1092,8 +1092,15 @@ class NotaController extends Controller
         $post = $request->post();
 
         if ($show_dump) {
-            dd('post', $post);
+            dump('post', $post);
         }
+
+        // validasi jml_av apakah sudah sesuai
+        $validator = $request->validate([
+            'jml_input.*' => "required|numeric|min:1",
+        ]);
+        $jml_inputs = $post['jml_input'];
+        $jml_avs = $post[''];
 
         $spk_ids = $post['spk_ids'];
 
