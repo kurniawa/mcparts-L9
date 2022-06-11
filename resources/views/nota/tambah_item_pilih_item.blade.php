@@ -11,7 +11,7 @@
     <h2>Tambah Item Untuk Nota: </h2>
 </div>
 
-<form action="/nota/tambah-item-db" method="POST" class="container">
+<form action="/nota/tambah-item-db" method="POST" class="container" onsubmit="return formValidator('jml_input[][]', 'jml_av[][]')">
     @csrf
     <input type="hidden" name="nota_id" value="{{ $nota_id }}">
     <input type='checkbox' id="toggle-cbox-dd-2-pilsem"> Pilih Semua
@@ -42,17 +42,16 @@
                     <td>Jml. input</td>
                     <td>:</td>
                     <td>
-                        <input class="form-control data-cbox-dd-2-{{ $i }}{{ $j }} @error('jml_input') is-invalid @enderror" type="number" name="jml_input[]" id="" value={{ $jml_av }}>
-                        @error('jml_input')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <input class="form-control data-cbox-dd-2-{{ $i }}{{ $j }}" type="number" name="jml_input[][]" id="" value={{ $jml_av }}>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='jml_t[{{$i}}][]' value={{ $arr_spk_produks[$i][$j]['jml_t'] }}>
-                        <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='jml_av[{{$i}}][]' value={{ $jml_av }}>
-                        <input type="hidden" class="data-cbox-dd-2-{{ $i }}{{ $j }}" name="spk_ids[{{ $i }}]" value="{{ $spks[$i]['id'] }}">
+                        <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='jml_t[][]' value={{ $arr_spk_produks[$i][$j]['jml_t'] }}>
+                        <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='jml_av[][]' value={{ $jml_av }}>
+                        <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='spk_produk_id[][]' value={{ $arr_spk_produks[$i][$j]['id'] }}>
+                        <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='produk_id[][]' value={{ $arr_produks[$i][$j]['id'] }}>
+                        <input type="hidden" class="data-cbox-dd-2-{{ $i }}{{ $j }}" name="spk_ids[][]" value="{{ $spks[$i]['id'] }}">
                     </td>
                 </tr>
             </table>
@@ -63,6 +62,7 @@
     @endfor
 
     </table>
+    <div id="validation_error" class="alert alert-danger" style="display: none"></div>
 
     <div id="divMarginBottom" style="height: 20vh;"></div>
 
@@ -157,6 +157,42 @@
 
             }
         });
+    }
+
+    function formValidator(input_name, max_value) {
+        var inputs = document.getElementsByName(input_name);
+        var max_values = document.getElementsByName(max_value);
+        var tidak_sesuai = 0;
+        var ada_yang_diproses = 0;
+        // console.log('inputs');console.log(inputs);
+        // console.log('max_values');console.log(max_values);
+        for (let i = 0; i < inputs.length; i++) {
+            console.log(inputs[i].disabled);
+            if (inputs[i].disabled === false) {
+                var input_value = parseInt(inputs[i].value);
+                var max_value = parseInt(max_values[i].value);
+                console.log(input_value);console.log(max_value);
+                if (parseInt(inputs[i].value) < 1 || parseInt(inputs[i].value) > parseInt(max_values[i].value)) {
+                    tidak_sesuai++;
+                } else {
+                    ada_yang_diproses++;
+                }
+            }
+        }
+        // console.log(tidak_sesuai);
+        // console.log(ada_yang_diproses);
+
+        if (tidak_sesuai === 0 && ada_yang_diproses !== 0) {
+            return true;
+        } else if (tidak_sesuai !== 0) {
+            $('#validation_error').show();
+            $('#validation_error').text('Ada data input yang tidak sesuai!');
+            return false;
+        } else if (ada_yang_diproses === 0) {
+            $('#validation_error').show();
+            $('#validation_error').text('Belum ada item yang dipilih');
+            return false;
+        }
     }
 
 </script>

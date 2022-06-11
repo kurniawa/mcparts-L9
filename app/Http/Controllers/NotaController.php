@@ -1092,18 +1092,17 @@ class NotaController extends Controller
         $post = $request->post();
 
         if ($show_dump) {
-            dump('post', $post);
+            dd('post', $post);
         }
 
-        // validasi jml_av apakah sudah sesuai
-        $validator = $request->validate([
-            'jml_input.*' => "required|numeric|min:1",
-        ]);
-        $jml_inputs = $post['jml_input'];
-        $jml_avs = $post[''];
+        $spk_produk_ids = $post['spk_produk_id'];
+        $produk_ids = $post['produk_id'];
+        $spk_ids = $post['spk_id'];
+        for ($i=0; $i < count($spk_produk_ids); $i++) {
+            for ($j=0; $j < count($spk_produk_ids[$i]); $j++) {
 
-        $spk_ids = $post['spk_ids'];
-
+            }
+        }
         $data = [];
 
         return view('nota.nota-detail', $data);
