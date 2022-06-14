@@ -234,23 +234,23 @@
 
     $('#divDaftarItemsrjalan').append(htmlTotalHarga);
 
-    document.getElementById("konfirmasiHapussrjalan").addEventListener("click", function() {
-        var deleteProperties = {
-            title: "Yakin ingin menghapus srjalan ini?",
-            yes: "Ya",
-            no: "Batal",
-            table: "srjalans",
-            column: "srjalan_id",
-            columnValue: srjalan.id,
-            action: "/srjalan/srjalan-hapus",
-            csrf: my_csrf,
-            goBackNumber: -2,
-            goBackStatement: "Daftar srjalan"
-        };
+    // document.getElementById("konfirmasiHapussrjalan").addEventListener("click", function() {
+    //     var deleteProperties = {
+    //         title: "Yakin ingin menghapus srjalan ini?",
+    //         yes: "Ya",
+    //         no: "Batal",
+    //         table: "srjalans",
+    //         column: "srjalan_id",
+    //         columnValue: srjalan.id,
+    //         action: "/srjalan/srjalan-hapus",
+    //         csrf: my_csrf,
+    //         goBackNumber: -2,
+    //         goBackStatement: "Daftar srjalan"
+    //     };
 
-        var deletePropertiesStringified = JSON.stringify(deleteProperties);
-        showLightBoxGlobal(deletePropertiesStringified);
-    });
+    //     var deletePropertiesStringified = JSON.stringify(deleteProperties);
+    //     showLightBoxGlobal(deletePropertiesStringified);
+    // });
 </script>
 
 <style>

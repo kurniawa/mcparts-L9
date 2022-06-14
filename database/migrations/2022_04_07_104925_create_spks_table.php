@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('status_sj', 50)->nullable()->default('BELUM');
             $table->string('judul')->nullable();
             // $table->text('data_spk_item');
+            $table->integer('jumlah_selesai')->nullable()->default(0);
             $table->integer('jumlah_total');
             $table->integer('harga_total');
             $table->integer('jumlah_sudah_nota')->nullable()->default(0);

@@ -471,6 +471,7 @@ class SpkController extends Controller
         $harga_total_old = (int)$spk['harga_total'];
         $jumlah_total_new = $jumlah_total_old;
         $harga_total_new = $harga_total_old;
+        $jumlah_selesai_spk = $spk['jumlah_selesai'];
 
         if ($show_dump === true) {
             dump('$spk:', $spk);
@@ -499,6 +500,7 @@ class SpkController extends Controller
             $status = $spk_produk_ini['status'];
             $jml_selesai_old = $spk_produk_ini['jml_selesai'];
             $jml_selesai_new = $jml_selesai_old + $tbh_jml_selesai;
+            $jumlah_selesai_spk += $tbh_jml_selesai;
 
             if ($show_dump) {
                 dump('$jml_selesai_old:', $jml_selesai_old);
@@ -645,6 +647,7 @@ class SpkController extends Controller
 
         if ($run_db) {
             $spk->status = $status_spk;
+            $spk->jumlah_selesai = $jumlah_selesai_spk;
             $spk->jumlah_total = $jumlah_total_new;
             $spk->harga_total = $harga_total_new;
             $spk->finished_at = null;

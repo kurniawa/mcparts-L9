@@ -8,6 +8,7 @@ use App\Models\Nota;
 use App\Models\Pelanggan;
 use App\Models\PelangganProduk;
 use App\Models\Produk;
+use App\Models\ProdukHarga;
 use App\Models\SiteSetting;
 use App\Models\Spk;
 use App\Models\SpkNota;
@@ -1015,7 +1016,7 @@ class NotaController extends Controller
     public function tambah_item(Request $request)
     {
         SiteSettings::loadNumToZero();
-        $show_dump = true;
+        $show_dump = false;
         $get = $request->query();
 
         if ($show_dump) {
@@ -1043,7 +1044,7 @@ class NotaController extends Controller
     public function tambah_item_pilih_item(Request $request)
     {
         SiteSettings::loadNumToZero();
-        $show_dump = true;
+        $show_dump = false;
         $get = $request->query();
 
         if ($show_dump) {
@@ -1076,7 +1077,7 @@ class NotaController extends Controller
     public function tambah_item_db(Request $request)
     {
         $load_num = SiteSetting::find(1);
-        $show_dump = true;
+        $show_dump = false;
         $run_db = true;
 
         $success_messages = $error_messages = array();
@@ -1092,19 +1093,121 @@ class NotaController extends Controller
         $post = $request->post();
 
         if ($show_dump) {
-            dd('post', $post);
+            dump('post', $post);
         }
 
         $spk_produk_ids = $post['spk_produk_id'];
-        $produk_ids = $post['produk_id'];
+        $jml_inputs = $post['jml_input'];
+        $jml_avs = $post['jml_av'];
         $spk_ids = $post['spk_id'];
+        $nota = Nota::find($post['nota_id']);
+        $jumlah_total_nota = $nota->jumlah_total;
+        $harga_total_nota = $nota->harga_total;
         for ($i=0; $i < count($spk_produk_ids); $i++) {
             for ($j=0; $j < count($spk_produk_ids[$i]); $j++) {
+                $jml_input = (int)$jml_inputs[$i][$j];
+                $jml_av = (int)$jml_avs[$i][$j];
+                // update spk_produk: jml_sdh_nota dan status_nota
+                $spk_produk = SpkProduk::find($spk_produk_ids[$i][$j]);
+                $status_nota = 'BELUM';
+                if ($jml_input === $jml_av) {
+                    $status_nota = 'SEMUA';
+                } elseif ($jml_input < $jml_av && $jml_input !== 0) {
+                    $status_nota = 'SEBAGIAN';
+                }
 
+                if ($run_db) {
+                    $spk_produk->jml_sdh_nota = $jml_input;
+                    $spk_produk->status_nota = $status_nota;
+                    $spk_produk->save();
+                    $success_messages[] = 'update spk_produk: jml_sudah_nota dan status_nota';
+                }
+
+                // update spk: jumlah_sudah_nota dan status_nota
+                $spk = Spk::find($spk_ids[$i][$j]);
+                $jumlahSudahNotaThisSPK = $spk['jumlah_sudah_nota'];
+                $jumlahSudahNotaThisSPK += $jml_input;
+                $statusNotaThisSPK = $spk['status_nota'];
+                if ($jumlahSudahNotaThisSPK === $spk['jumlah_total']) {
+                    $statusNotaThisSPK = 'SEMUA';
+                } elseif ($jumlahSudahNotaThisSPK !== 0 && $jumlahSudahNotaThisSPK < $spk['jumlah_total']) {
+                    $statusNotaThisSPK = 'SEBAGIAN';
+                }
+
+                if ($run_db) {
+                    $spk->jumlah_sudah_nota = $jumlahSudahNotaThisSPK;
+                    $spk->status_nota = $statusNotaThisSPK;
+                    $spk->save();
+                    $success_messages[] = 'update spk: jumlah_sudah_nota dan status_nota';
+                }
+
+                // UPDATE spk_produk_nota: insert baru kalo belum ada, update apabila sudah ada.
+                $spk_produk_nota = SpkProdukNota::where('spk_id', $spk['id'])
+                ->where('spk_produk_id', $spk_produk['id'])
+                ->where('nota_id', $nota['id'])->get()->toArray();
+
+                $harga_t = $jml_input * $spk_produk['harga'];
+                if ($run_db) {
+                    if (count($spk_produk_nota) === 0) {
+                        $spk_produk_nota = SpkProdukNota::create([
+                            'spk_id' => $spk['id'],
+                            'spk_produk_id' => $spk_produk['id'],
+                            'nota_id' => $nota['id'],
+                            'jumlah' => $jml_input,
+                            'harga' => $spk_produk['harga'],
+                            'harga_t' => $harga_t,
+                        ]);
+
+                        $success_messages[] = 'Create spk_produk_nota baru';
+                    } else {
+                        $spk_produk_nota = SpkProdukNota::find($spk_produk_nota[0]['id']);
+                        $spk_produk_nota->jumlah = $jml_input;
+                        $spk_produk_nota->harga = $spk_produk['harga'];
+                        $spk_produk_nota->harga_t = $harga_t;
+                        $spk_produk_nota->save();
+
+                        $success_messages[] = 'Update spk_produk_nota: jumlah, harga, harga_t';
+                    }
+                }
+                // END
+
+                $jumlah_total_nota += $jml_input;
+                $harga_total_nota += $harga_t;
+
+                if ($show_dump) {
+                    dump('spk', $spk);
+                    dump('spk_produk', $spk_produk);
+                    dump('spk_produk_nota', $spk_produk_nota);
+                }
             }
         }
-        $data = [];
 
-        return view('nota.nota-detail', $data);
+        // update nota
+        if ($run_db) {
+            $nota->jumlah_total = $jumlah_total_nota;
+            $nota->harga_total = $harga_total_nota;
+            $nota->save();
+
+            $load_num->value += 1;
+            $load_num->save();
+
+            $success_messages[] = 'update nota: jumlah_total dan harga_total';
+            $pesan_db = 'SUCCESS';
+            $class_div_pesan_db = 'alert-success';
+        }
+
+        if ($show_dump) {
+            dump('nota', $nota);
+        }
+
+        $data = [
+            'go_back_number' => -3,
+            'pesan_db' => $pesan_db,
+            'class_div_pesan_db' => $class_div_pesan_db,
+            'error_messages' => $error_messages,
+            'success_messages' => $success_messages,
+        ];
+
+        return view('layouts.go-back-page', $data);
     }
 }

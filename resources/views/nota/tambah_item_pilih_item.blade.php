@@ -51,7 +51,7 @@
                         <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='jml_av[][]' value={{ $jml_av }}>
                         <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='spk_produk_id[][]' value={{ $arr_spk_produks[$i][$j]['id'] }}>
                         <input type='hidden' class="data-cbox-dd-2-{{ $i }}{{ $j }}" name='produk_id[][]' value={{ $arr_produks[$i][$j]['id'] }}>
-                        <input type="hidden" class="data-cbox-dd-2-{{ $i }}{{ $j }}" name="spk_ids[][]" value="{{ $spks[$i]['id'] }}">
+                        <input type="hidden" class="data-cbox-dd-2-{{ $i }}{{ $j }}" name="spk_id[][]" value="{{ $spks[$i]['id'] }}">
                     </td>
                 </tr>
             </table>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('reseller_id')->nullable()->constrained('pelanggans')->onDelete('NO ACTION');
             $table->string('status_bayar', 50)->default('BELUM BAYAR');
             $table->string('status_sj', 50)->default('BELUM SJ');
+            $table->integer('jumlah_sj')->nullable()->default(0);
             $table->integer('jumlah_total')->nullable();
             $table->integer('harga_total')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users');

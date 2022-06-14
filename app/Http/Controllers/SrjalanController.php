@@ -263,36 +263,74 @@ class SrjalanController extends Controller
 
                     $success_messages[] = "success_: create $spk_produk_nota_srjalan baru [$i_nota_id][$i_spk_produk_id]";
 
-                    /**
-                     * UPDATE TABLE spk_produk
-                     */
+                }
+                /**
+                 * UPDATE TABLE spk_produk
+                 */
 
-                    if ($jml_input === $spk_produk->jml_t) {
-                        $status_srjalan = 'SUDAH SEMUA';
-                        /** INI CARA SMART SAYA UNTUK MENGHINDARI PENGECEKAN ARRAY semua status sj MELALUI LOOPING */
-                        if ($status_sj !== 'SUDAH SEBAGIAN' || $status_sj !== 'SUDAH SEMUA') {
-                            $status_sj = 'SUDAH_SEMUA';
-                        }
-                    } elseif ($jml_input < $spk_produk->jml_t) {
-                        $status_srjalan = 'SUDAH SEBAGIAN';
-                        if ($status_sj !== 'SUDAH SEBAGIAN') {
-                            $status_sj = 'SUDAH SEBAGIAN';
-                        }
+                if ($jml_input === $spk_produk->jml_t) {
+                    $status_srjalan = 'SEMUA';
+                    /** INI CARA SMART SAYA UNTUK MENGHINDARI PENGECEKAN ARRAY semua status sj MELALUI LOOPING */
+                    if ($status_sj !== 'SEBAGIAN' || $status_sj !== 'SEMUA') {
+                        $status_sj = 'SEMUA';
                     }
+                } elseif ($jml_input < $spk_produk->jml_t) {
+                    $status_srjalan = 'SEBAGIAN';
+                    if ($status_sj !== 'SEBAGIAN') {
+                        $status_sj = 'SEBAGIAN';
+                    }
+                }
+
+                if ($run_db) {
                     $spk_produk->jumlah_sudah_srjalan = $jml_input;
                     $spk_produk->status_srjalan = $status_srjalan;
                     $spk_produk->save();
 
                     $success_messages[] = "success_: UPDATE table spk_produk: jumlah_sudah_srjalan dan status_srjalan";
                 }
+
+                // UPDATE spk: status_sj, jumlah_sudah_sj
+                $jumlah_sudah_sj = $spk['jumlah_sudah_sj'] + $jml_input;
+                if ($jumlah_sudah_sj === 0) {
+                    $status_sj_spk = 'BELUM';
+                } elseif ($jumlah_sudah_sj === $spk['jumlah_total']) {
+                    $status_sj_spk = 'SEMUA';
+                } elseif ($jumlah_sudah_sj < $spk['jumlah_total']) {
+                    $status_sj_spk = 'SEBAGIAN';
+                }
+
+                if ($run_db) {
+                    $spk->status_sj = $status_sj_spk;
+                    $spk->jumlah_sudah_sj = $jumlah_sudah_sj;
+                    $spk->save();
+
+                    $success_messages[] = 'UPDATE spk: status_sj, jumlah_sudah_sj';
+                }
+
+                // UPDATE nota: status_sj, jumlah_sj
+                $jumlah_sj = $nota['jumlah_sj'] + $jml_input;
+                if ($jumlah_sj === 0) {
+                    $status_sj_nota = 'BELUM';
+                } elseif ($jumlah_sj === $nota['jumlah_total']) {
+                    $status_sj_nota = 'SEMUA';
+                } elseif ($jumlah_sj < $nota['jumlah_total']) {
+                    $status_sj_nota = 'SEBAGIAN';
+                }
+
+                if ($run_db) {
+                    $nota->status_sj = $status_sj_nota;
+                    $nota->jumlah_sj = $jumlah_sj;
+                    $nota->save();
+
+                    $success_messages[] = 'UPDATE nota: status_sj, jumlah_sj';
+                }
+                // END
+
                 $i_spk_produk_id++;
+
             }
 
-            if ($run_db) {
-                $nota->status_sj = $status_sj;
-                $nota->save();
-                $success_messages[] = "success_: UPDATE status_sj = $status_sj pada table notas dengan ID: $nota->id";
-            }
+
             $i_nota_id++;
         }
 
@@ -316,7 +354,7 @@ class SrjalanController extends Controller
         }
 
         $data = [
-            'go_back_number' => -2,
+            'go_back_number' => -3,
             'error_messages' => $error_messages,
             'success_messages' => $success_messages,
             'pesan_db' => $pesan_db,
@@ -418,50 +456,73 @@ class SrjalanController extends Controller
         $post = $request->post();
 
         if ($show_dump === true) {
-            dump('post');
-            dump($post);
+            dump('post', $post);
         }
 
         $sj = Srjalan::find($post['srjalan_id']);
 
-        /** SEBELUM DELETE, concern ke table spk_produk_nota_srjalan terlebih dahulu,
-         * untuk cek apakah produk pada nota yang terkait dengan srjalan yang ingin dihapus ini, masih ada yang tercantum
-         * pada srjalan yang lain, sehingga nanti status nota nya jadi 'SUDAH SEBAGIAN'
-         */
-        $nota = new Nota();
-        $related_nota_ids = $nota->SpkProdukNotaSrjalan_groupBy_nota_id($sj['id']);
-
-        if ($show_dump) {
-            dump('$related_nota_ids', $related_nota_ids);
-        }
-
-        foreach ($related_nota_ids as $nota_id) {
-            dump('$nota_id', $nota_id);
-            $srjalan_ids = SpkProdukNotaSrjalan::select('srjalan_id')
-            ->where('nota_id', $nota_id['nota_id'])
-            ->where('srjalan_id', '!=', $sj['id'])->get()->toArray();
-
-            if ($show_dump) {
-                dump('Apakah ada $srjalan_ids lain yang terkait dengan nota yang sama, jadi seperti satu nota dengan 2 surat jalan:');
-                dump($srjalan_ids);
-            }
-
-            if (count($srjalan_ids) === 0) {
-                $status_sj = 'BELUM SJ';
-            } else {
-                $status_sj = 'SUDAH SEBAGIAN';
+        $spk_produk_nota_srjalans = SpkProdukNotaSrjalan::where('srjalan_id', $sj['id']);
+        dd($spk_produk_nota_srjalans);
+        foreach ($spk_produk_nota_srjalans as $SPKProdukNotaSrjalan) {
+            $jumlah_kurang = $SPKProdukNotaSrjalan['jumlah'];
+            // UPDATE spk: status_sj, jumlah_sudah_sj
+            $spk = Spk::find($SPKProdukNotaSrjalan['spk_id']);
+            $jumlah_sudah_sj_spk = $spk['jumlah_sudah_sj'] - $jumlah_kurang;
+            if ($jumlah_sudah_sj_spk === 0) {
+                $status_sj_spk = 'BELUM';
+            } elseif ($jumlah_sudah_sj_spk === $spk['jumlah_total']) {
+                $status_sj_spk = 'SEMUA';
+            } elseif ($jumlah_sudah_sj_spk < $spk['jumlah_total']) {
+                $status_sj_spk = 'SEBAGIAN';
             }
 
             if ($run_db) {
-                $related_nota = Nota::find($nota_id['nota_id']);
-                if ($show_dump) {
-                    dump('$related_nota', $related_nota);
-                }
-                $related_nota->status_sj = $status_sj;
-                $related_nota->save();
+                $spk->status_sj = $status_sj_spk;
+                $spk->jumlah_sudah_sj = $jumlah_sudah_sj_spk;
+                $spk->save();
 
-                $success_messages[] = 'success_: $status_sj pada nota yang ada, telah diubah';
+                $success_messages[] = 'UPDATE spk: status_sj, jumlah_sudah_sj';
             }
+            // UPDATE spk_produk: jumlah_sudah_srjalan, status_srjalan.
+            $spk_produk = SpkProduk::find($SPKProdukNotaSrjalan['spk_produk_id']);
+            $jumlahSudahSrjalanSpkProduk = $spk_produk['jumlah_sudah_srjalan'] - $jumlah_kurang;
+            if ($jumlahSudahSrjalanSpkProduk === 0) {
+                $statusSrjalanSPKProduk = 'BELUM';
+            } elseif ($jumlahSudahSrjalanSpkProduk === $spk_produk['jml_t']) {
+                $statusSrjalanSPKProduk = 'SEMUA';
+            } elseif ($jumlahSudahSrjalanSpkProduk < $spk_produk['jml_t']) {
+                $statusSrjalanSPKProduk = 'SEBAGIAN';
+            }
+
+            if ($run_db) {
+                $spk_produk->jumlah_sudah_srjalan = $statusSrjalanSPKProduk;
+                $spk_produk->status_srjalan = $jumlahSudahSrjalanSpkProduk;
+                $spk_produk->save();
+
+                $success_messages[] = 'UPDATE spk_produk: jumlah_sudah_srjalan, status_srjalan';
+            }
+
+            // UPDATE nota: status_sj, jumlah_sj
+            $nota = Nota::find($SPKProdukNotaSrjalan['nota_id']);
+            $jumlah_sj = $nota['jumlah_sj'] - $jumlah_kurang;
+            if ($jumlah_sj === 0) {
+                $status_sj_nota = 'BELUM';
+            } elseif ($jumlah_sj === $nota['jumlah_total']) {
+                $status_sj_nota = 'SEMUA';
+            } elseif ($jumlah_sj < $nota['jumlah_total']) {
+                $status_sj_nota = 'SEBAGIAN';
+            }
+
+            if ($run_db) {
+                $nota->status_sj = $status_sj_nota;
+                $nota->jumlah_sj = $jumlah_sj;
+                $nota->save();
+
+                $success_messages[] = 'UPDATE nota: status_sj, jumlah_sj';
+            }
+            // END
+
+            // DELETE spk_produk_nota_srjalan udah otomatis akan ke delete, ketika nanti delete sj.
         }
 
 
