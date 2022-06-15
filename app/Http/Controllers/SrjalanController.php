@@ -440,7 +440,7 @@ class SrjalanController extends Controller
         $load_num = SiteSetting::find(1);
         dump($load_num);
 
-        $show_dump = true;
+        $show_dump = false;
         $run_db = true;
 
         $error_messages = $success_messages = array();
@@ -461,8 +461,8 @@ class SrjalanController extends Controller
 
         $sj = Srjalan::find($post['srjalan_id']);
 
-        $spk_produk_nota_srjalans = SpkProdukNotaSrjalan::where('srjalan_id', $sj['id']);
-        dd($spk_produk_nota_srjalans);
+        $spk_produk_nota_srjalans = SpkProdukNotaSrjalan::where('srjalan_id', $sj['id'])->get()->toArray();
+        // dd($spk_produk_nota_srjalans);
         foreach ($spk_produk_nota_srjalans as $SPKProdukNotaSrjalan) {
             $jumlah_kurang = $SPKProdukNotaSrjalan['jumlah'];
             // UPDATE spk: status_sj, jumlah_sudah_sj
@@ -495,8 +495,8 @@ class SrjalanController extends Controller
             }
 
             if ($run_db) {
-                $spk_produk->jumlah_sudah_srjalan = $statusSrjalanSPKProduk;
-                $spk_produk->status_srjalan = $jumlahSudahSrjalanSpkProduk;
+                $spk_produk->jumlah_sudah_srjalan = $jumlahSudahSrjalanSpkProduk;
+                $spk_produk->status_srjalan = $statusSrjalanSPKProduk;
                 $spk_produk->save();
 
                 $success_messages[] = 'UPDATE spk_produk: jumlah_sudah_srjalan, status_srjalan';
@@ -505,6 +505,7 @@ class SrjalanController extends Controller
             // UPDATE nota: status_sj, jumlah_sj
             $nota = Nota::find($SPKProdukNotaSrjalan['nota_id']);
             $jumlah_sj = $nota['jumlah_sj'] - $jumlah_kurang;
+            $status_sj_nota = $nota['status_sj'];
             if ($jumlah_sj === 0) {
                 $status_sj_nota = 'BELUM';
             } elseif ($jumlah_sj === $nota['jumlah_total']) {
@@ -512,6 +513,8 @@ class SrjalanController extends Controller
             } elseif ($jumlah_sj < $nota['jumlah_total']) {
                 $status_sj_nota = 'SEBAGIAN';
             }
+
+            // dump('$jumlah_sj, $status_sj_nota', $jumlah_sj, $status_sj_nota);
 
             if ($run_db) {
                 $nota->status_sj = $status_sj_nota;

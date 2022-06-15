@@ -20,7 +20,7 @@ class Srjalan extends Model
     {
         $show_dump = false;
 
-        $pelanggan_id_sj_blm_kirim = Nota::select('pelanggan_id')->where('status_sj', 'BELUM SJ')->orderByDesc('created_at')->groupBy('pelanggan_id')->get();
+        $pelanggan_id_sj_blm_kirim = Nota::select('pelanggan_id')->where('status_sj', 'BELUM')->orderByDesc('created_at')->groupBy('pelanggan_id')->get();
         if ($show_dump) {
             dump('pelanggan_id_sj_blm_kirim', $pelanggan_id_sj_blm_kirim);
         }
@@ -29,7 +29,7 @@ class Srjalan extends Model
         for ($i0 = 0; $i0 < count($pelanggan_id_sj_blm_kirim); $i0++) {
             $pelanggan = Pelanggan::find($pelanggan_id_sj_blm_kirim[$i0]['pelanggan_id']);
             $daerah = Daerah::find($pelanggan['daerah_id'])->toArray();
-            $notas = Nota::where('pelanggan_id', $pelanggan['id'])->where('status_sj', 'BELUM SJ')->orWhere('status_sj', 'SEBAGIAN')
+            $notas = Nota::where('pelanggan_id', $pelanggan['id'])->where('status_sj', 'BELUM')->orWhere('status_sj', 'SEBAGIAN')
             ->orderByDesc('created_at')->get();
 
             $pelanggans[] = $pelanggan;

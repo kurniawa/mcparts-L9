@@ -47,4 +47,25 @@ class Produk extends Model
         return array($pelanggan_produks, $produks, $hargas);
     }
 
+    /**
+     * Halaman Produk
+     * Komponen:
+     * Tipe Variasi: Polos, LG. Bayang, T. Bayang, dll
+     * Tipe Ukuran: JB, S-JB, Aerox
+     * Tipe Jahit: Univ, JB, ABS-RV
+     *
+     * Sarung Jok:
+     * SJ Variasi
+     * SJ Kombinasi
+     * SJ Standar
+     * SJ T.Sixpack
+     * SJ Japstyle
+     *
+     * Stiker:
+     *
+     * Tankpad:
+     *
+     * Busastang:
+     */
+
 }
