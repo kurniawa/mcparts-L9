@@ -197,39 +197,4 @@ if (notas == undefined || notas.length == 0) {
 // const reload_page2 = {-!! json_encode($reload_page, JSON_HEX_TAG) !!};
 // reloadPage(reload_page2);
 </script>
-
-<style>
-    .input-cari {
-        border: none;
-        width: 10em;
-        border-radius: 25px;
-        padding: 0.5em 1em 0.5em 1em;
-        box-shadow: 0 0 2px gray;
-    }
-
-    .input-cari:focus {
-        box-shadow: 0 0 6px #23FFAD;
-    }
-
-    .field {
-        margin: 1em;
-    }
-
-    .div-filter-icon {
-        justify-self: end;
-    }
-
-    .icon-small-circle {
-        border-radius: 100%;
-        width: 2em;
-        height: 2em;
-    }
-
-    .icon-img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-</style>
 @endsection

@@ -14,10 +14,6 @@ class Variasi extends Model
 
     public function varias_harga()
     {
-        $sql = "SELECT sj_variasi.id, sj_variasi.nama, sj_variasi_terbaru.harga FROM sj_variasi INNER JOIN
-        (SELECT id, id_variasi, harga, MAX(tanggal) FROM sj_variasi_harga GROUP BY id_variasi) AS sj_variasi_terbaru
-        ON sj_variasi.id=sj_variasi_terbaru.id_variasi";
-
         $variasi_terbaru = DB::table('variasi_hargas')
             ->select('id', 'variasi_id', 'harga', DB::raw('MAX(created_at)'))
             ->groupBy('id', 'variasi_id', 'harga', 'created_at');

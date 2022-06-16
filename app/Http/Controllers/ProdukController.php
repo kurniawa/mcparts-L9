@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\SiteSettings;
 use App\Http\Requests\StoreProdukRequest;
 use App\Http\Requests\UpdateProdukRequest;
 use App\Models\Produk;
@@ -15,7 +16,22 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        //
+        SiteSettings::loadNumToZero();
+        $show_dump = true;
+
+        $data = [];
+
+        return view('produk.produks', $data);
+    }
+
+    public function tipe_variasi()
+    {
+        SiteSettings::loadNumToZero();
+        $show_dump = true;
+
+        $data = [];
+
+        return view('produk.tipe_variasi', $data);
     }
 
     /**

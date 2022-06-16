@@ -12,6 +12,7 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PelangganEditController;
 use App\Http\Controllers\PelangganEkspedisiController;
 use App\Http\Controllers\PelangganResellerController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SpkBaruController;
 use App\Http\Controllers\SpkController;
@@ -175,4 +176,13 @@ Route::controller(SrjalanController::class)->group(function ()
 Route::controller(TestController::class)->group(function ()
 {
     Route::get('/test', 'index');
+});
+
+/**
+ * PRODUK
+ */
+Route::controller(ProdukController::class)->group(function ()
+{
+    Route::get('/produk', 'index');
+    Route::get('/produk/tipe-variasi', 'tipe_variasi');
 });

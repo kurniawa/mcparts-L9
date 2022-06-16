@@ -8,6 +8,7 @@ use App\Models\Bahan;
 use App\Models\Busastang;
 use App\Models\Jahit;
 use App\Models\Kombi;
+use App\Models\Motif;
 use App\Models\Produk;
 use App\Models\ProdukHarga;
 use App\Models\SiteSetting;
@@ -50,6 +51,7 @@ class InsertingGeneralController extends Controller
         $busastang = new Busastang();
         $tspjap = new Tspjap();
         $stiker = new Stiker();
+        $motif = new Motif();
 
         $label_bahans = $bahan->label_bahans();
         $varias_harga = $varia->varias_harga();
@@ -84,6 +86,8 @@ class InsertingGeneralController extends Controller
                 $judul = 'SPK BARU: Tambah SJ T.Sixpack/Japstyle';
             } elseif ($tipe === 'stiker') {
                 $judul = 'SPK BARU: Tambah SJ Stiker';
+            } elseif ($tipe === 'motif') {
+                $judul = 'SPK BARU: Tambah SJ Motif';
             }
         } elseif ($mode === 'ADD PRODUCT FROM DETAIL') {
             if ($tipe === 'varia') {
@@ -100,6 +104,8 @@ class InsertingGeneralController extends Controller
                 $judul = 'Edit SPK: Tambah SJ T.Sixpack/Japstyle';
             } elseif ($tipe === 'stiker') {
                 $judul = 'Edit SPK: Tambah SJ Stiker';
+            } elseif ($tipe === 'motif') {
+                $judul = 'SPK BARU: Tambah SJ Motif';
             }
         }
 

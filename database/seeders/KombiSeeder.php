@@ -38,11 +38,27 @@ class KombiSeeder extends Seeder
         ], [
             'nama' => 'Motif Sixpack 2 Warna + jht.Univ',
             'id' => 6,
-            'harga' => 27500
+            'harga' => 29000
         ], [
             'nama' => 'Motif Sixpack 2 Warna uk.JB + jht.JB',
             'id' => 7,
-            'harga' => 34500
+            'harga' => 36000
+        ], [
+            'nama' => 'Motif Hexagon 2 Warna + jht.Univ',
+            'id' => 8,
+            'harga' => 29000
+        ], [
+            'nama' => 'Motif Hexagon 2 Warna uk.JB + jht.JB',
+            'id' => 9,
+            'harga' => 36000
+        ], [
+            'nama' => 'Motif Starpack 2 Warna + jht.Univ',
+            'id' => 10,
+            'harga' => 29000
+        ], [
+            'nama' => 'Motif Starpack 2 Warna uk.JB + jht.JB',
+            'id' => 11,
+            'harga' => 36000
         ]];
 
         for ($i = 0; $i < count($kombi); $i++) {

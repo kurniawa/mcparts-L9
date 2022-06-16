@@ -56,7 +56,7 @@
             Stok
         </div>
         <div class="gridMenuItem">
-            <a href="#" class="menuIcons">
+            <a href="/produk" class="menuIcons">
                 <img src="img/icons/products.svg" alt="Icon SPK">
                 <div>Produk</div>
             </a>

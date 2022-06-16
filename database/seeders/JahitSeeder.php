@@ -22,13 +22,43 @@ class JahitSeeder extends Seeder
             'id' => 1,
             'harga' => 1000
         ], [
-            'nama' => 'JB',
+            'nama' => 'ABS-RV',
             'id' => 2,
             'harga' => 1000
         ], [
-            'nama' => 'ABS-RV',
+            'nama' => 'JB',
             'id' => 3,
-            'harga' => 1000
+            'harga' => 4000
+        ], [
+            'nama' => 'Scoopy',
+            'id' => 4,
+            'harga' => 4000
+        ], [
+            'nama' => 'NMAX',
+            'id' => 5,
+            'harga' => 5500
+        ], [
+            'nama' => 'PCX',
+            'id' => 6,
+            'harga' => 5500
+        ], [
+            'nama' => 'Aerox',
+            'id' => 7,
+            'harga' => 5500
+        ], [
+            'nama' => 'Freego',
+            'id' => 8,
+            'harga' => 5500
+        ], [
+            'nama' => 'Vario 150',
+            'id' => 9,
+            'harga' => 5500
+        ], [
+            'nama' => 'Mio Soul GT 125',
+            'id' => 10,
+            'harga' => 5500
+        ], [
+
         ]];
 
         for ($i = 0; $i < count($jahit); $i++) {

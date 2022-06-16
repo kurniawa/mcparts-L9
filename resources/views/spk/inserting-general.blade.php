@@ -132,6 +132,19 @@
     </div>
 </div>
 
+{{-- ELEMENT UNTUK MOTIF --}}
+<div id="container-motif" class="mb-3 element-sj-motif" style="display: none">
+    <label for="">Pilih motif:</label>
+    <div id='div_input_motif'>
+    <input type='text' id='motif' name='motif' class='input-normal @error('motif') is-invalid @enderror' style='border-radius:5px;'>
+    @error('motif')
+    <div class='invalid-feedback'>{{ $message }}</div>
+    @enderror
+    <input type='hidden' id='motif_id' name='motif_id'>
+    <input type='hidden' id='motif_harga' name='motif_harga'>
+    </div>
+</div>
+
 <div id="container-jumlah" class="mb-3">
     <label for="">Jumlah:</label>
     <input id='ipt_jumlah' type="number" name="jumlah" min="0" step="1" placeholder="Jumlah" class="p-0_5em @error('jumlah') is-invalid @enderror" style="border-radius:5px;">
@@ -329,6 +342,26 @@
                 // console.log(ui.item);
                 $("#stiker_id").val(ui.item.id);
                 $("#stiker_harga").val(ui.item.harga);
+                // show_select_variasi();
+                // show_options(available_options);
+            }
+        });
+    } else if (tipe === 'motif') {
+        document.querySelector('.element-sj-motif').style.display = 'block';
+
+        const motifs = {!! json_encode($motifs, JSON_HEX_TAG) !!};
+
+        if (show_console) {
+            console.log('motifs');
+            console.log(motifs);
+        }
+
+        $("#motif").autocomplete({
+            source: motifs,
+            select: function(event, ui) {
+                // console.log(ui.item);
+                $("#motif_id").val(ui.item.id);
+                $("#motif_harga").val(ui.item.harga);
                 // show_select_variasi();
                 // show_options(available_options);
             }
