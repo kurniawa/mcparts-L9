@@ -26,40 +26,43 @@ class JahitSeeder extends Seeder
             'id' => 2,
             'harga' => 1000
         ], [
-            'nama' => 'JB',
+            'nama' => 'RX-King',
             'id' => 3,
-            'harga' => 4000
+            'harga' => 1000
         ], [
-            'nama' => 'Scoopy',
+            'nama' => 'JB',
             'id' => 4,
             'harga' => 4000
         ], [
-            'nama' => 'NMAX',
+            'nama' => 'Scoopy',
             'id' => 5,
-            'harga' => 5500
+            'harga' => 4000
         ], [
-            'nama' => 'PCX',
+            'nama' => 'NMAX',
             'id' => 6,
             'harga' => 5500
         ], [
-            'nama' => 'Aerox',
+            'nama' => 'PCX',
             'id' => 7,
             'harga' => 5500
         ], [
-            'nama' => 'Freego',
+            'nama' => 'Aerox',
             'id' => 8,
             'harga' => 5500
         ], [
-            'nama' => 'Vario 150',
+            'nama' => 'Freego',
             'id' => 9,
             'harga' => 5500
         ], [
-            'nama' => 'Mio Soul GT 125',
+            'nama' => 'Vario 150',
             'id' => 10,
             'harga' => 5500
         ], [
-
-        ]];
+            'nama' => 'Mio Soul GT 125', // 93*56
+            'id' => 11,
+            'harga' => 5500
+        ]
+        ];
 
         for ($i = 0; $i < count($jahit); $i++) {
             DB::table('jahits')->insert([

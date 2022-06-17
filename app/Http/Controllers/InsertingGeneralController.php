@@ -67,6 +67,7 @@ class InsertingGeneralController extends Controller
         $label_tspjap_b = $tspjap->label_tspjaps_b();
         $d_bahan_a = $bahan->d_bahan_a();
         $d_bahan_b = $bahan->d_bahan_b();
+        $motif_harga = $motif->motif_harga();
 
         $mode = $get['mode'];
         $tipe = $get['tipe'];
@@ -128,6 +129,7 @@ class InsertingGeneralController extends Controller
             'stikers' => $label_stikers,
             'd_bahan_a' => $d_bahan_a,
             'd_bahan_b' => $d_bahan_b,
+            'motif' => $motif_harga,
         ];
 
         if ($show_dump) {
