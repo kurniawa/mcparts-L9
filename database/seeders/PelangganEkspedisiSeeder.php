@@ -17,7 +17,7 @@ class PelangganEkspedisiSeeder extends Seeder
     {
         $pelanggan_ekspedisi = [
             ['pelanggan_id' => 1, 'ekspedisi_id' => 1],
-            ['pelanggan_id' => 3, 'ekspedisi_id' => 2]
+            ['pelanggan_id' => 3, 'ekspedisi_id' => 2],
         ];
 
         for ($i = 0; $i < count($pelanggan_ekspedisi); $i++) {

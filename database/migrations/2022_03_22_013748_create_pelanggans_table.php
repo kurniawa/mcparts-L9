@@ -17,7 +17,9 @@ return new class extends Migration
         Schema::create('pelanggans', function (Blueprint $table) {
             $table->id();
             $table->string("nama", 100);
-            $table->string("alamat");
+            $table->string("bentuk", 10)->nullable(); // bentuk perusahaan
+            $table->string("sapaan", 10)->nullable();
+            $table->string("alamat")->nullable(); // yang di Jakarta/Tangerang ada yang tidak pakai keterangan alamat
             $table->string("no_kontak", 50)->nullable();
             $table->foreignId("negara_id")->nullable()->default(1)->constrained()->onDelete('NO ACTION');
             $table->foreignId("pulau_id")->nullable()->constrained()->onDelete('NO ACTION');

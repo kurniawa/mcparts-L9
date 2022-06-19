@@ -22,6 +22,7 @@ class PulauSeeder extends Seeder
             ['nama'=>'Sulawesi', 'negara_id'=>1],
             ['nama'=>'Papua', 'negara_id'=>1],
             ['nama'=>'NTB', 'negara_id'=>1],
+            ['nama'=>'Maluku', 'negara_id'=>1],
         ];
 
         foreach ($pulaus as $pulau) {

@@ -101,24 +101,24 @@ class SpkSeeder extends Seeder
             ['spk_id' => 1, 'produk_id' => 7, 'jumlah' => 300, 'harga' => 4000],
         ];
 
-        for ($i = 0; $i < count($spk); $i++) {
-            Spk::create([
-                'no_spk' => $spk[$i]['no_spk'],
-                'pelanggan_id' => $spk[$i]['pelanggan_id'],
-                'reseller_id' => $spk[$i]['reseller_id'],
-                'status' => $spk[$i]['status'],
-                'jumlah_total' => $spk[$i]['jumlah_total'],
-                'harga_total' => $spk[$i]['harga_total'],
-            ]);
-        }
-        for ($i = 0; $i < count($spk_produk); $i++) {
-            SpkProduk::create([
-                'spk_id' => $spk_produk[$i]['spk_id'],
-                'produk_id' => $spk_produk[$i]['produk_id'],
-                'jumlah' => $spk_produk[$i]['jumlah'],
-                'harga' => $spk_produk[$i]['harga'],
-            ]);
-        }
+        // for ($i = 0; $i < count($spk); $i++) {
+        //     Spk::create([
+        //         'no_spk' => $spk[$i]['no_spk'],
+        //         'pelanggan_id' => $spk[$i]['pelanggan_id'],
+        //         'reseller_id' => $spk[$i]['reseller_id'],
+        //         'status' => $spk[$i]['status'],
+        //         'jumlah_total' => $spk[$i]['jumlah_total'],
+        //         'harga_total' => $spk[$i]['harga_total'],
+        //     ]);
+        // }
+        // for ($i = 0; $i < count($spk_produk); $i++) {
+        //     SpkProduk::create([
+        //         'spk_id' => $spk_produk[$i]['spk_id'],
+        //         'produk_id' => $spk_produk[$i]['produk_id'],
+        //         'jumlah' => $spk_produk[$i]['jumlah'],
+        //         'harga' => $spk_produk[$i]['harga'],
+        //     ]);
+        // }
 
 
     }
