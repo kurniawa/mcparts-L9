@@ -18,6 +18,11 @@ class EkspedisiSeeder extends Seeder
         //
         DB::table('ekspedisis')->insert([
             [
+                'bentuk' => 'PT',
+                'nama' => 'Adhiputra',
+                'alamat' => '["Jl. RE Martadinata", "Pergudangan Caraka, BLOK 1K", "Tj. Priok"]',
+                'no_kontak' => '(021) 4391 3388',
+            ], [
                 'bentuk' => 'CV',
                 'nama' => 'Angkasa',
                 'alamat' => '["Jl. Mangga Dua Raya", "Ruko Mangga Dua Plaza", "BLOK B, No. 06"]',
@@ -43,6 +48,11 @@ class EkspedisiSeeder extends Seeder
                 'alamat' => '["Komplek Lodan Center BLOK P No.1"]',
                 'no_kontak' => '(021) 691 6756',
             ], [
+                'bentuk' => 'PT',
+                'nama' => 'Bangkit Jaya Manunggal',
+                'alamat' => '["Jl. Tubagus Angke, Duta Square", "BLOK B, No.2, Jelambar"]',
+                'no_kontak' => '(021) 5695 9281',
+            ], [
                 'bentuk' => null,
                 'nama' => 'Baraka Sarana Tama',
                 'alamat' => '["Cibinong"]',
@@ -67,6 +77,11 @@ class EkspedisiSeeder extends Seeder
                 'nama' => 'Bintang Saudara',
                 'alamat' => '["Komplek DHI, BLOK KK No.99"]',
                 'no_kontak' => '(021) 660 5887',
+            ], [
+                'bentuk' => null,
+                'nama' => 'BJA',
+                'alamat' => '["Jl. Kapuk Kamal Raya No.40", "Pluit Bisnis BLOK N, No.8"]',
+                'no_kontak' => '0822 1327 6565',
             ], [
                 'bentuk' => null,
                 'nama' => 'Cahaya Lintas',
@@ -119,9 +134,19 @@ class EkspedisiSeeder extends Seeder
                 'no_kontak' => '(021) 6660 0635',
             ], [
                 'bentuk' => null,
+                'nama' => 'Jasa Tunggal Bahari',
+                'alamat' => '["Jl. Kalimas Baru, No.28-30", "Depo Sril Up Selamet", "Surabaya"]',
+                'no_kontak' => null,
+            ], [
+                'bentuk' => null,
                 'nama' => 'Jaya Alam Perkasa',
                 'alamat' => '["Jl. Bandengan Utara", "GG Buntek, BLOK 85A, No.15"]',
                 'no_kontak' => '(021) 669 5365',
+            ], [
+                'bentuk' => null,
+                'nama' => 'Jakarta Bangka Express (JBE)',
+                'alamat' => '["Ruko Duri Raya RT02/RW01, No.1", "Duri Kepa"]',
+                'no_kontak' => '(021) 5696 6573',
             ], [
                 'bentuk' => null,
                 'nama' => 'Johan Express',
@@ -132,6 +157,11 @@ class EkspedisiSeeder extends Seeder
                 'nama' => 'Karunia Cipta Logistics',
                 'alamat' => '["Jl. Bandengan Utara", "Ruko Mega Bandengan 81", "Blok B No.49"]',
                 'no_kontak' => '0822 9917 0903',
+            ], [
+                'bentuk' => 'PT',
+                'nama' => 'KSI Logistics',
+                'alamat' => '["Jl. Cideng Barat, No.88A", "Gambir"]',
+                'no_kontak' => '(021) 220 37785',
             ], [
                 'bentuk' => null,
                 'nama' => 'Limas',
@@ -153,10 +183,20 @@ class EkspedisiSeeder extends Seeder
                 'alamat' => '["Jl. Kampung Bandan No.8"]',
                 'no_kontak' => '(021) 7100 3436',
             ], [
+                'bentuk' => 'CV',
+                'nama' => 'Mitra Buana',
+                'alamat' => '["Komplek DHI BLOK PP, No.17"]',
+                'no_kontak' => '(021) 662 3515',
+            ], [
                 'bentuk' => 'PT',
                 'nama' => 'Mitra Kalbar Sentosa',
                 'alamat' => '["Jl. Lodan Raya No.6C"]',
                 'no_kontak' => '0821 5160 5345',
+            ], [
+                'bentuk' => null,
+                'nama' => 'Multi Intim',
+                'alamat' => '["Jl. Kasuari No.19, Surabaya"]',
+                'no_kontak' => '0812 9120 0168',
             ], [
                 'bentuk' => 'CV',
                 'nama' => 'New Putra Duta',
@@ -172,6 +212,16 @@ class EkspedisiSeeder extends Seeder
                 'nama' => 'Putra Guna',
                 'alamat' => '["Komplek Ruko Permata Ancol", "BLOK P No.9"]',
                 'no_kontak' => '(021) 6471 1264',
+            ], [
+                'bentuk' => null,
+                'nama' => 'Putra Mandiri Transindo',
+                'alamat' => '["Komplek DHI BLOK MM, No.3"]',
+                'no_kontak' => '(021) 6682 685',
+            ], [
+                'bentuk' => 'CV',
+                'nama' => 'Putra Panorama',
+                'alamat' => '["Jl. Perniagaan Barat II", "GG. Istal No.1, Pasar Pagi"]',
+                'no_kontak' => '(021) 6907 479',
             ], [
                 'bentuk' => 'PT',
                 'nama' => 'Ratu Berlian Makmur',
@@ -203,6 +253,11 @@ class EkspedisiSeeder extends Seeder
                 'alamat' => '["Jl. Tongkol No.6", "Ruko BR"]',
                 'no_kontak' => '0812 3496 5888',
             ], [
+                'bentuk' => 'CV',
+                'nama' => 'Sukses Karunia Sejahtera',
+                'alamat' => '["Jl. Kampung Bandan No.1"]',
+                'no_kontak' => '0851 0529 2979',
+            ], [
                 'bentuk' => null,
                 'nama' => 'Sumber Urip',
                 'alamat' => '["Jl. Pangeran Jayakarta No.16, 6-7"]',
@@ -227,11 +282,6 @@ class EkspedisiSeeder extends Seeder
                 'nama' => 'TTM',
                 'alamat' => '["Lodan Center BLOK C, No.10"]',
                 'no_kontak' => '0856 1171 138',
-            ], [
-                'bentuk' => null,
-                'nama' => 'Multi Intim',
-                'alamat' => '["Jl. Kasuari No.19, Surabaya"]',
-                'no_kontak' => '0812 9120 0168',
             ], [
                 'bentuk' => null,
                 'nama' => 'Wira Agung',
