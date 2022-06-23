@@ -23,6 +23,16 @@ class EkspedisiSeeder extends Seeder
                 'alamat' => '["Jl. RE Martadinata", "Pergudangan Caraka, BLOK 1K", "Tj. Priok"]',
                 'no_kontak' => '(021) 4391 3388',
             ], [
+                'bentuk' => null,
+                'nama' => 'AFRO',
+                'alamat' => '["Komplek Ruko Permata Ancol BLOK K-33"]',
+                'no_kontak' => '(021) 645 0978',
+            ], [
+                'bentuk' => null,
+                'nama' => 'ALTRANS',
+                'alamat' => '["Jl. Agung Timur 8, BLOK 2", "Ruko Prima Sunter"]',
+                'no_kontak' => '(021) 651 0665',
+            ], [
                 'bentuk' => 'CV',
                 'nama' => 'Angkasa',
                 'alamat' => '["Jl. Mangga Dua Raya", "Ruko Mangga Dua Plaza", "BLOK B, No. 06"]',
@@ -42,6 +52,11 @@ class EkspedisiSeeder extends Seeder
                 'nama' => 'Arung Samudra Express',
                 'alamat' => '["Jl. Sukarjo Wiryo Pranoto No.11 B", "(Depan Stasiun KA Sawah Besar)"]',
                 'no_kontak' => '(021) 6285 574',
+            ], [
+                'bentuk' => null,
+                'nama' => 'Atlantic Cargo',
+                'alamat' => '["Komplek Ruko Permata Ancol", "BLOK L-20"]',
+                'no_kontak' => '(021) 6457 856',
             ], [
                 'bentuk' => null,
                 'nama' => 'Bahari Utama Jaya',
@@ -99,6 +114,16 @@ class EkspedisiSeeder extends Seeder
                 'no_kontak' => '0877 7242 7956',
             ], [
                 'bentuk' => null,
+                'nama' => 'Dakota',
+                'alamat' => '["Gunung Putri, Wanaherang"]',
+                'no_kontak' => null,
+            ], [
+                'bentuk' => null,
+                'nama' => 'Davindo',
+                'alamat' => '["Jl. Lodan Raya No.15 B", "(Depan MKS)"]',
+                'no_kontak' => '0811 9100 122',
+            ], [
+                'bentuk' => null,
                 'nama' => 'Domestic Universal Cargo',
                 'alamat' => '["Komplek Permata Ancol BLOK M/31"]',
                 'no_kontak' => '(021) 6456 565',
@@ -122,6 +147,11 @@ class EkspedisiSeeder extends Seeder
                 'nama' => 'Handai Terang Sentosa',
                 'alamat' => '["Jl. Raya Pakin", "Komplek Mitra Bahari", "BLOK C, No.16"]',
                 'no_kontak' => '(021) 6625 172',
+            ], [
+                'bentuk' => null,
+                'nama' => 'HWU',
+                'alamat' => '["Jl. Gunung Sahari Raya", "Komplek Marinatama BLOK J No.1"]',
+                'no_kontak' => '(021) 6470 0279',
             ], [
                 'bentuk' => 'PT',
                 'nama' => 'Indokarya',
@@ -158,6 +188,11 @@ class EkspedisiSeeder extends Seeder
                 'alamat' => '["Jl. Bandengan Utara", "Ruko Mega Bandengan 81", "Blok B No.49"]',
                 'no_kontak' => '0822 9917 0903',
             ], [
+                'bentuk' => null,
+                'nama' => 'Karyati',
+                'alamat' => '["Jl. Daan Mogot KM 12,8", "Pergudangan Prima 2 KAV 7, No.5"]',
+                'no_kontak' => '0878 8698 1348',
+            ], [
                 'bentuk' => 'PT',
                 'nama' => 'KSI Logistics',
                 'alamat' => '["Jl. Cideng Barat, No.88A", "Gambir"]',
@@ -192,6 +227,16 @@ class EkspedisiSeeder extends Seeder
                 'nama' => 'Mitra Kalbar Sentosa',
                 'alamat' => '["Jl. Lodan Raya No.6C"]',
                 'no_kontak' => '0821 5160 5345',
+            ], [
+                'bentuk' => null,
+                'nama' => 'Mitra Samudra',
+                'alamat' => '["Jl. Lodan Raya 2", "Komplek Ruko Lodan Center", "BLOK L No.17"]',
+                'no_kontak' => '0821 9560 1720',
+            ], [
+                'bentuk' => 'PT',
+                'nama' => 'Multi Express Trasindo',
+                'alamat' => '["Jl. Sukarjo Wiryo Pranoto No.11D", "Depan Stasiun KA. Sawah Besar"]',
+                'no_kontak' => '(021) 625 9158',
             ], [
                 'bentuk' => null,
                 'nama' => 'Multi Intim',
