@@ -16,89 +16,94 @@ class BahanSeeder extends Seeder
     public function run()
     {
         $bahan = [[
-            'nama' => 'Amplas(RY)',
+            'nama' => 'Amplas(CA)',
             'tipe' => null,
             'id' => 1,
             'harga' => 15000
         ], [
-            'nama' => 'BigDot(MC)',
-            'tipe' => 'A',
+            'nama' => 'Amplas(RY)',
+            'tipe' => null,
             'id' => 2,
-            'harga' => 13000
+            'harga' => 15000
         ], [
-            'nama' => 'C24',
+            'nama' => 'BigDot(MC)',
             'tipe' => 'A',
             'id' => 3,
             'harga' => 13000
         ], [
-            'nama' => 'C30(MC)',
+            'nama' => 'C24',
             'tipe' => 'A',
             'id' => 4,
             'harga' => 13000
         ], [
-            'nama' => 'C38(EX)',
+            'nama' => 'C30(MC)',
             'tipe' => 'A',
             'id' => 5,
             'harga' => 13000
         ], [
-            'nama' => 'C38(MC)',
+            'nama' => 'C38(EX)',
             'tipe' => 'A',
             'id' => 6,
             'harga' => 13000
         ], [
+            'nama' => 'C38(MC)',
+            'tipe' => 'A',
+            'id' => 7,
+            'harga' => 13000
+        ], [
             'nama' => 'Carbon',
             'tipe' => null,
-            'id' => 7,
+            'id' => 8,
             'harga' => 17000
         ], [
             'nama' => 'Grafitti',
             'tipe' => 'A',
-            'id' => 8,
+            'id' => 9,
             'harga' => 13000
         ], [
             'nama' => 'Kulit Jeruk',
             'tipe' => 'B',
-            'id' => 9,
+            'id' => 10,
             'harga' => 11500
         ], [
             'nama' => 'L55(CK)',
             'tipe' => null,
-            'id' => 10,
+            'id' => 11,
             'harga' => 12000
         ], [
             'nama' => 'LuckyHole Hitam',
             'tipe' => 'B',
-            'id' => 11,
+            'id' => 12,
             'harga' => 10000
         ], [
             'nama' => 'LuckyHole Warna',
             'tipe' => 'B',
-            'id' => 12,
+            'id' => 13,
             'harga' => 10000
         ], [
             'nama' => 'Navaro(MC)',
             'tipe' => 'A',
-            'id' => 13,
+            'id' => 14,
             'harga' => 13000
         ], [
             'nama' => 'U-Tangan(MC)',
             'tipe' => 'A',
-            'id' => 14,
+            'id' => 15,
             'harga' => 13000
         ], [
             'nama' => 'Vario Coklat',
             'tipe' => 'A',
-            'id' => 15,
+            'id' => 16,
             'harga' => 13000
         ], [
             'nama' => 'Vario(M)',
             'tipe' => 'A',
-            'id' => 16,
+            'id' => 17,
             'harga' => 13000
         ], [
             'nama' => 'Vario(MC)',
             'tipe' => 'A',
-            'id' => 17,
+            'id' => 18,
             'harga' => 13000
         ]];
 

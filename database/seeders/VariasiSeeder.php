@@ -28,7 +28,19 @@ class VariasiSeeder extends Seeder
             'id' => 3,
             'harga' => 500
         ], [
+            'nama' => 'LG.Mika',
+            'id' => 4,
+            'harga' => 500
+        ], [
+            'nama' => 'LG.Polymas',
+            'id' => 4,
+            'harga' => 500
+        ], [
             'nama' => 'LG.Sablon',
+            'id' => 4,
+            'harga' => 500
+        ], [
+            'nama' => 'LG.Stiker',
             'id' => 4,
             'harga' => 500
         ], [

@@ -26,7 +26,7 @@ class JahitSeeder extends Seeder
             'id' => 2,
             'harga' => 1000
         ], [
-            'nama' => 'RX-King',
+            'nama' => 'RXK',
             'id' => 3,
             'harga' => 1000
         ], [
