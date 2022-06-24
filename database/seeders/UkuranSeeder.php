@@ -63,6 +63,13 @@ class UkuranSeeder extends Seeder
                 'nama' => 'Mio Soul GT 125',
                 'nama_nota' => 'Mio Soul GT 125',
                 'harga' => 5500
+            ], [
+                'id' => 10,
+                'nama' => 'S-BIG-JB 100x68.5',
+                'nama_nota' => 'S-BIG-JB',
+                'harga' => 5500
+            ], [
+
             ]
         ];
         for ($i = 0; $i < count($ukuran); $i++) {

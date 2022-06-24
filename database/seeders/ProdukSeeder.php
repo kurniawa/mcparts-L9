@@ -186,6 +186,38 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 150
             ],
             [
+                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 6, 'standar_id' => null, 'kombi_id' => null,
+                'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
+                'nama' => 'Amplas(RY) Polos uk.S-JB 97x53',
+                'nama_nota' => 'SJ Amplas(RY) Polos uk.S-JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150
+            ],
+            [
+                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 2, 'standar_id' => null, 'kombi_id' => null,
+                'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
+                'nama' => 'Amplas(RY) Polos uk.S-BIG-JB 100x68.5',
+                'nama_nota' => 'SJ Amplas(RY) Polos uk.S-BIG-JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100
+            ],
+            [
+                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 2, 'standar_id' => null, 'kombi_id' => null,
+                'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
+                'nama' => 'Amplas(RY) T.Tribal 1-6 Sablon',
+                'nama_nota' => 'SJ Amplas(RY) T.Tribal 1-6 Sablon',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100
+            ],
+            [
+                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 2, 'standar_id' => null, 'kombi_id' => null,
+                'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
+                'nama' => 'Amplas(RY) Tulang Bayang + LG.Sablon',
+                'nama_nota' => 'SJ Amplas(RY) Tulang Bayang + LG.Sablon',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100
+            ],
+            [
                 'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(SBT) LG.Bludru',
@@ -236,8 +268,8 @@ class ProdukSeeder extends Seeder
             [
                 'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
-                'nama' => 'Amplas(SBT) Polos uk.JB 93x53 + jht.Univ',
-                'nama_nota' => 'SJ Amplas(SBT) Polos uk.JB + jht.Univ',
+                'nama' => 'Amplas(SBT) Polos uk.JB 93x53 + jht.JB',
+                'nama_nota' => 'SJ Amplas(SBT) Polos uk.JB + jht.JB',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 150
             ],

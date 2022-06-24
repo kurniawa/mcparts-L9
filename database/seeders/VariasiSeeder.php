@@ -33,32 +33,42 @@ class VariasiSeeder extends Seeder
             'harga' => 500
         ], [
             'nama' => 'LG.Polymas',
-            'id' => 4,
+            'id' => 5,
             'harga' => 500
         ], [
             'nama' => 'LG.Sablon',
-            'id' => 4,
+            'id' => 6,
             'harga' => 500
         ], [
             'nama' => 'LG.Stiker',
-            'id' => 4,
+            'id' => 7,
             'harga' => 500
         ], [
+            'nama' => 'Press',
+            'id' => 8,
+            'harga' => 3000
+        ], [
             'nama' => 'T.Bayang',
-            'id' => 5,
+            'id' => 8,
             'harga' => 3000
         ], [
             'nama' => 'T.Polimas',
-            'id' => 6,
+            'id' => 9,
             'harga' => 4000
         ], [
             'nama' => 'T.Sablon',
-            'id' => 7,
+            'id' => 10,
             'harga' => 4000
         ], [
             'nama' => 'T.Trisula',
-            'id' => 8,
+            'id' => 11,
             'harga' => 4000
+        ], [
+            'nama' => 'Tulang Bayang',
+            'id' => 12,
+            'harga' => 4000
+        ], [
+
         ]];
 
         for ($i = 0; $i < count($variasi); $i++) {
