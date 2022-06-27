@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('bahans', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('tipe', 20)->nullable();
+            $table->string('grade', 2)->nullable(); // ada grade A dan B
             $table->string('ktrg')->nullable();
         });
     }

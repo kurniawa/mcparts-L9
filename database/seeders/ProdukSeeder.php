@@ -18,7 +18,7 @@ class ProdukSeeder extends Seeder
     {
         $produk = [
             [
-                'tipe' => null,'bahan_id' => null,'variasi_id' => null,'ukuran_id' => null,'jahit_id' => null,'standar_id' => null,'kombi_id' => null,
+                'tipe' => 'varia','bahan_id' => 1,'variasi_id' => 1,'ukuran_id' => null,'jahit_id' => null,'standar_id' => null,'kombi_id' => null,
                 'busastang_id' => null,'tankpad_id' => null,'tspjap_id' => null,'tipe_bahan' => null,'stiker_id' => null,
                 'nama' => 'Amplas(CA) Polos',
                 'nama_nota' => 'SJ Amplas(CA) Polos',
@@ -26,7 +26,7 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 150
             ],
             [
-                'tipe' => null,'bahan_id' => null,'variasi_id' => null,'ukuran_id' => null,'jahit_id' => null,'standar_id' => null,'kombi_id' => null,
+                'tipe' => 'varia','bahan_id' => 1,'variasi_id' => 1,'ukuran_id' => null,'jahit_id' => 1,'standar_id' => null,'kombi_id' => null,
                 'busastang_id' => null,'tankpad_id' => null,'tspjap_id' => null,'tipe_bahan' => null,'stiker_id' => null,
                 'nama' => 'Amplas(CA) Polos + jht.Univ',
                 'nama_nota' => 'SJ Amplas(CA) Polos + jht.Univ',
@@ -34,7 +34,7 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 150
             ],
             [
-                'tipe' => null,'bahan_id' => null,'variasi_id' => null,'ukuran_id' => null,'jahit_id' => null,'standar_id' => null,'kombi_id' => null,
+                'tipe' => 'varia','bahan_id' => 1,'variasi_id' => 7,'ukuran_id' => null,'jahit_id' => null,'standar_id' => null,'kombi_id' => null,
                 'busastang_id' => null,'tankpad_id' => null,'tspjap_id' => null,'tipe_bahan' => null,'stiker_id' => null,
                 'nama' => 'Amplas(CA) LG.Stiker',
                 'nama_nota' => 'SJ Amplas(CA) LG.Stiker',
@@ -42,7 +42,7 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 150
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) LG.Bayang',
                 'nama_nota' => 'SJ Amplas(RY) LG.Bayang',
@@ -50,7 +50,7 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 150
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 3, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) LG.Bludru',
                 'nama_nota' => 'SJ Amplas(RY) LG.Bludru',
@@ -58,7 +58,7 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 150
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 3, 'ukuran_id' => null, 'jahit_id' => 1, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) LG.Bludru + jht.Univ',
                 'nama_nota' => 'SJ Amplas(RY) LG.Bludru + jht.Univ',
@@ -66,7 +66,7 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 150
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 4, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) LG.Bordir',
                 'nama_nota' => 'SJ Amplas(RY) LG.Bordir',
@@ -74,7 +74,7 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 150
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 4, 'ukuran_id' => 1, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) LG.Bordir uk.JB 93x53',
                 'nama_nota' => 'SJ Amplas(RY) LG.Bordir uk.JB',
@@ -82,15 +82,15 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 150
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 5, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) LG.Mika 1W',
                 'nama_nota' => 'SJ Amplas(RY) LG.Mika 1W',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 150
-            ], // Logo Mika, id nya?
+            ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 6, 'ukuran_id' => 1, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 6, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) LG.Polymas',
                 'nama_nota' => 'SJ Amplas(RY) LG.Polymas',
@@ -98,12 +98,12 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 150
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 6, 'ukuran_id' => 1, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 6, 'ukuran_id' => 1, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) LG.Polymas uk.JB 93x53',
                 'nama_nota' => 'SJ Amplas(RY) LG.Polymas uk.JB',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150//
             ],
             [
                 'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 6, 'ukuran_id' => 1, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
