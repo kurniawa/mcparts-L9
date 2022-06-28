@@ -76,6 +76,7 @@ class VarianSeeder extends Seeder
             ['kategori' => null, 'nama' => 'Tribal 6'],
             ['kategori' => null, 'nama' => 'Tribal 46'],
             ['kategori' => null, 'nama' => 'Trisula'], // 47
+            ['kategori' => 'mika', 'nama' => '1W'],
         ];
 
         for ($i = 0; $i < count($varian); $i++) {

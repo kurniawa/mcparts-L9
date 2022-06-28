@@ -32,7 +32,7 @@ class VariasiSeeder extends Seeder
             'id' => 4,
             'harga' => 500
         ], [
-            'nama' => 'LG.Mika 1W',
+            'nama' => 'LG.Mika',
             'id' => 5,
             'harga' => 500
         ], [

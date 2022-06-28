@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('attsjvariasis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('produk_id');
-            $table->foreignId('variasi_varian_id');
-            $table->tinyInteger('urutan')->nullable();
+            $table->foreignId('variasi_id');
+            $table->foreignId('varian_id')->nullable();
         });
     }
 
