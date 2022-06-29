@@ -42,7 +42,7 @@ class BahanSeeder extends Seeder
             'harga' => 14500,
             'ktrg' => 'Big Dot dengan backing warna Coklat, tanpa merek. Pengambilan dari MAX.',
         ], [
-            'nama' => 'Big Dot(MC)',
+            'nama' => 'Big Dot(MC)', // 6
             'grade' => 'A',
             'harga' => 14500,
             'ktrg' => 'Big Dot dengan merek MC. Pengambilan dari MAX',

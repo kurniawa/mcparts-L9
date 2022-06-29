@@ -68,7 +68,7 @@ class VariasiSeeder extends Seeder
             'id' => 13,
             'harga' => 4000
         ], [
-            'nama' => 'Tulang Bayang',
+            'nama' => 'Tulang Bayang', // dikasih nama lengkap Tulang, supaya ga ke tuker antara singkatan T dengan TL
             'id' => 14,
             'harga' => 4000
         ], [

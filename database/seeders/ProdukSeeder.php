@@ -162,135 +162,135 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 150 //18
             ],
             [
-                'tipe' => 'varia','bahan_id' => 1,'variasi_id' => 1,'ukuran_id' => null,'jahit_id' => 1,'standar_id' => null,'kombi_id' => null,
+                'tipe' => 'varia','bahan_id' => 3,'variasi_id' => 1,'ukuran_id' => null,'jahit_id' => 1,'standar_id' => null,'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) Polos + jht.Univ',
                 'nama_nota' => 'SJ Amplas(RY) Polos + jht.Univ',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150 //19
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 6, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) Polos uk.JB 93x53',
                 'nama_nota' => 'SJ Amplas(RY) Polos uk.JB',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150 // 20
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 2, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 4, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) Polos uk.JB 93x53 + jht.JB',
                 'nama_nota' => 'SJ Amplas(RY) Polos uk.JB + jht.JB',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150 // 21
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 6, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 1, 'ukuran_id' => 2, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) Polos uk.S-JB 97x53',
                 'nama_nota' => 'SJ Amplas(RY) Polos uk.S-JB',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150 // 22
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 2, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 1, 'ukuran_id' => 11, 'jahit_id' => 2, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) Polos uk.S-BIG-JB 100x68.5',
                 'nama_nota' => 'SJ Amplas(RY) Polos uk.S-BIG-JB',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 100
+                'aturan_packing' => 100 // 23
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 2, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'variasi_id' => 7, 'ukuran_id' => 1, 'jahit_id' => 2, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
-                'nama' => 'Amplas(RY) T.Tribal 1-6 Sablon',
-                'nama_nota' => 'SJ Amplas(RY) T.Tribal 1-6 Sablon',
+                'nama' => 'Amplas(RY) T.Sablon Tribal 1-6',
+                'nama_nota' => 'SJ Amplas(RY) T.Sablon Tribal 1-6',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 100
+                'aturan_packing' => 100 // 24
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 2, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 3, 'ukuran_id' => 1, 'jahit_id' => 2, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(RY) Tulang Bayang + LG.Sablon',
                 'nama_nota' => 'SJ Amplas(RY) Tulang Bayang + LG.Sablon',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 100
+                'aturan_packing' => 100 //25
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 4, 'variasi_id' => 3, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(SBT) LG.Bludru',
                 'nama_nota' => 'SJ Amplas(SBT) LG.Bludru',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150 // 26
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 4, 'variasi_id' => 4, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(SBT) LG.Bordir',
                 'nama_nota' => 'SJ Amplas(SBT) LG.Bordir',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150 // 27
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 4, 'variasi_id' => 1, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(SBT) LG.Polymas',
                 'nama_nota' => 'SJ Amplas(SBT) LG.Polymas',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150 // 28
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 4, 'variasi_id' => 8, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(SBT) LG.Stiker',
                 'nama_nota' => 'SJ Amplas(SBT) LG.Stiker',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150 // 29
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 4, 'variasi_id' => 1, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(SBT) Polos',
                 'nama_nota' => 'SJ Amplas(SBT) Polos',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150 // 30
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 4, 'variasi_id' => 1, 'ukuran_id' => null, 'jahit_id' => 1, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(SBT) Polos + jht.Univ',
                 'nama_nota' => 'SJ Amplas(SBT) Polos + jht.Univ',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150 // 31
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 1, 'variasi_id' => 2, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 4, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 4, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Amplas(SBT) Polos uk.JB 93x53 + jht.JB',
                 'nama_nota' => 'SJ Amplas(SBT) Polos uk.JB + jht.JB',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150 // 32
             ],
             [
-                'tipe' => 'varia', 'bahan_id' => 2, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 2, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'varia', 'bahan_id' => 6, 'variasi_id' => 1, 'ukuran_id' => 1, 'jahit_id' => 4, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'BigDot(MC) Polos uk.JB 93x53 + jht.JB',
                 'nama_nota' => 'SJ BigDot(MC) Polos uk.JB + jht.JB',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 150
+                'aturan_packing' => 150 // 33
             ],
             [
-                'tipe' => 'kombi', 'bahan_id' => null, 'variasi_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => 6,
+                'tipe' => 'kombi', 'bahan_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => 6,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Motif Sixpack 2 Warna + jht.Univ',
                 'nama_nota' => 'SJ Motif Sixpack 2 Warna + jht.Univ',
                 'tipe_packing' => 'colly',
-                'aturan_packing' => 100
+                'aturan_packing' => 100 // 34
             ],
             [
-                'tipe' => 'std', 'bahan_id' => null, 'variasi_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => 20, 'kombi_id' => null,
+                'tipe' => 'std', 'bahan_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => 20, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Standar Supra Fit',
                 'nama_nota' => 'SJ Standar Supra Fit',
@@ -298,7 +298,7 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 150
             ],
             [
-                'tipe' => 'tankpad', 'bahan_id' => null, 'variasi_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'tankpad', 'bahan_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => 5, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'TP Fox Dimensi',
                 'nama_nota' => 'TP Fox Dimensi',
@@ -306,7 +306,7 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 500
             ],
             [
-                'tipe' => 'busastang', 'bahan_id' => null, 'variasi_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'busastang', 'bahan_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => 1, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => null,
                 'nama' => 'Busa-Stang',
                 'nama_nota' => 'Busa-Stang',
@@ -314,7 +314,7 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 72
             ],
             [
-                'tipe' => 'spjap', 'bahan_id' => null, 'variasi_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'spjap', 'bahan_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => 2, 'tipe_bahan' => 'A', 'stiker_id' => null,
                 'nama' => 'Bahan(A) T.Sixpack + Busa uk.JB + jht.JB',
                 'nama_nota' => 'SJ Bahan(A) T.Sixpack + Busa uk.JB + jht.JB',
@@ -322,7 +322,7 @@ class ProdukSeeder extends Seeder
                 'aturan_packing' => 100
             ],
             [
-                'tipe' => 'stiker', 'bahan_id' => null, 'variasi_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
+                'tipe' => 'stiker', 'bahan_id' => null, 'ukuran_id' => null, 'jahit_id' => null, 'standar_id' => null, 'kombi_id' => null,
                 'busastang_id' => null, 'tankpad_id' => null, 'tspjap_id' => null, 'tipe_bahan' => null, 'stiker_id' => 1,
                 'nama' => 'Stiker Api',
                 'nama_nota' => 'Stiker Api',

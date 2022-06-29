@@ -57,7 +57,7 @@ class UkuranSeeder extends Seeder
                 'harga' => 5500
             ], [
                 'nama' => 'S-BIG 100x57',
-                'nama_nota' => 'S-BIG',
+                'nama_nota' => 'S-BIG', // 10
                 'harga' => 7500
             ], [
                 'nama' => 'S-BIG-JB 100x68.5',
