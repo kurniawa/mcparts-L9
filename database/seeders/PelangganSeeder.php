@@ -707,7 +707,7 @@ class PelangganSeeder extends Seeder
         for ($i = 0; $i < count($pelanggan); $i++) {
             DB::table('pelanggans')->insert([
                 'nama' => $pelanggan[$i]['nama'],
-                'alamat' => $pelanggan[$i]['alamat'],
+                'alamat' => json_encode($pelanggan[$i]['alamat']),
                 'no_kontak' => $pelanggan[$i]['no_kontak'],
                 'pulau_id' => $pelanggan[$i]['pulau_id'],
                 'daerah_id' => $pelanggan[$i]['daerah_id'],

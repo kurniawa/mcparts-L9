@@ -35,7 +35,9 @@ class DatabaseSeeder extends Seeder
             BusastangSeeder::class,
             StikerSeeder::class,
             ProdukSeeder::class,
-            SpkSeeder::class,
+            // SpkSeeder::class,
+            VarianSeeder::class,
+            AttsjvariasiSeeder::class,
         ]);
     }
 }

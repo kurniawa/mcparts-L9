@@ -55,7 +55,7 @@ class BahanSeeder extends Seeder
             'nama' => 'C24',
             'grade' => 'B',
             'harga' => 13000,
-            'ktrg' => 'Motif: Biji Kopi, ketebalan nya 0.7 mm. Dulu keterangan ketebalan masih ditulis, sekarang tidak lagi ditulis, karena sudah pasti demikian dan untuk menghindari percekcokan dengan pelanggan. Nama lain C24 adalah Vario 0.7, nanti penamaan di Nota tergantung pelanggan.',
+            'ktrg' => 'Motif: Biji Kopi. Ketebalan:0.7 mm. Nama lain: Vario 0.7, penamaan tergantung pelanggan. Dulu keterangan ketebalan masih ditulis, sekarang tidak lagi ditulis, karena sudah pasti demikian dan untuk menghindari percekcokan dengan pelanggan.',
         ], [
             'nama' => 'C30(MC)',
             'grade' => 'A',
@@ -64,7 +64,8 @@ class BahanSeeder extends Seeder
         ], [
             'nama' => 'C38(EX)', // ?
             'grade' => 'A',
-            'harga' => 14500
+            'harga' => 14500,
+            'ktrg' => 'Pengambilan dari: MAX. Motif: C38 (mirip Big Dot namun bentuk nya agak oval). Ketebalan: 0.9 mm.',
         ], [
             'nama' => 'C38(MC)',
             'grade' => 'A',
@@ -74,7 +75,7 @@ class BahanSeeder extends Seeder
             'nama' => 'Carbon',
             'grade' => null,
             'harga' => 19000,
-            'ktrg' => 'Ketebalan: 0.8 mm. Merek MC (logo baru bersayap). Backing: Biru. Pengambilan dari Royal. Tidak ada keterangan RY, karena memang saat ini hanya Royal yang memproduksi bahan dengan motif ini. Oleh karena itu tidak perlu tertulis code yang membedakan.',
+            'ktrg' => 'Ketebalan: 0.8 mm. Merek MC (logo new bersayap). Backing: Biru. Pengambilan dari Royal. Tidak ada keterangan RY, karena memang saat ini hanya Royal yang memproduksi bahan dengan motif ini. Oleh karena itu tidak perlu tertulis code yang membedakan.',
         ], [
             'nama' => 'Graffiti',
             'grade' => 'A',
@@ -205,8 +206,6 @@ class BahanSeeder extends Seeder
             'grade' => null,
             'harga' => 30500,
             'ktrg' => 'Pengambilan dari: Fajar Baru. Ketebalan 1.3 mm. Backing: Putih, merek ZEUS. Bahan kualitas premium menyerupai MBtech, dengan harga lebih murah, sehingga mendapat julukan MBtech Killer.',
-        ], [
-
         ]];
 
         for ($i = 0; $i < count($bahan); $i++) {

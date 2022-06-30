@@ -29,28 +29,28 @@ class JahitSeeder extends Seeder
             'harga' => 1000
         ], [
             'nama' => 'JB',
-            'harga' => 4000
+            'harga' => 1000
         ], [
             'nama' => 'Scoopy',
-            'harga' => 4000
+            'harga' => 1000
         ], [
             'nama' => 'NMAX',
-            'harga' => 5500
+            'harga' => 1000
         ], [
             'nama' => 'PCX',
-            'harga' => 5500
+            'harga' => 1000
         ], [
             'nama' => 'Aerox',
-            'harga' => 5500
+            'harga' => 1000
         ], [
             'nama' => 'Freego',
-            'harga' => 5500
+            'harga' => 1000
         ], [
             'nama' => 'Vario 150',
-            'harga' => 5500
+            'harga' => 1000
         ], [
             'nama' => 'Mio Soul GT 125', // 93*56
-            'harga' => 5500
+            'harga' => 1000
         ]
         ];
 

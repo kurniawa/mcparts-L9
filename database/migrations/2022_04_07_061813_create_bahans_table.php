@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('grade', 2)->nullable(); // ada grade A dan B
-            $table->string('ktrg')->nullable();
+            $table->string('ktrg', 1000)->nullable();
         });
     }
 

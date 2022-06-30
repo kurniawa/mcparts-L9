@@ -22,31 +22,31 @@ class VariasiSeeder extends Seeder
         ], [
             'nama' => 'LG.Bayang',
             'id' => 2,
-            'harga' => 500
+            'harga' => 1000
         ], [
             'nama' => 'LG.Bludru',
             'id' => 3,
-            'harga' => 500
+            'harga' => 1000
         ], [
             'nama' => 'LG.Bordir',
             'id' => 4,
-            'harga' => 500
+            'harga' => 1000
         ], [
             'nama' => 'LG.Mika',
             'id' => 5,
-            'harga' => 500
+            'harga' => 1000
         ], [
             'nama' => 'LG.Polymas',
             'id' => 6,
-            'harga' => 500
+            'harga' => 1000
         ], [
             'nama' => 'LG.Sablon',
             'id' => 7,
-            'harga' => 500
+            'harga' => 1000
         ], [
             'nama' => 'LG.Stiker',
             'id' => 8,
-            'harga' => 500
+            'harga' => 4000
         ], [
             'nama' => 'Press',
             'id' => 9,
@@ -58,7 +58,7 @@ class VariasiSeeder extends Seeder
         ], [
             'nama' => 'T.Polimas',
             'id' => 11,
-            'harga' => 4000
+            'harga' => 5000
         ], [
             'nama' => 'T.Sablon',
             'id' => 12,
@@ -70,9 +70,7 @@ class VariasiSeeder extends Seeder
         ], [
             'nama' => 'Tulang Bayang', // dikasih nama lengkap Tulang, supaya ga ke tuker antara singkatan T dengan TL
             'id' => 14,
-            'harga' => 4000
-        ], [
-
+            'harga' => 5000
         ]];
 
         for ($i = 0; $i < count($variasi); $i++) {

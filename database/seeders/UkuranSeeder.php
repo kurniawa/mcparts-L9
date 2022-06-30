@@ -63,8 +63,6 @@ class UkuranSeeder extends Seeder
                 'nama' => 'S-BIG-JB 100x68.5',
                 'nama_nota' => 'S-BIG-JB',
                 'harga' => 9500
-            ], [
-
             ]
         ];
         for ($i = 0; $i < count($ukuran); $i++) {
