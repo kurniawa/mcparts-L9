@@ -701,7 +701,8 @@ class PelangganSeeder extends Seeder
         ];
 
         $pelanggan_resellers = [
-            ['reseller_id'=>2, 'pelanggan_id'=>3]
+            ['reseller_id'=>6, 'pelanggan_id'=>2],
+            ['reseller_id'=>6, 'pelanggan_id'=>3],
         ];
 
         for ($i = 0; $i < count($pelanggan); $i++) {

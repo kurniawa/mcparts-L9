@@ -70,51 +70,51 @@ class InsertingGeneralController extends Controller
         $motif_harga = $motif->motif_harga();
 
         $mode = $get['mode'];
-        $tipe = $get['tipe'];
+        // $tipe = $get['tipe'];
 
-        if ($mode === 'SPK_BARU') {
-            if ($tipe === 'varia') {
-                $judul = 'SPK Baru: Tambah SJ Variasi';
-            } elseif ($tipe === 'kombinasi') {
-                $judul = 'SPK BARU: Tambah SJ Kombinasi';
-            } elseif ($tipe === 'standar') {
-                $judul = 'SPK BARU: Tambah SJ Standar';
-            } elseif ($tipe === 'tankpad') {
-                $judul = 'SPK BARU: Tambah SJ Tankpad';
-            } elseif ($tipe === 'busastang') {
-                $judul = 'SPK BARU: Tambah SJ Busastang';
-            } elseif ($tipe === 'tspjap') {
-                $judul = 'SPK BARU: Tambah SJ T.Sixpack/Japstyle';
-            } elseif ($tipe === 'stiker') {
-                $judul = 'SPK BARU: Tambah SJ Stiker';
-            } elseif ($tipe === 'motif') {
-                $judul = 'SPK BARU: Tambah SJ Motif';
-            }
-        } elseif ($mode === 'ADD PRODUCT FROM DETAIL') {
-            if ($tipe === 'varia') {
-                $judul = 'Edit SPK: Tambah SJ Variasi';
-            } elseif ($tipe === 'kombinasi') {
-                $judul = 'Edit SPK: Tambah SJ Kombinasi';
-            } elseif ($tipe === 'standar') {
-                $judul = 'Edit SPK: Tambah SJ Standar';
-            } elseif ($tipe === 'tankpad') {
-                $judul = 'Edit SPK: Tambah SJ Tankpad';
-            } elseif ($tipe === 'busastang') {
-                $judul = 'Edit SPK: Tambah SJ Busastang';
-            } elseif ($tipe === 'tspjap') {
-                $judul = 'Edit SPK: Tambah SJ T.Sixpack/Japstyle';
-            } elseif ($tipe === 'stiker') {
-                $judul = 'Edit SPK: Tambah SJ Stiker';
-            } elseif ($tipe === 'motif') {
-                $judul = 'SPK BARU: Tambah SJ Motif';
-            }
-        }
+        // if ($mode === 'SPK_BARU') {
+        //     if ($tipe === 'varia') {
+        //         $judul = 'SPK Baru: Tambah SJ Variasi';
+        //     } elseif ($tipe === 'kombinasi') {
+        //         $judul = 'SPK BARU: Tambah SJ Kombinasi';
+        //     } elseif ($tipe === 'standar') {
+        //         $judul = 'SPK BARU: Tambah SJ Standar';
+        //     } elseif ($tipe === 'tankpad') {
+        //         $judul = 'SPK BARU: Tambah SJ Tankpad';
+        //     } elseif ($tipe === 'busastang') {
+        //         $judul = 'SPK BARU: Tambah SJ Busastang';
+        //     } elseif ($tipe === 'tspjap') {
+        //         $judul = 'SPK BARU: Tambah SJ T.Sixpack/Japstyle';
+        //     } elseif ($tipe === 'stiker') {
+        //         $judul = 'SPK BARU: Tambah SJ Stiker';
+        //     } elseif ($tipe === 'motif') {
+        //         $judul = 'SPK BARU: Tambah SJ Motif';
+        //     }
+        // } elseif ($mode === 'ADD PRODUCT FROM DETAIL') {
+        //     if ($tipe === 'varia') {
+        //         $judul = 'Edit SPK: Tambah SJ Variasi';
+        //     } elseif ($tipe === 'kombinasi') {
+        //         $judul = 'Edit SPK: Tambah SJ Kombinasi';
+        //     } elseif ($tipe === 'standar') {
+        //         $judul = 'Edit SPK: Tambah SJ Standar';
+        //     } elseif ($tipe === 'tankpad') {
+        //         $judul = 'Edit SPK: Tambah SJ Tankpad';
+        //     } elseif ($tipe === 'busastang') {
+        //         $judul = 'Edit SPK: Tambah SJ Busastang';
+        //     } elseif ($tipe === 'tspjap') {
+        //         $judul = 'Edit SPK: Tambah SJ T.Sixpack/Japstyle';
+        //     } elseif ($tipe === 'stiker') {
+        //         $judul = 'Edit SPK: Tambah SJ Stiker';
+        //     } elseif ($tipe === 'motif') {
+        //         $judul = 'SPK BARU: Tambah SJ Motif';
+        //     }
+        // }
 
         $data = [
             'spk_id' => $spk_id,
             'mode' => $mode,
-            'tipe' => $tipe,
-            'judul' => $judul,
+            // 'tipe' => $tipe,
+            // 'judul' => $judul,
             'bahans' => $label_bahans,
             'varias' => $varias_harga,
             'ukurans' => $ukurans_harga,

@@ -39,7 +39,7 @@ class Bahan extends Model
     {
         $d_bahan_a = DB::table('bahans')
             ->select('bahans.id', 'bahans.nama AS label', 'bahans.nama AS value')
-            ->where('tipe', 'A')
+            ->where('grade', 'A')
             ->orderBy('bahans.nama')->get();
         return $d_bahan_a;
     }
@@ -47,7 +47,7 @@ class Bahan extends Model
     {
         $d_bahan_b = DB::table('bahans')
             ->select('bahans.id', 'bahans.nama AS label', 'bahans.nama AS value')
-            ->where('tipe', 'B')
+            ->where('grade', 'B')
             ->orderBy('bahans.nama')->get();
         return $d_bahan_b;
     }
