@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             UkuranSeeder::class,
             JahitSeeder::class,
             KombiSeeder::class,
+            MotifSeeder::class,
             TspjapSeeder::class,
             StandarSeeder::class,
             TankpadSeeder::class,

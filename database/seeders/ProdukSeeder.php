@@ -391,7 +391,7 @@ class ProdukSeeder extends Seeder
             ]);
 
             ProdukHarga::create([
-                'produk_id' => $inserted_produk['produk_id'],
+                'produk_id' => $inserted_produk['id'],
                 'harga' => $produk[$i]['harga'],
             ]);
         }

@@ -47,6 +47,22 @@ class Produk extends Model
         return array($pelanggan_produks, $produks, $hargas);
     }
 
+    public function label_produks()
+    {
+        $produk_terbaru = DB::table('produk_hargas')
+            ->select('id', 'produk_id', 'harga', DB::raw('MAX(created_at)'))
+            ->groupBy('id', 'produk_id', 'harga', 'created_at');
+
+        $label_produks = DB::table('produks')
+            ->select('produks.id', 'produks.nama AS label', 'produks.nama AS value', 'produk_terbaru.harga', 'produks.tipe', 'produks.bahan_id', 'produks.ukuran_id', 'produks.jahit_id', 'produks.standar_id', 'produks.kombi_id', 'produks.busastang_id', 'produks.tspjap_id', 'produks.tipe_bahan', 'produks.stiker_id')
+            ->joinSub($produk_terbaru, 'produk_terbaru', function ($join) {
+                $join->on('produks.id', '=', 'produk_terbaru.produk_id');
+            })
+            ->orderBy('produks.nama')->get();
+
+        return $label_produks;
+    }
+
     /**
      * Halaman Produk
      * Komponen:

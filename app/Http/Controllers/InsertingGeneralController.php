@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\InsertingProductHelper;
 use App\Helpers\SiteSettings;
+use App\Models\Attsjvariasi;
 use App\Models\Bahan;
 use App\Models\Busastang;
 use App\Models\Jahit;
@@ -41,6 +42,8 @@ class InsertingGeneralController extends Controller
             $spk_id = $get['spk_id'];
         }
 
+        $produk = new Produk();
+        $attsjvariasis = Attsjvariasi::all();
         $bahan = new Bahan();
         $varia = new Variasi();
         $ukuran = new Ukuran();
@@ -53,6 +56,7 @@ class InsertingGeneralController extends Controller
         $stiker = new Stiker();
         $motif = new Motif();
 
+        $label_produks = $produk->label_produks();
         $label_bahans = $bahan->label_bahans();
         $varias_harga = $varia->varias_harga();
         $ukurans_harga = $ukuran->ukurans_harga();
@@ -113,6 +117,8 @@ class InsertingGeneralController extends Controller
         $data = [
             'spk_id' => $spk_id,
             'mode' => $mode,
+            'produks' => $label_produks,
+            'attsjvariasis' => $attsjvariasis,
             // 'tipe' => $tipe,
             // 'judul' => $judul,
             'bahans' => $label_bahans,
