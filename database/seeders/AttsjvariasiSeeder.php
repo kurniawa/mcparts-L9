@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Attsjvariasi;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -50,5 +51,13 @@ class AttsjvariasiSeeder extends Seeder
             ['produk_id' => 32, 'variasi_id' => 1, 'varian_id' => null],
             ['produk_id' => 33, 'variasi_id' => 1, 'varian_id' => null],
         ];
+
+        for ($i = 0; $i < count($attsjvariasi); $i++) {
+            $new_inserted_attsjvariasi = Attsjvariasi::create([
+                'produk_id' => $attsjvariasi[$i]['produk_id'],
+                'variasi_id' => $attsjvariasi[$i]['variasi_id'],
+                'varian_id' => $attsjvariasi[$i]['varian_id'],
+            ]);
+        }
     }
 }

@@ -3,13 +3,20 @@
 @section('content')
 
 <div class="container">
-    <h2>SPK Baru: Input Nama Item</h2>
+    <h2>SPK Baru: Input Item</h2>
 </div>
 
 <form action="/spk/inserting-general-db" method="POST" id="form_spk_item" class="m-1em" name="form_spk_item">
 <div class="container">
     @csrf
-    <input id="produk" type="text" name="nama_lengkap" class="form-control">
+    <label for="nama_item" class="form-label">Nama Item:</label>
+    <input id="nama_item" type="text" name="nama_lengkap" class="form-control">
+    <label for="jumlah" class="form-label">Jumlah:</label>
+    <div class="row">
+        <div class="col-4">
+            <input id="jumlah" type="number" name="jumlah" class="form-control" min="1">
+        </div>
+    </div>
 
 
     <div style="height: 30vh"></div>
@@ -40,14 +47,29 @@
 
 <script>
     const produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
-    console.log('produks');console.log(produks);
+    const attsjvariasis = {!! json_encode($attsjvariasis, JSON_HEX_TAG) !!};
 
-    $("#produk").autocomplete({
+    console.log('produks');console.log(produks);
+    console.log('attsjvariasis');console.log(attsjvariasis);
+
+    $("#nama_item").autocomplete({
         source: produks,
         select: function(event, ui) {
             // console.log(ui.item);
             if (ui.item.tipe === 'varia') {
+                let attsjvariasi_1 = attsjvariasis.find(x => x.produk_id === ui.item.id);
+                let attsjvariasi_2 = null;
+                let idx_2 = attsjvariasi_1.id;
 
+                console.log(attsjvariasi_1);
+                console.log(attsjvariasi_1.id);
+                console.log(idx_2);
+                console.log(`produk_id urutan ke-${idx_2}`);console.log(attsjvariasis[idx_2].produk_id);
+                console.log('produk_id yang dicari');console.log(attsjvariasi_1.produk_id);
+                if (attsjvariasis[idx_2].produk_id === attsjvariasi_1.produk_id) {
+                    attsjvariasi_2 = attsjvariasis[idx_2];
+                }
+                console.log(attsjvariasi_2);
             }
             $("#produk_id").val(ui.item.id);
             $("#produk_harga").val(ui.item.harga);
