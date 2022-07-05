@@ -18,7 +18,7 @@ class AttsjvariasiSeeder extends Seeder
         $attsjvariasi = [
             ['produk_id' => 1, 'variasi_id' => 1, 'varian_id' => null],
             ['produk_id' => 2, 'variasi_id' => 1, 'varian_id' => null],
-            ['produk_id' => 3, 'variasi_id' => 7, 'varian_id' => null],
+            ['produk_id' => 3, 'variasi_id' => 8, 'varian_id' => null],
             ['produk_id' => 4, 'variasi_id' => 2, 'varian_id' => null],
             ['produk_id' => 5, 'variasi_id' => 3, 'varian_id' => null],
             ['produk_id' => 6, 'variasi_id' => 3, 'varian_id' => null],

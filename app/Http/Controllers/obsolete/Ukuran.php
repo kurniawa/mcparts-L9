@@ -14,9 +14,9 @@ class Ukuran extends Model
 
     public function ukurans_harga()
     {
-        $sql = "SELECT sj_ukuran.id, sj_ukuran.nama, sj_ukuran.nama_nota, sj_ukuran_terbaru.harga FROM sj_ukuran INNER JOIN
-        (SELECT id, id_ukuran, harga, MAX(tanggal) FROM sj_ukuran_harga GROUP BY id_ukuran) AS sj_ukuran_terbaru
-        ON sj_ukuran.id=sj_ukuran_terbaru.id_ukuran";
+        // $sql = "SELECT sj_ukuran.id, sj_ukuran.nama, sj_ukuran.nama_nota, sj_ukuran_terbaru.harga FROM sj_ukuran INNER JOIN
+        // (SELECT id, id_ukuran, harga, MAX(tanggal) FROM sj_ukuran_harga GROUP BY id_ukuran) AS sj_ukuran_terbaru
+        // ON sj_ukuran.id=sj_ukuran_terbaru.id_ukuran";
 
         $ukuran_terbaru = DB::table('ukuran_hargas')
             ->select('id', 'ukuran_id', 'harga', DB::raw('MAX(created_at)'))

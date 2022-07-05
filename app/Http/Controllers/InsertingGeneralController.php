@@ -8,21 +8,22 @@ use App\Models\Attsjvariasi;
 use App\Models\Bahan;
 use App\Models\Busastang;
 use App\Models\Jahit;
-use App\Models\Kombi;
+use App\Models\Japstyle;
+use App\Models\Kombinasi;
 use App\Models\Motif;
 use App\Models\Produk;
-use App\Models\ProdukHarga;
 use App\Models\SiteSetting;
+use App\Models\Spec;
 use App\Models\Spk;
-use App\Models\SpkProduk;
 use App\Models\Standar;
 use App\Models\Stiker;
 use App\Models\Tankpad;
+use App\Models\Tsixpack;
 use App\Models\Tspjap;
 use App\Models\Ukuran;
+use App\Models\Varian;
 use App\Models\Variasi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class InsertingGeneralController extends Controller
 {
@@ -45,33 +46,38 @@ class InsertingGeneralController extends Controller
         $produk = new Produk();
         $attsjvariasis = Attsjvariasi::all();
         $bahan = new Bahan();
-        $varia = new Variasi();
-        $ukuran = new Ukuran();
-        $jahit = new Jahit();
-        $kombi = new Kombi();
+        $variasi = new Variasi();
+        $spec = new Spec();
+        // $jahit = new Jahit();
+        $kombinasi = new Kombinasi();
+        $tsixpack = new Tsixpack();
+        $japstyle = new Japstyle();
+        $motif = new Motif();
         $standar = new Standar();
         $tankpad = new Tankpad();
         $busastang = new Busastang();
-        $tspjap = new Tspjap();
         $stiker = new Stiker();
-        $motif = new Motif();
 
         $label_produks = $produk->label_produks();
         $label_bahans = $bahan->label_bahans();
-        $varias_harga = $varia->varias_harga();
-        $ukurans_harga = $ukuran->ukurans_harga();
-        $jahits_harga = $jahit->jahits_harga();
-        $label_kombis = $kombi->label_kombis();
+        $variasi_harga = $variasi->variasi_harga();
+        $specs_harga = $spec->specs_harga();
+        // $jahits_harga = $jahit->jahits_harga();
+        $label_kombinasi = $kombinasi->label_kombinasi();
         $label_standars = $standar->label_standars();
         $label_tankpads = $tankpad->label_tankpads();
         $label_busastangs = $busastang->label_busastangs();
-        $label_tspjaps = $tspjap->label_tspjaps();
+        $label_tsixpacks = $tsixpack->label_tsixpacks();
+        $label_tsixpack_a = $tsixpack->label_tsixpacks_a();
+        $label_tsixpack_b = $tsixpack->label_tsixpacks_b();
+        $label_japstyles = $japstyle->label_japstyles();
+        $label_japstyle_a = $japstyle->label_japstyles_a();
+        $label_japstyle_b = $japstyle->label_japstyles_b();
         $label_stikers = $stiker->label_stikers();
-        $label_tspjap_a = $tspjap->label_tspjaps_a();
-        $label_tspjap_b = $tspjap->label_tspjaps_b();
         $d_bahan_a = $bahan->d_bahan_a();
         $d_bahan_b = $bahan->d_bahan_b();
         $motif_harga = $motif->motif_harga();
+        $varians = Varian::all();
 
         $mode = $get['mode'];
         // $tipe = $get['tipe'];
@@ -87,7 +93,7 @@ class InsertingGeneralController extends Controller
         //         $judul = 'SPK BARU: Tambah SJ Tankpad';
         //     } elseif ($tipe === 'busastang') {
         //         $judul = 'SPK BARU: Tambah SJ Busastang';
-        //     } elseif ($tipe === 'tspjap') {
+        //     } elseif ($tipe === 'tsixpack') {
         //         $judul = 'SPK BARU: Tambah SJ T.Sixpack/Japstyle';
         //     } elseif ($tipe === 'stiker') {
         //         $judul = 'SPK BARU: Tambah SJ Stiker';
@@ -105,7 +111,7 @@ class InsertingGeneralController extends Controller
         //         $judul = 'Edit SPK: Tambah SJ Tankpad';
         //     } elseif ($tipe === 'busastang') {
         //         $judul = 'Edit SPK: Tambah SJ Busastang';
-        //     } elseif ($tipe === 'tspjap') {
+        //     } elseif ($tipe === 'tsixpack') {
         //         $judul = 'Edit SPK: Tambah SJ T.Sixpack/Japstyle';
         //     } elseif ($tipe === 'stiker') {
         //         $judul = 'Edit SPK: Tambah SJ Stiker';
@@ -122,16 +128,20 @@ class InsertingGeneralController extends Controller
             // 'tipe' => $tipe,
             // 'judul' => $judul,
             'bahans' => $label_bahans,
-            'varias' => $varias_harga,
-            'ukurans' => $ukurans_harga,
-            'jahits' => $jahits_harga,
-            'kombis' => $label_kombis,
+            'variasi_hargas' => $variasi_harga,
+            'varians' => $varians,
+            'specs' => $specs_harga,
+            // 'jahits' => $jahits_harga,
+            'kombinasis' => $label_kombinasi,
             'standars' => $label_standars,
             'tankpads' => $label_tankpads,
             'busastangs' => $label_busastangs,
-            'tspjaps' => $label_tspjaps,
-            'label_tspjap_a' => $label_tspjap_a,
-            'label_tspjap_b' => $label_tspjap_b,
+            'tsixpacks' => $label_tsixpacks,
+            'label_tsixpack_a' => $label_tsixpack_a,
+            'label_tsixpack_b' => $label_tsixpack_b,
+            'japstyles' => $label_japstyles,
+            'label_japstyle_a' => $label_japstyle_a,
+            'label_japstyle_b' => $label_japstyle_b,
             'stikers' => $label_stikers,
             'd_bahan_a' => $d_bahan_a,
             'd_bahan_b' => $d_bahan_b,

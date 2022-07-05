@@ -16,7 +16,7 @@ class BusastangSeeder extends Seeder
     public function run()
     {
         $busastang = [[
-            'nama' => 'Busa-Stang',
+            'nama' => 'Busa Stang',
             'id' => 1,
             'harga' => 8000
         ]];

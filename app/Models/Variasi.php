@@ -12,7 +12,7 @@ class Variasi extends Model
     protected $guarded = ['id'];
     public $timestamps = false;
 
-    public function varias_harga()
+    public function variasi_harga()
     {
         $variasi_terbaru = DB::table('variasi_hargas')
             ->select('id', 'variasi_id', 'harga', DB::raw('MAX(created_at)'))
@@ -21,13 +21,13 @@ class Variasi extends Model
         // $variasi_terbaru = DB::table('variasi_hargas')
         //     ->selectRaw('id, variasi_id, harga, MAX(created_at) GROUP BY variasi_id');
 
-        $varias_harga = DB::table('variasis')
+        $variasi_harga = DB::table('variasis')
             ->select('variasis.id', 'variasis.nama', 'variasi_terbaru.harga', 'variasis.ktrg')
             ->joinSub($variasi_terbaru, 'variasi_terbaru', function ($join) {
                 $join->on('variasis.id', '=', 'variasi_terbaru.variasi_id');
             })
             ->get();
 
-        return $varias_harga;
+        return $variasi_harga;
     }
 }

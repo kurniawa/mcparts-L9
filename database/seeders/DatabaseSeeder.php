@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,17 +25,23 @@ class DatabaseSeeder extends Seeder
             PelangganEkspedisiSeeder::class,
             BahanSeeder::class,
             VariasiSeeder::class,
-            UkuranSeeder::class,
-            JahitSeeder::class,
-            KombiSeeder::class,
+            // UkuranSeeder::class,
+            // JahitSeeder::class,
+            // KombiSeeder::class,
+            KombinasiSeeder::class,
+            TsixpackSeeder::class,
+            JapstyleSeeder::class,
             MotifSeeder::class,
-            TspjapSeeder::class,
+            // TspjapSeeder::class,
             StandarSeeder::class,
             TankpadSeeder::class,
-            BusastangSeeder::class,
             StikerSeeder::class,
+            BusastangSeeder::class,
             ProdukSeeder::class,
             // SpkSeeder::class,
+            SpecSeeder::class,
+            ProdukBahanSeeder::class,
+            ProdukSpecSeeder::class,
             VarianSeeder::class,
             AttsjvariasiSeeder::class,
         ]);

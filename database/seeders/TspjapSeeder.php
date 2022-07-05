@@ -21,12 +21,12 @@ class TspjapSeeder extends Seeder
             'tipe_bahan' => 'A',
             'harga' => 25500
         ], [
-            'nama' => 'T.Sixpack + Busa uk.JB + jht.JB',
+            'nama' => 'T.Sixpack + Busa + uk.JB + jht.JB',
             'id' => 2,
             'tipe_bahan' => 'A',
             'harga' => 30000
         ], [
-            'nama' => 'T.Sixpack + Busa uk.JB + jht.NMAX',
+            'nama' => 'T.Sixpack + Busa + uk.JB + jht.NMAX',
             'id' => 3,
             'tipe_bahan' => 'A',
             'harga' => 33000
