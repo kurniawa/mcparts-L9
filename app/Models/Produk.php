@@ -63,6 +63,20 @@ class Produk extends Model
         return $label_produks;
     }
 
+    public function bahans()
+    {
+        return $this->belongsToMany(Bahan::class, 'produk_bahans');
+    }
+    public function motif()
+    {
+        return $this->belongsToMany(Motif::class, 'produk_motifs');
+    }
+
+    public function specs()
+    {
+        return $this->belongsToMany(Spec::class, 'produk_specs');
+    }
+
     /**
      * Halaman Produk
      * Komponen:

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\BahanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EkspedisiBaru;
 use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\EkspedisiEdit;
 use App\Http\Controllers\InsertingGeneralController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MotifController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\PelangganBaruController;
 use App\Http\Controllers\PelangganController;
@@ -14,6 +16,7 @@ use App\Http\Controllers\PelangganEkspedisiController;
 use App\Http\Controllers\PelangganResellerController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SpecController;
 use App\Http\Controllers\SpkBaruController;
 use App\Http\Controllers\SpkController;
 use App\Http\Controllers\SrjalanController;
@@ -186,3 +189,10 @@ Route::controller(ProdukController::class)->group(function ()
     Route::get('/produk', 'index');
     Route::get('/produk/tipe-variasi', 'tipe_variasi');
 });
+
+/**
+ * AJAX CONTROLLER
+ */
+Route::get('/get-motif-from-produk-id', [MotifController::class, 'getMotifFromProdukID']);
+Route::get('/get-specs-from-produk-id', [SpecController::class, 'specsFromProdukID']);
+Route::get('/bahan-from-produk-id', [BahanController::class, "bahanFromProdukID"]);

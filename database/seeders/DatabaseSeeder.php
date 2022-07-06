@@ -40,10 +40,18 @@ class DatabaseSeeder extends Seeder
             ProdukSeeder::class,
             // SpkSeeder::class,
             SpecSeeder::class,
-            ProdukBahanSeeder::class,
-            ProdukSpecSeeder::class,
             VarianSeeder::class,
             AttsjvariasiSeeder::class,
+            ProdukBahanSeeder::class,
+            ProdukSpecSeeder::class,
+            ProdukKombinasiSeeder::class,
+            ProdukTsixpackSeeder::class,
+            ProdukJapstyleSeeder::class,
+            ProdukMotifSeeder::class,
+            ProdukStandarSeeder::class,
+            ProdukTankpadSeeder::class,
+            ProdukStikerSeeder::class,
+            ProdukBusastangSeeder::class,
         ]);
     }
 }
