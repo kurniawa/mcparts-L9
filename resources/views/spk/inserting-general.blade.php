@@ -27,9 +27,11 @@
             <tr id="tr-bahan" class="item-spec"><td>Bahan</td><td>:</td><td id="nama-bahan"></td></tr>
             <tr id="tr-kombinasi" class="item-spec"><td>Kombinasi</td><td>:</td><td id="nama-kombinasi"></td></tr>
             <tr id="tr-tsixpack" class="item-spec"><td>T.Sixpack</td><td>:</td><td id="nama-tsixpack"></td></tr>
+            <tr id="tr-busa" class="item-spec"><td>Busa</td><td>:</td><td id="nama-busa"></td></tr>
+            <tr id="tr-grade_bahan" class="item-spec"><td>Grade Bahan</td><td>:</td><td id="nama-grade_bahan"></td></tr>
             <tr id="tr-japstyle" class="item-spec"><td>Japstyle</td><td>:</td><td id="nama-japstyle"></td></tr>
             <tr id="tr-motif" class="item-spec"><td>Motif</td><td>:</td><td id="nama-motif"></td></tr>
-            <tr id="tr-standar" class="item-spec"><td>Kombinasi</td><td>:</td><td id="nama-standar"></td></tr>
+            <tr id="tr-standar" class="item-spec"><td>Standar</td><td>:</td><td id="nama-standar"></td></tr>
             <tr id="tr-variasi-1" class="item-spec"><td>Variasi</td><td>:</td><td id="nama-variasi-1"></td></tr>
             <tr id="tr-variasi-2" class="item-spec"><td>Variasi-2</td><td>:</td><td id="nama-variasi-2"></td></tr>
             <tr id="tr-ukuran" class="item-spec"><td>Ukuran</td><td>:</td><td id="nama-ukuran"></td></tr>
@@ -155,11 +157,12 @@
                 type: 'GET',
                 url: `/bahan-from-produk-id?produk_id=${chosen_item.id}`,
                 success: function (data) {
-                    console.log(data);
+                    // console.log('data:', data);
                     document.getElementById("nama-bahan").textContent = data[0].nama;
                     document.getElementById("tr-bahan").style.display = 'table-row';
                 }
             });
+
             // // tipe
             // // bahan
             // let bahan = bahans.find(x=>x.id === chosen_item.bahan_id);
@@ -204,18 +207,87 @@
             //     nama_jahit = jahit.nama;
             //     display_tr_jahit = 'table-row';
             // }
+        } else if (chosen_item.tipe === 'SJ-Kombinasi') {
+            $.ajax({
+                type: 'GET',
+                url: `/kombinasi-from-produk-id?produk_id=${chosen_item.id}`,
+                success: function (data) {
+                    document.getElementById("nama-kombinasi").textContent = data[0].nama;
+                    document.getElementById("tr-kombinasi").style.display = 'table-row';
+                }
+            });
+
+        } else if (chosen_item.tipe === 'SJ-T.Sixpack') {
+            $.ajax({
+                type: 'GET',
+                url: `/tsixpack-from-produk-id?produk_id=${chosen_item.id}`,
+                success: function (data) {
+                    document.getElementById("nama-tsixpack").textContent = data[0].nama;
+                    document.getElementById("tr-tsixpack").style.display = 'table-row';
+                }
+            });
+
+        } else if (chosen_item.tipe === 'SJ-Japstyle') {
+            $.ajax({
+                type: 'GET',
+                url: `/japstyle-from-produk-id?produk_id=${chosen_item.id}`,
+                success: function (data) {
+                    document.getElementById("nama-japstyle").textContent = data[0].nama;
+                    document.getElementById("tr-japstyle").style.display = 'table-row';
+                }
+            });
+
         } else if (chosen_item.tipe === 'SJ-Motif') {
             $.ajax({
                 type: 'GET',
-                url: `/get-motif-from-produk-id?produk_id=${chosen_item.id}`,
+                url: `/motif-from-produk-id?produk_id=${chosen_item.id}`,
                 success: function (data) {
                     document.getElementById("nama-motif").textContent = data[0].nama;
                     document.getElementById("tr-motif").style.display = 'table-row';
                 }
             });
+        } else if (chosen_item.tipe === 'SJ-Standar') {
             $.ajax({
                 type: 'GET',
-                url: `/get-specs-from-produk-id?produk_id=${chosen_item.id}`,
+                url: `/standar-from-produk-id?produk_id=${chosen_item.id}`,
+                success: function (data) {
+                    document.getElementById("nama-standar").textContent = data[0].nama;
+                    document.getElementById("tr-standar").style.display = 'table-row';
+                }
+            });
+        } else if (chosen_item.tipe === 'Tankpad') {
+            $.ajax({
+                type: 'GET',
+                url: `/tankpad-from-produk-id?produk_id=${chosen_item.id}`,
+                success: function (data) {
+                    document.getElementById("nama-tankpad").textContent = data[0].nama;
+                    document.getElementById("tr-tankpad").style.display = 'table-row';
+                }
+            });
+        } else if (chosen_item.tipe === 'Stiker') {
+            $.ajax({
+                type: 'GET',
+                url: `/stiker-from-produk-id?produk_id=${chosen_item.id}`,
+                success: function (data) {
+                    document.getElementById("nama-stiker").textContent = data[0].nama;
+                    document.getElementById("tr-stiker").style.display = 'table-row';
+                }
+            });
+        } else if (chosen_item.tipe === 'Busa Stang') {
+            $.ajax({
+                type: 'GET',
+                url: `/busastang-from-produk-id?produk_id=${chosen_item.id}`,
+                success: function (data) {
+                    document.getElementById("nama-busastang").textContent = data[0].nama;
+                    document.getElementById("tr-busastang").style.display = 'table-row';
+                }
+            });
+        }
+
+        if (chosen_item.tipe === 'SJ-Variasi' || chosen_item.tipe === 'SJ-Kombinasi' || chosen_item.tipe === 'SJ-T.Sixpack' || chosen_item.tipe === 'SJ-Motif') {
+            $.ajax({
+                type: 'GET',
+                url: `/specs-from-produk-id?produk_id=${chosen_item.id}`,
                 success: function (data) {
                     showJahitUkuranBusaTipeBahan(data);
                 }

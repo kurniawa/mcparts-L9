@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\BahanController;
+use App\Http\Controllers\BusastangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EkspedisiBaru;
 use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\EkspedisiEdit;
 use App\Http\Controllers\InsertingGeneralController;
+use App\Http\Controllers\JapstyleController;
+use App\Http\Controllers\KombinasiController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MotifController;
 use App\Http\Controllers\NotaController;
@@ -20,7 +23,11 @@ use App\Http\Controllers\SpecController;
 use App\Http\Controllers\SpkBaruController;
 use App\Http\Controllers\SpkController;
 use App\Http\Controllers\SrjalanController;
+use App\Http\Controllers\StandarController;
+use App\Http\Controllers\StikerController;
+use App\Http\Controllers\TankpadController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\TsixpackController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -193,6 +200,13 @@ Route::controller(ProdukController::class)->group(function ()
 /**
  * AJAX CONTROLLER
  */
-Route::get('/get-motif-from-produk-id', [MotifController::class, 'getMotifFromProdukID']);
-Route::get('/get-specs-from-produk-id', [SpecController::class, 'specsFromProdukID']);
 Route::get('/bahan-from-produk-id', [BahanController::class, "bahanFromProdukID"]);
+Route::get('/specs-from-produk-id', [SpecController::class, 'specsFromProdukID']);
+Route::get('/kombinasi-from-produk-id', [KombinasiController::class, 'kombinasiFromProdukID']);
+Route::get('/tsixpack-from-produk-id', [TsixpackController::class, 'tsixpackFromProdukID']);
+Route::get('/japstyle-from-produk-id', [JapstyleController::class, 'japstyleFromProdukID']);
+Route::get('/motif-from-produk-id', [MotifController::class, 'motifFromProdukID']);
+Route::get('/standar-from-produk-id', [StandarController::class, 'standarFromProdukID']);
+Route::get('/tankpad-from-produk-id', [TankpadController::class, 'tankpadFromProdukID']);
+Route::get('/stiker-from-produk-id', [StikerController::class, 'stikerFromProdukID']);
+Route::get('/busastang-from-produk-id', [BusastangController::class, 'busastangFromProdukID']);

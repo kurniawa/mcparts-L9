@@ -63,19 +63,16 @@ class Produk extends Model
         return $label_produks;
     }
 
-    public function bahans()
-    {
-        return $this->belongsToMany(Bahan::class, 'produk_bahans');
-    }
-    public function motif()
-    {
-        return $this->belongsToMany(Motif::class, 'produk_motifs');
-    }
-
-    public function specs()
-    {
-        return $this->belongsToMany(Spec::class, 'produk_specs');
-    }
+    public function bahan() { return $this->belongsToMany(Bahan::class, 'produk_bahans'); }
+    public function specs() { return $this->belongsToMany(Spec::class, 'produk_specs'); }
+    public function kombinasi() { return $this->belongsToMany(Kombinasi::class, 'produk_kombinasis'); }
+    public function tsixpack() { return $this->belongsToMany(Tsixpack::class, 'produk_tsixpacks'); }
+    public function japstyle() { return $this->belongsToMany(Japstyle::class, 'produk_japstyles'); }
+    public function motif() { return $this->belongsToMany(Motif::class, 'produk_motifs'); }
+    public function standar() { return $this->belongsToMany(Standar::class, 'produk_standars'); }
+    public function tankpad() { return $this->belongsToMany(Tankpad::class, 'produk_tankpads'); }
+    public function stiker() { return $this->belongsToMany(Stiker::class, 'produk_stikers'); }
+    public function busastang() { return $this->belongsToMany(Busastang::class, 'produk_busastangs'); }
 
     /**
      * Halaman Produk

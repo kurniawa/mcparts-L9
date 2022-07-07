@@ -85,7 +85,7 @@ class SpecSeeder extends Seeder
 
         for ($i = 0; $i < count($busa); $i++) {
             $new_inserted_busa = Spec::create([
-                'kategori' => 'busa', // variasi, ukuran, busa, jahit, tipe_bahan
+                'kategori' => 'busa', // variasi, ukuran, busa, jahit, grade_bahan
                 'nama' => $busa[$i]['nama'],
             ]);
             DB::table('spec_hargas')->insert([
@@ -132,7 +132,7 @@ class SpecSeeder extends Seeder
 
         for ($i = 0; $i < count($jahit); $i++) {
             $new_inserted_jahit = Spec::create([
-                'kategori' => 'jahit', // variasi, ukuran, busa, jahit, tipe_bahan
+                'kategori' => 'jahit', // variasi, ukuran, busa, jahit, grade_bahan
                 'nama' => $jahit[$i]['nama'],
             ]);
             DB::table('spec_hargas')->insert([
@@ -141,7 +141,7 @@ class SpecSeeder extends Seeder
             ]);
         }
 
-        $tipe_bahan = [[
+        $grade_bahan = [[
             'nama' => 'A',
             'harga' => 3000 // 24
         ], [
@@ -150,14 +150,14 @@ class SpecSeeder extends Seeder
         ],
         ];
 
-        for ($i = 0; $i < count($tipe_bahan); $i++) {
-            $new_inserted_tipe_bahan = Spec::create([
-                'kategori' => 'tipe_bahan',
-                'nama' => $tipe_bahan[$i]['nama'],
+        for ($i = 0; $i < count($grade_bahan); $i++) {
+            $new_inserted_grade_bahan = Spec::create([
+                'kategori' => 'grade_bahan',
+                'nama' => $grade_bahan[$i]['nama'],
             ]);
             DB::table('spec_hargas')->insert([
-                'spec_id' => $new_inserted_tipe_bahan['id'],
-                'harga' => $tipe_bahan[$i]['harga']
+                'spec_id' => $new_inserted_grade_bahan['id'],
+                'harga' => $grade_bahan[$i]['harga']
             ]);
         }
     }

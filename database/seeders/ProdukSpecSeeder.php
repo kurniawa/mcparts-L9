@@ -108,6 +108,10 @@ class ProdukSpecSeeder extends Seeder
         ],
         [
             'produk_id' => 38,
+            'spec_id' => 12
+        ],
+        [
+            'produk_id' => 38,
             'spec_id' => 16
         ],
         [
