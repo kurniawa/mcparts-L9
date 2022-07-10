@@ -18,29 +18,64 @@ class TsixpackSeeder extends Seeder
         $tsixpack = [[
             'nama' => 'T.Sixpack + Busa + jht.Univ',
             'id' => 1,
-            'tipe_bahan' => 'A',
+            'grade_bahan' => 'A',
             'harga' => 25500
         ], [
             'nama' => 'T.Sixpack uk.JB + Busa + jht.JB',
             'id' => 2,
-            'tipe_bahan' => 'A',
+            'grade_bahan' => 'A',
             'harga' => 30000
-        ], [
+        ],
+        [
             'nama' => 'T.Sixpack uk.JB + Busa + jht.NMAX',
             'id' => 3,
-            'tipe_bahan' => 'A',
+            'grade_bahan' => 'A',
             'harga' => 33000
-        ]];
+        ],
+        [
+            'nama' => 'C30(MC) T.Sixpack + Busa + jht.Univ',
+            'bahan_id' => null, // ?
+            'id' => 4,
+            'grade_bahan' => 'A',
+            'harga' => 27000
+        ],
+        [
+            'nama' => 'C30(MC) T.Sixpack uk.JB + Busa',
+            'bahan_id' => null, // ?
+            'id' => 4,
+            'grade_bahan' => 'A',
+            'harga' => 33000
+        ],
+        [
+            'nama' => 'C30(MC) T.Sixpack uk.JB + Busa + jht.JB',
+            'bahan_id' => null, // ?
+            'id' => 4,
+            'grade_bahan' => 'A',
+            'harga' => 33000
+        ],
+        [
+            'nama' => 'T.Sixpack C38(MC) + Busa + jht.Univ',
+            'bahan_id' => null, // ?
+            'id' => 4,
+            'grade_bahan' => 'A',
+            'harga' => 27000
+        ],
+    ];
 
         for ($i = 0; $i < count($tsixpack); $i++) {
-            if (isset($tsixpack[$i]['nama'])) {
+            if ($tsixpack[$i]['bahan_id'] !== null) {
+                DB::table('tsixpacks')->insert([
+                    'nama' => $tsixpack[$i]['nama'],
+                    'bahan_id' => $tsixpack[$i]['bahan_id'],
+                ]);
+            } else {
                 DB::table('tsixpacks')->insert([
                     'nama' => $tsixpack[$i]['nama'],
                 ]);
             }
             DB::table('tsixpack_hargas')->insert([
                 'tsixpack_id' => $tsixpack[$i]['id'],
-                'tipe_bahan' => $tsixpack[$i]['tipe_bahan'],
+                'grade_bahan' => $tsixpack[$i]['grade_bahan'],
                 'harga' => $tsixpack[$i]['harga']
             ]);
         }

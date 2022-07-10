@@ -24,8 +24,8 @@ class UkuranSeeder extends Seeder
                 'nama_nota' => 'JB',
                 'harga' => 4000
             ], [
-                'nama' => 'S-JB 97x53',
-                'nama_nota' => 'S-JB',
+                'nama' => 'Super-JB 97x53',
+                'nama_nota' => 'Super-JB',
                 'harga' => 5500
             ], [
                 'nama' => 'Scoopy',
@@ -44,24 +44,24 @@ class UkuranSeeder extends Seeder
                 'nama_nota' => 'Aerox',
                 'harga' => 5500
             ], [
-                'nama' => 'Freego',
-                'nama_nota' => 'Freego',
+                'nama' => 'FreeGo',
+                'nama_nota' => 'FreeGo',
                 'harga' => 5500
             ], [
                 'nama' => 'Vario 150',
                 'nama_nota' => 'Vario 150',
                 'harga' => 5500
             ], [
-                'nama' => 'Mio Soul GT 125',
-                'nama_nota' => 'Mio Soul GT 125',
+                'nama' => 'MioSoulGT125',
+                'nama_nota' => 'MioSoulGT125',
                 'harga' => 5500
             ], [
-                'nama' => 'S-BIG 100x57',
-                'nama_nota' => 'S-BIG', // 10
+                'nama' => 'MEGA-JB 100x57',
+                'nama_nota' => 'MEGA-JB', // 10
                 'harga' => 7500
             ], [
-                'nama' => 'S-BIG-JB 100x68.5',
-                'nama_nota' => 'S-BIG-JB',
+                'nama' => 'GIGA-JB 100x68.5',
+                'nama_nota' => 'GIGA-JB',
                 'harga' => 9500
             ]
         ];

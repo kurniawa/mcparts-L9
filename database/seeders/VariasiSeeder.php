@@ -56,7 +56,7 @@ class VariasiSeeder extends Seeder
             'id' => 10,
             'harga' => 3000
         ], [
-            'nama' => 'T.Polimas',
+            'nama' => 'T.Polymas',
             'id' => 11,
             'harga' => 5000
         ], [

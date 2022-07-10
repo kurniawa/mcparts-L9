@@ -28,7 +28,7 @@ class JahitSeeder extends Seeder
             'nama' => 'RXK',
             'harga' => 1000
         ], [
-            'nama' => 'JB',
+            'nama' => 'JB', // tadinya ada jahit JB 2, skarang udah diganti jadi jahit JB aja
             'harga' => 1000
         ], [
             'nama' => 'Scoopy',
@@ -43,13 +43,13 @@ class JahitSeeder extends Seeder
             'nama' => 'Aerox',
             'harga' => 1000
         ], [
-            'nama' => 'Freego',
+            'nama' => 'FreeGo',
             'harga' => 1000
         ], [
             'nama' => 'Vario 150',
             'harga' => 1000
         ], [
-            'nama' => 'Mio Soul GT 125', // 93*56
+            'nama' => 'MioSoulGT125', // 93*56
             'harga' => 1000
         ]
         ];

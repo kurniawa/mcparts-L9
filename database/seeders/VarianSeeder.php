@@ -53,12 +53,12 @@ class VarianSeeder extends Seeder
             ['kategori' => 'netral', 'nama' => 'Somjin 7X'],
             ['kategori' => 'netral', 'nama' => 'Thailook 5X'],
 
-            ['kategori' => 'kartun', 'nama' => 'Doraemon'],
+            ['kategori' => 'anime', 'nama' => 'Doraemon'],
+            ['kategori' => 'anime', 'nama' => 'One Piece'],
             ['kategori' => 'kartun', 'nama' => 'Hello Kitty 2'],
             ['kategori' => 'kartun', 'nama' => 'Keropi'],
             ['kategori' => 'kartun', 'nama' => 'Mickey Mouse'],
             ['kategori' => 'kartun', 'nama' => 'Minions'],
-            ['kategori' => 'kartun', 'nama' => 'One Piece'],
             ['kategori' => 'kartun', 'nama' => 'Spongebob'],
             ['kategori' => 'binatang', 'nama' => 'Naga'],
             ['kategori' => 'binatang', 'nama' => 'Scorpion'],
@@ -77,6 +77,8 @@ class VarianSeeder extends Seeder
             ['kategori' => null, 'nama' => 'Tribal 46'],
             ['kategori' => null, 'nama' => 'Trisula'], // 47
             ['kategori' => 'mika', 'nama' => '1W'],
+            // ['kategori' => 'event', 'nama' => 'Euro 2021'],
+            ['kategori' => 'event', 'nama' => 'Modi'],
         ];
 
         for ($i = 0; $i < count($varian); $i++) {
