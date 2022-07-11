@@ -21,8 +21,14 @@ class SpecSeeder extends Seeder
                 'nama' => 'JB 93x53',
                 'nama_nota' => 'JB',
                 'harga' => 4000 // 1
-            ], [
-                'nama' => 'S-JB 97x53',
+            ],
+            [
+                'nama' => 'LONG 95x51',
+                'nama_nota' => 'LONG',
+                'harga' => 4000 // 1
+            ],
+            [
+                'nama' => 'Super-JB 97x53',
                 'nama_nota' => 'S-JB',
                 'harga' => 5500 // 2
             ], [
@@ -54,12 +60,12 @@ class SpecSeeder extends Seeder
                 'nama_nota' => 'Mio Soul GT 125',
                 'harga' => 5500 // 9
             ], [
-                'nama' => 'S-BIG 100x57',
-                'nama_nota' => 'S-BIG',
+                'nama' => 'MEGA-JB 100x57',
+                'nama_nota' => 'MEGA-JB',
                 'harga' => 7500 // 10
             ], [
-                'nama' => 'S-BIG-JB 100x68.5',
-                'nama_nota' => 'S-BIG-JB',
+                'nama' => 'GIGA-JB 100x68.5',
+                'nama_nota' => 'GIGA-JB',
                 'harga' => 9500 // 11
             ]
         ];
@@ -124,10 +130,23 @@ class SpecSeeder extends Seeder
         ], [
             'nama' => 'Vario 150',
             'harga' => 1000 // 22
-        ], [
+        ],
+        [
             'nama' => 'Mio Soul GT 125', // 93*56
             'harga' => 1000 // 23
-        ]
+        ],
+        [
+            'nama' => 'Warna',
+            'harga' => 1000 // 23
+        ],
+        [
+            'nama' => 'Benang Warna',
+            'harga' => 1000 // 23
+        ],
+        [
+            'nama' => 'JB Benang Warna',
+            'harga' => 1000 // 23
+        ],
         ];
 
         for ($i = 0; $i < count($jahit); $i++) {
@@ -158,6 +177,26 @@ class SpecSeeder extends Seeder
             DB::table('spec_hargas')->insert([
                 'spec_id' => $new_inserted_grade_bahan['id'],
                 'harga' => $grade_bahan[$i]['harga']
+            ]);
+        }
+
+        $list = [[
+            'nama' => 'Benang Warna',
+            'harga' => 3000 // 24
+        ], [
+            'nama' => 'Rotan Warna',
+            'harga' => 0 // 25
+        ],
+        ];
+
+        for ($i = 0; $i < count($list); $i++) {
+            $new_inserted_list = Spec::create([
+                'kategori' => 'list',
+                'nama' => $list[$i]['nama'],
+            ]);
+            DB::table('spec_hargas')->insert([
+                'spec_id' => $new_inserted_list['id'],
+                'harga' => $list[$i]['harga']
             ]);
         }
     }

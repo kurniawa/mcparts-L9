@@ -547,8 +547,16 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-Variasi',
-                'nama' => 'C24 T.Sablon One Piece',
-                'nama_nota' => 'SJ C24 T.Sablon One Piece',
+                'nama' => 'C24 T.Sablon Racing Boy List Kawahara',
+                'nama_nota' => 'SJ C24 T.Sablon Racing Boy List Kawahara',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'C24 T.Sablon Straw Hat',
+                'nama_nota' => 'SJ C24 T.Sablon Straw Hat',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 150, // 34
                 'harga' => 18000,
@@ -1122,9 +1130,617 @@ class ProdukSeeder extends Seeder
                 'harga' => 21000,
             ],
             [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon',
+                'nama_nota' => 'SJ Grafity T.Sablon',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Doraemon Jepang',
+                'nama_nota' => 'SJ Grafity T.Sablon Doraemon Jepang',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Doraemon New',
+                'nama_nota' => 'SJ Grafity T.Sablon Doraemon New',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Doraemon',
+                'nama_nota' => 'SJ Grafity T.Sablon Doraemon',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Hello Kitty 2',
+                'nama_nota' => 'SJ Grafity T.Sablon Hello Kitty 2',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Keropi No.9',
+                'nama_nota' => 'SJ Grafity T.Sablon Keropi No.9',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Keropi',
+                'nama_nota' => 'SJ Grafity T.Sablon Keropi',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Polymas Macan uk.JB 93x53',
+                'nama_nota' => 'SJ Grafity T.Polymas Macan uk.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Mickey Mouse',
+                'nama_nota' => 'SJ Grafity T.Sablon Mickey Mouse',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Minion',
+                'nama_nota' => 'SJ Grafity T.Sablon Minion',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity Tulang Bayang Prima',
+                'nama_nota' => 'SJ Grafity Tulang Bayang Prima',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity Tulang Bayang Prima + LG.Bludru',
+                'nama_nota' => 'SJ Grafity Tulang Bayang Prima + LG.Bludru',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity Tulang Bayang Prima + LG.Sablon',
+                'nama_nota' => 'SJ Grafity Tulang Bayang Prima + LG.Sablon',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Racing Boy',
+                'nama_nota' => 'SJ Grafity T.Sablon Racing Boy',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Rossy 46',
+                'nama_nota' => 'SJ Grafity T.Sablon Rossy 46',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Somjin 7X',
+                'nama_nota' => 'SJ Grafity T.Sablon Somjin 7X',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Straw Hat',
+                'nama_nota' => 'SJ Grafity T.Sablon Straw Hat',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Straw Hat No.12',
+                'nama_nota' => 'SJ Grafity T.Sablon Straw Hat No.12',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Polymas Tokage',
+                'nama_nota' => 'SJ Grafity T.Polymas Tokage',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Sablon Tribal 1-6 + jht.Univ',
+                'nama_nota' => 'SJ Grafity T.Sablon Tribal 1-6 + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Polymas Trisula',
+                'nama_nota' => 'SJ Grafity T.Polymas Trisula',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Bayang',
+                'nama_nota' => 'SJ Grafity T.Bayang',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Polymas Naga',
+                'nama_nota' => 'SJ Grafity T.Polymas Naga',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity T.Polymas',
+                'nama_nota' => 'SJ Grafity T.Polymas',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity Tulang Bayang + LG.Bludru',
+                'nama_nota' => 'SJ Grafity Tulang Bayang + LG.Bludru',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 19500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Grafity Tulang Bayang Prima',
+                'nama_nota' => 'SJ Grafity Tulang Bayang Prima',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => 'Jok Assy Absolute Revo',
+                'nama_nota' => 'Jok Assy Absolute Revo',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => 'Jok Assy Beat',
+                'nama_nota' => 'Jok Assy Beat',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => 'Jok Assy Beat FI',
+                'nama_nota' => 'Jok Assy Beat FI',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => 'Jok Assy CB STD',
+                'nama_nota' => 'Jok Assy CB STD',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => 'Jok Assy F1ZR',
+                'nama_nota' => 'Jok Assy F1ZR',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => 'Jok Assy Fit New',
+                'nama_nota' => 'Jok Assy Fit New',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => 'Jok Assy FU',
+                'nama_nota' => 'Jok Assy FU',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => 'Jok Assy GL Pro',
+                'nama_nota' => 'Jok Assy GL Pro',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => 'Jok Assy Grand',
+                'nama_nota' => 'Jok Assy Grand',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Grand'97",
+                'nama_nota' => "Jok Assy Grand'97",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Jupiter MX",
+                'nama_nota' => "Jok Assy Jupiter MX",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Jupiter New",
+                'nama_nota' => "Jok Assy Jupiter New",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Jupiter Z",
+                'nama_nota' => "Jok Assy Jupiter Z",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Mio M3",
+                'nama_nota' => "Jok Assy Mio M3",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Mio Soul",
+                'nama_nota' => "Jok Assy Mio Soul",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy MX",
+                'nama_nota' => "Jok Assy MX",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Prima",
+                'nama_nota' => "Jok Assy Prima",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Revo FI",
+                'nama_nota' => "Jok Assy Revo FI",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy RX King",
+                'nama_nota' => "Jok Assy RX King",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy RXK New",
+                'nama_nota' => "Jok Assy RXK New",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy RXK New Papas Perahu",
+                'nama_nota' => "Jok Assy RXK New Papas Perahu",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy RXK Press",
+                'nama_nota' => "Jok Assy RXK Press",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Supra",
+                'nama_nota' => "Jok Assy Supra",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Supra 125",
+                'nama_nota' => "Jok Assy Supra 125",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Supra Fit New",
+                'nama_nota' => "Jok Assy Supra Fit New",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Supra X",
+                'nama_nota' => "Jok Assy Supra X",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Vario 125",
+                'nama_nota' => "Jok Assy Vario 125",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Vario Techno",
+                'nama_nota' => "Jok Assy Vario Techno",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Vega R",
+                'nama_nota' => "Jok Assy Vega R",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'Jok Assy',
+                'nama' => "Jok Assy Vega ZR",
+                'nama_nota' => "Jok Assy Vega ZR",
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Kombinasi',
+                'nama' => 'Kombinasi List Miring (A)',
+                'nama_nota' => 'SJ Kombinasi List Miring (A)',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Kombinasi',
+                'nama' => 'Kombinasi List Miring (A) + LG',
+                'nama_nota' => 'SJ Kombinasi List Miring (A) + LG',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Kombinasi',
+                'nama' => 'Kombinasi List Miring (A) + jht.Univ',
+                'nama_nota' => 'SJ Kombinasi List Miring (A) + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Kombinasi',
+                'nama' => 'Kombinasi Sayap Warna (A) + jht.Univ',
+                'nama_nota' => 'SJ Kombinasi Sayap Warna (A) + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Kombinasi',
+                'nama' => 'Kombinasi Sayap Warna (A) + LG + jht.Univ',
+                'nama_nota' => 'SJ Kombinasi Sayap Warna (A) + LG + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Kombinasi',
+                'nama' => 'Kombinasi Warna Japstyle (A) + jht.Univ',
+                'nama_nota' => 'SJ Kombinasi Warna Japstyle (A) + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Kombinasi',
+                'nama' => 'Kombinasi Warna X-Ride(L) + jht.Benang Warna',
+                'nama_nota' => 'SJ Kombinasi Warna X-Ride(L) + jht. Benang Warna',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Kombinasi',
+                'nama' => 'Kombinasi Warna X-Ride(L) + jht.JB Benang Warna',
+                'nama_nota' => 'SJ Kombinasi Warna X-Ride(L) + jht.JB Benang Warna',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Kombinasi',
+                'nama' => 'Kombinasi Warna X-Ride(L) Benang Warna',
+                'nama_nota' => 'SJ Kombinasi Warna X-Ride(L) Benang Warna',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Kombinasi',
+                'nama' => 'Kombinasi Warna X-Ride Benang Warna',
+                'nama_nota' => 'SJ Kombinasi Warna X-Ride Benang Warna',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Kombinasi',
+                'nama' => 'Kombinasi X-Ride(L) Benang Warna',
+                'nama_nota' => 'SJ Kombinasi X-Ride(L) Benang Warna',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk LG.Bludru + jht.Univ',
+                'nama_nota' => 'SJ Kulit Jeruk LG.Bludru + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Japstyle',
+                'nama' => 'Kulit Jeruk(CK)(RY) Japstyle',
+                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) Japstyle',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk(CK)(RY) LG.Bludru',
+                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) LG.Bludru',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk(CK)(RY) Polos',
+                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) Polos',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk(CK)(RY) T.Bayang C70',
+                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) T.Bayang C70',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk(CK)(RY) T.Bayang CB',
+                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) T.Bayang CB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
                 'tipe' => 'SJ-Motif',
-                'nama' => 'Motif Sixpack 2 Warna + jht.Univ',
-                'nama_nota' => 'SJ Motif Sixpack 2 Warna + jht.Univ',
+                'nama' => 'Motif Sixpack 2 Warna (A) + jht.Univ',
+                'nama_nota' => 'SJ Motif Sixpack 2 Warna (A) + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Motif',
+                'nama' => 'Motif Sixpack 2 Warna (A) + Motif + jht.Univ',
+                'nama_nota' => 'SJ Motif Sixpack 2 Warna (A) + Motif + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Motif',
+                'nama' => 'Motif Sixpack 2 Warna (A) "Carbon" + LG + Motif + jht.Univ',
+                'nama_nota' => 'SJ Motif Sixpack 2 Warna (A) + Motif + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 29000,
+            ],
+            [
+                'tipe' => 'SJ-Motif',
+                'nama' => 'Motif Sixpack 2 Warna (A) uk.JB 93x53 + jht.Univ',
+                'nama_nota' => 'SJ Motif Sixpack 2 Warna (A) uk.JB + jht.Univ',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 34
                 'harga' => 29000,
