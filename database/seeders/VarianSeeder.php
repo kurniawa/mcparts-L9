@@ -16,6 +16,7 @@ class VarianSeeder extends Seeder
     public function run()
     {
         $varian = [
+            ['kategori' => 'netral', 'nama' => 'Netral'],
             ['kategori' => 'netral', 'nama' => '46'],
             ['kategori' => 'netral', 'nama' => 'Alpinestar'],
             ['kategori' => 'netral', 'nama' => 'Bikers'],
@@ -61,6 +62,7 @@ class VarianSeeder extends Seeder
             ['kategori' => 'anime', 'nama' => 'Doraemon Jepang'],
             ['kategori' => 'anime', 'nama' => 'Doraemon New'],
             ['kategori' => 'anime', 'nama' => 'Straw Hat'],
+            ['kategori' => 'kartun', 'nama' => 'Kartun'],
             ['kategori' => 'kartun', 'nama' => 'Hello Kitty 2'],
             ['kategori' => 'kartun', 'nama' => 'Keropi'],
             ['kategori' => 'kartun', 'nama' => 'Keropi No.9'],

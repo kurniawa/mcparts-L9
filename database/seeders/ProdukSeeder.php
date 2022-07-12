@@ -1667,11 +1667,275 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk LG.Bayang',
+                'nama_nota' => 'SJ Kulit Jeruk LG.Bayang',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk LG.Bayang + jht.Univ',
+                'nama_nota' => 'SJ Kulit Jeruk LG.Bayang + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 15000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk LG.Bludru',
+                'nama_nota' => 'SJ Kulit Jeruk LG.Bludru',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk LG.Bludru + jht.RXK',
+                'nama_nota' => 'SJ Kulit Jeruk LG.Bludru + jht.RXK',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 15000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
                 'nama' => 'Kulit Jeruk LG.Bludru + jht.Univ',
                 'nama_nota' => 'SJ Kulit Jeruk LG.Bludru + jht.Univ',
                 'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 15000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk LG.Sablon',
+                'nama_nota' => 'SJ Kulit Jeruk LG.Sablon',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk LG.Sablon Kartun',
+                'nama_nota' => 'SJ Kulit Jeruk LG.Sablon Kartun',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk LG.Sablon Netral',
+                'nama_nota' => 'SJ Kulit Jeruk LG.Sablon Netral',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk Polos',
+                'nama_nota' => 'SJ Kulit Jeruk Polos',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 13000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk Polos + jht.Univ',
+                'nama_nota' => 'SJ Kulit Jeruk Polos + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk Polos uk.JB 93x53',
+                'nama_nota' => 'SJ Kulit Jeruk Polos uk.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk Polos uk.JB 93x53 + jht.JB',
+                'nama_nota' => 'SJ Kulit Jeruk Polos uk.JB + jht.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk Polos uk.97x68.5',
+                'nama_nota' => 'SJ Kulit Jeruk Polos uk.97x68.5',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk(CK)(RY) LG.Bludru',
+                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) LG.Bludru',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk(CK)(RY) Polos',
+                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) Polos',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 13000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk(CK)(RY) T.Bayang C70',
+                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) T.Bayang C70',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk(CK)(RY) T.Bayang CB',
+                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) T.Bayang CB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk(CK)(RY) T.Bayang C70',
+                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) T.Bayang C70',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Kulit Jeruk(CK)(RY) T.Bayang RXK',
+                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) T.Bayang RXK',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(CK) LG.BLudru',
+                'nama_nota' => 'SJ L55(CK) LG.BLudru',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(CK) LG.BLudru + jht.Univ',
+                'nama_nota' => 'SJ L55(CK) LG.BLudru + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 15000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(CK) LG.Bludru uk.JB 93x53 + jht.JB',
+                'nama_nota' => 'SJ L55(CK) LG.Bludru uk.JB + jht.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(CK) Polos',
+                'nama_nota' => 'SJ L55(CK) Polos',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 13000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(CK) Polos + jht.ABS-RV',
+                'nama_nota' => 'SJ L55(CK) Polos + jht.ABS-RV',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(CK) Polos + jht.Univ',
+                'nama_nota' => 'SJ L55(CK) Polos + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(CK) Polos uk.JB 93x53',
+                'nama_nota' => 'SJ L55(CK) Polos uk.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 17000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(CK) Polos uk.JB 93x53 + jht.JB',
+                'nama_nota' => 'SJ L55(CK) Polos uk.JB + jht.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(CK) T.Polymas',
+                'nama_nota' => 'SJ L55(CK) T.Polymas',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(MC) Polos',
+                'nama_nota' => 'SJ L55(MC) Polos',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 13000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(MC) Polos + jht.Univ',
+                'nama_nota' => 'SJ L55(MC) Polos + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(MC) LG.Bludru',
+                'nama_nota' => 'SJ L55(MC) LG.Bludru',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(MC) uk.JB 93x53',
+                'nama_nota' => 'SJ L55(MC) uk.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'L55(MC) T.Polymas',
+                'nama_nota' => 'SJ L55(MC) T.Polymas',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18000,
+            ],
+            [
+                'tipe' => 'SJ-Japstyle',
+                'nama' => 'Kulit Jeruk Japstyle',
+                'nama_nota' => 'SJ Kulit Jeruk Japstyle',
+                'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 34
-                'harga' => 29000,
+                'harga' => 18000,
             ],
             [
                 'tipe' => 'SJ-Japstyle',
@@ -1679,39 +1943,31 @@ class ProdukSeeder extends Seeder
                 'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) Japstyle',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 34
-                'harga' => 29000,
+                'harga' => 20500,
             ],
             [
-                'tipe' => 'SJ-Variasi',
-                'nama' => 'Kulit Jeruk(CK)(RY) LG.Bludru',
-                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) LG.Bludru',
+                'tipe' => 'SJ-Japstyle',
+                'nama' => 'Kulit Jeruk(CK) Japstyle',
+                'nama_nota' => 'SJ Kulit Jeruk(CK) Japstyle',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 34
-                'harga' => 29000,
+                'harga' => 20500,
             ],
             [
-                'tipe' => 'SJ-Variasi',
-                'nama' => 'Kulit Jeruk(CK)(RY) Polos',
-                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) Polos',
+                'tipe' => 'SJ-Japstyle',
+                'nama' => 'L55(CK) Japstyle',
+                'nama_nota' => 'SJ L55(CK) Japstyle',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 34
-                'harga' => 29000,
+                'harga' => 20500,
             ],
             [
-                'tipe' => 'SJ-Variasi',
-                'nama' => 'Kulit Jeruk(CK)(RY) T.Bayang C70',
-                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) T.Bayang C70',
+                'tipe' => 'SJ-Japstyle',
+                'nama' => 'L55(MC) Japstyle',
+                'nama_nota' => 'SJ L55(MC) Japstyle',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 34
-                'harga' => 29000,
-            ],
-            [
-                'tipe' => 'SJ-Variasi',
-                'nama' => 'Kulit Jeruk(CK)(RY) T.Bayang CB',
-                'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) T.Bayang CB',
-                'tipe_packing' => 'colly',
-                'aturan_packing' => 100, // 34
-                'harga' => 29000,
+                'harga' => 20500,
             ],
             [
                 'tipe' => 'SJ-Motif',
@@ -1782,8 +2038,72 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-T.Sixpack',
-                'nama' => 'Bahan(A) T.Sixpack uk.JB + Busa + jht.JB',
+                'nama' => 'Bahan(A) T.Sixpack uk.JB 93x53 + Busa + jht.JB',
                 'nama_nota' => 'SJ Bahan(A) T.Sixpack uk.JB + Busa + jht.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 38
+                'harga' => 31500,
+            ],
+            [
+                'tipe' => 'SJ-T.Sixpack',
+                'nama' => 'L55(MC) T.Sixpack + Alas + jht.ABS-RV',
+                'nama_nota' => 'SJ L55(MC) T.Sixpack + Alas + jht.ABS-RV',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 38
+                'harga' => 31500,
+            ],
+            [
+                'tipe' => 'SJ-T.Sixpack',
+                'nama' => 'L55(MC) T.Sixpack + Busa',
+                'nama_nota' => 'SJ L55(MC) T.Sixpack + Busa',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 38
+                'harga' => 31500,
+            ],
+            [
+                'tipe' => 'SJ-T.Sixpack',
+                'nama' => 'L55(MC) T.Sixpack + Busa + jht.ABS-RV',
+                'nama_nota' => 'SJ L55(MC) T.Sixpack + Busa + jht.ABS-RV',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 38
+                'harga' => 31500,
+            ],
+            [
+                'tipe' => 'SJ-T.Sixpack',
+                'nama' => 'L55(MC) T.Sixpack + Busa + jht.Univ',
+                'nama_nota' => 'SJ L55(MC) T.Sixpack + Busa + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 38
+                'harga' => 31500,
+            ],
+            [
+                'tipe' => 'SJ-T.Sixpack',
+                'nama' => 'L55(MC) T.Sixpack + Busa + jht.Warna',
+                'nama_nota' => 'SJ L55(MC) T.Sixpack + Busa + jht.Warna',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 38
+                'harga' => 31500,
+            ],
+            [
+                'tipe' => 'SJ-T.Sixpack',
+                'nama' => 'L55(MC) T.Sixpack uk.JB 93x53 + Busa + jht.JB',
+                'nama_nota' => 'SJ L55(MC) T.Sixpack uk.JB + Busa + jht.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 38
+                'harga' => 31500,
+            ],
+            [
+                'tipe' => 'SJ-T.Sixpack',
+                'nama' => 'L55(MC) T.Sixpack uk.Super-JB 97x53 + Busa + jht.NMAX',
+                'nama_nota' => 'SJ L55(MC) T.Sixpack uk.Super-JB + Busa + jht.NMAX',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 38
+                'harga' => 31500,
+            ],
+            [
+                'tipe' => 'SJ-T.Sixpack',
+                'nama' => 'L55(MC) T.Sixpack uk.JB 93x53 + Alas + jht.JB',
+                'nama_nota' => 'SJ L55(MC) T.Sixpack uk.JB + Alas + jht.JB',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 38
                 'harga' => 31500,

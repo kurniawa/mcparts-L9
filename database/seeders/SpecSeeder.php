@@ -29,9 +29,15 @@ class SpecSeeder extends Seeder
             ],
             [
                 'nama' => 'Super-JB 97x53',
-                'nama_nota' => 'S-JB',
+                'nama_nota' => 'Super-JB',
                 'harga' => 5500 // 2
-            ], [
+            ],
+            [
+                'nama' => '97x68.5',
+                'nama_nota' => '97x68.5',
+                'harga' => 5500 // 2
+            ],
+            [
                 'nama' => 'Scoopy',
                 'nama_nota' => 'Scoopy',
                 'harga' => 5500 // 3
