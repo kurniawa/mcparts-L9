@@ -17,8 +17,11 @@ return new class extends Migration
         Schema::create('standar_variasis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('standar_id');
+            $table->foreignId('bahan_id')->nullable();
+            $table->enum('grade_bahan', ['A', 'B'])->nullable();
             $table->enum('jahit_kepala', ['yes', 'no'])->default('yes');
             $table->enum('jahit_samping', ['yes', 'no'])->nullable();
+            $table->string('warna_sayap', 20)->nullable();
             $table->enum('press', ['yes', 'no'])->nullable();
             $table->enum('alas', ['yes', 'no'])->nullable();
             $table->integer('harga');

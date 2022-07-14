@@ -62,16 +62,16 @@ class SpecSeeder extends Seeder
                 'nama_nota' => 'Vario 150',
                 'harga' => 5500 // 8
             ], [
-                'nama' => 'Mio Soul GT 125',
-                'nama_nota' => 'Mio Soul GT 125',
+                'nama' => 'MioSoulGT125',
+                'nama_nota' => 'MioSoulGT125',
                 'harga' => 5500 // 9
             ], [
-                'nama' => 'MEGA-JB 100x57',
-                'nama_nota' => 'MEGA-JB',
+                'nama' => 'MEGA 100x57',
+                'nama_nota' => 'MEGA',
                 'harga' => 7500 // 10
             ], [
-                'nama' => 'GIGA-JB 100x68.5',
-                'nama_nota' => 'GIGA-JB',
+                'nama' => 'GIGA 100x68.5',
+                'nama_nota' => 'GIGA',
                 'harga' => 9500 // 11
             ]
         ];
@@ -138,7 +138,7 @@ class SpecSeeder extends Seeder
             'harga' => 1000 // 22
         ],
         [
-            'nama' => 'Mio Soul GT 125', // 93*56
+            'nama' => 'MioSoulGT125', // 93*56
             'harga' => 1000 // 23
         ],
         [
@@ -191,7 +191,7 @@ class SpecSeeder extends Seeder
             'harga' => 3000 // 24
         ], [
             'nama' => 'Rotan Warna',
-            'harga' => 0 // 25
+            'harga' => 3000 // 25
         ],
         ];
 

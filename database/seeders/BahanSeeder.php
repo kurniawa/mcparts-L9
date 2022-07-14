@@ -117,6 +117,16 @@ class BahanSeeder extends Seeder
             'harga' => 12500,
             'ktrg' => 'Pengambilan dari: Toko Baru. Ketebalan: ~ 0.65 mm. Backing: Putih, polos. Pengambilan bukan dari pabrik, ini produk import.',
         ], [
+            'nama' => 'LuckyHole Hitam', // 20
+            'grade' => 'B',
+            'harga' => 12500,
+            'ktrg' => 'Pengambilan dari: Toko Baru. Ketebalan: ~ 0.65 mm. Backing: Putih, polos. Pengambilan bukan dari pabrik, ini produk import.',
+        ], [
+            'nama' => 'LuckyHole Kuning', // 21
+            'grade' => 'B',
+            'harga' => 12500,
+            'ktrg' => 'Pengambilan dari: Toko Baru. Ketebalan: ~ 0.65 mm. Backing: Putih, polos. Pengambilan bukan dari pabrik, ini produk import.',
+        ], [
             'nama' => 'LuckyHole Merah', // 21
             'grade' => 'B',
             'harga' => 12500,

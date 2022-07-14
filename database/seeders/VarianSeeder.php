@@ -16,6 +16,10 @@ class VarianSeeder extends Seeder
     public function run()
     {
         $varian = [
+            ['kategori' => 'honda', 'nama' => 'C70'],
+            ['kategori' => 'honda', 'nama' => 'CB'],
+            ['kategori' => 'honda', 'nama' => 'Honda'],
+            ['kategori' => 'yamaha', 'nama' => 'RXK'],
             ['kategori' => 'netral', 'nama' => 'Netral'],
             ['kategori' => 'netral', 'nama' => '46'],
             ['kategori' => 'netral', 'nama' => 'Alpinestar'],
@@ -28,7 +32,6 @@ class VarianSeeder extends Seeder
             ['kategori' => 'netral', 'nama' => 'Diavel'],
             ['kategori' => 'netral', 'nama' => 'FOX'],
             ['kategori' => 'netral', 'nama' => 'HKS'],
-            ['kategori' => 'netral', 'nama' => 'Honda'],
             ['kategori' => 'netral', 'nama' => 'Kitaco'],
             ['kategori' => 'netral', 'nama' => 'Monster'],
             ['kategori' => 'netral', 'nama' => 'MotoGP'],
@@ -68,8 +71,9 @@ class VarianSeeder extends Seeder
             ['kategori' => 'kartun', 'nama' => 'Keropi No.9'],
             ['kategori' => 'kartun', 'nama' => 'Mickey Mouse'],
             ['kategori' => 'kartun', 'nama' => 'Minion'],
-            ['kategori' => 'kartun', 'nama' => 'Spongebob'],
+            ['kategori' => 'kartun', 'nama' => 'SpongeBob'],
             ['kategori' => 'binatang', 'nama' => 'Kelabang'],
+            ['kategori' => 'binatang', 'nama' => 'Laba"'],
             ['kategori' => 'binatang', 'nama' => 'Macan'],
             ['kategori' => 'binatang', 'nama' => 'Naga'],
             ['kategori' => 'binatang', 'nama' => 'Scorpion'],
@@ -83,6 +87,8 @@ class VarianSeeder extends Seeder
             ['kategori' => null, 'nama' => 'Tribal 5'],
             ['kategori' => null, 'nama' => 'Tribal 6'],
             ['kategori' => null, 'nama' => 'Tribal 46'],
+            ['kategori' => null, 'nama' => 'Tribal Movistar'],
+            ['kategori' => null, 'nama' => 'Tribal 5X'],
             ['kategori' => null, 'nama' => 'Trisula'], // 47
             ['kategori' => 'mika', 'nama' => '1W'],
             // ['kategori' => 'event', 'nama' => 'Euro 2021'],

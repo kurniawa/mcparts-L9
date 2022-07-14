@@ -28,11 +28,11 @@ class StandarSeeder extends Seeder
             'id' => 3,
             'harga' => 12500
         ], [
-            'nama' => 'C70 Tanpa Alas',
+            'nama' => 'C70',
             'id' => 4,
             'harga' => 12500
         ], [
-            'nama' => 'CB Tanpa Alas',
+            'nama' => 'CB',
             'id' => 5,
             'harga' => 12500
         ], [
@@ -44,7 +44,7 @@ class StandarSeeder extends Seeder
             'id' => 7,
             'harga' => 12500
         ], [
-            'nama' => 'Grand 97',
+            'nama' => "Grand'97",
             'id' => 8,
             'harga' => 12500
         ], [
@@ -60,6 +60,10 @@ class StandarSeeder extends Seeder
             'id' => 11,
             'harga' => 12500
         ], [
+            'nama' => 'KLX',
+            'id' => 11,
+            'harga' => 12500
+        ], [
             'nama' => 'Mio',
             'id' => 12,
             'harga' => 12500
@@ -69,6 +73,10 @@ class StandarSeeder extends Seeder
             'harga' => 12500
         ], [
             'nama' => 'RX King 02',
+            'id' => 14,
+            'harga' => 12500
+        ], [
+            'nama' => 'RX King 95',
             'id' => 14,
             'harga' => 12500
         ], [
@@ -263,6 +271,7 @@ class StandarSeeder extends Seeder
         $harga_jahit_samping = 1500;
         $harga_press = 1500;
         $harga_alas = 1500;
+        $harga_busa = 1500;
         $variasi_std_harga = [[
             'variasi_standar' => 'jahit_kepala',
             'harga' => $harga_jahit_kepala
@@ -275,6 +284,9 @@ class StandarSeeder extends Seeder
         ], [
             'variasi_standar' => 'alas',
             'harga' => $harga_alas
+        ], [
+            'variasi_standar' => 'busa',
+            'harga' => $harga_busa
         ]];
 
         for ($i = 0; $i < count($standar); $i++) {
