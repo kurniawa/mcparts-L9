@@ -2442,6 +2442,310 @@ class ProdukSeeder extends Seeder
                 'harga' => 15500,
             ],
             [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Urat Tangan(MC) Polos + jht.Univ',
+                'nama_nota' => 'SJ Urat Tangan(MC) Polos + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 15500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Urat Tangan(MC) uk.JB 93x53',
+                'nama_nota' => 'SJ Urat Tangan(MC) uk.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Urat Tangan(MC) uk.NMAX + jht.NMAX',
+                'nama_nota' => 'SJ Urat Tangan(MC) uk.NMAX + jht.NMAX',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 21000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Urat Tangan(MC) uk.Aerox + jht.Aerox',
+                'nama_nota' => 'SJ Urat Tangan(MC) uk.Aerox + jht.Aerox',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 21000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Urat Tangan(MC) uk.FreeGo + jht.FreeGo',
+                'nama_nota' => 'SJ Urat Tangan(MC) uk.FreeGo + jht.FreeGo',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 21000,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Urat Tangan(MC) uk.JB 93x53 + jht.JB',
+                'nama_nota' => 'SJ Urat Tangan(MC) uk.JB + jht.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 19500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) LG.Sablon',
+                'nama_nota' => 'SJ Vario(M) LG.Sablon',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 15500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) Polos',
+                'nama_nota' => 'SJ Vario(M) Polos',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 14500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) Polos + jht.Univ',
+                'nama_nota' => 'SJ Vario(M) Polos + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 15500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) Polos uk.JB 93x53',
+                'nama_nota' => 'SJ Vario(M) Polos uk.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) Polos uk.JB 93x53 + jht.JB',
+                'nama_nota' => 'SJ Vario(M) Polos uk.JB + jht.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 19500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) Polos uk.Super-JB 97x53',
+                'nama_nota' => 'SJ Vario(M) Polos uk.Super-JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 19500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) Polos uk.Super-JB 97x53 + jht.JB',
+                'nama_nota' => 'SJ Vario(M) Polos uk.Super-JB + jht.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 19500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Sablon',
+                'nama_nota' => 'SJ Vario(M) T.Sablon',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Sablon Bride 9X',
+                'nama_nota' => 'SJ Vario(M) T.Sablon Bride 9X',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Sablon Doraemon',
+                'nama_nota' => 'SJ Vario(M) T.Sablon Doraemon',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Sablon FOX',
+                'nama_nota' => 'SJ Vario(M) T.Sablon FOX',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Sablon Keropi',
+                'nama_nota' => 'SJ Vario(M) T.Sablon Keropi',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Sablon Macan',
+                'nama_nota' => 'SJ Vario(M) T.Sablon Macan',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Sablon Movistar XLGP Racing',
+                'nama_nota' => 'SJ Vario(M) T.Sablon Movistar XLGP Racing',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Sablon Racing Boy',
+                'nama_nota' => 'SJ Vario(M) T.Sablon Racing Boy',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Sablon Tribal Campur + jht.Univ',
+                'nama_nota' => 'SJ Vario(M) T.Sablon Tribal Campur + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 19500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Sablon Tribal',
+                'nama_nota' => 'SJ Vario(M) T.Sablon Tribal',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 18500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Sablon Tribal + jht.Univ',
+                'nama_nota' => 'SJ Vario(M) T.Sablon Tribal + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 19500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Bayang',
+                'nama_nota' => 'SJ Vario(M) T.Bayang',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 19500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Bayang + jht.Univ',
+                'nama_nota' => 'SJ Vario(M) T.Bayang + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 19500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Polymas',
+                'nama_nota' => 'SJ Vario(M) T.Polymas',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 19500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Polymas Trisula + LG.Polymas',
+                'nama_nota' => 'SJ Vario(M) T.Polymas Trisula + LG.Polymas',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 20500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Polymas + jht.Univ',
+                'nama_nota' => 'SJ Vario(M) T.Polymas + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 20500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) T.Polymas Trisula + jht.Univ',
+                'nama_nota' => 'SJ Vario(M) T.Polymas Trisula + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 20500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(M) Tulang Bayang + LG.Sablon',
+                'nama_nota' => 'SJ Vario(M) Tulang Bayang + LG.Sablon',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 20500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(MC) T.Polymas Tribal Bride 5X + jht.Univ',
+                'nama_nota' => 'SJ Vario(MC) T.Polymas Tribal Bride 5X + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 20500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(MC) T.Sablon Blok Bride',
+                'nama_nota' => 'SJ Vario(MC) T.Sablon Blok Bride',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 20500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(MC) LG.Bludru',
+                'nama_nota' => 'SJ Vario(MC) LG.Bludru',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 15500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(MC) LG.Bludru + jht.Univ',
+                'nama_nota' => 'SJ Vario(MC) LG.Bludru + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 16500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(MC) LG.Polymas',
+                'nama_nota' => 'SJ Vario(MC) LG.Polymas',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 15500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(MC) LG.Polymas uk.JB 93x53',
+                'nama_nota' => 'SJ Vario(MC) LG.Polymas uk.JB',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 19500,
+            ],
+            [
+                'tipe' => 'SJ-Variasi',
+                'nama' => 'Vario(MC) LG.Sablon Sa-Korn + jht.Univ',
+                'nama_nota' => 'SJ Vario(MC) LG.Sablon Sa-Korn + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 150, // 34
+                'harga' => 16500,
+            ],
+            [
                 'tipe' => 'SJ-Japstyle',
                 'nama' => 'Kulit Jeruk Japstyle',
                 'nama_nota' => 'SJ Kulit Jeruk Japstyle',
@@ -2493,6 +2797,14 @@ class ProdukSeeder extends Seeder
                 'tipe' => 'SJ-Japstyle',
                 'nama' => 'Navaro(MC) Japstyle',
                 'nama_nota' => 'SJ Navaro(MC) Japstyle',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 34
+                'harga' => 20500,
+            ],
+            [
+                'tipe' => 'SJ-Japstyle',
+                'nama' => 'Vario(MC) Japstyle',
+                'nama_nota' => 'SJ Vario(MC) Japstyle',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 34
                 'harga' => 20500,
@@ -2868,6 +3180,14 @@ class ProdukSeeder extends Seeder
                 'tipe' => 'SJ-T.Sixpack',
                 'nama' => 'Navaro T.Sixpack + Alas + jht.Univ',
                 'nama_nota' => 'SJ Navaro T.Sixpack + Alas + jht.Univ',
+                'tipe_packing' => 'colly',
+                'aturan_packing' => 100, // 38
+                'harga' => 31500,
+            ],
+            [
+                'tipe' => 'SJ-T.Sixpack',
+                'nama' => 'Urat Tangan(MC) T.Sixpack + Busa + jht.Univ',
+                'nama_nota' => 'SJ Urat Tangan(MC) T.Sixpack + Busa + jht.Univ',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 38
                 'harga' => 31500,

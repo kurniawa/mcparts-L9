@@ -46,6 +46,7 @@ class VarianSeeder extends Seeder
             ['kategori' => 'netral', 'nama' => 'Ride It'],
             ['kategori' => 'netral', 'nama' => 'Rockstar'],
             ['kategori' => 'netral', 'nama' => 'Rossy 46'],
+            ['kategori' => 'netral', 'nama' => 'Sa-Korn'],
             ['kategori' => 'netral', 'nama' => 'Somjin'],
             ['kategori' => 'netral', 'nama' => 'TDR'],
             ['kategori' => 'netral', 'nama' => 'Tokage'],
@@ -55,11 +56,14 @@ class VarianSeeder extends Seeder
             ['kategori' => 'netral', 'nama' => 'YSS'], // 29
             // Tato
             ['kategori' => 'multiple', 'nama' => 'Bride 9X'],
+            ['kategori' => 'multiple', 'nama' => 'Blok Bride'], // campur
             ['kategori' => 'multiple', 'nama' => 'Blok Bride Pelangi'],
+            ['kategori' => 'multiple', 'nama' => 'Tribal Bride 5X'],
             ['kategori' => 'multiple', 'nama' => 'Kawahara 8X'],
             ['kategori' => 'multiple', 'nama' => 'NGO 7X'],
             ['kategori' => 'multiple', 'nama' => 'Somjin 7X'],
             ['kategori' => 'multiple', 'nama' => 'Thailook 5X'],
+            ['kategori' => 'multiple', 'nama' => 'Tribal 5X'], // campur
 
             ['kategori' => 'anime', 'nama' => 'Doraemon'],
             ['kategori' => 'anime', 'nama' => 'Doraemon Jepang'],

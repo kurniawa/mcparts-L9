@@ -54,12 +54,12 @@ class SpecSeeder extends Seeder
                 'nama_nota' => 'Aerox',
                 'harga' => 5500 // 6
             ], [
-                'nama' => 'Freego',
-                'nama_nota' => 'Freego',
+                'nama' => 'FreeGo',
+                'nama_nota' => 'FreeGo',
                 'harga' => 5500 // 7
             ], [
-                'nama' => 'Vario 150',
-                'nama_nota' => 'Vario 150',
+                'nama' => 'Vario150',
+                'nama_nota' => 'Vario150',
                 'harga' => 5500 // 8
             ], [
                 'nama' => 'MioSoulGT125',
@@ -131,10 +131,10 @@ class SpecSeeder extends Seeder
             'nama' => 'Aerox',
             'harga' => 1000 // 20
         ], [
-            'nama' => 'Freego',
+            'nama' => 'FreeGo',
             'harga' => 1000 // 21
         ], [
-            'nama' => 'Vario 150',
+            'nama' => 'Vario150',
             'harga' => 1000 // 22
         ],
         [
