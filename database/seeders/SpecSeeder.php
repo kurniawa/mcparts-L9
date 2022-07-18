@@ -16,11 +16,14 @@ class SpecSeeder extends Seeder
      */
     public function run()
     {
-        $ukuran = [
-            [
-                'nama' => 'JB 93x53',
-                'nama_nota' => 'JB',
-                'harga' => 4000 // 1
+        $ukuran = [[
+            'nama' => 'PK',
+            'nama_nota' => 'PK', // Patron Kecil, lebih kecil dari standar
+            'harga' => 0 // 1
+        ], [
+            'nama' => 'JB 93x53',
+            'nama_nota' => 'JB',
+            'harga' => 4000 // 1
             ],
             [
                 'nama' => 'LONG 95x51',

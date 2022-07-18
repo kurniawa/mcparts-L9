@@ -36,7 +36,7 @@ class VarianSeeder extends Seeder
             ['kategori' => 'netral', 'nama' => 'Monster'],
             ['kategori' => 'netral', 'nama' => 'MotoGP'],
             ['kategori' => 'netral', 'nama' => 'Movistar'],
-            ['kategori' => 'netral', 'nama' => 'Movistar XLGP Racing'],
+            ['kategori' => 'netral', 'nama' => 'Movistar XLGP'], // tidak perlu ditulis racing
             ['kategori' => 'netral', 'nama' => 'NGO'],
             ['kategori' => 'netral', 'nama' => 'Kawahara'],
             ['kategori' => 'netral', 'nama' => 'Racing Boy'],
@@ -70,7 +70,7 @@ class VarianSeeder extends Seeder
             ['kategori' => 'anime', 'nama' => 'Doraemon New'],
             ['kategori' => 'anime', 'nama' => 'Straw Hat'],
             ['kategori' => 'kartun', 'nama' => 'Kartun'],
-            ['kategori' => 'kartun', 'nama' => 'Hello Kitty 2'],
+            ['kategori' => 'kartun', 'nama' => 'HelloKitty 2'],
             ['kategori' => 'kartun', 'nama' => 'Keropi'],
             ['kategori' => 'kartun', 'nama' => 'Keropi No.9'],
             ['kategori' => 'kartun', 'nama' => 'Mickey Mouse'],
@@ -92,12 +92,14 @@ class VarianSeeder extends Seeder
             ['kategori' => null, 'nama' => 'Tribal 6'],
             ['kategori' => null, 'nama' => 'Tribal 46'],
             ['kategori' => null, 'nama' => 'Tribal Movistar'],
+            ['kategori' => null, 'nama' => 'Tribal Petir'],
             ['kategori' => null, 'nama' => 'Tribal 5X'],
-            ['kategori' => null, 'nama' => 'Trisula'], // 47
+            ['kategori' => null, 'nama' => 'Trisula'], // 47 - T.Bayang, T.Polymas, T.Sablon
             ['kategori' => 'mika', 'nama' => '1W'],
             // ['kategori' => 'event', 'nama' => 'Euro 2021'],
             ['kategori' => 'event', 'nama' => 'Modi'],
             ['kategori' => 'list', 'nama' => 'Kawahara'],
+            ['kategori' => 'campur', 'nama' => 'Canpur'],
         ];
 
         for ($i = 0; $i < count($varian); $i++) {
