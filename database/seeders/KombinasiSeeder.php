@@ -17,44 +17,19 @@ class KombinasiSeeder extends Seeder
     public function run()
     {
         $kombinasi = [[
-            'nama' => 'Kombinasi Sayap Warna(A) Motif + LG + jht.Kepala',
+            'nama' => 'Sayap Warna',
             'harga' => 20500
         ], [
-            'nama' => 'Kombinasi Warna Japstyle + jht.Kepala',
+            'nama' => 'Warna Japstyle',
             'harga' => 20000
         ],
         [
-            'nama' => 'Kombinasi List Miring (A)',
+            'nama' => 'List Miring',
             'harga' => 17000
         ],
         [
-            'nama' => 'Kombinasi List Miring + LG',
-            'harga' => 17000
-        ],
-        [
-            'nama' => 'Kombinasi Warna X-Ride(L) + Rotan Warna',
+            'nama' => 'Warna X-Ride(L)',
             'harga' => 27500
-        ], [
-            'nama' => 'Kombinasi Warna X-Ride(L) + Benang Warna',
-            'harga' => 26500
-        ], [
-            'nama' => 'Motif Sixpack 2 Warna + jht.Univ',
-            'harga' => 29000
-        ], [
-            'nama' => 'Motif Sixpack 2 Warna uk.JB + jht.JB',
-            'harga' => 36000
-        ], [
-            'nama' => 'Motif Hexagon 2 Warna + jht.Univ',
-            'harga' => 29000
-        ], [
-            'nama' => 'Motif Hexagon 2 Warna uk.JB + jht.JB',
-            'harga' => 36000
-        ], [
-            'nama' => 'Motif Starpack 2 Warna + jht.Univ',
-            'harga' => 29000
-        ], [
-            'nama' => 'Motif Starpack 2 Warna uk.JB + jht.JB',
-            'harga' => 36000
         ]];
 
         for ($i = 0; $i < count($kombinasi); $i++) {

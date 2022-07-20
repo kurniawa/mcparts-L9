@@ -190,6 +190,9 @@ class SpecSeeder extends Seeder
         }
 
         $list = [[
+            'nama' => 'List',
+            'harga' => 3000 // 24
+        ], [
             'nama' => 'Benang Warna',
             'harga' => 3000 // 24
         ], [
