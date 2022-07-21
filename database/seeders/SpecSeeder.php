@@ -193,9 +193,6 @@ class SpecSeeder extends Seeder
             'nama' => 'List',
             'harga' => 3000 // 24
         ], [
-            'nama' => 'Benang Warna',
-            'harga' => 3000 // 24
-        ], [
             'nama' => 'Rotan Warna',
             'harga' => 3000 // 25
         ],

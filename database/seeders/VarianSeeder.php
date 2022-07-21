@@ -46,6 +46,7 @@ class VarianSeeder extends Seeder
             ['kategori' => 'netral', 'nama' => 'Ride It'],
             ['kategori' => 'netral', 'nama' => 'Rockstar'],
             ['kategori' => 'netral', 'nama' => 'Rossy 46'],
+            ['kategori' => 'netral', 'nama' => '46 The Doctor'],
             ['kategori' => 'netral', 'nama' => 'Sa-Korn'],
             ['kategori' => 'netral', 'nama' => 'Somjin'],
             ['kategori' => 'netral', 'nama' => 'TDR'],

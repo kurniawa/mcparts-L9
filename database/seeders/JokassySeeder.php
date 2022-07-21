@@ -18,109 +18,108 @@ class JokassySeeder extends Seeder
     {
         $jokassy = [[
             'nama' => 'Absolute Revo',
-            'harga' => 0
+            'harga' => 107500
         ], [
             'nama' => 'Beat',
-            'harga' => 1000
+            'harga' => 107500
         ], [
             'nama' => 'Beat FI',
-            'harga' => 1000
+            'harga' => 107500
+        ], [
+            'nama' => 'CB Japstyle',
+            'harga' => 107500
         ], [
             'nama' => 'CB STD',
-            'harga' => 1000
+            'harga' => 107500
         ], [
             'nama' => 'F1ZR',
-            'harga' => 1000
+            'harga' => 107500
         ], [
             'nama' => 'Fit New',
-            'harga' => 1000
+            'harga' => 107500
         ], [
             'nama' => 'FU',
-            'harga' => 1000
+            'harga' => 107500
         ], [
             'nama' => 'GL Pro',
-            'harga' => 4000
+            'harga' => 107500
         ], [
             'nama' => 'Grand',
-            'harga' => 3000
+            'harga' => 107500
         ], [
             'nama' => "Grand'97",
-            'harga' => 3000
+            'harga' => 107500
         ], [
             'nama' => 'Jupiter MX',
-            'harga' => 5000
+            'harga' => 107500
         ], [
             'nama' => 'Jupiter New',
-            'harga' => 4000
+            'harga' => 107500
         ], [
             'nama' => 'Jupiter Z',
-            'harga' => 4000
+            'harga' => 107500
         ], [
             'nama' => 'Mio M3',
-            'harga' => 5000
+            'harga' => 107500
         ], [
             'nama' => 'Mio Soul',
-            'harga' => 5000
-        ],
-        [
-            'nama' => 'MX',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
             'nama' => 'Prima',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
             'nama' => 'Revo FI',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
             'nama' => 'RX King',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
             'nama' => 'RXK New',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
-            'nama' => 'RXK New Papas Perahu',
-            'harga' => 5000
+            'nama' => 'RXK Perahu',
+            'harga' => 107500
         ],
         [
             'nama' => 'RXK Press',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
             'nama' => 'RXK Supra',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
             'nama' => 'RXK Supra 125',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
             'nama' => 'RXK Supra Fit New',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
             'nama' => 'RXK Supra X',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
             'nama' => 'RXK Vario 125',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
             'nama' => 'RXK Vario Techno',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
             'nama' => 'RXK Vega R',
-            'harga' => 5000
+            'harga' => 107500
         ],
         [
             'nama' => 'RXK Vega ZR',
-            'harga' => 5000
+            'harga' => 107500
         ],
         ];
 
