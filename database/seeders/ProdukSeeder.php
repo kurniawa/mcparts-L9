@@ -79,12 +79,12 @@ class ProdukSeeder extends Seeder
             'harga' => 17500,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Amplas(RY) LG.Bordir uk.JB 93x53',
+            'nama' => 'Amplas(RY) LG.Bordir uk.JB93x53',
             'nama_nota' => 'SJ Amplas(RY) LG.Bordir uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 8
             'harga' => 21500,
-            'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Bludru','varian_1'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Bludru','varian_1'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Amplas(RY) LG.Mika 1W',
@@ -103,12 +103,12 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Polymas','varian_1'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Amplas(RY) LG.Polymas uk.JB 93x53',
+            'nama' => 'Amplas(RY) LG.Polymas uk.JB93x53',
             'nama_nota' => 'SJ Amplas(RY) LG.Polymas uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 11
             'harga' => 21500,
-            'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Polymas','varian_1'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Polymas','varian_1'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Amplas(RY) LG.Stiker',
@@ -127,20 +127,20 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Stiker','varian_1'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Amplas(RY) LG.Stiker uk.JB 93x53',
+            'nama' => 'Amplas(RY) LG.Stiker uk.JB93x53',
             'nama_nota' => 'SJ Amplas(RY) LG.Stiker uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 14
             'harga' => 24500,
-            'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Stiker','varian_1'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Stiker','varian_1'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Amplas(RY) LG.Stiker uk.Super-JB 97x53',
+            'nama' => 'Amplas(RY) LG.Stiker uk.SuperJB97x53',
             'nama_nota' => 'SJ Amplas(RY) LG.Stiker uk.Super-JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150,// 15
             'harga' => 26000,
-            'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Stiker','varian_1'=>null,'ukuran'=>'Super-JB 93x53','jahit'=>null,
+            'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Stiker','varian_1'=>null,'ukuran'=>'Super-JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Amplas(RY) Polos',
@@ -175,31 +175,31 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Amplas(RY)','variasi_1'=>'Polos','varian_1'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Amplas(RY) Polos uk.JB 93x53',
+            'nama' => 'Amplas(RY) Polos uk.JB93x53',
             'nama_nota' => 'SJ Amplas(RY) Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 20
             'harga' => 20500,
-            'bahan'=>'Amplas(RY)','variasi_1'=>'Polos','varian_1'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'Amplas(RY)','variasi_1'=>'Polos','varian_1'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Amplas(RY) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'Amplas(RY) Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ Amplas(RY) Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 21
             'harga' => 21500,
-            'bahan'=>'Amplas(RY)','variasi_1'=>'Polos','varian_1'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB',
+            'bahan'=>'Amplas(RY)','variasi_1'=>'Polos','varian_1'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Amplas(RY) Polos uk.Super-JB 97x53',
+            'nama' => 'Amplas(RY) Polos uk.SuperJB97x53',
             'nama_nota' => 'SJ Amplas(RY) Polos uk.Super-JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 22
             'harga' => 22000,
-            'bahan'=>'Amplas(RY)','variasi_1'=>'Polos','varian_1'=>null,'ukuran'=>'Super-JB 93x53','jahit'=>null,
+            'bahan'=>'Amplas(RY)','variasi_1'=>'Polos','varian_1'=>null,'ukuran'=>'Super-JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Amplas(RY) Polos uk.GIGA 100x68.5',
+            'nama' => 'Amplas(RY) Polos uk.GIGA100x68.5',
             'nama_nota' => 'SJ Amplas(RY) Polos uk.GIGA',
             'tipe_packing' => 'colly',
             'aturan_packing' => 100, // 23
@@ -271,28 +271,28 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Amplas(SBT)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Amplas(SBT) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'Amplas(SBT) Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ Amplas(SBT) Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 32
             'harga' => 24000,
-            'bahan'=>'Amplas(SBT)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB',
+            'bahan'=>'Amplas(SBT)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'BigDot(CK) Polos uk.JB 93x53',
+            'nama' => 'BigDot(CK) Polos uk.JB93x53',
             'nama_nota' => 'SJ BigDot(CK) Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 33
             'harga' => 18500,
-            'bahan'=>'BigDot(CK)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'BigDot(CK)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'BigDot(CK) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'BigDot(CK) Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ BigDot(CK) Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 33
             'harga' => 19500,
-            'bahan'=>'BigDot(CK)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB',
+            'bahan'=>'BigDot(CK)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'BigDot(MC) LG.Bludru',
@@ -351,28 +351,28 @@ class ProdukSeeder extends Seeder
             'bahan'=>'BigDot(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'BigDot(MC) Polos uk.JB 93x53',
+            'nama' => 'BigDot(MC) Polos uk.JB93x53',
             'nama_nota' => 'SJ BigDot(MC) Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 33
             'harga' => 18500,
-            'bahan'=>'BigDot(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'BigDot(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'BigDot(MC) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'BigDot(MC) Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ BigDot(MC) Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 33
             'harga' => 19500,
-            'bahan'=>'BigDot(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB',
+            'bahan'=>'BigDot(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'BigDot(MC) Polos uk.Super-JB 97x53',
+            'nama' => 'BigDot(MC) Polos uk.SuperJB97x53',
             'nama_nota' => 'SJ BigDot(MC) Polos uk.Super-JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-            'bahan'=>'BigDot(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'Super-JB 97x53','jahit'=>null,
+            'bahan'=>'BigDot(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'SuperJB97x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'BigDot(MC) T.Polymas',
@@ -423,20 +423,20 @@ class ProdukSeeder extends Seeder
             'bahan'=>'BigDot(MCR)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'BigDot(MCR) Polos uk.JB 93x53',
+            'nama' => 'BigDot(MCR) Polos uk.JB93x53',
             'nama_nota' => 'SJ BigDot(MCR) Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
-            'bahan'=>'BigDot(MCR)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'BigDot(MCR)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'BigDot(MCR) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'BigDot(MCR) Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ BigDot(MCR) Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-            'bahan'=>'BigDot(MCR)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB',
+            'bahan'=>'BigDot(MCR)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'BigDot(MCR) T.Polymas',
@@ -487,20 +487,20 @@ class ProdukSeeder extends Seeder
             'bahan'=>'C24','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'C24 Polos uk.JB 93x53',
+            'nama' => 'C24 Polos uk.JB93x53',
             'nama_nota' => 'SJ C24 Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17000,
-            'bahan'=>'C24','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'C24','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'C24 Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'C24 Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ C24 Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18000,
-            'bahan'=>'C24','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB',
+            'bahan'=>'C24','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'C24 Polos uk.Aerox + jht.Aerox',
@@ -535,12 +535,12 @@ class ProdukSeeder extends Seeder
             'bahan'=>'C24','variasi_1'=>'T.Sablon','varian_1'=>'Blok Bride Pelangi','variasi_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'C24 T.Sablon FOX',
-            'nama_nota' => 'SJ C24 T.Sablon FOX',
+            'nama' => 'C24 T.Sablon Fox',
+            'nama_nota' => 'SJ C24 T.Sablon Fox',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18000,
-            'bahan'=>'C24','variasi_1'=>'T.Sablon','varian_1'=>'FOX','variasi_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'bahan'=>'C24','variasi_1'=>'T.Sablon','varian_1'=>'Fox','variasi_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'C24 T.Sablon Modi',
@@ -559,12 +559,12 @@ class ProdukSeeder extends Seeder
             'bahan'=>'C24','variasi_1'=>'T.Sablon','varian_1'=>'NGO 7X','variasi_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'C24 T.Sablon Racing Boy List Kawahara',
-            'nama_nota' => 'SJ C24 T.Sablon Racing Boy List Kawahara',
+            'nama' => 'C24 T.Sablon RacingBoy List Kawahara',
+            'nama_nota' => 'SJ C24 T.Sablon RacingBoy List Kawahara',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18000,
-            'bahan'=>'C24','variasi_1'=>'T.Sablon','varian_1'=>'Racing Boy','variasi_2'=>'List','varian_2'=>'Kawahara','ukuran'=>null,'jahit'=>null,
+            'bahan'=>'C24','variasi_1'=>'T.Sablon','varian_1'=>'RacingBoy','variasi_2'=>'List','varian_2'=>'Kawahara','ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'C24 T.Sablon Straw Hat',
@@ -647,28 +647,28 @@ class ProdukSeeder extends Seeder
             'bahan'=>'C30(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'C30(MC) Polos uk.JB 93x53',
+            'nama' => 'C30(MC) Polos uk.JB93x53',
             'nama_nota' => 'SJ C30(MC) Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
-            'bahan'=>'C30(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'C30(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'C30(MC) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'C30(MC) Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ C30(MC) Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-            'bahan'=>'C30(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB',
+            'bahan'=>'C30(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'C30(MC) Polos uk.Super-JB 97x53',
+            'nama' => 'C30(MC) Polos uk.SuperJB97x53',
             'nama_nota' => 'SJ C30(MC) Polos uk.Super-JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 20000,
-            'bahan'=>'C30(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'Super-JB 97x53','jahit'=>null,
+            'bahan'=>'C30(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'SuperJB97x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'C30(MC) Polos uk.MioSoulGT125 + jht.MioSoulGT125',
@@ -711,12 +711,12 @@ class ProdukSeeder extends Seeder
             'bahan'=>'C38(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'C38(MC) uk.JB 93x53 + jht.JB',
+            'nama' => 'C38(MC) uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ C38(MC) uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-            'bahan'=>'C38(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB',
+            'bahan'=>'C38(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'C38(MC) uk.Aerox + jht.Aerox',
@@ -735,20 +735,20 @@ class ProdukSeeder extends Seeder
             'bahan'=>'C38(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'FreeGo','jahit'=>'FreeGo',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'C38(MC) Polos uk.JB 93x53',
+            'nama' => 'C38(MC) Polos uk.JB93x53',
             'nama_nota' => 'SJ C38(MC) Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
-            'bahan'=>'C38(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'C38(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'C38(MC) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'C38(MC) Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ C38(MC) Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-            'bahan'=>'C38(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB',
+            'bahan'=>'C38(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'C38(MC) Polos uk.MioSoulGT125 + jht.MioSoulGT125',
@@ -775,7 +775,7 @@ class ProdukSeeder extends Seeder
             'bahan'=>'C38(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'PCX','jahit'=>'PCX',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'C38(MC) Polos uk.Super-JB 97x53 + jht.JB',
+            'nama' => 'C38(MC) Polos uk.SuperJB97x53 + jht.JB',
             'nama_nota' => 'SJ C38(MC) Polos uk.Super-JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
@@ -799,20 +799,20 @@ class ProdukSeeder extends Seeder
             'bahan'=>'C38(MC)','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Carbon LG.Bludru uk.JB 93x53',
+            'nama' => 'Carbon LG.Bludru uk.JB93x53',
             'nama_nota' => 'SJ Carbon LG.Bludru uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 24000,
-            'bahan'=>'Carbon','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Carbon LG.Bludru uk.Super-JB 97x53',
+            'nama' => 'Carbon LG.Bludru uk.SuperJB97x53',
             'nama_nota' => 'SJ Carbon LG.Bludru uk.Super-JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 25500,
-            'bahan'=>'Carbon','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'Super-JB 93x53','jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'Super-JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Carbon LG.Bordir',
@@ -820,7 +820,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 20000,
-            'bahan'=>'Carbon','variasi_1'=>'LG.Bordir','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'Super-JB 93x53','jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'LG.Bordir','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'Super-JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Carbon LG.Bordir + jht.Univ',
@@ -839,12 +839,12 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Carbon','variasi_1'=>'LG.Bordir','varian_1'=>'Bikers','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Carbon LG.Bordir uk.Super-JB 97x53',
+            'nama' => 'Carbon LG.Bordir uk.SuperJB97x53',
             'nama_nota' => 'SJ Carbon LG.Bordir uk.Super-JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 25500,
-            'bahan'=>'Carbon','variasi_1'=>'LG.Bordir','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'Super-JB 97x53','jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'LG.Bordir','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'SuperJB97x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Carbon LG.Sablon Sa-Korn',
@@ -895,28 +895,28 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Carbon','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Carbon Polos uk.JB 93x53',
+            'nama' => 'Carbon Polos uk.JB93x53',
             'nama_nota' => 'SJ Carbon Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 23000,
-            'bahan'=>'Carbon','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Carbon Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'Carbon Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ Carbon Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 24000,
-            'bahan'=>'Carbon','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB',
+            'bahan'=>'Carbon','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Carbon Polos uk.Super-JB 97x53',
+            'nama' => 'Carbon Polos uk.SuperJB97x53',
             'nama_nota' => 'SJ Carbon Polos uk.Super-JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 24500,
-            'bahan'=>'Carbon','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'Super-JB 97x53','jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'SuperJB97x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Carbon Polos uk.Aerox + jht.Aerox',
@@ -959,20 +959,20 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Carbon','variasi_1'=>'T.Bayang','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Carbon T.Bayang uk.JB 93x53',
+            'nama' => 'Carbon T.Bayang uk.JB93x53',
             'nama_nota' => 'SJ Carbon T.Bayang uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 26000,
-            'bahan'=>'Carbon','variasi_1'=>'T.Bayang','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'T.Bayang','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Carbon T.Bayang uk.JB 93x53 + jht.JB',
+            'nama' => 'Carbon T.Bayang uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ Carbon T.Bayang uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 27000,
-            'bahan'=>'Carbon','variasi_1'=>'T.Bayang','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB',
+            'bahan'=>'Carbon','variasi_1'=>'T.Bayang','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Carbon Tulang Bayang',
@@ -999,20 +999,20 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Carbon','variasi_1'=>'Tulang Bayang','varian_1'=>'Prima','variasi_2'=>'LG.Blurdru','varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Carbon Tulang Bayang Prima uk.JB 93x53 + LG.Bludru',
+            'nama' => 'Carbon Tulang Bayang Prima uk.JB93x53 + LG.Bludru',
             'nama_nota' => 'SJ Carbon Tulang Bayang Prima uk.JB + LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 28000,
-            'bahan'=>'Carbon','variasi_1'=>'Tulang Bayang','varian_1'=>'Prima','variasi_2'=>'LG.Blurdru','varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'Tulang Bayang','varian_1'=>'Prima','variasi_2'=>'LG.Blurdru','varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Carbon Tulang Bayang Prima uk.JB 93x53 + LG.Polymas',
+            'nama' => 'Carbon Tulang Bayang Prima uk.JB93x53 + LG.Polymas',
             'nama_nota' => 'SJ Carbon Tulang Bayang Prima uk.JB + LG.Polymas',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 28000,
-            'bahan'=>'Carbon','variasi_1'=>'Tulang Bayang','varian_1'=>'Prima','variasi_2'=>'LG.Polymas','varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'Tulang Bayang','varian_1'=>'Prima','variasi_2'=>'LG.Polymas','varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Grafity LG.Bludru',
@@ -1071,20 +1071,20 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Grafity','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Grafity Polos uk.JB 93x53',
+            'nama' => 'Grafity Polos uk.JB93x53',
             'nama_nota' => 'SJ Grafity Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
-            'bahan'=>'Grafity','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'Grafity','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Grafity Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'Grafity Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ Grafity Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-            'bahan'=>'Grafity','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB',
+            'bahan'=>'Grafity','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Grafity Polos uk.NMAX + jht.NMAX',
@@ -1135,12 +1135,12 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Grafity','variasi_1'=>'T.Sablon','varian_1'=>'Doraemon New','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Grafity T.Sablon HelloKitty 2',
-            'nama_nota' => 'SJ Grafity T.Sablon HelloKitty 2',
+            'nama' => 'Grafity T.Sablon HelloKitty2',
+            'nama_nota' => 'SJ Grafity T.Sablon HelloKitty2',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-            'bahan'=>'Grafity','variasi_1'=>'T.Sablon','varian_1'=>'HelloKitty 2','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'bahan'=>'Grafity','variasi_1'=>'T.Sablon','varian_1'=>'HelloKitty2','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Grafity T.Sablon Keropi No.9',
@@ -1159,20 +1159,20 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Grafity','variasi_1'=>'T.Sablon','varian_1'=>'Keropi','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Grafity T.Polymas Macan uk.JB 93x53',
+            'nama' => 'Grafity T.Polymas Macan uk.JB93x53',
             'nama_nota' => 'SJ Grafity T.Polymas Macan uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-            'bahan'=>'Grafity','variasi_1'=>'T.Polymas','varian_1'=>'Macan','variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB 93x53','jahit'=>null,
+            'bahan'=>'Grafity','variasi_1'=>'T.Polymas','varian_1'=>'Macan','variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Grafity T.Sablon Mickey Mouse',
-            'nama_nota' => 'SJ Grafity T.Sablon Mickey Mouse',
+            'nama' => 'Grafity T.Sablon MickeyMouse',
+            'nama_nota' => 'SJ Grafity T.Sablon MickeyMouse',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-            'bahan'=>'Grafity','variasi_1'=>'T.Sablon','varian_1'=>'Mickey Mouse','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'bahan'=>'Grafity','variasi_1'=>'T.Sablon','varian_1'=>'MickeyMouse','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Grafity T.Sablon Minion',
@@ -1207,12 +1207,12 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Grafity','variasi_1'=>'Tulang Bayang','varian_1'=>'Prima','variasi_2'=>'LG.Sablon','varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Grafity T.Sablon Racing Boy',
-            'nama_nota' => 'SJ Grafity T.Sablon Racing Boy',
+            'nama' => 'Grafity T.Sablon RacingBoy',
+            'nama_nota' => 'SJ Grafity T.Sablon RacingBoy',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-            'bahan'=>'Grafity','variasi_1'=>'T.Sablon','varian_1'=>'Racing Boy','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'bahan'=>'Grafity','variasi_1'=>'T.Sablon','varian_1'=>'RacingBoy','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Grafity T.Sablon 46 The Doctor', //
@@ -1308,870 +1308,863 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk','variasi_1'=>'LG.Bayang','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk LG.Bludru',
             'nama_nota' => 'SJ Kulit Jeruk LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk LG.Bludru + jht.RXK',
             'nama_nota' => 'SJ Kulit Jeruk LG.Bludru + jht.RXK',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'RXK',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk LG.Bludru + jht.Univ',
             'nama_nota' => 'SJ Kulit Jeruk LG.Bludru + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk LG.Sablon',
             'nama_nota' => 'SJ Kulit Jeruk LG.Sablon',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk','variasi_1'=>'LG.Sablon','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk LG.Sablon Kartun',
             'nama_nota' => 'SJ Kulit Jeruk LG.Sablon Kartun',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk','variasi_1'=>'LG.Sablon','varian_1'=>'Kartun','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk LG.Sablon Netral',
             'nama_nota' => 'SJ Kulit Jeruk LG.Sablon Netral',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk','variasi_1'=>'LG.Sablon','varian_1'=>'Netral','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk Polos',
             'nama_nota' => 'SJ Kulit Jeruk Polos',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk Polos + jht.Univ',
             'nama_nota' => 'SJ Kulit Jeruk Polos + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Kulit Jeruk Polos uk.JB 93x53',
+            'nama' => 'Kulit Jeruk Polos uk.JB93x53',
             'nama_nota' => 'SJ Kulit Jeruk Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Kulit Jeruk Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'Kulit Jeruk Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ Kulit Jeruk Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk Polos uk.97x68.5',
             'nama_nota' => 'SJ Kulit Jeruk Polos uk.97x68.5',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'97x68.5','jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk(CK)(RY) LG.Bludru',
             'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk(CK)(RY)','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk(CK)(RY) Polos',
             'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) Polos',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk(CK)(RY)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk(CK)(RY) T.Bayang C70',
             'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) T.Bayang C70',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk(CK)(RY)','variasi_1'=>'T.Bayang','varian_1'=>'C70','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk(CK)(RY) T.Bayang CB',
             'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) T.Bayang CB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18000,
-        ],
-        [
-            'tipe' => 'SJ-Variasi',
-            'nama' => 'Kulit Jeruk(CK)(RY) T.Bayang C70',
-            'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) T.Bayang C70',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 18000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk(CK)(RY)','variasi_1'=>'T.Bayang','varian_1'=>'CB','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Kulit Jeruk(CK)(RY) T.Bayang RXK',
             'nama_nota' => 'SJ Kulit Jeruk(CK)(RY) T.Bayang RXK',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18000,
-        ],
-        [
+            'bahan'=>'Kulit Jeruk(CK)(RY)','variasi_1'=>'T.Bayang','varian_1'=>'RXK','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'L55(CK) LG.BLudru',
-            'nama_nota' => 'SJ L55(CK) LG.BLudru',
+            'nama' => 'L55(CK) LG.Bludru',
+            'nama_nota' => 'SJ L55(CK) LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14000,
-        ],
-        [
+            'bahan'=>'L55(CK)','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'L55(CK) LG.BLudru + jht.Univ',
-            'nama_nota' => 'SJ L55(CK) LG.BLudru + jht.Univ',
+            'nama' => 'L55(CK) LG.Bludru + jht.Univ',
+            'nama_nota' => 'SJ L55(CK) LG.Bludru + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15000,
-        ],
-        [
+            'bahan'=>'L55(CK)','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'L55(CK) LG.Bludru uk.JB 93x53 + jht.JB',
+            'nama' => 'L55(CK) LG.Bludru uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ L55(CK) LG.Bludru uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18000,
-        ],
-        [
+            'bahan'=>'L55(CK)','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'L55(CK) Polos',
             'nama_nota' => 'SJ L55(CK) Polos',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13000,
-        ],
-        [
+            'bahan'=>'L55(CK)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'L55(CK) Polos + jht.ABS-RV',
             'nama_nota' => 'SJ L55(CK) Polos + jht.ABS-RV',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14000,
-        ],
-        [
+            'bahan'=>'L55(CK)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'ABS-RV',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'L55(CK) Polos + jht.Univ',
             'nama_nota' => 'SJ L55(CK) Polos + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14000,
-        ],
-        [
+            'bahan'=>'L55(CK)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'L55(CK) Polos uk.JB 93x53',
+            'nama' => 'L55(CK) Polos uk.JB93x53',
             'nama_nota' => 'SJ L55(CK) Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17000,
-        ],
-        [
+            'bahan'=>'L55(CK)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'L55(CK) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'L55(CK) Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ L55(CK) Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18000,
-        ],
-        [
+            'bahan'=>'L55(CK)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'L55(CK) T.Polymas',
             'nama_nota' => 'SJ L55(CK) T.Polymas',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18000,
-        ],
-        [
-            'tipe' => 'SJ-Variasi',
-            'nama' => 'L55(MC) Polos',
-            'nama_nota' => 'SJ L55(MC) Polos',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 13000,
-        ],
-        [
-            'tipe' => 'SJ-Variasi',
-            'nama' => 'L55(MC) Polos + jht.Univ',
-            'nama_nota' => 'SJ L55(MC) Polos + jht.Univ',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 14000,
-        ],
-        [
+            'bahan'=>'L55(CK)','variasi_1'=>'T.Polymas','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'L55(MC) LG.Bludru',
             'nama_nota' => 'SJ L55(MC) LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14000,
-        ],
-        [
+            'bahan'=>'L55(MC)','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'L55(MC) uk.JB 93x53',
-            'nama_nota' => 'SJ L55(MC) uk.JB',
+            'nama' => 'L55(MC) Polos',
+            'nama_nota' => 'SJ L55(MC) Polos',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 13000,
+            'bahan'=>'L55(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'SJ-Variasi',
+            'nama' => 'L55(MC) Polos + jht.Univ',
+            'nama_nota' => 'SJ L55(MC) Polos + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14000,
-        ],
-        [
+            'bahan'=>'L55(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
+            'tipe' => 'SJ-Variasi',
+            'nama' => 'L55(MC) Polos uk.JB93x53',
+            'nama_nota' => 'SJ L55(MC) Polos uk.JB',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 14000,
+            'bahan'=>'L55(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'L55(MC) T.Polymas',
             'nama_nota' => 'SJ L55(MC) T.Polymas',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18000,
-        ],
-        [
+            'bahan'=>'L55(MC)','variasi_1'=>'T.Polymas','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole LG.Bayang',
             'nama_nota' => 'SJ LuckyHole LG.Bayang',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13500,
-        ],
-        [
+            'bahan'=>'LuckyHole','variasi_1'=>'LG.Bayang','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole LG.Bayang + jht.Univ',
             'nama_nota' => 'SJ LuckyHole LG.Bayang + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14500,
-        ],
-        [
+            'bahan'=>'LuckyHole','variasi_1'=>'LG.Bayang','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole LG.Bludru',
             'nama_nota' => 'SJ LuckyHole LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13500,
-        ],
-        [
+            'bahan'=>'LuckyHole','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole LG.Bludru + jht.Univ',
             'nama_nota' => 'SJ LuckyHole LG.Bludru + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14500,
-        ],
-        [
+            'bahan'=>'LuckyHole','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole LG.Polymas',
             'nama_nota' => 'SJ LuckyHole LG.Polymas',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13500,
-        ],
-        [
+            'bahan'=>'LuckyHole','variasi_1'=>'LG.Polymas','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole Polos',
             'nama_nota' => 'SJ LuckyHole Polos',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 12500,
-        ],
-        [
+            'bahan'=>'LuckyHole','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole Polos + jht.Univ',
             'nama_nota' => 'SJ LuckyHole Polos + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13500,
-        ],
-        [
+            'bahan'=>'LuckyHole','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'LuckyHole Polos uk.JB 93x53',
+            'nama' => 'LuckyHole Polos uk.JB93x53',
             'nama_nota' => 'SJ LuckyHole Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 16500,
-        ],
-        [
+            'bahan'=>'LuckyHole','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'LuckyHole Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'LuckyHole Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ LuckyHole Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'LuckyHole','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole Warna LG.Bludru',
             'nama_nota' => 'SJ LuckyHole Warna LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13500,
-        ],
-        [
-            'tipe' => 'SJ-Variasi',
-            'nama' => 'MBtech(BD) LG.Bayang',
-            'nama_nota' => 'SJ MBtech(BD) LG.Bayang',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 42000,
-        ],
-        [
-            'tipe' => 'SJ-Variasi',
-            'nama' => 'MBtech(BD) Polos',
-            'nama_nota' => 'SJ MBtech(BD) Polos',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 41000,
-        ],
-        [
-            'tipe' => 'SJ-Variasi',
-            'nama' => 'MBtech(BD) Tulang Bayang + LG.Bayang',
-            'nama_nota' => 'SJ MBtech(BD) Tulang Bayang + LG.Bayang',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 45000,
-        ],
-        [
-            'tipe' => 'SJ-Variasi',
-            'nama' => 'MBtech(KJ) Polos',
-            'nama_nota' => 'SJ MBtech(KJ) Polos',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 41000,
-        ],
-        [
-            'tipe' => 'SJ-Variasi',
-            'nama' => 'MBtech(RD) Polos',
-            'nama_nota' => 'SJ MBtech(RD) Polos',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 41000,
-        ],
-        [
+            'bahan'=>'LuckyHole Warna','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole(FB) LG.Bludru',
             'nama_nota' => 'SJ LuckyHole(FB) LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13500,
-        ],
-        [
+            'bahan'=>'LuckyHole(FB)','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole(FB) Polos',
             'nama_nota' => 'SJ LuckyHole(FB) Polos',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 12500,
-        ],
-        [
+            'bahan'=>'LuckyHole(FB)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole Biru LG.Bludru',
             'nama_nota' => 'SJ LuckyHole Biru LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13500,
-        ],
-        [
+            'bahan'=>'LuckyHole Biru','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole Hitam LG.Bludru',
             'nama_nota' => 'SJ LuckyHole Hitam LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13500,
-        ],
-        [
+            'bahan'=>'LuckyHole Biru','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole Kuning LG.Bludru',
             'nama_nota' => 'SJ LuckyHole Kuning LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13500,
-        ],
-        [
+            'bahan'=>'LuckyHole Kuning','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole Merah LG.Bludru',
             'nama_nota' => 'SJ LuckyHole Merah LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 13500,
-        ],
-        [
+            'bahan'=>'LuckyHole Merah','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'LuckyHole Merah Polos',
             'nama_nota' => 'SJ LuckyHole Merah Polos',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 12500,
-        ],
-        [
+            'bahan'=>'LuckyHole Merah','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'SJ-Variasi',
+            'nama' => 'MBtech(BD) LG.Bayang',
+            'nama_nota' => 'SJ MBtech(BD) LG.Bayang',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 42000,
+            'bahan'=>'MBtech(BD)','variasi_1'=>'LG.Bayang','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'SJ-Variasi',
+            'nama' => 'MBtech(BD) Polos',
+            'nama_nota' => 'SJ MBtech(BD) Polos',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 41000,
+            'bahan'=>'MBtech(BD)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'SJ-Variasi',
+            'nama' => 'MBtech(BD) Tulang Bayang + LG.Bayang',
+            'nama_nota' => 'SJ MBtech(BD) Tulang Bayang + LG.Bayang',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 45000,
+            'bahan'=>'MBtech(BD)','variasi_1'=>'Tulang Bayang','varian_1'=>null,'variasi_2'=>'LG.Bayang','varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'SJ-Variasi',
+            'nama' => 'MBtech(KJ) Polos',
+            'nama_nota' => 'SJ MBtech(KJ) Polos',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 41000,
+            'bahan'=>'MBtech(BD)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'SJ-Variasi',
+            'nama' => 'MBtech(RD) Polos',
+            'nama_nota' => 'SJ MBtech(RD) Polos',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 41000,
+            'bahan'=>'MBtech(BD)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) LG.Bayang',
             'nama_nota' => 'SJ Navaro(MC) LG.Bayang',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'LG.Bayang','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) LG.Bludru',
             'nama_nota' => 'SJ Navaro(MC) LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Navaro(MC) LG.Bludru uk.JB',
+            'nama' => 'Navaro(MC) LG.Bludru uk.JB93x53',
             'nama_nota' => 'SJ Navaro(MC) LG.Bludru uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) LG.Sablon Kartun',
             'nama_nota' => 'SJ Navaro(MC) LG.Sablon Kartun',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'LG.Sablon','varian_1'=>'Kartun','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) LG.Mika 1W',
             'nama_nota' => 'SJ Navaro(MC) LG.Mika 1W',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'LG.Mika','varian_1'=>'1W','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) LG.Polymas',
             'nama_nota' => 'SJ Navaro(MC) LG.Polymas',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'LG.Polymas','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Navaro(MC) LG.Polymas uk.JB 93x53',
+            'nama' => 'Navaro(MC) LG.Polymas uk.JB93x53',
             'nama_nota' => 'SJ Navaro(MC) LG.Polymas uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'LG.Polymas','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB3x53','jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) Polos',
             'nama_nota' => 'SJ Navaro(MC) Polos',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) Polos + jht.ABS-RV',
             'nama_nota' => 'SJ Navaro(MC) Polos + jht.ABS-RV',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'ABS-RV',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) Polos + jht.RXK',
             'nama_nota' => 'SJ Navaro(MC) Polos + jht.RXK',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'RXK',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) Polos + jht.Univ',
             'nama_nota' => 'SJ Navaro(MC) Polos + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Navaro(MC) Polos uk.JB 93x53',
+            'nama' => 'Navaro(MC) Polos uk.JB93x53',
             'nama_nota' => 'SJ Navaro(MC) Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Navaro(MC) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'Navaro(MC) Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ Navaro(MC) Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) Polos uk.NMAX + jht.NMAX',
             'nama_nota' => 'SJ Navaro(MC) Polos uk.NMAX + jht.NMAX',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'NMAX','jahit'=>'NMAX',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Navaro(MC) Polos uk.GIGA 100x68.5',
-            'nama_nota' => 'SJ Navaro(MC) Polos uk.GIGA 100x68.5',
+            'nama' => 'Navaro(MC) Polos uk.GIGA100x68.5',
+            'nama_nota' => 'SJ Navaro(MC) Polos uk.GIGA',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 20000,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'GIGA100x68.5','jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) Polos uk.PCX + jht.PCX',
             'nama_nota' => 'SJ Navaro(MC) Polos uk.PCX + jht.PCX',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 21000,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'PCX','jahit'=>'PCX',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Bikers',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Bikers',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Bikers','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Doraemon',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Doraemon',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Doraemon','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Fox',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Fox',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Fox','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Navaro(MC) T.Sablon HelloKitty 2',
-            'nama_nota' => 'SJ Navaro(MC) T.Sablon HelloKitty 2',
+            'nama' => 'Navaro(MC) T.Sablon HelloKitty2',
+            'nama_nota' => 'SJ Navaro(MC) T.Sablon HelloKitty2',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'HelloKitty2','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Kelabang',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Kelabang',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Kelabang','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Keropi',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Keropi',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Keropi','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Laba"',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Laba"',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Laba"','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Macan',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Macan',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Macan','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Navaro(MC) T.Sablon Mickey Mouse',
-            'nama_nota' => 'SJ Navaro(MC) T.Sablon Mickey Mouse',
+            'nama' => 'Navaro(MC) T.Sablon MickeyMouse',
+            'nama_nota' => 'SJ Navaro(MC) T.Sablon MickeyMouse',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'MickeyMouse','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Minion',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Minion',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Minion','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Modi',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Modi',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Modi','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Movistar',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Movistar',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Movistar','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Navaro(MC) T.Sablon Racing Boy',
-            'nama_nota' => 'SJ Navaro(MC) T.Sablon Racing Boy',
+            'nama' => 'Navaro(MC) T.Sablon RacingBoy',
+            'nama_nota' => 'SJ Navaro(MC) T.Sablon RacingBoy',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'RacingBoy','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Scorpion',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Scorpion',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Scorpion','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Sepatu',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Sepatu',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Sepatu','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon SpongeBob',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon SpongeBob',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'SpongeBob','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Tribal 46',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Tribal 46',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Tribal 46','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Sablon Tribal Movistar',
             'nama_nota' => 'SJ Navaro(MC) T.Sablon Tribal Movistar',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 17500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Sablon','varian_1'=>'Tribal Movistar','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Polymas',
             'nama_nota' => 'SJ Navaro(MC) T.Polymas',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Polymas','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Polymas + jht.Univ',
             'nama_nota' => 'SJ Navaro(MC) T.Polymas + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Polymas','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Polymas Trisula',
             'nama_nota' => 'SJ Navaro(MC) T.Polymas Trisula',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Polymas','varian_1'=>'Trisula','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Polymas Trisula + jht.Univ',
             'nama_nota' => 'SJ Navaro(MC) T.Polymas Trisula + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 20500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Polymas','varian_1'=>'Trisula','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) T.Polymas Trisula + LG.Polymas + jht.Univ',
             'nama_nota' => 'SJ Navaro(MC) T.Polymas Trisula + LG.Polymas + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 21500,
-        ],
-        [
+            'bahan'=>'Navaro(MC)','variasi_1'=>'T.Polymas','varian_1'=>'Trisula','variasi_2'=>'LG.Polymas','varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Urat Tangan(MC) LG.Bludru',
-            'nama_nota' => 'SJ Urat Tangan(MC) LG.Bludru',
+            'nama' => 'UratTangan(MC) LG.Bludru',
+            'nama_nota' => 'SJ UratTangan(MC) LG.Bludru',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'UratTangan(MC)','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Urat Tangan(MC) Polos',
-            'nama_nota' => 'SJ Urat Tangan(MC) Polos',
+            'nama' => 'UratTangan(MC) Polos',
+            'nama_nota' => 'SJ UratTangan(MC) Polos',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14500,
-        ],
-        [
+            'bahan'=>'UratTangan(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Urat Tangan(MC) Polos + jht.RXK',
-            'nama_nota' => 'SJ Urat Tangan(MC) Polos + jht.RXK',
+            'nama' => 'UratTangan(MC) Polos + jht.RXK',
+            'nama_nota' => 'SJ UratTangan(MC) Polos + jht.RXK',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'UratTangan(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'RXK',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Urat Tangan(MC) Polos + jht.Univ',
-            'nama_nota' => 'SJ Urat Tangan(MC) Polos + jht.Univ',
+            'nama' => 'UratTangan(MC) Polos + jht.Univ',
+            'nama_nota' => 'SJ UratTangan(MC) Polos + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'UratTangan(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Urat Tangan(MC) uk.JB 93x53',
-            'nama_nota' => 'SJ Urat Tangan(MC) uk.JB',
+            'nama' => 'UratTangan(MC) Polos uk.JB93x53',
+            'nama_nota' => 'SJ UratTangan(MC) Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
-        ],
-        [
+            'bahan'=>'UratTangan(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Urat Tangan(MC) uk.NMAX + jht.NMAX',
-            'nama_nota' => 'SJ Urat Tangan(MC) uk.NMAX + jht.NMAX',
+            'nama' => 'UratTangan(MC) Polos uk.NMAX + jht.NMAX',
+            'nama_nota' => 'SJ UratTangan(MC) Polos uk.NMAX + jht.NMAX',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 21000,
-        ],
-        [
+            'bahan'=>'UratTangan(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'NMAX','jahit'=>'NMAX',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Urat Tangan(MC) uk.Aerox + jht.Aerox',
-            'nama_nota' => 'SJ Urat Tangan(MC) uk.Aerox + jht.Aerox',
+            'nama' => 'UratTangan(MC) Polos uk.Aerox + jht.Aerox',
+            'nama_nota' => 'SJ UratTangan(MC) Polos uk.Aerox + jht.Aerox',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 21000,
-        ],
-        [
+            'bahan'=>'UratTangan(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'Aerox','jahit'=>'Aerox',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Urat Tangan(MC) uk.FreeGo + jht.FreeGo',
-            'nama_nota' => 'SJ Urat Tangan(MC) uk.FreeGo + jht.FreeGo',
+            'nama' => 'UratTangan(MC) Polos uk.FreeGo + jht.FreeGo',
+            'nama_nota' => 'SJ UratTangan(MC) Polos uk.FreeGo + jht.FreeGo',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 21000,
-        ],
-        [
+            'bahan'=>'UratTangan(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'FreeGo','jahit'=>'FreeGo',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Urat Tangan(MC) uk.JB 93x53 + jht.JB',
-            'nama_nota' => 'SJ Urat Tangan(MC) uk.JB + jht.JB',
+            'nama' => 'UratTangan(MC) Polos uk.JB93x53 + jht.JB',
+            'nama_nota' => 'SJ UratTangan(MC) Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-        ],
-        [
+            'bahan'=>'UratTangan(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Vario(M) LG.Sablon',
             'nama_nota' => 'SJ Vario(M) LG.Sablon',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'Vario(M)','variasi_1'=>'LG.Sablon','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Vario(M) Polos',
             'nama_nota' => 'SJ Vario(M) Polos',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 14500,
-        ],
-        [
+            'bahan'=>'Vario(M)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Vario(M) Polos + jht.Univ',
             'nama_nota' => 'SJ Vario(M) Polos + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 15500,
-        ],
-        [
+            'bahan'=>'Vario(M)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(M) Polos uk.JB 93x53',
+            'nama' => 'Vario(M) Polos uk.JB93x53',
             'nama_nota' => 'SJ Vario(M) Polos uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
-        ],
-        [
+            'bahan'=>'Vario(M)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(M) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'Vario(M) Polos uk.JB93x53 + jht.JB',
             'nama_nota' => 'SJ Vario(M) Polos uk.JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-        ],
-        [
+            'bahan'=>'Vario(M)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>'JB',
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(M) Polos uk.Super-JB 97x53',
+            'nama' => 'Vario(M) Polos uk.SuperJB97x53',
             'nama_nota' => 'SJ Vario(M) Polos uk.Super-JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-        ],
-        [
+            'bahan'=>'Vario(M)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'SuperJB97x53','jahit'=>null,
+        ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(M) Polos uk.Super-JB 97x53 + jht.JB',
+            'nama' => 'Vario(M) Polos uk.SuperJB97x53 + jht.JB',
             'nama_nota' => 'SJ Vario(M) Polos uk.Super-JB + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
+            'bahan'=>'Vario(M)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'SuperJB97x53','jahit'=>'JB',
         ],
         [
             'tipe' => 'SJ-Variasi',
@@ -2199,8 +2192,8 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(M) T.Sablon FOX',
-            'nama_nota' => 'SJ Vario(M) T.Sablon FOX',
+            'nama' => 'Vario(M) T.Sablon Fox',
+            'nama_nota' => 'SJ Vario(M) T.Sablon Fox',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
@@ -2231,8 +2224,8 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(M) T.Sablon Racing Boy',
-            'nama_nota' => 'SJ Vario(M) T.Sablon Racing Boy',
+            'nama' => 'Vario(M) T.Sablon RacingBoy',
+            'nama_nota' => 'SJ Vario(M) T.Sablon RacingBoy',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
@@ -2359,7 +2352,7 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(MC) LG.Polymas uk.JB 93x53',
+            'nama' => 'Vario(MC) LG.Polymas uk.JB93x53',
             'nama_nota' => 'SJ Vario(MC) LG.Polymas uk.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
@@ -2383,8 +2376,8 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(MC) LG.Sablon uk.JB 93x53',
-            'nama_nota' => 'SJ Vario(MC) LG.Sablon uk.JB 93x53',
+            'nama' => 'Vario(MC) LG.Sablon uk.JB93x53',
+            'nama_nota' => 'SJ Vario(MC) LG.Sablon uk.JB93x53',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
@@ -2415,8 +2408,8 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(MC) Polos uk.JB 93x53 + jht.JB',
-            'nama_nota' => 'SJ Vario(MC) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'Vario(MC) Polos uk.JB93x53 + jht.JB',
+            'nama_nota' => 'SJ Vario(MC) Polos uk.JB93x53 + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
@@ -2543,8 +2536,8 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(MC) T.Polymas uk.JB 93x53',
-            'nama_nota' => 'SJ Vario(MC) T.Polymas uk.JB 93x53',
+            'nama' => 'Vario(MC) T.Polymas uk.JB93x53',
+            'nama_nota' => 'SJ Vario(MC) T.Polymas uk.JB93x53',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 23500,
@@ -2559,8 +2552,8 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(MC) T.Sablon uk.JB 93x53',
-            'nama_nota' => 'SJ Vario(MC) T.Sablon uk.JB 93x53',
+            'nama' => 'Vario(MC) T.Sablon uk.JB93x53',
+            'nama_nota' => 'SJ Vario(MC) T.Sablon uk.JB93x53',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
@@ -2607,16 +2600,16 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(MC) T.Sablon FOX',
-            'nama_nota' => 'SJ Vario(MC) T.Sablon FOX',
+            'nama' => 'Vario(MC) T.Sablon Fox',
+            'nama_nota' => 'SJ Vario(MC) T.Sablon Fox',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(MC) T.Sablon HelloKitty 2',
-            'nama_nota' => 'SJ Vario(MC) T.Sablon HelloKitty 2',
+            'nama' => 'Vario(MC) T.Sablon HelloKitty2',
+            'nama_nota' => 'SJ Vario(MC) T.Sablon HelloKitty2',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
@@ -2823,16 +2816,16 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(MCR) Polos uk.JB 93x53',
-            'nama_nota' => 'SJ Vario(MCR) Polos uk.JB 93x53',
+            'nama' => 'Vario(MCR) Polos uk.JB93x53',
+            'nama_nota' => 'SJ Vario(MCR) Polos uk.JB93x53',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(MCR) Polos uk.JB 93x53 + jht.JB',
-            'nama_nota' => 'SJ Vario(MCR) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'Vario(MCR) Polos uk.JB93x53 + jht.JB',
+            'nama_nota' => 'SJ Vario(MCR) Polos uk.JB93x53 + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
@@ -2927,16 +2920,16 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(RY) Polos uk.JB 93x53',
-            'nama_nota' => 'SJ Vario(RY) Polos uk.JB 93x53',
+            'nama' => 'Vario(RY) Polos uk.JB93x53',
+            'nama_nota' => 'SJ Vario(RY) Polos uk.JB93x53',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(RY) Polos uk.JB 93x53 + jht.JB',
-            'nama_nota' => 'SJ Vario(RY) Polos uk.JB 93x53 + jht.JB',
+            'nama' => 'Vario(RY) Polos uk.JB93x53 + jht.JB',
+            'nama_nota' => 'SJ Vario(RY) Polos uk.JB93x53 + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
@@ -2951,8 +2944,8 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(RY) Polos uk.Super-JB 97x53 + jht.JB',
-            'nama_nota' => 'SJ Vario(RY) Polos uk.Super-JB 97x53 + jht.JB',
+            'nama' => 'Vario(RY) Polos uk.SuperJB97x53 + jht.JB',
+            'nama_nota' => 'SJ Vario(RY) Polos uk.SuperJB97x53 + jht.JB',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 21000,
@@ -3023,8 +3016,8 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(RY) T.Sablon HelloKitty 2',
-            'nama_nota' => 'SJ Vario(RY) T.Sablon HelloKitty 2',
+            'nama' => 'Vario(RY) T.Sablon HelloKitty2',
+            'nama_nota' => 'SJ Vario(RY) T.Sablon HelloKitty2',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
@@ -3111,16 +3104,16 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario Merah T.Sablon HelloKitty 2',
-            'nama_nota' => 'SJ Vario Merah T.Sablon HelloKitty 2',
+            'nama' => 'Vario Merah T.Sablon HelloKitty2',
+            'nama_nota' => 'SJ Vario Merah T.Sablon HelloKitty2',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario Merah T.Sablon HelloKitty 2 uk.Super-JB 97x53',
-            'nama_nota' => 'SJ Vario Merah T.Sablon HelloKitty 2 uk.Super-JB 97x53',
+            'nama' => 'Vario Merah T.Sablon HelloKitty2 uk.SuperJB97x53',
+            'nama_nota' => 'SJ Vario Merah T.Sablon HelloKitty2 uk.SuperJB97x53',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 24000,
@@ -3143,8 +3136,8 @@ class ProdukSeeder extends Seeder
         ],
         [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario Warna T.Sablon HelloKitty 2',
-            'nama_nota' => 'SJ Vario Warna T.Sablon HelloKitty 2',
+            'nama' => 'Vario Warna T.Sablon HelloKitty2',
+            'nama_nota' => 'SJ Vario Warna T.Sablon HelloKitty2',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
@@ -3470,20 +3463,20 @@ class ProdukSeeder extends Seeder
             'kombinasi'=>'Warna Japstyle','grade_bahan'=>"A",'bahan'=>null,'variasi_1'=>null,'varian_1'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Kombinasi',
-            'nama' => 'Kombinasi Warna X-Ride uk.JB 93x53 + jht.Benang Warna',
+            'nama' => 'Kombinasi Warna X-Ride uk.JB93x53 + jht.Benang Warna',
             'nama_nota' => 'SJ Kombinasi Warna X-Ride uk.JB + jht. Benang Warna', // (L) untuk ukuran Jumbo, grade bahan B tidak ditulis
             'tipe_packing' => 'colly',
             'aturan_packing' => 100, // 34
             'harga' => 29000,
-            'kombinasi'=>'Warna X-Ride','grade_bahan'=>"B",'bahan'=>null,'variasi_1'=>null,'varian_1'=>null,'ukuran'=>'JB 93x53','jahit'=>'Benang Warna',
+            'kombinasi'=>'Warna X-Ride','grade_bahan'=>"B",'bahan'=>null,'variasi_1'=>null,'varian_1'=>null,'ukuran'=>'JB93x53','jahit'=>'Benang Warna',
         ], [
             'tipe' => 'SJ-Kombinasi',
-            'nama' => 'Kombinasi Warna X-Ride uk.JB 93x53 + jht.JB Benang Warna',
+            'nama' => 'Kombinasi Warna X-Ride uk.JB93x53 + jht.JB Benang Warna',
             'nama_nota' => 'SJ Kombinasi Warna X-Ride uk.JB + jht.JB Benang Warna',
             'tipe_packing' => 'colly',
             'aturan_packing' => 100, // 34
             'harga' => 29000,
-            'kombinasi'=>'Warna X-Ride','grade_bahan'=>"B",'bahan'=>null,'variasi_1'=>null,'varian_1'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB Benang Warna',
+            'kombinasi'=>'Warna X-Ride','grade_bahan'=>"B",'bahan'=>null,'variasi_1'=>null,'varian_1'=>null,'ukuran'=>'JB93x53','jahit'=>'JB Benang Warna',
         ], [
             'tipe' => 'SJ-Kombinasi',
             'nama' => 'Kombinasi Warna X-Ride(L) Benang Warna', // ?
@@ -3491,7 +3484,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 100, // 34
             'harga' => 29000,
-            'kombinasi'=>'Warna X-Ride','grade_bahan'=>"B",'bahan'=>null,'variasi_1'=>null,'varian_1'=>null,'ukuran'=>'JB 93x53','jahit'=>'JB Benang Warna',
+            'kombinasi'=>'Warna X-Ride','grade_bahan'=>"B",'bahan'=>null,'variasi_1'=>null,'varian_1'=>null,'ukuran'=>'JB93x53','jahit'=>'JB Benang Warna',
         ], [
                 'tipe' => 'SJ-Kombinasi',
                 'nama' => 'Kombinasi Warna X-Ride Benang Warna',
@@ -3591,8 +3584,8 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-Motif',
-                'nama' => 'Motif Hexagon 2 Warna uk.JB 93x53+ jht.JB',
-                'nama_nota' => 'SJ Motif Hexagon 2 Warna uk.JB 93x53+ jht.JB',
+                'nama' => 'Motif Hexagon 2 Warna uk.JB93x53+ jht.JB',
+                'nama_nota' => 'SJ Motif Hexagon 2 Warna uk.JB93x53+ jht.JB',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 34
                 'harga' => 29000,
@@ -3623,7 +3616,7 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-Motif',
-                'nama' => 'Motif Sixpack 2 Warna(A) uk.JB 93x53 + jht.Univ',
+                'nama' => 'Motif Sixpack 2 Warna(A) uk.JB93x53 + jht.Univ',
                 'nama_nota' => 'SJ Motif Sixpack 2 Warna(A) uk.JB + jht.Univ',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 34
@@ -3631,7 +3624,7 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-Motif',
-                'nama' => 'Motif Sixpack Full Hitam uk.JB 93x53 + jht.Univ',
+                'nama' => 'Motif Sixpack Full Hitam uk.JB93x53 + jht.Univ',
                 'nama_nota' => 'SJ Motif Sixpack Full Hitam uk.JB + jht.Univ',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 34
@@ -3695,8 +3688,8 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-Standar',
-                'nama' => 'Standar GL Pro Bahan Urat Tangan(MC) + Alas',
-                'nama_nota' => 'SJ Standar GL Pro Bahan Urat Tangan(MC) + Alas',
+                'nama' => 'Standar GL Pro Bahan UratTangan(MC) + Alas',
+                'nama_nota' => 'SJ Standar GL Pro Bahan UratTangan(MC) + Alas',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 150, // 35
                 'harga' => 19000,
@@ -3799,7 +3792,7 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-T.Sixpack',
-                'nama' => 'Bahan(A) T.Sixpack uk.JB 93x53 + Busa + jht.JB',
+                'nama' => 'Bahan(A) T.Sixpack uk.JB93x53 + Busa + jht.JB',
                 'nama_nota' => 'SJ Bahan(A) T.Sixpack uk.JB + Busa + jht.JB',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 38
@@ -3816,7 +3809,7 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-T.Sixpack',
-                'nama' => 'C30(MC) T.Sixpack uk.JB 93x53 + Busa',
+                'nama' => 'C30(MC) T.Sixpack uk.JB93x53 + Busa',
                 'nama_nota' => 'SJ C30(MC) T.Sixpack uk.JB + Busa',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 150, // 34
@@ -3824,7 +3817,7 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-T.Sixpack',
-                'nama' => 'C30(MC) T.Sixpack uk.JB 93x53 + Busa + jht.JB',
+                'nama' => 'C30(MC) T.Sixpack uk.JB93x53 + Busa + jht.JB',
                 'nama_nota' => 'SJ C30(MC) T.Sixpack uk.JB + Busa + jht.JB',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 150, // 34
@@ -3887,7 +3880,7 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-T.Sixpack',
-                'nama' => 'L55(MC) T.Sixpack uk.JB 93x53 + Busa + jht.JB',
+                'nama' => 'L55(MC) T.Sixpack uk.JB93x53 + Busa + jht.JB',
                 'nama_nota' => 'SJ L55(MC) T.Sixpack uk.JB + Busa + jht.JB',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 38
@@ -3895,7 +3888,7 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-T.Sixpack',
-                'nama' => 'L55(MC) T.Sixpack uk.Super-JB 97x53 + Busa + jht.NMAX',
+                'nama' => 'L55(MC) T.Sixpack uk.SuperJB97x53 + Busa + jht.NMAX',
                 'nama_nota' => 'SJ L55(MC) T.Sixpack uk.Super-JB + Busa + jht.NMAX',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 38
@@ -3903,7 +3896,7 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-T.Sixpack',
-                'nama' => 'L55(MC) T.Sixpack uk.JB 93x53 + Alas + jht.JB',
+                'nama' => 'L55(MC) T.Sixpack uk.JB93x53 + Alas + jht.JB',
                 'nama_nota' => 'SJ L55(MC) T.Sixpack uk.JB + Alas + jht.JB',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 38
@@ -3919,7 +3912,7 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-T.Sixpack',
-                'nama' => 'L55(MC) T.Sixpack uk.JB 93x53 + Busa',
+                'nama' => 'L55(MC) T.Sixpack uk.JB93x53 + Busa',
                 'nama_nota' => 'SJ L55(MC) T.Sixpack uk.JB + Busa',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 38
@@ -3935,8 +3928,8 @@ class ProdukSeeder extends Seeder
             ],
             [
                 'tipe' => 'SJ-T.Sixpack',
-                'nama' => 'Urat Tangan(MC) T.Sixpack + Busa + jht.Univ',
-                'nama_nota' => 'SJ Urat Tangan(MC) T.Sixpack + Busa + jht.Univ',
+                'nama' => 'UratTangan(MC) T.Sixpack + Busa + jht.Univ',
+                'nama_nota' => 'SJ UratTangan(MC) T.Sixpack + Busa + jht.Univ',
                 'tipe_packing' => 'colly',
                 'aturan_packing' => 100, // 38
                 'harga' => 31500,

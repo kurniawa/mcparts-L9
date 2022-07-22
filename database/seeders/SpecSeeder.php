@@ -21,18 +21,18 @@ class SpecSeeder extends Seeder
             'nama_nota' => 'PK', // Patron Kecil, lebih kecil dari standar
             'harga' => 0 // 1
         ], [
-            'nama' => 'JB 93x53',
+            'nama' => 'JB93x53',
             'nama_nota' => 'JB',
             'harga' => 4000 // 1
             ],
             [
-                'nama' => 'LONG 95x51',
+                'nama' => 'LONG95x51',
                 'nama_nota' => 'LONG',
                 'harga' => 4000 // 1
             ],
             [
-                'nama' => 'Super-JB 97x53',
-                'nama_nota' => 'Super-JB',
+                'nama' => 'SuperJB97x53',
+                'nama_nota' => 'SuperJB',
                 'harga' => 5500 // 2
             ],
             [
@@ -69,11 +69,11 @@ class SpecSeeder extends Seeder
                 'nama_nota' => 'MioSoulGT125',
                 'harga' => 5500 // 9
             ], [
-                'nama' => 'MEGA 100x57',
+                'nama' => 'MEGA100x57',
                 'nama_nota' => 'MEGA',
                 'harga' => 7500 // 10
             ], [
-                'nama' => 'GIGA 100x68.5',
+                'nama' => 'GIGA100x68.5',
                 'nama_nota' => 'GIGA',
                 'harga' => 9500 // 11
             ]

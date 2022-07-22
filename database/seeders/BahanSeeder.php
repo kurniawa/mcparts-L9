@@ -157,10 +157,10 @@ class BahanSeeder extends Seeder
             'harga' => 14500,
             'ktrg' => 'Motif: Kulit Jeruk. Ketebalan: 1 mm. Backing: Coklat. Merek MC. Pengambilan dari MAX. Penamaan Navaro karena dari lagganan.',
         ], [
-            'nama' => 'Urat Tangan(MC)', // 27
+            'nama' => 'UratTangan(MC)', // 27
             'grade' => 'A',
             'harga' => 14500,
-            'ktrg' => 'Pengambilan dari: MAX. Motif: Urat Tangan. Ketebalan: 0.9 mm. Backing: Putih. Merek: MC.',
+            'ktrg' => 'Pengambilan dari: MAX. Motif: UratTangan. Ketebalan: 0.9 mm. Backing: Putih. Merek: MC.',
         ], [
             'nama' => 'Vario(M)', // 28
             'grade' => 'A',
