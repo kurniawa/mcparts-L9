@@ -60,7 +60,7 @@ class StandarSeeder extends Seeder
             'id' => 11,
             'harga' => 12500
         ], [
-            'nama' => 'KLX',
+            'nama' => 'KLX Hitam',
             'id' => 11,
             'harga' => 12500
         ], [

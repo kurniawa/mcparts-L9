@@ -59,6 +59,7 @@ class VarianSeeder extends Seeder
             ['kategori' => 'multiple', 'nama' => 'Bride 9X'],
             ['kategori' => 'multiple', 'nama' => 'Blok Bride'], // campur
             ['kategori' => 'multiple', 'nama' => 'Blok Bride Pelangi'],
+            ['kategori' => 'multiple', 'nama' => 'Tribal 5X'],
             ['kategori' => 'multiple', 'nama' => 'Tribal Bride 5X'],
             ['kategori' => 'multiple', 'nama' => 'Kawahara 8X'],
             ['kategori' => 'multiple', 'nama' => 'NGO 7X'],
@@ -94,7 +95,6 @@ class VarianSeeder extends Seeder
             ['kategori' => null, 'nama' => 'Tribal 46'],
             ['kategori' => null, 'nama' => 'Tribal Movistar'],
             ['kategori' => null, 'nama' => 'Tribal Petir'],
-            ['kategori' => null, 'nama' => 'Tribal 5X'],
             ['kategori' => null, 'nama' => 'Trisula'], // 47 - T.Bayang, T.Polymas, T.Sablon
             ['kategori' => 'mika', 'nama' => '1W'],
             // ['kategori' => 'event', 'nama' => 'Euro 2021'],

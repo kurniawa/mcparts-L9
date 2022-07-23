@@ -21,6 +21,10 @@ class MotifSeeder extends Seeder
             'id' => 1,
             'harga' => 27000
         ], [
+            'nama' => 'Motif Sixpack Full Hitam',
+            'id' => 2,
+            'harga' => 27000
+        ], [
             'nama' => 'Motif Hexagon 2 Warna',
             'id' => 2,
             'harga' => 27000

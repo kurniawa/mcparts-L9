@@ -24,8 +24,11 @@ class SpecSeeder extends Seeder
             'nama' => 'JB93x53',
             'nama_nota' => 'JB',
             'harga' => 4000 // 1
-            ],
-            [
+        ], [
+            'nama' => 'L', // ukuran nya sama seperti Jumbo
+            'nama_nota' => 'L',
+            'harga' => 4000 // 1
+        ], [
                 'nama' => 'LONG95x51',
                 'nama_nota' => 'LONG',
                 'harga' => 4000 // 1
@@ -91,24 +94,6 @@ class SpecSeeder extends Seeder
             ]);
         }
 
-        $busa = [
-            [
-                'nama' => 'busa',
-                'harga' => 0, // 12
-            ]
-        ];
-
-        for ($i = 0; $i < count($busa); $i++) {
-            $new_inserted_busa = Spec::create([
-                'kategori' => 'busa', // variasi, ukuran, busa, jahit, grade_bahan
-                'nama' => $busa[$i]['nama'],
-            ]);
-            DB::table('spec_hargas')->insert([
-                'spec_id' => $new_inserted_busa['id'],
-                'harga' => $busa[$i]['harga']
-            ]);
-        }
-
         $jahit = [[
             'nama' => 'Univ',
             'harga' => 1000 // 13
@@ -148,19 +133,11 @@ class SpecSeeder extends Seeder
             'nama' => 'Warna',
             'harga' => 1000 // 23
         ],
-        [
-            'nama' => 'Benang Warna',
-            'harga' => 1000 // 23
-        ],
-        [
-            'nama' => 'JB Benang Warna',
-            'harga' => 1000 // 23
-        ],
         ];
 
         for ($i = 0; $i < count($jahit); $i++) {
             $new_inserted_jahit = Spec::create([
-                'kategori' => 'jahit', // variasi, ukuran, busa, jahit, grade_bahan
+                'kategori' => 'jahit', // variasi, ukuran, alas, jahit, grade_bahan
                 'nama' => $jahit[$i]['nama'],
             ]);
             DB::table('spec_hargas')->insert([
@@ -190,7 +167,7 @@ class SpecSeeder extends Seeder
         }
 
         $list = [[
-            'nama' => 'List',
+            'nama' => 'Benang Warna',
             'harga' => 3000 // 24
         ], [
             'nama' => 'Rotan Warna',
@@ -206,6 +183,62 @@ class SpecSeeder extends Seeder
             DB::table('spec_hargas')->insert([
                 'spec_id' => $new_inserted_list['id'],
                 'harga' => $list[$i]['harga']
+            ]);
+        }
+
+        $alas = [
+            [
+                'nama' => 'Alas',
+                'harga' => 0, // 12
+            ]
+        ];
+
+        for ($i = 0; $i < count($alas); $i++) {
+            $new_inserted_alas = Spec::create([
+                'kategori' => 'alas', // variasi, ukuran, alas, jahit, grade_bahan
+                'nama' => $alas[$i]['nama'],
+            ]);
+            DB::table('spec_hargas')->insert([
+                'spec_id' => $new_inserted_alas['id'],
+                'harga' => $alas[$i]['harga']
+            ]);
+        }
+        $busa = [
+            [
+                'nama' => 'Busa',
+                'harga' => 0, // 12
+            ]
+        ];
+
+        for ($i = 0; $i < count($busa); $i++) {
+            $new_inserted_busa = Spec::create([
+                'kategori' => 'busa', // variasi, ukuran, busa, jahit, grade_bahan
+                'nama' => $busa[$i]['nama'],
+            ]);
+            DB::table('spec_hargas')->insert([
+                'spec_id' => $new_inserted_busa['id'],
+                'harga' => $busa[$i]['harga']
+            ]);
+        }
+
+        $sayap = [
+            [
+                'nama' => 'Sayap Abu',
+                'harga' => 0, // 12
+            ], [
+                'nama' => 'Sayap Hitam',
+                'harga' => 0, // 12
+            ]
+        ];
+
+        for ($i = 0; $i < count($sayap); $i++) {
+            $new_inserted_sayap = Spec::create([
+                'kategori' => 'sayap', // variasi, ukuran, sayap, jahit, grade_bahan
+                'nama' => $sayap[$i]['nama'],
+            ]);
+            DB::table('spec_hargas')->insert([
+                'spec_id' => $new_inserted_sayap['id'],
+                'harga' => $sayap[$i]['harga']
             ]);
         }
     }
