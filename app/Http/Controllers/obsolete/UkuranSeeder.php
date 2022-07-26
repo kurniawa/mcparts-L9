@@ -20,11 +20,11 @@ class UkuranSeeder extends Seeder
 
         $ukuran = [
             [
-                'nama' => 'JB 93x53',
+                'nama' => 'JB93x53',
                 'nama_nota' => 'JB',
                 'harga' => 4000
             ], [
-                'nama' => 'Super-JB 97x53',
+                'nama' => 'SuperJB97x53',
                 'nama_nota' => 'Super-JB',
                 'harga' => 5500
             ], [
@@ -56,12 +56,12 @@ class UkuranSeeder extends Seeder
                 'nama_nota' => 'MioSoulGT125',
                 'harga' => 5500
             ], [
-                'nama' => 'MEGA-JB 100x57',
-                'nama_nota' => 'MEGA-JB', // 10
+                'nama' => 'MEGA100x57',
+                'nama_nota' => 'MEGA', // 10
                 'harga' => 7500
             ], [
-                'nama' => 'GIGA-JB 100x68.5',
-                'nama_nota' => 'GIGA-JB',
+                'nama' => 'GIGA100x68.5',
+                'nama_nota' => 'GIGA',
                 'harga' => 9500
             ]
         ];

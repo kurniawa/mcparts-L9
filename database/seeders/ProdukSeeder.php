@@ -4,11 +4,30 @@ namespace Database\Seeders;
 
 use App\Models\Attsjvariasi;
 use App\Models\Bahan;
+use App\Models\Busastang;
+use App\Models\Jokassy;
+use App\Models\Kombinasi;
+use App\Models\Motif;
 use App\Models\Produk;
 use App\Models\ProdukBahan;
+use App\Models\ProdukBusastang;
 use App\Models\ProdukHarga;
+use App\Models\ProdukJokassy;
+use App\Models\ProdukKombinasi;
+use App\Models\ProdukMotif;
+use App\Models\ProdukRol;
+use App\Models\ProdukRotan;
 use App\Models\ProdukSpec;
+use App\Models\ProdukStandar;
+use App\Models\ProdukStiker;
+use App\Models\ProdukTankpad;
+use App\Models\Rol;
+use App\Models\Rotan;
 use App\Models\Spec;
+use App\Models\Standar;
+use App\Models\Stiker;
+use App\Models\Tankpad;
+use App\Models\Varian;
 use App\Models\Variasi;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -140,7 +159,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150,// 15
             'harga' => 26000,
-            'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Stiker','varian_1'=>null,'ukuran'=>'SuperJB93x53','jahit'=>null,
+            'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Stiker','varian_1'=>null,'ukuran'=>'SuperJB97x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Amplas(RY) Polos',
@@ -3166,238 +3185,6 @@ class ProdukSeeder extends Seeder
             'harga' => 30500,
             'bahan'=>'Zeus(BD)','variasi_1'=>'Tulang Bayang','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
-            'tipe' => 'Jok Assy',
-            'nama' => 'Jok Assy Absolute Revo',
-            'nama_nota' => 'Jok Assy Absolute Revo',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>'Absolute Revo','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => 'Jok Assy Beat',
-            'nama_nota' => 'Jok Assy Beat',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>'Beat','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => 'Jok Assy Beat FI',
-            'nama_nota' => 'Jok Assy Beat FI',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>'Beat FI','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => 'Jok Assy CB STD',
-            'nama_nota' => 'Jok Assy CB STD',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>'CB STD','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => 'Jok Assy F1ZR',
-            'nama_nota' => 'Jok Assy F1ZR',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>'F1ZR','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => 'Jok Assy Fit New',
-            'nama_nota' => 'Jok Assy Fit New',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>'Fit New','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => 'Jok Assy FU',
-            'nama_nota' => 'Jok Assy FU',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>'FU','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => 'Jok Assy GL Pro',
-            'nama_nota' => 'Jok Assy GL Pro',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>'GL Pro','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => 'Jok Assy Grand',
-            'nama_nota' => 'Jok Assy Grand',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>'Grand','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Grand'97",
-            'nama_nota' => "Jok Assy Grand'97",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Grand'97",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Jupiter MX",
-            'nama_nota' => "Jok Assy Jupiter MX",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Jupiter MX",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Jupiter New",
-            'nama_nota' => "Jok Assy Jupiter New",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Jupiter New",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Jupiter Z",
-            'nama_nota' => "Jok Assy Jupiter Z",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Jupiter Z",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Mio M3",
-            'nama_nota' => "Jok Assy Mio M3",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Jupiter Mio M3",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Mio Soul",
-            'nama_nota' => "Jok Assy Mio Soul",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Jupiter Mio Soul",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Prima",
-            'nama_nota' => "Jok Assy Prima",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Prima",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Revo FI",
-            'nama_nota' => "Jok Assy Revo FI",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Revo FI",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy RXK",
-            'nama_nota' => "Jok Assy RXK",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"RX King",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy RXK New",
-            'nama_nota' => "Jok Assy RXK New",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"RXK New",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy RXK Perahu",
-            'nama_nota' => "Jok Assy RXK Perahu", // Produk apa ni?
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"RXK Perahu",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy RXK Press",
-            'nama_nota' => "Jok Assy RXK Press", // ada yang ga press brrti?
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"RXK Press",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Supra",
-            'nama_nota' => "Jok Assy Supra",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Supra",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Supra 125",
-            'nama_nota' => "Jok Assy Supra 125",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Supra 125",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Supra Fit New",
-            'nama_nota' => "Jok Assy Supra Fit New",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Supra Fit New",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Supra X",
-            'nama_nota' => "Jok Assy Supra X",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Supra Fit New",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Vario 125",
-            'nama_nota' => "Jok Assy Vario 125",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Vario 125",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Vario Techno",
-            'nama_nota' => "Jok Assy Vario Techno",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Vario Techno",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Vega R",
-            'nama_nota' => "Jok Assy Vega R",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Vega R",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
-            'tipe' => 'Jok Assy',
-            'nama' => "Jok Assy Vega ZR",
-            'nama_nota' => "Jok Assy Vega ZR",
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 150, // 34
-            'harga' => 107500,
-            'jokassy'=>"Vega ZR",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
-        ], [
             'tipe' => 'SJ-Kombinasi',
             'nama' => 'Kombinasi List Miring(A)',
             'nama_nota' => 'SJ Kombinasi List Miring(A)',
@@ -3918,6 +3705,238 @@ class ProdukSeeder extends Seeder
             'harga' => 31500,
             'bahan'=>'Vario(RY)','alas'=>null,'busa'=>'Busa','grade_bahan'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
+            'tipe' => 'Jok Assy',
+            'nama' => 'Jok Assy Absolute Revo',
+            'nama_nota' => 'Jok Assy Absolute Revo',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>'Absolute Revo','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => 'Jok Assy Beat',
+            'nama_nota' => 'Jok Assy Beat',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>'Beat','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => 'Jok Assy Beat FI',
+            'nama_nota' => 'Jok Assy Beat FI',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>'Beat FI','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => 'Jok Assy CB STD',
+            'nama_nota' => 'Jok Assy CB STD',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>'CB STD','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => 'Jok Assy F1ZR',
+            'nama_nota' => 'Jok Assy F1ZR',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>'F1ZR','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => 'Jok Assy Fit New',
+            'nama_nota' => 'Jok Assy Fit New',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>'Fit New','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => 'Jok Assy FU',
+            'nama_nota' => 'Jok Assy FU',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>'FU','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => 'Jok Assy GL Pro',
+            'nama_nota' => 'Jok Assy GL Pro',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>'GL Pro','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => 'Jok Assy Grand',
+            'nama_nota' => 'Jok Assy Grand',
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>'Grand','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Grand'97",
+            'nama_nota' => "Jok Assy Grand'97",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Grand'97",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Jupiter MX",
+            'nama_nota' => "Jok Assy Jupiter MX",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Jupiter MX",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Jupiter New",
+            'nama_nota' => "Jok Assy Jupiter New",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Jupiter New",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Jupiter Z",
+            'nama_nota' => "Jok Assy Jupiter Z",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Jupiter Z",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Mio M3",
+            'nama_nota' => "Jok Assy Mio M3",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Jupiter Mio M3",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Mio Soul",
+            'nama_nota' => "Jok Assy Mio Soul",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Jupiter Mio Soul",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Prima",
+            'nama_nota' => "Jok Assy Prima",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Prima",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Revo FI",
+            'nama_nota' => "Jok Assy Revo FI",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Revo FI",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy RXK",
+            'nama_nota' => "Jok Assy RXK",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"RX King",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy RXK New",
+            'nama_nota' => "Jok Assy RXK New",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"RXK New",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy RXK Perahu",
+            'nama_nota' => "Jok Assy RXK Perahu", // Produk apa ni?
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"RXK Perahu",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy RXK Press",
+            'nama_nota' => "Jok Assy RXK Press", // ada yang ga press brrti?
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"RXK Press",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Supra",
+            'nama_nota' => "Jok Assy Supra",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Supra",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Supra 125",
+            'nama_nota' => "Jok Assy Supra 125",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Supra 125",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Supra Fit New",
+            'nama_nota' => "Jok Assy Supra Fit New",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Supra Fit New",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Supra X",
+            'nama_nota' => "Jok Assy Supra X",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Supra Fit New",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Vario 125",
+            'nama_nota' => "Jok Assy Vario 125",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Vario 125",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Vario Techno",
+            'nama_nota' => "Jok Assy Vario Techno",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Vario Techno",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Vega R",
+            'nama_nota' => "Jok Assy Vega R",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Vega R",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
+            'tipe' => 'Jok Assy',
+            'nama' => "Jok Assy Vega ZR",
+            'nama_nota' => "Jok Assy Vega ZR",
+            'tipe_packing' => 'colly',
+            'aturan_packing' => 150, // 34
+            'harga' => 107500,
+            'jokassy'=>"Vega ZR",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+        ], [
             'tipe' => 'Tankpad',
             'nama' => 'TP Fox Dimensi',
             'nama_nota' => 'TP Fox Dimensi',
@@ -4014,17 +4033,21 @@ class ProdukSeeder extends Seeder
                 'harga' => $produk[$i]['harga'],
             ]);
 
-            if ($produk[$i]['tipe'] === 'SJ-Variasi') {
+            if (isset($produk[$i]['bahan']) && $produk[$i]['bahan'] !== null) {
                 $bahan = Bahan::where('nama', $produk[$i]['bahan'])->first();
                 ProdukBahan::create([
                     'produk_id' => $inserted_produk['id'],
                     'bahan_id' => $bahan['id']
                 ]);
+            }
 
+            if (isset($produk[$i]['variasi_1']) && $produk[$i]['variasi_1'] !== null) {
+                dump($produk[$i]['variasi_1']);
                 $variasi_1 = Variasi::where('nama', $produk[$i]['variasi_1'])->first();
                 $varian_1_id = null;
-                if ($produk[$i]['varian_1'] !== null) {
-                    $varian_1 = Variasi::where('nama', $produk[$i]['varian_1'])->first();
+                if (isset($produk[$i]['varian_1']) && $produk[$i]['varian_1'] !== null) {
+                    dump($produk[$i]['varian_1']);
+                    $varian_1 = Varian::where('nama', $produk[$i]['varian_1'])->first();
                     $varian_1_id = $varian_1['id'];
                 }
                 Attsjvariasi::create([
@@ -4032,43 +4055,143 @@ class ProdukSeeder extends Seeder
                     'variasi_id' => $variasi_1['id'],
                     'varian_id' => $varian_1_id,
                 ]);
-
-                if (isset($produk[$i]['variasi_2'])) {
-                    if ($produk[$i]['variasi_2'] !== null) {
-                        $variasi_2 = Variasi::where('nama', $produk[$i]['variasi_2'])->first();
-                        $varian_2_id = null;
-                        if ($produk[$i]['varian_2'] !== null) {
-                            $varian_2 = Variasi::where('nama', $produk[$i]['varian_2'])->first();
-                            $varian_2_id = $varian_2['id'];
-                        }
-                        Attsjvariasi::create([
-                            'produk_id' => $inserted_produk['id'],
-                            'variasi_id' => $variasi_2['id'],
-                            'varian_id' => $varian_2_id,
-                        ]);
-                    }
-                }
-
-                if (isset($produk[$i]['ukuran'])) {
-                    if ($produk[$i]['ukuran'] !== null) {
-                        $ukuran = Spec::where('kategori', 'ukuran')->where('nama', $produk[$i]['ukuran'])->first();
-                        ProdukSpec::create([
-                            'produk_id' => $inserted_produk['id'],
-                            'spec_id' => $ukuran['id']
-                        ]);
-                    }
-                }
-
-                if (isset($produk[$i]['jahit'])) {
-                    if ($produk[$i]['jahit'] !== null) {
-                        $jahit = Spec::where('kategori', 'jahit')->where('nama', $produk[$i]['jahit'])->first();
-                        ProdukSpec::create([
-                            'produk_id' => $inserted_produk['id'],
-                            'spec_id' => $jahit['id']
-                        ]);
-                    }
-                }
             }
+
+            if (isset($produk[$i]['variasi_2']) && $produk[$i]['variasi_2'] !== null) {
+                $variasi_2 = Variasi::where('nama', $produk[$i]['variasi_2'])->first();
+                $varian_2_id = null;
+                if (isset($produk[$i]['varian_2']) && $produk[$i]['varian_2'] !== null) {
+                    $varian_2 = Varian::where('nama', $produk[$i]['varian_2'])->first();
+                    $varian_2_id = $varian_2['id'];
+                }
+                Attsjvariasi::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'variasi_id' => $variasi_2['id'],
+                    'varian_id' => $varian_2_id,
+                ]);
+            }
+
+            if (isset($produk[$i]['grade_bahan']) && $produk[$i]['grade_bahan'] !== null) {
+                $grade_bahan = Spec::where('kategori', 'grade_bahan')->where('nama', $produk[$i]['bahan'])->first();
+                ProdukSpec::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'spec_id' => $grade_bahan['id']
+                ]);
+            }
+
+            if (isset($produk[$i]['kombinasi']) && $produk[$i]['kombinasi'] !== null) {
+                $kombinasi = Kombinasi::where('nama', $produk[$i]['kombinasi'])->first();
+                ProdukKombinasi::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'kombinasi_id' => $kombinasi['id'],
+                ]);
+            }
+
+            if (isset($produk[$i]['ukuran']) && $produk[$i]['ukuran'] !== null) {
+                $ukuran = Spec::where('kategori', 'ukuran')->where('nama', $produk[$i]['ukuran'])->first();
+                dump("ukuran: $ukuran[nama]");
+                ProdukSpec::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'spec_id' => $ukuran['id']
+                ]);
+            }
+
+            if (isset($produk[$i]['jahit']) && $produk[$i]['jahit'] !== null) {
+                $jahit = Spec::where('kategori', 'jahit')->where('nama', $produk[$i]['jahit'])->first();
+                ProdukSpec::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'spec_id' => $jahit['id']
+                ]);
+            }
+
+            if (isset($produk[$i]['motif']) && $produk[$i]['motif'] !== null) {
+                $motif = Motif::where('nama', $produk[$i]['motif'])->first();
+                ProdukMotif::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'motif_id' => $motif['id'],
+                ]);
+            }
+
+            if (isset($produk[$i]['alas']) && $produk[$i]['alas'] !== null) {
+                $alas = Spec::where('kategori', 'alas')->where('nama', $produk[$i]['alas'])->first();
+                ProdukSpec::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'spec_id' => $alas['id']
+                ]);
+            }
+
+            if (isset($produk[$i]['busa']) && $produk[$i]['busa'] !== null) {
+                $busa = Spec::where('kategori', 'busa')->where('nama', $produk[$i]['busa'])->first();
+                ProdukSpec::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'spec_id' => $busa['id']
+                ]);
+            }
+
+            if (isset($produk[$i]['standar']) && $produk[$i]['standar'] !== null) {
+                $standar = Standar::where('nama', $produk[$i]['standar'])->first();
+                ProdukStandar::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'standar_id' => $standar['id'],
+                ]);
+            }
+
+            if (isset($produk[$i]['sayap']) && $produk[$i]['sayap'] !== null) {
+                $sayap = Spec::where('kategori', 'sayap')->where('nama', $produk[$i]['sayap'])->first();
+                ProdukSpec::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'spec_id' => $sayap['id']
+                ]);
+            }
+
+            if (isset($produk[$i]['jokassy']) && $produk[$i]['jokassy'] !== null) {
+                $jokassy = Jokassy::where('nama', $produk[$i]['jokassy'])->first();
+                ProdukJokassy::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'jokassy_id' => $jokassy['id'],
+                ]);
+            }
+
+            if (isset($produk[$i]['tankpad']) && $produk[$i]['tankpad'] !== null) {
+                $tankpad = Tankpad::where('nama', $produk[$i]['tankpad'])->first();
+                ProdukTankpad::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'tankpad_id' => $tankpad['id'],
+                ]);
+            }
+
+            if (isset($produk[$i]['busastang']) && $produk[$i]['busastang'] !== null) {
+                $busastang = Busastang::where('nama', $produk[$i]['busastang'])->first();
+                ProdukBusastang::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'busastang_id' => $busastang['id'],
+                ]);
+            }
+
+            if (isset($produk[$i]['stiker']) && $produk[$i]['stiker'] !== null) {
+                $stiker = Stiker::where('nama', $produk[$i]['stiker'])->first();
+                ProdukStiker::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'stiker_id' => $stiker['id'],
+                ]);
+            }
+
+            if (isset($produk[$i]['rol']) && $produk[$i]['rol'] !== null) {
+                $rol = Rol::where('nama', $produk[$i]['rol'])->first();
+                ProdukRol::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'rol_id' => $rol['id'],
+                ]);
+            }
+
+            if (isset($produk[$i]['rotan']) && $produk[$i]['rotan'] !== null) {
+                $rotan = Rotan::where('nama', $produk[$i]['rotan'])->first();
+                ProdukRotan::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'rotan_id' => $rotan['id'],
+                ]);
+            }
+
         }
 
         /** LIST LG.STIKER

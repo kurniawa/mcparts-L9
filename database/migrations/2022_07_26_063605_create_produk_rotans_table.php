@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tsixpacks', function (Blueprint $table) {
+        Schema::create('produk_rotans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('ktrg')->nullable();
+            $table->foreignId('produk_id');
+            $table->foreignId('rotan_id');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tsixpacks');
+        Schema::dropIfExists('produk_rotans');
     }
 };
