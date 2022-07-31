@@ -38,6 +38,9 @@ class VariasiSeeder extends Seeder
             'nama' => 'LG.Sablon',
             'harga' => 1000
         ], [
+            'nama' => 'List',
+            'harga' => 4000
+        ], [
             'nama' => 'LG.Stiker',
             'harga' => 4000
         ], [

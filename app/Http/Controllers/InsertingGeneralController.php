@@ -18,6 +18,7 @@ use App\Models\Spk;
 use App\Models\Standar;
 use App\Models\Stiker;
 use App\Models\Tankpad;
+use App\Models\TempSpkProduk;
 use App\Models\Tsixpack;
 use App\Models\Tspjap;
 use App\Models\Ukuran;
@@ -44,108 +45,17 @@ class InsertingGeneralController extends Controller
         }
 
         $produk = new Produk();
-        // $attsjvariasis = Attsjvariasi::all();
-        // $bahan = new Bahan();
-        // $variasi = new Variasi();
-        // $spec = new Spec();
-        // // $jahit = new Jahit();
-        // $kombinasi = new Kombinasi();
-        // $tsixpack = new Tsixpack();
-        // $japstyle = new Japstyle();
-        // $motif = new Motif();
-        // $standar = new Standar();
-        // $tankpad = new Tankpad();
-        // $busastang = new Busastang();
-        // $stiker = new Stiker();
 
         $label_produks = $produk->label_produks();
-        // $label_bahans = $bahan->label_bahans();
-        // $variasi_harga = $variasi->variasi_harga();
-        // $specs_harga = $spec->specs_harga();
-        // // $jahits_harga = $jahit->jahits_harga();
-        // $label_kombinasi = $kombinasi->label_kombinasi();
-        // $label_standars = $standar->label_standars();
-        // $label_tankpads = $tankpad->label_tankpads();
-        // $label_busastangs = $busastang->label_busastangs();
-        // $label_tsixpacks = $tsixpack->label_tsixpacks();
-        // $label_tsixpack_a = $tsixpack->label_tsixpacks_a();
-        // $label_tsixpack_b = $tsixpack->label_tsixpacks_b();
-        // $label_japstyles = $japstyle->label_japstyles();
-        // $label_japstyle_a = $japstyle->label_japstyles_a();
-        // $label_japstyle_b = $japstyle->label_japstyles_b();
-        // $label_stikers = $stiker->label_stikers();
-        // $d_bahan_a = $bahan->d_bahan_a();
-        // $d_bahan_b = $bahan->d_bahan_b();
-        // $motif_harga = $motif->motif_harga();
-        // $varians = Varian::all();
+
 
         $mode = $get['mode'];
-        // $tipe = $get['tipe'];
 
-        // if ($mode === 'SPK_BARU') {
-        //     if ($tipe === 'varia') {
-        //         $judul = 'SPK Baru: Tambah SJ Variasi';
-        //     } elseif ($tipe === 'kombinasi') {
-        //         $judul = 'SPK BARU: Tambah SJ Kombinasi';
-        //     } elseif ($tipe === 'standar') {
-        //         $judul = 'SPK BARU: Tambah SJ Standar';
-        //     } elseif ($tipe === 'tankpad') {
-        //         $judul = 'SPK BARU: Tambah SJ Tankpad';
-        //     } elseif ($tipe === 'busastang') {
-        //         $judul = 'SPK BARU: Tambah SJ Busastang';
-        //     } elseif ($tipe === 'tsixpack') {
-        //         $judul = 'SPK BARU: Tambah SJ T.Sixpack/Japstyle';
-        //     } elseif ($tipe === 'stiker') {
-        //         $judul = 'SPK BARU: Tambah SJ Stiker';
-        //     } elseif ($tipe === 'motif') {
-        //         $judul = 'SPK BARU: Tambah SJ Motif';
-        //     }
-        // } elseif ($mode === 'ADD PRODUCT FROM DETAIL') {
-        //     if ($tipe === 'varia') {
-        //         $judul = 'Edit SPK: Tambah SJ Variasi';
-        //     } elseif ($tipe === 'kombinasi') {
-        //         $judul = 'Edit SPK: Tambah SJ Kombinasi';
-        //     } elseif ($tipe === 'standar') {
-        //         $judul = 'Edit SPK: Tambah SJ Standar';
-        //     } elseif ($tipe === 'tankpad') {
-        //         $judul = 'Edit SPK: Tambah SJ Tankpad';
-        //     } elseif ($tipe === 'busastang') {
-        //         $judul = 'Edit SPK: Tambah SJ Busastang';
-        //     } elseif ($tipe === 'tsixpack') {
-        //         $judul = 'Edit SPK: Tambah SJ T.Sixpack/Japstyle';
-        //     } elseif ($tipe === 'stiker') {
-        //         $judul = 'Edit SPK: Tambah SJ Stiker';
-        //     } elseif ($tipe === 'motif') {
-        //         $judul = 'SPK BARU: Tambah SJ Motif';
-        //     }
-        // }
 
         $data = [
             'spk_id' => $spk_id,
             'mode' => $mode,
             'produks' => $label_produks,
-            // 'attsjvariasis' => $attsjvariasis,
-            // // 'tipe' => $tipe,
-            // // 'judul' => $judul,
-            // 'bahans' => $label_bahans,
-            // 'variasi_hargas' => $variasi_harga,
-            // 'varians' => $varians,
-            // 'specs' => $specs_harga,
-            // // 'jahits' => $jahits_harga,
-            // 'kombinasis' => $label_kombinasi,
-            // 'standars' => $label_standars,
-            // 'tankpads' => $label_tankpads,
-            // 'busastangs' => $label_busastangs,
-            // 'tsixpacks' => $label_tsixpacks,
-            // 'label_tsixpack_a' => $label_tsixpack_a,
-            // 'label_tsixpack_b' => $label_tsixpack_b,
-            // 'japstyles' => $label_japstyles,
-            // 'label_japstyle_a' => $label_japstyle_a,
-            // 'label_japstyle_b' => $label_japstyle_b,
-            // 'stikers' => $label_stikers,
-            // 'd_bahan_a' => $d_bahan_a,
-            // 'd_bahan_b' => $d_bahan_b,
-            // 'motifs' => $motif_harga,
         ];
 
         if ($show_dump) {
@@ -185,163 +95,17 @@ class InsertingGeneralController extends Controller
             dump('$post: ', $post);
         }
 
-        $tipe = $post['tipe'];
-        $mode = $post['mode'];
-        $jumlah = $post['jumlah'];
-
-        if ($tipe === 'varia') {
-            $request->validate([
-                'bahan' => 'required',
-                'variasi' => 'required',
-                'jumlah' => 'numeric|required|min:1',
+        if ($run_db) {
+            $tempspkproduk_new = TempSpkProduk::create([
+                'produk_id' => $post['produk_id'],
+                'jumlah' => $post['jumlah'],
             ]);
-        } elseif ($tipe === 'kombinasi') {
-            $request->validate([
-                'kombi' => 'required',
-                'jumlah' => 'numeric|required|min:1',
-            ]);
-        } elseif ($tipe === 'standar') {
-            $request->validate([
-                'standar' => 'required',
-                'jumlah' => 'numeric|required|min:1',
-            ]);
-        } elseif ($tipe === 'tankpad') {
-            $request->validate([
-                'tankpad' => 'required',
-                'jumlah' => 'numeric|required|min:1',
-            ]);
-        } elseif ($tipe === 'busastang') {
-            $request->validate([
-                'busastang' => 'required',
-                'jumlah' => 'numeric|required|min:1',
-            ]);
-        } elseif ($tipe === 'tspjap') {
-            $request->validate([
-                'tipe_bahan' => 'required',
-                'bahan_tspjap' => 'required',
-                'tspjap' => 'required',
-                'jumlah' => 'numeric|required|min:1',
-            ]);
-        } elseif ($tipe === 'stiker') {
-            $request->validate([
-                'stiker' => 'required',
-                'jumlah' => 'numeric|required|min:1',
-            ]);
+            $load_num->value += 1;
+            $load_num->save();
+            $produk = Produk::find($tempspkproduk_new['produk_id']);
+            $success_messages[] = "Item $produk[nama] telah berhasil diinput ke temp_spk_produks";
+            $pesan_db = "Succeed!";
         }
-
-        $ktrg = null;
-        $bahan_id = $variasi_id = $ukuran_id = $jahit_id = null;
-        $standar_id = $kombi_id = $busastang_id = $tankpad_id = $tspjap_id = $tipe_bahan = $stiker_id = null;
-
-        if (isset($post['bahan_id'])) {
-            $bahan_id = $post['bahan_id'];
-        }
-        if (isset($post['ukuran_id'])) {
-            $ukuran_id = $post['ukuran_id'];
-        }
-        if (isset($post['jahit_id'])) {
-            $jahit_id = $post['jahit_id'];
-        }
-        if (isset($post['standar_id'])) {
-            $standar_id = $post['standar_id'];
-        }
-        if (isset($post['kombi_id'])) {
-            $kombi_id = $post['kombi_id'];
-        }
-        if (isset($post['busastang_id'])) {
-            $busastang_id = $post['busastang_id'];
-        }
-        if (isset($post['tankpad_id'])) {
-            $tankpad_id = $post['tankpad_id'];
-        }
-        if (isset($post['tspjap_id'])) {
-            $tspjap_id = $post['tspjap_id'];
-        }
-        if (isset($post['stiker_id'])) {
-            $stiker_id = $post['stiker_id'];
-        }
-        if (isset($post['ktrg'])) {
-            $ktrg = $post['ktrg'];
-        }
-
-        if ($tipe === 'varia') {
-            $variasi = json_decode($post['variasi'], true);
-            // dd($variasi);
-            $variasi_id = $variasi['id'];
-            $harga = $post['bahan_harga'] + $variasi['harga'];
-            $nama = "$post[bahan] $variasi[nama]";
-            $nama_nota = $nama;
-
-            if (isset($post['ukuran'])) {
-                $ukuran = json_decode($post['ukuran'], true);
-                $harga += $ukuran['harga'];
-                $nama .= " uk.$ukuran[nama]";
-                $nama_nota .= " uk.$ukuran[nama_nota]";
-                $ukuran_id = $ukuran['id'];
-            }
-            if (isset($post['jahit'])) {
-                $jahit = json_decode($post['jahit'], true);
-                $harga += $jahit['harga'];
-                $nama .= " + jht.$jahit[nama]";
-                $nama_nota .= " + jht.$jahit[nama]";
-                $jahit_id = $jahit['id'];
-            }
-        } elseif ($tipe === 'kombinasi') {
-            $nama = $post['kombi'];
-            $nama_nota = $nama;
-            $harga = $post['kombi_harga'];
-        } elseif ($tipe === 'standar') {
-            $nama = "Standar $post[standar]";
-            $nama_nota = $nama;
-            $harga = $post['standar_harga'];
-        } elseif ($tipe === 'tspjap') {
-            $nama = $post['tspjap'];
-            $harga = $post['tspjap_harga'];
-            $tipe_bahan = $post['tipe_bahan'];
-            $bahan = $post['bahan'];
-            if ($bahan !== null) {
-                $nama = "$bahan $nama";
-            } else {
-                $nama = "Bahan($tipe_bahan) $nama";
-            }
-            $nama_nota = $nama;
-        } elseif ($tipe === 'tankpad') {
-            $nama = "TP $post[tankpad]";
-            $nama_nota = $nama;
-            $harga = $post['tankpad_harga'];
-        } elseif ($tipe === 'busastang') {
-            $nama = $post['busastang'];
-            $nama_nota = $nama;
-            $harga = $post['busastang_harga'];
-        } elseif ($tipe === 'stiker') {
-            $nama = $post['stiker'];
-            $nama_nota = $nama;
-            $harga = $post['stiker_harga'];
-        }
-
-        // MELENGKAPI NAMA NOTA SEKALI LAGI
-        if ($tipe === 'varia' || $tipe === 'kombinasi' || $tipe === 'standar' || $tipe === 'tspjap') {
-            $nama_nota = "SJ $nama_nota";
-        }
-
-        if ($show_dump) {
-            dump('$tipe', $tipe);
-            // dump('$variasi', $variasi);
-            dump('$harga', $harga);
-            dump('$nama_nota', $nama_nota);
-            dump('$ktrg', $ktrg);
-            dump('$nama', $nama);
-        }
-
-        if ($mode === 'SPK_BARU') {
-            list($pesan_db, $ada_error, $class_div_pesan_db, $success_messages) = InsertingProductHelper::InsertingToTempSpkProduks($show_dump, $run_db, $pesan_db, $ada_error, $class_div_pesan_db, $success_messages, $tipe, $bahan_id, $variasi_id, $ukuran_id, $jahit_id, $kombi_id, $standar_id, $tankpad_id, $busastang_id, $tspjap_id, $tipe_bahan, $stiker_id, $nama, $nama_nota, $jumlah, $harga, $ktrg);
-        } elseif ($mode === 'ADD PRODUCT FROM DETAIL') {
-            $spk = Spk::find($post['spk_id']);
-            $jumlah_total = $spk['jumlah_total'] + $jumlah;
-            $harga_total = $spk['harga_total'] + $harga;
-            list($pesan_db, $ada_error, $class_div_pesan_db, $success_messages) = InsertingProductHelper::InsertingFromDetail($show_dump, $run_db, $load_num, $mode, $tipe, $bahan_id, $variasi_id, $ukuran_id, $jahit_id, $kombi_id, $standar_id, $tankpad_id, $busastang_id, $tspjap_id, $tipe_bahan, $stiker_id, $nama, $nama_nota, $jumlah, $harga, $ktrg, $spk, $jumlah_total, $harga_total, $success_messages);
-        }
-
 
         $data = [
             'go_back_number' => -2,

@@ -107,32 +107,34 @@
     $('#divJmlTotal').hide();
     // getSPKItems();
 
-    var spk_item = {!! json_encode($spk_item, JSON_HEX_TAG) !!};
+    var spk_items = {!! json_encode($spk_items, JSON_HEX_TAG) !!};
+    var produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
 
     if (show_console === true) {
-        console.log('spk_item');
-        console.log(spk_item);
+        console.log('spk_items');
+        console.log(spk_items);
     }
 
     var htmlItemList = '';
     var totalHarga = 0;
     var jumlahTotalItem = 0;
-    for (var i = 0; i < spk_item.length; i++) {
+    for (var i = 0; i < spk_items.length; i++) {
         var keterangan = "";
-        if (spk_item[i].ktrg !== null) {
-            keterangan = spk_item[i].ktrg.replace(new RegExp('\r?\n', 'g'), '<br />');
+
+        if (spk_items[i].ktrg !== null) {
+            keterangan = spk_items[i].ktrg.replace(new RegExp('\r?\n', 'g'), '<br />');
         }
         htmlItemList = htmlItemList +
             `<form method='POST' action='/spk/spkBaru-spkItem-editDelete' class='divItem grid-3-auto_auto_10 pt-0_5em pb-0_5em bb-1px-solid-grey'>
                 @csrf
-                <input type='hidden' name='spk_item_id' value=${spk_item[i].id}>
+                <input type='hidden' name='spk_item_id' value=${produks[i].id}>
                 <div class='divItemName grid-2-15_auto'>
                     <button type='submit' name='tipe_submit' value='hapus' id='btnRemoveItem-${i}' class='btnRemoveItem grid-1-auto justify-items-center circle-medium bg-color-soft-red');'><img style='width: 1.3em;' src='/img/icons/minus-white.svg'></button>
-                    ${spk_item[i].nama}
+                    ${produks[i].nama}
                 </div>
                 <div class='grid-1-auto'>
                     <div class='color-green justify-self-right font-size-1_2em fw-bold'>
-                        ${spk_item[i].jumlah}
+                        ${spk_items[i].jumlah}
                     </div>
                     <div class='color-grey justify-self-right'>Jumlah</div>
                 </div>
@@ -143,8 +145,8 @@
             </form>`;
 
         // kita jumlah harga semua item untuk satu SPK
-        totalHarga = totalHarga + parseFloat(spk_item[i].harga_item);
-        jumlahTotalItem = jumlahTotalItem + parseFloat(spk_item[i].jumlah);
+        totalHarga = totalHarga + parseFloat(spk_items[i].harga_item);
+        jumlahTotalItem = jumlahTotalItem + parseFloat(spk_items[i].jumlah);
     }
     $('#inputHargaTotalSPK').val(totalHarga);
     if (jumlahTotalItem !== 0) {

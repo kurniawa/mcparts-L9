@@ -17,19 +17,19 @@ class MotifSeeder extends Seeder
     public function run()
     {
         $motif = [[
-            'nama' => 'Motif Sixpack 2 Warna',
+            'nama' => 'Sixpack 2 Warna',
             'id' => 1,
             'harga' => 27000
         ], [
-            'nama' => 'Motif Sixpack Full Hitam',
+            'nama' => 'Sixpack Full Hitam',
             'id' => 2,
             'harga' => 27000
         ], [
-            'nama' => 'Motif Hexagon 2 Warna',
+            'nama' => 'Hexagon 2 Warna',
             'id' => 2,
             'harga' => 27000
         ], [
-            'nama' => 'Motif Starpack 2 Warna',
+            'nama' => 'Starpack 2 Warna',
             'id' => 3,
             'harga' => 27000
         ]];

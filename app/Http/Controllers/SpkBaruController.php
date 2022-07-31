@@ -90,7 +90,15 @@ class SpkBaruController extends Controller
         }
         $judul = $get['judul'];
         $tanggal = date('d-m-Y', strtotime($get['tanggal']));
-        $spk_item = DB::table('temp_spk_produks')->get();
+        $spk_items = DB::table('temp_spk_produks')->get()->toArray();
+
+        // dd($spk_items);
+        $produks = array();
+        // dd($spk_items[0]->produk_id);
+        for ($i=0; $i < count($spk_items); $i++) {
+            $produk = Produk::find($spk_items[$i]->produk_id)->toArray();
+            $produks[] = $produk;
+        }
 
         if ($show_dump) {
             dump("get");
@@ -105,7 +113,8 @@ class SpkBaruController extends Controller
             'reseller' => $reseller,
             'reseller_id' => $reseller_id,
             'judul' => $judul,
-            'spk_item' => $spk_item,
+            'spk_items' => $spk_items,
+            'produks' => $produks,
             'tanggal' => $tanggal,
         ];
 

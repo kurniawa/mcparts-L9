@@ -90,35 +90,35 @@ class JokassySeeder extends Seeder
             'harga' => 107500
         ],
         [
-            'nama' => 'RXK Supra',
+            'nama' => 'Supra',
             'harga' => 107500
         ],
         [
-            'nama' => 'RXK Supra 125',
+            'nama' => 'Supra 125',
             'harga' => 107500
         ],
         [
-            'nama' => 'RXK Supra Fit New',
+            'nama' => 'Supra Fit New',
             'harga' => 107500
         ],
         [
-            'nama' => 'RXK Supra X',
+            'nama' => 'Supra X',
             'harga' => 107500
         ],
         [
-            'nama' => 'RXK Vario 125',
+            'nama' => 'Vario 125',
             'harga' => 107500
         ],
         [
-            'nama' => 'RXK Vario Techno',
+            'nama' => 'Vario Techno',
             'harga' => 107500
         ],
         [
-            'nama' => 'RXK Vega R',
+            'nama' => 'Vega R',
             'harga' => 107500
         ],
         [
-            'nama' => 'RXK Vega ZR',
+            'nama' => 'Vega ZR',
             'harga' => 107500
         ],
         ];

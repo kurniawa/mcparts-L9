@@ -215,7 +215,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 22
             'harga' => 22000,
-            'bahan'=>'Amplas(RY)','variasi_1'=>'Polos','varian_1'=>null,'ukuran'=>'SuperJB93x53','jahit'=>null,
+            'bahan'=>'Amplas(RY)','variasi_1'=>'Polos','varian_1'=>null,'ukuran'=>'SuperJB97x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Amplas(RY) Polos uk.GIGA100x68.5',
@@ -223,7 +223,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 100, // 23
             'harga' => 26000,
-            'bahan'=>'Amplas(RY)','variasi_1'=>'Polos','varian_1'=>null,'ukuran'=>'GIGA 93x53','jahit'=>null,
+            'bahan'=>'Amplas(RY)','variasi_1'=>'Polos','varian_1'=>null,'ukuran'=>'GIGA100x68.5','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Amplas(RY) T.Sablon Tribal 1-6',
@@ -799,7 +799,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 21000,
-            'bahan'=>'C38(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'SuperJB','jahit'=>'JB',
+            'bahan'=>'C38(MC)','variasi_1'=>'Polos','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'SuperJB97x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'C38(MC) T.Polymas',
@@ -831,7 +831,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 25500,
-            'bahan'=>'Carbon','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'SuperJB93x53','jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'LG.Bludru','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'SuperJB97x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Carbon LG.Bordir',
@@ -839,7 +839,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 20000,
-            'bahan'=>'Carbon','variasi_1'=>'LG.Bordir','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'SuperJB93x53','jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'LG.Bordir','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'SuperJB97x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Carbon LG.Bordir + jht.Univ',
@@ -1007,7 +1007,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 23000,
-            'bahan'=>'Carbon','variasi_1'=>'Tulang Bayang','varian_1'=>null,'variasi_2'=>'LG.Blurdru','varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'Tulang Bayang','varian_1'=>null,'variasi_2'=>'LG.Bludru','varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Carbon Tulang Bayang Prima + LG.Bludru',
@@ -1015,7 +1015,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 24000,
-            'bahan'=>'Carbon','variasi_1'=>'Tulang Bayang','varian_1'=>'Prima','variasi_2'=>'LG.Blurdru','varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'Tulang Bayang','varian_1'=>'Prima','variasi_2'=>'LG.Bludru','varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Carbon Tulang Bayang Prima uk.JB93x53 + LG.Bludru',
@@ -1023,7 +1023,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 28000,
-            'bahan'=>'Carbon','variasi_1'=>'Tulang Bayang','varian_1'=>'Prima','variasi_2'=>'LG.Blurdru','varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
+            'bahan'=>'Carbon','variasi_1'=>'Tulang Bayang','varian_1'=>'Prima','variasi_2'=>'LG.Bludru','varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Carbon Tulang Bayang Prima uk.JB93x53 + LG.Polymas',
@@ -1799,7 +1799,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
-            'bahan'=>'Navaro(MC)','variasi_1'=>'LG.Polymas','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB3x53','jahit'=>null,
+            'bahan'=>'Navaro(MC)','variasi_1'=>'LG.Polymas','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>'JB93x53','jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Navaro(MC) Polos',
@@ -2306,20 +2306,20 @@ class ProdukSeeder extends Seeder
             'bahan'=>'Vario(M)','variasi_1'=>'T.Sablon','varian_1'=>'Tribal 1-6','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(M) T.Sablon Tribal',
-            'nama_nota' => 'SJ Vario(M) T.Sablon Tribal',
+            'nama' => 'Vario(M) T.Sablon Tribal 1-6',
+            'nama_nota' => 'SJ Vario(M) T.Sablon Tribal 1-6',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 18500,
-            'bahan'=>'Vario(M)','variasi_1'=>'T.Sablon','varian_1'=>'Tribal','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'bahan'=>'Vario(M)','variasi_1'=>'T.Sablon','varian_1'=>'Tribal 1-6','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
-            'nama' => 'Vario(M) T.Sablon Tribal + jht.Univ',
-            'nama_nota' => 'SJ Vario(M) T.Sablon Tribal + jht.Univ',
+            'nama' => 'Vario(M) T.Sablon Tribal 1-6 + jht.Univ',
+            'nama_nota' => 'SJ Vario(M) T.Sablon Tribal 1-6 + jht.Univ',
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-            'bahan'=>'Vario(M)','variasi_1'=>'T.Sablon','varian_1'=>'Tribal','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
+            'bahan'=>'Vario(M)','variasi_1'=>'T.Sablon','varian_1'=>'Tribal 1-6','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>'Univ',
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Vario(M) Tulang Bayang + LG.Sablon',
@@ -2487,7 +2487,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 19500,
-            'bahan'=>'Vario(MC)','variasi_1'=>'T.Polymas','varian_1'=>'Cumi','variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'bahan'=>'Vario(MC)','variasi_1'=>'T.Polymas','varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Vario(MC) T.Polymas Tribal Bride 5X + jht.Univ',
@@ -3255,7 +3255,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 100, // 34
             'harga' => 29000,
-            'kombinasi'=>'Warna X-Ride','grade_bahan'=>"B",'bahan'=>null,'variasi_1'=>null,'varian_1'=>null,'ukuran'=>null,'jahit'=>'Benang Warna',
+            'kombinasi'=>'Warna X-Ride','grade_bahan'=>"B",'bahan'=>null,'variasi_1'=>null,'varian_1'=>null,'ukuran'=>null,'list'=>'Benang Warna',
         ], [
             'tipe' => 'SJ-Kombinasi',
             'nama' => 'Kombinasi Warna X-Ride(L) + Benang Warna',
@@ -3263,7 +3263,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 100, // 34
             'harga' => 29000,
-            'kombinasi'=>'Warna X-Ride','grade_bahan'=>"B",'bahan'=>null,'variasi_1'=>null,'varian_1'=>null,'ukuran'=>'L','jahit'=>'Benang Warna',
+            'kombinasi'=>'Warna X-Ride','grade_bahan'=>"B",'bahan'=>null,'variasi_1'=>null,'varian_1'=>null,'ukuran'=>'L','list'=>'Benang Warna',
         ], [
             'tipe' => 'SJ-Japstyle',
             'nama' => 'Kulit Jeruk Japstyle',
@@ -3272,14 +3272,6 @@ class ProdukSeeder extends Seeder
             'aturan_packing' => 100, // 34
             'harga' => 18000,
             'bahan'=>'Kulit Jeruk',
-        ], [
-            'tipe' => 'SJ-Japstyle',
-            'nama' => 'Kulit Jeruk(CK) Japstyle',
-            'nama_nota' => 'SJ Kulit Jeruk(CK) Japstyle',
-            'tipe_packing' => 'colly',
-            'aturan_packing' => 100, // 34
-            'harga' => 20500,
-            'bahan'=>'Kulit Jeruk(CK)',
         ], [
             'tipe' => 'SJ-Japstyle',
             'nama' => 'Kulit Jeruk(CK)(RY) Japstyle',
@@ -3583,7 +3575,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 34500,
-            'bahan'=>'Carbon','alas'=>null,'busa'=>'Busa','grade_bahan'=>null,'ukuran'=>'SuperJB93x53','jahit'=>'JB',
+            'bahan'=>'Carbon','alas'=>null,'busa'=>'Busa','grade_bahan'=>null,'ukuran'=>'SuperJB97x53','jahit'=>'JB',
         ], [
             'tipe' => 'SJ-T.Sixpack',
             'nama' => 'L55(MC) T.Sixpack + Alas + jht.ABS-RV',
@@ -3815,7 +3807,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Jupiter Mio M3",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Mio M3",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Mio Soul",
@@ -3823,7 +3815,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Jupiter Mio Soul",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Mio Soul",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Prima",
@@ -4020,6 +4012,7 @@ class ProdukSeeder extends Seeder
         ];
 
         for ($i = 0; $i < count($produk); $i++) {
+            dump($produk[$i]['nama']);
             $inserted_produk = Produk::create([
                 'tipe' => $produk[$i]['tipe'],
                 'nama' => $produk[$i]['nama'],
@@ -4072,7 +4065,7 @@ class ProdukSeeder extends Seeder
             }
 
             if (isset($produk[$i]['grade_bahan']) && $produk[$i]['grade_bahan'] !== null) {
-                $grade_bahan = Spec::where('kategori', 'grade_bahan')->where('nama', $produk[$i]['bahan'])->first();
+                $grade_bahan = Spec::where('kategori', 'grade_bahan')->where('nama', $produk[$i]['grade_bahan'])->first();
                 ProdukSpec::create([
                     'produk_id' => $inserted_produk['id'],
                     'spec_id' => $grade_bahan['id']
@@ -4101,6 +4094,14 @@ class ProdukSeeder extends Seeder
                 ProdukSpec::create([
                     'produk_id' => $inserted_produk['id'],
                     'spec_id' => $jahit['id']
+                ]);
+            }
+
+            if (isset($produk[$i]['list']) && $produk[$i]['list'] !== null) {
+                $list = Spec::where('kategori', 'list')->where('nama', $produk[$i]['list'])->first();
+                ProdukSpec::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'spec_id' => $list['id']
                 ]);
             }
 
@@ -4145,7 +4146,9 @@ class ProdukSeeder extends Seeder
             }
 
             if (isset($produk[$i]['jokassy']) && $produk[$i]['jokassy'] !== null) {
+                // dump($produk[$i]['jokassy']);
                 $jokassy = Jokassy::where('nama', $produk[$i]['jokassy'])->first();
+                // dump('ditemukan:', $jokassy['nama']);
                 ProdukJokassy::create([
                     'produk_id' => $inserted_produk['id'],
                     'jokassy_id' => $jokassy['id'],

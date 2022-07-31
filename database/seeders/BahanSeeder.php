@@ -37,20 +37,20 @@ class BahanSeeder extends Seeder
             'harga' => 19000,
             'ktrg' => 'Pengambilan dari Toko Sumber Maju Dunia, Tanah Abang. Bahan premium merek SB-Tech.',
         ], [
-            'nama' => 'Big Dot(CK)', // 5
+            'nama' => 'BigDot(CK)', // 5
             'grade' => 'A',
             'harga' => 14500,
-            'ktrg' => 'Big Dot dengan backing warna Coklat, tanpa merek. Pengambilan dari MAX.',
+            'ktrg' => 'BigDot dengan backing warna Coklat, tanpa merek. Pengambilan dari MAX.',
         ], [
-            'nama' => 'Big Dot(MC)', // 6
+            'nama' => 'BigDot(MC)', // 6
             'grade' => 'A',
             'harga' => 14500,
-            'ktrg' => 'Big Dot dengan merek MC. Pengambilan dari MAX',
+            'ktrg' => 'BigDot dengan merek MC. Pengambilan dari MAX',
         ], [
-            'nama' => 'Big Dot(MCR)', // 7
+            'nama' => 'BigDot(MCR)', // 7
             'grade' => 'A',
             'harga' => 14500,
-            'ktrg' => 'Big Dot dengan merek MC (logo new bersayap), backing warna putih. Pengambilan dari Royal.',
+            'ktrg' => 'BigDot dengan merek MC (logo new bersayap), backing warna putih. Pengambilan dari Royal.',
         ], [
             'nama' => 'C24', // 8
             'grade' => 'B',
@@ -65,19 +65,19 @@ class BahanSeeder extends Seeder
             'nama' => 'C38(EX)', // ? 10
             'grade' => 'A',
             'harga' => 14500,
-            'ktrg' => 'Pengambilan dari: MAX. Motif: C38 (mirip Big Dot namun bentuk nya agak oval). Ketebalan: 0.9 mm.',
+            'ktrg' => 'Pengambilan dari: MAX. Motif: C38 (mirip BigDot namun bentuk nya agak oval). Ketebalan: 0.9 mm.',
         ], [
             'nama' => 'C38(MC)', // 11
             'grade' => 'A',
             'harga' => 14500,
-            'ktrg' => 'Bahan dengan motif C38 (mirip Big Dot namun bentuk nya agak oval), ketebalan: 0.9 mm. Merek MC. Pengambilan dari MAX.',
+            'ktrg' => 'Bahan dengan motif C38 (mirip BigDot namun bentuk nya agak oval), ketebalan: 0.9 mm. Merek MC. Pengambilan dari MAX.',
         ], [
             'nama' => 'Carbon', // 12
             'grade' => null,
             'harga' => 19000,
             'ktrg' => 'Ketebalan: 0.8 mm. Merek MC (logo new bersayap). Backing: Biru. Pengambilan dari Royal. Tidak ada keterangan RY, karena memang saat ini hanya Royal yang memproduksi bahan dengan motif ini. Oleh karena itu tidak perlu tertulis code yang membedakan.',
         ], [
-            'nama' => 'Graffiti', // 13
+            'nama' => 'Grafity', // 13
             'grade' => 'A',
             'harga' => 14500,
             'ktrg' => 'Ketebalan: 0.8 mm. Merek MC (logo baru bersayap). Backing: Biru. Pengambilan dari Royal. Tidak ada keterangan RY, karena memang saat ini hanya Royal yang memproduksi bahan dengan motif ini. Oleh karena itu tidak perlu tertulis code yang membedakan.',
@@ -140,7 +140,7 @@ class BahanSeeder extends Seeder
             'nama' => 'MBtech(BD)', // 23
             'grade' => null,
             'harga' => 41000,
-            'ktrg' => 'Pengambilan dari: Fajar Baru. Motif Big Dot. Ketebalan: ~ 1.3 mm. Backing: Putih, merek MB-tech. Bahan kualitas super premium (lebih premium dari SB-Tech).',
+            'ktrg' => 'Pengambilan dari: Fajar Baru. Motif BigDot. Ketebalan: ~ 1.3 mm. Backing: Putih, merek MB-tech. Bahan kualitas super premium (lebih premium dari SB-Tech).',
         ], [
             'nama' => 'MBtech(KJ)', // 24
             'grade' => null,

@@ -16,15 +16,15 @@ class StikerSeeder extends Seeder
     public function run()
     {
         $stiker = [[
-            'nama' => 'Stiker Api',
+            'nama' => 'Api',
             'id' => 1,
             'harga' => 4000
         ], [
-            'nama' => 'Stiker MU',
+            'nama' => 'MU',
             'id' => 2,
             'harga' => 2500
         ], [
-            'nama' => 'Stiker PSM',
+            'nama' => 'PSM',
             'id' => 3,
             'harga' => 2500
         ]];

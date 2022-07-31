@@ -28,7 +28,7 @@ class KombinasiSeeder extends Seeder
             'harga' => 17000
         ],
         [
-            'nama' => 'Warna X-Ride(L)',
+            'nama' => 'Warna X-Ride',
             'harga' => 27500
         ]];
 
