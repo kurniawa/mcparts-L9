@@ -245,162 +245,60 @@ class SpkBaruController extends Controller
             dump('spk_item');
             dump($spk_item);
         }
-        // dd($spk_item);
-        // dump($spk_item[0]);
-        // dump($spk_item[1]->kombi_id);
-        // dump($spk_item[2]->standar_id);
-        // dump($spk_item[3]->tankpad_id);
-        // dump($spk_item[4]->busastang_id);
-        // dump($spk_item[5]->tspjap_id);
-        // dump($spk_item[6]->stiker_id);
-        // dd($spk_item[0]->jumlah);
-        $jumlah_total = 0;
-        $harga_total = 0;
-        /**Looping sekaligus insert ke produks dan produk_harga,
-         * apabila belum exist */
-        $spk_item_simple = array();
-        $d_produk_id = array();
-
-        // VARIABLE YANG NANTINYA AKAN DIINSERT KE TABLE PRODUKS
-
-        for ($i = 0; $i < count($spk_item); $i++) {
-            $jumlah_total += (int)$spk_item[$i]->jumlah;
-            $harga_total += $spk_item[$i]->harga * $spk_item[$i]->jumlah;
-            // dump($produk);
-            // dump($produk['id']);
-            // MENENTUKAN PROPERTIES UNTUK PRODUK BARU DAN MENYEDERHANAKAN DATA PRODUK
-
-            // APABILA EXIST MAKA PERLU DI UPDATE HARGA LAMA NYA.
-            $produk = Produk::where('nama', '=', $spk_item[$i]->nama)->first();
-            // echo "produk: ";
-            // dd($produk);
-            if ($produk !== null) {
-                $produk_harga = ProdukHarga::latest()->where('produk_id', '=', $produk['id'])->first();
-
-                $produk_id = $produk_harga['produk_id'];
-
-                if ($produk_harga['harga'] < $spk_item[$i]->harga) {
-                    // uncomment
-
-                    if ($run_db) {
-                        $produk_id = DB::table('produk_hargas')->insertGetId([
-                            'produk_id' => $produk['id'],
-                            'harga' => $spk_item[$i]->harga,
-                        ]);
-                    }
-
-                    // $produk_harga_updated = DB::table('produk_hargas')->orderBy('created_at')->first();
-                    // $produk_harga_terbaru = DB::table('produk_hargas')->latest();
-
-                    // uncomment
-                    // dd($produk_harga_updated['produk_id']);
-                    // $produk_id = $produk_harga_terbaru['id'];
-                }
-
-                array_push($d_produk_id, $produk_id);
-            } else {
-
-                // dump(json_encode($properties));
-                // uncomment
-
-                if ($run_db) {
-                    $produk = Produk::create([
-                        'tipe' => $spk_item[$i]->tipe,
-                        'bahan_id' => $spk_item[$i]->bahan_id,
-                        'variasi_id' => $spk_item[$i]->variasi_id,
-                        'ukuran_id' => $spk_item[$i]->ukuran_id,
-                        'jahit_id' => $spk_item[$i]->jahit_id,
-                        'standar_id' => $spk_item[$i]->standar_id,
-                        'kombi_id' => $spk_item[$i]->kombi_id,
-                        'busastang_id' => $spk_item[$i]->busastang_id,
-                        'tankpad_id' => $spk_item[$i]->tankpad_id,
-                        'tspjap_id' => $spk_item[$i]->tspjap_id,
-                        'tipe_bahan' => $spk_item[$i]->tipe_bahan,
-                        'stiker_id' => $spk_item[$i]->stiker_id,
-                        'nama' => $spk_item[$i]->nama,
-                        'nama_nota' => $spk_item[$i]->nama_nota,
-                    ]);
-                    DB::table('produk_hargas')->insert([
-                        'produk_id' => $produk['id'],
-                        'harga' => $spk_item[$i]->harga,
-                    ]);
-
-                    array_push($success_messages, "success_detail: Item $produk[nama] merupakan produk baru dan berhasil di tambahkan ke dalam database.");
-                }
-
-                // echo ('produk_id: ');
-                // dd($produk_id);
-                array_push($d_produk_id, $produk['id']);
-
-                // uncomment
-
-            }
-        }
-
-        // SETELAH LOOPING, SEKARANG MULAI INSERT KE SPK
-
-
-        /**
-         * format nomor spk= SPK.1/MCP-ADM/XXI-IX/2021
-         * 1-1-1
-         * id-pelanggan - id user - id spk
-         */
-
-
-        // uncomment
 
         $reseller_id = $post['reseller_id'];
 
+        // INSERT SPK GET SPK_ID Karena untuk update jumlah_total dan harga_total
         if ($run_db) {
-            $spk_id = DB::table('spks')->insertGetId([
+            $spk = Spk::create([
                 'pelanggan_id' => $post['pelanggan_id'],
                 'reseller_id' => $reseller_id,
                 'status' => 'PROSES',
                 'judul' => $post['judul'],
-                'jumlah_total' => $jumlah_total,
-                'harga_total' => $harga_total,
+                'jumlah_total' => 0,
+                'harga_total' => 0,
             ]);
 
             DB::table('spks')
-                ->where('id', $spk_id)
+                ->where('id', $spk['id'])
                 ->update([
-                    'no_spk' => "SPK-$spk_id"
+                    'no_spk' => "SPK-$spk[id]"
                 ]);
         }
 
+        $jumlah_total = 0;
+        $harga_total = 0;
 
+        // VARIABLE YANG NANTINYA AKAN DIINSERT KE TABLE PRODUKS
 
-        // Setelah selesai insert ke SPK, maka berikutnya insert ke SPK produk
-        /**
-         * # Setelah insert ke SpkProduk, maka kita update lagi spk nya, yakni untuk kolom data_spk_item
-         * # Kenapa ga langsung aja sebelumnya udah diisi kolom nya data_spk_item?
-         * Karena di data_spk_item alangkah lebih baik apabila terdapat juga keterangan ttg: spk_produk_id
-         * yang berkaitan.
-         * # Setelah ditambahkan data spk_produk_id pada masing2 $spk_item_simple, maka kita perlu untuk
-         * stringify $spk_item_simple melalui json_encode yang ditampung pada variable $string_spk_item_simple
-         * # Setelah stringify, maka kita siap untuk update data spk
-         */
-        // dd($d_produk_id);
-
-
-        for ($j = 0; $j < count($spk_item); $j++) {
+        for ($i = 0; $i < count($spk_item); $i++) {
+            $produk_harga = ProdukHarga::where('produk_id', $spk_item[$i]->produk_id)->first();
+            $jumlah_total += $spk_item[$i]->jumlah;
+            $harga_total += $produk_harga['harga'];
             if ($run_db) {
-                $spk_produk_id = DB::table('spk_produks')->insertGetId([
-                    'spk_id' => $spk_id,
-                    'produk_id' => $d_produk_id[$j],
-                    'jumlah' => $spk_item[$j]->jumlah,
-                    'jml_blm_sls' => $spk_item[$j]->jumlah,
-                    'harga' => $spk_item[$j]->harga,
-                    'ktrg' => $spk_item[$j]->ktrg,
+                DB::table('spk_produks')->insertGetId([
+                    'spk_id' => $spk['id'],
+                    'produk_id' => $spk_item[$i]->produk_id,
+                    'jumlah' => $spk_item[$i]->jumlah,
+                    'jml_blm_sls' => $spk_item[$i]->jumlah,
+                    'harga' => $produk_harga['harga'],
+                    'ktrg' => $spk_item[$i]->ktrg,
                     'status' => 'PROSES',
                 ]);
-
-                $spk_produk = SpkProduk::find($spk_produk_id);
             }
 
-            if ($j >= count($spk_item)) {
+            if ($i >= count($spk_item)) {
                 array_push($success_messages, 'success_detail: Inserting all item in spk_produk_id.');
             }
+        }
+
+        // UPDATE JUMLAH TOTAL DAN HARGA TOTAL DI SPK
+        if ($run_db) {
+            $spk->harga_total = $harga_total;
+            $spk->jumlah_total = $jumlah_total;
+            $spk->save();
+
+            $success_messages[] = 'Harga Total dan Jumlah Total SPK diupdate!';
         }
 
         if ($run_db) {
