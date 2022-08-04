@@ -17,13 +17,11 @@ return new class extends Migration
         Schema::create('pelanggans', function (Blueprint $table) {
             $table->id();
             $table->string("nama", 100);
+            $table->string("nama2", 100)->nullable();
+            $table->string("nama_bisnis", 50)->nullable();
             $table->string("bentuk", 10)->nullable(); // bentuk perusahaan
             $table->string("sapaan", 10)->nullable();
-            $table->string("alamat")->nullable(); // yang di Jakarta/Tangerang ada yang tidak pakai keterangan alamat
             $table->string("no_kontak", 50)->nullable();
-            $table->foreignId("negara_id")->nullable()->default(1)->constrained()->onDelete('NO ACTION');
-            $table->foreignId("pulau_id")->nullable()->constrained()->onDelete('NO ACTION');
-            $table->foreignId("daerah_id")->nullable()->constrained()->onDelete('NO ACTION');
             $table->string("initial", 10)->nullable();
             $table->string("ktrg")->nullable();
             $table->enum("is_reseller", ['yes', 'no'])->default('no');
