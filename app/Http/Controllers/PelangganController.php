@@ -34,33 +34,8 @@ class PelangganController extends Controller
             dump("pelanggans: ", $pelanggans);
         }
 
-        /**LOOPING UNTUK DATA NEGARA, PULAU, DAERAH & RESELLER */
-        $negaras = $pulaus = $daerahs = array();
-
-        foreach ($pelanggans as $pelanggan) {
-            $negara = $pulau = $daerah = $reseller = null;
-
-            // dump('$reseller:');
-            // dump($reseller);
-            if ($pelanggan['negara_id'] !== null) {
-                $negara = Negara::find($pelanggan['negara_id']);
-            }
-            if ($pelanggan['pulau_id'] !== null) {
-                $pulau = Pulau::find($pelanggan['pulau_id']);
-            }
-            if ($pelanggan['daerah_id'] !== null) {
-                $daerah = Daerah::find($pelanggan['daerah_id']);
-            }
-            array_push($negaras, $negara);
-            array_push($pulaus, $pulau);
-            array_push($daerahs, $daerah);
-        }
-
         $data = [
             "pelanggans" => $pelanggans,
-            "negaras" => $negaras,
-            "pulaus" => $pulaus,
-            "daerahs" => $daerahs,
         ];
 
         if ($show_dump) {

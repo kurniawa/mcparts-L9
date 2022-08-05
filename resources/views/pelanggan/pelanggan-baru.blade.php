@@ -1,9 +1,9 @@
-@extends('layouts/main_layout')
+@extends('layouts.main_layout')
 
 @section('content')
 
 <header class="header grid-2-auto">
-    <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
+    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
     <div>
         <h2 style="color: white">Pelanggan: Input Pelanggan Baru</h2>
     </div>
@@ -11,7 +11,7 @@
 
 <form action="/pelanggan/pelanggan-baru-db" method="POST">
     @csrf
-    <div class="ml-1em mr-1em mt-2em">
+    <div class="ml-1rem mr-1rem mt-2rem">
         <label for="nama" style="font-weight: bold">Nama:</label>
         <input name="nama_pelanggan" id="nama" class="form-control @error('nama_pelanggan') is-invalid @enderror" type="text" placeholder="Nama/Perusahaan/Pabrik">
         @error('nama_pelanggan')
@@ -30,7 +30,7 @@
         <input id="ipt_negara" type="text" name="negara" class="form-control" placeholder="Negara">
         <input id="ipt_negara_id" type="hidden" name="negara_id">
 
-        <div class="grid-2-auto grid-column-gap-1em mt-1em">
+        <div class="grid-2-auto grid-column-gap-1rem mt-1rem">
             <div>
                 <label for="pulau" style="font-weight: bold">Pulau:</label>
                 <input name="pulau" id="pulau" class="form-control @error('pulau') is-invalid @enderror" type="text" placeholder="Pulau">
@@ -49,21 +49,21 @@
             </div>
 
         </div>
-        <div class="grid-2-auto grid-column-gap-1em mt-1em">
+        <div class="grid-2-auto grid-column-gap-1rem mt-1rem">
             <div>
                 <label for="kontak" style="font-weight: bold">No. Kontak:</label>
-                <input name="kontak_pelanggan" id="kontak" class="input-1 pb-1em" type="text" placeholder="No. Kontak">
+                <input name="kontak_pelanggan" id="kontak" class="input-1 pb-1rem" type="text" placeholder="No. Kontak">
             </div>
             <div>
                 <label for="singkatan" style="font-weight: bold">Initial/Singkatan:</label>
-                <input name="singkatan_pelanggan" id="singkatan" class="input-1 pb-1em" type="text" placeholder="Singkatan (opsional)">
+                <input name="singkatan_pelanggan" id="singkatan" class="input-1 pb-1rem" type="text" placeholder="Singkatan (opsional)">
             </div>
         </div>
 
 
         <br>
         <label for="keterangan" style="font-weight:bold">Keterangan lain:</label>
-        <textarea id="keterangan" class="mt-1em pt-1em pl-1em text-area-mode-1" name="keterangan" placeholder="Keterangan lain (opsional)"></textarea>
+        <textarea id="keterangan" class="mt-1rem pt-1rem pl-1rem text-area-mode-1" name="keterangan" placeholder="Keterangan lain (opsional)"></textarea>
         <br>
         <br>
         <h6>Apakah Pelanggan ini akan ditetapkan sebagai Reseller juga?</h6>
@@ -75,23 +75,15 @@
     <br><br>
 
 
-    <div class="m-1em">
-        <button type="submit" class="h-4em bg-color-orange-2 w-100 grid-1-auto">
+    <div class="m-1rem">
+        <button type="submit" class="h-4rem bg-color-orange-2 w-100 grid-1-auto">
             <span class="justify-self-center font-weight-bold">Input Pelanggan Baru</span>
         </button>
     </div>
 </form>
 
 <script>
-    const label_negaras = {!! json_encode($label_negaras, JSON_HEX_TAG) !!};
-    const label_pulaus = {!! json_encode($label_pulaus, JSON_HEX_TAG) !!};
-    const arr_label_daerahs = {!! json_encode($arr_label_daerahs, JSON_HEX_TAG) !!};
-
-    if (show_console) {
-        console.log('label_negaras');console.log(label_negaras);
-        console.log('label_pulaus');console.log(label_pulaus);
-        console.log('arr_label_daerahs');console.log(arr_label_daerahs);
-    }
+    const show_console = true;
 
     /* NEGARA, PULAU, DAERAH */
 

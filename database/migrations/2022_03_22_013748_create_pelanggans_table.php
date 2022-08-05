@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('pelanggans', function (Blueprint $table) {
             $table->id();
             $table->string("nama", 100);
-            $table->string("nama2", 100)->nullable();
+            $table->string("nama2_lain", 100)->nullable();
             $table->string("nama_bisnis", 50)->nullable();
             $table->string("bentuk", 10)->nullable(); // bentuk perusahaan
             $table->string("sapaan", 10)->nullable();
