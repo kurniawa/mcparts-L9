@@ -98,12 +98,6 @@ option {
     height: 8rem;
     border: 1px solid #e4e4e4;
 }
-.text-center {
-    text-align: center;
-}
-.text-right {
-    text-align: right;
-}
 
 /* padding */
 .p-1rem {
@@ -633,9 +627,9 @@ option {
 
 .threeDot {
     display: grid;
-    grid-tremplate-columns: auto;
+    grid-template-columns: auto;
     grid-row-gap: 0.3rem;
-    justify-itrems: end;
+    justify-items: end;
 }
 
 .dot {
@@ -653,9 +647,9 @@ option {
 .threeDotMenuItrem {
     padding: 1rem;
     display: grid;
-    grid-tremplate-columns: 15% 85%;
+    grid-template-columns: 15% 85%;
     grid-column-gap: 0.5rem;
-    align-itrems: center;
+    align-items: center;
 }
 
 .threeDotMenuItrem:hover {
