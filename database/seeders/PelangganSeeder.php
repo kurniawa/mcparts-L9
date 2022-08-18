@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\PelangganReseller;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Alamat;
+use App\Models\Kontak;
+use App\Models\Pelanggan;
+use App\Models\PelangganAlamat;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class PelangganSeeder extends Seeder
 {
@@ -30,7 +31,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Sutoyo 5 No  140", "Kel. Teluk Dalam, Kec. Banjar Barat", "Banjarmasin"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -38,6 +39,29 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => '3PM',
+                'ekspedisi' => [['nama'=>'Angkasa']],
+            ], [
+                'nama' => '3M',
+                'alamat' => [[
+                    'jalan'=>'Jl. Ngaglik 17/23',
+                    'kecamatan'=>'Genteng',
+                    'kelurahan'=>null,
+                    'kota'=>'Surabaya',
+                    'provinsi'=>'Jawa Timur',
+                    'pulau'=>'Jawa',
+                    'short'=>'Surabaya',
+                    'negara'=>'Indonesia',
+                    'long'=>'["Jl. Ngaglik 17/23", "Kec. Genteng, Surabaya"]',
+                ]],
+                'kontak' => [
+                    [
+                        'tipe'=>'seluler',
+                        'kodearea'=>null,
+                        'nomor'=>'082253633222',
+                    ]
+                ],
+                'initial' => '3M',
+                'ekspedisi' => [['nama'=>'Citramas']],
             ], [
                 'nama' => 'Akong',
                 'alamat' => [[
@@ -52,7 +76,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Pluit, Jakarta"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -60,7 +84,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'AK',
-                'is_reseller' => 'no',
+                'is_reseller' => 'yes',
             ], [
                 'nama' => 'Abadi Motor',
                 'alamat' => [[
@@ -74,9 +98,10 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Permata 1, No 366", "Pangkalpinang - Bangka"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'ABA',
-                'reseller' => 'Akong'
+                'reseller' => 'Akong',
+                'ekspedisi' => [['nama'=>'Arung Samudra Express'],['nama'=>'BJA','tipe'=>'CADANGAN']],
             ], [
                 'nama' => 'Acun Motor',
                 'alamat' => [[
@@ -90,9 +115,10 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Pangkalpinang, Bangka"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'ACUN',
                 'reseller' => 'Akong',
+                'ekspedisi' => [['nama'=>'Arung Samudra Express']],
             ], [
                 'nama' => 'Ade Jok Motor',
                 'alamat' => [[
@@ -106,7 +132,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Tangerang, Banten, Indonesia"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'ADE',
             ], [
                 'nama' => 'Ajung Jaya Motor',
@@ -122,7 +148,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Pasar Lama", "Depan Gereja Zoar", "Sentani, Jayapura"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -130,6 +156,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'AJ',
+                'ekspedisi' => [['nama'=>'Dwitama Bangun Pratama']],
             ], [
                 'nama' => 'Alindo SM',
                 'alamat' => [[
@@ -144,7 +171,7 @@ class PelangganSeeder extends Seeder
                     'short'=>'Jakarta',
                     'long'=>'["Jakarta"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'ALI',
             ], [
                 'nama' => 'Andi MC',
@@ -161,11 +188,11 @@ class PelangganSeeder extends Seeder
                     'short'=>'Karanggan',
                     'long'=>'["Jakarta"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'ANDI',
             ], [
                 'nama' => 'Andri',
-                'nama_bisnis' => 'Millenium Motor',
+                'nama_org' => 'Millenium Motor',
                 'sapaan' => 'Bpk.',
                 'alamat' => [[
                     'jalan'=>null,
@@ -180,7 +207,7 @@ class PelangganSeeder extends Seeder
                     'short'=>'Bukittinggi',
                     'long'=>'["Ambil di gudang, Bukittinggi"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -188,6 +215,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'MIL2',
+                'ekspedisi' => [['nama'=>'Berkat Abadi Jaya']],
             ], [
                 'nama' => 'Angian Motor',
                 'alamat' => [[
@@ -201,9 +229,10 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Pangkalpinang, Bangka"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'ANG',
                 'reseller' => 'Akong',
+                'ekspedisi' => [['nama'=>'Arung Samudra Express']],
             ], [
                 'nama' => 'Asia Pasifik',
                 'alamat' => [[
@@ -218,7 +247,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Serdam", "Komplek Pesona Alam No E7", "Pontianak"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -226,6 +255,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'ASPA',
+                'ekspedisi' => [['nama'=>'Domestic Universal Cargo']],
             ], [
                 'nama' => 'B2 Saddle',
                 'alamat' => [[
@@ -241,7 +271,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Ion Martasasmita KM 02", "DS Rancasari, Kec. Pamanukan (RM. Rosin)", "Kab. Subang"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -249,6 +279,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'B2',
+                'ekspedisi' => [['nama'=>'Dakota']],
             ], [
                 'nama' => 'BCC Variasi',
                 'alamat' => [[
@@ -264,7 +295,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Otista No 8", "Sukabumi"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -272,6 +303,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'BCC',
+                'ekspedisi' => [['nama'=>'Multi Express Trasindo']],
             ], [
                 'nama' => 'Bengkel Apang',
                 'alamat' => [[
@@ -287,9 +319,10 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Pasar Pagi Samping Surau", "Tj. Pandan, Belitung"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'BENG',
                 'reseller' => 'Akong',
+                'ekspedisi' => [['nama'=>'Sahabat Belitung Express']],
             ], [
                 'nama' => 'Benteng Motor',
                 'alamat' => [[
@@ -305,7 +338,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["JL. GG Bulu Sarang No 151", "Makassar"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'kantor',
                         'kodearea'=>'0411',
@@ -313,6 +346,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'BEN',
+                'ekspedisi' => [['nama'=>'Jaya Alam Perkasa']],
             ], [
                 'nama' => 'Berjaya Motor',
                 'alamat' => [[
@@ -328,7 +362,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Selat Panjang No A1", "Pontianak Utara"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -336,6 +370,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'BER',
+                'ekspedisi' => [['nama'=>'Mitra Kalbar Sentosa']],
             ], [
                 'nama' => 'Biran Motor',
                 'alamat' => [[
@@ -351,9 +386,10 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Semabung Baru No 50", "Pangkalpinang - Bangka"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'BIR',
                 'reseller' => 'Akong',
+                'ekspedisi' => [['nama'=>'BJA'], ['nama'=>'Arung Samudra Express','tipe'=>'CADANGAN']],
             ], [
                 'nama' => 'BSM',
                 'alamat' => [[
@@ -369,7 +405,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Gading Indah Utara 4/20", "(masuk dari Perumahan Gading Regency)", "Surabaya"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -377,6 +413,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'BSM',
+                'ekspedisi' => [['nama'=>'Citramas']],
             ], [
                 'nama' => 'Budi Stiker',
                 'alamat' => [[
@@ -392,7 +429,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Mesjid No 126", "Kesawan - Medan"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'kantor',
                         'kodearea'=>'061',
@@ -400,6 +437,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'BS',
+                'ekspedisi' => [['nama'=>'Anugrah']],
             ], [
                 'nama' => 'Cendana Mega Pratama (CMP)',
                 'bentuk' => 'CV',
@@ -416,7 +454,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. H. Yunus Yanis No 62", "Kebun Handil, Jambi"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -424,6 +462,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'CMP',
+                'ekspedisi' => [['nama'=>'Limas']],
             ], [
                 'nama' => 'Central Motor',
                 'alamat' => [[
@@ -440,9 +479,10 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Perumahan Ambon Bay Regency No A30", "Sebelah Dealer Hino Lateri - Ambon"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'CEN',
                 'reseller'=>'Akong',
+                'ekspedisi' => [['nama'=>'Citramas'],['nama'=>'Multi Intim','tipe'=>'TRANSIT']],
             ], [
                 'nama' => 'Central Young Hero',
                 'alamat' => [[
@@ -459,8 +499,9 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Sindansana No 27", "Singkawang"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'HERO',
+                'ekspedisi' => [['nama'=>'Edi Express'],['nama'=>'Ponti Jaya Express','tipe'=>'CADANGAN']],
             ], [
                 'nama' => 'Champion Motor',
                 'alamat' => [[
@@ -477,7 +518,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. DI Panjaitan No 16,17", "Jambi"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -485,6 +526,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'CHA',
+                'ekspedisi' => [['nama'=>'Johan Express']],
             ], [
                 'nama' => 'Christovel',
                 'alamat' => [[
@@ -501,7 +543,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Diponegoro No 66", "Mahakeret Barat, Manado"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -509,6 +551,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'CHRIS',
+                'ekspedisi' => [['nama'=>'ALTRANS']],
             ], [
                 'nama' => 'Darwis Motor',
                 'alamat' => [[
@@ -525,7 +568,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Poros Pallangga Goa", "Makassar"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -533,6 +576,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'DWIS',
+                'ekspedisi' => [['nama'=>'Putra Guna']],
             ], [
                 'nama' => 'Dunia Variasi',
                 'alamat' => [[
@@ -549,7 +593,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Raya Dupak No 63", "Blok D No 18, Surabaya"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -557,6 +601,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'DV',
+                'ekspedisi' => [['nama'=>'Sukses Abadi Zentosa']],
             ], [
                 'nama' => 'DV Motor',
                 'alamat' => [[
@@ -574,7 +619,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Nilam 5, RT07/RW03", "Kel.Bacang,Kec.Bukit Intan", "Pangkalpinang, Bangka"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -582,9 +627,9 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'DVM',
+                'ekspedisi' => [['nama'=>'BJA']],
             ], [
-                'nama' => 'Fortuner Motor',
-                'nama2' => '- G -',
+                'nama' => 'Fortuner Motor (Gorontalo)',
                 'alamat' => [[
                     'jalan'=>'Jl. K.H. Agus Salim No 344',
                     'rt'=>null,'rw'=>null,
@@ -600,7 +645,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. K.H Agus Salim No 344", "KM 4,5, Gorontalo"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -608,9 +653,9 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'FOR',
+                'ekspedisi' => [['nama'=>'Citramas'],['tipe'=>'Anugrah Duta Prima']],
             ], [
-                'nama' => "Fortuner Motor",
-                'nama2' => "- L -",
+                'nama' => "Fortuner Motor (Luwuk)",
                 'alamat' => [[
                     'jalan'=>'Jl. Muhammad Hatta No 79',
                     'rt'=>null,'rw'=>null,
@@ -626,8 +671,9 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Muhammad Hatta No 79", "Maahas, Luwuk, Sulteng"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'FOR',
+                'ekspedisi' => [['nama'=>'Citramas'], ['nama'=>'Bintang Khatulistiwa','tipe'=>'TRANSIT']],
             ], [
                 'nama' => 'Endang',
                 'sapaan' => 'Bpk.',
@@ -646,7 +692,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Tangerang, Banten"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => null,
             ], [
                 'nama' => 'Garuda Motor',
@@ -665,7 +711,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Komplek Puri Taman Sari", "Jl. Tudopuli 10, BLOK K-5 No 29", "Makassar"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -673,6 +719,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'GAR',
+                'ekspedisi' => [['nama'=>'AFRO']],
             ], [
                 'nama' => 'Global Stiker',
                 'alamat' => [[
@@ -690,7 +737,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Jendral Sudirman No 207", "Palembang"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'kantor',
                         'kodearea'=>'0711',
@@ -698,6 +745,33 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'GLO',
+                'ekspedisi' => [['nama'=>'New Putra Duta']],
+            ], [
+                'nama' => 'Go Sport Motor',
+                'alamat' => [[
+                    'jalan'=>'Jl. Desa Kapur Raya',
+                    'rt'=>null,'rw'=>null,
+                    'komplek'=>null,
+                    'desa'=>null,
+                    'kecamatan'=>null,
+                    'kelurahan'=>null,
+                    'kota'=>'Pontianak',
+                    'kabupaten'=>null,
+                    'provinsi'=>'Kalimantan Barat',
+                    'pulau'=>'Kalimantan',
+                    'short'=>'Pontianak',
+                    'negara'=>'Indonesia',
+                    'long'=>'["Jl. Desa Kapur Raya", "(Ruko Depan Mini Market Great Mart)", "Pontianak"]',
+                ]],
+                'kontak' => [
+                    [
+                        'tipe'=>'seluler',
+                        'kodearea'=>null,
+                        'nomor'=>'085345935921',
+                    ]
+                ],
+                'initial' => 'GOSPO',
+                'ekspedisi' => [['nama'=>'Mitra Kalbar Sentosa']],
             ], [
                 'nama' => 'Hadi Rumawan',
                 'sapaan' => 'Bpk.',
@@ -716,7 +790,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Golf, GG Karet 2 No 73", "Landasan Ulin Banjarbaru", "Kalimantan Selatan"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -724,6 +798,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'HADI',
+                'ekspedisi' => [['nama'=>'Karyati']],
             ], [
                 'nama' => 'Harapan Baru',
                 'alamat' => [[
@@ -741,7 +816,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Cipto Mangunkusumo RT:13", "Harapan Baru, Kec. Loa Janan Ilir", "Samarinda"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -749,6 +824,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'HAR',
+                'ekspedisi' => [['nama'=>'Karunia Cipta Logistics']],
             ], [
                 'nama' => 'Hokky Motor',
                 'alamat' => [[
@@ -766,7 +842,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. R Wolter Monginsidi No 131", "Bahu - Manado"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -774,6 +850,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'HOK',
+                'ekspedisi' => [['nama'=>'Putra Guna']],
             ], [
                 'nama' => 'HR Jaya Motor',
                 'alamat' => [[
@@ -791,7 +868,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Gatot Subroto No 21", "Samarinda"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -799,6 +876,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'HR',
+                'ekspedisi' => [['nama'=>'Karunia Cipta Logistics']],
             ], [
                 'nama' => 'H.S Motor',
                 'alamat' => [[
@@ -816,7 +894,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Veteran Simpang SMP 7", "No 42, RT:31, Banjarmasin"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -824,6 +902,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'HS',
+                'ekspedisi' => [['nama'=>'Berkat Mandiri Trans']],
             ], [
                 'nama' => 'IKB Motor',
                 'alamat' => [[
@@ -841,7 +920,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Kenjeran 281", "Surabaya"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -849,6 +928,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'HS',
+                'ekspedisi' => [['nama'=>'Merah Jaya']],
             ], [
                 'nama' => 'Indah Motor',
                 'alamat' => [[
@@ -866,9 +946,10 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. MS Rahman 95", "Pangkalpinang, Bangka"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'INDH',
                 'reseller' => 'Akong',
+                'ekspedisi' => [['nama'=>'Arung Samudra Express']],
             ], [
                 'nama' => 'Indo Putra Mandiri',
                 'alamat' => [[
@@ -886,7 +967,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Bandang XII No 1", "Makassar"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -894,6 +975,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'IPM',
+                'ekspedisi' => [['nama'=>'Cahaya Lintas']],
             ], [
                 'nama' => 'Ismail',
                 'nama' => 'Bpk.',
@@ -912,7 +994,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Citeureup"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'IS',
             ], [
                 'nama' => 'Izur Motor',
@@ -931,8 +1013,9 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Teluk Tiram", "GG. Raden No 15, RT:21", "Banjarmasin"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'IZ',
+                'ekspedisi' => [['nama'=>'Angkasa']],
             ], [
                 'nama' => 'Jaya Motor',
                 'alamat' => [[
@@ -950,7 +1033,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Sam Ratulangi No 123", "Manado"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'kantor',
                         'kodearea'=>'0431',
@@ -958,6 +1041,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'JAYMO',
+                'ekspedisi' => [['nama'=>'Indokarya']],
             ], [
                 'nama' => 'Jaya Queen Stiker',
                 'alamat' => [[
@@ -975,7 +1059,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. ST Syahrir No 63", "Bukittinggi"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -983,6 +1067,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'JAYQU',
+                'ekspedisi' => [['nama'=>'Putra Panorama']],
             ], [
                 'nama' => 'Jaya Stiker',
                 'alamat' => [[
@@ -1000,7 +1085,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Mesjid No 47", "Medan"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1008,6 +1093,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'JAYST',
+                'ekspedisi' => [['nama'=>'Wira Express'],['nama'=>'Wira Agung','tipe'=>'CADANGAN']],
             ], [
                 'nama' => 'Jhon Motor',
                 'alamat' => [[
@@ -1025,7 +1111,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. GG Bulu Sarang Blok C No 13", "Komplek Bulu Sarang Square, Makassar"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'kantor',
                         'kodearea'=>'0411',
@@ -1033,6 +1119,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'JHON',
+                'ekspedisi' => [['nama'=>'Cahaya Lintas']],
             ], [
                 'nama' => 'Joy Motor',
                 'alamat' => [[
@@ -1051,7 +1138,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Tumpangsari No 52 B", "Cakranegara, Lombok"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1059,6 +1146,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'JOY',
+                'ekspedisi' => [['nama'=>'Citramas'], ['nama'=>'Rinjani Jaya Trans','tipe'=>'TRANSIT']],
             ], [
                 'nama' => 'Kalbar Motoshop',
                 'alamat' => [[
@@ -1076,7 +1164,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Agus Salim No 7", "Samarinda"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1084,6 +1172,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'KAL',
+                'ekspedisi' => [['nama'=>'Karunia Cipta Logistics']],
             ], [
                 'nama' => 'Kanaka Motor',
                 'alamat' => [[
@@ -1101,7 +1190,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Valanda Maramis No 194", "Manado"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'kantor',
                         'kodearea'=>'0431',
@@ -1109,6 +1198,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'KAN',
+                'ekspedisi' => [['nama'=>'Adhiputra']],
             ], [
                 'nama' => 'Karunia Jaya Motor',
                 'alamat' => [[
@@ -1126,7 +1216,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Parit Pangeran", "Pontianak"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1134,6 +1224,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'KAR',
+                'ekspedisi' => [['nama'=>'Tesa Logistic']],
             ], [
                 'nama' => 'Karya Motor',
                 'alamat' => [[
@@ -1151,9 +1242,10 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Jurung No 6", "Simpang Wahidin, Medan"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'KAR',
                 'reseller' => 'Akong',
+                'ekspedisi' => [['nama'=>'Wira Agung']],
             ], [
                 'nama' => 'Kencana Motor',
                 'alamat' => [[
@@ -1171,7 +1263,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Papua, Jayapura"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1179,6 +1271,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'KENCA',
+                'ekspedisi' => [['nama'=>'Dwitama Bangun Pratama']],
             ], [
                 'nama' => 'KMS Motor',
                 'alamat' => [[
@@ -1196,7 +1289,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Jendral Sudirman No 47 D", "Palembang"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>'0711',
@@ -1204,6 +1297,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'KMS',
+                'ekspedisi' => [['nama'=>'Ratu Berlian Makmur']],
             ], [
                 'nama' => 'Kolongan Motor',
                 'alamat' => [[
@@ -1221,7 +1315,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Martadinata 3", "Manado"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1229,6 +1323,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'KOL',
+                'ekspedisi' => [['nama'=>'Mitra Samudra']],
             ], [
                 'nama' => 'Leo Speedshop',
                 'alamat' => [[
@@ -1246,7 +1341,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Komplek Royal Kartama Residence", "Ruko No 5, Jl.Kartama (Samping SMPN 2)","Marpoyan Damai, Pekanbaru"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1254,6 +1349,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'KMS',
+                'ekspedisi' => [['nama'=>'Subur Antar Nusa']],
             ], [
                 'nama' => 'Millenium Motor',
                 'alamat' => [[
@@ -1271,7 +1367,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Mayor Ruslan No 1333 F", "Palembang"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'kantor',
                         'kodearea'=>'0711',
@@ -1279,6 +1375,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'MIL',
+                'ekspedisi' => [['nama'=>'Berkat Abadi Jaya']],
             ], [
                 'nama' => 'Mitra Jaya Motor',
                 'alamat' => [[
@@ -1296,7 +1393,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Baubau", "Sulawesi Tenggara"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1304,6 +1401,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'MIJA',
+                'ekspedisi' => [['nama'=>'Citramas'],['nama'=>'Jasa Tunggal Bahari','tipe'=>'TRANSIT']],
             ], [
                 'nama' => 'Mitra Usaha Mandiri',
                 'alamat' => [[
@@ -1321,7 +1419,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Sepakat 2", " Ruko Mutiara Villa Sepakat, No B3", "Pontianak"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1329,6 +1427,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'MUM',
+                'ekspedisi' => [['nama'=>'HWU']],
             ], [
                 'nama' => 'Mulya Sandi',
                 'alamat' => [[
@@ -1346,7 +1445,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Riau Ujung", "Pekanbaru"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1354,6 +1453,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'MUL',
+                'ekspedisi' => [['nama'=>'Rama Express']],
             ], [
                 'nama' => 'Mustika Raya',
                 'alamat' => [[
@@ -1371,7 +1471,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Mesjid No 124 B", "Medan"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'kantor',
                         'kodearea'=>'061',
@@ -1397,7 +1497,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Simpang Panji Suroso 160", "Malang"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1422,7 +1522,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Wirapati No 15", "Sintang"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1447,7 +1547,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Panjaitan No 5,6,7", "Kebun Handil - Jambi"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1472,7 +1572,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Kyai Tambak Deres 141", "Surabaya"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1498,7 +1598,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Malaysia',
                     'long'=>'["A8/ROY/HSES/SRW/HSES", "Malaysia"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'NOV',
             ], [
                 'nama' => 'Nurmanto',
@@ -1517,7 +1617,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Toko Mulia Makmur", "Jl. Perdamaian, Pal IX, Kubu Raya/Ujung", "Kota Baru Pontianak"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'NURM',
             ], [
                 'nama' => 'Nusi Motor',
@@ -1536,7 +1636,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Lahat", "Sumatra Selatan"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1564,7 +1664,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Sutorejo Utara Baru No 3", "Surabaya"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1590,7 +1690,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Gusti Hamzah No 93", "Sambas"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1616,7 +1716,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Pelita Gg 3, No 52, RT:39", "Sungai Pinang Dalam", "Kec. Sungai Pinang, Samarinda"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1642,7 +1742,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Rumambi No 9", "Manado"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>'0431',
@@ -1668,7 +1768,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Komplek Bumi Batara 2", "BLOK C, No 58, Pontianak"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1694,7 +1794,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Parit Lalang No 1", "Pangkalpinang, Bangka"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'RAJ',
             ], [
                 'nama' => 'Rama Motor',
@@ -1713,7 +1813,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Imam Bonjol No 38 B", "Samarinda"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1739,7 +1839,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Imam Bonjol No 426", "Pontianak"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1765,7 +1865,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jakarta"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'SAU',
             ], [
                 'nama' => 'Scopa Motor',
@@ -1784,7 +1884,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Kalimantan No 23", "Mataram, Lombok"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>0370,
@@ -1810,7 +1910,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Makassar", "Sulawesi Selatan"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'SON',
                 'reseller' => 'Akong',
             ], [
@@ -1830,7 +1930,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Jendral A. Yani KM6,7", "Komplek Bun Yamin Pemain 1, Raya Utama", "No 9, RT:14, Banjarmasin"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1856,7 +1956,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Pasar 3", "Komplek Sehati Indah No 88 FF", "Daerah Krakatau, Medan"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1882,7 +1982,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Karya Sabumi IV No 26 A", "Kayu Tangi, Banjarmasin"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>0561,
@@ -1908,7 +2008,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. PM NOOR, RT:39", "Samarinda"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1934,7 +2034,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["KM 14 Jambi-Palembang"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'SAM',
                 'reseller' => 'Akong',
             ], [
@@ -1954,7 +2054,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Karet 24 Ilir", "Kec. Bukit Kecil, Palembang"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -1980,7 +2080,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Kapasari V No 11", "Surabaya"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -2006,7 +2106,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Ringin Sari No 8,9", "(samping Alfamart Ringinsari), Pontianak"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -2032,7 +2132,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jakarta"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'SUMRE',
             ], [
                 'nama' => 'Surya Jaya Motor',
@@ -2051,7 +2151,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. IR. H. Juanda No 54-56", "Pontianak"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -2077,7 +2177,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Soekarno Hatta", "Komplek Sentral Niaga No 12, A-B", "Pekanbaru"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -2102,7 +2202,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. KL. Yos Sudarso 8J,8K,8L", "Komplek Brayan One Stop Square", "Medan"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>'061',
@@ -2128,7 +2228,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Cibinong]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'T86',
             ], [
                 'nama' => 'Tommy',
@@ -2148,7 +2248,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Depok]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'TOM',
             ], [
                 'nama' => 'Top Variasi',
@@ -2167,7 +2267,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Jendral Sudirman No 52 E", "Palembang"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'kantor',
                         'kodearea'=>'0711',
@@ -2193,7 +2293,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Cibinong]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'TL',
             ], [
                 'nama' => 'UD Mitra',
@@ -2213,7 +2313,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl.Kendangsari, Blok O, No 5", "Surabaya"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -2238,7 +2338,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Poros Palangga", "Jl. KH. Wahid Hasyim 187", "Kab. Gowa, Sulawesi Selatan"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -2264,7 +2364,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Raya Tembok Dukuh No 134 A", "Surabaya"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -2306,7 +2406,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Seliung No 10", "Sei Pinyuh, Kalimantan Barat"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'kantor',
                         'kodearea'=>'0561',
@@ -2332,7 +2432,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jakarta"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'YEN',
             ], [
                 'nama' => 'Zen Motor',
@@ -2351,7 +2451,7 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Simpang Panji Suroso 160", "(Jalan Keluar Mikrolet Arjosari)", "Malang"]',
                 ]],
-                'no_kontak' => [
+                'kontak' => [
                     [
                         'tipe'=>'seluler',
                         'kodearea'=>null,
@@ -2374,20 +2474,51 @@ class PelangganSeeder extends Seeder
                     'negara'=>'Indonesia',
                     'long'=>'["Ketapang, Kalimantan Barat"]',
                 ]],
-                'no_kontak' => null,
+                'kontak' => null,
                 'initial' => 'ZON',
             ],
         ];
 
         for ($i = 0; $i < count($pelanggan); $i++) {
-            DB::table('pelanggans')->insert([
+            $bentuk = null;
+            if (isset($pelanggan[$i]['bentuk']) && $pelanggan[$i]['bentuk'] !== null) {
+                $bentuk = $pelanggan[$i]['bentuk'];
+            }
+            $is_reseller = null;
+            if (isset($pelanggan[$i]['is_reseller'])) {
+                $is_reseller=$pelanggan[$i]['is_reseller'];
+            }
+            $reseller_id=null;
+            if (isset($pelanggan[$i]['reseller']) && $pelanggan[$i]['reseller'] !== null) {
+                $reseller = Pelanggan::where('nama', $pelanggan[$i]['reseller'])->first();
+                $reseller_id = $reseller['id'];
+            }
+            $pelanggan_new = Pelanggan::create([
+                'bentuk' => $bentuk,
                 'nama' => $pelanggan[$i]['nama'],
-                'alamat' => json_encode($pelanggan[$i]['alamat']),
-                'no_kontak' => $pelanggan[$i]['no_kontak'],
-                'pulau_id' => $pelanggan[$i]['pulau_id'],
-                'daerah_id' => $pelanggan[$i]['daerah_id'],
                 'initial' => $pelanggan[$i]['initial'],
+                'is_reseller' => $is_reseller,
+                'reseller_id' => $reseller_id,
             ]);
+            if ($pelanggan[$i]['alamat']) {
+                foreach ($pelanggan[$i]['alamat'] as $alamat) {
+                    $alamat_new = Alamat::create($alamat);
+                    PelangganAlamat::create([
+                        'pelanggan_id'=>$pelanggan_new['id'],
+                        'alamat_id'=>$alamat_new['id'],
+                    ]);
+                }
+            }
+            if (isset($pelanggan[$i]['kontak']) && $pelanggan[$i]['kontak'] !== null) {
+                foreach ($pelanggan[$i]['kontak'] as $kontak) {
+                    Kontak::create([
+                        'pelanggan_id'=>$pelanggan_new['id'],
+                        'tipe'=>$kontak['tipe'],
+                        'kodearea'=>$kontak['kodearea'],
+                        'nomor'=>$kontak['nomor'],
+                    ]);
+                }
+            }
         }
 
     }

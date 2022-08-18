@@ -16,18 +16,24 @@ return new class extends Migration
     {
         Schema::create('pelanggans', function (Blueprint $table) {
             $table->id();
+            $table->string("tipe", 20)->nullable(); // pribadi, organisasi/badan/perusahaan
+            $table->string("bentuk", 10)->nullable(); // PT, CV, Yayasan, Sekolah, dll.
             $table->string("nama", 100);
+            $table->string("nama_org", 100)->nullable();
+            $table->enum("gender", ['pria', 'wanita'])->nullable();
+            $table->string("nik", 50)->nullable();
             $table->string("alias", 100)->nullable();
-            $table->string("nama_bisnis", 50)->nullable();
-            $table->string("bentuk", 10)->nullable(); // bentuk perusahaan
             $table->string("sapaan", 10)->nullable();
-            $table->string("no_kontak", 50)->nullable();
+            $table->string("gelar", 20)->nullable();
             $table->string("initial", 10)->nullable();
-            $table->string("ktrg")->nullable();
-            $table->enum("is_reseller", ['yes', 'no'])->default('no');
-            $table->foreignId("reseller_id")->nullable()->references('pelanggans');
-            $table->timestamp("created_at")->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp("updated_at")->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->date("tanggal_lahir")->nullable();
+            $table->string("kategori", 20)->nullable()->default('pelanggan'); // bisa juga dia tukang kredit misalnya
+            $table->string("keterangan")->nullable();
+            $table->enum("is_reseller", ['yes', 'no'])->nullable()->default('no');
+            $table->bigInteger("reseller_id")->nullable();
+            $table->string('creator', 50)->nullable();
+            $table->string('updater', 50)->nullable();
+            $table->timestamps();
         });
     }
 
