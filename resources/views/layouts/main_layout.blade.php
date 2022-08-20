@@ -21,7 +21,7 @@
         const show_console = true;
     </script>
     <script src="/js/functions_h.js"></script>
-    <script src="/js/functions.js"></script>
+    <script src="{{ asset('js/functions.js') }}"></script>
 
     <style>
         a {

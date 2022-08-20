@@ -684,4 +684,10 @@ function showLightBoxGlobal (deletePropertiesStrigified) {
         document.getElementById('divLightBoxGlobal').remove();
         this.remove();
     });
+
+
+}
+function showHide(toshow, tohide) {
+    $(`#${toshow}`).show();
+    $(`#${tohide}`).hide();
 }
