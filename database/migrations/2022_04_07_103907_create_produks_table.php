@@ -14,10 +14,9 @@ return new class extends Migration
     public function up()
     {
         /**
-         * Sebelumnya saya pakai strategi menggunakan file json dikemas dalam bentuk teks ke dalam database,
-         * namun setelah development berjalan, saya merasa tetap lebih simple tanpa harus memikirkan file json.
+         * Produks ini nanti nya akan berkaitan dengan table2 yang lain, meski tidak ada relasi yang dibuat pada table ini.
+         * Tergantung dari tipe nya, semisal SJ-Variasi, berarti nantinya dia akan berkaitan dengan bahan, variasi, ukuran dan jahit.
          *
-         * Oleh karena itu saya hapus table properties
          */
         Schema::create('produks', function (Blueprint $table) {
             $table->id();

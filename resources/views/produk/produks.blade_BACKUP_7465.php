@@ -40,6 +40,10 @@
         <button class="btn btn-sm btn-outline-danger">Tipe Jahit</button>
     </div>
 </div>
+<<<<<<< HEAD
+<div class="container">
+
+=======
 
 {{-- <div class="container">
     <h2>Produk Baru</h2>
@@ -766,6 +770,7 @@
             </div>
         </div>
     </form>
+>>>>>>> eb788efd1456cc6fc0965d915c14b5ca74c84f2d
 </div>
 
 @endsection
