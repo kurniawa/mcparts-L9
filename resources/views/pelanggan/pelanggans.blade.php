@@ -79,7 +79,7 @@
             "</div>" +
 
             "<div class='grid-1-auto justify-items-right mt-1rem'>" +
-            "<a href='pelanggan/pelanggan-detail?cust_id=" + pelanggan.id + "' class='bg-color-orange-1 b-radius-50px pl-1em pr-1rem'>Lebih Detail >></a>" +
+            "<a href='pelanggan/pelanggan-detail?cust_id=" + pelanggan.id + "' class='bg-color-orange-1 b-radius-50px pl-1rem pr-1rem'>Lebih Detail >></a>" +
             "</div>" +
             "</div>" +
             // END OF DROPDOWN

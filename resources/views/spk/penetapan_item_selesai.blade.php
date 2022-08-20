@@ -1,9 +1,9 @@
 @extends('layouts.main_layout')
 
 @section('content')
-    
+
 <div class="header grid-2-auto">
-    <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
+    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 
 </div>
 
@@ -99,7 +99,7 @@ GUA BUAT MANUAL LAGI AJA DAH!
     var date_today = getDateToday();
     // console.log('date_today');
     // console.log(date_today);
-    
+
     for (let i = 0; i < data_spk_item.length; i++) {
         /*
         htmlSPKItem: menampung element html untuk List SPK Item
@@ -115,7 +115,7 @@ GUA BUAT MANUAL LAGI AJA DAH!
         if (typeof data_spk_item[i].deviasi_jml !== 'undefined') {
             deviasi_jml = data_spk_item[i].deviasi_jml;
         }
-        
+
         if (typeof data_spk_item[i].jml_selesai !== 'undefined') {
             jml_selesai = data_spk_item[i].jml_selesai;
             sisa_jml = data_spk_item[i].jumlah - jml_selesai + deviasi_jml;
@@ -153,7 +153,7 @@ GUA BUAT MANUAL LAGI AJA DAH!
         Menentukan tahapan dari produk
         */
        var htmlTahapSelesai = '';
-       
+
        if (spk_produks[i].jmlSelesai_kapan !== null && spk_produks[i].jmlSelesai_kapan !== '') {
 
             var jmlSelesai_kapan_i = spk_produks[i].jmlSelesai_kapan;
@@ -198,7 +198,7 @@ GUA BUAT MANUAL LAGI AJA DAH!
         /*
         Parameter untuk Dropdown pertama yang akan di kirim ke function isChecked
         */
-        
+
         var params_dd = {
             id_dd: `#DD-${i}`,
             class_checkbox: ".dd",
@@ -218,7 +218,7 @@ GUA BUAT MANUAL LAGI AJA DAH!
             <tr id='DD-${i}' style='display:none'><td colspan=3>${htmlDD}</td></tr>
             <tr id='DD2-${i}' style='display:none'><td colspan=3>${htmlDD2}</td></tr>
         `;
-        
+
     }
 
     $('#tableItemList').html(htmlSPKItem);
@@ -491,6 +491,6 @@ Coba cari tau, ini buat apa ya?
     const reload_page2 = {!! json_encode($reload_page, JSON_HEX_TAG) !!};
     reloadPage(reload_page2);
 
-    
+
 </script>
 @endsection

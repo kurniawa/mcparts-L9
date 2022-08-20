@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="header grid-1-auto">
-    <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
+    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 </div>
 
 <div class="grid-2-10_auto mt-1em ml-1em">
@@ -13,7 +13,7 @@
     <h1>Edit Data Ekspedisi</h1>
 </div>
 
-<form action="/ekspedisi/edit-db" method="POST" class="ml-1em mr-1em mt-2em">
+<form action="/ekspedisi/edit-db" method="POST" class="ml-1em mr-1rem mt-2em">
     @csrf
     <input type="hidden" name="ekspedisi_id" value="{{ $ekspedisi['id'] }}">
     <div class="grid-2-auto grid-column-gap-1em">
@@ -43,7 +43,7 @@
     <div id="div_alamat_eks"></div>
     <div id="btn_tbh_baris" class="btn btn-secondary">+ Tambah Baris</div>
 
-    {{-- <textarea id="alamatEdited" class="text-area-mode-1 mt-1em pt-1em pl-1em" name="alamat_ekspedisi" placeholder="Alamat">{{ $ekspedisi['alamat'] }}</textarea> --}}
+    {{-- <textarea id="alamatEdited" class="text-area-mode-1 mt-1em pt-1em pl-1rem" name="alamat_ekspedisi" placeholder="Alamat">{{ $ekspedisi['alamat'] }}</textarea> --}}
 
     <div class="mt-1em">
         <label for="kontakEdited">Kontak:</label>
@@ -59,7 +59,7 @@
 
     <br>
     <label for="keteranganEdited">Keterangan:</label>
-    <textarea id="keteranganEdited" class="text-area-mode-1 mt-1em pt-1em pl-1em" name="keterangan" placeholder="Keterangan lain (opsional)">{{ $ekspedisi['ktrg'] }}</textarea>
+    <textarea id="keteranganEdited" class="text-area-mode-1 mt-1em pt-1em pl-1rem" name="keterangan" placeholder="Keterangan lain (opsional)">{{ $ekspedisi['ktrg'] }}</textarea>
 
     <div id="peringatan" class="d-none color-red p-1em">
 

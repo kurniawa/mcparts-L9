@@ -3,7 +3,7 @@
 @section('content')
 
 <header class="header grid-2-auto">
-    <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
+    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
     <div>
         <h2 style="color: white">Pelanggan: Edit Info Pelanggan</h2>
     </div>
@@ -12,7 +12,7 @@
 <form action="/pelanggan/pelanggan-edit-db" method="POST">
     @csrf
     <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
-    <div class="ml-1em mr-1em mt-2em">
+    <div class="ml-1em mr-1rem mt-2em">
         <label for="nama" style="font-weight: bold">Nama:</label>
         <input name="nama_pelanggan" id="nama" class="form-control @error('nama_pelanggan') is-invalid @enderror" type="text" placeholder="Nama/Perusahaan/Pabrik" value="{{ $pelanggan['nama'] }}">
         @error('nama_pelanggan')
@@ -60,7 +60,7 @@
 
         <br>
         <label for="keterangan" style="font-weight:bold">Keterangan lain:</label>
-        <textarea id="keterangan" class="mt-1em pt-1em pl-1em text-area-mode-1" name="keterangan" placeholder="Keterangan lain (opsional)"></textarea>
+        <textarea id="keterangan" class="mt-1em pt-1em pl-1rem text-area-mode-1" name="keterangan" placeholder="Keterangan lain (opsional)"></textarea>
         <br>
         <br>
         <h6>Apakah Pelanggan ini akan ditetapkan sebagai Reseller juga?</h6>

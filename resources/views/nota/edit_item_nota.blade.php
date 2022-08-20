@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="header grid-2-auto">
-    <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
+    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 </div>
 
 <div class="grid-2-10_auto p-0_5em">

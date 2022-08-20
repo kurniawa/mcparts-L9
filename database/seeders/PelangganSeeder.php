@@ -3,9 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\Alamat;
+use App\Models\Ekspedisi;
 use App\Models\Kontak;
 use App\Models\Pelanggan;
 use App\Models\PelangganAlamat;
+use App\Models\PelangganEkspedisi;
 use Illuminate\Database\Seeder;
 
 class PelangganSeeder extends Seeder
@@ -303,7 +305,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'BCC',
-                'ekspedisi' => [['nama'=>'Multi Express Trasindo']],
+                'ekspedisi' => [['nama'=>'Multi Express Transindo']],
             ], [
                 'nama' => 'Bengkel Apang',
                 'alamat' => [[
@@ -322,7 +324,7 @@ class PelangganSeeder extends Seeder
                 'kontak' => null,
                 'initial' => 'BENG',
                 'reseller' => 'Akong',
-                'ekspedisi' => [['nama'=>'Sahabat Belitung Express']],
+                'ekspedisi' => [['nama'=>'Sahabat Belitung Express (SBE)']],
             ], [
                 'nama' => 'Benteng Motor',
                 'alamat' => [[
@@ -501,7 +503,7 @@ class PelangganSeeder extends Seeder
                 ]],
                 'kontak' => null,
                 'initial' => 'HERO',
-                'ekspedisi' => [['nama'=>'Edi Express'],['nama'=>'Ponti Jaya Express','tipe'=>'CADANGAN']],
+                'ekspedisi' => [['nama'=>'EDI Express'],['nama'=>'Ponti Jaya Express','tipe'=>'CADANGAN']],
             ], [
                 'nama' => 'Champion Motor',
                 'alamat' => [[
@@ -653,7 +655,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'FOR',
-                'ekspedisi' => [['nama'=>'Citramas'],['tipe'=>'Anugrah Duta Prima']],
+                'ekspedisi' => [['nama'=>'Citramas'],['nama'=>'Anugrah Duta Prima','tipe'=>'TRANSIT']],
             ], [
                 'nama' => "Fortuner Motor (Luwuk)",
                 'alamat' => [[
@@ -1479,6 +1481,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'MUS',
+                'ekspedisi' => [['nama'=>'Bintang Saudara']],
             ], [
                 'nama' => 'Mutiara Motor Mandiri',
                 'bentuk' => 'CV',
@@ -1505,6 +1508,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'MUT',
+                'ekspedisi' => [['nama'=>'Sumber Urip']],
             ], [
                 'nama' => 'Nagata Motor',
                 'alamat' => [[
@@ -1530,6 +1534,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'NA',
+                'ekspedisi' => [['nama'=>'Jasa Karya']],
             ], [
                 'nama' => 'NGK Motor',
                 'alamat' => [[
@@ -1555,6 +1560,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'NGK',
+                'ekspedisi' => [['nama'=>'Cendana Makmur Bahagia']],
             ], [
                 'nama' => 'Nino Motor',
                 'alamat' => [[
@@ -1580,6 +1586,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'NINO',
+                'ekspedisi' => [['nama'=>'Citramas'],['nama'=>'Merah Jaya','tipe'=>'CADANGAN']],
             ], [
                 'nama' => 'Novi',
                 'sapaan' => 'Ibu',
@@ -1600,6 +1607,7 @@ class PelangganSeeder extends Seeder
                 ]],
                 'kontak' => null,
                 'initial' => 'NOV',
+                'ekspedisi' => [['nama'=>'Toko Bangunan Buana Indah']],
             ], [
                 'nama' => 'Nurmanto',
                 'alamat' => [[
@@ -1619,6 +1627,7 @@ class PelangganSeeder extends Seeder
                 ]],
                 'kontak' => null,
                 'initial' => 'NURM',
+                'ekspedisi' => [['nama'=>'Fajar Baru']],
             ], [
                 'nama' => 'Nusi Motor',
                 'alamat' => [[
@@ -1647,6 +1656,7 @@ class PelangganSeeder extends Seeder
                 'initial' => 'NUS',
                 'ktrg' => null,
                 'reseller' => 'Akong',
+                'ekspedisi' => [['nama'=>'Mitra Buana']],
             ], [
                 'nama' => 'Pasti Sukses Motor',
                 'alamat' => [[
@@ -1673,6 +1683,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'PAS',
+                'ekspedisi' => [['nama'=>'Citramas']],
             ], [
                 'nama' => 'Pedoman Motor',
                 'alamat' => [[
@@ -1699,6 +1710,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'PE',
+                'ekspedisi' => [['nama'=>'Handai Terang Sentosa']],
             ], [
                 'nama' => 'Pelita Jok',
                 'alamat' => [[
@@ -1725,6 +1737,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'PEL',
+                'ekspedisi' => [['nama'=>'Karunia Cipta Logistics']],
             ], [
                 'nama' => 'Pioneer Jaya Motor',
                 'alamat' => [[
@@ -1751,6 +1764,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'PION',
+                'ekspedisi' => [['nama'=>'Bahari Utama Jaya']],
             ], [
                 'nama' => 'Prospek Motor',
                 'alamat' => [[
@@ -1777,6 +1791,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'PROS',
+                'ekspedisi' => [['nama'=>'Tesa Logistic']],
             ], [
                 'nama' => 'Rajawali Motor',
                 'alamat' => [[
@@ -1796,6 +1811,7 @@ class PelangganSeeder extends Seeder
                 ]],
                 'kontak' => null,
                 'initial' => 'RAJ',
+                'ekspedisi' => [['nama'=>'Jakarta Bangka Express (JBE)']],
             ], [
                 'nama' => 'Rama Motor',
                 'alamat' => [[
@@ -1822,6 +1838,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'RAM',
+                'ekspedisi' => [['nama'=>'Karunia Cipta Logistics']],
             ], [
                 'nama' => 'Sambung Jaya Motor',
                 'alamat' => [[
@@ -1848,6 +1865,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'SAM',
+                'ekspedisi' => [['nama'=>'Tesa Logistic']],
             ], [
                 'nama' => 'Saudara Motor',
                 'alamat' => [[
@@ -1893,6 +1911,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'SCO',
+                'ekspedisi' => [['nama'=>'Tesa Logistic'],['nama'=>'Rinjani Jaya Trans','tipe'=>'TRANSIT']],
             ], [
                 'nama' => 'Sejati Jaya Sondy',
                 'alamat' => [[
@@ -1913,6 +1932,7 @@ class PelangganSeeder extends Seeder
                 'kontak' => null,
                 'initial' => 'SON',
                 'reseller' => 'Akong',
+                'ekspedisi' => [['nama'=>'Cahaya Lintas']],
             ], [
                 'nama' => 'Setia Budi',
                 'alamat' => [[
@@ -1939,6 +1959,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'SET',
+                'ekspedisi' => [['nama'=>'Bangkit Jaya Manunggal']],
             ], [
                 'nama' => 'Sinar Perkasa Motor',
                 'alamat' => [[
@@ -1965,6 +1986,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'SIN',
+                'ekspedisi' => [['nama'=>'Anugrah']],
             ], [
                 'nama' => 'SS Uji 169 Handil Bakti',
                 'alamat' => [[
@@ -1991,6 +2013,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'SS',
+                'ekspedisi' => [['nama'=>'Rama Jaya']],
             ], [
                 'nama' => 'Sukses Makmur Motor',
                 'alamat' => [[
@@ -2017,6 +2040,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'SM',
+                'ekspedisi' => [['nama'=>'Karunia Cipta Logistics']],
             ], [
                 'nama' => 'Sumber Abadi Motor',
                 'alamat' => [[
@@ -2037,6 +2061,7 @@ class PelangganSeeder extends Seeder
                 'kontak' => null,
                 'initial' => 'SAM',
                 'reseller' => 'Akong',
+                'ekspedisi' => [['nama'=>'Putra Mandiri Transindo']],
             ], [
                 'nama' => 'Sumber Cemerlang',
                 'alamat' => [[
@@ -2089,6 +2114,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'SUMAK',
+                'ekspedisi' => [['nama'=>'Citramas']],
             ], [
                 'nama' => 'Sumber Mandiri Motor',
                 'alamat' => [[
@@ -2115,22 +2141,23 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'SUMAN',
+                'ekspedisi' => [['nama'=>'Mitra Kalbar Sentosa']],
             ], [
                 'nama' => 'Sumber Rejeki Motor',
                 'alamat' => [[
-                    'jalan'=>null,
+                    'jalan'=>'Jl. Moh Toha/Mauk KM 3,8 Tanjakan',
                     'rt'=>null,'rw'=>null,
                     'komplek'=>null,
                     'desa'=>null,
                     'kecamatan'=>null,
                     'kelurahan'=>null,
-                    'kota'=>null,
+                    'kota'=>'Tangerang',
                     'kabupaten'=>null,
-                    'provinsi'=>'DKI Jakarta',
+                    'provinsi'=>'Banten',
                     'pulau'=>'Jawa',
-                    'short'=>'Jakarta',
+                    'short'=>'Tangerang',
                     'negara'=>'Indonesia',
-                    'long'=>'["Jakarta"]',
+                    'long'=>'["Jl. Moh Toha/Mauk KM 3,8 Tanjakan", "Sangiang, Tangerang"]',
                 ]],
                 'kontak' => null,
                 'initial' => 'SUMRE',
@@ -2160,6 +2187,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'SJM',
+                'ekspedisi' => [['nama'=>'Tesa Logistic']],
             ], [
                 'nama' => 'Surya Perdana Agung',
                 'alamat' => [[
@@ -2185,6 +2213,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'SPA',
+                'ekspedisi' => [['nama'=>'Subur Antar Nusa']],
             ], [
                 'nama' => 'Teratai Motor',
                 'alamat' => [[
@@ -2211,6 +2240,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'TER',
+                'ekspedisi' => [['nama'=>'Wira Express'],['nama'=>'Wira Agung','tipe'=>'CADANGAN']],
             ], [
                 'nama' => 'Toko 86',
                 'alamat' => [[
@@ -2276,6 +2306,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'TOP',
+                'ekspedisi' => [['nama'=>'Gasuma']],
             ], [
                 'nama' => 'Tulank',
                 'alamat' => [[
@@ -2322,6 +2353,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'UDM',
+                'ekspedisi' => [['nama'=>'Davindo']],
             ], [
                 'nama' => 'UD Mitra',
                 'alias'=>'Agung Jaya Motor',
@@ -2347,6 +2379,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'UDM',
+                'ekspedisi' => [['nama'=>'Putra Guna']],
             ], [
                 'nama' => 'UD Serba Jaya',
                 'alamat' => [[
@@ -2373,6 +2406,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'UDS',
+                'ekspedisi' => [['nama'=>'Merah Jaya']],
             ], [
                 'nama' => 'WA',
                 'alamat' => [[
@@ -2389,6 +2423,7 @@ class PelangganSeeder extends Seeder
                     'long'=>'["Makassar"]',
                 ]],
                 'initial' => 'WA',
+                'ekspedisi' => [['nama'=>'Cahaya Lintas']],
             ], [
                 'nama' => 'WK Motor',
                 'alamat' => [[
@@ -2415,6 +2450,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'WK',
+                'ekspedisi' => [['nama'=>'Atlantic Cargo']],
             ], [
                 'nama' => 'Yensen',
                 'alamat' => [[
@@ -2459,6 +2495,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'ZEN',
+                'ekspedisi' => [['nama'=>'Sumber Urip']],
             ], [
                 'nama' => 'Zona Motor',
                 'alamat' => [[
@@ -2476,6 +2513,7 @@ class PelangganSeeder extends Seeder
                 ]],
                 'kontak' => null,
                 'initial' => 'ZON',
+                'ekspedisi' => [['nama'=>'Lintas Abadi Sejahtera']],
             ],
         ];
 
@@ -2516,6 +2554,22 @@ class PelangganSeeder extends Seeder
                         'tipe'=>$kontak['tipe'],
                         'kodearea'=>$kontak['kodearea'],
                         'nomor'=>$kontak['nomor'],
+                    ]);
+                }
+            }
+
+            if (isset($pelanggan[$i]['ekspedisi']) && $pelanggan[$i]['ekspedisi'] !== null) {
+                dump($pelanggan_new['nama']);
+                foreach ($pelanggan[$i]['ekspedisi'] as $data) {
+                    $ekspedisi = Ekspedisi::where('nama', $data['nama'])->first();
+                    $tipe = 'UTAMA';
+                    if (isset($data['tipe'])) {
+                        $tipe = $data['tipe'];
+                    }
+                    PelangganEkspedisi::create([
+                        'pelanggan_id'=>$pelanggan_new['id'],
+                        'ekspedisi_id'=>$ekspedisi['id'],
+                        'tipe'=>$tipe,
                     ]);
                 }
             }

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="header grid-2-auto">
-    <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
+    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 </div>
 
 <div class="threeDotMenu" style="z-index: 200">
@@ -50,7 +50,7 @@
     <h2>Detail Ekspedisi:</h2>
 </div>
 <div style="text-align: center"><h1 id="nama_ekspedisi"></h1></div>
-<div class="ml-1em mr-1em">
+<div class="ml-1em mr-1rem">
 
     <div class="grid-2-15-auto grid-row-gap-0_5em">
         <img class="w-2_5em" src="/img/icons/address.svg" alt="">

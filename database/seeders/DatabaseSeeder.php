@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             // DaerahSeeder::class,
             EkspedisiSeeder::class,
             PelangganSeeder::class,
-            PelangganEkspedisiSeeder::class,
+            // PelangganEkspedisiSeeder::class,
             BahanSeeder::class,
             VariasiSeeder::class,
             // UkuranSeeder::class,

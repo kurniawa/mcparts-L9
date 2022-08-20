@@ -134,6 +134,11 @@ class EkspedisiSeeder extends Seeder
                 'no_kontak' => '(021) 2267 1119',
             ], [
                 'bentuk' => null,
+                'nama' => 'EDI Express',
+                'alamat' => '["Jl. Pasoso", "Tj. Priok, Lapangan 219X"]',
+                'no_kontak' => '0853 4854 2791',
+            ], [
+                'bentuk' => null,
                 'nama' => 'Fajar Baru',
                 'alamat' => '["Jl. Lodan Raya No.9"]',
                 'no_kontak' => '0852 8565 5569',
@@ -234,7 +239,7 @@ class EkspedisiSeeder extends Seeder
                 'no_kontak' => '0821 9560 1720',
             ], [
                 'bentuk' => 'PT',
-                'nama' => 'Multi Express Trasindo',
+                'nama' => 'Multi Express Transindo',
                 'alamat' => '["Jl. Sukarjo Wiryo Pranoto No.11D", "Depan Stasiun KA. Sawah Besar"]',
                 'no_kontak' => '(021) 625 9158',
             ], [
@@ -268,6 +273,16 @@ class EkspedisiSeeder extends Seeder
                 'alamat' => '["Jl. Perniagaan Barat II", "GG. Istal No.1, Pasar Pagi"]',
                 'no_kontak' => '(021) 6907 479',
             ], [
+                'bentuk' => 'CV',
+                'nama' => 'Rama Express',
+                'alamat' => '["Jl. Bandengan Utara", "Gg Buntek, Blok 85 C, No.40A"]',
+                'no_kontak' => '0813 1727 5583',
+            ], [
+                'bentuk' => 'CV',
+                'nama' => 'Rama Jaya',
+                'alamat' => '["Komplek Lodan Center Blok L, No.18"]',
+                'no_kontak' => '(021) 6917 189',
+            ], [
                 'bentuk' => 'PT',
                 'nama' => 'Ratu Berlian Makmur',
                 'alamat' => '["Jl. Raya Daan Mogot, KM 21", "Batu Ceper Pergudangan Daan Mogot Arcadia", "BLOK F2, No.2"]',
@@ -277,6 +292,11 @@ class EkspedisiSeeder extends Seeder
                 'nama' => 'Rinjani Jaya Trans',
                 'alamat' => '["Jl. Kenjeran No.381", "KAV 1, SURABAYA"]',
                 'no_kontak' => '(031) 389 0663',
+            ], [
+                'bentuk' => 'PT',
+                'nama' => 'Sahabat Belitung Express (SBE)',
+                'alamat' => '["Jl. Gunung Sahari", "Ruko Marinatama Blok I, No.6-7"]',
+                'no_kontak' => '(021) 647 033 60',
             ], [
                 'bentuk' => 'PT',
                 'nama' => 'Saranaraya Lintas Timur',

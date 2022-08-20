@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="header grid-2-auto">
-    <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
+    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 
 </div>
 
@@ -113,7 +113,7 @@
 
 <div id="divKeteranganTambahan" class="mt-1em">
     <div class='text-right'><span class='ui-icon ui-icon-closethick' onclick='removeKeteranganTambahan();'></span></div>
-    <textarea class="pt-1em pl-1em text-area-mode-1" name="taDesc" id="taKeteranganTambahan" placeholder="Keterangan"></textarea>
+    <textarea class="pt-1em pl-1rem text-area-mode-1" name="taDesc" id="taKeteranganTambahan" placeholder="Keterangan"></textarea>
 </div>
 
 <div id="divJmlTotal" class="text-right p-1em">
@@ -143,7 +143,7 @@
 
 </div>
 
-{{-- <div id="boxKeteranganTambahan" class="position-fixed bottom-5em d-inline-block mr-0_5em pt-0_5em pb-0_5em pl-1em pr-1em b-radius-5px bg-color-soft-red" onclick='showKeteranganTambahan();'>
+{{-- <div id="boxKeteranganTambahan" class="position-fixed bottom-5em d-inline-block mr-0_5em pt-0_5em pb-0_5em pl-1rem pr-1em b-radius-5px bg-color-soft-red" onclick='showKeteranganTambahan();'>
     + Ktrgn Tambahan
 </div> --}}
 
@@ -283,19 +283,19 @@ Untuk Metode Hapus, sebaiknya tetap menggunakan form dengan method POST.
             <!-- DROPDOWN -->
             <div id='divDetailDropdown-${i}' class='p-0_5em text-center bb-1px-solid-grey' style='display: none'>
                 <!--
-                    <button id='editSPKItem-${i}' class="d-inline-block bg-color-purple-blue pl-1em pr-1em b-radius-50px" style='border: none;'>
+                    <button id='editSPKItem-${i}' class="d-inline-block bg-color-purple-blue pl-1rem pr-1em b-radius-50px" style='border: none;'>
                         <a href='/spk/edit_spk_produks?spk_id=${spk.id}&spk_produks_id=${spk_produks[i].id}&produk_id=${produks[i].id}'>Edit</a>
                     </button>
                 -->
                 <form action='/spk/delete-item-from-spk-detail' method='POST' class='d-inline-block'>
                 @csrf
-                <button id='hapusSPKItem-${i}' class="bg-color-grey pl-1em pr-1em b-radius-50px" style='border: none;'>
+                <button id='hapusSPKItem-${i}' class="bg-color-grey pl-1rem pr-1em b-radius-50px" style='border: none;'>
                     Hapus
                 </button>
                 <input type="hidden" name="spk_produks_id" value="${spk_produks[i].id}">
                 </form>
                 <!--
-                <button id='notaSPKItem-${i}' class="d-inline-block bg-color-orange-1 pl-1em pr-1em b-radius-50px" style='border: none;' onclick='goToNotaSPKItem("${i}")'>
+                <button id='notaSPKItem-${i}' class="d-inline-block bg-color-orange-1 pl-1rem pr-1em b-radius-50px" style='border: none;' onclick='goToNotaSPKItem("${i}")'>
                     Buat Nota
                 </button>
                 -->

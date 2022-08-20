@@ -2,7 +2,7 @@
 @section('content')
 
 <header class="header grid-2-auto">
-    <img class="w-0_8em ml-1_5em" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
+    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
 </header>
 
 <div class="grid-2-10-auto mt-1em ml-1em">
@@ -16,7 +16,7 @@
 
 <form action="/ekspedisi/ekspedisi-baru-db" method="POST">
     @csrf
-    <div class="ml-1em mr-1em mt-2em">
+    <div class="ml-1em mr-1rem mt-2em">
         <div class="grid-2-auto grid-column-gap-1em">
             <div class="bb-0_5px-grey pb-1em">
                 <select class="b-none" name="bentuk_perusahaan" id="bentukPerusahaan">
@@ -29,7 +29,7 @@
             <input id="nama-ekspedisi" name="nama_ekspedisi" class="input-1 pb-1em" type="text" placeholder="Nama Ekspedisi" required>
         </div>
 
-        {{-- <textarea id="alamat" class="mt-1em pt-1em pl-1em" name="alamat_ekspedisi" placeholder="Alamat" required></textarea> --}}
+        {{-- <textarea id="alamat" class="mt-1em pt-1em pl-1rem" name="alamat_ekspedisi" placeholder="Alamat" required></textarea> --}}
         <label for="">Alamat:</label>
         <input type="text" class="form-control" name="alamat_ekspedisi[]" placeholder="Baris 1">
         <input type="text" class="form-control" name="alamat_ekspedisi[]" placeholder="Baris 2">
@@ -45,7 +45,7 @@
             <input id="pulauTujuan" class="input-1 pb-1em" type="text" placeholder="Pulau Tujuan Ekspedisi" name="pulau_tujuan">
             <input id="daerahTujuan" class="input-1 pb-1em" type="text" placeholder="Daerah Tujuan Ekspedisi" name="daerah_tujuan">
         </div> --}}
-        <textarea id="keterangan" class="mt-1em pt-1em pl-1em" name="keterangan" placeholder="Keterangan lain (opsional)"></textarea>
+        <textarea id="keterangan" class="mt-1em pt-1em pl-1rem" name="keterangan" placeholder="Keterangan lain (opsional)"></textarea>
     </div>
     <div id="peringatan" class="d-none color-red p-1em">
 

@@ -3,7 +3,7 @@
 @section('content')
 
 <header class="header grid-2-auto">
-    <img class="w-0_8em ml-1_5em" src="img/icons/back-button-white.svg" alt="" onclick="goBack();">
+    <img class="w-0_8rem ml-1_5rem" src="img/icons/back-button-white.svg" alt="" onclick="goBack();">
     <div class="justify-self-right pr-0_5em">
         <a href="/nota/nota_baru-pilih_spk" id="btn-spk-baru" class="btn-atas-kanan2">
             + Buat Nota Baru
@@ -11,17 +11,17 @@
     </div>
 </header>
 
-<div class="grid-2-auto mt-1em ml-1em mr-1em pb-1em bb-0_5px-solid-grey">
-    <div class="justify-self-left grid-2-auto b-1px-solid-grey b-radius-50px mr-1em pl-1em pr-0_4em w-11em">
-        <input class="input-2 mt-0_4em mb-0_4em" type="text" placeholder="Cari...">
+<div class="grid-2-auto mt-1rem ml-1rem mr-1rem pb-1rem bb-0_5px-solid-grey">
+    <div class="justify-self-left grid-2-auto b-1px-solid-grey b-radius-50px mr-1rem pl-1rem pr-0_4rem w-11rem">
+        <input class="input-2 mt-0_4rem mb-0_4rem" type="text" placeholder="Cari...">
         <div class="justify-self-right grid-1-auto justify-items-center circle-small bg-color-orange-1">
-            <img class="w-0_8em" src="img/icons/loupe.svg" alt="">
+            <img class="w-0_8rem" src="img/icons/loupe.svg" alt="">
         </div>
     </div>
     <div class="div-filter-icon">
 
         <div class="icon-small-circle grid-1-auto justify-items-center bg-color-orange-1">
-            <img class="w-0_9em" src="img/icons/sort-by-attributes.svg" alt="sort-icon">
+            <img class="w-0_9rem" src="img/icons/sort-by-attributes.svg" alt="sort-icon">
         </div>
     </div>
 </div>
@@ -174,7 +174,7 @@ if (notas == undefined || notas.length == 0) {
             <input type='hidden' name='nota_id' value=${notas[i].id}>
             <table style='width:100%'>${htmlItemsEachSPK}</table>
             <div class='text-right'>
-            <button type='submit' class="d-inline-block bg-color-orange-1 pl-1em pr-1em b-radius-50px" style='border: none'>
+            <button type='submit' class="d-inline-block bg-color-orange-1 pl-1rem pr-1em b-radius-50px" style='border: none'>
             Lebih Detail >>
             </button>
             </div>

@@ -34,6 +34,11 @@ class ProdukController extends Controller
         return view('produk.tipe_variasi', $data);
     }
 
+    public function tambah_produk()
+    {
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

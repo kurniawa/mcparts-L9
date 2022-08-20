@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+<nav class="navbar navbar-expand-lg navbar-dark fw-bold bg-danger">
     <div class="container">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="{{ route('home') }}">MC-Parts SS</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -12,7 +12,7 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li>
-          
+
           <li class="nav-item">
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
@@ -26,7 +26,7 @@
           <li class="nav-item">
             <a href="/login" class="nav-link"><i class="bi bi-box-arrow-in-right"></i> Login</a>
           </li>
-          
+
           @endguest
           @auth
           <li class="nav-item dropdown">
