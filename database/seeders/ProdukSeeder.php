@@ -3703,7 +3703,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>'Absolute Revo','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>'Absolute Revo',
         ], [
             'tipe' => 'Jok Assy',
             'nama' => 'Jok Assy Beat',
@@ -3711,7 +3711,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>'Beat','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>'Beat',
         ], [
             'tipe' => 'Jok Assy',
             'nama' => 'Jok Assy Beat FI',
@@ -3719,7 +3719,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>'Beat FI','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>'Beat FI',
         ], [
             'tipe' => 'Jok Assy',
             'nama' => 'Jok Assy CB STD',
@@ -3727,7 +3727,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>'CB STD','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>'CB STD',
         ], [
             'tipe' => 'Jok Assy',
             'nama' => 'Jok Assy F1ZR',
@@ -3735,7 +3735,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>'F1ZR','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>'F1ZR',
         ], [
             'tipe' => 'Jok Assy',
             'nama' => 'Jok Assy Fit New',
@@ -3743,7 +3743,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>'Fit New','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>'Fit New',
         ], [
             'tipe' => 'Jok Assy',
             'nama' => 'Jok Assy FU',
@@ -3751,7 +3751,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>'FU','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>'FU',
         ], [
             'tipe' => 'Jok Assy',
             'nama' => 'Jok Assy GL Pro',
@@ -3759,7 +3759,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>'GL Pro','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>'GL Pro',
         ], [
             'tipe' => 'Jok Assy',
             'nama' => 'Jok Assy Grand',
@@ -3767,7 +3767,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>'Grand','variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>'Grand',
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Grand'97",
@@ -3775,7 +3775,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Grand'97",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Grand'97",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Jupiter MX",
@@ -3783,7 +3783,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Jupiter MX",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Jupiter MX",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Jupiter New",
@@ -3791,7 +3791,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Jupiter New",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Jupiter New",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Jupiter Z",
@@ -3799,7 +3799,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Jupiter Z",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Jupiter Z",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Mio M3",
@@ -3807,7 +3807,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Mio M3",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Mio M3",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Mio Soul",
@@ -3815,7 +3815,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Mio Soul",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Mio Soul",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Prima",
@@ -3823,7 +3823,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Prima",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Prima",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Revo FI",
@@ -3831,7 +3831,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Revo FI",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Revo FI",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy RXK",
@@ -3839,7 +3839,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"RX King",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"RX King",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy RXK New",
@@ -3847,7 +3847,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"RXK New",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"RXK New",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy RXK Perahu",
@@ -3855,7 +3855,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"RXK Perahu",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"RXK Perahu",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy RXK Press",
@@ -3863,7 +3863,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"RXK Press",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"RXK Press",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Supra",
@@ -3871,7 +3871,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Supra",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Supra",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Supra 125",
@@ -3879,7 +3879,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Supra 125",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Supra 125",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Supra Fit New",
@@ -3887,7 +3887,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Supra Fit New",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Supra Fit New",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Supra X",
@@ -3895,7 +3895,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Supra Fit New",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Supra Fit New",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Vario 125",
@@ -3903,7 +3903,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Vario 125",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Vario 125",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Vario Techno",
@@ -3911,7 +3911,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Vario Techno",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Vario Techno",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Vega R",
@@ -3919,7 +3919,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Vega R",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Vega R",
         ], [
             'tipe' => 'Jok Assy',
             'nama' => "Jok Assy Vega ZR",
@@ -3927,7 +3927,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 34
             'harga' => 107500,
-            'jokassy'=>"Vega ZR",'variasi_1'=>null,'varian_1'=>null,'variasi_2'=>null,'varian_2'=>null,'ukuran'=>null,'jahit'=>null,
+            'jokassy'=>"Vega ZR",
         ], [
             'tipe' => 'Tankpad',
             'nama' => 'TP Fox Dimensi',

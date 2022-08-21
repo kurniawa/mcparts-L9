@@ -190,18 +190,19 @@ Route::controller(ProdukController::class)->group(function ()
     Route::get('/produk', 'index');
     Route::get('/produk/tipe-variasi', 'tipe_variasi');
     Route::get('/produk/tambah-produk', function () {return view('produk.tambah-produk');})->name('tambah-produk')->middleware('auth');
-    Route::get('/produk/tambahSJVariasi', function () {return view('produk.tambahSJVariasi');})->middleware('auth')->name('tambahSJVariasi');
-    Route::get('/produk/tambahSJKombinasi', function () {return view('produk.tambahSJKombinasi');})->middleware('auth')->name('tambahSJKombinasi');
-    Route::get('/produk/tambahSJMotif', function () {return view('produk.tambahSJMotif');})->middleware('auth')->name('tambahSJMotif');
-    Route::get('/produk/tambahSJTSixpack', function () {return view('produk.tambahSJTSixpack');})->middleware('auth')->name('tambahSJTSixpack');
-    Route::get('/produk/tambahSJJapstyle', function () {return view('produk.tambahSJJapstyle');})->middleware('auth')->name('tambahSJJapstyle');
-    Route::get('/produk/tambahSJStandar', function () {return view('produk.tambahSJStandar');})->middleware('auth')->name('tambahSJStandar');
-    Route::get('/produk/tambahTankpad', function () {return view('produk.tambahTankpad');})->middleware('auth')->name('tambahTankpad');
-    Route::get('/produk/tambahStiker', function () {return view('produk.tambahStiker');})->middleware('auth')->name('tambahStiker');
-    Route::get('/produk/tambahBusastang', function () {return view('produk.tambahBusastang');})->middleware('auth')->name('tambahBusastang');
-    Route::get('/produk/tambahJokAssy', function () {return view('produk.tambahJokAssy');})->middleware('auth')->name('tambahJokAssy');
-    Route::get('/produk/tambahRol', function () {return view('produk.tambahRol');})->middleware('auth')->name('tambahRol');
-    Route::get('/produk/tambahRotan', function () {return view('produk.tambahRotan');})->middleware('auth')->name('tambahRotan');
+    Route::get('/produk/tambah-produk/{tipe}', 'tambahProduk')->name('tambahProduk')->middleware('auth');
+    // Route::get('/produk/tambahSJVariasi', function () {return view('produk.tambahSJVariasi');})->middleware('auth')->name('tambahSJVariasi');
+    // Route::get('/produk/tambahSJKombinasi', function () {return view('produk.tambahSJKombinasi');})->middleware('auth')->name('tambahSJKombinasi');
+    // Route::get('/produk/tambahSJMotif', function () {return view('produk.tambahSJMotif');})->middleware('auth')->name('tambahSJMotif');
+    // Route::get('/produk/tambahSJTSixpack', function () {return view('produk.tambahSJTSixpack');})->middleware('auth')->name('tambahSJTSixpack');
+    // Route::get('/produk/tambahSJJapstyle', function () {return view('produk.tambahSJJapstyle');})->middleware('auth')->name('tambahSJJapstyle');
+    // Route::get('/produk/tambahSJStandar', function () {return view('produk.tambahSJStandar');})->middleware('auth')->name('tambahSJStandar');
+    // Route::get('/produk/tambahTankpad', function () {return view('produk.tambahTankpad');})->middleware('auth')->name('tambahTankpad');
+    // Route::get('/produk/tambahStiker', function () {return view('produk.tambahStiker');})->middleware('auth')->name('tambahStiker');
+    // Route::get('/produk/tambahBusastang', function () {return view('produk.tambahBusastang');})->middleware('auth')->name('tambahBusastang');
+    // Route::get('/produk/tambahJokAssy', function () {return view('produk.tambahJokAssy');})->middleware('auth')->name('tambahJokAssy');
+    // Route::get('/produk/tambahRol', function () {return view('produk.tambahRol');})->middleware('auth')->name('tambahRol');
+    // Route::get('/produk/tambahRotan', function () {return view('produk.tambahRotan');})->middleware('auth')->name('tambahRotan');
 });
 
 /**

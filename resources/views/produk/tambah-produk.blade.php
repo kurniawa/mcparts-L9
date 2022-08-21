@@ -9,24 +9,24 @@
     <h6>(Pilih Tipe Produk)</h6>
 
     <div class="row">
-        <a class="col m-1 btn btn-primary" href="{{ route('tambahSJVariasi') }}">SJ-Variasi</a>
-        <a class="col m-1 btn btn-primary" href="{{ route('tambahSJKombinasi') }}">SJ-Kombinasi</a>
-        <a class="col m-1 btn btn-primary" href="{{ route('tambahSJMotif') }}">SJ-Motif</a>
+        <a class="col m-1 btn btn-primary" href="{{ route('tambahProduk',['tipe'=>'SJ-Variasi']) }}">SJ-Variasi</a>
+        <a class="col m-1 btn btn-primary" href="{{ route('tambahProduk',['tipe'=>'SJ-Kombinasi']) }}">SJ-Kombinasi</a>
+        <a class="col m-1 btn btn-primary" href="{{ route('tambahProduk',['tipe'=>'SJ-Motif']) }}">SJ-Motif</a>
     </div>
     <div class="row">
-        <a class="col m-1 btn btn-warning" href="{{ route('tambahSJTSixpack') }}">SJ-T.Sixpack</a>
-        <a class="col m-1 btn btn-warning" href="{{ route('tambahSJJapstyle') }}">SJ-Japstyle</a>
-        <a class="col m-1 btn btn-warning" href="{{ route('tambahSJStandar') }}">SJ-Standar</a>
+        <a class="col m-1 btn btn-warning" href="{{ route('tambahProduk',['tipe'=>'SJ-T.Sixpack']) }}">SJ-T.Sixpack</a>
+        <a class="col m-1 btn btn-warning" href="{{ route('tambahProduk',['tipe'=>'SJ-Japstyle']) }}">SJ-Japstyle</a>
+        <a class="col m-1 btn btn-warning" href="{{ route('tambahProduk',['tipe'=>'SJ-Standar']) }}">SJ-Standar</a>
     </div>
     <div class="row">
-        <a class="col m-1 btn btn-danger" href="{{ route('tambahTankpad') }}">Tankpad</a>
-        <a class="col m-1 btn btn-danger" href="{{ route('tambahStiker') }}">Stiker</a>
-        <a class="col m-1 btn btn-danger" href="{{ route('tambahBusastang') }}">Busa-Stang</a>
+        <a class="col m-1 btn btn-danger" href="{{ route('tambahProduk',['tipe'=>'Tankpad']) }}">Tankpad</a>
+        <a class="col m-1 btn btn-danger" href="{{ route('tambahProduk',['tipe'=>'Stiker']) }}">Stiker</a>
+        <a class="col m-1 btn btn-danger" href="{{ route('tambahProduk',['tipe'=>'Busa-Stang']) }}">Busa Stang</a>
     </div>
     <div class="row">
-        <a class="col m-1 btn btn-dark" href="{{ route('tambahJokAssy') }}">Jok Assy</a>
-        <a class="col m-1 btn btn-dark" href="{{ route('tambahRol') }}">Rol</a>
-        <a class="col m-1 btn btn-dark" href="{{ route('tambahRotan') }}">Rotan</a>
+        <a class="col m-1 btn btn-dark" href="{{ route('tambahProduk',['tipe'=>'Jok Assy']) }}">Jok Assy</a>
+        <a class="col m-1 btn btn-dark" href="{{ route('tambahProduk',['tipe'=>'Rol']) }}">Rol</a>
+        <a class="col m-1 btn btn-dark" href="{{ route('tambahProduk',['tipe'=>'Rotan']) }}">Rotan</a>
     </div>
 </div>
 

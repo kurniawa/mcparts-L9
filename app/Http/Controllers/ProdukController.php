@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Helpers\SiteSettings;
 use App\Http\Requests\StoreProdukRequest;
 use App\Http\Requests\UpdateProdukRequest;
+use App\Models\Bahan;
 use App\Models\Produk;
+use App\Models\Spec;
+use App\Models\Varian;
+use App\Models\Variasi;
 
 class ProdukController extends Controller
 {
@@ -34,9 +38,31 @@ class ProdukController extends Controller
         return view('produk.tipe_variasi', $data);
     }
 
-    public function tambah_produk()
+    public function tambahProduk($tipe)
     {
-
+        SiteSettings::loadNumToZero();
+        $bahans = Bahan::get(['nama as label','nama as value','grade']);
+        $variasis = Variasi::all();
+        $varians = Varian::get(['nama as label', 'nama as value']);
+        $ukurans = Spec::where('kategori','ukuran')->get(['nama as label','nama as value'])->toArray();
+        $jahits = Spec::where('kategori','jahit')->get(['nama as label','nama as value'])->toArray();
+        $alass = Spec::where('kategori','alas')->get(['nama as label','nama as value'])->toArray();
+        $busas = Spec::where('kategori','busa')->get(['nama as label','nama as value'])->toArray();
+        $lists = Spec::where('kategori','list')->get(['nama as label','nama as value'])->toArray();
+        $sayaps = Spec::where('kategori','sayap')->get(['nama as label','nama as value'])->toArray();
+        $data = [
+            'tipe'=>$tipe,
+            'bahans'=>$bahans,
+            'variasis'=>$variasis,
+            'varians'=>$varians,
+            'ukurans'=>$ukurans,
+            'jahits'=>$jahits,
+            'alass'=>$alass,
+            'busas'=>$busas,
+            'lists'=>$lists,
+            'sayaps'=>$sayaps,
+        ];
+        return view('produk.tambah-produk-start', $data);
     }
 
     /**
