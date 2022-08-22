@@ -690,4 +690,17 @@ function showLightBoxGlobal (deletePropertiesStrigified) {
 function showHide(toshow, tohide) {
     $(`#${toshow}`).show();
     $(`#${tohide}`).hide();
+
+    // var inputToHide = document.querySelector(`#${tohide} input`);
+    // var selectToHide = document.querySelector(`#${tohide} select`);
+    // console.log(inputToHide);
+    // if (inputToHide) {
+    //     inputToHide.value = '';
+    //     autoname();
+    // }
+    // if (selectToHide) {
+    //     selectToHide.seletedIndex = 0;
+    //     autoname();
+    // }
+    autoname();
 }

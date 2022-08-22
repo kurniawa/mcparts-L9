@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             // KombiSeeder::class,
             KombinasiSeeder::class,
             TsixpackSeeder::class,
-            JapstyleSeeder::class,
+            // JapstyleSeeder::class,
             MotifSeeder::class,
             // TspjapSeeder::class,
             StandarSeeder::class,
