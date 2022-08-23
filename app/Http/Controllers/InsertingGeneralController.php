@@ -75,8 +75,8 @@ class InsertingGeneralController extends Controller
         $ada_error = true;
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
-        $error_messages = array();
-        $success_messages = array();
+        $error_logs = array();
+        $success_logs = array();
 
         if ($show_hidden_dump) {
             dump("load_num_value: " . $load_num->value);
@@ -103,7 +103,7 @@ class InsertingGeneralController extends Controller
             $load_num->value += 1;
             $load_num->save();
             $produk = Produk::find($tempspkproduk_new['produk_id']);
-            $success_messages[] = "Item $produk[nama] telah berhasil diinput ke temp_spk_produks";
+            $success_logs[] = "Item $produk[nama] telah berhasil diinput ke temp_spk_produks";
             $pesan_db = "Succeed!";
         }
 
@@ -112,8 +112,8 @@ class InsertingGeneralController extends Controller
             'pesan_db' => $pesan_db,
             'ada_error' => $ada_error,
             'class_div_pesan_db' => $class_div_pesan_db,
-            'error_messages' => $error_messages,
-            'success_messages' => $success_messages,
+            'error_logs' => $error_logs,
+            'success_logs' => $success_logs,
         ];
 
         return view('layouts.go-back-page', $data);

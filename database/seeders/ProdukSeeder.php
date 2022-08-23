@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Attsjvariasi;
 use App\Models\Bahan;
 use App\Models\Busastang;
 use App\Models\Jokassy;
@@ -21,6 +20,8 @@ use App\Models\ProdukSpec;
 use App\Models\ProdukStandar;
 use App\Models\ProdukStiker;
 use App\Models\ProdukTankpad;
+use App\Models\ProdukVarian;
+use App\Models\ProdukVariasi;
 use App\Models\Rol;
 use App\Models\Rotan;
 use App\Models\Spec;
@@ -4037,30 +4038,35 @@ class ProdukSeeder extends Seeder
             if (isset($produk[$i]['variasi_1']) && $produk[$i]['variasi_1'] !== null) {
                 dump($produk[$i]['variasi_1']);
                 $variasi_1 = Variasi::where('nama', $produk[$i]['variasi_1'])->first();
-                $varian_1_id = null;
-                if (isset($produk[$i]['varian_1']) && $produk[$i]['varian_1'] !== null) {
-                    dump($produk[$i]['varian_1']);
-                    $varian_1 = Varian::where('nama', $produk[$i]['varian_1'])->first();
-                    $varian_1_id = $varian_1['id'];
-                }
-                Attsjvariasi::create([
+
+                ProdukVariasi::create([
                     'produk_id' => $inserted_produk['id'],
                     'variasi_id' => $variasi_1['id'],
-                    'varian_id' => $varian_1_id,
+                ]);
+            }
+            if (isset($produk[$i]['varian_1']) && $produk[$i]['varian_1'] !== null) {
+                dump($produk[$i]['varian_1']);
+                $varian_1 = Varian::where('nama', $produk[$i]['varian_1'])->first();
+
+                ProdukVarian::create([
+                    'produk_id'=>$inserted_produk['id'],
+                    'varian_id' => $varian_1['id'],
                 ]);
             }
 
             if (isset($produk[$i]['variasi_2']) && $produk[$i]['variasi_2'] !== null) {
                 $variasi_2 = Variasi::where('nama', $produk[$i]['variasi_2'])->first();
-                $varian_2_id = null;
-                if (isset($produk[$i]['varian_2']) && $produk[$i]['varian_2'] !== null) {
-                    $varian_2 = Varian::where('nama', $produk[$i]['varian_2'])->first();
-                    $varian_2_id = $varian_2['id'];
-                }
-                Attsjvariasi::create([
+
+                ProdukVariasi::create([
                     'produk_id' => $inserted_produk['id'],
                     'variasi_id' => $variasi_2['id'],
-                    'varian_id' => $varian_2_id,
+                ]);
+            }
+            if (isset($produk[$i]['varian_2']) && $produk[$i]['varian_2'] !== null) {
+                $varian_2 = Varian::where('nama', $produk[$i]['varian_2'])->first();
+                ProdukVarian::create([
+                    'produk_id' => $inserted_produk['id'],
+                    'varian_id' => $varian_2['id'],
                 ]);
             }
 

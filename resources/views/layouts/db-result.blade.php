@@ -1,28 +1,33 @@
 @extends('layouts.main_layout')
-
+@extends('layouts.navbar')
 @section('content')
-
-
-<div class="alert {{ $class_div_pesan_db }}" role="alert">{{ $pesan_db }}</div>
 
 @if (isset($error_logs) && count($error_logs) !== 0)
 <div class="alert alert-danger" role="alert">
-@foreach ($error_logs as $error_message)
-    {{ $error_message }}<br>
+@foreach ($error_logs as $error_log)
+    {{ $error_log }}<br>
+@endforeach
+</div>
+@endif
+
+@if (isset($warning_logs) && count($warning_logs) !== 0)
+<div class="alert alert-warning" role="alert">
+@foreach ($warning_logs as $warning_log)
+    {{ $warning_log }}<br>
 @endforeach
 </div>
 @endif
 
 @if (isset($success_logs) && count($success_logs) !== 0)
 <div class="alert alert-success" role="alert">
-@foreach ($success_logs as $success_message)
-    {{ $success_message }}<br>
+@foreach ($success_logs as $success_log)
+    {{ $success_log }}<br>
 @endforeach
 </div>
 @endif
 
-<div class="mt-2em text-center">
-    <button id='backToSPK' class="btn-1 d-inline-block bg-color-orange-1" onclick="windowHistoryGo({{ $go_back_number }});">Kembali</button>
+<div class="mt-2rem text-center">
+    <a href="{{ route($route) }}" class="btn btn-info">{{ $route_btn }}</a>
 </div>
 
 <script>

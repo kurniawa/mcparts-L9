@@ -21,9 +21,9 @@ return new class extends Migration
         Schema::create('produks', function (Blueprint $table) {
             $table->id();
             $table->string('tipe', 50);
-            // $table->string('properties');
             // $table->foreignId('bahan_id')->nullable();
             // $table->foreignId('variasi_id')->nullable();
+            // $table->foreignId('varian_id')->nullable();
             // $table->foreignId('ukuran_id')->nullable();
             // $table->foreignId('jahit_id')->nullable();
             // $table->foreignId('kombi_id')->nullable();
@@ -39,6 +39,8 @@ return new class extends Migration
             $table->string('nama_nota');
             $table->string('tipe_packing', 20)->nullable();
             $table->smallInteger('aturan_packing')->nullable();
+            $table->string('keterangan')->nullable();
+            $table->timestamps();
         });
     }
 

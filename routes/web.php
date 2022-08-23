@@ -187,7 +187,7 @@ Route::controller(TestController::class)->group(function ()
  */
 Route::controller(ProdukController::class)->group(function ()
 {
-    Route::get('/produk', 'index');
+    Route::get('/produk', 'index')->name('produks');
     Route::get('/produk/tipe-variasi', 'tipe_variasi');
     Route::get('/produk/tambah-produk', function () {return view('produk.tambah-produk');})->name('tambah-produk')->middleware('auth');
     Route::get('/produk/tambah-produk/{tipe}', 'tambahProduk')->name('tambahProduk')->middleware('auth');

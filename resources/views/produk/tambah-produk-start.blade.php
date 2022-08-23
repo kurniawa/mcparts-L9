@@ -9,6 +9,7 @@
     <h6>Tipe: {{ $tipe }}</h6>
     <form id="formAddProduk" action="{{ route('tambahProdukDB') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="tipe" value="{{ $tipe }}">
         <div class="row mb-2">
             <div class="col" id="div-bahan" style="display: none">
                 <button type="button" class="btn btn-outline-danger btn-sm" id="btn-close-bahan" onclick="showHide('btn-bahan', 'div-bahan')" style="display: none">X</button>
@@ -227,7 +228,6 @@
                 <label for="tipe_packing">Tipe Packing:</label>
                 <button type="button" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-tipe_packing', 'div-tipe_packing')">X</button>
                 <select name="tipe_packing" id="tipe_packing" class="form-select autoname">
-                    <option value="">-</option>
                     <option value="colly">colly</option>
                     <option value="dus">dus</option>
                 </select>
@@ -263,6 +263,8 @@
             <div class="col" id="div-nama">
                 <label for="nama">Nama:</label>
                 <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama">
+                <div id="valid-belum_ada" class="feedback valid-feedback">Produk belum ada!</div>
+                <div id="invalid-sudah_ada" class="feedback invalid-feedback">Produk sudah ada!</div>
             </div>
         </div>
 
@@ -314,9 +316,14 @@
         </div>
 
         <br><br>
+        <div class="row mb-2">
+            <div class="col text-center">
+                <button type="button" class="col btn btn-primary" onclick="cekProduk('nama')">Cek Produk</button>
+            </div>
+        </div>
         <div class="row">
             <div class="col text-center">
-                <button type="submit" class="col btn-warning">Tambah {{ $tipe }}</button>
+                <button type="submit" class="col btn btn-warning">Tambah {{ $tipe }}</button>
             </div>
         </div>
     </form>
@@ -347,8 +354,10 @@ const stikers = {!! json_encode($stikers, JSON_HEX_TAG) !!};
 const rols = {!! json_encode($rols, JSON_HEX_TAG) !!};
 const busastangs = {!! json_encode($busastangs, JSON_HEX_TAG) !!};
 const rotans = {!! json_encode($rotans, JSON_HEX_TAG) !!};
+/*Produks*/
+const produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
 
-console.log('ukurans',ukurans);
+console.log('produks',produks);
 
 var attToShow = new Array();
 var btnToShow = new Array();
@@ -534,36 +543,71 @@ document.querySelectorAll('.autoname').forEach(input => {
 
 document.getElementById('formAddProduk').addEventListener('submit', event=> {
     event.preventDefault();
-    const namaProduk = document.getElementById('nama').value;
-    let result;
+    let result = cekProduk('nama');
 
-    $.ajax({
-        url: `{{ route('cekProduk') }}`,
-        type: 'GET',
-        data: {nama:namaProduk},
-        success: function (res) {
-            if (res.length===0) {
-                console.log('Produk belum ada!');
-                result = true;
-            } else {
-                console.log('Produk sudah ada!');
-                result = false;
-            }
-        }
-    });
-
-    console.log(event.currentTarget);
-    console.log(event.target);
-
-    setTimeout(() => {
-        console.log(result);
-        if (result) {
-            event.target.submit();
-        }
-    }, 1000);
+    if (result) {
+        event.currentTarget.submit();
+    }
 
     return false;
-})
+});
+
+function cekProduk(id) {
+    var nama = document.getElementById(id).value;
+    let res = produks.find(obj=>obj.nama===nama);
+    console.log(res);
+    document.querySelectorAll('.feedback').forEach(feedback=>{feedback.style.display='none'});
+    if (typeof res==='undefined') {
+        console.log('Produk belum ada!');
+        document.getElementById('valid-belum_ada').style.display = 'block';
+        return true;
+    } else {
+        console.log('Produk sudah ada!');
+        document.getElementById('invalid-sudah_ada').style.display = 'block';
+        return false;
+    }
+}
+
+// document.getElementById('formAddProduk').addEventListener('submit', event=> {
+//     event.preventDefault();
+//     const namaProduk = document.getElementById('nama').value;
+//     let result = cekProduk(namaProduk);
+
+//     setTimeout(() => {
+//         console.log(result);
+//         if (result) {
+//             event.target.submit();
+//         }
+//     }, 1000);
+
+//     return false;
+// });
+
+// function cekProduk(nama) {
+//     let result;
+//     $.ajax({
+//         url: `{{ route('cekProduk') }}`,
+//         type: 'GET',
+//         data: {nama:nama},
+//         success: function (res) {
+//             if (res.length===0) {
+//                 console.log('Produk belum ada!');
+//                 result = true;
+//             } else {
+//                 console.log('Produk sudah ada!');
+//                 result = false;
+//             }
+//         }
+//     });
+
+//     // setTimeout(() => {
+//     //     console.log(result);
+//     //     return result;
+//     // }, 300);
+
+//     console.log(result);
+//         return result;
+// }
 
 </script>
 

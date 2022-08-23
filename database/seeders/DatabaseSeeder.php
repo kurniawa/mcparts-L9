@@ -17,20 +17,20 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             SiteSettingSeeder::class,
-            // NegaraSeeder::class,
-            // PulauSeeder::class,
-            // DaerahSeeder::class,
+            // NegaraSeeder::class,deleted
+            // PulauSeeder::class,deleted
+            // DaerahSeeder::class,deleted
             EkspedisiSeeder::class,
             PelangganSeeder::class,
-            // PelangganEkspedisiSeeder::class,
+            // PelangganEkspedisiSeeder::class, deleted
             BahanSeeder::class,
             VariasiSeeder::class,
-            // UkuranSeeder::class,
-            // JahitSeeder::class,
-            // KombiSeeder::class,
+            // UkuranSeeder::class,deleted
+            // JahitSeeder::class,deleted
+            // KombiSeeder::class,deleted
             KombinasiSeeder::class,
             TsixpackSeeder::class,
-            // JapstyleSeeder::class,
+            // JapstyleSeeder::class,deleted
             MotifSeeder::class,
             // TspjapSeeder::class,
             StandarSeeder::class,
@@ -44,17 +44,17 @@ class DatabaseSeeder extends Seeder
             RotanSeeder::class,
             ProdukSeeder::class,
             // SpkSeeder::class,
-            // AttsjvariasiSeeder::class,
-            // ProdukBahanSeeder::class,
-            // ProdukSpecSeeder::class,
-            // ProdukKombinasiSeeder::class,
-            // ProdukTsixpackSeeder::class,
-            // ProdukJapstyleSeeder::class,
-            // ProdukMotifSeeder::class,
-            // ProdukStandarSeeder::class,
-            // ProdukTankpadSeeder::class,
-            // ProdukStikerSeeder::class,
-            // ProdukBusastangSeeder::class,
+            // AttsjvariasiSeeder::class, deleted
+            // ProdukBahanSeeder::class, deleted
+            // ProdukSpecSeeder::class, deleted
+            // ProdukKombinasiSeeder::class, deleted
+            // ProdukTsixpackSeeder::class, deleted
+            // ProdukJapstyleSeeder::class, deleted
+            // ProdukMotifSeeder::class, deleted
+            // ProdukStandarSeeder::class, deleted
+            // ProdukTankpadSeeder::class,deleted
+            // ProdukStikerSeeder::class,deleted
+            // ProdukBusastangSeeder::class,deleted
         ]);
     }
 }

@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('variasis', function (Blueprint $table) {
+        Schema::create('produk_varians', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('ktrg')->nullable();
+            $table->foreignId('produk_id');
+            $table->foreignId('varian_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('variasis');
+        Schema::dropIfExists('produk_varians');
     }
 };

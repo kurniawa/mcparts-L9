@@ -264,7 +264,7 @@ class NotaController extends Controller
 
         $show_dump = false;
         $run_db = true;
-        $success_messages = $error_messages = array();
+        $success_logs = $error_logs = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
@@ -406,7 +406,7 @@ class NotaController extends Controller
                         'created_at' => $post['tgl_pembuatan']
                     ]);
 
-                    array_push($success_messages, 'success_: insert ke spk_produk_nota, belum insert ke nota, nota_id belum diketahui.');
+                    array_push($success_logs, 'success_: insert ke spk_produk_nota, belum insert ke nota, nota_id belum diketahui.');
                 }
 
                 // $nota_item = [
@@ -443,7 +443,7 @@ class NotaController extends Controller
             for ($i_SPKProdukID=0; $i_SPKProdukID < count($spk_produk_ids); $i_SPKProdukID++) {
                 if (count($spk_produk_ids) === 0) {
                     dump('TIDAK ADA YANG DI PROSES KE DATABASE, KARENA JUMLAH TIDAK SESUAI!');
-                    array_push($error_messages, 'error_: TIDAK ADA YANG DI PROSES KE DATABASE, KARENA JUMLAH TIDAK SESUAI!');
+                    array_push($error_logs, 'error_: TIDAK ADA YANG DI PROSES KE DATABASE, KARENA JUMLAH TIDAK SESUAI!');
                 } else {
                     // dump('INSERT TABLE nota');
                     // dump([
@@ -473,7 +473,7 @@ class NotaController extends Controller
                                 dump("nota saved, nota_id = $nota_id");
                             }
 
-                            array_push($success_messages, 'success_: insert pertama ke table nota, sekaligus menetapkan nota_id');
+                            array_push($success_logs, 'success_: insert pertama ke table nota, sekaligus menetapkan nota_id');
 
                         }
 
@@ -489,9 +489,9 @@ class NotaController extends Controller
                                 'nota_id' => $nota_id,
                             ]);
 
-                            array_push($success_messages, 'success_: create relasi spk_notas');
+                            array_push($success_logs, 'success_: create relasi spk_notas');
                         } else {
-                            $success_messages[] = 'relasi spk_notas sudah exist';
+                            $success_logs[] = 'relasi spk_notas sudah exist';
                         }
                     }
 
@@ -547,7 +547,7 @@ class NotaController extends Controller
                 $spk_produk_nota->nota_id = $nota_id;
                 if ($run_db) {
                     $spk_produk_nota->save();
-                    $success_messages[] = 'success_: update nota_id pada table spk_produk_nota';
+                    $success_logs[] = 'success_: update nota_id pada table spk_produk_nota';
                 }
 
                 /**CEK APAKAH PELANGGAN INI TELAH SEMPAT ORDER PRODUK INI SEBELUMNYA
@@ -572,7 +572,7 @@ class NotaController extends Controller
                             'harga_price_list' => $spk_produk_nota['harga'],
                         ]);
 
-                        $success_messages[] = 'Berhasil create relasi pelanggan_produk yang baru';
+                        $success_logs[] = 'Berhasil create relasi pelanggan_produk yang baru';
                     }
                 } else {
                     if ($pelanggan_produk[0]['nota_id'] !== $nota_id) {
@@ -581,7 +581,7 @@ class NotaController extends Controller
                         if ($run_db) {
                             $pelanggan_produk->save();
 
-                            $success_messages[] = 'Ditemukan ada pelanggan_produk yang sesuai -> update nota_id pada data pelanggan_produk terkait';
+                            $success_logs[] = 'Ditemukan ada pelanggan_produk yang sesuai -> update nota_id pada data pelanggan_produk terkait';
                         }
                     }
                 }
@@ -605,7 +605,7 @@ class NotaController extends Controller
             $nota->save();
 
             $pesan_db = 'SUCCESS';
-            $success_messages[] = 'success_: update no_nota dan harga_total_nota';
+            $success_logs[] = 'success_: update no_nota dan harga_total_nota';
             $class_div_pesan_db = 'alert-success';
 
             $load_num->value = $load_num['value'] + 1;
@@ -624,7 +624,7 @@ class NotaController extends Controller
                 $spk->status_nota = $status_nota;
                 $spk->jumlah_sudah_nota = $jumlah_sudah_nota;
                 $spk->save();
-                $success_messages[] = "status_nota pada spk di update menjadi $status_nota dan jumlah_sudah_nota menjadi $jumlah_sudah_nota";
+                $success_logs[] = "status_nota pada spk di update menjadi $status_nota dan jumlah_sudah_nota menjadi $jumlah_sudah_nota";
             }
         }
 
@@ -633,8 +633,8 @@ class NotaController extends Controller
             'go_back_number' => -3,
             'pesan_db' => $pesan_db,
             'class_div_pesan_db' => $class_div_pesan_db,
-            'error_messages' => $error_messages,
-            'success_messages' => $success_messages,
+            'error_logs' => $error_logs,
+            'success_logs' => $success_logs,
         ];
 
 
@@ -704,7 +704,7 @@ class NotaController extends Controller
         $show_dump = true;
         $run_db = true;
 
-        $success_messages = $error_messages = array();
+        $success_logs = $error_logs = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
@@ -759,10 +759,10 @@ class NotaController extends Controller
                 $spk_produk->status_nota = $status_nota;
                 $spk_produk->jml_sdh_nota = $jml_sdh_nota;
                 $spk_produk->save();
-                $success_messages[] = 'success_: UPDATE status_nota pada table spk_produk terkait!';
+                $success_logs[] = 'success_: UPDATE status_nota pada table spk_produk terkait!';
 
                 $obj_spk = new Spk();
-                $success_messages[] = $obj_spk->updateStatusNota_JumlahSudahNota($spk['id']);
+                $success_logs[] = $obj_spk->updateStatusNota_JumlahSudahNota($spk['id']);
             }
         }
 
@@ -776,15 +776,15 @@ class NotaController extends Controller
 
             $pesan_db = 'SUCCESS:';
             $class_div_pesan_db = 'alert-success';
-            $success_messages[] = 'success_: Berhasil delete nota terkait!';
+            $success_logs[] = 'success_: Berhasil delete nota terkait!';
         }
 
         $data = [
             'go_back_number' => -2,
             'pesan_db' => $pesan_db,
             'class_div_pesan_db' => $class_div_pesan_db,
-            'error_messages' => $error_messages,
-            'success_messages' => $success_messages,
+            'error_logs' => $error_logs,
+            'success_logs' => $success_logs,
         ];
 
 
@@ -845,7 +845,7 @@ class NotaController extends Controller
         $show_dump = true;
         $run_db = true;
 
-        $success_messages = $error_messages = array();
+        $success_logs = $error_logs = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
@@ -883,12 +883,12 @@ class NotaController extends Controller
                 $spk_produk_nota->harga_t = $harga_t;
                 $spk_produk_nota->save();
 
-                $success_messages[] = "update spk_produk_nota: jumlah=$spk_produk_nota[jumlah] dan harga_t=$spk_produk_nota[harga_t]";
+                $success_logs[] = "update spk_produk_nota: jumlah=$spk_produk_nota[jumlah] dan harga_t=$spk_produk_nota[harga_t]";
 
                 $nota->harga_total = $harga_total_nota;
                 $nota->save();
 
-                $success_messages[] = "update nota: harga_total=$harga_total_nota";
+                $success_logs[] = "update nota: harga_total=$harga_total_nota";
 
                 $spk_produk->jml_sdh_nota = $jml_sdh_nota;
                 $status_nota = 'BELUM';
@@ -900,7 +900,7 @@ class NotaController extends Controller
                 $spk_produk->status_nota = $status_nota;
                 $spk_produk->save();
 
-                $success_messages[] = "update spk_produk: jml_sdh_nota=$spk_produk[jml_sdh_nota] dan status_nota=$spk_produk[status_nota]";
+                $success_logs[] = "update spk_produk: jml_sdh_nota=$spk_produk[jml_sdh_nota] dan status_nota=$spk_produk[status_nota]";
 
                 $pesan_db = 'SUCCESS';
                 $class_div_pesan_db = 'alert-success';
@@ -916,20 +916,20 @@ class NotaController extends Controller
                 $spk->status_nota = $status_nota;
                 $spk->jumlah_sudah_nota = $jumlah_sudah_nota;
                 $spk->save();
-                $success_messages[] = "status_nota pada spk di update menjadi $status_nota";
+                $success_logs[] = "status_nota pada spk di update menjadi $status_nota";
             }
         } else {
             $pesan_db = 'OK';
             $class_div_pesan_db = 'alert-secondary';
-            $success_messages[] = 'Tidak ada diubah, karena jumlah yang diinput sama seperti jumlah sebelumnya';
+            $success_logs[] = 'Tidak ada diubah, karena jumlah yang diinput sama seperti jumlah sebelumnya';
         }
 
         $data = [
             'go_back_number' => -2,
             'pesan_db' => $pesan_db,
             'class_div_pesan_db' => $class_div_pesan_db,
-            'error_messages' => $error_messages,
-            'success_messages' => $success_messages,
+            'error_logs' => $error_logs,
+            'success_logs' => $success_logs,
         ];
 
         return view('layouts.go-back-page', $data);
@@ -941,7 +941,7 @@ class NotaController extends Controller
         $show_dump = true;
         $run_db = true;
 
-        $success_messages = $error_messages = array();
+        $success_logs = $error_logs = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
@@ -976,23 +976,23 @@ class NotaController extends Controller
             $spk_produk->status_nota = $status_nota;
             $spk_produk->save();
 
-            $success_messages[] = "update spk_produk: jml_sdh_nota=$spk_produk[jml_sdh_nota] dan status_nota=$spk_produk[status_nota]";
+            $success_logs[] = "update spk_produk: jml_sdh_nota=$spk_produk[jml_sdh_nota] dan status_nota=$spk_produk[status_nota]";
             # nota: harga_total
             $harga_total = $nota['harga_total'] - $spk_produk_nota['harga_t'];
             $nota->harga_total = $harga_total;
             $nota->save();
 
-            $success_messages[] = "update nota: harga_total=$harga_total";
+            $success_logs[] = "update nota: harga_total=$harga_total";
 
             # hapus dari relasi antara pelanggan dan produk dan nota yang berkaitan
             $pelanggan_produk = PelangganProduk::where('produk_id', $produk['id'])
             ->where('nota_id', $nota['id'])->orderBy('updated_at', 'desc')->first()->delete();
             // dd($pelanggan_produk);
-            $success_messages[] = "hapus relasi pelanggan_produk";
+            $success_logs[] = "hapus relasi pelanggan_produk";
 
             # hapus spk_produk_nota
             $spk_produk_nota->delete();
-            $success_messages[] = "hapus spk_produk_nota";
+            $success_logs[] = "hapus spk_produk_nota";
 
             $pesan_db = 'SUCCESS';
             $class_div_pesan_db = 'alert-success';
@@ -1000,14 +1000,14 @@ class NotaController extends Controller
 
         # UPDATE status_nota dan jumlah_sudah_nota pada spk
         $obj_spk = new Spk();
-        $success_messages[] = $obj_spk->updateStatusNota_JumlahSudahNota($spk_produk_nota['spk_id']);
+        $success_logs[] = $obj_spk->updateStatusNota_JumlahSudahNota($spk_produk_nota['spk_id']);
 
         $data = [
             'go_back_number' => -2,
             'pesan_db' => $pesan_db,
             'class_div_pesan_db' => $class_div_pesan_db,
-            'error_messages' => $error_messages,
-            'success_messages' => $success_messages,
+            'error_logs' => $error_logs,
+            'success_logs' => $success_logs,
         ];
 
         return view('layouts.go-back-page', $data);
@@ -1080,7 +1080,7 @@ class NotaController extends Controller
         $show_dump = false;
         $run_db = true;
 
-        $success_messages = $error_messages = array();
+        $success_logs = $error_logs = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
@@ -1120,7 +1120,7 @@ class NotaController extends Controller
                     $spk_produk->jml_sdh_nota = $jml_input;
                     $spk_produk->status_nota = $status_nota;
                     $spk_produk->save();
-                    $success_messages[] = 'update spk_produk: jml_sudah_nota dan status_nota';
+                    $success_logs[] = 'update spk_produk: jml_sudah_nota dan status_nota';
                 }
 
                 // update spk: jumlah_sudah_nota dan status_nota
@@ -1138,7 +1138,7 @@ class NotaController extends Controller
                     $spk->jumlah_sudah_nota = $jumlahSudahNotaThisSPK;
                     $spk->status_nota = $statusNotaThisSPK;
                     $spk->save();
-                    $success_messages[] = 'update spk: jumlah_sudah_nota dan status_nota';
+                    $success_logs[] = 'update spk: jumlah_sudah_nota dan status_nota';
                 }
 
                 // UPDATE spk_produk_nota: insert baru kalo belum ada, update apabila sudah ada.
@@ -1158,7 +1158,7 @@ class NotaController extends Controller
                             'harga_t' => $harga_t,
                         ]);
 
-                        $success_messages[] = 'Create spk_produk_nota baru';
+                        $success_logs[] = 'Create spk_produk_nota baru';
                     } else {
                         $spk_produk_nota = SpkProdukNota::find($spk_produk_nota[0]['id']);
                         $spk_produk_nota->jumlah = $jml_input;
@@ -1166,7 +1166,7 @@ class NotaController extends Controller
                         $spk_produk_nota->harga_t = $harga_t;
                         $spk_produk_nota->save();
 
-                        $success_messages[] = 'Update spk_produk_nota: jumlah, harga, harga_t';
+                        $success_logs[] = 'Update spk_produk_nota: jumlah, harga, harga_t';
                     }
                 }
                 // END
@@ -1191,7 +1191,7 @@ class NotaController extends Controller
             $load_num->value += 1;
             $load_num->save();
 
-            $success_messages[] = 'update nota: jumlah_total dan harga_total';
+            $success_logs[] = 'update nota: jumlah_total dan harga_total';
             $pesan_db = 'SUCCESS';
             $class_div_pesan_db = 'alert-success';
         }
@@ -1204,8 +1204,8 @@ class NotaController extends Controller
             'go_back_number' => -3,
             'pesan_db' => $pesan_db,
             'class_div_pesan_db' => $class_div_pesan_db,
-            'error_messages' => $error_messages,
-            'success_messages' => $success_messages,
+            'error_logs' => $error_logs,
+            'success_logs' => $success_logs,
         ];
 
         return view('layouts.go-back-page', $data);

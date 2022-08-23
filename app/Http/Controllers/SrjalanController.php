@@ -163,7 +163,7 @@ class SrjalanController extends Controller
 
         $show_dump = false;
         $run_db = true;
-        $error_messages = $success_messages = array();
+        $error_logs = $success_logs = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
@@ -194,7 +194,7 @@ class SrjalanController extends Controller
             foreach ($jml_avs as $jml_av) {
                 if ($post['jml_input'][$i_jml_avs][$i_jml_av] < 0 || $post['jml_input'][$i_jml_avs][$i_jml_av] > $jml_av) {
                     $ada_kesalahan_input = true;
-                    $error_messages[] = "error_: jml_input ke [$i_jml_avs][$i_jml_av] bernilai kurang dari 0 atau lebih dari seharusnya!";
+                    $error_logs[] = "error_: jml_input ke [$i_jml_avs][$i_jml_av] bernilai kurang dari 0 atau lebih dari seharusnya!";
                 }
                 $i_jml_av++;
             }
@@ -209,7 +209,7 @@ class SrjalanController extends Controller
             $srjalan = Srjalan::create([
                 'created_at' => $post['tgl_pembuatan'],
             ]);
-            $success_messages[] = 'success_: $srjalan baru berhasil di create.';
+            $success_logs[] = 'success_: $srjalan baru berhasil di create.';
         }
 
         $pelanggan = $reseller_id = $ekspedisi_id = null;
@@ -261,7 +261,7 @@ class SrjalanController extends Controller
                         'colly' => $colly,
                     ]);
 
-                    $success_messages[] = "success_: create $spk_produk_nota_srjalan baru [$i_nota_id][$i_spk_produk_id]";
+                    $success_logs[] = "success_: create $spk_produk_nota_srjalan baru [$i_nota_id][$i_spk_produk_id]";
 
                 }
                 /**
@@ -286,7 +286,7 @@ class SrjalanController extends Controller
                     $spk_produk->status_srjalan = $status_srjalan;
                     $spk_produk->save();
 
-                    $success_messages[] = "success_: UPDATE table spk_produk: jumlah_sudah_srjalan dan status_srjalan";
+                    $success_logs[] = "success_: UPDATE table spk_produk: jumlah_sudah_srjalan dan status_srjalan";
                 }
 
                 // UPDATE spk: status_sj, jumlah_sudah_sj
@@ -304,7 +304,7 @@ class SrjalanController extends Controller
                     $spk->jumlah_sudah_sj = $jumlah_sudah_sj;
                     $spk->save();
 
-                    $success_messages[] = 'UPDATE spk: status_sj, jumlah_sudah_sj';
+                    $success_logs[] = 'UPDATE spk: status_sj, jumlah_sudah_sj';
                 }
 
                 // UPDATE nota: status_sj, jumlah_sj
@@ -322,7 +322,7 @@ class SrjalanController extends Controller
                     $nota->jumlah_sj = $jumlah_sj;
                     $nota->save();
 
-                    $success_messages[] = 'UPDATE nota: status_sj, jumlah_sj';
+                    $success_logs[] = 'UPDATE nota: status_sj, jumlah_sj';
                 }
                 // END
 
@@ -347,7 +347,7 @@ class SrjalanController extends Controller
 
             $pesan_db = 'SUCCESS:';
             $class_div_pesan_db = 'alert-success';
-            $success_messages[] = 'success_: UPDATE TABLE srjalan: pelanggan_id, ekspedisi_id, reseller_id, colly.';
+            $success_logs[] = 'success_: UPDATE TABLE srjalan: pelanggan_id, ekspedisi_id, reseller_id, colly.';
 
             $load_num->value += 1;
             $load_num->save();
@@ -355,8 +355,8 @@ class SrjalanController extends Controller
 
         $data = [
             'go_back_number' => -3,
-            'error_messages' => $error_messages,
-            'success_messages' => $success_messages,
+            'error_logs' => $error_logs,
+            'success_logs' => $success_logs,
             'pesan_db' => $pesan_db,
             'class_div_pesan_db' => $class_div_pesan_db,
         ];
@@ -443,7 +443,7 @@ class SrjalanController extends Controller
         $show_dump = false;
         $run_db = true;
 
-        $error_messages = $success_messages = array();
+        $error_logs = $success_logs = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
@@ -481,7 +481,7 @@ class SrjalanController extends Controller
                 $spk->jumlah_sudah_sj = $jumlah_sudah_sj_spk;
                 $spk->save();
 
-                $success_messages[] = 'UPDATE spk: status_sj, jumlah_sudah_sj';
+                $success_logs[] = 'UPDATE spk: status_sj, jumlah_sudah_sj';
             }
             // UPDATE spk_produk: jumlah_sudah_srjalan, status_srjalan.
             $spk_produk = SpkProduk::find($SPKProdukNotaSrjalan['spk_produk_id']);
@@ -499,7 +499,7 @@ class SrjalanController extends Controller
                 $spk_produk->status_srjalan = $statusSrjalanSPKProduk;
                 $spk_produk->save();
 
-                $success_messages[] = 'UPDATE spk_produk: jumlah_sudah_srjalan, status_srjalan';
+                $success_logs[] = 'UPDATE spk_produk: jumlah_sudah_srjalan, status_srjalan';
             }
 
             // UPDATE nota: status_sj, jumlah_sj
@@ -521,7 +521,7 @@ class SrjalanController extends Controller
                 $nota->jumlah_sj = $jumlah_sj;
                 $nota->save();
 
-                $success_messages[] = 'UPDATE nota: status_sj, jumlah_sj';
+                $success_logs[] = 'UPDATE nota: status_sj, jumlah_sj';
             }
             // END
 
@@ -532,7 +532,7 @@ class SrjalanController extends Controller
         if ($run_db === true) {
             $sj->delete();
 
-            $success_messages[] = 'success_: Surat Jalan ini berhasil dihapus!';
+            $success_logs[] = 'success_: Surat Jalan ini berhasil dihapus!';
             $pesan_db = 'SUCCESS:';
             $class_div_pesan_db = 'alert-success';
 
@@ -544,8 +544,8 @@ class SrjalanController extends Controller
             'go_back_number' => -2,
             'pesan_db' => $pesan_db,
             'class_div_pesan_db' => $class_div_pesan_db,
-            'error_messages' => $error_messages,
-            'success_messages' => $success_messages,
+            'error_logs' => $error_logs,
+            'success_logs' => $success_logs,
         ];
 
         if ($show_dump) {

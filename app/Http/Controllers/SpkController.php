@@ -127,7 +127,7 @@ class SpkController extends Controller
 
         $ada_error = true;
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
-        $success_messages = array();
+        $success_logs = array();
         $class_div_pesan_db = 'alert-danger';
 
         if ($show_hidden_dump) {
@@ -156,14 +156,14 @@ class SpkController extends Controller
             $load_num->save();
 
             $pesan_db = "SUCCESS: Item $produk[nama] berhasil di hapus dari daftar item SPK!";
-            array_push($success_messages, "success_message: spk_produk dengan id: $spk_produk[id] berhasil dihapus");
+            array_push($success_logs, "success_message: spk_produk dengan id: $spk_produk[id] berhasil dihapus");
 
             $spk = Spk::find($spk_produk['spk_id']);
             $spk->jumlah_total = $spk['jumlah_total'] - $spk_produk['jumlah'];
             $spk->harga_total = $spk['harga_total'] - ($spk_produk['jumlah'] * $spk_produk['harga']);
             $spk->save();
 
-            array_push($success_messages, "success_message: Jumlah total dan harga total dari spk dengan id: $spk[id] berhasil diubah");
+            array_push($success_logs, "success_message: Jumlah total dan harga total dari spk dengan id: $spk[id] berhasil diubah");
 
             $ada_error = false;
             $class_div_pesan_db = 'alert-warning';
@@ -174,7 +174,7 @@ class SpkController extends Controller
             'pesan_db' => $pesan_db,
             'ada_error' => $ada_error,
             'class_div_pesan_db' => $class_div_pesan_db,
-            'success_messages' => $success_messages,
+            'success_logs' => $success_logs,
         ];
 
         return view('layouts.go-back-page', $data);
@@ -226,7 +226,7 @@ class SpkController extends Controller
         $load_num = SiteSetting::find(1);
         $show_dump = false;
         $run_db = true;
-        $success_messages = $error_messages = array();
+        $success_logs = $error_logs = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
         $ada_error = true;
@@ -273,8 +273,8 @@ class SpkController extends Controller
 
 
         $data = [
-            'success_messages' => $success_messages,
-            'error_messages' => $error_messages,
+            'success_logs' => $success_logs,
+            'error_logs' => $error_logs,
             'pesan_db' => $pesan_db,
             'class_div_pesan_db' => $class_div_pesan_db,
             'ada_error' => $ada_error,
@@ -341,7 +341,7 @@ class SpkController extends Controller
         $load_num = SiteSetting::find(1);
         $show_dump = false;
         $run_db = true;
-        $success_messages = $error_messages = array();
+        $success_logs = $error_logs = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
         $ada_error = true;
@@ -371,8 +371,8 @@ class SpkController extends Controller
 
 
         $data = [
-            'success_messages' => $success_messages,
-            'error_messages' => $error_messages,
+            'success_logs' => $success_logs,
+            'error_logs' => $error_logs,
             'pesan_db' => $pesan_db,
             'class_div_pesan_db' => $class_div_pesan_db,
             'ada_error' => $ada_error,
@@ -440,7 +440,7 @@ class SpkController extends Controller
         $load_num = SiteSetting::find(1);
         $show_dump = false;
         $run_db = true;
-        $success_messages = $error_messages = array();
+        $success_logs = $error_logs = array();
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
@@ -537,7 +537,7 @@ class SpkController extends Controller
                 $status = 'BELUM';
             } else {
                 $run_db = false;
-                array_push($error_messages, 'error_message: Jumlah selesai bisa jadi kurang dari 0 atau melebihi jumlah akhir. Tidak ada yang diproses ke Database.');
+                array_push($error_logs, 'error_message: Jumlah selesai bisa jadi kurang dari 0 atau melebihi jumlah akhir. Tidak ada yang diproses ke Database.');
             }
 
             if ($run_db) {
@@ -571,7 +571,7 @@ class SpkController extends Controller
                         $load_num->value += 1;
                         $load_num->save();
 
-                        array_push($success_messages, 'success_: Ditemukan adanya penambahan jumlah selesai dari item terkait. Relasi dengan table spk_produk_selesais berhasil dibuat.');
+                        array_push($success_logs, 'success_: Ditemukan adanya penambahan jumlah selesai dari item terkait. Relasi dengan table spk_produk_selesais berhasil dibuat.');
                     } else {
                         // Kalau $jml_selesai_new, kurang dari $jml_selesai_old, berarti ini masuk ke kasus pengurangan.
                         $spk_produk_selesai = SpkProdukSelesai::where('spk_produk_id', $spk_produk_ini['id'])->get();
@@ -603,7 +603,7 @@ class SpkController extends Controller
                         $load_num->value += 1;
                         $load_num->save();
 
-                        array_push($success_messages, 'success_: Ditemukan adanya PENGURANGAN jumlah selesai dari item terkait. Relasi dengan table_spk_produk berhasil di update.');
+                        array_push($success_logs, 'success_: Ditemukan adanya PENGURANGAN jumlah selesai dari item terkait. Relasi dengan table_spk_produk berhasil di update.');
                     }
 
                 }
@@ -664,12 +664,12 @@ class SpkController extends Controller
 
             $pesan_db = 'SUCCESS:';
             $class_div_pesan_db = 'alert-success';
-            array_push($success_messages, 'success_: Jumlah Total dan Harga Total SPK berhasil diupdate!');
+            array_push($success_logs, 'success_: Jumlah Total dan Harga Total SPK berhasil diupdate!');
         }
 
         $data = [
-            'success_messages' => $success_messages,
-            'error_messages' => $error_messages,
+            'success_logs' => $success_logs,
+            'error_logs' => $error_logs,
             'pesan_db' => $pesan_db,
             'class_div_pesan_db' => $class_div_pesan_db,
             'go_back_number' => -2,

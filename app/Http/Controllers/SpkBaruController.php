@@ -22,35 +22,29 @@ class SpkBaruController extends Controller
     {
         echo "<img style='position:fixed;width:5rem;top:20%;left:50%;transform:translate(-50%,-50%);' id='loading-progress-icon2' src='/img/icons/loading/gear_loading-violet.gif' alt=''>";
         //**SETTINGAN AWAL PAGE NETRAL TANPA INSERT ATAU UPDATE DB */
-        $load_num = SiteSettings::loadNumToZero();
-
+        SiteSettings::loadNumToZero();
         $show_dump = false;
-        $show_hidden_dump = false;
-        $run_db = true;
-        $load_num_ignore = true;
-        // Pada development mode, load number boleh diignore. Yang perlu diperhatikan adalah
         // insert dan update database supaya tidak berantakan
-        if ($show_hidden_dump) {
-            dump("load_num_value: " . $load_num->value);
-        }
-
-        if ($load_num->value > 0 && !$load_num_ignore) {
-            $run_db = false;
-        }
         // $pelanggan = new Pelanggan();
         // $label_pelanggans = $pelanggan->label_pelanggans();
         // $pelanggan_resellers = PelangganReseller::orderBy('reseller_id')->get();
-        $label_pelanggans = PelangganHelper::label_pelanggan_resellers();
-
-        if ($show_dump) {
-            dump("label_pelanggans");
-            dump($label_pelanggans);
-            // dump('$pelanggan_resellers:', $pelanggan_resellers);
+        // $label_pelanggans = PelangganHelper::label_pelanggan_resellers();
+        $pelanggan_indirects = Pelanggan::where('reseller_id','!=',null)->get(['id','nama','reseller_id'])->toArray();
+        $pelanggan_resellers=array();
+        foreach ($pelanggan_indirects as $pelanggan) {
+            $reseller = Pelanggan::find($pelanggan['reseller_id'])->toArray();
+            $pelanggan_resellers[]=[
+                'label'=>"$reseller[nama] - $pelanggan[nama]",
+                'value'=>"$reseller[nama] - $pelanggan[nama]",
+                'id'=>"$pelanggan[id]",
+                'reseller_id'=>"$reseller[id]",
+            ];
         }
-
-        // $d_nama_pelanggan_2 = $pelanggan->d_nama_pelanggan_2();
-        // dd($d_label_pelanggan);
-        // dd($d_label_pelanggan_2);
+        $pelanggans=Pelanggan::all(['id','nama as label','nama as value','reseller_id'])->toArray();
+        $label_pelanggans = array_merge($pelanggans,$pelanggan_resellers);
+        // dump($pelanggan_indirects);
+        // dump($pelanggan_resellers);
+        // dd($label_pelanggans);
 
         $data = [
             'label_pelanggans' => $label_pelanggans,
@@ -81,7 +75,6 @@ class SpkBaruController extends Controller
         // #
         // Karena akan sering bolak balik halaman ini, maka request methodnya ditetapkan menjadi GET
         $pelanggan = Pelanggan::find($get['pelanggan_id']);
-        $daerah = Daerah::find($pelanggan['daerah_id']);
         $reseller = null;
         $reseller_id = null;
         if ($get['reseller_id'] !== null) {
@@ -109,7 +102,6 @@ class SpkBaruController extends Controller
 
         $data = [
             'pelanggan' => $pelanggan,
-            'daerah' => $daerah,
             'reseller' => $reseller,
             'reseller_id' => $reseller_id,
             'judul' => $judul,
@@ -212,8 +204,8 @@ class SpkBaruController extends Controller
 
         $ada_error = true;
         $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
-        $success_messages = array();
-        $error_messages = array();
+        $success_logs = array();
+        $error_logs = array();
         $class_div_pesan_db = 'alert-danger';
 
         if ($show_hidden_dump) {
@@ -288,7 +280,7 @@ class SpkBaruController extends Controller
             }
 
             if ($i >= count($spk_item)) {
-                array_push($success_messages, 'success_detail: Inserting all item in spk_produk_id.');
+                array_push($success_logs, 'success_detail: Inserting all item in spk_produk_id.');
             }
         }
 
@@ -298,12 +290,12 @@ class SpkBaruController extends Controller
             $spk->jumlah_total = $jumlah_total;
             $spk->save();
 
-            $success_messages[] = 'Harga Total dan Jumlah Total SPK diupdate!';
+            $success_logs[] = 'Harga Total dan Jumlah Total SPK diupdate!';
         }
 
         if ($run_db) {
             DB::table('temp_spk_produks')->truncate();
-            array_push($success_messages, 'success_detail: Truncating all item in temp_spk_produks.');
+            array_push($success_logs, 'success_detail: Truncating all item in temp_spk_produks.');
 
             $pesan_db = "SUCCESS: SPK baru telah dibuat. Semua item telah diinput ke SPK tersebut dan temp_spk_produks telah di truncate";
             $class_div_pesan_db = 'alert-success';
@@ -314,8 +306,8 @@ class SpkBaruController extends Controller
             'spks' => $post,
             'go_back_number' => -3,
             'pesan_db' => $pesan_db,
-            'success_messages' => $success_messages,
-            'error_messages' => $error_messages,
+            'success_logs' => $success_logs,
+            'error_logs' => $error_logs,
             'ada_error' => $ada_error,
             'class_div_pesan_db' => $class_div_pesan_db,
         ];
