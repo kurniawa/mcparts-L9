@@ -1,4 +1,4 @@
-@extends('layouts/main_layout')
+@extends('layouts.main_layout')
 
 @section('content')
 
@@ -52,14 +52,10 @@
 
 
     <div style="height: 30vh"></div>
-
+    <div class="text-center">
+        <button type="submit" class="btn btn-warning fw-bold">TAMBAH ITEM KE SPK</button>
     </div>
-    <div class="position-fixed bottom-0_5em w-calc-100-2em">
-        <button type="submit" id="bottomDiv" class="btn-warning-full grid-1-auto">
-            <span id="btn_submit" class="justify-self-center font-weight-bold">TAMBAH ITEM KE SPK</span>
-        </button>
-    </div>
-    <input id="mode" type="hidden" name="mode" value="{{ $mode }}">
+    {{-- <input id="mode" type="hidden" name="mode" value="{{ $mode }}"> --}}
     {{-- Pada mode insert baru, spk_id akan bernilai null, sedangkan pada mode inserting from detail, spk_id akan diketahui --}}
     <input id="spk_id" type="hidden" name="spk_id" value="{{ $spk_id }}">
     <div id="container_input_hidden"></div>

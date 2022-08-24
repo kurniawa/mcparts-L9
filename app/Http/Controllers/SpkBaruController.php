@@ -40,7 +40,7 @@ class SpkBaruController extends Controller
                 'reseller_id'=>"$reseller[id]",
             ];
         }
-        $pelanggans=Pelanggan::all(['id','nama as label','nama as value','reseller_id'])->toArray();
+        $pelanggans=Pelanggan::all(['id','nama as label','nama as value'])->toArray();
         $label_pelanggans = array_merge($pelanggans,$pelanggan_resellers);
         // dump($pelanggan_indirects);
         // dump($pelanggan_resellers);
@@ -57,24 +57,15 @@ class SpkBaruController extends Controller
     public function spk_review(Request $request)
     {
         //**SETTINGAN AWAL PAGE NETRAL TANPA INSERT ATAU UPDATE DB */
-        $load_num = SiteSettings::loadNumToZero();
+        SiteSettings::loadNumToZero();
 
-        $show_dump = false;
-        $show_hidden_dump = false;
-        $run_db = false;
-        $load_num_ignore = true;
-
-        if ($show_hidden_dump) {
-            dump("load_num_value: " . $load_num->value);
-        }
-
-        if ($load_num->value > 0 && !$load_num_ignore) {
-            $run_db = false;
-        }
         $get = $request->query();
+        // dd($get);
         // #
         // Karena akan sering bolak balik halaman ini, maka request methodnya ditetapkan menjadi GET
         $pelanggan = Pelanggan::find($get['pelanggan_id']);
+        $alamat = $pelanggan->alamat->first()->toArray();
+        // dd($alamat);
         $reseller = null;
         $reseller_id = null;
         if ($get['reseller_id'] !== null) {
@@ -93,20 +84,23 @@ class SpkBaruController extends Controller
             $produks[] = $produk;
         }
 
-        if ($show_dump) {
-            dump("get");
-            dump($get);
-            dump("pelanggan");
-            dump($pelanggan);
-        }
+        $temp_spk_produks = TempSpkProduk::all()->toArray();
+        // dump('$temp_spk_produks',$temp_spk_produks);
+
+        // dump("get");
+        // dump($get);
+        // dump("pelanggan");
+        // dump($pelanggan);
 
         $data = [
             'pelanggan' => $pelanggan,
+            'alamat' => $alamat,
             'reseller' => $reseller,
             'reseller_id' => $reseller_id,
             'judul' => $judul,
             'spk_items' => $spk_items,
             'produks' => $produks,
+            'temp_spk_produks' => $temp_spk_produks,
             'tanggal' => $tanggal,
         ];
 

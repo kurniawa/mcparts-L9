@@ -556,13 +556,12 @@ option {
     text-align: center;
 }
 
-.btn-warning {
+/* .btn-warning {
     background-color: #ffb800;
     padding: 1rem;
     border-radius: 5px;
     font-weight: bold;
     text-align: center;
-    /* color: white; */
 }
 .btn-secondary {
     background-color: #e4e4e4;
@@ -577,7 +576,7 @@ option {
     border-radius: 5px;
     font-weight: bold;
     text-align: center;
-}
+} */
 
 .divLogError {
     margin: 1rem;

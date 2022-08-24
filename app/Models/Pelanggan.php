@@ -56,4 +56,9 @@ class Pelanggan extends Model
 
         return $label_pelanggans;
     }
+
+    public function alamat()
+    {
+        return $this->belongsToMany(Alamat::class,'pelanggan_alamats','alamat_id', 'pelanggan_id');
+    }
 }

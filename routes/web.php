@@ -133,13 +133,13 @@ Route::controller(SpkController::class)->group(function ()
 Route::controller(SpkBaruController::class)->group(function ()
 {
     Route::get('/spk/spk-baru', 'index');
-    Route::get('/spk/spk_baru-spk_review', 'spk_review')->middleware('auth');
+    Route::get('/spk/spk_baru-spk_review', 'spk_review')->name('SPK-Review')->middleware('auth');
     Route::post('/spk/spkBaru-spkItem-editDelete', 'spkBaru_spkItem_editDelete')->middleware('auth');
     Route::post('/spk/proceed-spk', 'proceed_spk')->middleware('auth');
 });
 Route::controller(InsertingGeneralController::class)->group(function ()
 {
-    Route::get('/spk/inserting-general', "inserting_general")->middleware('auth');
+    Route::get('/spk/inserting-general', "inserting_general")->name('SPKBaru-AddItem')->middleware('auth');
     Route::post('/spk/inserting-general-db', "inserting_general_db")->middleware('auth');
 });
 

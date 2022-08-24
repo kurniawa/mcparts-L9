@@ -52,10 +52,33 @@
         @csrf
         <input type="hidden" name="spk_id" value=null>
         <input type="hidden" name="mode" value="SPK_BARU">
+        {{-- <button type="submit" name="tipe" value="varia" class="fw-bold position-absolute top-0 left-50 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">SJ<br>Varia</button>
+        <button type="submit" name="tipe" value="kombinasi" class="fw-bold position-absolute top-1em left-35 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">Kombi<br>Motif</button>
+        <button type="submit" name="tipe" value="standar" class="fw-bold position-absolute top-1em left-65 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">SJ<br>Std</button>
+        <button type="submit" name="tipe" value="tankpad" class="fw-bold position-absolute top-5em left-30 transform-translate--50_0 circle-L bg-color-soft-red grid-1-auto justify-items-center">TP</button>
+        <button type="submit" name="tipe" value="busastang" class="fw-bold position-absolute top-5em left-70 transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center">Busa<br>Stang</button>
+        <button type="submit" name="tipe" value="tspjap" class="fw-bold position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:30%">T.SP<br>Jap</button>
+        <button type="submit" name="tipe" value="stiker" class="fw-bold position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:70%">Stiker</button> --}}
+        {{-- <button type="submit" name="tipe" value="motif" class="fw-bold position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:15em;left:35%">Motif</button> --}}
+
+        {{-- <div style="height:100vh"></div>
+        <button type="submit" class="position-absolute top-5em left-50 transform-translate--50_0 circle-medium bg-color-orange-2 grid-1-auto justify-items-center">
+            <span class="color-white font-weight-bold font-size-1_5em">+</span>
+        </button> --}}
+
     </form>
 
 </div>
 
+<!-- EDIT ITEM SPK -->
+{{-- <div id="divBtnShowEditOptItemSPK" class="text-center">
+    <div class="d-inline-block btn-1 bg-color-purple-blue fw-bold color-white" onclick="showEditOptItemSPK();">Edit Item</div>
+</div> --}}
+{{-- <div id="divBtnHideEditOptItemSPK" class="text-center">
+    <div class="d-inline-block btn-1 fw-bold color-white" style="background-color: gray;" onclick="hideEditOptItemSPK();">Finish Editing</div>
+</div> --}}
+<!-- END - EDIT ITEM SPK -->
+{{-- INPUT HIDDEN YANG NANTI NYA DI KIRIM VIA POST --}}
 <div class="container">
     <form action="/spk/proceed-spk" method="POST" id="containerBeginSPK" class="m-0_5em">
     @csrf
@@ -65,16 +88,20 @@
         <input type="hidden" name="judul" value="{{ $judul }}">
         <input type="hidden" name="submit_type" value="proceed_spk">
 
-        @if (count($temp_spk_produks)!==0)
-        <div class="text-center mt-3">
-            <button type="submit" class="btn btn-warning fw-bold">PROSES SPK</button>
+        <div class="text-center">
+            <button type="submit"  class="btn btn-warning fw-bold">PROSES SPK</button>
         </div>
-        @endif
     </form>
 </div>
 
+{{-- <div class="divLogError"></div>
+<div class="divLogWarning"></div>
+<div class="divLogOK"></div>
+<div class="h-4em"></div> --}}
+
 <script>
     $('#divJmlTotal').hide();
+    // getSPKItems();
 
     var spk_items = {!! json_encode($spk_items, JSON_HEX_TAG) !!};
     var produks = {!! json_encode($produks, JSON_HEX_TAG) !!};

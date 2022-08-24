@@ -2,28 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\InsertingProductHelper;
 use App\Helpers\SiteSettings;
-use App\Models\Attsjvariasi;
-use App\Models\Bahan;
-use App\Models\Busastang;
-use App\Models\Jahit;
-use App\Models\Japstyle;
-use App\Models\Kombinasi;
-use App\Models\Motif;
 use App\Models\Produk;
 use App\Models\SiteSetting;
-use App\Models\Spec;
-use App\Models\Spk;
-use App\Models\Standar;
-use App\Models\Stiker;
-use App\Models\Tankpad;
 use App\Models\TempSpkProduk;
-use App\Models\Tsixpack;
-use App\Models\Tspjap;
-use App\Models\Ukuran;
-use App\Models\Varian;
-use App\Models\Variasi;
 use Illuminate\Http\Request;
 
 class InsertingGeneralController extends Controller
@@ -49,12 +31,12 @@ class InsertingGeneralController extends Controller
         $label_produks = $produk->label_produks();
 
 
-        $mode = $get['mode'];
+        // $mode = $get['mode'];
 
 
         $data = [
             'spk_id' => $spk_id,
-            'mode' => $mode,
+            // 'mode' => $mode,
             'produks' => $label_produks,
         ];
 
@@ -69,31 +51,16 @@ class InsertingGeneralController extends Controller
     {
         $load_num = SiteSetting::find(1);
 
-        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = true; // true apabila siap melakukan CRUD ke DB
-        $show_hidden_dump = false;
-        $ada_error = true;
-        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
-        $class_div_pesan_db = 'alert-danger';
-        $error_logs = array();
-        $success_logs = array();
-
-        if ($show_hidden_dump) {
-            dump("load_num_value: " . $load_num->value);
-        }
+        $error_logs=$warning_logs=$success_logs = array();
 
         if ($load_num->value > 0) {
             $run_db = false;
-            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
-            $ada_error = true;
-            $class_div_pesan_db = 'alert-danger';
+            $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
         }
 
         $post = $request->post();
-
-        if ($show_dump) {
-            dump('$post: ', $post);
-        }
+        dump('$post: ', $post);
 
         if ($run_db) {
             $tempspkproduk_new = TempSpkProduk::create([
@@ -107,15 +74,17 @@ class InsertingGeneralController extends Controller
             $pesan_db = "Succeed!";
         }
 
+        $route = '';
+        $route_name='';
         $data = [
             'go_back_number' => -2,
             'pesan_db' => $pesan_db,
-            'ada_error' => $ada_error,
-            'class_div_pesan_db' => $class_div_pesan_db,
             'error_logs' => $error_logs,
+            'warning_logs' => $warning_logs,
             'success_logs' => $success_logs,
+            'route' => $route,
         ];
 
-        return view('layouts.go-back-page', $data);
+        return view('layouts.db-result', $data);
     }
 }
