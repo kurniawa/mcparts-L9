@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('produk_varians', function (Blueprint $table) {
+        Schema::create('produk_variasi_varians', function (Blueprint $table) {
             $table->id();
             $table->foreignId('produk_id');
-            $table->foreignId('varian_id');
+            $table->foreignId('variasi_id');
+            $table->foreignId('varian_id')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produk_varians');
+        Schema::dropIfExists('produk_variasi_varians');
     }
 };

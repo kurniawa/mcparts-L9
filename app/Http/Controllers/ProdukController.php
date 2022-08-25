@@ -24,6 +24,7 @@ use App\Models\ProdukStiker;
 use App\Models\ProdukTankpad;
 use App\Models\ProdukVarian;
 use App\Models\ProdukVariasi;
+use App\Models\ProdukVariasiVarian;
 use App\Models\Rol;
 use App\Models\Rotan;
 use App\Models\SiteSetting;
@@ -255,23 +256,17 @@ class ProdukController extends Controller
             }
             if ($input['variasi_1']) {
                 $variasi_1 = Variasi::where('nama',$input['variasi_1'])->first()->toArray();
-                $produk_variasi_1 = ['produk_id'=>$new_produk['id'],'variasi_id'=>$variasi_1['id']];
-                $newProdukVariasi1 = ProdukVariasi::create($produk_variasi_1);
-            }
-            if ($input['varian_1']) {
-                $varian_1 = Varian::where('nama',$input['varian_1'])->first()->toArray();
-                $produk_varian_1 = ['produk_id'=>$new_produk['id'],'varian_id'=>$varian_1['id']];
-                $newProdukVarian1 = ProdukVarian::create($produk_varian_1);
+                $varian_1_id=null;
+                if ($input['varian_1']) {$varian_1 = Varian::where('nama',$input['varian_1'])->first()->toArray();$varian_1_id=$varian_1['id'];}
+                $produk_variasi_varian_1 = ['produk_id'=>$new_produk['id'],'variasi_id'=>$variasi_1['id'],'varian_id'=>$varian_1_id];
+                $newProdukVariasi1 = ProdukVariasiVarian::create($produk_variasi_varian_1);
             }
             if ($input['variasi_2']) {
                 $variasi_2 = Variasi::where('nama',$input['variasi_2'])->first()->toArray();
-                $produk_variasi_2 = ['produk_id'=>$new_produk['id'],'variasi_id'=>$variasi_2['id']];
-                $newProdukVariasi2 = ProdukVariasi::create($produk_variasi_2);
-            }
-            if ($input['varian_1']) {
-                $varian_2 = Varian::where('nama',$input['varian_1'])->first()->toArray();
-                $produk_varian_2 = ['produk_id'=>$new_produk['id'],'varian_id'=>$varian_2['id']];
-                $newProdukVariasi1 = ProdukVarian::create($produk_varian_2);
+                $varian_2_id=null;
+                if ($input['varian_2']) {$varian_2 = Varian::where('nama',$input['varian_2'])->first()->toArray();$varian_2_id=$varian_2['id'];}
+                $produk_variasi_varian_2 = ['produk_id'=>$new_produk['id'],'variasi_id'=>$variasi_2['id'],'varian_id'=>$varian_2_id];
+                $newProdukVariasi1 = ProdukVariasiVarian::create($produk_variasi_varian_2);
             }
             /**SPEC */
             if ($input['grade_bahan']) {
@@ -325,6 +320,61 @@ class ProdukController extends Controller
         ];
 
         return view('layouts.db-result', $data);
+    }
+
+    public function getSpesifikasiProduk(Request $request)
+    {
+        $produk_id = $request->query('produk_id');
+        $bahan = Produk::find($produk_id)->bahan->toArray();if (count($bahan)===0) {$bahan=null;}else{$bahan=$bahan[0];}
+        $kombinasi = Produk::find($produk_id)->kombinasi->toArray();if (count($kombinasi)===0) {$kombinasi=null;}else{$kombinasi=$kombinasi[0];}
+        $tsixpack = Produk::find($produk_id)->tsixpack->toArray();if (count($tsixpack)===0) {$tsixpack=null;}else{$tsixpack=$tsixpack[0];}
+        $japstyle = Produk::find($produk_id)->japstyle->toArray();if (count($japstyle)===0) {$japstyle=null;}else{$japstyle=$japstyle[0];}
+        $motif = Produk::find($produk_id)->motif->toArray();if (count($motif)===0) {$motif=null;}else{$motif=$motif[0];}
+        $standar = Produk::find($produk_id)->standar->toArray();if (count($standar)===0) {$standar=null;}else{$standar=$standar[0];}
+        $tankpad = Produk::find($produk_id)->tankpad->toArray();if (count($tankpad)===0) {$tankpad=null;}else{$tankpad=$tankpad[0];}
+        $stiker = Produk::find($produk_id)->stiker->toArray();if (count($stiker)===0) {$stiker=null;}else{$stiker=$stiker[0];}
+        $busastang = Produk::find($produk_id)->busastang->toArray();if (count($busastang)===0) {$busastang=null;}else{$busastang=$busastang[0];}
+        $rol = Produk::find($produk_id)->rol->toArray();if (count($rol)===0) {$rol=null;}else{$rol=$rol[0];}
+        $rotan = Produk::find($produk_id)->rotan->toArray();if (count($rotan)===0) {$rotan=null;}else{$rotan=$rotan[0];}
+        $specs = Produk::find($produk_id)->specs->toArray();if (count($specs)===0) {$specs=null;}
+        $variasis = $varians = array();
+        $variasi_varians = ProdukVariasiVarian::where('produk_id', $produk_id)->get()->toArray();
+        $i=0;
+        if (count($variasi_varians) !== 0) {
+            foreach ($variasi_varians as $variasi_varian) {
+                $variasi = Variasi::find($variasi_varian['variasi_id'])->toArray();
+                $varian = null;
+                if ($variasi_varian['varian_id']!==null) {
+                    $varian = Varian::find($variasi_varian['varian_id'])->toArray();
+                }
+                $variasis[]=$variasi;
+                $varians[]=$varian;
+                $i++;
+            }
+        } else {
+            $variasis = $varians = null;
+        }
+
+        $data =[
+            'bahan'=>$bahan,
+            'kombinasi'=>$kombinasi,
+            'tsixpack'=>$tsixpack,
+            'japstyle'=>$japstyle,
+            'motif'=>$motif,
+            'standar'=>$standar,
+            'tankpad'=>$tankpad,
+            'stiker'=>$stiker,
+            'busastang'=>$busastang,
+            'rol'=>$rol,
+            'rotan'=>$rotan,
+            'specs'=>$specs,
+            'variasis'=>$variasis,
+            'varians'=>$varians,
+        ];
+
+        // dd($data);
+
+        return $data;
     }
 
     /**

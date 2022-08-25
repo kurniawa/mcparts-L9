@@ -10,10 +10,5 @@ use Illuminate\Http\Request;
 
 class StikerController extends Controller
 {
-    public function stikerFromProdukID(Request $request)
-    {
-        $get = $request->query();
-        $stiker = Produk::find($get['produk_id'])->stiker;
-        return $stiker;
-    }
+
 }

@@ -34,10 +34,15 @@
             <tr id="tr-japstyle" class="item-spec"><td>Japstyle</td><td>:</td><td id="nama-japstyle"></td></tr>
             <tr id="tr-motif" class="item-spec"><td>Motif</td><td>:</td><td id="nama-motif"></td></tr>
             <tr id="tr-standar" class="item-spec"><td>Standar</td><td>:</td><td id="nama-standar"></td></tr>
-            <tr id="tr-variasi-1" class="item-spec"><td>Variasi</td><td>:</td><td id="nama-variasi-1"></td></tr>
+            <tr id="tr-variasi-1" class="item-spec"><td>Variasi-1</td><td>:</td><td id="nama-variasi-1"></td></tr>
+            <tr id="tr-varian-1" class="item-spec"><td>Varian-1</td><td>:</td><td id="nama-varian-1"></td></tr>
             <tr id="tr-variasi-2" class="item-spec"><td>Variasi-2</td><td>:</td><td id="nama-variasi-2"></td></tr>
+            <tr id="tr-varian-2" class="item-spec"><td>Varian-2</td><td>:</td><td id="nama-varian-2"></td></tr>
             <tr id="tr-ukuran" class="item-spec"><td>Ukuran</td><td>:</td><td id="nama-ukuran"></td></tr>
             <tr id="tr-busa" class="item-spec"><td>Busa</td><td>:</td><td id="nama-busa"></td></tr>
+            <tr id="tr-alas" class="item-spec"><td>Alas</td><td>:</td><td id="nama-alas"></td></tr>
+            <tr id="tr-sayap" class="item-spec"><td>Sayap</td><td>:</td><td id="nama-sayap"></td></tr>
+            <tr id="tr-list" class="item-spec"><td>List</td><td>:</td><td id="nama-list"></td></tr>
             <tr id="tr-jahit" class="item-spec"><td>Jahit</td><td>:</td><td id="nama-jahit"></td></tr>
             <tr id="tr-tankpad" class="item-spec"><td>Tankpad</td><td>:</td><td id="nama-tankpad"></td></tr>
             <tr id="tr-stiker" class="item-spec"><td>Stiker</td><td>:</td><td id="nama-stiker"></td></tr>
@@ -53,7 +58,7 @@
 
     <div style="height: 30vh"></div>
     <div class="text-center">
-        <button type="submit" class="btn btn-warning fw-bold">TAMBAH ITEM KE SPK</button>
+        <button type="submit" class="btn btn-warning fw-bold">Tambah Item ke SPK</button>
     </div>
     {{-- <input id="mode" type="hidden" name="mode" value="{{ $mode }}"> --}}
     {{-- Pada mode insert baru, spk_id akan bernilai null, sedangkan pada mode inserting from detail, spk_id akan diketahui --}}
@@ -64,9 +69,7 @@
 <script>
     const produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
 
-    if (show_console) {
-        console.log('produks');console.log(produks);
-    }
+    // console.log('produks');console.log(produks);
     // console.log('attsjvariasis');console.log(attsjvariasis);
     // console.log('variasi_hargas');console.log(variasi_hargas);
 
@@ -91,105 +94,83 @@
         }
     });
 
+
     function showItemSpecs(chosen_item) {
 
-        if (chosen_item.tipe === 'SJ-Variasi') {
-            $.ajax({
-                type: 'GET',
-                url: `/bahan-from-produk-id?produk_id=${chosen_item.id}`,
-                success: function (data) {
-                    // console.log('data:', data);
-                    document.getElementById("nama-bahan").textContent = data[0].nama;
+        console.log(chosen_item);
+        $.ajax({
+            type:'GET',
+            url:`/get-spesifikasi_produk?produk_id=${chosen_item.id}`,
+            // url:`{{ route('getSpesifikasiProduk',['produk_id'=>1]) }}`,
+            success:function (result) {
+                console.log(result);
+                if (result['bahan']!==null) {
+                    document.getElementById("nama-bahan").textContent = result.bahan.nama;
                     document.getElementById("tr-bahan").style.display = 'table-row';
                 }
-            });
-
-        } else if (chosen_item.tipe === 'SJ-Kombinasi') {
-            $.ajax({
-                type: 'GET',
-                url: `/kombinasi-from-produk-id?produk_id=${chosen_item.id}`,
-                success: function (data) {
-                    document.getElementById("nama-kombinasi").textContent = data[0].nama;
+                if (result['kombinasi']!==null) {
+                    document.getElementById("nama-kombinasi").textContent = result.kombinasi.nama;
                     document.getElementById("tr-kombinasi").style.display = 'table-row';
                 }
-            });
-
-        } else if (chosen_item.tipe === 'SJ-T.Sixpack') {
-            $.ajax({
-                type: 'GET',
-                url: `/tsixpack-from-produk-id?produk_id=${chosen_item.id}`,
-                success: function (data) {
-                    document.getElementById("nama-tsixpack").textContent = data[0].nama;
+                if (result['tsixpack']!==null) {
+                    document.getElementById("nama-tsixpack").textContent = result.tsixpack.nama;
                     document.getElementById("tr-tsixpack").style.display = 'table-row';
                 }
-            });
-
-        } else if (chosen_item.tipe === 'SJ-Japstyle') {
-            $.ajax({
-                type: 'GET',
-                url: `/japstyle-from-produk-id?produk_id=${chosen_item.id}`,
-                success: function (data) {
-                    document.getElementById("nama-japstyle").textContent = data[0].nama;
+                if (result['japstyle']!==null) {
+                    document.getElementById("nama-japstyle").textContent = result.japstyle.nama;
                     document.getElementById("tr-japstyle").style.display = 'table-row';
                 }
-            });
-
-        } else if (chosen_item.tipe === 'SJ-Motif') {
-            $.ajax({
-                type: 'GET',
-                url: `/motif-from-produk-id?produk_id=${chosen_item.id}`,
-                success: function (data) {
-                    document.getElementById("nama-motif").textContent = data[0].nama;
+                if (result['motif']!==null) {
+                    document.getElementById("nama-motif").textContent = result.motif.nama;
                     document.getElementById("tr-motif").style.display = 'table-row';
                 }
-            });
-        } else if (chosen_item.tipe === 'SJ-Standar') {
-            $.ajax({
-                type: 'GET',
-                url: `/standar-from-produk-id?produk_id=${chosen_item.id}`,
-                success: function (data) {
-                    document.getElementById("nama-standar").textContent = data[0].nama;
+                if (result['standar']!==null) {
+                    document.getElementById("nama-standar").textContent = result.standar.nama;
                     document.getElementById("tr-standar").style.display = 'table-row';
                 }
-            });
-        } else if (chosen_item.tipe === 'Tankpad') {
-            $.ajax({
-                type: 'GET',
-                url: `/tankpad-from-produk-id?produk_id=${chosen_item.id}`,
-                success: function (data) {
-                    document.getElementById("nama-tankpad").textContent = data[0].nama;
+                if (result['tankpad']!==null) {
+                    document.getElementById("nama-tankpad").textContent = result.tankpad.nama;
                     document.getElementById("tr-tankpad").style.display = 'table-row';
                 }
-            });
-        } else if (chosen_item.tipe === 'Stiker') {
-            $.ajax({
-                type: 'GET',
-                url: `/stiker-from-produk-id?produk_id=${chosen_item.id}`,
-                success: function (data) {
-                    document.getElementById("nama-stiker").textContent = data[0].nama;
+                if (result['stiker']!==null) {
+                    document.getElementById("nama-stiker").textContent = result.stiker.nama;
                     document.getElementById("tr-stiker").style.display = 'table-row';
                 }
-            });
-        } else if (chosen_item.tipe === 'Busa Stang') {
-            $.ajax({
-                type: 'GET',
-                url: `/busastang-from-produk-id?produk_id=${chosen_item.id}`,
-                success: function (data) {
-                    document.getElementById("nama-busastang").textContent = data[0].nama;
+                if (result['busastang']!==null) {
+                    document.getElementById("nama-busastang").textContent = result.busastang.nama;
                     document.getElementById("tr-busastang").style.display = 'table-row';
                 }
-            });
-        }
-
-        if (chosen_item.tipe === 'SJ-Variasi' || chosen_item.tipe === 'SJ-Kombinasi' || chosen_item.tipe === 'SJ-T.Sixpack' || chosen_item.tipe === 'SJ-Motif') {
-            $.ajax({
-                type: 'GET',
-                url: `/specs-from-produk-id?produk_id=${chosen_item.id}`,
-                success: function (data) {
-                    showJahitUkuranBusaTipeBahan(data);
+                if (result['rol']!==null) {
+                    document.getElementById("nama-rol").textContent = result.rol.nama;
+                    document.getElementById("tr-rol").style.display = 'table-row';
                 }
-            });
-        }
+                if (result['rotan']!==null) {
+                    document.getElementById("nama-rotan").textContent = result.rotan.nama;
+                    document.getElementById("tr-rotan").style.display = 'table-row';
+                }
+                if (result['specs']!==null) {
+                    result['specs'].forEach(spec => {
+                        document.getElementById(`nama-${spec.kategori}`).textContent = spec.nama;
+                        document.getElementById(`tr-${spec.kategori}`).style.display = 'table-row';
+                    });
+                }
+                if (result['variasis']!==null) {
+                    for (let i = 0; i < result['variasis'].length; i++) {
+                        document.getElementById(`nama-variasi-${i+1}`).textContent = result.variasis[i].nama;
+                        document.getElementById(`tr-variasi-${i+1}`).style.display = 'table-row';
+                    }
+                }
+                if (result.varians!==null) {
+                    for (let i = 0; i < result.varians.length; i++) {
+                        if (result.varians[i] !== null) {
+                            document.getElementById(`nama-varian-${i+1}`).textContent = result.varians[i].nama;
+                            document.getElementById(`tr-varian-${i+1}`).style.display = 'table-row';
+                        }
+                    }
+                }
+
+            },
+        });
 
     }
 

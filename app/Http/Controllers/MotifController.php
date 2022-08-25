@@ -11,10 +11,5 @@ use Illuminate\Http\Request;
 
 class MotifController extends Controller
 {
-    public function motifFromProdukID(Request $request)
-    {
-        $get = $request->query();
-        $motif = Produk::find($get['produk_id'])->motif;
-        return $motif;
-    }
+
 }

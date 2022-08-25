@@ -73,6 +73,10 @@ class Produk extends Model
     public function tankpad() { return $this->belongsToMany(Tankpad::class, 'produk_tankpads'); }
     public function stiker() { return $this->belongsToMany(Stiker::class, 'produk_stikers'); }
     public function busastang() { return $this->belongsToMany(Busastang::class, 'produk_busastangs'); }
+    public function rol() { return $this->belongsToMany(Rol::class, 'produk_rols'); }
+    public function rotan() { return $this->belongsToMany(Rotan::class, 'produk_rotans'); }
+    public function variasis() { return $this->belongsToMany(Variasi::class, 'produk_variasis'); }
+    public function varians() { return $this->belongsToMany(Varian::class, 'produk_varians'); }
 
     /**
      * Halaman Produk

@@ -10,10 +10,5 @@ use Illuminate\Http\Request;
 
 class TankpadController extends Controller
 {
-    public function tankpadFromProdukID(Request $request)
-    {
-        $get = $request->query();
-        $tankpad = Produk::find($get['produk_id'])->tankpad;
-        return $tankpad;
-    }
+
 }

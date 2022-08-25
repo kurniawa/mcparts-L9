@@ -1,16 +1,11 @@
 <?php
 
-use App\Http\Controllers\BahanController;
-use App\Http\Controllers\BusastangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EkspedisiBaru;
 use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\EkspedisiEdit;
 use App\Http\Controllers\InsertingGeneralController;
-use App\Http\Controllers\JapstyleController;
-use App\Http\Controllers\KombinasiController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\MotifController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\PelangganBaruController;
 use App\Http\Controllers\PelangganController;
@@ -19,15 +14,10 @@ use App\Http\Controllers\PelangganEkspedisiController;
 use App\Http\Controllers\PelangganResellerController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\SpecController;
 use App\Http\Controllers\SpkBaruController;
 use App\Http\Controllers\SpkController;
 use App\Http\Controllers\SrjalanController;
-use App\Http\Controllers\StandarController;
-use App\Http\Controllers\StikerController;
-use App\Http\Controllers\TankpadController;
 use App\Http\Controllers\TestController;
-use App\Http\Controllers\TsixpackController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -133,6 +123,7 @@ Route::controller(SpkController::class)->group(function ()
 Route::controller(SpkBaruController::class)->group(function ()
 {
     Route::get('/spk/spk-baru', 'index');
+    Route::post('/spk/spk-baru-db', 'SPKBaruDB')->name('SPKBaruDB')->middleware('auth');
     Route::get('/spk/spk_baru-spk_review', 'spk_review')->name('SPK-Review')->middleware('auth');
     Route::post('/spk/spkBaru-spkItem-editDelete', 'spkBaru_spkItem_editDelete')->middleware('auth');
     Route::post('/spk/proceed-spk', 'proceed_spk')->middleware('auth');
@@ -198,13 +189,4 @@ Route::controller(ProdukController::class)->group(function ()
 /**
  * AJAX CONTROLLER
  */
-Route::get('/bahan-from-produk-id', [BahanController::class, "bahanFromProdukID"]);
-Route::get('/specs-from-produk-id', [SpecController::class, 'specsFromProdukID']);
-Route::get('/kombinasi-from-produk-id', [KombinasiController::class, 'kombinasiFromProdukID']);
-Route::get('/tsixpack-from-produk-id', [TsixpackController::class, 'tsixpackFromProdukID']);
-Route::get('/japstyle-from-produk-id', [JapstyleController::class, 'japstyleFromProdukID']);
-Route::get('/motif-from-produk-id', [MotifController::class, 'motifFromProdukID']);
-Route::get('/standar-from-produk-id', [StandarController::class, 'standarFromProdukID']);
-Route::get('/tankpad-from-produk-id', [TankpadController::class, 'tankpadFromProdukID']);
-Route::get('/stiker-from-produk-id', [StikerController::class, 'stikerFromProdukID']);
-Route::get('/busastang-from-produk-id', [BusastangController::class, 'busastangFromProdukID']);
+Route::get('/get-spesifikasi_produk', [ProdukController::class, 'getSpesifikasiProduk'])->name('getSpesifikasiProduk')->middleware('auth');

@@ -10,8 +10,9 @@
         </a> -->
     </div>
 </header>
-<form action="{{ route('SPK-Review') }}" method="GET" id="SPKBaru">
+<form action="{{ route('SPKBaruDB') }}" method="POST" id="SPKBaru">
     {{-- diputuskan untuk memakai get, supaya tidak pusing ketika berpindah-pindah halaman --}}
+    {{-- diputuskan untuk memakai post, caranya adalah langsung input ke database temp_spks --}}
     @csrf
 
     <div class="mt-1rem ml-1rem grid-2-10_auto">

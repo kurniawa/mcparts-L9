@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ProdukVariasiController extends Controller
+class ProdukVariasiVarianController extends Controller
 {
     //
 }

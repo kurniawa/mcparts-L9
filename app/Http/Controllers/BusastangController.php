@@ -10,10 +10,5 @@ use Illuminate\Http\Request;
 
 class BusastangController extends Controller
 {
-    public function busastangFromProdukID(Request $request)
-    {
-        $get = $request->query();
-        $busastang = Produk::find($get['produk_id'])->busastang;
-        return $busastang;
-    }
+
 }

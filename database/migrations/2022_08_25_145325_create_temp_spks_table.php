@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('produk_variasis', function (Blueprint $table) {
+        Schema::create('temp_spks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('produk_id');
-            $table->foreignId('variasi_id');
+            $table->foreignId('pelanggan_id');
+            $table->bigInteger('reseller_id')->nullable();
+            $table->foreignId('user_id');
+            $table->string('judul')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produk_variasis');
+        Schema::dropIfExists('temp_spks');
     }
 };

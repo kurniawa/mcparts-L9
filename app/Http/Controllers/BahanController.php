@@ -10,10 +10,5 @@ use Illuminate\Http\Request;
 
 class BahanController extends Controller
 {
-    public function bahanFromProdukID(Request $request)
-    {
-        $get = $request->query();
-        $bahan = Produk::find($get['produk_id'])->bahan;
-        return $bahan;
-    }
+
 }

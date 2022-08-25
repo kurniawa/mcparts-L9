@@ -19,7 +19,7 @@
         <div class="divSPKNumber fw-bold">(Auto Generated)</div>
         <div>Tanggal</div>
         <div>:</div>
-        <div class="divSPKDate fw-bold">{{ $tanggal }}</div>
+        <div class="divSPKDate fw-bold">{{ date('d-m-Y',strtotime($created_at)) }}</div>
         <div>Untuk</div>
         <div>:</div>
         <div class="divSPKCustomer fw-bold">
@@ -58,16 +58,10 @@
 
 <div class="container">
     <form action="/spk/proceed-spk" method="POST" id="containerBeginSPK" class="m-0_5em">
-    @csrf
-        <input id="inputIDCustomer" type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
-        <input type="hidden" name="reseller_id" value="{{ $reseller_id }}">
-        <input type="hidden" name="tgl_pembuatan" value="{{ $tanggal }}">
-        <input type="hidden" name="judul" value="{{ $judul }}">
-        <input type="hidden" name="submit_type" value="proceed_spk">
-
+        @csrf
         @if (count($temp_spk_produks)!==0)
         <div class="text-center mt-3">
-            <button type="submit" class="btn btn-warning fw-bold">PROSES SPK</button>
+            <button type="submit" class="btn btn-warning fw-bold">Proses SPK</button>
         </div>
         @endif
     </form>
@@ -76,22 +70,18 @@
 <script>
     $('#divJmlTotal').hide();
 
-    var spk_items = {!! json_encode($spk_items, JSON_HEX_TAG) !!};
     var produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
-
-    if (show_console === true) {
-        console.log('spk_items');
-        console.log(spk_items);
-    }
+    var temp_spk_produks = {!! json_encode($temp_spk_produks, JSON_HEX_TAG) !!};
+    console.log(produks);
 
     var htmlItemList = '';
     var totalHarga = 0;
     var jumlahTotalItem = 0;
-    for (var i = 0; i < spk_items.length; i++) {
+    for (var i = 0; i < produks.length; i++) {
         var keterangan = "";
 
-        if (spk_items[i].ktrg !== null) {
-            keterangan = spk_items[i].ktrg.replace(new RegExp('\r?\n', 'g'), '<br />');
+        if (produks[i].keterangan !== null) {
+            keterangan = produks[i].keterangan.replace(new RegExp('\r?\n', 'g'), '<br />');
         }
         htmlItemList = htmlItemList +
             `<form method='POST' action='/spk/spkBaru-spkItem-editDelete' class='divItem grid-3-auto_auto_10 pt-0_5em pb-0_5em bb-1px-solid-grey'>
@@ -103,7 +93,7 @@
                 </div>
                 <div class='grid-1-auto'>
                     <div class='color-green justify-self-right font-size-1_2em fw-bold'>
-                        ${spk_items[i].jumlah}
+                        ${temp_spk_produks[i].jumlah}
                     </div>
                     <div class='color-grey justify-self-right'>Jumlah</div>
                 </div>
@@ -114,10 +104,10 @@
             </form>`;
 
         // kita jumlah harga semua item untuk satu SPK
-        totalHarga = totalHarga + parseFloat(spk_items[i].harga_item);
-        jumlahTotalItem = jumlahTotalItem + parseFloat(spk_items[i].jumlah);
+        // totalHarga = totalHarga + parseFloat(produks[i].harga_item);
+        jumlahTotalItem = jumlahTotalItem + parseFloat(temp_spk_produks[i].jumlah);
     }
-    $('#inputHargaTotalSPK').val(totalHarga);
+    // $('#inputHargaTotalSPK').val(totalHarga);
     if (jumlahTotalItem !== 0) {
         $('#divJmlTotal2').html(jumlahTotalItem);
         $('#divJmlTotal').show();

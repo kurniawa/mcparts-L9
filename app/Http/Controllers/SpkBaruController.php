@@ -12,6 +12,7 @@ use App\Models\ProdukHarga;
 use App\Models\SiteSetting;
 use App\Models\Spk;
 use App\Models\SpkProduk;
+use App\Models\TempSpk;
 use App\Models\TempSpkProduk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -54,41 +55,83 @@ class SpkBaruController extends Controller
         return view('spk.spk-baru', $data);
     }
 
+    public function SPKBaruDB(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+
+        $run_db = true; // true apabila siap melakukan CRUD ke DB
+        $error_logs=$warning_logs=$success_logs = array();
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+        }
+
+        $post = $request->post();
+        // dd('$post: ', $post);
+        $user=auth()->user();
+
+        $temp_spk = [
+            'pelanggan_id'=>$post['pelanggan_id'],
+            'reseller_id'=>$post['reseller_id'],
+            'judul'=>$post['judul'],
+            'user_id'=>$user['id'],
+            'created_at'=>date('d-m-Y H:i:s', strtotime($post['tanggal'])),
+        ];
+        if ($run_db) {
+            $insert_temp_spk = TempSpk::create($temp_spk);
+        }
+
+        $route = 'SPK-Review';
+        $route_btn='Ke Review SPK';
+        $data = [
+            'error_logs' => $error_logs,
+            'warning_logs' => $warning_logs,
+            'success_logs' => $success_logs,
+            'route' => $route,
+            'route_btn' => $route_btn,
+        ];
+
+        return view('layouts.db-result', $data);
+    }
+
     public function spk_review(Request $request)
     {
         //**SETTINGAN AWAL PAGE NETRAL TANPA INSERT ATAU UPDATE DB */
         SiteSettings::loadNumToZero();
-
-        $get = $request->query();
-        // dd($get);
-        // #
-        // Karena akan sering bolak balik halaman ini, maka request methodnya ditetapkan menjadi GET
-        $pelanggan = Pelanggan::find($get['pelanggan_id']);
+        $user=auth()->user();
+        $temp_spk = TempSpk::where('user_id',$user['id'])->first()->toArray();
+        $pelanggan = Pelanggan::find($temp_spk['pelanggan_id']);
         $alamat = $pelanggan->alamat->first()->toArray();
-        // dd($alamat);
+        $judul = $temp_spk['judul'];
+        $created_at=$temp_spk['created_at'];
         $reseller = null;
         $reseller_id = null;
-        if ($get['reseller_id'] !== null) {
-            $reseller = Pelanggan::find($get['reseller_id']);
+        if ($temp_spk['reseller_id'] !== null) {
+            $reseller = Pelanggan::find($temp_spk['reseller_id']);
             $reseller_id = $reseller['id'];
         }
-        $judul = $get['judul'];
-        $tanggal = date('d-m-Y', strtotime($get['tanggal']));
-        $spk_items = DB::table('temp_spk_produks')->get()->toArray();
-
+        // $spk_items = DB::table('temp_spk_produks')->post()->toArray();
         // dd($spk_items);
         $produks = array();
         // dd($spk_items[0]->produk_id);
-        for ($i=0; $i < count($spk_items); $i++) {
-            $produk = Produk::find($spk_items[$i]->produk_id)->toArray();
-            $produks[] = $produk;
-        }
+        // for ($i=0; $i < count($spk_items); $i++) {
+        //     $produk = Produk::find($spk_items[$i]->produk_id)->toArray();
+        //     $produks[] = $produk;
+        // }
 
         $temp_spk_produks = TempSpkProduk::all()->toArray();
+        foreach ($temp_spk_produks as $spk_produk) {
+            $produk = Produk::find($spk_produk['produk_id'])->toArray();
+            if (count($produk)!==0) {
+                $produks[]=$produk;
+            }
+        }
+        // dd($produks);
         // dump('$temp_spk_produks',$temp_spk_produks);
 
-        // dump("get");
-        // dump($get);
+        // dump("post");
+        // dump($post);
         // dump("pelanggan");
         // dump($pelanggan);
 
@@ -98,10 +141,9 @@ class SpkBaruController extends Controller
             'reseller' => $reseller,
             'reseller_id' => $reseller_id,
             'judul' => $judul,
-            'spk_items' => $spk_items,
             'produks' => $produks,
             'temp_spk_produks' => $temp_spk_produks,
-            'tanggal' => $tanggal,
+            'created_at' => $created_at,
         ];
 
         return view('spk.spk_baru-spk_review', $data);

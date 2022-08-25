@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('produk_id');
             $table->smallInteger('jumlah');
+            $table->foreignId('temp_spk_id');
             $table->string('ktrg')->nullable();
         });
     }

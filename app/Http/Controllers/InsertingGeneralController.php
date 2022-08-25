@@ -61,9 +61,11 @@ class InsertingGeneralController extends Controller
 
         $post = $request->post();
         dump('$post: ', $post);
+        $user=auth()->user();
 
         if ($run_db) {
             $tempspkproduk_new = TempSpkProduk::create([
+                'user_id'=>$user['id'],
                 'produk_id' => $post['produk_id'],
                 'jumlah' => $post['jumlah'],
             ]);
@@ -74,8 +76,8 @@ class InsertingGeneralController extends Controller
             $pesan_db = "Succeed!";
         }
 
-        $route = '';
-        $route_name='';
+        $route = 'SPK-Review';
+        $route_btn='Ke Review SPK';
         $data = [
             'go_back_number' => -2,
             'pesan_db' => $pesan_db,
@@ -83,6 +85,7 @@ class InsertingGeneralController extends Controller
             'warning_logs' => $warning_logs,
             'success_logs' => $success_logs,
             'route' => $route,
+            'route_btn' => $route_btn,
         ];
 
         return view('layouts.db-result', $data);

@@ -20,8 +20,7 @@ use App\Models\ProdukSpec;
 use App\Models\ProdukStandar;
 use App\Models\ProdukStiker;
 use App\Models\ProdukTankpad;
-use App\Models\ProdukVarian;
-use App\Models\ProdukVariasi;
+use App\Models\ProdukVariasiVarian;
 use App\Models\Rol;
 use App\Models\Rotan;
 use App\Models\Spec;
@@ -4035,39 +4034,20 @@ class ProdukSeeder extends Seeder
                 ]);
             }
 
-            if (isset($produk[$i]['variasi_1']) && $produk[$i]['variasi_1'] !== null) {
-                dump($produk[$i]['variasi_1']);
-                $variasi_1 = Variasi::where('nama', $produk[$i]['variasi_1'])->first();
-
-                ProdukVariasi::create([
-                    'produk_id' => $inserted_produk['id'],
-                    'variasi_id' => $variasi_1['id'],
-                ]);
+            if (isset($produk[$i]['variasi_1']) && $produk[$i]['variasi_1']!==null) {
+                $variasi_1 = Variasi::where('nama',$produk[$i]['variasi_1'])->first()->toArray();
+                $varian_1['id']=null;
+                if (isset($produk[$i]['varian_1']) && $produk[$i]['varian_1']!==null)
+                {$varian_1 = Varian::where('nama',$produk[$i]['varian_1'])->first()->toArray();}
+                $produk_variasi_varian_1 = ['produk_id'=>$inserted_produk['id'],'variasi_id'=>$variasi_1['id'],'varian_id'=>$varian_1['id']];
+                ProdukVariasiVarian::create($produk_variasi_varian_1);
             }
-            if (isset($produk[$i]['varian_1']) && $produk[$i]['varian_1'] !== null) {
-                dump($produk[$i]['varian_1']);
-                $varian_1 = Varian::where('nama', $produk[$i]['varian_1'])->first();
-
-                ProdukVarian::create([
-                    'produk_id'=>$inserted_produk['id'],
-                    'varian_id' => $varian_1['id'],
-                ]);
-            }
-
-            if (isset($produk[$i]['variasi_2']) && $produk[$i]['variasi_2'] !== null) {
-                $variasi_2 = Variasi::where('nama', $produk[$i]['variasi_2'])->first();
-
-                ProdukVariasi::create([
-                    'produk_id' => $inserted_produk['id'],
-                    'variasi_id' => $variasi_2['id'],
-                ]);
-            }
-            if (isset($produk[$i]['varian_2']) && $produk[$i]['varian_2'] !== null) {
-                $varian_2 = Varian::where('nama', $produk[$i]['varian_2'])->first();
-                ProdukVarian::create([
-                    'produk_id' => $inserted_produk['id'],
-                    'varian_id' => $varian_2['id'],
-                ]);
+            if (isset($produk[$i]['variasi_2']) && $produk[$i]['variasi_2']!==null) {
+                $variasi_2 = Variasi::where('nama',$produk[$i]['variasi_2'])->first()->toArray();
+                $varian_2['id']=null;
+                if (isset($produk[$i]['varian_2']) && $produk[$i]['varian_2'] !==null) {$varian_2 = Varian::where('nama',$produk[$i]['varian_2'])->first()->toArray();}
+                $produk_variasi_varian_2 = ['produk_id'=>$inserted_produk['id'],'variasi_id'=>$variasi_2['id'],'varian_id'=>$varian_2['id']];
+                ProdukVariasiVarian::create($produk_variasi_varian_2);
             }
 
             if (isset($produk[$i]['grade_bahan']) && $produk[$i]['grade_bahan'] !== null) {
