@@ -34,9 +34,8 @@ return new class extends Migration
             $table->string('data_srjalan')->nullable();
             $table->string('status_nota')->nullable()->default('BELUM');
             $table->string('status_srjalan')->nullable()->default('BELUM');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
-            // $table->timestamp('finished_at')->nullable();
+            $table->timestamp('finished_at')->nullable();
+            $table->timestamps();
             // $table->timestamps();
         });
     }

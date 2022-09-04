@@ -64,7 +64,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 3
             'harga' => 20500,
-            'bahan'=>'Amplas(CA)','variasi_1'=>'Polos','varian_1'=>null,'jahit'=>'Univ'
+            'bahan'=>'Amplas(CA)','variasi_1'=>'LG.Stiker','varian_1'=>null,'jahit'=>'Univ'
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Amplas(RY) LG.Bayang',
@@ -96,6 +96,7 @@ class ProdukSeeder extends Seeder
             'tipe_packing' => 'colly',
             'aturan_packing' => 150, // 7
             'harga' => 17500,
+            'bahan'=>'Amplas(RY)','variasi_1'=>'LG.Bordir','varian_1'=>null,'jahit'=>null,
         ], [
             'tipe' => 'SJ-Variasi',
             'nama' => 'Amplas(RY) LG.Bordir uk.JB93x53',
@@ -4011,7 +4012,8 @@ class ProdukSeeder extends Seeder
         ],
         ];
 
-        for ($i = 0; $i < count($produk); $i++) {
+        // for ($i = 0; $i < count($produk); $i++) {
+        for ($i = 0; $i < 20; $i++) {
             dump($produk[$i]['nama']);
             $inserted_produk = Produk::create([
                 'tipe' => $produk[$i]['tipe'],

@@ -1,15 +1,6 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: "Nunito";
-    font-weight: normal;
-    font-style: normal;
-    font-size: 0.8rem;
-}
-
 a {
     text-decoration: none;
-    color: black;
+    /* color: black; */
 }
 select:invalid {
     color: #c4c4c4;
@@ -547,36 +538,22 @@ option {
     font-weight: bold;
 }
 
-.btn-danger {
+/* .btn-danger {
     background-color: #ff856a;
     padding: 1rem;
     border-radius: 5px;
     font-weight: bold;
     color: white;
     text-align: center;
-}
-
-/* .btn-warning {
-    background-color: #ffb800;
-    padding: 1rem;
-    border-radius: 5px;
-    font-weight: bold;
-    text-align: center;
-}
-.btn-secondary {
-    background-color: #e4e4e4;
-    padding: 1rem;
-    border-radius: 5px;
-    font-weight: bold;
-    text-align: center;
-}
-.btn-primary {
-    background-color: deepskyblue;
-    padding: 1rem;
-    border-radius: 5px;
-    font-weight: bold;
-    text-align: center;
 } */
+
+.btn-dd {
+    color: white;
+    background-color: mediumslateblue;
+    /* background-color: mediumpurple;
+    background-color: #706dff; */
+    border-color: mediumslateblue;
+}
 
 .divLogError {
     margin: 1rem;
@@ -725,17 +702,6 @@ option {
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius: 5px;
     background-color: #ff856a;
-}
-
-/* DISPLAY TABLE */
-.table {
-    display: table;
-}
-.table > * {
-    display: table-row;
-}
-.table > * > * {
-    display: table-cell;
 }
 
 /*CLOSING DOT MENU*/

@@ -180,7 +180,7 @@ if (srjalans == undefined || srjalans.length == 0) {
                         <div class='justify-self-right font-size-1_2em' style="color:green;font-weight:bold;">${srjalan.colly}</div>
                         <div class='justify-self-right' style='color:grey'>Koli T</div>
                     </div>
-                    <div id='divDropdown-${i_srjalan}' class='justify-self-center'><img class='w-0_7em' src='img/icons/dropdown.svg' onclick='showDropdown(${i_srjalan});'></div>
+                    <div id='divDropdownIcon-${i_srjalan}' class='justify-self-center'><img class='w-0_7em' src='img/icons/dropdown.svg' onclick='showDropdown(${i_srjalan});'></div>
                 </div>` +
             // DROPDOWN
             `<div id='divDetailDropdown-${i_srjalan}' class='p-0_5em b-1px-solid-grey' style='display: none'>

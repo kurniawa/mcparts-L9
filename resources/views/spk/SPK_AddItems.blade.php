@@ -6,7 +6,8 @@
     <h2>SPK Baru: Input Item</h2>
 </div>
 
-<form action="/spk/inserting-general-db" method="POST" id="form_spk_item" class="m-1em" name="form_spk_item" onsubmit="return formValidation();" novalidate>
+<form action="{{ route($route) }}" method="POST" id="form_spk_item" class="m-1em" name="form_spk_item" onsubmit="return formValidation();" novalidate>
+    <input type="hidden" name="spk_id" value="{{ $spk_id }}">
 <div class="container">
     @csrf
     <label for="nama_item" class="form-label">Nama Item:</label>
@@ -55,14 +56,11 @@
     <input type="hidden" name="produk-id" id="produk-id">
     <input type="hidden" name="produk-harga" id="produk-harga">
 
+    <div class="text-center mt-3"><button type="submit" class="btn btn-warning fw-bold">Tambah Item ke SPK</button></div>
 
-    <div style="height: 30vh"></div>
-    <div class="text-center">
-        <button type="submit" class="btn btn-warning fw-bold">Tambah Item ke SPK</button>
-    </div>
     {{-- <input id="mode" type="hidden" name="mode" value="{{ $mode }}"> --}}
     {{-- Pada mode insert baru, spk_id akan bernilai null, sedangkan pada mode inserting from detail, spk_id akan diketahui --}}
-    <input id="spk_id" type="hidden" name="spk_id" value="{{ $spk_id }}">
+    <input id="temp_spk_id" type="hidden" name="temp_spk_id" value="{{ $temp_spk_id }}">
     <div id="container_input_hidden"></div>
 </form>
 
@@ -172,13 +170,6 @@
             },
         });
 
-    }
-
-    function showJahitUkuranBusaTipeBahan(specs) {
-        specs.forEach(spec => {
-            document.getElementById(`nama-${spec.kategori}`).textContent = spec.nama;
-            document.getElementById(`tr-${spec.kategori}`).style.display = 'table-row';
-        });
     }
 
     function formValidation() {

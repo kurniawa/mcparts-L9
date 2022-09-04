@@ -45,7 +45,7 @@ class Spk extends Model
         $pelanggans = $daerahs = $arr_resellers = $available_spks = $list_arr_spk_produks = $list_arr_produks = array();
         for ($i=0; $i < count($pelanggan_ids); $i++) {
             $pelanggan = Pelanggan::find($pelanggan_ids[$i]['pelanggan_id'])->toArray();
-            $daerah = Daerah::find($pelanggan['daerah_id'])->toArray();
+            // $daerah = Daerah::find($pelanggan['daerah_id'])->toArray();
 
             $spk_selesai_or_sebagian = Spk::where(function ($query)
             {
@@ -84,7 +84,7 @@ class Spk extends Model
 
             if (count($av_spks) !== 0) {
                 array_push($pelanggans, $pelanggan);
-                array_push($daerahs, $daerah);
+                // array_push($daerahs, $daerah);
                 array_push($available_spks, $av_spks);
 
                 // dd('$av_spks', $av_spks);
@@ -195,6 +195,43 @@ class Spk extends Model
         }
 
         return $msg;
+    }
+
+    public function UpdateDataSPK_All($spk_id)
+    {
+        $spk_produks = SpkProduk::where('spk_id',$spk_id)->get();
+        $jumlah_total=0;
+        $harga_total=0;
+        $jumlah_selesai_spk=0;
+
+        foreach ($spk_produks as $spk_produk) {
+            $jml_t = $spk_produk['jumlah'] + $spk_produk['deviasi_jml'];
+            // dd($jml_t);
+            $spk_produk->jml_t = $jml_t;
+            $spk_produk->jml_blm_sls=$jml_t-$spk_produk['jml_selesai'];
+
+            if ($spk_produk['jml_selesai']===$jml_t) {
+                $spk_produk->status='SELESAI';
+            } else if ($spk_produk['jml_selesai']!==0) {
+                $spk_produk->status='SEBAGIAN';
+            } else if ($spk_produk['jml_selesai']===0) {
+                $spk_produk->status='PROSES';
+            }
+
+            $spk_produk->save();
+            $jumlah_total+=$jml_t;
+            $harga_total+=$jml_t*$spk_produk['harga'];
+            $jumlah_selesai_spk+=$spk_produk['jml_selesai'];
+        }
+
+        $spk = Spk::find($spk_id);
+        $spk->jumlah_total=$jumlah_total;
+        $spk->harga_total=$harga_total;
+        $spk->jumlah_selesai=$jumlah_selesai_spk;
+        if ($jumlah_selesai_spk===$jumlah_total) {$spk->status='SELESAI';}
+        else if ($jumlah_selesai_spk!==0) { $spk->status='SEBAGIAN';}
+        else if ($jumlah_selesai_spk===0){ $spk->status = 'PROSES'; }
+        $spk->save();
     }
 
 }

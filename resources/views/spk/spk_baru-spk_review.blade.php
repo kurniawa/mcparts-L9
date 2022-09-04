@@ -1,15 +1,13 @@
-@extends('layouts/main_layout')
-
+@extends('layouts.main_layout')
+@extends('layouts.navbar')
 @section('content')
 
-<header class="header grid-2-auto">
-    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
-    <div class="justify-self-right pr-0_5em">
-        <a href="{{ route('SPKBaru-AddItem') }}" class="btn btn-warning btn-sm fw-bold">+ Tambah Item</a>
-    </div>
-</header>
 
-<div class="b-1px-solid-grey">
+<div class="container border">
+    <div class="text-end mt-1 mb-1">
+        <a href="{{ route('SPK_AddItems',['temp_spk_id'=>$temp_spk['id']]) }}" class="btn btn-warning btn-sm fw-bold">+ Tambah Item</a>
+    </div>
+
     <div class="text-center">
         <h2>Surat Perintah Kerja</h2>
     </div>
@@ -19,7 +17,7 @@
         <div class="divSPKNumber fw-bold">(Auto Generated)</div>
         <div>Tanggal</div>
         <div>:</div>
-        <div class="divSPKDate fw-bold">{{ date('d-m-Y',strtotime($created_at)) }}</div>
+        <div class="divSPKDate fw-bold">{{ date('d-m-Y',strtotime($temp_spk['created_at'])) }}</div>
         <div>Untuk</div>
         <div>:</div>
         <div class="divSPKCustomer fw-bold">
@@ -39,10 +37,10 @@
 <div class="divTitleDesc grid-1-auto justify-items-center mt-0_5em"></div>
 
 
-<div id="divItemList" class="bt-1px-solid-grey"></div>
+<div id="divItemList" class="container border-top mt-3"></div>
 {{-- <input id="inputHargaTotalSPK" type="hidden" name="total_harga"> --}}
 
-<div id="divJmlTotal" class="text-right">
+<div id="divJmlTotal" class="container text-end">
     <div id="divJmlTotal2" class="fw-bold fs-5 text-success"></div>
     <div class="fw-bold color-red">Total</div>
 </div>
@@ -56,11 +54,13 @@
 
 </div>
 
-<div class="container">
-    <form action="/spk/proceed-spk" method="POST" id="containerBeginSPK" class="m-0_5em">
+<div class="container mt-3">
+    <form action="{{ route('ProceedSPK') }}" method="POST" id="containerBeginSPK">
         @csrf
+        <input type="hidden" name="temp_spk_id" value="{{ $temp_spk['id'] }}">
+        <div class="text-center"><button type="submit" class="btn btn-danger" name="batal" value=true>Batal</button></div>
         @if (count($temp_spk_produks)!==0)
-        <div class="text-center mt-3">
+        <div class="text-center mt-1">
             <button type="submit" class="btn btn-warning fw-bold">Proses SPK</button>
         </div>
         @endif

@@ -59,6 +59,7 @@ class Pelanggan extends Model
 
     public function alamat()
     {
-        return $this->belongsToMany(Alamat::class,'pelanggan_alamats','alamat_id', 'pelanggan_id');
+        // return $this->belongsToMany(Alamat::class,'pelanggan_alamats','alamat_id', 'pelanggan_id');
+        return $this->belongsToMany(Alamat::class,'pelanggan_alamats');
     }
 }

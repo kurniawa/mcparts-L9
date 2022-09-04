@@ -2517,7 +2517,8 @@ class PelangganSeeder extends Seeder
             ],
         ];
 
-        for ($i = 0; $i < count($pelanggan); $i++) {
+        // for ($i = 0; $i < count($pelanggan); $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $bentuk = null;
             if (isset($pelanggan[$i]['bentuk']) && $pelanggan[$i]['bentuk'] !== null) {
                 $bentuk = $pelanggan[$i]['bentuk'];
@@ -2538,6 +2539,7 @@ class PelangganSeeder extends Seeder
                 'is_reseller' => $is_reseller,
                 'reseller_id' => $reseller_id,
             ]);
+            dump($pelanggan_new['nama']);
             if ($pelanggan[$i]['alamat']) {
                 foreach ($pelanggan[$i]['alamat'] as $alamat) {
                     $alamat_new = Alamat::create($alamat);
@@ -2559,7 +2561,6 @@ class PelangganSeeder extends Seeder
             }
 
             if (isset($pelanggan[$i]['ekspedisi']) && $pelanggan[$i]['ekspedisi'] !== null) {
-                dump($pelanggan_new['nama']);
                 foreach ($pelanggan[$i]['ekspedisi'] as $data) {
                     $ekspedisi = Ekspedisi::where('nama', $data['nama'])->first();
                     $tipe = 'UTAMA';

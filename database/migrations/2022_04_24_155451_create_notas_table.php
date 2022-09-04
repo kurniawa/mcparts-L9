@@ -24,11 +24,10 @@ return new class extends Migration
             $table->integer('jumlah_sj')->nullable()->default(0);
             $table->integer('jumlah_total')->nullable();
             $table->integer('harga_total')->nullable();
-            $table->foreignId('created_by')->nullable()->constrained('users');
-            $table->foreignId('updated_by')->nullable()->constrained('users');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->string('created_by');
+            $table->string('updated_by');
             $table->timestamp('finished_at')->nullable();
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

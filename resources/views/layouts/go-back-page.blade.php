@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div class="alert {{ $class_div_pesan_db }}" role="alert">{{ $pesan_db }}</div>
+<div class="alert {{ $class_div_pesan_db }}" role="alert">{{ $main_log }}</div>
 
 @if (isset($error_logs) && count($error_logs) !== 0)
 <div class="alert alert-danger" role="alert">
@@ -31,3 +31,39 @@
     reloadable_page = false; // reloadable_page di set sebagai false, supaya halaman ini jangan di reload. Fokus reload adalah untuk halaman setelah kembali.
  </script>
 @endsection
+
+{{-- <div class="threeDotMenu" style="z-index:200">
+    <div class="threeDot">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    <div class="divThreeDotMenuContent">
+        <form action="/spk/edit-kop-spk" method="GET">
+            <input type="hidden" name="spk_id" value={{ $spk['id'] }}>
+            <button type="submit" class="threeDotMenuItem" style="width: 100%">
+                <img src="/img/icons/edit.svg" alt=""><span>Edit Kop SPK</span>
+            </button>
+        </form>
+        <form action="/spk/print-out-spk" method='POST'>
+            @csrf
+            <button id="downloadExcel" type="submit" class="threeDotMenuItem" style="width: 100%">
+                <img src="/img/icons/download.svg" alt=""><span>Print Out SPK</span>
+            </button>
+            <input type="hidden" name="spk_id" value={{ $spk['id'] }}>
+        </form>
+        <form action="/spk/hapus-spk" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus SPK ini?');">
+            @csrf
+            <input type="hidden" name="spk_id" value={{ $spk['id'] }}>
+            <button type="submit" class="threeDotMenuItem" style="width:100%">
+                <img src="/img/icons/trash-can.svg" alt=""><span>Cancel/Hapus SPK</span>
+            </button>
+        </form>
+        <form action="/spk/tetapkan-item-selesai" method="GET">
+            <input type="hidden" name="spk_id" value={{ $spk['id'] }}>
+            <button type="submit" class="threeDotMenuItem" style="width: 100%">
+                <img src="/img/icons/edit.svg" alt=""><span>Tetapkan Item Selesai</span>
+            </button>
+        </form>
+    </div>
+</div> --}}

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pelanggan_id');
             $table->bigInteger('reseller_id')->nullable();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
             $table->string('judul')->nullable();
             $table->timestamps();
         });

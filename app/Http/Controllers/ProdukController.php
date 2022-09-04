@@ -179,7 +179,7 @@ class ProdukController extends Controller
         // $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = true; // true apabila siap melakukan CRUD ke DB
         // $ada_error = true;
-        // $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        // $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         // $class_div_pesan_db = 'alert-danger';
         $success_logs = $warning_logs = $error_logs = array();
 

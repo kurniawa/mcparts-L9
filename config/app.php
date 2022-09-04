@@ -193,8 +193,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // ...
         'SiteSettings' => App\Helpers\SiteSettings::class,
-        'InsertingProductHelper' => App\Helpers\InsertingProductHelper::class,
-        'PelangganHelper' => App\Helpers\PelangganHelper::class,
+        'UpdateDataSPK' => App\Helpers\UpdateDataSPK::class,
     ])->toArray(),
 
 ];

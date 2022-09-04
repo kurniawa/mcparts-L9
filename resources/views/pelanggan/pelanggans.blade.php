@@ -63,7 +63,7 @@
             "<div class='grid-3-10_80_10'>" +
             "<div class='initial circle-medium grid-1-auto justify-items-center font-weight-bold' style='background-color: " + $arrayBgColors[$randomIndex] + "'>" + initial + "</div>" +
             "<div class='justify-self-left font-weight-bold'>" + pelanggan.nama + " - " + "daerah" + "</div>" +
-            "<div id='divDropdown-" + pelanggan.id + "' class='justify-self-right' onclick='showDropdown(" + pelanggan.id + ");'><img class='w-0_7rem' src='img/icons/dropdown.svg'></div>" +
+            "<div id='divDropdownIcon-" + pelanggan.id + "' class='justify-self-right' onclick='showDropdown(" + pelanggan.id + ");'><img class='w-0_7rem' src='img/icons/dropdown.svg'></div>" +
             "</div>" +
 
             // DROPDOWN

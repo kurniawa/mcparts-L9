@@ -56,7 +56,7 @@ class EkspedisiEdit extends Controller
         $show_hidden_dump = false;
 
         $ada_error = true;
-        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
         if ($show_hidden_dump) {
@@ -65,7 +65,7 @@ class EkspedisiEdit extends Controller
 
         if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
-            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
             $ada_error = true;
             $class_div_pesan_db = 'alert-danger';
         }
@@ -101,14 +101,14 @@ class EkspedisiEdit extends Controller
             $load_num->value += 1;
             $load_num->save();
 
-            $pesan_db = "SUCCESS: Data $ekspedisi[nama] berhasil diubah!";
+            $main_log = "SUCCESS: Data $ekspedisi[nama] berhasil diubah!";
             $ada_error = false;
             $class_div_pesan_db = 'alert-success';
         }
 
         $data = [
             'go_back_number' => -2,
-            'pesan_db' => $pesan_db,
+            'pesan_db' => $main_log,
             'ada_error' => $ada_error,
             'class_div_pesan_db' => $class_div_pesan_db
         ];

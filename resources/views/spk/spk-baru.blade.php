@@ -46,25 +46,41 @@
 
     </div>
 
-
-    <br><br>
-
-    <div id="warning" class="d-none"></div>
-
-    <div class="m-1rem">
+    <div class="container mt-3">
         <button type="submit" class="btn btn-warning w-100 pb-4 pt-4">
             Input Item SPK >>
         </button>
     </div>
 
-    <div id="closingAreaPertanyaan" class="d-none position-absolute z-index-2 w-100vw h-100vh bg-color-grey top-0 opacity-0_5">
-    </div>
 
 </form>
+@if (count($temp_spks)!==0)
+<div class="container">
+    <div class="fw-bold">Cart:</div>
+    <form action="{{ route('SPK-Review') }}">
+        <table class="table table-success table-striped">
+            @for ($i = 0; $i < count($temp_spks); $i++)
+            <tr>
+                @if ($resellers[$i]!==null)
+                <td style="vertical-align: middle">{{ $resellers[$i]['nama'] }}-{{ $pelanggans[$i]['nama'] }}</td>
+                @else
+                <td style="vertical-align: middle">{{ $pelanggans[$i]['nama'] }}</td>
+                @endif
+                <td class="text-end"><button class="btn btn-warning btn-sm" type="submit" name="temp_spk_id" value={{ $temp_spks[$i]['id'] }}>Lanjut >></button></td>
+            </tr>
+            @endfor
+        </table>
+    </form>
+
+</div>
+
+@endif
 
 
 <script>
     const label_pelanggans = {!! json_encode($label_pelanggans, JSON_HEX_TAG) !!}
+    const pelanggans = {!! json_encode($pelanggans, JSON_HEX_TAG) !!}
+    console.log('pelanggans', pelanggans);
     // const pelanggan_resellers = {-!! json_encode($pelanggan_resellers, JSON_HEX_TAG) !!}
 
     if (show_console) {

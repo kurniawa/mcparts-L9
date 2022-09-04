@@ -75,7 +75,7 @@ class PelangganEditController extends Controller
         [$show_dump, $show_hidden_dump, $load_num_ignore, $run_db] = SiteSettings::variablesNeeded();
 
         $ada_error = true;
-        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem ini, coba hubungi Admin atau Developer sistem ini!';
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem ini, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
         if ($show_hidden_dump) {
@@ -84,7 +84,7 @@ class PelangganEditController extends Controller
 
         if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
-            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
             $ada_error = true;
             $class_div_pesan_db = 'alert-danger';
         }
@@ -126,7 +126,7 @@ class PelangganEditController extends Controller
             $pelanggan->save();
             $load_num->value += 1;
             $load_num->save();
-            $pesan_db = "Data Pelanggan: $pelanggan[nama] BERHASIL DIUBAH.";
+            $main_log = "Data Pelanggan: $pelanggan[nama] BERHASIL DIUBAH.";
             $class_div_pesan_db = 'alert-success';
             $ada_error = false;
         }
@@ -134,7 +134,7 @@ class PelangganEditController extends Controller
         $data = [
             'go_back_number' => -2,
             'ada_error' => $ada_error,
-            'pesan_db' => $pesan_db,
+            'pesan_db' => $main_log,
             'class_div_pesan_db' => $class_div_pesan_db,
         ];
 

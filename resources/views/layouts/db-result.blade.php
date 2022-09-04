@@ -2,6 +2,10 @@
 @extends('layouts.navbar')
 @section('content')
 
+@if (isset($main_log))
+<div class="alert alert-primary" role="alert">{{ $main_log }}</div><br>
+@endif
+
 @if (isset($error_logs) && count($error_logs) !== 0)
 <div class="alert alert-danger" role="alert">
 @foreach ($error_logs as $error_log)
@@ -27,7 +31,11 @@
 @endif
 
 <div class="mt-2rem text-center">
+    @if (isset($params))
+    <a href="{{ route($route,$params) }}" class="btn btn-info">{{ $route_btn }}</a>
+    @else
     <a href="{{ route($route) }}" class="btn btn-info">{{ $route_btn }}</a>
+    @endif
 </div>
 
 <script>

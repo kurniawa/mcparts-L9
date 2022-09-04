@@ -25,15 +25,14 @@ return new class extends Migration
             $table->string('judul')->nullable();
             // $table->text('data_spk_item');
             $table->integer('jumlah_selesai')->nullable()->default(0);
-            $table->integer('jumlah_total');
-            $table->integer('harga_total');
+            $table->integer('jumlah_total')->nullable();
+            $table->integer('harga_total')->nullable();
             $table->integer('jumlah_sudah_nota')->nullable()->default(0);
             $table->integer('jumlah_sudah_sj')->nullable()->default(0);
-            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('NO ACTION');
-            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('NO ACTION');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->string('created_by');
+            $table->string('updated_by');
             $table->timestamp('finished_at')->nullable();
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

@@ -21,7 +21,7 @@ class PelangganEkspedisiController extends Controller
         $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
         $show_hidden_dump = false;
         $ada_error = true;
-        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem ini, coba hubungi Admin atau Developer sistem ini!';
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem ini, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
         if ($show_hidden_dump) {
@@ -30,7 +30,7 @@ class PelangganEkspedisiController extends Controller
 
         // if ($load_num->value > 0 && !$load_num_ignore) {
         //     $run_db = false;
-        //     $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+        //     $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
         //     $ada_error = true;
         //     $class_div_pesan_db = 'alert-danger';
         // }
@@ -79,7 +79,7 @@ class PelangganEkspedisiController extends Controller
         $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
         $show_hidden_dump = false;
         $ada_error = true;
-        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem ini, coba hubungi Admin atau Developer sistem ini!';
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem ini, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
         if ($show_hidden_dump) {
@@ -88,7 +88,7 @@ class PelangganEkspedisiController extends Controller
 
         if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
-            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
             $ada_error = true;
             $class_div_pesan_db = 'alert-danger';
         }
@@ -116,7 +116,7 @@ class PelangganEkspedisiController extends Controller
             if ($show_dump) {
                 dump('$pelanggan_ekspedisi', $pelanggan_ekspedisi);
             }
-            $pesan_db = "Ekspedisi $ekspedisi[nama] berhasil dijadikan ekspedisi $pelanggan_ekspedisi[tipe] dari Pelanggan $pelanggan[nama]";
+            $main_log = "Ekspedisi $ekspedisi[nama] berhasil dijadikan ekspedisi $pelanggan_ekspedisi[tipe] dari Pelanggan $pelanggan[nama]";
             $class_div_pesan_db = 'alert-success';
             $ada_error = false;
             $load_num->value += 1;
@@ -125,7 +125,7 @@ class PelangganEkspedisiController extends Controller
 
 
         $data = [
-            'pesan_db' => $pesan_db,
+            'pesan_db' => $main_log,
             'go_back_number' => -2,
             'class_div_pesan_db' => $class_div_pesan_db,
             'ada_error' => $ada_error,
@@ -148,7 +148,7 @@ class PelangganEkspedisiController extends Controller
         $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
         $show_hidden_dump = false;
         $ada_error = true;
-        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem ini, coba hubungi Admin atau Developer sistem ini!';
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem ini, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
         if ($show_hidden_dump) {
@@ -157,7 +157,7 @@ class PelangganEkspedisiController extends Controller
 
         if ($load_num->value > 0 && !$load_num_ignore) {
             $run_db = false;
-            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
             $ada_error = true;
             $class_div_pesan_db = 'alert-danger';
         }
@@ -176,7 +176,7 @@ class PelangganEkspedisiController extends Controller
 
         if ($run_db) {
             $pelanggan_ekspedisi->delete();
-            $pesan_db = "Ekspedisi $ekspedisi[nama] berhasil dihapus dari data ekspedisi Pelanggan $pelanggan[nama]";
+            $main_log = "Ekspedisi $ekspedisi[nama] berhasil dihapus dari data ekspedisi Pelanggan $pelanggan[nama]";
             $class_div_pesan_db = 'alert-warning';
             $ada_error = false;
             $load_num->value += 1;
@@ -185,7 +185,7 @@ class PelangganEkspedisiController extends Controller
 
 
         $data = [
-            'pesan_db' => $pesan_db,
+            'pesan_db' => $main_log,
             'go_back_number' => -2,
             'class_div_pesan_db' => $class_div_pesan_db,
             'ada_error' => $ada_error,

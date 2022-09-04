@@ -1,16 +1,7 @@
-@extends('layouts/main_layout')
+@extends('layouts.main_layout')
+@extends('layouts.navbar')
 
 @section('content')
-
-<header class="header grid-3-auto">
-    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
-    <h1 style="color: white">SPK</h1>
-    <div class="justify-self-right pr-0_5em">
-        <a href="/spk/spk-baru" id="btn-spk-baru" class="btn-atas-kanan2">
-            + Buat SPK Baru
-        </a>
-    </div>
-</header>
 
 <div class="grid-2-auto mt-1rem ml-1rem mr-1rem pb-1rem bb-0_5px-solid-grey">
     <div class="justify-self-left grid-2-auto b-1px-solid-grey b-radius-50px mr-1rem pl-1rem pr-0_4rem w-11rem">
@@ -27,173 +18,47 @@
     </div>
 </div>
 
-<div id="div-daftar-spk" class='ml-0_5em mr-0_5em'>
+<div class="container">
+    <form method='GET' action="{{ route('SPK-Detail') }}" class="mt-1">
+    <table class="table table-success table-striped">
+    @for ($i = 0; $i < count($spks); $i++)
+        <tr style="vertical-align: middle">
+            <td><div class='rounded-circle d-flex align-items-center justify-content-center font-weight-bold' style='background-color:salmon;width:2rem;height:2rem'>{{ $pelanggans[$i]['initial'] }}</div></td>
+            <td>
+                <div class="row"><div class="col fw-bold" style="color: blue">{{ $spks[$i]['no_spk'] }}</div></div>
+                @if ($resellers[$i] !== null)
+                <div class="row"><div class="col">{{ $resellers[$i]['nama'] }}-{{ $pelanggans[$i]['nama'] }}</div></div>
+                @else
+                <div class="row"><div class="col">{{ $pelanggans[$i]['nama'] }}</div></div>
+                @endif
+            </td>
+            <td><div class="d-inline-block rounded ps-1 pe-1 {{ $bg_color_tgl[$i][0] }}" style="color:white"><div style="font-size:2.5em">{{ date('d',strtotime($spks[$i]['created_at'])) }}</div><div>{{ date('m',strtotime($spks[$i]['created_at'])) }}-{{ date('y',strtotime($spks[$i]['created_at'])) }}</div></div></td>
+            <td>-</td>
+            <td>
+                @if ($spks[$i]['finished_at']!==null)
+                <div class="d-inline-block rounded ps-1 pe-1 {{ $bg_color_tgl[$i][1] }}" style="color:white"><div style="font-size:2.5em">{{ date('d',strtotime($spks[$i]['finished_at'])) }}</div><div>{{ date('m',strtotime($spks[$i]['finished_at'])) }}-{{ date('y',strtotime($spks[$i]['finished_at'])) }}</div></div>
+                @endif
+            </td>
+            <td style="color: green">{{ $spks[$i]['jumlah_total'] }}</td>
+            <td id='divDropdownIcon-{{ $i }}' onclick='showDropdown({{ $i }});' class="text-center"><img class='w-0_7rem' src='img/icons/dropdown.svg'></td>
+        </tr>
+        {{-- DropDown --}}
+        <tr id='divDetailDropdown-{{ $i }}' style="display: none">
+            <td colspan="7">
+                <table style="width: 100%">
+                    @for ($j = 0; $j < count($arr_spk_produks[$i]); $j++)
+                    <tr><td>{{ $arr_produks[$i][$j]['nama'] }}</td><td>{{ $arr_spk_produks[$i][$j]['jml_t'] }}</td></tr>
+                    @endfor
+                    <tr><td colspan="2" class='text-end'><button type="submit" name='spk_id' value="{{ $spks[$i]['id'] }}" class="btn btn-warning btn-sm">Detail</button></td></tr>
+                </table>
+            </td>
+        </tr>
+    @endfor
+    </table>
+    </form>
 </div>
 
 <script>
-
-const spks = {!! json_encode($spks, JSON_HEX_TAG) !!};
-const pelanggans = {!! json_encode($pelanggans, JSON_HEX_TAG) !!};
-const daerahs = {!! json_encode($daerahs, JSON_HEX_TAG) !!};
-const resellers = {!! json_encode($resellers, JSON_HEX_TAG) !!};
-const arr_produks = {!! json_encode($arr_produks, JSON_HEX_TAG) !!};
-const arr_spk_produks = {!! json_encode($arr_spk_produks, JSON_HEX_TAG) !!};
-const arr_finished_at_last = {!! json_encode($arr_finished_at_last, JSON_HEX_TAG) !!};
-
-if (show_console) {
-    console.log("spks:");console.log(spks);
-    console.log("pelanggans");console.log(pelanggans);
-    console.log("daerahs");console.log(daerahs);
-    console.log("resellers");console.log(resellers);
-    console.log("arr_produks");console.log(arr_produks);
-    console.log("arr_spk_produks");console.log(arr_spk_produks);
-    console.log("arr_finished_at_last");console.log(arr_finished_at_last);
-}
-
-if (spks == undefined || spks.length == 0) {
-    console.log('Belum ada daftar SPK');
-} else {
-    for (var i = 0; i < spks.length; i++) {
-        // console.log(spks[i].created_at);
-        const SPKDate = spks[i].created_at.split('T')[0];
-        // const SPKDate = spks[i].created_at.split(' ')[0];
-        console.log(SPKDate);
-        var arrayDate = SPKDate.split('-');
-        var getYear = arrayDate[0];
-        var getMonth = arrayDate[1];
-        var getDay = arrayDate[2];
-        // console.log('getYear: ' + getYear);
-        // console.log('getMonth: ' + getMonth);
-        // console.log('getDay: ' + getDay);
-        var subGetYear = getYear.substr(2);
-        // console.log('subGetYear: ' + subGetYear);
-        var warnaTglPembuatan = 'bg-color-soft-red';
-
-        // apabila tanggal selesai telah ada
-        var html_tgl_sls = "";
-
-        var nama_pelanggan = `${pelanggans[i].nama} - ${daerahs[i].nama}`;
-        if (resellers[i] !== 'none') {
-            nama_pelanggan = `${resellers[i].nama}: ${nama_pelanggan}`;
-        }
-
-        if (spks[i].finished_at !== null) {
-            const SPKDateSls = spks[i].finished_at.split(' ')[0];
-            const arrayDateSls = SPKDateSls.split('-');
-            const getYearSls = arrayDateSls[0];
-            const getMonthSls = arrayDateSls[1];
-            const getDaySls = arrayDateSls[2];
-
-            // console.log('getYearSls: ' + getYearSls);
-            // console.log('getMonthSls: ' + getMonthSls);
-            // console.log('getDaySls: ' + getDaySls);
-            subGetYearSls = getYearSls.substr(2);
-            // console.log('subGetYearSls: ' + subGetYearSls);
-            warnaTglSls = 'bg-color-purple-blue';
-            warnaTglPembuatan = 'bg-color-orange-2';
-
-            html_tgl_sls = `
-                <div class='grid-1-auto justify-items-center ${warnaTglSls} b-radius-5px w-3_5em' style="color:white;">
-                    <div style='font-size:2.5em'>${getDaySls}</div><div>${getMonthSls}-${subGetYearSls}</div>
-                </div>
-            `;
-        } else {
-            var statusColor = "";
-            if (spks[i].status == "PROSES") {
-                statusColor = "tomato";
-            } else {
-                statusColor = "slateblue";
-            }
-            html_tgl_sls = `
-                <div style="font-weight:bold;color:${statusColor}">${spks[i].status}</div>
-            `;
-        }
-
-        // // MENGHITUNG Jumlah total
-        // var jumlah_total_item_spk = 0;
-        // for (let j = 0; j < spk_contains_item[i].length; j++) {
-        //     jumlah_total_item_spk = jumlah_total_item_spk + parseFloat(spk_contains_item[i][j].jumlah);
-        // }
-        // console.log("jumlah total item spk:");
-        // console.log(jumlah_total_item_spk);
-
-        // ELEMENT to toggle
-        var element_to_toggle = [{
-            id: `#divSPKItems-${i}`,
-            time: 300
-        }];
-        // console.log('element_to_toggle:');
-        // console.log(element_to_toggle);
-        element_to_toggle = JSON.stringify(element_to_toggle);
-        // console.log(element_to_toggle);
-
-        // HTML Item each SPK
-        var htmlItemsEachSPK = '';
-
-        // const spk_item = JSON.parse(spks[i].data_spk_item);
-        // console.log('spk_item');
-        // console.log(spk_item);
-
-        for (var k = 0; k < arr_spk_produks[i].length; k++) {
-            var textContent_jumlah = `${arr_spk_produks[i][k].jumlah}`;
-            console.log('define textContent_jumlah');
-            const deviasi_jml = arr_spk_produks[i][k].deviasi_jml;
-
-            // if (show_console) {
-            //     console.log('deviasi_jml:');
-            //     console.log(deviasi_jml);
-            // }
-
-            if (deviasi_jml !== 0) {
-                console.log('deviasi_jml is defined!');
-                if (deviasi_jml < 0) {
-                    textContent_jumlah += ` ${deviasi_jml}`;
-                } else if (deviasi_jml > 0) {
-                    textContent_jumlah += ` +${deviasi_jml}`;
-                }
-            }
-            htmlItemsEachSPK = htmlItemsEachSPK +
-                `<div>${arr_produks[i][k].nama}</div><div>${textContent_jumlah}</div>`;
-        }
-
-
-        var htmlDaftarSPK =
-            `<form method='GET' action='/spk/spk-detail' class='pb-0_5em pt-0_5em bb-1px-solid-grey'>
-                <div class='grid-5-9_45_25_18_5'>
-                <div class='circle-medium grid-1-auto justify-items-center font-weight-bold' style='background-color: ${randomColor()}'>${pelanggans[i].initial}</div>
-                <div>
-                    <div style="display:inline-block" class="border border-primary border-2 rounded p-1">${spks[i].no_spk}</div>
-                    <div>${nama_pelanggan}</div>
-                </div>
-                <div class='grid-3-auto'>
-                    <div class='grid-1-auto justify-items-center ${warnaTglPembuatan} b-radius-5px w-3_5em' style="color:white;">
-                        <div style="font-size:2.5em">${getDay}</div><div>${getMonth}-${subGetYear}</div>
-                    </div>
-                -
-                ${html_tgl_sls}
-                </div>
-                <div class='grid-1-auto'>
-                <div class='justify-self-right font-size-1_2em' style="color:green;font-weight:bold;">${spks[i].jumlah_total}</div>
-                <div class='justify-self-right' style='color:grey'>Jumlah</div>
-                </div>
-                <div id='divDropdown-${i}' class='justify-self-center'><img class='w-0_7em' src='img/icons/dropdown.svg' onclick='showDropdown(${i});'></div>
-                </div>` +
-            // DROPDOWN
-            `<div id='divDetailDropdown-${i}' class='p-0_5em b-1px-solid-grey' style='display: none'>
-            <div class='font-weight-bold color-grey'>No. ${spks[i].no_spk}</div>
-            <input type='hidden' name='spk_id' value=${spks[i].id}>
-            <div class='grid-2-auto'>${htmlItemsEachSPK}</div>
-            <div class='text-right'>
-            <button type='submit' class="d-inline-block bg-color-orange-1 pl-1rem pr-1em b-radius-50px" style='border: none'>
-            Lebih Detail >>
-            </button>
-            </div>
-            </div>
-            </form>`;
-
-        $('#div-daftar-spk').append(htmlDaftarSPK);
-    }
-}
 
 </script>
 

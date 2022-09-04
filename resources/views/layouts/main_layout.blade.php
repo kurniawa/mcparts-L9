@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- <link rel="stylesheet" href="fonts/Nunito-Fontface/stylesheet.css"> --}}
     {{-- <link rel="stylesheet" href="fonts/Roboto-Fontface/stylesheet.css"> --}}
-    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/grid.css">
     {{-- <link rel="stylesheet" href="css/fonts.css"> --}}
     <link rel="stylesheet" href="/css/border.css">
@@ -15,6 +14,7 @@
     <script src="/js/jquery-3.5.1.js"></script>
     <script src="/js/jquery-ui-1.12.1/jquery-ui.js"></script>
     <link href="/bootstrap-css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <script>
         var reloadable_page = true;
@@ -60,9 +60,9 @@
         setTimeout(() => {
             // console.log(`$selectedDiv.css("display") = ${$selectedDiv.css("display")}`);
             if ($selectedDiv.css("display") === "block" || $selectedDiv.css("display") === "table-row") {
-                $("#divDropdown-" + id + " img").attr("src", "/img/icons/dropup.svg");
+                $("#divDropdownIcon-" + id + " img").attr("src", "/img/icons/dropup.svg");
             } else {
-                $("#divDropdown-" + id + " img").attr("src", "/img/icons/dropdown.svg");
+                $("#divDropdownIcon-" + id + " img").attr("src", "/img/icons/dropdown.svg");
             }
         }, 450);
     }
@@ -244,6 +244,12 @@
             $('#loading-progress-icon2').hide(500);
         }
     };
+
+    // history.pushState(null, document.title, location.href);
+    // window.addEventListener('popstate', function (event)
+    // {
+    // history.pushState(null, document.title, location.href);
+    // });
 </script>
 
 </html>

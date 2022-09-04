@@ -19,8 +19,7 @@ return new class extends Migration
             $table->foreignId('pelanggan_id');
             $table->foreignId('ekspedisi_id');
             $table->string('tipe', 20)->nullable()->default('UTAMA');
-            $table->timestamp('used_since')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('last_used')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

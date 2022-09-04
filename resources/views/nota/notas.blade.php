@@ -166,7 +166,7 @@ if (notas == undefined || notas.length == 0) {
                         <div class='justify-self-right font-size-1_2em' style="color:green;font-weight:bold;">${formatHarga(notas[i].harga_total.toString())}</div>
                         <div class='justify-self-right' style='color:grey'>Rp.</div>
                     </div>
-                    <div id='divDropdown-${i}' class='justify-self-center'><img class='w-0_7em' src='img/icons/dropdown.svg' onclick='showDropdown(${i});'></div>
+                    <div id='divDropdownIcon-${i}' class='justify-self-center'><img class='w-0_7em' src='img/icons/dropdown.svg' onclick='showDropdown(${i});'></div>
                 </div>` +
             // DROPDOWN
             `<div id='divDetailDropdown-${i}' class='p-0_5em b-1px-solid-grey' style='display: none'>

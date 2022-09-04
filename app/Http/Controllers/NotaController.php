@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SiteSettings;
+use App\Helpers\UpdateDataSPK;
 use App\Models\Daerah;
 use App\Models\Nota;
 use App\Models\Pelanggan;
@@ -37,9 +38,7 @@ class NotaController extends Controller
         $pelanggans = $resellers = $daerahs = $arr_spk_produk_notas = $arr_spk_produks = $arr_produks = array();
         for ($i = 0; $i < count($notas); $i++) {
             $pelanggan = Nota::find($notas[$i]->id)->pelanggan->toArray();
-            $daerah = Daerah::find($pelanggan['daerah_id'])->toArray();
             array_push($pelanggans, $pelanggan);
-            $daerahs[] = $daerah;
 
             if ($notas[$i]['reseller_id'] !== null) {
                 $reseller = Pelanggan::find($notas[$i]['reseller_id'])->toArray();
@@ -76,6 +75,149 @@ class NotaController extends Controller
         return view('nota.notas', $data);
     }
 
+    public function NotaAll(Request $request)
+    {
+        SiteSettings::loadNumToZero();
+        $spk_id=$request->query('spk_id');
+        $notas=SpkProdukNota::where('spk_id',$spk_id)->get('nota_id')->pluck('nota_id')->toArray();
+
+        // dump($notas);
+        $notas=array_unique($notas);
+        // dd($notas);
+
+        $data=[
+            'notas'=>$notas,
+            'spk_id'=>$spk_id,
+        ];
+        return view('nota.NotaAll', $data);
+    }
+
+    public function NotaAll_DB(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $run_db = true;
+        $success_logs = $error_logs = $warning_logs=array();
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+        }
+
+        $post = $request->post();
+
+        if (isset($post['mode'])) {
+            $request->validate([
+                'nota_id'=>'required'
+            ]);
+        }
+        // dd('$post:', $post);
+        $spk_produks=SpkProduk::where('spk_id',$post['spk_id'])->get();
+        if (isset($post['nota_id'])) {
+            foreach ($spk_produks as $spk_produk) {
+                $spk_produk_notas=SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
+                if (count($spk_produk_notas)!==0) {
+                    $success_logs[]="spk_produk_id:$spk_produk[id] sudah memiliki nota.";
+                    $jml_nota_sama=$jml_nota_beda=0;
+                    $SPKProdukNotaID_toUpdate=null;
+                    //cek nota_id nya sama seperti yang di post atau tidak
+                    foreach ($spk_produk_notas as $spk_produk_nota) {
+                        if ($spk_produk_nota['nota_id']==$post['nota_id']) {
+                            $jml_nota_sama+=$spk_produk_nota['jumlah'];
+                            $SPKProdukNotaID_toUpdate=$spk_produk_nota['id'];
+                        } else {
+                            $jml_nota_beda+=$spk_produk_nota['jumlah'];
+                        }
+                    }
+                    if ($jml_nota_sama===0) {
+                        $success_logs[]="spk_produk_id:$spk_produk[id] tidak memiliki nota sama seperti yang di post:$post[nota_id]";
+                        $jml_av=$spk_produk['jml_selesai']-$jml_nota_beda;
+                        if ($jml_av!==0) {
+                            if ($run_db) {
+                                SpkProdukNota::create([
+                                    'spk_id'=>$post['spk_id'],
+                                    'produk_id'=>$spk_produk['spk_produk_id'],
+                                    'spk_produk_id'=>$spk_produk['id'],
+                                    'nota_id'=>$post['nota_id'],
+                                    'jumlah'=>$jml_av,
+                                    'harga'=>$spk_produk['harga'],
+                                    'harga_t'=>$spk_produk['harga']*$jml_av,
+                                ]);
+                                $success_logs[]="Membuat spk_produk_nota baru dengan jumlah yang tersedia, yakni setelah dikurang $jml_nota_beda";
+                            }
+                        }
+                    } else {
+                        $success_logs[]="spk_produk_id:$spk_produk[id] memiliki nota sama seperti yang di post:$post[nota_id]";
+                        $jml_av=$spk_produk['jml_selesai']-($jml_nota_sama+$jml_nota_beda);
+                        $jml_to_update=$jml_av+$jml_nota_sama;
+                        $SPKProdukNotaToUpdate=SpkProdukNota::find($SPKProdukNotaID_toUpdate);
+                        $SPKProdukNotaToUpdate->jumlah=$jml_to_update;
+                        if ($run_db) {
+                            $SPKProdukNotaToUpdate->save();
+                            $success_logs[]="Updating spk_produk_nota->jumlah";
+                        }
+                    }
+                } else {
+                    //PEMBUATAN spk_produk_nota baru
+                    $success_logs[]="spk_produk_id:$spk_produk[id] belum memiliki nota. Pembuatan spk_produk_nota baru.";
+                    if ($run_db) {
+                        SpkProdukNota::create([
+                            'spk_id'=>$post['spk_id'],
+                            'produk_id'=>$spk_produk['produk_id'],
+                            'spk_produk_id'=>$spk_produk['id'],
+                            'nota_id'=>$post['nota_id'],
+                            'jumlah'=>$spk_produk['jumlah'],
+                            'harga'=>$spk_produk['harga'],
+                            'harga_t'=>$spk_produk['harga']*$spk_produk['jumlah'],
+                        ]);
+                        $success_logs[]="Membuat spk_produk_nota baru";
+                    }
+
+                }
+                UpdateDataSPK::SpkProduk_JmlNota_Status($spk_produk['id']);
+                $success_logs[]="Updating jml_sdh_nota dan status_nota pada spk_produk ID: $spk_produk[id]";
+                UpdateDataSPK::Nota_JmlT_HargaT($post['nota_id']);
+                $success_logs[]="Updating jumlah_total dan harga_total pada nota ID: $post[nota_id]";
+
+                $load_num->value+=1;
+                $load_num->save();
+                $main_log='Success';
+            }
+        } else {
+            //kalo ada lebih dari satu item, tetep mesti cek lewat loop, karena loop pertama pasti sudah terbentuk nota baru.
+            $nota_id=null; // setelah loop pertama, $nota_id akan memiliki value dan menjadi acuan untuk loop berikutnya.
+            for ($i=0; $i < count($spk_produks); $i++) {
+                if ($i===0) {
+                    $success_logs[]='Nota sama sekali belum ada.';
+                    list($success_logs2, $nota_id)=UpdateDataSPK::NewNota($spk_produks[$i]['id']);
+                    $success_logs=array_merge($success_logs,$success_logs2);
+                } else {
+                    if ($nota_id!==null) {
+                        $success_logs2=UpdateDataSPK::NewSPKProdukNota($spk_produks[$i]['id'],$nota_id);
+                        $success_logs=array_merge($success_logs,$success_logs2);
+                    } else {
+                        $error_logs[]='Ada kesalahan, nota_id belum diketahui';
+                    }
+                }
+                UpdateDataSPK::SpkProduk_JmlNota_Status($spk_produks[$i]['id']);
+                $success_logs[]="Updating jml_sdh_nota dan status_nota pada spk_produks[$i] ID: $spk_produks[$i][id]";
+                UpdateDataSPK::Nota_JmlT_HargaT($nota_id);
+                $success_logs[]="Updating jumlah_total dan harga_total pada nota ID: $nota_id";
+                $main_log='Success';
+            }
+        }
+
+        $route='SPK-Detail';
+        $route_btn='Ke Detail SPK';
+        $params=['spk_id'=>$post['spk_id']];
+        $data = [
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
+        ];
+
+        return view('layouts.db-result', $data);
+    }
+
     public function notaBaru_pilihSPK(Request $request)
     {
         SiteSettings::loadNumToZero();
@@ -98,26 +240,6 @@ class NotaController extends Controller
             dump('$list_arr_produks', $list_arr_produks);
         }
 
-        // $pelanggan_spks = array();
-
-        // foreach ($available_spks as $av_spk) {
-        //     $pelanggan = Pelanggan::find($av_spk['pelanggan_id']);
-        //     $reseller = null;
-        //     if ($pelanggan['reseller_id'] !== null) {
-        //         $reseller = Pelanggan::find($pelanggan['reseller_id']);
-        //     }
-
-        //     $spks = Spk::where('pelanggan_id', $pelanggan['id'])->get();
-
-        //     $pelanggan_spk = [
-        //         'pelanggan' => $pelanggan,
-        //         'reseller' => $reseller,
-        //         'spks' => $spks,
-        //     ];
-
-        //     array_push($pelanggan_spks, $pelanggan_spk);
-        // }
-
         $data = [
             'csrf' => csrf_token(),
             'pelanggans' => $pelanggans,
@@ -134,33 +256,6 @@ class NotaController extends Controller
     {
         SiteSettings::loadNumToZero();
         $show_dump = false;
-
-        // $reload_page = $request->session()->get('reload_page');
-        // if ($reload_page === true) {
-        //     $request->session()->put('reload_page', false);
-        // }
-        /**
-         * Setelah pilih SPK, maka sudah semestinya langsung ke pilih Item. Karena ini konsepnya kita akan membuat Nota Baru.
-         * Ada beberapa kasus yang perlu diperhatikan disini:
-         * 1) SPK yang belum sepenuhnya selesai semua tapi sebagian yang sudah kelar ingin dibuatkan nota dan surat jalan terlebih dahulu
-         * * Ini artinya dalam satu SPK bisa 'memiliki' lebih dari satu nota.
-         *
-         * * Lalu misal salah satu item di SPK berjumlah 300, maka ini juga bisa di split, misal yang ingin dibuatkan nota terlebih dahulu
-         * * Hanya yang 150 nya saja.
-         *
-         * Sebelum melakukan itu semua, kita perlu mencari spk dari spk_id yang di post, supaya dapat get pelanggan_id dan get pelanggan
-         *
-         * Lalu kita perlu juga untuk get spk_item dari table spk_produks. Supaya nanti bisa di tampilkan daftar pilihan item yang dapat dibuat nota.
-         * Daftar Item yang dapat dibuat nota tentunya adalah item yang telah selesai proses produksi dan juga item tersebut belum di input
-         * ke dalam nota yang lain. Oleh karena itu kita perlu untuk edit table spk_produks yang sekarang, harus ditambahkan column nota_jumlah.
-         * Dengan data Type Varchar(255) dan value nya nanti adalah string json.
-         * Untuk memudahkan lagi, kita coba untuk menambahkan column sudah_nota dengan value yang juga sebagai string dengan contoh value nya misalnya
-         * 'SEBAGIAN' atau 'SEMUA' atau 'BELUM. Kalo sebagian brrti sudah dimasukkan ke dalam nota sebagian, kalo semua brrti sudah semua nya diinput ke nota
-         * kalo belum berrti belum diinput ke nota sama sekali.
-         *
-         * SPK sudah dipilih dan di send via post. spk_id diketahui, otomatis spk_item yang berkaitan dengan spk_id juga dapat diketahui.
-         *
-         */
 
         $get = $request->query();
 
@@ -202,26 +297,6 @@ class NotaController extends Controller
         // $spk_id = $get['spk_id'];
         // $spk_this = Spk::find($spk_id);
         $pelanggan = Pelanggan::find($spks[0]['pelanggan_id']);
-        $daerah = Daerah::find($pelanggan['daerah_id']);
-
-        /**
-         * nota_item_available Tadinya di ambil langsung dari table SpkProduk. Namun karena di table spk terdapat data yang sama
-         * dan juga lebih lengkap karena disertai juga dengan nama nya, maka kita consider jg untuk ambil data dari table spk
-         */
-
-
-        // FILTER BERIKUTNYA ADALAH APAKAH ADA JUMLAH YANG SUDAH NOTA?
-
-        // for ($i0=0; $i0 < count($nota_item_av); $i0++) {
-        //     if ($nota_item_av[$i0]['jml_sdh_nota'] !== 0) {
-        //         if ($nota_item_av[$i0]['jml_sdh_nota'] < $nota_item_av[$i0]['jml_selesai']) {
-        //             # code...
-        //         } else {
-        //             unset($nota_item_av[$i0]);
-        //             $nota_item_av = json_encode(array_values($nota_item_av));
-        //         }
-        //     }
-        // }
 
         if ($show_dump === true) {
             dump('arr_av_nota_items');
@@ -230,25 +305,10 @@ class NotaController extends Controller
             dump('arr_produks: ', $arr_produks);
         }
 
-
-
-        // $spk_nota_this = SpkNotas::where('spk_id', $spk_id)->get();
-        // dump('spk_nota dengan spk_id ini');
-        // dump($spk_nota_this);
-
-        // $available_nota = [];
-        // for ($i = 0; $i < count($spk_nota_this); $i++) {
-        //     $available_nota_temp = Nota::find($spk_nota_this[$i]['nota_id']);
-        //     array_push($available_nota, $available_nota_temp);
-        // }
-        // dump('available_nota');
-        // dump($available_nota);
-
         $data = [
             'csrf' => csrf_token(),
             'spks' => $spks,
             'pelanggan' => $pelanggan,
-            'daerah' => $daerah,
             'reseller' => $reseller,
             'arr_av_nota_items' => $arr_av_nota_items,
             'arr_produks' => $arr_produks,
@@ -265,12 +325,12 @@ class NotaController extends Controller
         $show_dump = false;
         $run_db = true;
         $success_logs = $error_logs = array();
-        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
         if ($load_num->value > 0) {
             $run_db = false;
-            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
             $ada_error = true;
             $class_div_pesan_db = 'alert-danger';
         }
@@ -604,7 +664,7 @@ class NotaController extends Controller
             $nota->harga_total = $hrg_total_nota;
             $nota->save();
 
-            $pesan_db = 'SUCCESS';
+            $main_log = 'SUCCESS';
             $success_logs[] = 'success_: update no_nota dan harga_total_nota';
             $class_div_pesan_db = 'alert-success';
 
@@ -631,7 +691,7 @@ class NotaController extends Controller
 
         $data = [
             'go_back_number' => -3,
-            'pesan_db' => $pesan_db,
+            'pesan_db' => $main_log,
             'class_div_pesan_db' => $class_div_pesan_db,
             'error_logs' => $error_logs,
             'success_logs' => $success_logs,
@@ -705,12 +765,12 @@ class NotaController extends Controller
         $run_db = true;
 
         $success_logs = $error_logs = array();
-        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
         if ($load_num->value > 0) {
             $run_db = false;
-            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
             $class_div_pesan_db = 'alert-danger';
         }
 
@@ -774,14 +834,14 @@ class NotaController extends Controller
             $load_num->value += 1;
             $load_num->save();
 
-            $pesan_db = 'SUCCESS:';
+            $main_log = 'SUCCESS:';
             $class_div_pesan_db = 'alert-success';
             $success_logs[] = 'success_: Berhasil delete nota terkait!';
         }
 
         $data = [
             'go_back_number' => -2,
-            'pesan_db' => $pesan_db,
+            'pesan_db' => $main_log,
             'class_div_pesan_db' => $class_div_pesan_db,
             'error_logs' => $error_logs,
             'success_logs' => $success_logs,
@@ -809,7 +869,6 @@ class NotaController extends Controller
         $produk = Produk::find($data_item['produk_id']);
         $nota = Nota::find($get['nota_id']);
         $pelanggan = Pelanggan::find($get['pelanggan_id']);
-        $daerah = Daerah::find($pelanggan['daerah_id']);
         $reseller = null;
         if ($nota['reseller_id'] !== null) {
             $reseller = Pelanggan::find($nota['reseller_id']);
@@ -826,7 +885,6 @@ class NotaController extends Controller
         $data = [
             'nota' => $nota,
             'pelanggan' => $pelanggan,
-            'daerah' => $daerah,
             'reseller' => $reseller,
             'spk_produk_nota' => $spk_produk_nota,
             'spk_produk' => $spk_produk,
@@ -846,12 +904,12 @@ class NotaController extends Controller
         $run_db = true;
 
         $success_logs = $error_logs = array();
-        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
         if ($load_num->value > 0) {
             $run_db = false;
-            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
             $class_div_pesan_db = 'alert-danger';
         }
 
@@ -902,7 +960,7 @@ class NotaController extends Controller
 
                 $success_logs[] = "update spk_produk: jml_sdh_nota=$spk_produk[jml_sdh_nota] dan status_nota=$spk_produk[status_nota]";
 
-                $pesan_db = 'SUCCESS';
+                $main_log = 'SUCCESS';
                 $class_div_pesan_db = 'alert-success';
             }
 
@@ -919,14 +977,14 @@ class NotaController extends Controller
                 $success_logs[] = "status_nota pada spk di update menjadi $status_nota";
             }
         } else {
-            $pesan_db = 'OK';
+            $main_log = 'OK';
             $class_div_pesan_db = 'alert-secondary';
             $success_logs[] = 'Tidak ada diubah, karena jumlah yang diinput sama seperti jumlah sebelumnya';
         }
 
         $data = [
             'go_back_number' => -2,
-            'pesan_db' => $pesan_db,
+            'pesan_db' => $main_log,
             'class_div_pesan_db' => $class_div_pesan_db,
             'error_logs' => $error_logs,
             'success_logs' => $success_logs,
@@ -942,12 +1000,12 @@ class NotaController extends Controller
         $run_db = true;
 
         $success_logs = $error_logs = array();
-        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
         if ($load_num->value > 0) {
             $run_db = false;
-            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
             $class_div_pesan_db = 'alert-danger';
         }
 
@@ -994,7 +1052,7 @@ class NotaController extends Controller
             $spk_produk_nota->delete();
             $success_logs[] = "hapus spk_produk_nota";
 
-            $pesan_db = 'SUCCESS';
+            $main_log = 'SUCCESS';
             $class_div_pesan_db = 'alert-success';
         }
 
@@ -1004,7 +1062,7 @@ class NotaController extends Controller
 
         $data = [
             'go_back_number' => -2,
-            'pesan_db' => $pesan_db,
+            'pesan_db' => $main_log,
             'class_div_pesan_db' => $class_div_pesan_db,
             'error_logs' => $error_logs,
             'success_logs' => $success_logs,
@@ -1081,12 +1139,12 @@ class NotaController extends Controller
         $run_db = true;
 
         $success_logs = $error_logs = array();
-        $pesan_db = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
         $class_div_pesan_db = 'alert-danger';
 
         if ($load_num->value > 0) {
             $run_db = false;
-            $pesan_db = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
             $class_div_pesan_db = 'alert-danger';
         }
 
@@ -1151,6 +1209,7 @@ class NotaController extends Controller
                     if (count($spk_produk_nota) === 0) {
                         $spk_produk_nota = SpkProdukNota::create([
                             'spk_id' => $spk['id'],
+                            'produk_id'=>$spk_produk['produk_id'],
                             'spk_produk_id' => $spk_produk['id'],
                             'nota_id' => $nota['id'],
                             'jumlah' => $jml_input,
@@ -1192,7 +1251,7 @@ class NotaController extends Controller
             $load_num->save();
 
             $success_logs[] = 'update nota: jumlah_total dan harga_total';
-            $pesan_db = 'SUCCESS';
+            $main_log = 'SUCCESS';
             $class_div_pesan_db = 'alert-success';
         }
 
@@ -1202,7 +1261,7 @@ class NotaController extends Controller
 
         $data = [
             'go_back_number' => -3,
-            'pesan_db' => $pesan_db,
+            'pesan_db' => $main_log,
             'class_div_pesan_db' => $class_div_pesan_db,
             'error_logs' => $error_logs,
             'success_logs' => $success_logs,

@@ -17,16 +17,18 @@ return new class extends Migration
         Schema::create('srjalans', function (Blueprint $table) {
             $table->id();
             $table->string('no_srjalan', 20)->nullable();
-            $table->foreignId('pelanggan_id')->nullable()->constrained()->onDelete('NO ACTION');
-            $table->foreignId('ekspedisi_id')->nullable()->constrained()->onDelete('NO ACTION');
-            $table->foreignId('reseller_id')->nullable()->constrained('pelanggans')->onDelete('NO ACTION');
+            $table->foreignId('pelanggan_id')->nullable();
+            $table->foreignId('ekspedisi_id')->nullable();
+            $table->foreignId('ekspedisi_transit_id')->nullable();
+            $table->bigInteger('reseller_id')->nullable();
             $table->string('status', 50)->default('PROSES KIRIM');
-            $table->smallInteger('colly')->nullable();
-            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('NO ACTION');
-            $table->foreignId('updated_by')->nullable()->constrained('users')->onDelete('NO ACTION');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            // $table->smallInteger('jumlah')->nullable(); tidak perlu ada detail jumlah disini, karena sudah ada di spk_produk_nota_srjalan
+            $table->smallInteger('jml_colly')->nullable();
+            $table->smallInteger('jml_dus')->nullable();
+            $table->string('created_by');
+            $table->string('updated_by');
             $table->timestamp('finished_at')->nullable();
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

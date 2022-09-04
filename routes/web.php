@@ -4,9 +4,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EkspedisiBaru;
 use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\EkspedisiEdit;
-use App\Http\Controllers\InsertingGeneralController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotaController;
+use App\Http\Controllers\NotaItemController;
 use App\Http\Controllers\PelangganBaruController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PelangganEditController;
@@ -14,8 +14,10 @@ use App\Http\Controllers\PelangganEkspedisiController;
 use App\Http\Controllers\PelangganResellerController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SjItemController;
 use App\Http\Controllers\SpkBaruController;
 use App\Http\Controllers\SpkController;
+use App\Http\Controllers\SpkItemController;
 use App\Http\Controllers\SrjalanController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
@@ -35,8 +37,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', function () {return view('home');})->name('home');
-Route::get('/home', function () {return view('home');})->name('home');
+Route::get('/', function () {return view('home');})->name('Home');
+Route::get('/home', function () {return view('home');})->name('Home');
 Route::get('/about', function () {return view('about.about');});
 
 // LOGIN & REGISTER
@@ -109,46 +111,62 @@ Route::controller(PelangganEkspedisiController::class)->group(function ()
  */
 Route::controller(SpkController::class)->group(function ()
 {
-    Route::get('/spk', 'index');
-    Route::get('/spk/spk-detail', 'spk_detail');
+    Route::get('/spk', 'index')->name('SPK');
+    Route::get('/spk/spk-detail', 'spk_detail')->name('SPK-Detail');
     Route::post('/spk/delete-item-from-spk-detail', 'delete_item_from_spk_detail')->middleware('auth');
-    Route::get('/spk/edit-kop-spk', 'edit_kop_spk')->middleware('auth');
+    Route::get('/spk/edit-kop-spk', 'edit_kop_spk')->name('EditKopSPK')->middleware('auth');
     Route::post('/spk/edit-kop-spk-db', 'edit_kop_spk_db')->middleware('auth');
-    Route::post('/spk/print-out-spk', 'print_out_spk')->middleware('auth');
-    Route::post('/spk/hapus-spk', 'hapus_spk')->middleware('auth');
-    Route::get('/spk/tetapkan-item-selesai', 'tetapkan_item_selesai')->middleware('auth');
+    Route::get('/spk/print-out-spk', 'print_out_spk')->name('PrintOutSPK')->middleware('auth');
+    Route::post('/spk/hapus-spk', 'hapus_spk')->name('HapusSPK')->middleware('auth');
     Route::post('/spk/tetapkan-item-selesai-db', 'tetapkan_item_selesai_db')->middleware('auth');
+
 });
 
 Route::controller(SpkBaruController::class)->group(function ()
 {
-    Route::get('/spk/spk-baru', 'index');
+    Route::get('/spk/spk-baru', 'index')->name('SPKBaru')->middleware('auth');
     Route::post('/spk/spk-baru-db', 'SPKBaruDB')->name('SPKBaruDB')->middleware('auth');
     Route::get('/spk/spk_baru-spk_review', 'spk_review')->name('SPK-Review')->middleware('auth');
     Route::post('/spk/spkBaru-spkItem-editDelete', 'spkBaru_spkItem_editDelete')->middleware('auth');
-    Route::post('/spk/proceed-spk', 'proceed_spk')->middleware('auth');
+    Route::post('/spk/proceed-spk', 'proceed_spk')->name('ProceedSPK')->middleware('auth');
+    Route::get('/spk/SPK_AddItems', "SPK_AddItems")->name('SPK_AddItems')->middleware('auth');
+    Route::post('/spk/SPK_AddItems-DB', "SPK_AddItems_DB")->name('SPK_AddItems-DB')->middleware('auth');
 });
-Route::controller(InsertingGeneralController::class)->group(function ()
+
+Route::controller(SpkItemController::class)->group(function ()
 {
-    Route::get('/spk/inserting-general', "inserting_general")->name('SPKBaru-AddItem')->middleware('auth');
-    Route::post('/spk/inserting-general-db', "inserting_general_db")->middleware('auth');
+    Route::get('/spk/deviasi', 'deviasi')->name('Deviasi')->middleware('auth');
+    Route::post('/spk/deviasi-db', 'deviasi_db')->name('DeviasiDB')->middleware('auth');
+    Route::post('/spk/item-selesai-all', 'ItemSelesai_All')->name('ItemSelesai_All')->middleware('auth');
+    Route::post('/spk/hapus-item-spk', 'hapusItemSPK')->name('hapusItemSPK')->middleware('auth');
 });
+
 
 Route::controller(NotaController::class)->group(function ()
 {
     Route::get('/nota', 'index');
-    Route::get('/nota/nota_baru-pilih_spk', 'notaBaru_pilihSPK')->middleware('auth');
-    Route::get('/nota/notaBaru-pSPK-pItem', 'notaBaru_pSPK_pItem')->middleware('auth');
-    Route::post('/nota/notaBaru-pSPK-pItem-DB', 'notaBaru_pSPK_pItem_DB')->middleware('auth');
+    // Route::get('/nota/nota_baru-pilih_spk', 'notaBaru_pilihSPK')->middleware('auth');
+    // Route::get('/nota/notaBaru-pSPK-pItem', 'notaBaru_pSPK_pItem')->middleware('auth');
+    // Route::post('/nota/notaBaru-pSPK-pItem-DB', 'notaBaru_pSPK_pItem_DB')->middleware('auth');
+    Route::get('/nota/NotaAll', 'NotaAll')->name('NotaAll')->middleware('auth');
+    Route::post('/nota/NotaAll_DB', 'NotaAll_DB')->name('NotaAll_DB')->middleware('auth');
     Route::get('/nota/nota-detail', 'nota_detail');
     Route::get('/nota/nota-print-out', 'nota_print_out');
     Route::post('/nota/nota-hapus', 'nota_hapus')->middleware('auth');
     Route::get('/nota/edit-item-nota', 'edit_item_nota')->middleware('auth');
     Route::post('/nota/edit-item-nota-DB', 'edit_item_nota_db')->middleware('auth');
     Route::post('/nota/hapus-item-nota', 'hapus_item_nota')->middleware('auth');
-    Route::get('/nota/tambah-item', 'tambah_item')->middleware('auth');
-    Route::get('/nota/tambah-item-pilih-item', 'tambah_item_pilih_item')->middleware('auth');
-    Route::post('/nota/tambah-item-db', 'tambah_item_db')->middleware('auth');
+    // Route::get('/nota/tambah-item', 'tambah_item')->middleware('auth');
+    // Route::get('/nota/tambah-item-pilih-item', 'tambah_item_pilih_item')->middleware('auth');
+    // Route::post('/nota/tambah-item-db', 'tambah_item_db')->middleware('auth');
+});
+
+Route::controller(NotaItemController::class)->group(function ()
+{
+    Route::get('/nota/NotaItemBaru', 'NotaItemBaru')->name('NotaItemBaru')->middleware('auth');
+    Route::post('/nota/NotaItemBaru_DB', 'NotaItemBaru_DB')->name('NotaItemBaru_DB')->middleware('auth');
+    Route::get('/nota/NotaItemAva', 'NotaItemAva')->name('NotaItemAva')->middleware('auth');
+    Route::post('/nota/NotaItemAva_DB', 'NotaItemAva_DB')->name('NotaItemAva_DB')->middleware('auth');
 });
 
 /**
@@ -156,13 +174,23 @@ Route::controller(NotaController::class)->group(function ()
  */
 Route::controller(SrjalanController::class)->group(function ()
 {
-    Route::get('/sj', 'index');
-    Route::get('/sj/sjBaru-pCust', 'sjBaru_pCust')->middleware('auth');
-    Route::get('/sj/sjBaru-pPelanggan-pProduk', 'sjBaru_pPelanggan_pProduk')->middleware('auth');
-    Route::post('/sj/sjBaru-pNota-pProduk-DB', 'sjBaru_pNota_pProduk_DB')->middleware('auth');
+    Route::get('/srjalan', 'index');
+    // Route::get('/sj/sjBaru-pCust', 'sjBaru_pCust')->middleware('auth');
+    // Route::get('/sj/sjBaru-pPelanggan-pProduk', 'sjBaru_pPelanggan_pProduk')->middleware('auth');
+    // Route::post('/sj/sjBaru-pNota-pProduk-DB', 'sjBaru_pNota_pProduk_DB')->middleware('auth');
     Route::get('/sj/sj-detailSJ', 'sj_detailSJ');
     Route::get('/srjalan/srjalan-printOut', 'sj_printOut');
     Route::post('/srjalan/srjalan-hapus', 'sj_hapus')->middleware('auth');
+    Route::get('/srjalan/SjAll', 'SjAll')->name('SjAll')->middleware('auth');
+    Route::post('/srjalan/SjAll_DB', 'SjAll_DB')->name('SjAll_DB')->middleware('auth');
+});
+
+Route::controller(SjItemController::class)->group(function ()
+{
+    Route::get('/srjalan/SjItemBaru', 'SjItemBaru')->name('SjItemBaru')->middleware('auth');
+    Route::post('/srjalan/SjItemBaru_DB', 'SjItemBaru_DB')->name('SjItemBaru_DB')->middleware('auth');
+    Route::get('/srjalan/SjItemAva', 'SjItemAva')->name('SjItemAva')->middleware('auth');
+    Route::post('/srjalan/SjItemAva_DB', 'SjItemAva_DB')->name('SjItemAva_DB')->middleware('auth');
 });
 
 /**

@@ -54,7 +54,7 @@
             "<tr>" +
                 "<td class='font-weight-bold'>" + eks_nama_x_bentuk + "</td>" +
                 "<td class='font-weight-bold color-blue-purple'>" + ekspedisi.no_kontak + "</td>" +
-                "<td id='divDropdown-" + ekspedisi.id + "' onclick='showDropdown(" + ekspedisi.id + ");'><img src='/img/icons/dropdown.svg' style='width:0.7em'></td>" +
+                "<td id='divDropdownIcon-" + ekspedisi.id + "' onclick='showDropdown(" + ekspedisi.id + ");'><img src='/img/icons/dropdown.svg' style='width:0.7em'></td>" +
             "</tr>" +
             "<tr id='divDetailDropdown-" + ekspedisi.id + "' class='b-1px-solid-grey p-0_5em mt-1em' style='display:none'>" +
             `<td colspan=3 style="padding:1rem;">
