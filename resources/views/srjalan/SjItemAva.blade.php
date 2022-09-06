@@ -40,12 +40,13 @@
         @foreach ($related_spk_produk_notas as $spk_produk_nota)
         <div class="fw-bold">Terkait dengan Nota-{{ $spk_produk_nota['nota_id'] }}</div>
         @php $j=0; @endphp
-        @foreach ($srjalan_ids_terkait_spk as $srjalan_id)
+        @foreach ($kombi_sjID_spkProdNoSJ as $kombi)
         <div class="row">
             <div class="col">
-                <label for="jumlah-{{ $spk_produk_nota['id'] }}{{ $srjalan_id }}">Jumlah untuk SJ-{{ $srjalan_id }}:</label>
-                <input class="form-control" type="number" name="jumlah[{{ $i }}][{{ $j }}]" id="jumlah-{{ $spk_produk_nota['id'] }}{{ $srjalan_id }}" value="{{ $jml_av }}">
-                <input type="hidden" name="srjalan_id[{{ $i }}][{{ $j }}]" value="{{ $srjalan_id }}">
+                <label for="jumlah-{{ $spk_produk_nota['id'] }}{{ $kombi['srjalan_id'] }}">Jumlah untuk SJ-{{ $kombi['srjalan_id'] }}:</label>
+                <input class="form-control" type="number" name="jumlah[{{ $i }}][{{ $j }}]" id="jumlah-{{ $spk_produk_nota['id'] }}{{ $kombi['srjalan_id'] }}" value="{{ $jml_av }}">
+                <input type="hidden" name="srjalan_id[{{ $i }}][{{ $j }}]" value="{{ $kombi['srjalan_id'] }}">
+                <input type="hidden" name="spk_produk_nota_srjalan_id[{{ $i }}][{{ $j }}]" value="{{ $kombi['spk_produk_nota_srjalan_id'] }}">
                 <input type="hidden" name="spk_produk_nota_id[]" value="{{ $spk_produk_nota['id'] }}">
             </div>
             <div class="col"></div>

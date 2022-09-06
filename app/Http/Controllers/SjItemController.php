@@ -170,46 +170,69 @@ class SjItemController extends Controller
             $spk_produk_nota_ids_basedOn_spk_produk_id[]=$spk_produk_nota['id'];
         }
         foreach ($srjalan_ids_terkait_spk as $srjalan_id) {
-            for ($i=0; $i < count($related_spk_produk_nota_srjalanss); $i++) {
+            if (count($related_spk_produk_nota_srjalanss)===0) {
                 if (count($kombi_sjID_spkProdNoSJ)===0) {
-                    if ($srjalan_id==$related_spk_produk_nota_srjalanss[$i]['srjalan_id']) {
-                        $data_kombi=[
-                            'srjalan_id'=>$srjalan_id,
-                            'spk_produk_nota_srjalan_id'=>$related_spk_produk_nota_srjalanss[$i]['id'],
-                        ];
-                    } else {
-                        $data_kombi=[
+                    $data_kombi=[
+                        'srjalan_id'=>$srjalan_id,
+                        'spk_produk_nota_srjalan_id'=>"",
+                    ];
+                    $kombi_sjID_spkProdNoSJ[]=$data_kombi;
+                } else {
+                    $exist='no';
+                    for ($j=0; $j < count($kombi_sjID_spkProdNoSJ); $j++) {
+                        if ($kombi_sjID_spkProdNoSJ[$j]['srjalan_id']==$srjalan_id && $kombi_sjID_spkProdNoSJ[$j]['spk_produk_nota_srjalan_id']=="") {
+                            $exist='yes';
+                        }
+                    }
+                    if ($exist==='no') {
+                        $kombi_sjID_spkProdNoSJ[]=[
                             'srjalan_id'=>$srjalan_id,
                             'spk_produk_nota_srjalan_id'=>"",
                         ];
                     }
-                    $kombi_sjID_spkProdNoSJ[]=$data_kombi;
-                } else {
-                    if ($srjalan_id==$related_spk_produk_nota_srjalanss[$i]['srjalan_id']) {
-                        $exist='no';
-                        for ($j=0; $j < count($kombi_sjID_spkProdNoSJ); $j++) {
-                            if ($kombi_sjID_spkProdNoSJ[$j]['srjalan_id']==$srjalan_id&&$kombi_sjID_spkProdNoSJ[$j]['spk_produk_nota_srjalan_id']==$related_spk_produk_nota_srjalanss[$i]['id']) {
-                                $exist='yes';
-                            }
-                        }
-                        if ($exist==='no') {
-                            $kombi_sjID_spkProdNoSJ[]=[
+                }
+            } else {
+                for ($i=0; $i < count($related_spk_produk_nota_srjalanss); $i++) {
+                    if (count($kombi_sjID_spkProdNoSJ)===0) {
+                        if ($srjalan_id==$related_spk_produk_nota_srjalanss[$i]['srjalan_id']) {
+                            $data_kombi=[
                                 'srjalan_id'=>$srjalan_id,
                                 'spk_produk_nota_srjalan_id'=>$related_spk_produk_nota_srjalanss[$i]['id'],
                             ];
-                        }
-                    } else {
-                        $exist='no';
-                        for ($j=0; $j < count($kombi_sjID_spkProdNoSJ); $j++) {
-                            if ($kombi_sjID_spkProdNoSJ[$j]['srjalan_id']==$srjalan_id&&$kombi_sjID_spkProdNoSJ[$j]['spk_produk_nota_srjalan_id']=="") {
-                                $exist='yes';
-                            }
-                        }
-                        if ($exist==='no') {
-                            $kombi_sjID_spkProdNoSJ[]=[
+                        } else {
+                            $data_kombi=[
                                 'srjalan_id'=>$srjalan_id,
                                 'spk_produk_nota_srjalan_id'=>"",
                             ];
+                        }
+                        $kombi_sjID_spkProdNoSJ[]=$data_kombi;
+                    } else {
+                        if ($srjalan_id==$related_spk_produk_nota_srjalanss[$i]['srjalan_id']) {
+                            $exist='no';
+                            for ($j=0; $j < count($kombi_sjID_spkProdNoSJ); $j++) {
+                                if ($kombi_sjID_spkProdNoSJ[$j]['srjalan_id']==$srjalan_id&&$kombi_sjID_spkProdNoSJ[$j]['spk_produk_nota_srjalan_id']==$related_spk_produk_nota_srjalanss[$i]['id']) {
+                                    $exist='yes';
+                                }
+                            }
+                            if ($exist==='no') {
+                                $kombi_sjID_spkProdNoSJ[]=[
+                                    'srjalan_id'=>$srjalan_id,
+                                    'spk_produk_nota_srjalan_id'=>$related_spk_produk_nota_srjalanss[$i]['id'],
+                                ];
+                            }
+                        } else {
+                            $exist='no';
+                            for ($j=0; $j < count($kombi_sjID_spkProdNoSJ); $j++) {
+                                if ($kombi_sjID_spkProdNoSJ[$j]['srjalan_id']==$srjalan_id&&$kombi_sjID_spkProdNoSJ[$j]['spk_produk_nota_srjalan_id']=="") {
+                                    $exist='yes';
+                                }
+                            }
+                            if ($exist==='no') {
+                                $kombi_sjID_spkProdNoSJ[]=[
+                                    'srjalan_id'=>$srjalan_id,
+                                    'spk_produk_nota_srjalan_id'=>"",
+                                ];
+                            }
                         }
                     }
                 }
@@ -228,7 +251,7 @@ class SjItemController extends Controller
             'spk_produk_nota_ids_basedOn_spk_produk_id'=>$spk_produk_nota_ids_basedOn_spk_produk_id,
             'kombi_sjID_spkProdNoSJ'=>$kombi_sjID_spkProdNoSJ,
         ];
-        dd($data);
+        // dd($data);
         return view('srjalan.SjItemAva', $data);
 
     }

@@ -12,7 +12,7 @@
             <tr><th>Jml Sls</th><td>:</td><td>{{ $spk_produk['jml_selesai'] }}</td></tr>
             <tr><th>Jml Sudah Nota</th><td>:</td><td>{{ $spk_produk['jml_sdh_nota'] }}</td></tr>
             <tr><th>Keterangan</th><td>:</td><td>{{ $spk_produk['ktrg'] }}</td></tr>
-            @foreach ($spk_produk_notas as $spk_produk_nota)
+            @foreach ($spk_produk_notas_terkait_item as $spk_produk_nota)
             <tr><th>N-{{ $spk_produk_nota['nota_id'] }}</th><td>:</td><td>{{ $spk_produk_nota['jumlah'] }}</td></tr>
             @endforeach
         </table>
@@ -20,14 +20,15 @@
 
     <form action="{{ route('NotaItemAva_DB') }}" method="POST">
         @csrf
-        @if (count($spk_produk_notas)!==0)
-        <div class="alert alert-success">Sudah ada Nota yang terkait dengan SPK ini. Silahkan input ke Nota terkait.</div>
-        @foreach ($spk_produk_notas as $spk_produk_nota)
+        @if (count($params)!==0)
+        <div class="alert alert-success">SPK ini sudah terkait dengan @foreach ($params as $param) Nota-{{$param['nota_id_terkait_spk']}}, @endforeach. Silahkan input ke Nota terkait.</div>
+        @foreach ($params as $param)
         <div class="row">
             <div class="col">
-                <label for="jumlah-{{ $spk_produk_nota['nota_id'] }}">Jumlah untuk N-{{ $spk_produk_nota['nota_id'] }}:</label>
-                <input class="form-control" type="number" name="jumlah[]" id="jumlah-{{ $spk_produk_nota['nota_id'] }}" value="{{ $spk_produk_nota['jumlah'] }}">
-                <input type="hidden" name="spk_produk_nota_id[]" value="{{ $spk_produk_nota['id'] }}">
+                <label for="jumlah-{{ $param['nota_id_terkait_spk'] }}">Jumlah untuk N-{{ $param['nota_id_terkait_spk'] }}:</label>
+                <input class="form-control" type="number" name="jumlah[]" id="jumlah-{{ $param['nota_id_terkait_spk'] }}" value="">
+                <input type="hidden" name="nota_id_terkait_spk[]" value="{{ $param['nota_id_terkait_spk'] }}">
+                <input type="hidden" name="spk_produk_nota_id_terkait_item[]" value="{{ $param['spk_produk_nota_id_terkait_item'] }}">
             </div>
             <div class="col"></div>
         </div>

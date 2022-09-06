@@ -45,7 +45,7 @@ class NotaItemController extends Controller
 
 
         $post = $request->input();
-        dump($post);
+        // dump($post);
 
         $spk_produk=SpkProduk::find($post['spk_produk_id']);
         $jml_av=$spk_produk['jml_selesai']-$spk_produk['jml_sdh_nota'];
@@ -110,14 +110,51 @@ class NotaItemController extends Controller
 
         $spk_produk_id = $request->query('spk_produk_id');
         $spk_produk=SpkProduk::find($spk_produk_id);
+        // Cek terlebih dahulu, apakah spk terkait ini sudah memiliki nota
+        $spk=Spk::find($spk_produk['spk_id']);
+        $spk_produk_notas_terkait_spk = SpkProdukNota::where('spk_id', $spk['id'])->get();
+        $nota_ids_terkait_spk=array();
+        foreach ($spk_produk_notas_terkait_spk as $spk_produk_nota) {
+            $nota_ids_terkait_spk[]=$spk_produk_nota['nota_id'];
+        }
+        $nota_ids_terkait_spk=array_unique($nota_ids_terkait_spk);
+        /**
+         * isi params yang dibutuhkan
+         * [
+         *      'nota_id'=>,
+         *      'spk_produk_nota_id_terkait_item'=>, // ini nanti untuk memperjelas apakah update spk_produk_nota->jumlah atau buat spk_produk_nota baru
+         * ]
+         */
+        $params=array();
+        $spk_produk_notas_terkait_item = SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
+        foreach ($nota_ids_terkait_spk as $nota_id) {
+            $exist='no';
+            foreach ($spk_produk_notas_terkait_item as $spk_produk_nota_terkait_item) {
+                if ($nota_id==$spk_produk_nota_terkait_item['nota_id']) {
+                    $exist='yes';
+                }
+            }
+            if ($exist==='no') {
+                $params[]=[
+                    'nota_id_terkait_spk'=>$nota_id,
+                    'spk_produk_nota_id_terkait_item'=>'',
+                ];
+            } else {
+                $params[]=[
+                    'nota_id_terkait_spk'=>$nota_id,
+                    'spk_produk_nota_id_terkait_item'=>$spk_produk_nota_terkait_item['id'],
+                ];
+            }
+        }
         $produk=Produk::find($spk_produk['id']);
-        $spk_produk_notas = SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
         $data=[
             'produk'=>$produk,
             'spk_produk'=>$spk_produk,
-            'spk_produk_notas'=>$spk_produk_notas,
+            'spk_produk_notas_terkait_item'=>$spk_produk_notas_terkait_item,
+            'spk_produk_notas_terkait_spk'=>$spk_produk_notas_terkait_spk,
+            'params'=>$params,
         ];
-
+        dump($data);
         return view('nota.NotaItemAva', $data);
 
     }
@@ -135,16 +172,15 @@ class NotaItemController extends Controller
         }
 
         $post = $request->input();
-        // dd($post);
+        dump($post);
 
         $spk_produk=SpkProduk::find($post['spk_produk_id']);
-        $jml_av=$spk_produk['jml_selesai']-$spk_produk['jml_sdh_nota'];
         // Cek Jumlah Total di Array input jumlah
         $jumlah_input=0;
         foreach ($post['jumlah'] as $jumlah) {
             $jumlah_input+=(int)$jumlah;
         }
-        if ($jml_av<$jumlah_input) {
+        if ($spk_produk['jml_selesai']<$jumlah_input) {
             $run_db=false;
             $error_logs[]='Jumlah yang tersedia untuk dapat diinput ke nota tidak memadai!';
             $main_log='Error';
@@ -152,14 +188,32 @@ class NotaItemController extends Controller
         $spk=Spk::find($spk_produk['spk_id']);
         $user=auth()->user();
         $i=0;
-        foreach ($post['spk_produk_nota_id'] as $spk_produk_nota_id) {
-            if ($run_db) {
-                $spk_produk_nota=SpkProdukNota::find($spk_produk_nota_id);
-                $spk_produk_nota->jumlah=$post['jumlah'][$i];
-                $spk_produk_nota->harga=$spk_produk['harga'];
-                $spk_produk_nota->harga_t=$spk_produk['harga']*(int)$post['jumlah'][$i];
-                $spk_produk_nota->save();
-                $success_logs[]='spk_produk_nota telah diupdate.';
+        if ($run_db) {
+            foreach ($post['nota_id_terkait_spk'] as $nota_id) {
+                $spk_produk_nota=null;
+                if ($post['spk_produk_nota_id_terkait_item'][$i]===null) {
+                    dump('masuk ke spk_produk_nota baru');
+                    // Pembuatan spk_produk_nota baru
+                    $spk_produk_nota=SpkProdukNota::create([
+                        'spk_id'=>$spk['id'],
+                        'produk_id'=>$spk_produk['produk_id'],
+                        'spk_produk_id'=>$spk_produk['id'],
+                        'nota_id'=>$nota_id,
+                        'jumlah'=>(int)$post['jumlah'][$i],
+                        'harga'=>(int)$spk_produk['harga'],
+                        'harga_t'=>$spk_produk['harga']*(int)$post['jumlah'][$i],
+                    ]);
+                    $success_logs[]='spk_produk_nota baru telah diupdate.';
+                } else {
+                    dump('masuk ke update spk_produk_nota');
+                    dump((int)$post['jumlah'][$i]);
+                    $spk_produk_nota=SpkProdukNota::find($post['spk_produk_nota_id_terkait_item'][$i]);
+                    $spk_produk_nota->jumlah=(int)$post['jumlah'][$i];
+                    $spk_produk_nota->harga=$spk_produk['harga'];
+                    $spk_produk_nota->harga_t=$spk_produk['harga']*(int)$post['jumlah'][$i];
+                    $spk_produk_nota->save();
+                    $success_logs[]='spk_produk_nota telah diupdate.';
+                }
 
                 //UPDATE spk_produk->jml_sdh_nota
                 UpdateDataSPK::SpkProduk_JmlNota_Status($spk_produk['id']);
@@ -168,16 +222,14 @@ class NotaItemController extends Controller
                 UpdateDataSPK::Nota_JmlT_HargaT($spk_produk_nota['nota_id']);
                 $success_logs[]='nota: Jumlah dan Harga Total Nota diupdate.';
 
-                $load_num->value+=1;
-                $load_num->save();
-                $warning_logs[]='Load Num telah ditambah satu.';
-                $main_log='Success';
-
                 UpdateDataSPK::Nota_JmlT_HargaT($spk_produk_nota['nota_id']);
+                $i++;
             }
-            $i++;
+            $load_num->value+=1;
+            $load_num->save();
+            $warning_logs[]='Load Num telah ditambah satu.';
+            $main_log='Success';
         }
-
 
         $route='SPK-Detail';
         $params=['spk_id'=>$spk_produk['spk_id']];
