@@ -687,21 +687,21 @@ function showLightBoxGlobal (deletePropertiesStrigified) {
 
 
 }
-function showHide(toshow, tohide) {
-    $(`#${toshow}`).show();
-    $(`#${tohide}`).hide();
+// function showHide(toshow, tohide) {
+//     $(`#${toshow}`).show();
+//     $(`#${tohide}`).hide();
 
-    var inputToHide = document.querySelector(`#${tohide} input`);
-    var selectToHide = document.querySelector(`#${tohide} select`);
-    if (inputToHide) {
-        console.log(inputToHide);
-        inputToHide.value = '';
-        autoname();
-    }
-    if (selectToHide) {
-        console.log(selectToHide);
-        selectToHide.selectedIndex = 0;
-        autoname();
-    }
-    // autoname();
-}
+//     var inputToHide = document.querySelector(`#${tohide} input`);
+//     var selectToHide = document.querySelector(`#${tohide} select`);
+//     if (inputToHide) {
+//         console.log(inputToHide);
+//         inputToHide.value = '';
+//         autoname();
+//     }
+//     if (selectToHide) {
+//         console.log(selectToHide);
+//         selectToHide.selectedIndex = 0;
+//         autoname();
+//     }
+//     // autoname();
+// }

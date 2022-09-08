@@ -22,7 +22,7 @@
     </script>
     <script src="/js/functions_h.js"></script>
     <script src="{{ asset('js/functions.js') }}"></script>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style>
         a {
             text-decoration: none;

@@ -45,6 +45,7 @@ class NotaItemController extends Controller
 
 
         $post = $request->input();
+        // return $post;
         // dump($post);
 
         $spk_produk=SpkProduk::find($post['spk_produk_id']);
@@ -101,7 +102,8 @@ class NotaItemController extends Controller
             'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'success_logs'=>$success_logs,'main_log'=>$main_log,
             'route'=>$route,'route_btn'=>$route_btn,'params'=>$params
         ];
-        return view('layouts.db-result', $data);
+        return $data;
+        // return view('layouts.db-result', $data);
     }
 
     public function NotaItemAva(Request $request)

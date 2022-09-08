@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('status', 50)->nullable()->default('PROSES');
             $table->string('status_nota', 50)->nullable()->default('BELUM');
             $table->string('status_sj', 50)->nullable()->default('BELUM');
+            $table->string('status_tree', 50)->nullable()->default('BELUM');
             $table->string('judul')->nullable();
             // $table->text('data_spk_item');
             $table->integer('jumlah_selesai')->nullable()->default(0);
