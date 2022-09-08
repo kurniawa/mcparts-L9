@@ -37,22 +37,21 @@
         <div class="alert alert-info">Untuk Item ini, belum ada yang diinput ke SrJalan.</div>
         @endif
         @php $i=0; @endphp
-        @foreach ($related_spk_produk_notas as $spk_produk_nota)
-        <div class="fw-bold">Terkait dengan Nota-{{ $spk_produk_nota['nota_id'] }}</div>
-        @php $j=0; @endphp
-        @foreach ($kombi_sjID_spkProdNoSJ as $kombi)
-        <div class="row">
-            <div class="col">
-                <label for="jumlah-{{ $spk_produk_nota['id'] }}{{ $kombi['srjalan_id'] }}">Jumlah untuk SJ-{{ $kombi['srjalan_id'] }}:</label>
-                <input class="form-control" type="number" name="jumlah[{{ $i }}][{{ $j }}]" id="jumlah-{{ $spk_produk_nota['id'] }}{{ $kombi['srjalan_id'] }}" value="{{ $jml_av }}">
-                <input type="hidden" name="srjalan_id[{{ $i }}][{{ $j }}]" value="{{ $kombi['srjalan_id'] }}">
-                <input type="hidden" name="spk_produk_nota_srjalan_id[{{ $i }}][{{ $j }}]" value="{{ $kombi['spk_produk_nota_srjalan_id'] }}">
-                <input type="hidden" name="spk_produk_nota_id[]" value="{{ $spk_produk_nota['id'] }}">
+        @foreach ($params as $param)
+        <div class="alert alert-primary">
+            <div class="fw-bold">Terkait dengan Nota-{{ $param['nota_id'] }}</div>
+            <div class="row">
+                <div class="col">
+                    <label for="jumlah-{{ $param['srjalan_id'] }}">Jumlah untuk SJ-{{ $param['srjalan_id'] }}:</label>
+                    <input class="form-control" type="number" name="jumlah[]" id="jumlah-{{ $param['srjalan_id'] }}" value="{{ $jml_av }}">
+                    <input type="hidden" name="srjalan_id[]" value={{ $param['srjalan_id'] }}>
+                    <input type="hidden" name="spk_produk_nota_srjalan_id[]" value={{$param['spk_produk_nota_srjalan_id']}}>
+                    <input type="hidden" name="spk_produk_nota_id[]" value={{$param['spk_produk_nota_id']}}>
+                    <input type="hidden" name="nota_id[]" value={{$param['nota_id']}}>
+                </div>
+                <div class="col"></div>
             </div>
-            <div class="col"></div>
         </div>
-        @php $j++; @endphp
-        @endforeach
         @php $i++; @endphp
         @endforeach
         <div class="mt-3">

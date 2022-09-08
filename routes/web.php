@@ -20,6 +20,7 @@ use App\Http\Controllers\SpkController;
 use App\Http\Controllers\SpkItemController;
 use App\Http\Controllers\SrjalanController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\TreeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -141,6 +142,10 @@ Route::controller(SpkItemController::class)->group(function ()
     Route::post('/spk/hapus-item-spk', 'hapusItemSPK')->name('hapusItemSPK')->middleware('auth');
 });
 
+Route::controller(TreeController::class)->group(function ()
+{
+    Route::get('/tree/tree', 'index')->name('Tree')->middleware('auth');
+});
 
 Route::controller(NotaController::class)->group(function ()
 {

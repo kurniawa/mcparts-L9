@@ -20,7 +20,7 @@ class NotaItemController extends Controller
 
         $spk_produk_id = $request->query('spk_produk_id');
         $spk_produk=SpkProduk::find($spk_produk_id);
-        $produk=Produk::find($spk_produk['id']);
+        $produk=Produk::find($spk_produk['produk_id']);
         $spk_produk_notas = SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
         $data=[
             'produk'=>$produk,
@@ -128,12 +128,15 @@ class NotaItemController extends Controller
         $params=array();
         $spk_produk_notas_terkait_item = SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
         foreach ($nota_ids_terkait_spk as $nota_id) {
-            $exist='no';
-            foreach ($spk_produk_notas_terkait_item as $spk_produk_nota_terkait_item) {
-                if ($nota_id==$spk_produk_nota_terkait_item['nota_id']) {
+            $exist='no';$spk_produk_nota_id_terkait_item=null;
+            foreach ($spk_produk_notas_terkait_item as $spk_produk_nota) {
+                // dump($nota_id,$spk_produk_nota['nota_id']);
+                if ($nota_id==$spk_produk_nota['nota_id']) {
                     $exist='yes';
+                    $spk_produk_nota_id_terkait_item=$spk_produk_nota['id'];
                 }
             }
+            // dump($exist);
             if ($exist==='no') {
                 $params[]=[
                     'nota_id_terkait_spk'=>$nota_id,
@@ -142,7 +145,7 @@ class NotaItemController extends Controller
             } else {
                 $params[]=[
                     'nota_id_terkait_spk'=>$nota_id,
-                    'spk_produk_nota_id_terkait_item'=>$spk_produk_nota_terkait_item['id'],
+                    'spk_produk_nota_id_terkait_item'=>$spk_produk_nota_id_terkait_item,
                 ];
             }
         }
@@ -154,7 +157,7 @@ class NotaItemController extends Controller
             'spk_produk_notas_terkait_spk'=>$spk_produk_notas_terkait_spk,
             'params'=>$params,
         ];
-        dump($data);
+        // dump($data);
         return view('nota.NotaItemAva', $data);
 
     }
@@ -172,7 +175,7 @@ class NotaItemController extends Controller
         }
 
         $post = $request->input();
-        dump($post);
+        // dump($post);
 
         $spk_produk=SpkProduk::find($post['spk_produk_id']);
         // Cek Jumlah Total di Array input jumlah
