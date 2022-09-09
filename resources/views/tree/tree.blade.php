@@ -196,7 +196,7 @@
         jumlahs.forEach(jumlah => {
             jumlah_t+=jumlah;
         });
-        var jml_sdh_nota=document.getElementById('')
+        var jml_sdh_nota=parseInt(document.getElementById('jml_sdh_nota').value);
         if (jumlah_t<=) {
 
         }
