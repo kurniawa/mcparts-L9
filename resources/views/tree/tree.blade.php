@@ -113,10 +113,14 @@
                     <div class="fw-bold" style="display: inline-block">SJ Baru</div>
                     <small class="btn fw-bold" style="color: red;" onclick="showHide('btn-sj_baru', 'opsi-sj_baru')">X</small>
                 </div>
-                <div class="form-group">
-                    <label for="jml_sj_new">Jml. SJ Baru:</label>
-                    <input type="number" class="form-control" name="jml_sj_new" id="jml_sj_new" value=>
+                @foreach ($nota_ids_terkait_pelanggan_or_item as $nota_id)
+                <div class="form-group mt-2">
+                    <label for="jml_sj_new-{{ $nota_id }}">Jml. <span>(terkait N-{{ $nota_id }}) :</span></label>
+                    <input type="number" class="form-control jml_sj_new" id="jml_sj_new-{{ $nota_id }}">
+                    <div class="invalid-feedback invalid-feedback-sj"></div>
+                    <input type="hidden" class="form-control nota_id" value={{ $nota_id }}>
                 </div>
+                @endforeach
                 <div class="text-end mt-2">
                     <button class="btn btn-warning" id="btn-sj-baru">Konfirm</button>
                 </div>
@@ -124,7 +128,7 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" id="jml_sdh_nota" value="{{ $spk_produk['jml_sdh_nota'] }}">
 <br><br>
 <div class="container">
     <div>
@@ -136,10 +140,10 @@
 <br><br>
 <script>
     document.getElementById('btn-nota-baru').addEventListener('click', function (event) {
-        var jml_nota_new=document.getElementById('jml_nota_new').value;
+        var jml_nota_new=parseInt(document.getElementById('jml_nota_new').value);
         console.log(jml_nota_new);
-        if (typeof jml_nota_new !== 'number') {
-            console.log('not a number');
+        if (isNaN(jml_nota_new)) {
+            console.log('is not a number');
             return event.preventDefault();
         } else {
             $.ajax({
@@ -171,6 +175,33 @@
     function newSPKProdukNota(spk_produk_id, nota_id, jumlah) {
         console.log(spk_produk_id,nota_id,jumlah);
     }
+
+    document.getElementById('btn-sj-baru').addEventListener('click', function (event) {
+        var el_jumlahs=document.querySelectorAll('.jml_sj_new');
+        var divs_invalid_feedback=document.querySelectorAll('.invalid-feedback-sj');
+        var jumlahs=new Array();
+        var i=0;
+        el_jumlahs.forEach(el_jumlah => {
+            if (isNaN(parseInt(el_jumlah.value))) {
+                divs_invalid_feedback[i].style.display='block';
+                divs_invalid_feedback[i].textContent='Format jumlah tidak tepat!';
+                return false;
+            } else {
+                jumlahs.push(el_jumlah.value);
+            }
+            i++;
+        });
+        console.log(jumlahs);
+        var jumlah_t=0;
+        jumlahs.forEach(jumlah => {
+            jumlah_t+=jumlah;
+        });
+        var jml_sdh_nota=document.getElementById('')
+        if (jumlah_t<=) {
+
+        }
+        return event.preventDefault();
+    });
 
     function showHide(toshow, tohide) {
         $(`#${toshow}`).show();

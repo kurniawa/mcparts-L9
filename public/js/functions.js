@@ -685,7 +685,6 @@ function showLightBoxGlobal (deletePropertiesStrigified) {
         this.remove();
     });
 
-
 }
 // function showHide(toshow, tohide) {
 //     $(`#${toshow}`).show();

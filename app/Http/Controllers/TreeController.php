@@ -45,13 +45,13 @@ class TreeController extends Controller
         }
 
         // Merge keduanya lalu unique
-        $nota_ids_terkait_pelanggan_d_item = array_merge($nota_ids_terkait_item,$nota_ids_terkait_pelanggan);
-        $nota_ids_terkait_pelanggan_d_item = array_unique($nota_ids_terkait_pelanggan_d_item);
-        dump($nota_ids_terkait_pelanggan_d_item);
+        $nota_ids_terkait_pelanggan_or_item = array_merge($nota_ids_terkait_item,$nota_ids_terkait_pelanggan);
+        $nota_ids_terkait_pelanggan_or_item = array_unique($nota_ids_terkait_pelanggan_or_item);
+        dump($nota_ids_terkait_pelanggan_or_item);
 
         // Dari Nota2 tersebut, kita cek SrJalan nya apakah ada?
         $sj_ids_t_cust=array();
-        foreach ($nota_ids_terkait_pelanggan_d_item as $nota_id) {
+        foreach ($nota_ids_terkait_pelanggan_or_item as $nota_id) {
             $spkProNoSjs_t_cust = SpkProdukNotaSrjalan::where('nota_id',$nota_id)->get();
             foreach ($spkProNoSjs_t_cust as $spkProNoSj) {
                 $sj_ids_t_cust[]=$spkProNoSj['srjalan_id'];
@@ -61,7 +61,7 @@ class TreeController extends Controller
 
         // Membuat params_nota dari nota_id yang tersedia. Array yang ada di loop lagi untuk cek dan bikin object.
         $params_nota=$params_sj=array();
-        foreach ($nota_ids_terkait_pelanggan_d_item as $nota_id) {
+        foreach ($nota_ids_terkait_pelanggan_or_item as $nota_id) {
             dump($nota_id);
             $spkProNos_t_cust_d_notaID_not_spk_not_spkProduk=SpkProdukNota::where('nota_id',$nota_id)->where('spk_id','!=',$spk['id'])->where('spk_produk_id','!=',$spk_produk['id'])->get();
             // dump($spkProNos_t_cust_d_notaID_not_spk_not_spkProduk);
@@ -186,6 +186,7 @@ class TreeController extends Controller
             'params'=>$params,
             'params_nota'=>$params_nota,
             'params_sj'=>$params_sj,
+            'nota_ids_terkait_pelanggan_or_item'=>$nota_ids_terkait_pelanggan_or_item,
         ];
         dump($data);
         return view('tree.tree', $data);
