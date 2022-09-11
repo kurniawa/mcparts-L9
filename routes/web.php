@@ -168,10 +168,11 @@ Route::controller(NotaController::class)->group(function ()
 
 Route::controller(NotaItemController::class)->group(function ()
 {
-    Route::get('/nota/NotaItemBaru', 'NotaItemBaru')->name('NotaItemBaru')->middleware('auth');
+    // Route::get('/nota/NotaItemBaru', 'NotaItemBaru')->name('NotaItemBaru')->middleware('auth');
     Route::post('/nota/NotaItemBaru_DB', 'NotaItemBaru_DB')->name('NotaItemBaru_DB')->middleware('auth');
-    Route::get('/nota/NotaItemAva', 'NotaItemAva')->name('NotaItemAva')->middleware('auth');
+    // Route::get('/nota/NotaItemAva', 'NotaItemAva')->name('NotaItemAva')->middleware('auth');
     Route::post('/nota/NotaItemAva_DB', 'NotaItemAva_DB')->name('NotaItemAva_DB')->middleware('auth');
+    Route::post('/nota/newSpkProN_to_avaN', 'newSpkProN_to_avaN')->name('newSpkProN_to_avaN')->middleware('auth');
 });
 
 /**
@@ -192,9 +193,9 @@ Route::controller(SrjalanController::class)->group(function ()
 
 Route::controller(SjItemController::class)->group(function ()
 {
-    Route::get('/srjalan/SjItemBaru', 'SjItemBaru')->name('SjItemBaru')->middleware('auth');
+    // Route::get('/srjalan/SjItemBaru', 'SjItemBaru')->name('SjItemBaru')->middleware('auth');
     Route::post('/srjalan/SjItemBaru_DB', 'SjItemBaru_DB')->name('SjItemBaru_DB')->middleware('auth');
-    Route::get('/srjalan/SjItemAva', 'SjItemAva')->name('SjItemAva')->middleware('auth');
+    // Route::get('/srjalan/SjItemAva', 'SjItemAva')->name('SjItemAva')->middleware('auth');
     Route::post('/srjalan/SjItemAva_DB', 'SjItemAva_DB')->name('SjItemAva_DB')->middleware('auth');
 });
 

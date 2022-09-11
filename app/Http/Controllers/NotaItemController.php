@@ -6,6 +6,7 @@ use App\Helpers\SiteSettings;
 use App\Helpers\UpdateDataSPK;
 use App\Models\Nota;
 use App\Models\Produk;
+use App\Models\ProdukHarga;
 use App\Models\SiteSetting;
 use App\Models\Spk;
 use App\Models\SpkProduk;
@@ -106,62 +107,44 @@ class NotaItemController extends Controller
         // return view('layouts.db-result', $data);
     }
 
-    public function NotaItemAva(Request $request)
+    public function newSpkProN_to_avaN(Request $request)
     {
-        SiteSettings::loadNumToZero();
+        $load_num = SiteSetting::find(1);
+        $run_db=true;
+        $success_logs = $error_logs = $warning_logs=array();
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
 
-        $spk_produk_id = $request->query('spk_produk_id');
-        $spk_produk=SpkProduk::find($spk_produk_id);
-        // Cek terlebih dahulu, apakah spk terkait ini sudah memiliki nota
-        $spk=Spk::find($spk_produk['spk_id']);
-        $spk_produk_notas_terkait_spk = SpkProdukNota::where('spk_id', $spk['id'])->get();
-        $nota_ids_terkait_spk=array();
-        foreach ($spk_produk_notas_terkait_spk as $spk_produk_nota) {
-            $nota_ids_terkait_spk[]=$spk_produk_nota['nota_id'];
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
         }
-        $nota_ids_terkait_spk=array_unique($nota_ids_terkait_spk);
-        /**
-         * isi params yang dibutuhkan
-         * [
-         *      'nota_id'=>,
-         *      'spk_produk_nota_id_terkait_item'=>, // ini nanti untuk memperjelas apakah update spk_produk_nota->jumlah atau buat spk_produk_nota baru
-         * ]
-         */
-        $params=array();
-        $spk_produk_notas_terkait_item = SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
-        foreach ($nota_ids_terkait_spk as $nota_id) {
-            $exist='no';$spk_produk_nota_id_terkait_item=null;
-            foreach ($spk_produk_notas_terkait_item as $spk_produk_nota) {
-                // dump($nota_id,$spk_produk_nota['nota_id']);
-                if ($nota_id==$spk_produk_nota['nota_id']) {
-                    $exist='yes';
-                    $spk_produk_nota_id_terkait_item=$spk_produk_nota['id'];
-                }
-            }
-            // dump($exist);
-            if ($exist==='no') {
-                $params[]=[
-                    'nota_id_terkait_spk'=>$nota_id,
-                    'spk_produk_nota_id_terkait_item'=>'',
-                ];
-            } else {
-                $params[]=[
-                    'nota_id_terkait_spk'=>$nota_id,
-                    'spk_produk_nota_id_terkait_item'=>$spk_produk_nota_id_terkait_item,
-                ];
-            }
-        }
-        $produk=Produk::find($spk_produk['id']);
-        $data=[
-            'produk'=>$produk,
-            'spk_produk'=>$spk_produk,
-            'spk_produk_notas_terkait_item'=>$spk_produk_notas_terkait_item,
-            'spk_produk_notas_terkait_spk'=>$spk_produk_notas_terkait_spk,
-            'params'=>$params,
-        ];
-        // dump($data);
-        return view('nota.NotaItemAva', $data);
 
+        $post = $request->input();
+        // return $post;
+        // cari harga produk
+        $produk_harga=ProdukHarga::where('produk_id',$post['produk_id'])->latest()->first();
+        // return $produk_harga['harga'];
+        $harga=$produk_harga['harga'];
+        $harga_t=$harga*(int)$post['jumlah'];
+        if ($run_db) {
+            $spk_produk_nota=SpkProdukNota::create([
+                'spk_id'=>$post['spk_id'],
+                'produk_id'=>$post['produk_id'],
+                'spk_produk_id'=>$post['spk_produk_id'],
+                'nota_id'=>$post['nota_id'],
+                'jumlah'=>(int)$post['jumlah'],
+                'harga'=>(int)$harga,
+                'harga_t'=>$harga_t,
+            ]);
+            $success_logs[]='spk_produk_nota baru telah diupdate.';
+            $success_logs[]="Updating spk_produk->jumlah_sudah_srjalan dan status.";
+            $main_log='Success';
+
+            $data=[
+                'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'success_logs'=>$success_logs,'main_log'=>$main_log,
+            ];
+            return $data;
+        }
     }
 
     public function NotaItemAva_DB(Request $request)

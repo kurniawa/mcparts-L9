@@ -138,6 +138,19 @@ class TreeController extends Controller
             }
         }
 
+        for ($i=0; $i < count($params_nota); $i++) {
+            for ($j=0; $j < count($params_nota); $j++) {
+                if (isset($params_nota[$i]) && isset($params_nota[$j])) {
+                    if ($i!==$j) {
+                        if ($params_nota[$i]['nota_id']==$params_nota[$j]['nota_id']) {
+                            unset($params_nota[$i]);
+                        }
+                    }
+                }
+            }
+        }
+        $params_nota=array_values($params_nota);
+
         $spk_produk_nota_sjs_terkait_spk=SpkProdukNotaSrjalan::where('spk_id',$spk['id'])->get();
         $sj_ids_terkait_spk=array();
         foreach ($spk_produk_nota_sjs_terkait_spk as $spk_produk_nota_sj) {
@@ -175,6 +188,10 @@ class TreeController extends Controller
             $jml_sdh_sj+=$spk_produk_nota_sj['jumlah'];
         }
         $jml_av=$jml_sdh_nota-$jml_sdh_sj;
+
+        $menus=[
+            ['route'=>'SPK-Detail','nama'=>'Detail SPK','method'=>'get','params'=>['name'=>'spk_id','value'=>$spk['id']]],
+        ];
         $data=[
             'spk_produk'=>$spk_produk,
             'spk'=>$spk,
@@ -187,6 +204,7 @@ class TreeController extends Controller
             'params_nota'=>$params_nota,
             'params_sj'=>$params_sj,
             'nota_ids_terkait_pelanggan_or_item'=>$nota_ids_terkait_pelanggan_or_item,
+            'menus'=>$menus,
         ];
         dump($data);
         return view('tree.tree', $data);
