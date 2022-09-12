@@ -138,16 +138,17 @@ class TreeController extends Controller
             }
         }
 
+        dump('params_nota awal:',$params_nota);
+        $i_toUnset=array();
         for ($i=0; $i < count($params_nota); $i++) {
-            for ($j=0; $j < count($params_nota); $j++) {
-                if (isset($params_nota[$i]) && isset($params_nota[$j])) {
-                    if ($i!==$j) {
-                        if ($params_nota[$i]['nota_id']==$params_nota[$j]['nota_id']) {
-                            unset($params_nota[$i]);
-                        }
-                    }
+            for ($j=$i+1; $j < count($params_nota); $j++) {
+                if ($params_nota[$i]['nota_id']==$params_nota[$j]['nota_id']) {
+                    $i_toUnset[]=$i;
                 }
             }
+        }
+        foreach ($i_toUnset as $i) {
+            unset($params_nota[$i]);
         }
         $params_nota=array_values($params_nota);
 

@@ -9,7 +9,7 @@ class Spk extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    // public $timestamps = false; tidak perlu false, karena memang terpakai
+    //  tidak perlu false, karena memang terpakai
     public function pelanggan()
     {
         return $this->belongsTo(Pelanggan::class);

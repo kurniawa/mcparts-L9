@@ -10,7 +10,7 @@ class Jahit extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    public $timestamps = false;
+
 
     public function jahits_harga()
     {

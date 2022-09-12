@@ -9,5 +9,5 @@ class ProdukTankpad extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    public $timestamps = false;
+
 }

@@ -136,8 +136,49 @@ class NotaItemController extends Controller
                 'harga'=>(int)$harga,
                 'harga_t'=>$harga_t,
             ]);
-            $success_logs[]='spk_produk_nota baru telah diupdate.';
-            $success_logs[]="Updating spk_produk->jumlah_sudah_srjalan dan status.";
+            //UPDATE spk_produk->jml_sdh_nota
+            UpdateDataSPK::SpkProduk_JmlNota_Status($post['spk_produk_id']);
+            $success_logs[]='spk_produk: Jumlah Sudah Nota diupdate.';
+
+            UpdateDataSPK::Nota_JmlT_HargaT($spk_produk_nota['nota_id']);
+            $success_logs[]='nota: Jumlah dan Harga Total Nota diupdate.';
+
+            $main_log='Success';
+
+            $data=[
+                'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'success_logs'=>$success_logs,'main_log'=>$main_log,
+            ];
+            return $data;
+        }
+    }
+
+    public function editJmlSpkPN(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $run_db=true;
+        $success_logs = $error_logs = $warning_logs=array();
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+        }
+
+        $post = $request->input();
+        // return $post;
+        if ($run_db) {
+            $spk_produk_nota=SpkProdukNota::find($post['spk_produk_nota_id']);
+            $spk_produk_nota->jumlah=$post['jumlah'];
+            $spk_produk_nota->save();
+            $success_logs[]='spk_produk_nota: Jumlah Nota item yang berkaitan sudah diupdate.';
+
+            //UPDATE spk_produk->jml_sdh_nota
+            UpdateDataSPK::SpkProduk_JmlNota_Status($post['spk_produk_id']);
+            $success_logs[]='spk_produk: Jumlah Sudah Nota diupdate.';
+
+            UpdateDataSPK::Nota_JmlT_HargaT($spk_produk_nota['nota_id']);
+            $success_logs[]='nota: Jumlah dan Harga Total Nota diupdate.';
+
             $main_log='Success';
 
             $data=[

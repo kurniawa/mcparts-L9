@@ -10,7 +10,7 @@ class SpkProdukSelesai extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    public $timestamps = false;
+
 
     public function get_tahapan_last($spk_produk_id)
     {

@@ -173,6 +173,7 @@ Route::controller(NotaItemController::class)->group(function ()
     // Route::get('/nota/NotaItemAva', 'NotaItemAva')->name('NotaItemAva')->middleware('auth');
     Route::post('/nota/NotaItemAva_DB', 'NotaItemAva_DB')->name('NotaItemAva_DB')->middleware('auth');
     Route::post('/nota/newSpkProN_to_avaN', 'newSpkProN_to_avaN')->name('newSpkProN_to_avaN')->middleware('auth');
+    Route::post('/nota/editJmlSpkPN', 'editJmlSpkPN')->name('editJmlSpkPN')->middleware('auth');
 });
 
 /**

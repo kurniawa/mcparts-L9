@@ -10,7 +10,7 @@ class Motif extends Model
 {
     use HasFactory;
     protected $guarded = ["id"];
-    public $timestamps = false;
+
 
     public function motif_harga()
     {

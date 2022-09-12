@@ -10,7 +10,7 @@ class Variasi extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    public $timestamps = false;
+
 
     public function variasi_harga()
     {

@@ -17,9 +17,12 @@
 </div>
 
 {{-- PEMBUATAN NOTA --}}
+{{-- PARAMETER --}}
 <input type="hidden" id="jmlSls_spkProN" value={{ $spk_produk['jml_selesai'] }}>
 <input type="hidden" id="spk_id" value={{ $spk['id'] }}>
 <input type="hidden" id="produk_id" value={{ $produk['id'] }}>
+<input type="hidden" id="spk_produk_id" value={{ $spk_produk['id'] }}>
+<input type="hidden" id="jml_sdh_nota" value={{ $spk_produk['jml_sdh_nota'] }}>
 <div class="container">
     <div class="row">
         <div class="col">
@@ -43,7 +46,7 @@
                 </div>
                 <div class="text-end" id='ddIconNota-{{ $param['nota_id'] }}' onclick="showDD('#ddElNota-{{ $param['nota_id'] }}','#ddIconNota-{{ $param['nota_id'] }}');"><small>Edit</small> <img class="w-0_7rem" src="{{ asset('img/icons/dropdown.svg') }}" alt=""></div>
                 <div class="text-end mt-2" id='ddElNota-{{ $param['nota_id'] }}' style="display: none">
-                    <button class="btn btn-warning" onclick="newSPKProdukNota({{ $spk_produk['id'] }},{{ $param['nota_id'] }},'jml_nota-{{ $param['nota_id'] }}','invalid-feedback-n_t_spk-{{ $param['nota_id'] }}')">Konfirm</button>
+                    <button class="btn btn-warning" onclick="newSPKProdukNota({{ $param['nota_id'] }},'jml_nota-{{ $param['nota_id'] }}','invalid-feedback-n_t_spk-{{ $param['nota_id'] }}')">Konfirm</button>
                 </div>
             </div>
             @else
@@ -51,12 +54,13 @@
                 <div class="form-group">
                     <label for="jml_nota-{{ $param['nota_id'] }}" class="fw-bold">N-{{ $param['nota_id'] }}</label>
                     <small>( terkait item )</small>
-                    <input type="number" class="form-control" name="jml_nota-{{ $param['nota_id'] }}" id="jml_nota-{{ $param['nota_id'] }}" value={{ $param['jumlah'] }}>
+                    <input type="number" class="form-control" id="jml_nota-{{ $param['nota_id'] }}" value={{ $param['jumlah'] }}>
+                    <div class="invalid-feedback" id="invalid-feedback-nota_terkait_item-{{ $param['nota_id'] }}"></div>
                 </div>
                 <div class="text-end" id='ddIconNota-{{ $param['nota_id'] }}' onclick="showDD('#ddElNota-{{ $param['nota_id'] }}','#ddIconNota-{{ $param['nota_id'] }}');"><small>Edit</small> <img class="w-0_7rem" src="{{ asset('img/icons/dropdown.svg') }}" alt=""></div>
                 <div class="text-end mt-2" id='ddElNota-{{ $param['nota_id'] }}' style="display: none">
                     <button class="btn btn-danger" onclick="hapusSPKProdukNota({{ $param['spk_produk_nota_id'] }})">Hapus</button>
-                    <button class="btn btn-warning" onclick="editJmlSPKProdukNota({{ $param['spk_produk_nota_id'] }},'jml_nota-{{ $param['nota_id'] }}')">Konfirm</button>
+                    <button class="btn btn-warning" onclick="editJmlSPKProdukNota({{ $param['nota_id'] }},{{ $param['spk_produk_nota_id'] }},'jml_nota-{{ $param['nota_id'] }}','{{ $param['jumlah'] }}','invalid-feedback-nota_terkait_item-{{ $param['nota_id'] }}','spk_produk_nota_id-{{ $param['nota_id'] }}')">Konfirm</button>
                 </div>
             </div>
             @endif
@@ -94,7 +98,7 @@
                 </div>
                 <div class="text-end" id='ddIconSJ-{{ $param['srjalan_id'] }}' onclick="showDD('#ddElSJ-{{ $param['srjalan_id'] }}','#ddIconSJ-{{ $param['srjalan_id'] }}');"><small>Edit</small> <img class="w-0_7rem" src="{{ asset('img/icons/dropdown.svg') }}" alt=""></div>
                 <div class="text-end mt-2" id='ddElSJ-{{ $param['srjalan_id'] }}' style="display: none">
-                    <button class="btn btn-warning" onclick="newSPKProdukNota({{ $param['spk_produk_id'] }},{{ $param['srjalan_id'] }},'jml_sj-{{ $param['srjalan_id'] }}')">Konfirm</button>
+                    <button class="btn btn-warning" onclick="newSPKProdukNota({{ $param['nota_id'] }},{{ $param['spk_produk_id'] }},{{ $param['srjalan_id'] }},'jml_sj-{{ $param['srjalan_id'] }}')">Konfirm</button>
                 </div>
             </div>
             @else
@@ -138,7 +142,6 @@
         </div>
     </div>
 </div>
-<input type="hidden" id="jml_sdh_nota" value="{{ $spk_produk['jml_sdh_nota'] }}">
 <br><br>
 <div class="container">
     <div>
@@ -149,6 +152,8 @@
 </div>
 <br><br>
 <script>
+    const params_nota={!! json_encode($params_nota, JSON_HEX_TAG) !!};
+    const spk_produk={!! json_encode($spk_produk, JSON_HEX_TAG) !!};
     document.getElementById('btn-nota-baru').addEventListener('click', function (event) {
         var jml_nota_new=parseInt(document.getElementById('jml_nota_new').value);
         console.log(jml_nota_new);
@@ -174,16 +179,52 @@
         }
     });
 
-    function editJmlSPKProdukNota(spk_produk_nota_id, jumlah) {
-        console.log(spk_produk_nota_id, jumlah);
+    function editJmlSPKProdukNota(nota_id,spk_produk_nota_id, el_jumlah_id, jml_spk_produk_nota,div_invalid_id) {
+        // console.log(spk_produk_nota_id, el_jumlah_id);
+        const jumlah=parseInt(document.getElementById(el_jumlah_id).value);
+        const jml_spk_produk_nota_awal=parseInt(jml_spk_produk_nota);
+        var div_invalid=document.getElementById(div_invalid_id);
+        // cek apakah angka nya valid
+        var valid=isInputNumberValid(el_jumlah_id,div_invalid_id); // return true apabila valid
+        // cek apakah jumlah nya sudah sesuai
+        const jumlah_valid=spk_produk['jml_selesai']-(spk_produk['jml_sdh_nota']-jml_spk_produk_nota_awal);
+        console.log(jumlah_valid);
+        if (jumlah>jumlah_valid) {
+            div_invalid.style.display='block';
+            div_invalid.textContent='Input jumlah melebihi jumlah item yang dapat diinput ke nota!';
+            valid=false;
+            return false;
+        }
+        if (valid) {
+            $.ajax({
+                type:'POST',
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url:'{{ route("editJmlSpkPN") }}',
+                data: {
+                    spk_id:{{ $spk['id'] }},
+                    spk_produk_id:{{ $spk_produk['id'] }},
+                    produk_id:{{ $produk['id'] }},
+                    spk_produk_nota_id:spk_produk_nota_id,
+                    jumlah:jumlah,
+                    nota_id:nota_id,
+                },
+                success:function (res) {
+                    console.log(res);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
+                }
+            });
+        }
+
     }
 
     function hapusSPKProdukNota(spk_produk_nota_id) {
         console.log(spk_produk_nota_id);
     }
 
-    function newSPKProdukNota(spk_produk_id, nota_id, el_jumlah_id,div_invalid_id) {
-        // console.log(spk_produk_id,nota_id,jumlah);
+    function newSPKProdukNota(nota_id,el_jumlah_id,div_invalid_id) {
+        console.log(div_invalid_id);
         var valid=isInputNumberValid(el_jumlah_id,div_invalid_id);
         if (valid==false) {
             return false;
@@ -197,6 +238,16 @@
         if (jumlah>jml_selesai) {
             div_invalid.style.display='block';
             div_invalid.textContent='Input jumlah melebihi dari jumlah item yang sudah selesai produksi!';
+            valid=false;
+            return false;
+        }
+
+        // cek apakah input jumlah melebihi dari jumlah spk_produk sdh_nota
+        var jml_sdh_nota=parseInt(document.getElementById('jml_sdh_nota').value);
+        var jml_blm_nota=jml_selesai-jml_sdh_nota;
+        if (jumlah>jml_blm_nota) {
+            div_invalid.style.display='block';
+            div_invalid.textContent='Input jumlah melebihi dari jumlah item yang belum terinput ke dalam nota!';
             valid=false;
             return false;
         }

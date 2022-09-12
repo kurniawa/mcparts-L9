@@ -9,7 +9,7 @@ class Srjalan extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    public $timestamps = false;
+
 
     public function get_pelanggan()
     {
