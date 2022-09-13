@@ -398,4 +398,21 @@ class TreeController extends Controller
         return view('nota.NotaItemAva', $data);
 
     }
+
+    public function NotaItemBaru(Request $request)
+    {
+        SiteSettings::loadNumToZero();
+
+        $spk_produk_id = $request->query('spk_produk_id');
+        $spk_produk=SpkProduk::find($spk_produk_id);
+        $produk=Produk::find($spk_produk['produk_id']);
+        $spk_produk_notas = SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
+        $data=[
+            'produk'=>$produk,
+            'spk_produk'=>$spk_produk,
+            'spk_produk_notas'=>$spk_produk_notas,
+        ];
+        return view('nota.NotaItemBaru', $data);
+
+    }
 }

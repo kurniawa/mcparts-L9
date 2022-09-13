@@ -138,6 +138,7 @@ class TreeController extends Controller
             }
         }
 
+        // Filter params_nota
         dump('params_nota awal:',$params_nota);
         $i_toUnset=array();
         for ($i=0; $i < count($params_nota); $i++) {
@@ -151,6 +152,18 @@ class TreeController extends Controller
             unset($params_nota[$i]);
         }
         $params_nota=array_values($params_nota);
+
+        // Filter params_sj
+        $i_toUnset=array();
+        for ($i=0; $i < count($params_sj); $i++) {
+            if ($params_sj[$i]['jumlah']==null) {
+                $i_toUnset[]=$i;
+            }
+        }
+        foreach ($i_toUnset as $i) {
+            unset($params_sj[$i]);
+        }
+        $params_sj=array_values($params_sj);
 
         $spk_produk_nota_sjs_terkait_spk=SpkProdukNotaSrjalan::where('spk_id',$spk['id'])->get();
         $sj_ids_terkait_spk=array();

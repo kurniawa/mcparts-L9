@@ -12,15 +12,9 @@ class SjItemController extends Controller
 {
     public function SjItemBaru_DB(Request $request)
     {
-        $load_num = SiteSetting::find(1);
         $run_db=true;
         $success_logs = $error_logs = $warning_logs=array();
         $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
-
-        if ($load_num->value > 0) {
-            $run_db = false;
-            $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
-        }
 
         $post = $request->input();
         $spk_produk_id=$post['spk_produk_id'];
@@ -29,6 +23,14 @@ class SjItemController extends Controller
         $nota_ids=$post['nota_ids'];
 
         // return $post;
+
+        // testing dengan get
+        // $get=$request->query();
+        // $spk_produk_id=$get['spk_produk_id'];
+        // $jumlahs=$get['jumlahs'];
+        // $spk_produk_nota_ids=$get['spk_produk_nota_ids'];
+        // $nota_ids=$get['nota_ids'];
+        // dd($get);
 
         if ($run_db) {
             $srjalan_id=null;

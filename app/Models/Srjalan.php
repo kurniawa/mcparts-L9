@@ -231,43 +231,37 @@ class Srjalan extends Model
     $spk_produk=SpkProduk::find($spk_produk_id);
     $spk_produk_notas=SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
     $jml_sdh_srjalan=0;
+    // dd('spk_produk_notas',$spk_produk_notas);
     foreach ($spk_produk_notas as $spk_produk_nota) {
         $jml_colly=$jml_dus=0;
         $spkProdukNoSjs=SpkProdukNotaSrjalan::where('spk_produk_nota_id',$spk_produk_nota['id'])->get(); //setiap pake get, ga bisa akses index
-        $srjalan_id=null;
-        $i=0;
-        foreach ($spkProdukNoSjs as $spkProdukNoSj) {
-            if ($i===0) {
-                $srjalan_id=$spkProdukNoSj['srjalan_id'];
+        if (count($spkProdukNoSjs)!==0) {
+            $srjalan_id=null;
+            $i=0;
+            foreach ($spkProdukNoSjs as $spkProdukNoSj) {
+                if ($i===0) {
+                    $srjalan_id=$spkProdukNoSj['srjalan_id'];
+                }
+                $jml_sdh_srjalan+=$spkProdukNoSj['jumlah'];
+                if ($spkProdukNoSj['tipe_packing']==='colly') {
+                    $jml_colly+=$spkProdukNoSj['jml_packing'];
+                } elseif ($spkProdukNoSj['tipe_packing']==='dus') {
+                    $jml_dus+=$spkProdukNoSj['jml_packing'];
+                }
+                $i++;
             }
-            $jml_sdh_srjalan+=$spkProdukNoSj['jumlah'];
-            if ($spkProdukNoSj['tipe_packing']==='colly') {
-                $jml_colly+=$spkProdukNoSj['jml_packing'];
-            } elseif ($spkProdukNoSj['tipe_packing']==='dus') {
-                $jml_dus+=$spkProdukNoSj['jml_packing'];
-            }
-            $i++;
-        }
-        // $srjalan=$spkProdukNoSjs->first()->toArray();
-        // dd($srjalan);
-        //Error yang sangat monkey kuda
-        // dump($srjalans[0]);
-        // dd($srjalans[0]['srjalan_id']);
-        // $srjalan_id=$spkProdukNoSjs[0]['srjalan_id'];
-        // $srjalan_id=$srjalans[0]['srjalan_id'];
-        // dd($srjalan_id);
-        // dd($srjalans[0]->srjalan_id);// gabisa, error
-        $srjalan=Srjalan::find($srjalan_id);
-        // dump($srjalan_id);
-        // dump($srjalan);
-        if ($jml_colly!==0) {
-            $srjalan->jml_colly=$jml_colly;
-        }
-        if ($jml_dus!==0) {
-            $srjalan->jml_dus=$jml_dus;
-        }
 
-        $srjalan->save();
+            $srjalan=Srjalan::find($srjalan_id);
+
+            if ($jml_colly!==0) {
+                $srjalan->jml_colly=$jml_colly;
+            }
+            if ($jml_dus!==0) {
+                $srjalan->jml_dus=$jml_dus;
+            }
+
+            $srjalan->save();
+        }
 
     }
 
