@@ -1,5 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-dark fw-bold bg-danger">
+<nav class="navbar navbar-expand-lg navbar-dark fw-bold @if (isset($navbar_bg)){{ $navbar_bg }}@else bg-danger @endif">
     <div class="container">
+        @if (isset($go_back))
+        <img class="w-0_8rem me-3" src="{{ asset('img/icons/back-button-white.svg') }}" alt="" onclick="goBack();">
+        @endif
         @if (isset($title))
         <div class="navbar-brand">{{ $title }}</div>
         @else
@@ -11,7 +14,8 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ route('Home') }}">Home</a>
+            {{-- <a class="nav-link" aria-current="page" href="{{ route('Home') }}">Home</a> --}}
+            <a class="nav-link" href="{{ route('Home') }}" style="color: white">Home</a>
           </li>
 
           @if (isset($menus))
@@ -19,16 +23,16 @@
               @if (isset($menu['params']))
               @if (isset($menu['alert']))
               <li class="nav-item">
-                <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}" onsubmit="return alert('{{ $menu['alert'] }}')">@csrf<button type="submit" class="nav-link btn" name="{{ $menu['params']['name'] }}" value="{{ $menu['params']['value'] }}">{{ $menu['nama'] }}</button></form>
+                <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}" onsubmit="return alert('{{ $menu['alert'] }}')">@csrf<button type="submit" class="nav-link btn fw-bold" style="color: white" name="{{ $menu['params']['name'] }}" value="{{ $menu['params']['value'] }}">{{ $menu['nama'] }}</button></form>
               </li>
               @else
               <li class="nav-item">
-                <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}">@csrf<button type="submit" class="nav-link btn" name="{{ $menu['params']['name'] }}" value="{{ $menu['params']['value'] }}">{{ $menu['nama'] }}</button></form>
+                <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}">@csrf<button type="submit" class="nav-link btn fw-bold" style="color: white" name="{{ $menu['params']['name'] }}" value="{{ $menu['params']['value'] }}">{{ $menu['nama'] }}</button></form>
               </li>
               @endif
               @else
               <li class="nav-item">
-                <a href="{{ route($menu['route']) }}" class="nav-link">{{ $menu['nama'] }}</a>
+                <a href="{{ route($menu['route']) }}" class="nav-link fw-bold" style="color: white">{{ $menu['nama'] }}</a>
               </li>
               @endif
               @endforeach
@@ -67,5 +71,50 @@
           @endauth
         </ul>
       </div>
+
+      {{-- <div class="nav-item dropdown">
+          <div class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="dot"></div>
+              <div class="dot mt-1"></div>
+              <div class="dot mt-1"></div>
+          </div>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <form class="dropdown-item" action="/nota/nota-print-out" method="GET">
+                    <button id="downloadExcel" type="submit" class="threeDotMenuItem">
+                        <img src="/img/icons/download.svg" style="width: 1rem" alt=""><span>Print Out Nota</span>
+                    </button>
+                    <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
+                </form>
+                <form class="dropdown-item" action="/nota/nota-hapus" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus Nota ini?');">
+                    @csrf
+                    <button type="submit" class="threeDotMenuItem" style="width: 100%">
+                        <img src="/img/icons/trash-can.svg" alt="" style="width: 1rem"><span>Hapus Nota</span>
+                    </button>
+                    <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
+                </form>
+            </div>
+      </div> --}}
+        {{-- <div class="threeDotMenu" style="z-index:200">
+            <div class="threeDot">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="divThreeDotMenuContent">
+                <form action="/nota/nota-print-out" method="GET">
+                    <button id="downloadExcel" type="submit" class="threeDotMenuItem">
+                        <img src="/img/icons/download.svg" style="width: 1rem" alt=""><span>Print Out Nota</span>
+                    </button>
+                    <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
+                </form>
+                <form action="/nota/nota-hapus" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus Nota ini?');">
+                    @csrf
+                    <button type="submit" class="threeDotMenuItem" style="width: 100%">
+                        <img src="/img/icons/trash-can.svg" alt="" style="width: 1rem"><span>Hapus Nota</span>
+                    </button>
+                    <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
+                </form>
+            </div>
+        </div> --}}
     </div>
   </nav>

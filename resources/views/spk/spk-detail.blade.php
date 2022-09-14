@@ -55,6 +55,7 @@
                         <a class="btn btn-dd btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'keterangan','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Ket</a>
                         <a class="btn btn-warning btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'deviasi','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >+/-</a>
                         <a class="btn btn-primary btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'jumlah','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Jml</a>
+                        <a class="btn btn-info btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'selesai','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Sls</a>
                         <a class="btn btn-success btn-sm me-1" href="{{ route('Tree',['spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Tree</a>
                         {{-- <a class="btn btn-info btn-sm me-1" href="{{ route('NotaItemBaru',['spk_id'=>$spk['id'],'spk_produk_id'=>$spk_produks[$i]['id']]) }}" >N+</a>
                         <a class="btn btn-success btn-sm me-1" href="{{ route('NotaItemAva',['spk_id'=>$spk['id'],'spk_produk_id'=>$spk_produks[$i]['id']]) }}" >N</a>

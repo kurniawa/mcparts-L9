@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SiteSetting;
 use App\Models\SpkProduk;
 use App\Models\SpkProdukNota;
+use App\Models\SpkProdukNotaSrjalan;
 use App\Models\Srjalan;
 use Illuminate\Http\Request;
 
@@ -112,5 +113,83 @@ class SjItemController extends Controller
             'route'=>$route,'route_btn'=>$route_btn,'params'=>$params
         ];
         return view('layouts.db-result', $data);
+    }
+
+    public function editJmlSpkPNSJ(Request $request)
+    {
+        $run_db=true;
+        $success_logs = $error_logs = $warning_logs=array();
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+
+        $post = $request->input();
+        $spk_produk_nota_sj_id=$post['spk_produk_nota_sj_id'];
+        $jumlah=(int)$post['jumlah'];
+        $spk_produk_id=$post['spk_produk_id'];
+        // return $post;
+
+        // $get = $request->query();
+        // $spk_produk_nota_sj_id=$get['spk_produk_nota_sj_id'];
+        // $jumlah=(int)$get['jumlah'];
+        // $spk_produk_id=$get['spk_produk_id'];
+        // return $get;
+
+        if ($run_db) {
+            $spk_produk_nota_sj=SpkProdukNotaSrjalan::find($spk_produk_nota_sj_id);
+            $spk_produk_nota_sj->jumlah=$jumlah;
+            $spk_produk_nota_sj->save();
+            $success_logs[]="spk_produk_nota_sj->jumlah berhasil di edit.";
+
+            Srjalan::Update_SPK_JmlSj_Status_Packing($spk_produk_id);
+            $success_logs[]="Updating spk_produk->jumlah_sudah_srjalan dan status.";
+            $main_log='Success';
+        }
+
+        $data=[
+            'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'success_logs'=>$success_logs,'main_log'=>$main_log,
+        ];
+        return $data;
+    }
+
+    public function delSpkPNSJ(Request $request)
+    {
+        $run_db=true;
+        $success_logs = $error_logs = $warning_logs=array();
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+
+        $post = $request->input();
+        $spk_produk_nota_sj_id=$post['spk_produk_nota_sj_id'];
+        $spk_produk_id=$post['spk_produk_id'];
+        // return $post;
+
+        // $get=$request->query();
+        // $spk_produk_nota_sj_id=$get['spk_produk_nota_sj_id'];
+        // $spk_produk_id=$get['spk_produk_id'];
+        // return $get;
+
+        if ($run_db) {
+            $spk_produk_nota_sj=SpkProdukNotaSrjalan::find($spk_produk_nota_sj_id);
+            $spk_produk_nota_sj->delete();
+            $success_logs[]='spk_produk_nota_sj: berhasil dihapus!';
+
+            //UPDATE spk_produk->jml_sdh_nota
+            Srjalan::Update_SPK_JmlSj_Status_Packing($spk_produk_id);
+            $success_logs[]="Updating spk_produk->jumlah_sudah_srjalan dan status.";
+            $main_log='Success';
+
+            // cek apakah surat jalan masih memiliki spk_produk_nota_srjalan yang selain yang ini?
+            $srjalan=Srjalan::find($spk_produk_nota_sj['srjalan_id']);
+            $spk_produk_nota_sj_other=SpkProdukNotaSrjalan::where('srjalan_id',$srjalan['id'])->get();
+            if (count($spk_produk_nota_sj_other)===0) {
+                $srjalan->delete();
+                $success_logs[]="Srjalan tidak memiliki spk_produk_nota_srjalan yang lain. Srjalan dihapus!";
+            } else {
+                $success_logs[]="Srjalan masih memiliki spk_produk_nota_srjalan yang lain. Srjalan tidak dihapus.";
+            }
+
+            $data=[
+                'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'success_logs'=>$success_logs,'main_log'=>$main_log,
+            ];
+            return $data;
+        }
     }
 }

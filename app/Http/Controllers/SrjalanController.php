@@ -63,7 +63,11 @@ class SrjalanController extends Controller
 
         // $pelanggan = Pelanggan::find(3)->spk;
         // dd($pelanggans);
+        // $menus=[['route'=>'PrintOutSPK','nama'=>'Print Out','method'=>'get','params'=>['name'=>'spk_id','value'=>$spk['id']]],];
+
         $data = [
+            'navbar_bg'=>'bg-color-orange-2',
+            'go_back' => true,
             'srjalans' => $srjalans,
             'pelanggans' => $pelanggans,
             'daerahs' => $daerahs,

@@ -25,10 +25,12 @@ class SpkItemController extends Controller
 
         if ($tipe==='deviasi') {
             $judul='Deviasi Jumlah';$label='Ganti Deviasi';$input='deviasi_jml';$tipe_input='number';
-        } else if ($tipe==='jumlah') {
+        } elseif ($tipe==='jumlah') {
             $judul='Ganti Jumlah';$label='Ganti Jumlah';$input='jumlah';$tipe_input='number';
         } elseif ($tipe==='keterangan') {
             $judul='Keterangan';$label='Keterangan';$input='keterangan';$tipe_input='text';
+        } elseif ($tipe==='selesai') {
+            $judul='Menentukan Jml. Selesai Item';$label='Jml. Selesai';$input='jml_selesai';$tipe_input='number';
         }
 
         $data=[
@@ -82,6 +84,18 @@ class SpkItemController extends Controller
                 $spk_produk->save();
                 $success_logs[]='Berhasil update keterangan!';
                 $main_log='Success';
+            }
+        } else if ($post['tipe']==='selesai') {
+            if ($post['jml_selesai']<=$spk_produk['jml_t']) {
+                $spk_produk->jml_selesai=$post['jml_selesai'];
+                if ($run_db) {
+                    $spk_produk->save();
+                    $success_logs[]='Berhasil update selesai!';
+                    $main_log='Success';
+                }
+            } else {
+                $error_logs[]='Update tidak berhasil, karena jml_selesai tidak sesuai dengan ketersediaan dari jml_t';
+                $main_log='Failed!';
             }
         }
 

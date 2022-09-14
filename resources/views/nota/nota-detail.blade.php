@@ -1,49 +1,10 @@
 @extends('layouts.main_layout')
+@extends('layouts.navbar')
 
 @section('content')
 
-<header class="header grid-2-auto">
-    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
-</header>
-
-<div class="threeDotMenu" style="z-index:200">
-    <div class="threeDot">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-    </div>
-    <div class="divThreeDotMenuContent">
-        {{-- <form method='post' action="nota/nota-editNota" id="" class="threeDotMenuItem">
-            <img src="/img/icons/edit.svg" alt=""><span>Edit Nota</span>
-        </form> --}}
-        <!-- <div id="downloadExcel" class="threeDotMenuItem" onclick="goToPrintOutSPK();">
-            <img src="img/icons/download.svg" alt=""><span>Download Excel</span>
-        </div> -->
-        <form action="/nota/nota-print-out" method="GET">
-            <button id="downloadExcel" type="submit" class="threeDotMenuItem">
-                <img src="/img/icons/download.svg" alt=""><span>Print Out Nota</span>
-            </button>
-            <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
-        </form>
-        <form action="/nota/tambah-item" method="GET">
-            @csrf
-            <button type="submit" class="threeDotMenuItem" style="width: 100%">
-                <img src="/img/icons/add.svg" alt=""><span>Tambah Item</span>
-            </button>
-            <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
-        </form>
-        <form action="/nota/nota-hapus" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus Nota ini?');">
-            @csrf
-            <button type="submit" class="threeDotMenuItem" style="width: 100%">
-                <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Nota</span>
-            </button>
-            <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
-        </form>
-    </div>
-</div>
-
-<div class="grid-2-10_auto p-0_5em">
-    <img class="w-2em" src="/img/icons/pencil.svg" alt="">
+<div class="grid-2-10_auto p-0_5rem">
+    <img class="w-2rem" src="/img/icons/pencil.svg" alt="">
     <h2 class="">Detail Nota: {{ $nota['no_nota'] }} </h2>
 </div>
 
@@ -58,13 +19,16 @@
         <th style="vertical-align: top;">Alamat</th>
         <th style="vertical-align: top;">:</th>
         <td>
-        @foreach (json_decode($pelanggan['alamat'], true) as $alamat)
-        {{ $alamat }}<br>
+        {{-- @php
+            dd($alamat)
+        @endphp --}}
+        @foreach (json_decode($alamat['long'], true) as $long)
+        {{ $long }}<br>
         @endforeach
         </td>
     </tr>
 </table>
-<form action="/nota/edit-item-nota" method="GET" class="p-0_5em">
+<form action="/nota/edit-item-nota" method="GET" class="p-0_5rem">
     <table id="divDaftarItemNota" style="width: 100%">
         <tr><th>No.</th><th>Nama Nota</th><th>Jml.</th><th>Hrg/Pcs</th><th>Harga</th><th>Opsi</th></tr>
         @for ($i = 0; $i < count($produks); $i++)
@@ -84,8 +48,8 @@
     <input type="hidden" name="pelanggan_id" value={{ $pelanggan['id'] }}>
 </form>
 <div class="text-right p-1em">
-    <div class="font-weight-bold font-size-2em color-green numberToFormat">{{ $nota['harga_total'] }}</div>
-    <div class="font-weight-bold color-red font-size-1_5em">Total</div>
+    <div class="font-weight-bold font-size-2rem color-green numberToFormat">{{ $nota['harga_total'] }}</div>
+    <div class="font-weight-bold color-red font-size-1_5rem">Total</div>
 </div>
 
 <style>
@@ -138,8 +102,8 @@
     .lightBox {
         position: absolute;
         top: 25vh;
-        left: 0.5em;
-        right: 0.5em;
+        left: 0.5rem;
+        right: 0.5rem;
         height: 13em;
         background-color: white;
         padding: 1em;

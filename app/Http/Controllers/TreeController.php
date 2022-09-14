@@ -16,6 +16,7 @@ class TreeController extends Controller
     public function index(Request $request)
     {
         SiteSettings::loadNumToZero();
+        $show_dump=false;
 
         // Pencarian data keseluruhan
         // Mundur, cari info tentang spk dan pelanggan terlebih dahulu, untuk mengetahui apakah sudah ada srjalan yang berkaitan dengan pelanggan ini secara keseluruhan.
@@ -47,7 +48,9 @@ class TreeController extends Controller
         // Merge keduanya lalu unique
         $nota_ids_terkait_pelanggan_or_item = array_merge($nota_ids_terkait_item,$nota_ids_terkait_pelanggan);
         $nota_ids_terkait_pelanggan_or_item = array_unique($nota_ids_terkait_pelanggan_or_item);
-        dump($nota_ids_terkait_pelanggan_or_item);
+        if ($show_dump) {
+            dump($nota_ids_terkait_pelanggan_or_item);
+        }
 
         // Dari Nota2 tersebut, kita cek SrJalan nya apakah ada?
         $sj_ids_t_cust=array();
@@ -62,7 +65,9 @@ class TreeController extends Controller
         // Membuat params_nota dari nota_id yang tersedia. Array yang ada di loop lagi untuk cek dan bikin object.
         $params_nota=$params_sj=array();
         foreach ($nota_ids_terkait_pelanggan_or_item as $nota_id) {
-            dump($nota_id);
+            if ($show_dump) {
+                dump($nota_id);
+            }
             $spkProNos_t_cust_d_notaID_not_spk_not_spkProduk=SpkProdukNota::where('nota_id',$nota_id)->where('spk_id','!=',$spk['id'])->where('spk_produk_id','!=',$spk_produk['id'])->get();
             // dump($spkProNos_t_cust_d_notaID_not_spk_not_spkProduk);
             foreach ($spkProNos_t_cust_d_notaID_not_spk_not_spkProduk as $spkProNo) {
@@ -139,7 +144,9 @@ class TreeController extends Controller
         }
 
         // Filter params_nota
-        dump('params_nota awal:',$params_nota);
+        if ($show_dump) {
+            dump('params_nota awal:',$params_nota);
+        }
         $i_toUnset=array();
         for ($i=0; $i < count($params_nota); $i++) {
             for ($j=$i+1; $j < count($params_nota); $j++) {
@@ -220,7 +227,9 @@ class TreeController extends Controller
             'nota_ids_terkait_pelanggan_or_item'=>$nota_ids_terkait_pelanggan_or_item,
             'menus'=>$menus,
         ];
-        dump($data);
+        if ($show_dump) {
+            dump($data);
+        }
         return view('tree.tree', $data);
     }
 }

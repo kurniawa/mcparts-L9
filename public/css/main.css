@@ -584,11 +584,11 @@ option {
 }
 
 /* ThreeDotMenu */
-.threeDotMenu {
+/* .threeDotMenu {
     position: absolute;
     top: 1rem;
     right: 1.5rem;
-}
+} */
 
 .threeDot {
     display: grid;

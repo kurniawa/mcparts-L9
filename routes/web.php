@@ -139,6 +139,9 @@ Route::controller(SpkItemController::class)->group(function ()
     Route::get('/spk/deviasi', 'deviasi')->name('Deviasi')->middleware('auth');
     Route::post('/spk/deviasi-db', 'deviasi_db')->name('DeviasiDB')->middleware('auth');
     Route::post('/spk/item-selesai-all', 'ItemSelesai_All')->name('ItemSelesai_All')->middleware('auth');
+    // Route::post('/spk/item-selesai', 'ItemSelesai')->name('ItemSelesai')->middleware('auth');
+    // ItemSelesai_DB diatur oleh DeviasiDB
+    // Route::post('/spk/item-selesai-db', 'ItemSelesai_DB')->name('ItemSelesai_DB')->middleware('auth');
     Route::post('/spk/hapus-item-spk', 'hapusItemSPK')->name('hapusItemSPK')->middleware('auth');
 });
 
@@ -155,8 +158,8 @@ Route::controller(NotaController::class)->group(function ()
     // Route::post('/nota/notaBaru-pSPK-pItem-DB', 'notaBaru_pSPK_pItem_DB')->middleware('auth');
     Route::get('/nota/NotaAll', 'NotaAll')->name('NotaAll')->middleware('auth');
     Route::post('/nota/NotaAll_DB', 'NotaAll_DB')->name('NotaAll_DB')->middleware('auth');
-    Route::get('/nota/nota-detail', 'nota_detail');
-    Route::get('/nota/nota-print-out', 'nota_print_out');
+    Route::get('/nota/nota-detail', 'nota_detail')->name('Nota-Detail');
+    Route::get('/nota/nota-print-out', 'nota_print_out')->name('PrintOutNota')->middleware('auth');
     Route::post('/nota/nota-hapus', 'nota_hapus')->middleware('auth');
     Route::get('/nota/edit-item-nota', 'edit_item_nota')->middleware('auth');
     Route::post('/nota/edit-item-nota-DB', 'edit_item_nota_db')->middleware('auth');
@@ -182,15 +185,15 @@ Route::controller(NotaItemController::class)->group(function ()
  */
 Route::controller(SrjalanController::class)->group(function ()
 {
-    Route::get('/srjalan', 'index');
+    Route::get('/sj', 'index');
     // Route::get('/sj/sjBaru-pCust', 'sjBaru_pCust')->middleware('auth');
     // Route::get('/sj/sjBaru-pPelanggan-pProduk', 'sjBaru_pPelanggan_pProduk')->middleware('auth');
     // Route::post('/sj/sjBaru-pNota-pProduk-DB', 'sjBaru_pNota_pProduk_DB')->middleware('auth');
     Route::get('/sj/sj-detailSJ', 'sj_detailSJ');
-    Route::get('/srjalan/srjalan-printOut', 'sj_printOut');
-    Route::post('/srjalan/srjalan-hapus', 'sj_hapus')->middleware('auth');
-    Route::get('/srjalan/SjAll', 'SjAll')->name('SjAll')->middleware('auth');
-    Route::post('/srjalan/SjAll_DB', 'SjAll_DB')->name('SjAll_DB')->middleware('auth');
+    Route::get('/sj/sj-printOut', 'sj_printOut');
+    Route::post('/sj/sj-hapus', 'sj_hapus')->middleware('auth');
+    Route::get('/sj/SjAll', 'SjAll')->name('SjAll')->middleware('auth');
+    Route::post('/sj/SjAll_DB', 'SjAll_DB')->name('SjAll_DB')->middleware('auth');
 });
 
 Route::controller(SjItemController::class)->group(function ()
@@ -200,6 +203,10 @@ Route::controller(SjItemController::class)->group(function ()
     // Route::get('/srjalan/SjItemBaru_DB', 'SjItemBaru_DB')->name('SjItemBaru_DB')->middleware('auth');
     // Route::get('/srjalan/SjItemAva', 'SjItemAva')->name('SjItemAva')->middleware('auth');
     Route::post('/srjalan/SjItemAva_DB', 'SjItemAva_DB')->name('SjItemAva_DB')->middleware('auth');
+    Route::post('/sj/editJmlSpkPNSJ', 'editJmlSpkPNSJ')->name('editJmlSpkPNSJ')->middleware('auth');
+    // Route::get('/sj/editJmlSpkPNSJ', 'editJmlSpkPNSJ')->name('editJmlSpkPNSJ')->middleware('auth');
+    Route::post('/sj/delSpkPNSJ', 'delSpkPNSJ')->name('delSpkPNSJ')->middleware('auth');
+    // Route::get('/sj/delSpkPNSJ', 'delSpkPNSJ')->name('delSpkPNSJ')->middleware('auth');
 });
 
 /**

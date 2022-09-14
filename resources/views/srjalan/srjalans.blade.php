@@ -1,8 +1,9 @@
-@extends('layouts/main_layout')
+@extends('layouts.main_layout')
+@extends('layouts.navbar')
 
 @section('content')
 
-<header class="header grid-3-auto">
+{{-- <header class="header grid-3-auto">
     <img class="w-0_8rem ml-1_5rem" src="img/icons/back-button-white.svg" alt="" onclick="goBack();">
     <div>
         <h2 style="color: white">SJ</h2>
@@ -12,7 +13,7 @@
             + Buat Surat Jalan Baru
         </a>
     </div>
-</header>
+</header> --}}
 
 <div class="grid-2-auto mt-1rem ml-1rem mr-1rem pb-1rem bb-0_5px-solid-grey">
     <div class="justify-self-left grid-2-auto b-1px-solid-grey b-radius-50px mr-1rem pl-1rem pr-0_4rem w-11rem">

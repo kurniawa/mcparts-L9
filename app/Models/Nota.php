@@ -44,7 +44,7 @@ class Nota extends Model
         $nota = Nota::find($nota_id);
 
         $pelanggan = Pelanggan::find($nota['pelanggan_id']);
-        $daerah = Daerah::find($pelanggan['daerah_id']);
+        $alamat=$pelanggan->alamat->first();
 
         $reseller = null;
         if ($nota['reseller_id'] !== null && $nota['reseller_id'] !== '') {
@@ -71,14 +71,13 @@ class Nota extends Model
         // dump('$spk_produk_notas:', $spk_produk_notas);
         // dump('$spk_produks:', $spk_produks);
 
-        return array($nota, $pelanggan, $daerah, $reseller, $spk_produk_notas, $spk_produks, $produks, $data_items);
+        return array($nota, $pelanggan, $alamat,$reseller, $spk_produk_notas, $spk_produks, $produks, $data_items);
     }
 
     public function getAvailableSPKItemFromNotaID($nota_id)
     {
         $nota = Nota::find($nota_id);
         $pelanggan = Pelanggan::find($nota['pelanggan_id']);
-        $daerah = Daerah::find($pelanggan['daerah_id']);
         $reseller = null;
         $reseller_id = null;
         if ($nota['reseller_id'] !== null) {

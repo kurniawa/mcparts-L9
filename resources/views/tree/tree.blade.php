@@ -60,7 +60,7 @@
                 </div>
                 <div class="text-end" id='ddIconNota-{{ $param['nota_id'] }}' onclick="showDD('#ddElNota-{{ $param['nota_id'] }}','#ddIconNota-{{ $param['nota_id'] }}');"><small>Edit</small> <img class="w-0_7rem" src="{{ asset('img/icons/dropdown.svg') }}" alt=""></div>
                 <div class="text-end mt-2" id='ddElNota-{{ $param['nota_id'] }}' style="display: none">
-                    <button class="btn btn-danger" onclick="hapusSPKProdukNota({{ $param['spk_produk_nota_id'] }})">Hapus</button>
+                    <button class="btn btn-danger" onclick="hapusSPKProdukNota({{ $param['spk_produk_nota_id'] }},'invalid-feedback-nota_terkait_item-{{ $param['nota_id'] }}')">Hapus</button>
                     <button class="btn btn-warning" onclick="editJmlSPKProdukNota({{ $param['nota_id'] }},{{ $param['spk_produk_nota_id'] }},'jml_nota-{{ $param['nota_id'] }}','{{ $param['jumlah'] }}','invalid-feedback-nota_terkait_item-{{ $param['nota_id'] }}','spk_produk_nota_id-{{ $param['nota_id'] }}')">Konfirm</button>
                 </div>
             </div>
@@ -147,6 +147,9 @@
         </div>
     </div>
 </div>
+
+<div class="container"><div class="alert alert-danger" id="invalid-feedback-main" style="display: none"><span class="fw-bold">Warning</span></div></div>
+
 <br><br>
 <div class="container">
     <div>
@@ -158,10 +161,11 @@
 <br><br>
 <script>
     const params_nota={!! json_encode($params_nota, JSON_HEX_TAG) !!};
+    const params_sj={!! json_encode($params_sj, JSON_HEX_TAG) !!};
     const spk_produk={!! json_encode($spk_produk, JSON_HEX_TAG) !!};
     const spk_produk_nota_sjs_terkait_item={!! json_encode($spk_produk_nota_sjs_terkait_item, JSON_HEX_TAG) !!};
     const spk_produk_notas_terkait_item={!! json_encode($spk_produk_notas_terkait_item, JSON_HEX_TAG) !!};
-    console.log(spk_produk);
+    // console.log(spk_produk);
     document.getElementById('btn-nota-baru').addEventListener('click', function (event) {
         var jml_nota_new=parseInt(document.getElementById('jml_nota_new').value);
         // console.log(jml_nota_new);
@@ -201,14 +205,38 @@
         const jumlah=parseInt(document.getElementById(el_jumlah_id).value);
         const jml_spk_produk_nota_awal=parseInt(jml_spk_produk_nota);
         var div_invalid=document.getElementById(div_invalid_id);
+        var div_invalid_main=document.getElementById('invalid-feedback-main');
         // cek apakah angka nya valid
         var valid=isInputNumberValid(el_jumlah_id,div_invalid_id); // return true apabila valid
-        // cek apakah jumlah nya sudah sesuai
+        // cek apabila semisal item ini sudah sempat diinput ke nota lain, maka kita perlu tau jml_selesai, jml_sdh_nota dan jml_spk_produk_nota_awal nya
+        // untuk menentukan jumlah valid/maks yang boleh diinput.
         const jumlah_valid=spk_produk['jml_selesai']-(spk_produk['jml_sdh_nota']-jml_spk_produk_nota_awal);
         console.log(jumlah_valid);
         if (jumlah>jumlah_valid) {
             div_invalid.style.display='block';
             div_invalid.textContent='Input jumlah melebihi jumlah item yang dapat diinput ke nota!';
+            div_invalid_main.style.display='block';
+            div_invalid_main='Input jumlah melebihi jumlah item yang dapat diinput ke nota! (Berdasarkan perhitungan jml_selesai-(jml_sdh_nota-jml_spk_produk_nota_awal))'
+            valid=false;
+            return false;
+        }
+        /*
+        cek tingkat lanjut: Kita juga perlu tau apakah item_nota ini sudah sempat diinput ke srjalan, kalau sudah, maka kita perlu tau,
+        ada berapa jumlah yang sudah diinput ke srjalan. Apakah update/edit jumlah ini memadai. Kalau tidak maka perlu penghapusan
+        item yang ada di surat jalan terlebih dahulu.
+        */
+        var jml_sdh_sj=0;
+        for (let i = 0; i < params_sj.length; i++) {
+            if (params_sj[i]['spk_produk_nota_id']==spk_produk_nota_id) {
+                jml_sdh_sj+=params_sj[i]['jumlah'];
+            }
+        }
+        console.log('jml_sdh_sj:',jml_sdh_sj);
+        if (jumlah<jml_sdh_sj) {
+            div_invalid.style.display='block';
+            div_invalid.textContent='Input jumlah tidak sesuai!';
+            div_invalid_main.style.display='block';
+            div_invalid_main.textContent='Input jumlah tidak sesuai! (Berdasarkan perhitungan, bahwa item ini ternyata sudah sempat diinput ke surat jalan, jadi jumlah yang di edit harus disesuaikan dengan jumlah yang sudah surat jalan)';
             valid=false;
             return false;
         }
@@ -236,8 +264,30 @@
 
     }
 
-    function hapusSPKProdukNota(spk_produk_nota_id) {
+    function hapusSPKProdukNota(spk_produk_nota_id, div_invalid_id) {
         console.log(spk_produk_nota_id);
+        var valid=false;
+        var div_invalid=document.getElementById(div_invalid_id);
+        var div_invalid_main=document.getElementById('invalid-feedback-main');
+        /*
+        cek tingkat lanjut: Kita juga perlu tau apakah item_nota ini sudah sempat diinput ke srjalan, kalau sudah, maka kita dapat menghapus nota
+        spk_produk_nota ini
+        */
+        var jml_sdh_sj=0;
+        for (let i = 0; i < params_sj.length; i++) {
+            if (params_sj[i]['spk_produk_nota_id']==spk_produk_nota_id) {
+                jml_sdh_sj+=params_sj[i]['jumlah'];
+            }
+        }
+        console.log('jml_sdh_sj:',jml_sdh_sj);
+        if (jml_sdh_sj!==0) {
+            div_invalid.style.display='block';
+            div_invalid.textContent='spk_produk_nota_ini sudah memiliki surat_jalan terkait!';
+            div_invalid_main.style.display='block';
+            div_invalid_main.textContent='spk_produk_nota_ini sudah memiliki surat_jalan terkait! Oleh karena itu tidak dapat menghapus spk_produk_nota ini!';
+            valid=false;
+            return false;
+        }
         var confirm_delete=confirm('Anda yakin ingin menghapus item di nota ini?');
         console.log(confirm_delete);
         if (confirm_delete) {
@@ -250,9 +300,9 @@
                 },
                 success:function (res) {
                     console.log(res);
-                    // setTimeout(() => {
-                    //     location.reload();
-                    // }, 500);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
                 }
             });
         }
@@ -355,6 +405,7 @@
                 i_ready3.push(i_ready[k]);
             }
         }
+        console.log('i_ready3',i_ready3);
         if (i_ready3.length==0) {
             return false;
         }
@@ -374,24 +425,31 @@
             jml_sdh_notas.push(parseInt(jml_spkProdukNotas[i_ready3[l]].value));
             index_ready.push(i_ready3[l]);
         }
-        // console.log('nota_ids');console.log(nota_ids);
+        console.log('nota_ids');console.log(nota_ids);
+        console.log('spk_produk_nota_sjs_terkait_item');console.log(spk_produk_nota_sjs_terkait_item);
 
         // cek apakah item ini sempat di input ke surat jalan lain, apakah masih ada sisa nya yang belum diinput ke surat jalan, dan apakah jumlah input nya sesuai dengan jumlah sisanya?
         var i_ready4=new Array();
         for (let m = 0; m < spk_produk_nota_ids.length; m++) {
-            spk_produk_nota_sjs_terkait_item.forEach(spk_pro_no_sj => {
-                if (spk_pro_no_sj['spk_produk_nota_id']==spk_produk_nota_ids[m]) {
-                    var jml_blm_sj=jml_sdh_notas[m]-spk_pro_no_sj['jumlah'];
-                    console.log('jml_blm_sj dari nota:',nota_ids[m],' -> ',jml_blm_sj)
-                    if (jumlahs_valid[m]>jml_blm_sj) {
-                        divs_invalid_feedback[index_ready[m]].style.display='block';
-                        divs_invalid_feedback[index_ready[m]].textContent='jumlah sudah melebihi dari jumlah yang belum diinput ke surat jalan!';
-                    } else {
-                        i_ready4.push(index_ready[m]);
+            if (spk_produk_nota_sjs_terkait_item.length!==0) {
+                spk_produk_nota_sjs_terkait_item.forEach(spk_pro_no_sj => {
+                    if (spk_pro_no_sj['spk_produk_nota_id']==spk_produk_nota_ids[m]) {
+                        var jml_blm_sj=jml_sdh_notas[m]-spk_pro_no_sj['jumlah'];
+                        console.log('jml_blm_sj dari nota:',nota_ids[m],' -> ',jml_blm_sj)
+                        if (jumlahs_valid[m]>jml_blm_sj) {
+                            divs_invalid_feedback[index_ready[m]].style.display='block';
+                            divs_invalid_feedback[index_ready[m]].textContent='jumlah sudah melebihi dari jumlah yang belum diinput ke surat jalan!';
+                        } else {
+                            i_ready4.push(index_ready[m]);
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                // belum ada surat jalan sama sekali yang terkait item ini
+                i_ready4.push(index_ready[m]);
+            }
         }
+        console.log('i_ready4',i_ready4);
         if (i_ready4.length==0) {
             return false;
         }
@@ -428,38 +486,48 @@
         if (valid===false) {
             return false;
         }
-        // cek apakah jumlah nya sudah sesuai
-        jml_spk_p_n=null;
+        // cek apakah jumlah spk_produk_nota yang berkaitan, untuk menentukan berapa jumlah maksimal yang boleh diinput
+        var jml_spk_p_n=null;
         spk_produk_notas_terkait_item.forEach(spk_p_n => {
             if (nota_id==spk_p_n['nota_id']) {
                 jml_spk_p_n=spk_p_n['jumlah'];
             }
         });
-        // const jumlah_valid=spk_produk['jml_sdh_nota']-(spk_produk['jumlah_sudah_srjalan']-jml_spk_produk_nota_sj_awal);
-        // console.log('jml_sdh_nota:',spk_produk['jml_sdh_nota']);
-        // console.log('jml_sdh_sj:',spk_produk['jumlah_sudah_srjalan']);
-        // console.log('jml_spk_produk_nota_sj_awal:',jml_spk_produk_nota_sj_awal);
-        // console.log(jumlah_valid);
-        if (jumlah>jml_spk_p_n) {
+        console.log('jml_spk_p_n:',jml_spk_p_n);
+        // cari jumlah yang sudah sempat diinput ke surat_jalan, selain dari pada surat jalan ini
+        var jml_item_terkait_di_sj_all=0;
+        var jml_item_terkait_di_sj_lain=0;
+        spk_produk_nota_sjs_terkait_item.forEach(spk_p_n_sj => {
+            if (spk_p_n_sj['srjalan_id']==sj_id) {
+                jml_item_terkait_di_sj_all+=spk_p_n_sj['jumlah'];
+            } else {
+                jml_item_terkait_di_sj_lain+=spk_p_n_sj['jumlah'];
+            }
+        });
+        var jml_maks=jml_spk_p_n-jml_item_terkait_di_sj_lain;
+        console.log('jml_item_terkait_di_sj_all:',jml_item_terkait_di_sj_all);
+        console.log('jml_item_terkait_di_sj_lain:',jml_item_terkait_di_sj_lain);
+        console.log('jml_spk_produk_nota_sj_awal:',jml_spk_produk_nota_sj_awal);
+        console.log('jml_maks:',jml_maks);
+
+        if (jumlah>jml_maks) {
             div_invalid.style.display='block';
             div_invalid.textContent='Input jumlah melebihi jumlah item yang dapat diinput ke nota!';
             valid=false;
             return false;
         }
-        console.log('jml_spk_p_n:',jml_spk_p_n);
         console.log('valid:',valid);
-        return false;
 
         if (valid) {
             $.ajax({
                 type:'POST',
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                url:'{{ route("editJmlSpkPN") }}',
+                url:'{{ route("editJmlSpkPNSJ") }}',
                 data: {
                     spk_id:{{ $spk['id'] }},
                     spk_produk_id:{{ $spk_produk['id'] }},
                     produk_id:{{ $produk['id'] }},
-                    spk_produk_nota_id:spk_produk_nota_id,
+                    spk_produk_nota_sj_id:spk_produk_nota_sj_id,
                     jumlah:jumlah,
                     nota_id:nota_id,
                 },
@@ -471,6 +539,32 @@
                 }
             });
         }
+        // testing get url: http://127.0.0.1:8000/sj/editJmlSpkPNSJ?spk_produk_id=2&spk_produk_nota_sj_id=11&jumlah=40
+    }
+
+    function hapusSPKProdukNotaSJ(spk_produk_nota_sj_id) {
+        console.log(spk_produk_nota_sj_id);
+        var confirm_delete=confirm('Anda yakin ingin menghapus item di Surat Jalan ini?');
+        console.log(confirm_delete);
+        if (confirm_delete) {
+            $.ajax({
+                type:'POST',
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url:'{{ route("delSpkPNSJ") }}',
+                data: {
+                    spk_produk_nota_sj_id:spk_produk_nota_sj_id,
+                    spk_produk_id:spk_produk['id'],
+                },
+                success:function (res) {
+                    console.log(res);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
+                }
+            });
+        }
+
+        // testing $get: http://127.0.0.1:8000/sj/delSpkPNSJ?spk_produk_nota_sj_id=13&spk_produk_id=2
     }
 
     function showHide(toshow, tohide) {

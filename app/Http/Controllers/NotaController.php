@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helpers\SiteSettings;
 use App\Helpers\UpdateDataSPK;
-use App\Models\Daerah;
 use App\Models\Nota;
 use App\Models\Pelanggan;
 use App\Models\PelangganProduk;
 use App\Models\Produk;
-use App\Models\ProdukHarga;
 use App\Models\SiteSetting;
 use App\Models\Spk;
 use App\Models\SpkNota;
@@ -35,10 +33,12 @@ class NotaController extends Controller
 
 
         $notas = Nota::limit(100)->orderByDesc('created_at')->get();
-        $pelanggans = $resellers = $daerahs = $arr_spk_produk_notas = $arr_spk_produks = $arr_produks = array();
+        $pelanggans = $resellers = $alamats=$arr_spk_produk_notas = $arr_spk_produks = $arr_produks =$bg_color_tgl= array();
         for ($i = 0; $i < count($notas); $i++) {
-            $pelanggan = Nota::find($notas[$i]->id)->pelanggan->toArray();
+            $pelanggan = Nota::find($notas[$i]->id)->pelanggan;
             array_push($pelanggans, $pelanggan);
+            $alamat=$pelanggan->alamat->first();
+            $alamats[]=$alamat;
 
             if ($notas[$i]['reseller_id'] !== null) {
                 $reseller = Pelanggan::find($notas[$i]['reseller_id'])->toArray();
@@ -59,17 +59,27 @@ class NotaController extends Controller
             $arr_spk_produk_notas[] = $spk_produk_notas;
             $arr_spk_produks[] = $spk_produks;
             $arr_produks[] = $produks;
+
+            // BG-Color Tanggal
+            $bg_color=['bg-danger bg-gradient'];
+            if ($notas[$i]['finished_at']!==null) {
+                $bg_color=['bg-warning bg-gradient','bg-success bg-gradient'];
+            }
+            $bg_color_tgl[]=$bg_color;
         }
         // $pelanggan = Pelanggan::find(3)->spk;
         // dd($pelanggans);
         $data = [
+            'go_back'=>true,
+            'navbar_bg'=>'bg-color-orange-2',
             'notas' => $notas,
             'pelanggans' => $pelanggans,
-            'daerahs' => $daerahs,
+            'alamats' => $alamats,
             'resellers' => $resellers,
             'arr_spk_produk_notas' => $arr_spk_produk_notas,
             'arr_spk_produks' => $arr_spk_produks,
             'arr_produks' => $arr_produks,
+            'bg_color_tgl' => $bg_color_tgl,
         ];
         // $data = ['notas' => $notas, 'pelanggans' => $pelanggans];
         return view('nota.notas', $data);
@@ -713,19 +723,25 @@ class NotaController extends Controller
         }
 
         $obj_nota = new Nota();
-        list($nota, $pelanggan, $daerah, $reseller, $spk_produk_notas, $spk_produks, $produks, $data_items) = $obj_nota->getOneNotaAndComponents($get['nota_id']);
+        list($nota, $pelanggan,$alamat, $reseller, $spk_produk_notas, $spk_produks, $produks, $data_items) = $obj_nota->getOneNotaAndComponents($get['nota_id']);
 
-
+        $menus=[
+            ['route'=>'PrintOutNota','nama'=>'Print Out','method'=>'get','params'=>['name'=>'nota_id','value'=>$nota['id']]],
+        ];
         $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
             'nota' => $nota,
             'pelanggan' => $pelanggan,
-            'daerah' => $daerah,
+            'alamat' => $alamat,
             'reseller' => $reseller,
             'spk_produk_notas' => $spk_produk_notas,
             'spk_produks' => $spk_produks,
             'produks' => $produks,
             'data_items' => $data_items,
+            'menus' => $menus,
         ];
+        // dd($data);
         return view('nota.nota-detail', $data);
     }
 
