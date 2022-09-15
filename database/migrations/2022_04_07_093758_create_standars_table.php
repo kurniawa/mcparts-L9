@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('nama');
             $table->integer('harga_dasar');
             $table->string('ktrg')->nullable();
+            $table->timestamps();
         });
     }
 

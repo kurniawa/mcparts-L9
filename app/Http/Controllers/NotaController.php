@@ -81,6 +81,7 @@ class NotaController extends Controller
             'arr_produks' => $arr_produks,
             'bg_color_tgl' => $bg_color_tgl,
         ];
+        dd($data);
         // $data = ['notas' => $notas, 'pelanggans' => $pelanggans];
         return view('nota.notas', $data);
     }

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->enum('press', ['yes', 'no'])->nullable();
             $table->enum('alas', ['yes', 'no'])->nullable();
             $table->integer('harga');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

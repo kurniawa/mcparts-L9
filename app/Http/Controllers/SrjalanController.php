@@ -27,9 +27,10 @@ class SrjalanController extends Controller
 
         $srjalans = Srjalan::limit(100)->orderByDesc('created_at')->get();
 
-        $pelanggans = $daerahs = $resellers = $ekspedisis = $arr_spk_produk_nota_srjalans = $arr_spk_produk_notas = $arr_spk_produks = $arr_produks = array();
+        $pelanggans = $alamats = $resellers = $ekspedisis = $arr_spk_produk_nota_srjalans = $arr_spk_produk_notas = $arr_spk_produks = $arr_produks =$bg_color_tgl= array();
         foreach ($srjalans as $srjalan) {
-            $pelanggan = Pelanggan::find($srjalan['pelanggan_id'])->toArray();
+            $pelanggan = Pelanggan::find($srjalan['pelanggan_id']);
+            $alamat=$pelanggan->alamat->first();
             $reseller = null;
             if ($srjalan['reseller_id'] !== null) {
                 $reseller = Pelanggan::find($srjalan['reseller_id'])->toArray();
@@ -58,6 +59,13 @@ class SrjalanController extends Controller
             $arr_spk_produk_notas[] = $spk_produk_notas;
             $arr_spk_produks[] = $spk_produks;
             $arr_produks[] = $produks;
+            $alamats[] = $alamat;
+
+            $bg_color=['bg-danger bg-gradient'];
+            if ($srjalan['finished_at']!==null) {
+                $bg_color=['bg-warning bg-gradient','bg-success bg-gradient'];
+            }
+            $bg_color_tgl[]=$bg_color;
         }
 
 
@@ -70,15 +78,16 @@ class SrjalanController extends Controller
             'go_back' => true,
             'srjalans' => $srjalans,
             'pelanggans' => $pelanggans,
-            'daerahs' => $daerahs,
+            'alamats' => $alamats,
             'resellers' => $resellers,
             'ekspedisis' => $ekspedisis,
             'arr_spk_produk_nota_srjalans' => $arr_spk_produk_nota_srjalans,
             'arr_spk_produk_notas' => $arr_spk_produk_notas,
             'arr_spk_produks' => $arr_spk_produks,
             'arr_produks' => $arr_produks,
+            'bg_color_tgl' => $bg_color_tgl,
         ];
-
+        // dd($data);
         return view('srjalan.srjalans', $data);
     }
 
@@ -251,18 +260,22 @@ class SrjalanController extends Controller
         }
 
         $sj = new Srjalan();
-        list($srjalan, $pelanggan, $daerah, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks) = $sj->get_one_srjalan_and_components($get['srjalan_id']);
+        list($srjalan, $pelanggan, $alamat, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks) = $sj->get_one_srjalan_and_components($get['srjalan_id']);
 
+        $menus=[['route'=>'SJ-PrintOut','nama'=>'PrintOut SJ','method'=>'GET','params'=>['name'=>'srjalan_id','value'=>$srjalan['id']]]];
         $data = [
+            'navbar_bg'=>'bg-color-orange-2',
+            'go_back'=>true,
             'srjalan' => $srjalan,
             'pelanggan' => $pelanggan,
-            'daerah' => $daerah,
+            'alamat' => $alamat,
             'reseller' => $reseller,
             'ekspedisi' => $ekspedisi,
             'spk_produk_nota_srjalans' => $spk_produk_nota_srjalans,
             'spk_produk_notas' => $spk_produk_notas,
             'spk_produks' => $spk_produks,
             'produks' => $produks,
+            'menus' => $menus,
         ];
 
         return view('srjalan.sj-detailSJ', $data);
@@ -283,17 +296,17 @@ class SrjalanController extends Controller
         }
 
         $sj = new Srjalan();
-        list($srjalan, $pelanggan, $daerah, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks) = $sj->get_one_srjalan_and_components($get['srjalan_id']);
+        list($srjalan, $pelanggan, $alamat, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks) = $sj->get_one_srjalan_and_components($get['srjalan_id']);
 
-        $alamat_reseller = null;
-        if ($reseller !== null) {
-            $alamat_reseller = json_decode($reseller['alamat'], true);
-        }
+        $alamat_reseller = $reseller->alamat->first();
+        // dd($alamat_reseller);
         $alamat_ekspedisi = json_decode($ekspedisi['alamat'], true);
         $data = [
+            'navbar_bg' => 'bg-color-orange-2',
+            'go_back' => true,
             'srjalan' => $srjalan,
             'pelanggan' => $pelanggan,
-            'daerah' => $daerah,
+            'alamat' => $alamat,
             'reseller' => $reseller,
             'alamat_reseller' => $alamat_reseller,
             'ekspedisi' => $ekspedisi,

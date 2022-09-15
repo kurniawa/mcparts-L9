@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('kategori', 20);
             $table->string('nama', 50);
             $table->string('nama_nota', 50)->nullable();
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

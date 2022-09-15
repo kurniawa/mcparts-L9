@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('grade', 2)->nullable(); // ada grade A dan B
             $table->string('ktrg', 1000)->nullable();
+            $table->timestamps();
         });
     }
 

@@ -69,6 +69,7 @@ class Srjalan extends Model
     {
         $srjalan = Srjalan::find($srjalan_id);
         $pelanggan = Pelanggan::find($srjalan['pelanggan_id']);
+        $alamat=$pelanggan->alamat->first();
         $reseller = null;
         if ($srjalan['reseller_id'] !== null) {
             $reseller = Pelanggan::find($srjalan['reseller_id']);
@@ -88,7 +89,7 @@ class Srjalan extends Model
             $produks[] = $produk;
         }
 
-        return array($srjalan, $pelanggan, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks);
+        return array($srjalan, $pelanggan,$alamat, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks);
     }
 
 

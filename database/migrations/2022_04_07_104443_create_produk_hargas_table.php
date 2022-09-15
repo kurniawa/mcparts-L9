@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('produk_id')->nullable()->constrained()->onDelete('NO ACTION');
             $table->integer('harga');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

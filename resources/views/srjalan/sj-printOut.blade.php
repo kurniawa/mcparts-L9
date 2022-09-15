@@ -5,8 +5,8 @@
     <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
     @if ($reseller !== null)
     <div>
-        <button class="btn btn-danger" onclick="toggleSJ('#sj-reseller');">SJ Reseller</button>
-        <button class="btn btn-danger" onclick="toggleSJ('#sj-pelanggan');">SJ Pelanggan</button>
+        <button class="btn btn-danger" onclick="toggleSJ('#sj-reseller','#sj-pelanggan');">SJ Reseller</button>
+        <button class="btn btn-danger" onclick="toggleSJ('#sj-pelanggan','#sj-reseller');">SJ Pelanggan</button>
     </div>
     @endif
 </header>
@@ -57,7 +57,7 @@
                 <tr>
                     <td id="custName" style="vertical-align: top;" class="font-weight-bold font-size-1_5em">{{ $reseller['nama'] }}</td>
                     <td id="" class="font-size-1_5em">
-                        @foreach ($alamat_reseller as $alamat)
+                        @foreach (json_decode($alamat_reseller['long'],true) as $alamat)
                             <br>{{ $alamat }}
                         @endforeach
                     </td>
@@ -122,11 +122,11 @@
 
     {{-- SJ PELANGGAN --}}
 
-    <div id="sj-pelanggan" style="display: none">
+    <div id="sj-pelanggan">
         <div class="grid-3-25_25_50">
             <div></div>
             <div><span class="font-weight-bold">{{ $reseller['nama'] }}</span>
-                @foreach ($alamat_reseller as $alamat)
+                @foreach (json_decode($alamat_reseller['long'],true) as $alamat)
                     <br>{{ $alamat }}
                 @endforeach
             </div>
@@ -363,7 +363,6 @@
 <script>
     const srjalan = {!! json_encode($srjalan, JSON_HEX_TAG) !!};
     const pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
-    const daerah = {!! json_encode($daerah, JSON_HEX_TAG) !!};
     const reseller = {!! json_encode($reseller, JSON_HEX_TAG) !!};
     const ekspedisi = {!! json_encode($ekspedisi, JSON_HEX_TAG) !!};
     const spk_produk_nota_srjalans = {!! json_encode($spk_produk_nota_srjalans, JSON_HEX_TAG) !!};
@@ -374,7 +373,6 @@
     if (show_console) {
         console.log("srjalan:");console.log(srjalan);
         console.log('pelanggan');console.log(pelanggan);
-        console.log('daerah');console.log(daerah);
         console.log('reseller');console.log(reseller);
         console.log('ekspedisi');console.log(ekspedisi);
         console.log('spk_produk_nota_srjalans');console.log(spk_produk_nota_srjalans);
@@ -383,24 +381,26 @@
         console.log('produks');console.log(produks);
     }
 
-    var arr_alamat_pelanggan = JSON.parse(pelanggan.alamat);
-    var arr_alamat_ekspedisi = JSON.parse(ekspedisi.alamat);
-    var alamat_pelanggan = '';
-    var alamat_ekspedisi = '';
+    // var arr_alamat_pelanggan = JSON.parse(pelanggan.alamat);
+    // var arr_alamat_ekspedisi = JSON.parse(ekspedisi.alamat);
+    // var alamat_pelanggan = '';
+    // var alamat_ekspedisi = '';
 
-    arr_alamat_pelanggan.forEach(alamat => {
-        alamat_pelanggan += `${alamat}<br>`;
-    });
+    // arr_alamat_pelanggan.forEach(alamat => {
+    //     alamat_pelanggan += `${alamat}<br>`;
+    // });
 
-    arr_alamat_ekspedisi.forEach(alamat => {
-        alamat_ekspedisi += `${alamat}<br>`;
-    });
+    // arr_alamat_ekspedisi.forEach(alamat => {
+    //     alamat_ekspedisi += `${alamat}<br>`;
+    // });
 
-    document.getElementById('alamatCust').innerHTML = alamat_pelanggan;
-    document.getElementById('ekspedisi').innerHTML = alamat_ekspedisi;
+    // document.getElementById('alamatCust').innerHTML = alamat_pelanggan;
+    // document.getElementById('ekspedisi').innerHTML = alamat_ekspedisi;
 
-    function toggleSJ(id) {
-        $(id).toggle(300);
+    function toggleSJ(idToShow,idToHide) {
+        // console.log(id);
+        $(idToShow).show(300);
+        $(idToHide).hide(300);
     }
 
 </script>

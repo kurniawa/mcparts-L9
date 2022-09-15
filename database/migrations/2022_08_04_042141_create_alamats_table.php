@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string("negara", 50)->nullable();
             $table->string("short", 50)->nullable();
             $table->string("long")->nullable(); // yang di Jakarta/Tangerang ada yang tidak pakai keterangan alamat. Ini bisa diisi dengan nama perumahan atau nama ruko, dll.
+            $table->timestamps();
         });
     }
 

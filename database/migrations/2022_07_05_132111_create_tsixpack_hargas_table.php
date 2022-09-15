@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum("grade_bahan", ['A', 'B'])->nullable();
             // $table->foreignId('bahan_id')->nullable();
             $table->integer("harga");
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

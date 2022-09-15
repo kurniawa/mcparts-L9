@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('produk_id');
             $table->foreignId('kombinasi_id');
+            $table->timestamps();
         });
     }
 

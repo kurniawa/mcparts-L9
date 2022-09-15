@@ -189,8 +189,8 @@ Route::controller(SrjalanController::class)->group(function ()
     // Route::get('/sj/sjBaru-pCust', 'sjBaru_pCust')->middleware('auth');
     // Route::get('/sj/sjBaru-pPelanggan-pProduk', 'sjBaru_pPelanggan_pProduk')->middleware('auth');
     // Route::post('/sj/sjBaru-pNota-pProduk-DB', 'sjBaru_pNota_pProduk_DB')->middleware('auth');
-    Route::get('/sj/sj-detailSJ', 'sj_detailSJ');
-    Route::get('/sj/sj-printOut', 'sj_printOut');
+    Route::get('/sj/sj-detailSJ', 'sj_detailSJ')->name('SJ-Detail')->middleware('auth');
+    Route::get('/sj/sj-printOut', 'sj_printOut')->name('SJ-PrintOut')->middleware('auth');
     Route::post('/sj/sj-hapus', 'sj_hapus')->middleware('auth');
     Route::get('/sj/SjAll', 'SjAll')->name('SjAll')->middleware('auth');
     Route::post('/sj/SjAll_DB', 'SjAll_DB')->name('SjAll_DB')->middleware('auth');

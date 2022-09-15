@@ -214,6 +214,8 @@ class TreeController extends Controller
             ['route'=>'SPK-Detail','nama'=>'Detail SPK','method'=>'get','params'=>['name'=>'spk_id','value'=>$spk['id']]],
         ];
         $data=[
+            'navbar_bg'=>'bg-color-orange-2',
+            'go_back' => true,
             'spk_produk'=>$spk_produk,
             'spk'=>$spk,
             'produk'=>$produk,

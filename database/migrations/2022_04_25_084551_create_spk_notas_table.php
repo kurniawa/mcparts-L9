@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('spk_id')->nullable()->constrained()->onDelete('CASCADE');
             $table->foreignId('nota_id')->nullable()->constrained()->onDelete('CASCADE');
+            $table->timestamps();
         });
     }
 

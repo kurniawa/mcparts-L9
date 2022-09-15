@@ -21,6 +21,7 @@ return new class extends Migration
             $table->smallInteger('jumlah')->nullable();
             $table->smallInteger('tahapan_selesai')->nullable();
             $table->timestamp('finished_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

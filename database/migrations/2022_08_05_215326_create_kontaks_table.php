@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('tipe', 20)->nullable(); // kantor, rumah, hp
             $table->string('kodearea', 10)->nullable();
             $table->string('nomor', 20)->nullable();
+            $table->timestamps();
         });
     }
 

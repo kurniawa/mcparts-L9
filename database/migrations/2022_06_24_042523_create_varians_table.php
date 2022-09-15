@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('kategori', 20)->nullable(); // racing, kartun, dll
             $table->string('nama', 50); // tdr, yss, kawahara, somjin, doraemon, hellokitty
+            $table->timestamps();
         });
     }
 

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('variasi_standar');
             $table->integer('harga');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

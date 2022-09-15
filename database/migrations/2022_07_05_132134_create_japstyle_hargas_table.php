@@ -20,7 +20,7 @@ return new class extends Migration
             // $table->char('tipe_bahan', 1);
             $table->enum("tipe_bahan", ['A', 'B'])->nullable();
             $table->integer("harga");
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

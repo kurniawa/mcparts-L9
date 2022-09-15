@@ -63,6 +63,8 @@ class SpkController extends Controller
 
         $menus=[['route'=>'SPKBaru','nama'=>'+Tambah SPK Baru']];
         $data = [
+            'navbar_bg'=>'bg-color-orange-2',
+            'go_back' => true,
             'spks' => $spks,
             'pelanggans' => $pelanggans,
             'alamats' => $alamats,
@@ -106,6 +108,8 @@ class SpkController extends Controller
             ['route'=>'HapusSPK','nama'=>'Hapus','method'=>'post','params'=>['name'=>'spk_id','value'=>$spk['id']],'alert'=>'Anda yakin ingin menghapus SPK ini?'],
         ];
         $data = [
+            'navbar_bg'=>'bg-color-orange-2',
+            'go_back' => true,
             'spk' => $spk,
             'pelanggan' => $pelanggan,
             'alamat' => $alamat,

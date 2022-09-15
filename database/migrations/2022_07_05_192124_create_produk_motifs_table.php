@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('produk_id');
             $table->foreignId('motif_id');
+            $table->timestamps();
         });
     }
 
