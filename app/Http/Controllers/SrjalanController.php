@@ -71,7 +71,6 @@ class SrjalanController extends Controller
 
         // $pelanggan = Pelanggan::find(3)->spk;
         // dd($pelanggans);
-        // $menus=[['route'=>'PrintOutSPK','nama'=>'Print Out','method'=>'get','params'=>['name'=>'spk_id','value'=>$spk['id']]],];
 
         $data = [
             'navbar_bg'=>'bg-color-orange-2',
@@ -262,7 +261,10 @@ class SrjalanController extends Controller
         $sj = new Srjalan();
         list($srjalan, $pelanggan, $alamat, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks) = $sj->get_one_srjalan_and_components($get['srjalan_id']);
 
-        $menus=[['route'=>'SJ-PrintOut','nama'=>'PrintOut SJ','method'=>'GET','params'=>['name'=>'srjalan_id','value'=>$srjalan['id']]]];
+        $menus=[
+            ['route'=>'SJ-PrintOut','nama'=>'PrintOut SJ','method'=>'GET','params'=>[['name'=>'srjalan_id','value'=>$srjalan['id']]]]
+        ];
+
         $data = [
             'navbar_bg'=>'bg-color-orange-2',
             'go_back'=>true,
@@ -277,7 +279,7 @@ class SrjalanController extends Controller
             'produks' => $produks,
             'menus' => $menus,
         ];
-
+        dump($data);
         return view('srjalan.sj-detailSJ', $data);
     }
 
@@ -298,25 +300,40 @@ class SrjalanController extends Controller
         $sj = new Srjalan();
         list($srjalan, $pelanggan, $alamat, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks) = $sj->get_one_srjalan_and_components($get['srjalan_id']);
 
-        $alamat_reseller = $reseller->alamat->first();
+        $alamat_reseller=$alamat_reseller_long=null;
+        $alamat_long=json_decode($alamat['long'],true);
+        if ($reseller!==null) {
+            $alamat_reseller = $reseller->alamat->first();
+            $alamat_reseller_long=json_decode($alamat_reseller['long'],true);
+        }
         // dd($alamat_reseller);
         $alamat_ekspedisi = json_decode($ekspedisi['alamat'], true);
+        $jml_baris_produk=count($produks);
+        if (count($produks)<10) {
+            $jml_baris_produk=10;
+        }
         $data = [
             'navbar_bg' => 'bg-color-orange-2',
             'go_back' => true,
             'srjalan' => $srjalan,
             'pelanggan' => $pelanggan,
             'alamat' => $alamat,
+            'alamat_long' => $alamat_long,
             'reseller' => $reseller,
             'alamat_reseller' => $alamat_reseller,
+            'alamat_reseller_long' => $alamat_reseller_long,
             'ekspedisi' => $ekspedisi,
             'alamat_ekspedisi' => $alamat_ekspedisi,
             'spk_produk_nota_srjalans' => $spk_produk_nota_srjalans,
             'spk_produk_notas' => $spk_produk_notas,
             'spk_produks' => $spk_produks,
             'produks' => $produks,
+            'jml_baris_produk' => $jml_baris_produk,
         ];
-
+        // dump($data);
+        if ($reseller!==null) {
+            return view('srjalan.sj-printOutReseller', $data);
+        }
         return view('srjalan.sj-printOut', $data);
     }
 

@@ -1,327 +1,91 @@
 @extends('layouts.main_layout')
+@extends('layouts.navbar')
 
 @section('content')
-<header class="header grid-2-auto">
-    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
-    @if ($reseller !== null)
-    <div>
-        <button class="btn btn-danger" onclick="toggleSJ('#sj-reseller','#sj-pelanggan');">SJ Reseller</button>
-        <button class="btn btn-danger" onclick="toggleSJ('#sj-pelanggan','#sj-reseller');">SJ Pelanggan</button>
-    </div>
-    @endif
-</header>
-
-{{-- <div class="threeDotMenu">
-    <div class="threeDot">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-    </div>
-    <div class="divThreeDotMenuContent">
-        <a href="08-03-editsj.php?idsj={{ $sj['id'] }}" class="threeDotMenuItem">
-            <img src="/img/icons/edit.svg" alt=""><span>Edit Surat Jalan</span>
-        </a>
-        <div id="" class="threeDotMenuItem" onclick="showLightBox();">
-            <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Surat Jalan</span>
-        </div>
-
-    </div>
-</div> --}}
 
 <div id="containerDetailsj">
-    @if ($reseller !== null)
-    {{-- SJ RESELLER --}}
-    <div id="sj-reseller">
-        <div class="grid-3-25_25_50">
-            <img width="200em" src="/img/images/logo-mc.jpg" alt="">
-            <div><span class="font-weight-bold">CV. MC-Parts</span><br>Jl. Raya Karanggan No. 96<br>Kec. Gn. Putri/Kab. Bogor<br>0812 9335 218<br>0812 8655 6500</div>
+    {{-- SJ PELANGGAN TANPA RESELLER --}}
+    <div class="hr-line border-top border-2 mt-1 mb-1"></div>
+    <div class="row align-items-center">
+        <div class="col-3"><img class="logo-mc" src="{{ asset('img/images/logo-mc.jpg') }}" alt=""></div>
+        <div class="col-3"><span class="fw-bold">CV. MC-Parts</span><br>Jl. Raya Karanggan No. 96<br>Kec. Gn. Putri/Kab. Bogor<br>0812 9335 218<br>0812 8655 6500</div>
+        <div class="col-6 text-center fw-bold"><span class="judul-sj">SURAT JALAN /</span><br><span class="judul-sj">TANDA TERIMA BARANG</span></div>
+    </div>
 
-            <div class="grid-1-auto justify-items-center font-weight-bold font-size-2em">
-                <span>SURAT JALAN -</span><span>TANDA TERIMA BARANG</span>
+    <div class="hr-line border-top border-2 mt-1 mb-1"></div>
+    <div class="row align-items-center">
+        <div class="col-4">
+            <div class="fw-bold font-big">Untuk:</div>
+            <div class="fw-bold font-large">{{ $pelanggan['nama'] }}</div>
+        </div>
+        <div class="col-4">
+            <div class="fw-bold font-big">Alamat:</div>
+            <div class="font-big">
+                @for ($i = 0; $i < count($alamat_long); $i++)
+                    {{-- @if ($i!==0)
+                    <br>
+                    @endif --}}
+                    <div>{{ $alamat_long[$i] }}</div>
+                @endfor
             </div>
         </div>
-
-        <br>
-
-        <hr style="height: 2px; background-color: black; margin-bottom: 0.2em; margin-top: 0;">
-        <br>
-        <div class="grid-2-65_35 grid-column-gap-1em">
-            <table style="width: 100%;">
-                <tr>
-                    <td class="font-weight-bold" style="width: 35%;">Untuk:</td>
-                    <td class="font-weight-bold">Alamat:</td>
-                </tr>
-                <tr>
-                    <td style="height: 1.5em;"></td>
-                </tr>
-                <tr>
-                    <td id="custName" style="vertical-align: top;" class="font-weight-bold font-size-1_5em">{{ $reseller['nama'] }}</td>
-                    <td id="" class="font-size-1_5em">
-                        @foreach (json_decode($alamat_reseller['long'],true) as $alamat)
-                            <br>{{ $alamat }}
+        <div class="col-4">
+            <table style="display: inline-table">
+                <tr><td>No</td><td>:</td><td id="no_sj">{{ $srjalan['no_srjalan'] }}</td></tr>
+                <tr><td>Tanggal</td><td>:</td><td>{{ date("d-m-Y", strtotime($srjalan['created_at'])) }}</td></tr>
+                <tr style="vertical-align: top"><td>Ekspedisi</td><td>:</td>
+                    <td>
+                        <span class="fw-bold">{{ $ekspedisi['nama'] }}</span>
+                        @foreach ($alamat_ekspedisi as $alm_ekspedisi)
+                        <div>{{ $alm_ekspedisi }}</div>
                         @endforeach
+                        <div>{{ $ekspedisi['no_kontak'] }}</div>
                     </td>
                 </tr>
             </table>
-            <!-- <div class="grid-1-auto2">
-                <span class="font-weight-bold">Untuk:</span>
-                <div></div>
-                <span id='custName' class="font-weight-bold font-size-1_5em"></span>
-            </div>
-
-            <div class="grid-1-auto2">
-                <span class="font-weight-bold">Alamat:</span>
-                <div></div>
-                <span id="alamatCust" class=" font-size-1_5em"></span>
-            </div> -->
-
-            <div class="grid-3-35_5_60 grid-row-gap-0_5em">
-                <div>No.</div>
-                <div>:</div>
-                <div id="no_sj">{{ $srjalan['no_sj'] }}</div>
-                <div>Tanggal</div>
-                <div>:</div>
-                <div id="tglsj">{{ date("Y-m-d", strtotime($srjalan['created_at'])) }}</div>
-                <div>Ekspedisi</div>
-                <div>:</div>
-                <div>-</div>
-            </div>
-        </div>
-        <br>
-        <table id="tableItemsj">
-            <tr>
-                <th class="thTableItemsj" style="width: 50%;">Nama / Jenis Barang</th>
-                <th class="thTableItemsj">Jumlah</th>
-            </tr>
-            @for ($i_produk = 0; $i_produk < count($produks); $i_produk++)
-            <tr>
-                <td style="border-right: 1px solid black">{{ $produks[$i_produk]['nama_nota'] }}</td>
-                <td style="border-right: 1px solid black">{{ $spk_produk_nota_srjalans[$i_produk]['jumlah'] }}</td>
-            </tr>
-            @endfor
-        </table>
-        <span style="font-style: italic;">*Barang sudah diterima dengan baik dan sesuai, oleh:</span>
-
-        <br><br><br>
-
-        <div class="grid-2-auto">
-            <div class="grid-1-auto justify-items-center">
-                <div class="">Penerima,</div>
-                <br><br><br><br>
-                <div>(....................)</div>
-            </div>
-            <div class="grid-1-auto justify-items-center">
-                <div class="">Hormat Kami,</div>
-                <br><br><br><br>
-                <div>(....................)</div>
-            </div>
-        </div>
-
-        <div style="height: 5rem;"></div>
-    </div>
-
-    {{-- SJ PELANGGAN --}}
-
-    <div id="sj-pelanggan">
-        <div class="grid-3-25_25_50">
-            <div></div>
-            <div><span class="font-weight-bold">{{ $reseller['nama'] }}</span>
-                @foreach (json_decode($alamat_reseller['long'],true) as $alamat)
-                    <br>{{ $alamat }}
-                @endforeach
-            </div>
-
-            <div class="grid-1-auto justify-items-center font-weight-bold font-size-2em">
-                <span>SURAT JALAN -</span><span>TANDA TERIMA BARANG</span>
-            </div>
-        </div>
-
-        <br>
-
-        <hr style="height: 2px; background-color: black; margin-bottom: 0.2em; margin-top: 0;">
-        <br>
-        <div class="grid-2-65_35 grid-column-gap-1em">
-            <table style="width: 100%;">
-                <tr>
-                    <td class="font-weight-bold" style="width: 35%;">Untuk:</td>
-                    <td class="font-weight-bold">Alamat:</td>
-                </tr>
-                <tr>
-                    <td style="height: 1.5em;"></td>
-                </tr>
-                <tr>
-                    <td id="custName" style="vertical-align: top;" class="font-weight-bold font-size-1_5em">{{ $pelanggan['nama'] }}</td>
-                    <td id="alamatCust" class="font-size-1_5em"></td>
-                </tr>
-            </table>
-            <!-- <div class="grid-1-auto2">
-                <span class="font-weight-bold">Untuk:</span>
-                <div></div>
-                <span id='custName' class="font-weight-bold font-size-1_5em"></span>
-            </div>
-
-            <div class="grid-1-auto2">
-                <span class="font-weight-bold">Alamat:</span>
-                <div></div>
-                <span id="alamatCust" class=" font-size-1_5em"></span>
-            </div> -->
-
-            <div class="grid-3-35_5_60 grid-row-gap-0_5em">
-                <div>No.</div>
-                <div>:</div>
-                <div id="no_sj">{{ $srjalan['no_sj'] }}</div>
-                <div>Tanggal</div>
-                <div>:</div>
-                <div id="tglsj">{{ date("Y-m-d", strtotime($srjalan['created_at'])) }}</div>
-                <div>Ekspedisi</div>
-                <div>:</div>
-                <div id="ekspedisi"></div>
-            </div>
-        </div>
-        <br>
-        <table id="tableItemsj">
-            <tr>
-                <th class="thTableItemsj" style="width: 50%;">Nama / Jenis Barang</th>
-                <th class="thTableItemsj">Jumlah</th>
-            </tr>
-            <tr>
-                <td class="tdTableItemsj font-size-2em font-weight-bold">Sarung Jok Motor</td>
-                <td class="tdTableItemsj font-weight-bold" style="font-size: xx-large;">
-                    <div class="grid-2-auto grid-column-gap-0_5em">
-                        <div id="divJmlKoli" class="justify-self-right">
-                            <span id="jmlKoli">{{ $srjalan['colly'] }}</span>
-                        </div>
-                        <img style="width: 2em;" class="d-inline-block" src="/img/icons/koli.svg" alt="">
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <span style="font-style: italic;">*Barang sudah diterima dengan baik dan sesuai, oleh:</span>
-
-        <br><br><br>
-
-        <div class="grid-2-auto">
-            <div class="grid-1-auto justify-items-center">
-                <div class="">Penerima,</div>
-                <br><br><br><br>
-                <div>(....................)</div>
-            </div>
-            <div class="grid-1-auto justify-items-center">
-                <div class="">Hormat Kami,</div>
-                <br><br><br><br>
-                <div>(....................)</div>
-            </div>
         </div>
     </div>
 
-    @else
-
-    {{-- SJ PELANGGAN TANPA RESELLER --}}
-
-    <div class="grid-3-25_25_50">
-        <img width="200em" src="/img/images/logo-mc.jpg" alt="">
-        <div><span class="font-weight-bold">CV. MC-Parts</span><br>Jl. Raya Karanggan No. 96<br>Kec. Gn. Putri/Kab. Bogor<br>0812 9335 218<br>0812 8655 6500</div>
-
-        <div class="grid-1-auto justify-items-center font-weight-bold font-size-2em">
-            <span>SURAT JALAN -</span><span>TANDA TERIMA BARANG</span>
-        </div>
-    </div>
-
-    <br>
-
-    <hr style="height: 2px; background-color: black; margin-bottom: 0.2em; margin-top: 0;">
-    <br>
-    <div class="grid-2-65_35 grid-column-gap-1em">
-        <table style="width: 100%;">
-            <tr>
-                <td class="font-weight-bold" style="width: 35%;">Untuk:</td>
-                <td class="font-weight-bold">Alamat:</td>
-            </tr>
-            <tr>
-                <td style="height: 1.5em;"></td>
-            </tr>
-            <tr>
-                <td id="custName" style="vertical-align: top;" class="font-weight-bold font-size-1_5em">{{ $pelanggan['nama'] }}</td>
-                <td id="alamatCust" class="font-size-1_5em"></td>
-            </tr>
-        </table>
-        <!-- <div class="grid-1-auto2">
-            <span class="font-weight-bold">Untuk:</span>
-            <div></div>
-            <span id='custName' class="font-weight-bold font-size-1_5em"></span>
-        </div>
-
-        <div class="grid-1-auto2">
-            <span class="font-weight-bold">Alamat:</span>
-            <div></div>
-            <span id="alamatCust" class=" font-size-1_5em"></span>
-        </div> -->
-
-        <div class="grid-3-35_5_60 grid-row-gap-0_5em">
-            <div>No.</div>
-            <div>:</div>
-            <div id="no_sj">{{ $srjalan['no_sj'] }}</div>
-            <div>Tanggal</div>
-            <div>:</div>
-            <div id="tglsj">{{ date("Y-m-d", strtotime($srjalan['created_at'])) }}</div>
-            <div>Ekspedisi</div>
-            <div>:</div>
-            <div id="ekspedisi"></div>
-        </div>
-    </div>
-    <br>
     <table id="tableItemsj">
         <tr>
-            <th class="thTableItemsj" style="width: 50%;">Nama / Jenis Barang</th>
-            <th class="thTableItemsj">Jumlah</th>
+            <th class="thTableItemsj font-large" style="width: 50%;text-align: center;">Nama / Jenis Barang</th>
+            <th class="thTableItemsj font-large" style="text-align: center;">Jumlah</th>
         </tr>
         <tr>
-            <td class="tdTableItemsj font-size-2em font-weight-bold">Sarung Jok Motor</td>
-            <td class="tdTableItemsj font-weight-bold" style="font-size: xx-large;">
+            <td class="tdTableItemsj fw-bold font-3xl">Sarung Jok Motor</td>
+            <td class="tdTableItemsj fw-bold" style="font-size: 3rem;">
                 <div class="grid-2-auto grid-column-gap-0_5em">
                     <div id="divJmlKoli" class="justify-self-right">
-                        <span id="jmlKoli">{{ $srjalan['colly'] }}</span>
+                        <span id="jmlKoli">{{ $srjalan['jml_colly'] }}</span>
                     </div>
-                    <img style="width: 2em;" class="d-inline-block" src="/img/icons/koli.svg" alt="">
+                    <img style="width: 3rem;" class="d-inline-block" src="/img/icons/koli.svg" alt="">
                 </div>
             </td>
         </tr>
     </table>
-    <span style="font-style: italic;">*Barang sudah diterima dengan baik dan sesuai, oleh:</span>
+    <span style="font-style: italic;" class="font-big">*Barang sudah diterima dengan baik dan sesuai, oleh:</span>
 
-    <br><br><br>
+    <br><br>
 
     <div class="grid-2-auto">
         <div class="grid-1-auto justify-items-center">
-            <div class="">Penerima,</div>
+            <div class="font-large">Penerima,</div>
             <br><br><br><br>
             <div>(....................)</div>
         </div>
         <div class="grid-1-auto justify-items-center">
-            <div class="">Hormat Kami,</div>
+            <div class="font-large">Hormat Kami,</div>
             <br><br><br><br>
             <div>(....................)</div>
         </div>
     </div>
-    @endif
-
+    <br><br>
+    <div class="hr-line border-top border-2"></div>
 </div>
 
 <style>
-    #closingArea {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 1;
-    }
-
-    #inputEditKoli {
-        width: 2em;
-        font-size: xx-large;
-        position: relative;
-        z-index: 3;
+    .logo-mc {
+        width: 10em;
     }
 
     #containerDetailsj {
@@ -348,61 +112,37 @@
     }
 
     .tdTableItemsj {
-        height: 8em;
+        height: 10rem;
         text-align: center;
     }
 
     @media print {
+        .logo-mc{
+            width: 15rem;
+        }
         .bg-color-orange-1 {
             background-color: #FFED50;
             -webkit-print-color-adjust: exact;
         }
+        .font-big {
+            font-size: 1.5rem;
+        }
+        .font-large{
+            font-size: 1.7rem;
+        }
+        .font-3xl{
+            font-size: 2rem;
+        }
+        .judul-sj{
+            font-size: 2rem;
+        }
+        hr{
+            display: block;
+        }
+        .navbar{
+            display:none;
+        }
     }
 </style>
-
-<script>
-    const srjalan = {!! json_encode($srjalan, JSON_HEX_TAG) !!};
-    const pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
-    const reseller = {!! json_encode($reseller, JSON_HEX_TAG) !!};
-    const ekspedisi = {!! json_encode($ekspedisi, JSON_HEX_TAG) !!};
-    const spk_produk_nota_srjalans = {!! json_encode($spk_produk_nota_srjalans, JSON_HEX_TAG) !!};
-    const spk_produk_notas = {!! json_encode($spk_produk_notas, JSON_HEX_TAG) !!};
-    const spk_produks = {!! json_encode($spk_produks, JSON_HEX_TAG) !!};
-    const produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
-
-    if (show_console) {
-        console.log("srjalan:");console.log(srjalan);
-        console.log('pelanggan');console.log(pelanggan);
-        console.log('reseller');console.log(reseller);
-        console.log('ekspedisi');console.log(ekspedisi);
-        console.log('spk_produk_nota_srjalans');console.log(spk_produk_nota_srjalans);
-        console.log('spk_produk_notas');console.log(spk_produk_notas);
-        console.log('spk_produks');console.log(spk_produks);
-        console.log('produks');console.log(produks);
-    }
-
-    // var arr_alamat_pelanggan = JSON.parse(pelanggan.alamat);
-    // var arr_alamat_ekspedisi = JSON.parse(ekspedisi.alamat);
-    // var alamat_pelanggan = '';
-    // var alamat_ekspedisi = '';
-
-    // arr_alamat_pelanggan.forEach(alamat => {
-    //     alamat_pelanggan += `${alamat}<br>`;
-    // });
-
-    // arr_alamat_ekspedisi.forEach(alamat => {
-    //     alamat_ekspedisi += `${alamat}<br>`;
-    // });
-
-    // document.getElementById('alamatCust').innerHTML = alamat_pelanggan;
-    // document.getElementById('ekspedisi').innerHTML = alamat_ekspedisi;
-
-    function toggleSJ(idToShow,idToHide) {
-        // console.log(id);
-        $(idToShow).show(300);
-        $(idToHide).hide(300);
-    }
-
-</script>
 
 @endsection

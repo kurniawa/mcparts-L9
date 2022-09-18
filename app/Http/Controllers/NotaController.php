@@ -44,7 +44,7 @@ class NotaController extends Controller
                 $reseller = Pelanggan::find($notas[$i]['reseller_id'])->toArray();
                 $resellers[] = $reseller;
             } else {
-                $reseller[] = null;
+                $resellers[] = null;
             }
 
             $spk_produk_notas = SpkProdukNota::where('nota_id', $notas[$i]['id'])->get()->toArray();
@@ -81,7 +81,7 @@ class NotaController extends Controller
             'arr_produks' => $arr_produks,
             'bg_color_tgl' => $bg_color_tgl,
         ];
-        dd($data);
+        // dd($data);
         // $data = ['notas' => $notas, 'pelanggans' => $pelanggans];
         return view('nota.notas', $data);
     }
