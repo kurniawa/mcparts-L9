@@ -99,13 +99,13 @@ class SpkController extends Controller
         // dump($spk_produks);
 
         $menus=[
-            ['route'=>'PrintOutSPK','nama'=>'Print Out','method'=>'get','params'=>['name'=>'spk_id','value'=>$spk['id']]],
-            ['route'=>'EditKopSPK','nama'=>'Kopf','method'=>'get','params'=>['name'=>'spk_id','value'=>$spk['id']]],
-            ['route'=>'ItemSelesai_All','nama'=>'Selesai All','method'=>'post','params'=>['name'=>'spk_id','value'=>$spk['id']]],
-            ['route'=>'SPK_AddItems','nama'=>'Tambah Item','method'=>'get','params'=>['name'=>'spk_id','value'=>$spk['id']]],
-            ['route'=>'NotaAll','nama'=>'N-All','method'=>'get','params'=>['name'=>'spk_id','value'=>$spk['id']]],
-            ['route'=>'SjAll','nama'=>'Sr-All','method'=>'get','params'=>['name'=>'spk_id','value'=>$spk['id']]],
-            ['route'=>'HapusSPK','nama'=>'Hapus','method'=>'post','params'=>['name'=>'spk_id','value'=>$spk['id']],'alert'=>'Anda yakin ingin menghapus SPK ini?'],
+            ['route'=>'PrintOutSPK','nama'=>'Print Out','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']],]],
+            ['route'=>'EditKopSPK','nama'=>'Kopf','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']],]],
+            ['route'=>'ItemSelesai_All','nama'=>'Selesai All','method'=>'post','params'=>[['name'=>'spk_id','value'=>$spk['id']],]],
+            ['route'=>'SPK_AddItems','nama'=>'Tambah Item','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']],]],
+            ['route'=>'NotaAll','nama'=>'N-All','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']],]],
+            ['route'=>'SjAll','nama'=>'Sr-All','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']],]],
+            ['route'=>'HapusSPK','nama'=>'Hapus','method'=>'post','params'=>[['name'=>'spk_id','value'=>$spk['id']],],'alert'=>'Anda yakin ingin menghapus SPK ini?'],
         ];
         $data = [
             'navbar_bg'=>'bg-color-orange-2',
@@ -120,6 +120,7 @@ class SpkController extends Controller
         ];
 
         // dd($spk_produks);
+        // dd($data);
 
         return view('spk.spk-detail', $data);
     }

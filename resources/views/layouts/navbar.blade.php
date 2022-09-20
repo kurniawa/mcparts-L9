@@ -23,11 +23,18 @@
               @if (isset($menu['params']))
               @if (isset($menu['alert']))
               <li class="nav-item">
-                <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}" onsubmit="return alert('{{ $menu['alert'] }}')">@csrf<button type="submit" class="nav-link btn fw-bold" style="color: white" name="{{ $menu['params']['name'] }}" value="{{ $menu['params']['value'] }}">{{ $menu['nama'] }}</button></form>
+                <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}" onsubmit="return alert('{{ $menu['alert'] }}')">
+                    @csrf
+                    @foreach ($menu['params'] as $param)
+                    <input type="hidden" name="{{ $param['name'] }}" value="{{ $param['value'] }}">
+                    @endforeach
+                    <button type="submit" class="nav-link btn fw-bold" style="color: white">{{ $menu['nama'] }}</button>
+                </form>
               </li>
               @else
               <li class="nav-item">
-                <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}">@csrf
+                <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}">
+                    @csrf
                     @foreach ($menu['params'] as $param)
                     <input type="hidden" name="{{ $param['name'] }}" value="{{ $param['value'] }}">
                     @endforeach

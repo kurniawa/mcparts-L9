@@ -36,7 +36,7 @@
                 <tr style="vertical-align: top"><td>Ekspedisi</td><td>:</td>
                     <td>
                         <span class="fw-bold">{{ $ekspedisi['nama'] }}</span>
-                        @foreach ($alamat_ekspedisi as $alm_ekspedisi)
+                        @foreach (json_decode($alamat_ekspedisi['long'], true) as $alm_ekspedisi)
                         <div>{{ $alm_ekspedisi }}</div>
                         @endforeach
                         <div>{{ $ekspedisi['no_kontak'] }}</div>

@@ -211,7 +211,7 @@ class TreeController extends Controller
         $jml_av=$jml_sdh_nota-$jml_sdh_sj;
 
         $menus=[
-            ['route'=>'SPK-Detail','nama'=>'Detail SPK','method'=>'get','params'=>['name'=>'spk_id','value'=>$spk['id']]],
+            ['route'=>'SPK-Detail','nama'=>'Detail SPK','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']]]],
         ];
         $data=[
             'navbar_bg'=>'bg-color-orange-2',

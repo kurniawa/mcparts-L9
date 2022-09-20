@@ -727,7 +727,7 @@ class NotaController extends Controller
         list($nota, $pelanggan,$alamat, $reseller, $spk_produk_notas, $spk_produks, $produks, $data_items) = $obj_nota->getOneNotaAndComponents($get['nota_id']);
 
         $menus=[
-            ['route'=>'PrintOutNota','nama'=>'Print Out','method'=>'get','params'=>['name'=>'nota_id','value'=>$nota['id']]],
+            ['route'=>'PrintOutNota','nama'=>'Print Out','method'=>'get','params'=>[['name'=>'nota_id','value'=>$nota['id']],]],
         ];
         $data = [
             'go_back' => true,

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Helpers\SiteSettings;
 use App\Helpers\UpdateDataSPK;
+use App\Models\Alamat;
 use App\Models\Daerah;
 use App\Models\Ekspedisi;
+use App\Models\EkspedisiAlamat;
 use App\Models\Nota;
 use App\Models\Pelanggan;
 use App\Models\PelangganEkspedisi;
@@ -307,7 +309,9 @@ class SrjalanController extends Controller
             $alamat_reseller_long=json_decode($alamat_reseller['long'],true);
         }
         // dd($alamat_reseller);
-        $alamat_ekspedisi = json_decode($ekspedisi['alamat'], true);
+        $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi['id'])->where('tipe','UTAMA')->latest()->first();
+        // dump($ekspedisi_alamat);
+        $alamat_ekspedisi =Alamat::find($ekspedisi_alamat['alamat_id']);
         $jml_baris_produk=count($produks);
         if (count($produks)<10) {
             $jml_baris_produk=10;
@@ -330,6 +334,7 @@ class SrjalanController extends Controller
             'produks' => $produks,
             'jml_baris_produk' => $jml_baris_produk,
         ];
+        // dd($data);
         // dump($data);
         if ($reseller!==null) {
             return view('srjalan.sj-printOutReseller', $data);

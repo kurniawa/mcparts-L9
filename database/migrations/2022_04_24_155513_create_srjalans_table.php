@@ -17,8 +17,8 @@ return new class extends Migration
         Schema::create('srjalans', function (Blueprint $table) {
             $table->id();
             $table->string('no_srjalan', 20)->nullable();
-            $table->foreignId('pelanggan_id')->nullable();
-            $table->foreignId('ekspedisi_id')->nullable();
+            $table->foreignId('pelanggan_id')->constrained();
+            $table->foreignId('ekspedisi_id')->nullable()->constrained();
             $table->foreignId('ekspedisi_transit_id')->nullable();
             $table->bigInteger('reseller_id')->nullable();
             $table->string('status', 50)->default('PROSES KIRIM');
