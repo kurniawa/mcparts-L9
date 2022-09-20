@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kontaks', function (Blueprint $table) {
+        Schema::create('ekspedisi_alamats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pelanggan_id')->nullable();
-            $table->foreignId('ekspedisi_id')->nullable();
-            $table->string('tipe', 20)->nullable(); // kantor, rumah, hp
-            $table->string('kodearea', 10)->nullable();
-            $table->string('nomor', 20)->nullable();
+            $table->foreignId('ekspedisi_id');
+            $table->foreignId('alamat_id');
+            $table->string('tipe',20)->default('UTAMA');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kontaks');
+        Schema::dropIfExists('ekspedisi_alamats');
     }
 };

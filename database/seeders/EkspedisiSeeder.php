@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Alamat;
+use App\Models\Ekspedisi;
+use App\Models\EkspedisiAlamat;
+use App\Models\Kontak;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -1094,11 +1098,11 @@ class EkspedisiSeeder extends Seeder
                     'komplek'=>null,
                     'kecamatan'=>'Sawah Besar',
                     'kelurahan'=>'Pasar Baru',
-                    'kota'=>'Jakarta Utara',
+                    'kota'=>'Jakarta Pusat',
                     'kabupaten'=>null,
                     'provinsi'=>'DKI Jakarta',
                     'pulau'=>'Jawa',
-                    'short'=>'Pasar Baru',
+                    'short'=>'Swh. Besar',
                     'negara'=>'Indonesia',
                     'long'=>'["Jl. Krekot Pasar Baru","Blok C2, No.11 D"]',
                 ]],
@@ -1374,54 +1378,275 @@ class EkspedisiSeeder extends Seeder
             ], [
                 'bentuk' => null,
                 'nama' => 'Subur Antar Nusa',
-                'alamat' => '["Jl. Kapuk Kamal Raya No.40", "Pluit Bisnis Blok D, No.7"]',
-                'no_kontak' => '(021) 5596 3780',
+                'alamat' => [[
+                    'jalan'=>'Jl. Kapuk Kamal Raya No.40',
+                    'rt'=>null,'rw'=>null,
+                    'komplek'=>'Pluit Bisnis',
+                    'kecamatan'=>'Sawah Besar',
+                    'kelurahan'=>null,
+                    'kota'=>'Jakarta Barat',
+                    'kabupaten'=>null,
+                    'provinsi'=>'DKI Jakarta',
+                    'pulau'=>'Jawa',
+                    'short'=>'Pluit',
+                    'negara'=>'Indonesia',
+                    'long'=>'["Jl. Kapuk Kamal Raya No.40", "Pluit Bisnis Blok D, No.7"]',
+                ]],
+                'kontak' => [
+                    [
+                        'tipe'=>'kantor',
+                        'kodearea'=>'021',
+                        'nomor'=>'55963780',
+                    ]
+                ],
             ], [
                 'bentuk' => 'CV',
                 'nama' => 'Sukses Abadi Zentosa',
-                'alamat' => '["Jl. Tongkol No.6", "Ruko BR"]',
-                'no_kontak' => '0812 3496 5888',
+                'alamat' => [[
+                    'jalan'=>'Jl. Tongkol No.6',
+                    'rt'=>null,'rw'=>null,
+                    'komplek'=>'Ruko BR',
+                    'kecamatan'=>'Pademangan',
+                    'kelurahan'=>null,
+                    'kota'=>'Jakarta Utara',
+                    'kabupaten'=>null,
+                    'provinsi'=>'DKI Jakarta',
+                    'pulau'=>'Jawa',
+                    'short'=>'Tongkol',
+                    'negara'=>'Indonesia',
+                    'long'=>'["Jl. Tongkol No.6", "Ruko BR"]',
+                ]],
+                'kontak' => [
+                    [
+                        'tipe'=>'seluler',
+                        'kodearea'=>null,
+                        'nomor'=>'081234965888',
+                    ]
+                ],
             ], [
                 'bentuk' => 'CV',
                 'nama' => 'Sukses Karunia Sejahtera',
-                'alamat' => '["Jl. Kampung Bandan No.1"]',
-                'no_kontak' => '0851 0529 2979',
+                'alamat' => [[
+                    'jalan'=>'Jl. Kampung Bandan No.1',
+                    'rt'=>null,'rw'=>null,
+                    'komplek'=>null,
+                    'kecamatan'=>'Pademangan',
+                    'kelurahan'=>null,
+                    'kota'=>'Jakarta Utara',
+                    'kabupaten'=>null,
+                    'provinsi'=>'DKI Jakarta',
+                    'pulau'=>'Jawa',
+                    'short'=>'Kp. Bandan',
+                    'negara'=>'Indonesia',
+                    'long'=>'["Jl. Kampung Bandan No.1"]',
+                ]],
+                'kontak' => [
+                    [
+                        'tipe'=>'seluler',
+                        'kodearea'=>null,
+                        'nomor'=>'085105292979',
+                    ]
+                ],
             ], [
                 'bentuk' => null,
                 'nama' => 'Sumber Urip',
-                'alamat' => '["Jl. Pangeran Jayakarta No.16, 6-7"]',
-                'no_kontak' => '(021) 6294 208',
+                'alamat' => [[
+                    'jalan'=>'Jl. Pangeran Jayakarta No.16/6-7',
+                    'rt'=>null,'rw'=>null,
+                    'komplek'=>null,
+                    'kecamatan'=>'Sawah Besar',
+                    'kelurahan'=>null,
+                    'kota'=>'Jakarta Pusat',
+                    'kabupaten'=>null,
+                    'provinsi'=>'DKI Jakarta',
+                    'pulau'=>'Jawa',
+                    'short'=>'Swh. Besar',
+                    'negara'=>'Indonesia',
+                    'long'=>'["Jl. Pangeran Jayakarta No.16/6-7"]',
+                ]],
+                'kontak' => [
+                    [
+                        'tipe'=>'kantor',
+                        'kodearea'=>'021',
+                        'nomor'=>'6294208',
+                    ]
+                ],
             ], [
                 'bentuk' => null,
                 'nama' => 'Surya Angkasa',
-                'alamat' => '["Jl. Sidorame No.30 A", "RT002/RW11, Pegirian", "Kec.Semampir, Surabaya"]',
-                'no_kontak' => '0877 7117 6788',
+                'alamat' => [[
+                    'jalan'=>'Jl. Sidorame No.30 A',
+                    'rt'=>'02','rw'=>'11',
+                    'komplek'=>null,
+                    'kecamatan'=>'Semampir',
+                    'kelurahan'=>null,
+                    'kota'=>'Surabaya',
+                    'kabupaten'=>null,
+                    'provinsi'=>'Jawa Timur',
+                    'pulau'=>'Jawa',
+                    'short'=>'Surabaya',
+                    'negara'=>'Indonesia',
+                    'long'=>'["Jl. Sidorame No.30 A", "RT002/RW11, Pegirian", "Kec.Semampir, Surabaya"]',
+                ]],
+                'kontak' => [
+                    [
+                        'tipe'=>'seluler',
+                        'kodearea'=>null,
+                        'nomor'=>'087771176788',
+                    ]
+                ],
             ], [
                 'bentuk' => null,
                 'nama' => 'Tesa Logistic',
-                'alamat' => '["Pergudangan Prima Center 1, Blok D 11", "Jl.Pool PPD Kendang Kali Angke"]',
-                'no_kontak' => '0812 9022 8075',
+                'alamat' => [[
+                    'jalan'=>null,
+                    'rt'=>null,'rw'=>null,
+                    'komplek'=>'Pergudangan Prima',
+                    'kecamatan'=>'Cengkareng',
+                    'kelurahan'=>null,
+                    'kota'=>'Jakarta Barat',
+                    'kabupaten'=>null,
+                    'provinsi'=>'DKI Jakarta',
+                    'pulau'=>'Jawa',
+                    'short'=>'Cengkareng',
+                    'negara'=>'Indonesia',
+                    'long'=>'["Pergudangan Prima Center 1, Blok D 11", "Jl.Pool PPD Kendang Kali Angke"]',
+                ]],
+                'kontak' => [
+                    [
+                        'tipe'=>'seluler',
+                        'kodearea'=>null,
+                        'nomor'=>'081290228075',
+                    ]
+                ],
             ], [
                 'bentuk' => null,
                 'nama' => 'Toko Bangunan Buana Indah',
-                'alamat' => '["Jl. Raya Serang KM 13,8", "Pasir Gadung Cikupa, Tangerang"]',
-                'no_kontak' => '(021) 594 04418',
+                'alamat' => [[
+                    'jalan'=>"Jl. Raya Serang KM 13,8",
+                    'rt'=>null,'rw'=>null,
+                    'komplek'=>null,
+                    'kecamatan'=>'Cikupa',
+                    'kelurahan'=>null,
+                    'kota'=>'Tangerang',
+                    'kabupaten'=>null,
+                    'provinsi'=>'Banten',
+                    'pulau'=>'Jawa',
+                    'short'=>'Cikupa',
+                    'negara'=>'Indonesia',
+                    'long'=>'["Jl. Raya Serang KM 13,8", "Pasir Gadung Cikupa, Tangerang"]',
+                ]],
+                'kontak' => [
+                    [
+                        'tipe'=>'kantor',
+                        'kodearea'=>'021',
+                        'nomor'=>'59404418',
+                    ]
+                ],
             ], [
                 'bentuk' => null,
                 'nama' => 'TTM',
-                'alamat' => '["Lodan Center Blok C, No.10"]',
-                'no_kontak' => '0856 1171 138',
+                'alamat' => [[
+                    'jalan'=>null,
+                    'komplek'=>'Komplek Ruko Lodan Center',
+                    'kecamatan'=>null,
+                    'kelurahan'=>null,
+                    'kota'=>'Jakarta Utara',
+                    'kabupaten'=>null,
+                    'provinsi'=>'DKI Jakarta',
+                    'pulau'=>'Jawa',
+                    'short'=>'Lodan',
+                    'negara'=>'Indonesia',
+                    'long'=>'["Lodan Center Blok C, No.10"]',
+                ]],
+                'kontak' => [
+                    [
+                        'tipe'=>'seluler',
+                        'kodearea'=>null,
+                        'nomor'=>'08561171138',
+                    ]
+                ],
             ], [
                 'bentuk' => null,
                 'nama' => 'Wira Agung',
-                'alamat' => '["Jl. Tubagus Angke Blok D 1/9", "Ruko Taman Duta Mas"]',
-                'no_kontak' => '(021) 5678 067',
+                'alamat' => [[
+                    'jalan'=>'Jl. Tubagus Angke Blok D 1/9',
+                    'rt'=>null,'rw'=>null,
+                    'komplek'=>'Gudang Dutamas',
+                    'kecamatan'=>'Grogol Petamburan',
+                    'kelurahan'=>null,
+                    'kota'=>'Jakarta Barat',
+                    'kabupaten'=>null,
+                    'provinsi'=>'DKI Jakarta',
+                    'pulau'=>'Jawa',
+                    'short'=>'Gd. Dutamas',
+                    'negara'=>'Indonesia',
+                    'long'=>'["Jl. Tubagus Angke Blok D 1/9", "Gudang Dutamas"]',
+                ]],
+                'kontak' => [
+                    [
+                        'tipe'=>'kantor',
+                        'kodearea'=>'021',
+                        'nomor'=>'5678067',
+                    ]
+                ],
             ], [
                 'bentuk' => null,
                 'nama' => 'Wira Express',
-                'alamat' => '["Komplek DHI, Blok MM No.17-18"]',
-                'no_kontak' => '(021) 660 5892',
+                'alamat' => [[
+                    'jalan'=>null,
+                    'rt'=>null,'rw'=>null,
+                    'komplek'=>'DHI',
+                    'kecamatan'=>'Penjaringan',
+                    'kelurahan'=>null,
+                    'kota'=>'Jakarta Utara',
+                    'kabupaten'=>null,
+                    'provinsi'=>'DKI Jakarta',
+                    'pulau'=>'Jawa',
+                    'short'=>'DHI',
+                    'negara'=>'Indonesia',
+                    'long'=>'["Komplek DHI, Blok MM No.17-18"]',
+                ]],
+                'kontak' => [
+                    [
+                        'tipe'=>'kantor',
+                        'kodearea'=>'021',
+                        'nomor'=>'6605892',
+                    ]
+                ],
             ]
         ];
+
+        for ($i = 0; $i < count($ekspedisis); $i++) {
+            $bentuk = null;
+            if (isset($ekspedisis[$i]['bentuk']) && $ekspedisis[$i]['bentuk'] !== null) {
+                $bentuk = $ekspedisis[$i]['bentuk'];
+            }
+            $ekspedisi_new = Ekspedisi::create([
+                'bentuk' => $bentuk,
+                'nama' => $ekspedisis[$i]['nama'],
+            ]);
+            dump($ekspedisi_new['nama']);
+            if ($ekspedisis[$i]['alamat']) {
+                foreach ($ekspedisis[$i]['alamat'] as $alamat) {
+                    $alamat_new = Alamat::create($alamat);
+                    EkspedisiAlamat::create([
+                        'ekspedisi_id'=>$ekspedisi_new['id'],
+                        'alamat_id'=>$alamat_new['id'],
+                    ]);
+                }
+            }
+            if (isset($ekspedisis[$i]['kontak']) && $ekspedisis[$i]['kontak'] !== null) {
+                foreach ($ekspedisis[$i]['kontak'] as $kontak) {
+                    Kontak::create([
+                        'ekspedisi_id'=>$ekspedisi_new['id'],
+                        'tipe'=>$kontak['tipe'],
+                        'kodearea'=>$kontak['kodearea'],
+                        'nomor'=>$kontak['nomor'],
+                    ]);
+                }
+            }
+
+        }
     }
 }
