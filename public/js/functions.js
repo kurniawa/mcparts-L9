@@ -72,20 +72,47 @@ function formatDate (date) {
 }
 
 function formatHarga (harga) {
-    // console.log(harga);
+    console.log(harga);
+    harga_ohne_titik=harga.replace(".","");
+    if (harga_ohne_titik.length<4) {
+        return harga;
+    }
     let hargaRP = "";
-    let akhir = harga.length;
+    let akhir = harga_ohne_titik.length;
     let posisi = akhir - 3;
-    let jmlTitik = Math.ceil(harga.length / 3 - 1);
+    let jmlTitik = Math.ceil(harga_ohne_titik.length / 3 - 1);
     // console.log(jmlTitik);
     for (let i = 0; i < jmlTitik; i++) {
-        hargaRP = "." + harga.slice(posisi, akhir) + hargaRP;
+        hargaRP = "." + harga_ohne_titik.slice(posisi, akhir) + hargaRP;
         // console.log(hargaRP);
         akhir = posisi;
         posisi = akhir - 3;
     }
-    hargaRP = harga.slice(0, akhir) + hargaRP;
+    hargaRP = harga_ohne_titik.slice(0, akhir) + hargaRP;
     return hargaRP;
+}
+
+function formatNumberK(number, element){
+    // console.log(element);
+    number=number/1000;
+    var formatted_number=formatHarga(number.toString());
+    if (element==null) {
+        return formatted_number;
+    } else {
+        element.textContent=formatted_number+'k';
+        return true;
+    }
+}
+
+function formatNumber(number, element){
+    // console.log(element);
+    var formatted_number=formatHarga(number.toString());
+    if (element==null) {
+        return formatted_number;
+    } else {
+        element.textContent=formatted_number;
+        return true;
+    }
 }
 
 function formatNewLine (line) {

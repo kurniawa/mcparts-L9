@@ -94,6 +94,20 @@
     </form>
 </div>
 
+<!-- <div id="closingGreyArea" class="closingGreyArea" style="display: none;"></div>
+<form action="07-04-hapusNota.php" method="POST" class="lightBox" style="display:none;">
+    <div class="grid-2-10_auto">
+        <div><img src="/img/icons/speech-bubble.svg" alt="" style="width: 2em;"></div>
+        <div class="font-weight-bold">Yakin ingin menghapus nota?</div>
+    </div>
+    <br><br>
+    <input type="hidden" name="idNota" value=" $idNota">
+    <div class="text-center">
+        <div class="btn-tipis bg-color-orange-1 d-inline-block" onclick="closingLightBox();">Tidak</div>
+        <button type="submit" id="btnSPKSelesai" class="btn-tipis bg-color-soft-red d-inline-block">Ya</button>
+    </div>
+</form> -->
+
 {{-- <div class="divLogError"></div>
 <div class="divLogWarning"></div>
 <div class="divLogOK"></div>
@@ -215,8 +229,26 @@
         $("#containerSJVaria").toggle();
         $("#containerBeginSPK").toggle();
     }
-
-
-
 </script>
+<style>
+    .closingGreyArea {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: black;
+        opacity: 0.2;
+    }
+
+    .lightBox {
+        position: absolute;
+        top: 25vh;
+        left: 0.5em;
+        right: 0.5em;
+        height: 13em;
+        background-color: white;
+        padding: 1em;
+    }
+</style>
 @endsection

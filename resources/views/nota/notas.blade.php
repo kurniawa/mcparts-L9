@@ -39,7 +39,7 @@
                 <div class="d-inline-block rounded ps-1 pe-1 {{ $bg_color_tgl[$i][1] }}" style="color:white"><div style="font-size:2.5em">{{ date('d',strtotime($notas[$i]['finished_at'])) }}</div><div>{{ date('m',strtotime($notas[$i]['finished_at'])) }}-{{ date('y',strtotime($notas[$i]['finished_at'])) }}</div></div>
                 @endif
             </td>
-            <td style="color: green">{{ $notas[$i]['jumlah_total'] }}</td>
+            <td style="color: green" class="harga_total">{{ $notas[$i]['harga_total'] }}</td>
             <td id='divDropdownIcon-{{ $i }}' onclick='showDropdown({{ $i }});' class="text-center"><img class='w-0_7rem' src='img/icons/dropdown.svg'></td>
         </tr>
         {{-- DropDown --}}
@@ -47,9 +47,14 @@
             <td colspan="7">
                 <table style="width: 100%">
                     @for ($j = 0; $j < count($arr_spk_produks[$i]); $j++)
-                    <tr><td>{{ $arr_produks[$i][$j]['nama'] }}</td><td>{{ $arr_spk_produks[$i][$j]['jml_t'] }}</td></tr>
+                    <tr>
+                        <td>{{ $arr_produks[$i][$j]['nama'] }}</td>
+                        <td>{{ $arr_spk_produks[$i][$j]['jml_t'] }}</td>
+                        <td class="harga_item">{{ $arr_spk_produk_notas[$i][$j]['harga'] }}</td>
+                        <td class="harga_t">{{ $arr_spk_produk_notas[$i][$j]['harga_t'] }}</td>
+                    </tr>
                     @endfor
-                    <tr><td colspan="2" class='text-end'><button type="submit" name='nota_id' value="{{ $notas[$i]['id'] }}" class="btn btn-warning btn-sm">Detail</button></td></tr>
+                    <tr><td colspan="4" class='text-end'><button type="submit" name='nota_id' value="{{ $notas[$i]['id'] }}" class="btn btn-warning btn-sm">Detail</button></td></tr>
                 </table>
             </td>
         </tr>
@@ -59,7 +64,24 @@
 </div>
 
 <script>
+    var all_elem_harga_total=document.querySelectorAll('.harga_total');
+    // console.log('all_elem_harga_total');console.log(all_elem_harga_total);
+    all_elem_harga_total.forEach(element => {
+        // console.log('element.textContent');console.log(parseInt(element.textContent));
+        formatNumberK(parseInt(element.textContent), element);
+    });
 
+    var all_harga_item=document.querySelectorAll('.harga_item');
+    // console.log('all_harga_item');console.log(all_harga_item);
+    all_harga_item.forEach(element => {
+        // console.log('element.textContent');console.log(parseInt(element.textContent));
+        formatNumberK(parseInt(element.textContent), element);
+    });
+
+    var all_harga_t=document.querySelectorAll('.harga_t');
+    all_harga_t.forEach(element => {
+        formatNumberK(parseInt(element.textContent), element);
+    });
 </script>
 
 <style>

@@ -1,4 +1,5 @@
 @extends('layouts.main_layout')
+@extends('layouts.navbar')
 
 @section('content')
 
@@ -99,11 +100,14 @@
         #goToMainMenu {
             display: none;
         }
+        .navbar{
+            display:none;
+        }
 
         @page {
             size: A4;
             /* DIN A4 standard, Europe */
-            margin: 0 5mm 0 5mm;
+            margin: 5mm 5mm 0 5mm;
             padding-top: 0;
         }
 
@@ -115,9 +119,6 @@
             /* font-size: 11px; */
             background: #FFF;
             overflow: visible;
-        }
-
-        body {
             padding-top: 0mm;
         }
     }

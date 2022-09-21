@@ -23,6 +23,7 @@ return new class extends Migration
             $table->smallInteger('jumlah');
             $table->integer('harga');
             $table->integer('harga_t');
+            $table->enum('is_price_updated',['yes','no'])->nullable()->default('no');
             $table->timestamps();
         });
     }

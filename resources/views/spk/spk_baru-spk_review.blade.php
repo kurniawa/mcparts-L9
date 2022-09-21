@@ -55,16 +55,21 @@
 </div>
 
 <div class="container mt-3">
-    <form action="{{ route('ProceedSPK') }}" method="POST" id="containerBeginSPK">
+    <form action="{{ route('delete_temp_spk') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus Pembuatan SPK ini?');">
         @csrf
         <input type="hidden" name="temp_spk_id" value="{{ $temp_spk['id'] }}">
         <div class="text-center"><button type="submit" class="btn btn-danger" name="batal" value=true>Batal</button></div>
-        @if (count($temp_spk_produks)!==0)
+    </form>
+
+    @if (count($temp_spk_produks)!==0)
+    <form action="{{ route('ProceedSPK') }}" method="POST" id="containerBeginSPK">
+        @csrf
+        <input type="hidden" name="temp_spk_id" value="{{ $temp_spk['id'] }}">
         <div class="text-center mt-1">
             <button type="submit" class="btn btn-warning fw-bold">Proses SPK</button>
         </div>
-        @endif
     </form>
+    @endif
 </div>
 
 <script>

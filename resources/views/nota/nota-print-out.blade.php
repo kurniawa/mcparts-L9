@@ -1,41 +1,28 @@
 @extends('layouts.main_layout')
+@extends('layouts.navbar')
 
 @section('content')
 
-<header class="header grid-2-auto">
-    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
-</header>
-
 <div id="containerDetailNota">
-    <div class="grid-3-25_25_50">
-        <div><img width="200em" src="/img/images/logo-mc.jpg" alt=""></div>
-        <div><span class="font-weight-bold font-size-1_5em" style="font-family: Georgia, 'Times New Roman', Times, serif; color:darkblue;">NOTA</span><br>CV. MC-Parts<br>Jl. Raya Kranggan No. 96<br>Kec. Gn. Putri/Kab. Bogor<br>0812 9335 218<br>0812 8655 6500</div>
-        <div class='grid-3-30_5_65'>
-            <div>No. Nota</div>
-            <div>:</div>
-            <div id="noNota">{{ $nota['no_nota'] }}</div>
-            <div>Tanggal</div>
-            <div>:</div>
-            <div id="tglNota">{{ date('d-m-Y', strtotime($nota['created_at'])) }}</div>
-            <div>Nama</div>
-            <div>:</div>
-            <div id="custName">{{ $pelanggan['nama'] }}</div>
-            <div>Alamat</div>
-            <div>:</div>
-            <div id="alamatCust">{{ $pelanggan['daerah'] }}</div>
+    <div class="row align-items-center">
+        <div class="col-3"><img class="logo-mc" src="{{ asset('img/images/logo-mc.jpg') }}" alt="" style="width: 100%;"></div>
+        <div class="col-4"><span class="fw-bold">CV. MC-Parts</span><br>Jl. Raya Karanggan No. 96<br>Kec. Gn. Putri/Kab. Bogor<br>0812 9335 218<br>0812 8655 6500</div>
+        <div class="col-5 text-center fw-bold">
+            <table>
+                <tr><th>No. Nota</th><th>:</th><th>{{ $nota['no_nota'] }}</th></tr>
+                <tr><td>Tanggal</td><td>:</td><td>{{ date('d-m-Y', strtotime($nota['created_at'])) }}</td></tr>
+                <tr style="vertical-align: top"><td>Alamat</td><td>:</td>
+                    <td>
+                        @foreach (json_decode($alamat['long'], true) as $alm)
+                        {{ $alm }}<br>
+                        @endforeach
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
-
-    <br>
-
-    <hr style="height: 2px; background-color: black; margin-bottom: 0.2em; margin-top: 0;">
-    <table id="tableItemNota" style="width: 100%;">
-        <tr class="tr-border-bottom tr-border-left-right">
-            <th>Jumlah</th>
-            <th>Nama Barang</th>
-            <th>Hrg./pcs</th>
-            <th>Harga</th>
-        </tr>
+    <table id="tableItemNota" style="width: 100%;" class="mt-3">
+        <tr class="tr-border-bottom tr-border-left-right"><th>Jumlah</th><th>Nama Barang</th><th>Hrg./pcs</th><th>Harga</th></tr>
     </table>
 
     <br>
@@ -48,19 +35,7 @@
     </div>
 </div>
 
-<div id="closingGreyArea" class="closingGreyArea" style="display: none;"></div>
-<form action="07-04-hapusNota.php" method="POST" class="lightBox" style="display:none;">
-    <div class="grid-2-10_auto">
-        <div><img src="/img/icons/speech-bubble.svg" alt="" style="width: 2em;"></div>
-        <div class="font-weight-bold">Yakin ingin menghapus nota?</div>
-    </div>
-    <br><br>
-    <input type="hidden" name="idNota" value=" $idNota">
-    <div class="text-center">
-        <div class="btn-tipis bg-color-orange-1 d-inline-block" onclick="closingLightBox();">Tidak</div>
-        <button type="submit" id="btnSPKSelesai" class="btn-tipis bg-color-soft-red d-inline-block">Ya</button>
-    </div>
-</form>
+
 
 <style>
     #containerDetailNota {
@@ -108,6 +83,27 @@
             background-color: #FFED50;
             -webkit-print-color-adjust: exact;
         }
+        .navbar{
+            display:none;
+        }
+
+        @page {
+            size: A4;
+            /* DIN A4 standard, Europe */
+            margin: 3mm 5mm 0 5mm;
+        }
+
+        html,
+        body {
+            width: 210mm;
+            height: 297mm;
+            /* height: 282mm; */
+            /* font-size: 11px; */
+            background: #FFF;
+            overflow: visible;
+            padding-top: 0mm;
+        }
+
     }
 </style>
 
@@ -115,7 +111,6 @@
     // OVERWRITE BEBERAPA VARIABLE DIATAS DENGAN VERSI BARU
     var nota = {!! json_encode($nota, JSON_HEX_TAG) !!};
     var pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
-    var daerah = {!! json_encode($daerah, JSON_HEX_TAG) !!};
     var reseller = {!! json_encode($reseller, JSON_HEX_TAG) !!};
     var spk_produk_notas = {!! json_encode($spk_produk_notas, JSON_HEX_TAG) !!};
     var spk_produks = {!! json_encode($spk_produks, JSON_HEX_TAG) !!};
@@ -124,7 +119,6 @@
     if (show_console) {
         console.log("nota");console.log(nota);
         console.log("pelanggan");console.log(pelanggan);
-        console.log("daerah");console.log(daerah);
         console.log("reseller");console.log(reseller);
         console.log("spk_produk_notas");console.log(spk_produk_notas);
         console.log("spk_produks");console.log(spk_produks);
@@ -133,7 +127,6 @@
 
     var tglNota = ' $tglNota';
     var namaPelanggan = ' $namaPelanggan';
-    var daerahPelanggan = ' $daerahPelanggan';
     var alamatPelanggan = ` $alamatPelanggan`;
     var totalHarga = 0;
 
@@ -189,44 +182,6 @@
         $('.closingGreyArea').hide();
         $('.lightBox').hide();
     }
-
-    // document.getElementById("konfirmasiHapusNota").addEventListener("click", function() {
-    //     var deleteProperies = [{
-    //         title: "Yakin ingin menghapus Nota ini?",
-    //         yes: "Ya",
-    //         no: "Batal",
-    //         table: "nota",
-    //         column: "id",
-    //         columnValue: idNota,
-    //         goBackNumber: -2,
-    //         goBackStatement: "Daftar Nota"
-    //     }];
-
-    //     var deletePropertiesStringified = JSON.stringify(deleteProperies);
-    //     showLightBoxGlobal(deletePropertiesStringified);
-    // });;
 </script>
-
-<style>
-    .closingGreyArea {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: black;
-        opacity: 0.2;
-    }
-
-    .lightBox {
-        position: absolute;
-        top: 25vh;
-        left: 0.5em;
-        right: 0.5em;
-        height: 13em;
-        background-color: white;
-        padding: 1em;
-    }
-</style>
 
 @endsection

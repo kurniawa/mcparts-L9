@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignId('nota_id')->nullable()->constrained()->onDelete('CASCADE');
             $table->integer('harga_price_list')->nullable();
             $table->integer('harga_khusus')->nullable();
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

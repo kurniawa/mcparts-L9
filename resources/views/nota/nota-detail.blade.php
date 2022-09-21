@@ -3,62 +3,59 @@
 
 @section('content')
 
-<div class="grid-2-10_auto p-0_5rem">
-    <img class="w-2rem" src="/img/icons/pencil.svg" alt="">
-    <h2 class="">Detail Nota: {{ $nota['no_nota'] }} </h2>
-</div>
+<div class="container">
+    <div class="grid-2-10_auto p-0_5rem">
+        <img class="w-2rem" src="/img/icons/pencil.svg" alt="">
+        <h2 class="">Detail Nota: {{ $nota['no_nota'] }} </h2>
+    </div>
 
-<table style="border-collapse:unset;border-spacing:0.5rem">
-    <tr><th>Pelanggan</th><th>:</th><th>{{ $pelanggan['nama'] }}</th></tr>
-    @if ($reseller !== null)
-    <tr><td></td><td></td><td><span style="font-weight: bold">{{ $reseller['nama'] }}</span> sebagai Reseller untuk Nota ini</td></tr>
-    @endif
-    <tr><th>No. Nota</th><th>:</th><td>{{ $nota['no_nota'] }}</td></tr>
-    <tr><th>Tanggal</th><th>:</th><td>{{ date('d-m-Y', strtotime($nota['created_at'])) }}</td></tr>
-    <tr>
-        <th style="vertical-align: top;">Alamat</th>
-        <th style="vertical-align: top;">:</th>
-        <td>
-        {{-- @php
-            dd($alamat)
-        @endphp --}}
-        @foreach (json_decode($alamat['long'], true) as $long)
-        {{ $long }}<br>
-        @endforeach
-        </td>
-    </tr>
-</table>
-<form action="/nota/edit-item-nota" method="GET" class="p-0_5rem">
-    <table id="divDaftarItemNota" style="width: 100%">
-        <tr><th>No.</th><th>Nama Nota</th><th>Jml.</th><th>Hrg/Pcs</th><th>Harga</th><th>Opsi</th></tr>
-        @for ($i = 0; $i < count($produks); $i++)
+    <table style="border-collapse:unset;border-spacing:0.5rem">
+        <tr><th>Pelanggan</th><th>:</th><th>{{ $pelanggan['nama'] }}</th></tr>
+        @if ($reseller !== null)
+        <tr><td></td><td></td><td><span style="font-weight: bold">{{ $reseller['nama'] }}</span> sebagai Reseller untuk Nota ini</td></tr>
+        @endif
+        <tr><th>No. Nota</th><th>:</th><td>{{ $nota['no_nota'] }}</td></tr>
+        <tr><th>Tanggal</th><th>:</th><td>{{ date('d-m-Y', strtotime($nota['created_at'])) }}</td></tr>
         <tr>
-            <td>{{ $i+1 }}</td>
-            <td>{{ $produks[$i]['nama_nota'] }}</td>
-            <td>{{ $spk_produk_notas[$i]['jumlah'] }}</td>
-            <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga'] }}</td>
-            <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga_t'] }}</td>
+            <th style="vertical-align: top;">Alamat</th>
+            <th style="vertical-align: top;">:</th>
             <td>
-                <button type="submit" class="btn btn-primary" name="data_item" value='{{ json_encode($data_items[$i]) }}'>Edit</button>
+            {{-- @php
+                dd($alamat)
+            @endphp --}}
+            @foreach (json_decode($alamat['long'], true) as $long)
+            {{ $long }}<br>
+            @endforeach
             </td>
         </tr>
-        @endfor
     </table>
-    <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
-    <input type="hidden" name="pelanggan_id" value={{ $pelanggan['id'] }}>
-</form>
-<div class="text-right p-1em">
-    <div class="font-weight-bold font-size-2rem color-green numberToFormat">{{ $nota['harga_total'] }}</div>
-    <div class="font-weight-bold color-red font-size-1_5rem">Total</div>
+
+    <form action="{{ route('edit_harga_item_nota') }}" method="GET" class="p-0_5rem">
+        <table id="divDaftarItemNota" style="width: 100%">
+            <tr><th>No.</th><th>Nama Nota</th><th>Jml.</th><th>Hrg/Pcs</th><th>Harga</th><th>Opsi</th></tr>
+            @for ($i = 0; $i < count($produks); $i++)
+            <tr>
+                <td>{{ $i+1 }}</td>
+                <td>{{ $produks[$i]['nama_nota'] }}</td>
+                <td>{{ $spk_produk_notas[$i]['jumlah'] }}</td>
+                <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga'] }}</td>
+                <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga_t'] }}</td>
+                <td>
+                    <button type="submit" class="btn btn-primary" name="data_item" value='{{ json_encode($data_items[$i]) }}'>E.Hrg</button>
+                </td>
+            </tr>
+            @endfor
+        </table>
+        <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
+        <input type="hidden" name="pelanggan_id" value={{ $pelanggan['id'] }}>
+    </form>
+    <div class="text-end mt-2">
+        <div class="fw-bold text-success fs-5 numberToFormat">{{ $nota['harga_total'] }}</div>
+        <div class="fw-bold text-danger fs-5">Total</div>
+    </div>
 </div>
 
 <style>
-    @media print {
-        .bg-color-orange-1 {
-            background-color: #FFED50;
-            -webkit-print-color-adjust: exact;
-        }
-    }
 </style>
 
 <script>

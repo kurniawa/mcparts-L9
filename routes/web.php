@@ -19,6 +19,7 @@ use App\Http\Controllers\SpkBaruController;
 use App\Http\Controllers\SpkController;
 use App\Http\Controllers\SpkItemController;
 use App\Http\Controllers\SrjalanController;
+use App\Http\Controllers\TempSpkController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TreeController;
 use Illuminate\Support\Facades\Route;
@@ -134,6 +135,11 @@ Route::controller(SpkBaruController::class)->group(function ()
     Route::post('/spk/SPK_AddItems-DB', "SPK_AddItems_DB")->name('SPK_AddItems-DB')->middleware('auth');
 });
 
+Route::controller(TempSpkController::class)->group(function ()
+{
+    Route::post('/temp_spk/hapus_temp_spk', "delete_temp_spk")->name('delete_temp_spk')->middleware('auth');
+});
+
 Route::controller(SpkItemController::class)->group(function ()
 {
     Route::get('/spk/deviasi', 'deviasi')->name('Deviasi')->middleware('auth');
@@ -161,9 +167,9 @@ Route::controller(NotaController::class)->group(function ()
     Route::get('/nota/nota-detail', 'nota_detail')->name('Nota-Detail');
     Route::get('/nota/nota-print-out', 'nota_print_out')->name('PrintOutNota')->middleware('auth');
     Route::post('/nota/nota-hapus', 'nota_hapus')->middleware('auth');
-    Route::get('/nota/edit-item-nota', 'edit_item_nota')->middleware('auth');
-    Route::post('/nota/edit-item-nota-DB', 'edit_item_nota_db')->middleware('auth');
-    Route::post('/nota/hapus-item-nota', 'hapus_item_nota')->middleware('auth');
+    Route::get('/nota/edit-harga-item-nota', 'edit_harga_item_nota')->name('edit_harga_item_nota')->middleware('auth');
+    Route::post('/nota/edit-harga-item-nota-DB', 'edit_harga_item_nota_db')->name('edit_harga_item_nota_db')->middleware('auth');
+    // Route::post('/nota/hapus-item-nota', 'hapus_item_nota')->middleware('auth');
     // Route::get('/nota/tambah-item', 'tambah_item')->middleware('auth');
     // Route::get('/nota/tambah-item-pilih-item', 'tambah_item_pilih_item')->middleware('auth');
     // Route::post('/nota/tambah-item-db', 'tambah_item_db')->middleware('auth');

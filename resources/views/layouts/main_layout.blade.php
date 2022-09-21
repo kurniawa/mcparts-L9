@@ -245,6 +245,15 @@
         }
     };
 
+    var number_to_format_k=document.querySelectorAll('.toFormatNumberK');
+    number_to_format_k.forEach(element => {
+        formatNumberK(parseInt(element.textContent), element);
+    });
+
+    var number_to_format=document.querySelectorAll('.toFormatNumber');
+    number_to_format.forEach(element => {
+        formatNumber(parseInt(element.textContent), element);
+    });
     // history.pushState(null, document.title, location.href);
     // window.addEventListener('popstate', function (event)
     // {

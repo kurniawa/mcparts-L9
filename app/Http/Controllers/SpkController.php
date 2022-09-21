@@ -7,7 +7,6 @@ use App\Helpers\SiteSettings;
 use App\Http\Requests\StoreSpkRequest;
 use App\Http\Requests\UpdateSpkRequest;
 use App\Models\Alamat;
-use App\Models\Daerah;
 use App\Models\Pelanggan;
 use App\Models\PelangganAlamat;
 use App\Models\Produk;
@@ -247,6 +246,8 @@ class SpkController extends Controller
         }
 
         $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
             'spk' => $spk,
             'pelanggan' => $pelanggan,
             'reseller' => $reseller,
@@ -274,7 +275,7 @@ class SpkController extends Controller
 
         $post = $request->post();
 
-        dump('$post:', $post);
+        // dump('$post:', $post);
 
         $spk = Spk::find($post['spk_id']);
 
@@ -287,7 +288,7 @@ class SpkController extends Controller
         $route='SPK';
         $route_btn='Ke Daftar SPK';
         $data = [
-            'success_logs' => $success_logs,'error_logs' => $error_logs,'warning_logs'=>$warning_logs,'main' => $main_log,
+            'success_logs' => $success_logs,'error_logs' => $error_logs,'warning_logs'=>$warning_logs,'main_log' => $main_log,
             'route'=>$route,'route_btn'=>$route_btn,
         ];
 

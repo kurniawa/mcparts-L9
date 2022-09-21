@@ -44,14 +44,14 @@ class Nota extends Model
         $nota = Nota::find($nota_id);
 
         $pelanggan = Pelanggan::find($nota['pelanggan_id']);
-        $alamat=$pelanggan->alamat->first();
-
+        $pelanggan_alamat=PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->latest()->first();
+        $alamat=Alamat::find($pelanggan_alamat['alamat_id']);
         $reseller = null;
         if ($nota['reseller_id'] !== null && $nota['reseller_id'] !== '') {
             $reseller = Pelanggan::find($nota['reseller_id']);
         }
 
-        $spk_produk_notas = SpkProdukNota::where('nota_id', $nota['id'])->get()->toArray();
+        $spk_produk_notas = SpkProdukNota::where('nota_id', $nota['id'])->get();
         $spk_produks = $produks = $data_items = array();
         foreach ($spk_produk_notas as $spk_produk_nota) {
             $spk_produk = SpkProduk::find($spk_produk_nota['spk_produk_id'])->toArray();

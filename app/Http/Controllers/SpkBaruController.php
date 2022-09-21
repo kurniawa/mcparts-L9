@@ -122,6 +122,7 @@ class SpkBaruController extends Controller
         }
 
         $data = [
+            'go_back' => true,
             'pelanggan' => $pelanggan,
             'alamat' => $alamat,
             'reseller' => $reseller,
