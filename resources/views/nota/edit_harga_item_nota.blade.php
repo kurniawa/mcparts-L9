@@ -39,12 +39,26 @@
                 </td>
             </tr>
             <tr>
+                <td colspan="30">
+                    Apakah Anda ingin menetapkan harga ini sebagai harga khusus pelanggan ini?<br>
+                    <div class="form-check">
+                        <input type="radio" name="saveAsHargaKhusus" id="radioSimpanYa" value="yes" class="form-check-input"><label for="radioSimpanYa" class="form-check-label">Ya</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="saveAsHargaKhusus" id="radioSimpanNo" value="no" class="form-check-input"><label for="radioSimpanNo" class="form-check-label">Tidak</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
                 <td>
                     <input type='hidden' name='nota_id' value={{ $nota['id'] }}>
                     <input type='hidden' name='spk_produk_nota_id' value={{ $spk_produk_nota['id'] }}>
                     <input type='hidden' name='spk_produk_id' value={{ $spk_produk['id'] }}>
                     <input type='hidden' name='produk_id' value={{ $produk['id'] }}>
                     <input type='hidden' name='jumlah_selesai' value={{ $spk_produk['jml_selesai'] }}>
+                    <input type='hidden' name='pelanggan_id' value={{ $pelanggan['id'] }}>
+                    <input type='hidden' name='reseller_id' value={{ $reseller_id }}>
+                    <input type='hidden' name='harga_price_list' value={{ $produk_harga['harga'] }}>
                 </td>
             </tr>
         </table>
