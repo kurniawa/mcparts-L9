@@ -88,7 +88,7 @@ Route::controller(EkspedisiController::class)->group(function () {
 
 // group route by controller. Dapat dilakukan mulai dari Laravel 9:
 Route::controller(EkspedisiBaru::class)->group(function () {
-    Route::get('/ekspedisi/ekspedisi-baru', "index");
+    Route::get('/ekspedisi/ekspedisi-baru', "index")->name('NewEkspedisi')->middleware('auth');
     Route::post('/ekspedisi/ekspedisi-baru-db', "ekspedisi_baru_db")->middleware('auth');
 });
 Route::controller(EkspedisiEdit::class)->group(function () {

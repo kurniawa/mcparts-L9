@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Ekspedisi;
 use App\Http\Requests\StoreEkspedisiRequest;
 use App\Http\Requests\UpdateEkspedisiRequest;
+use App\Models\Alamat;
+use App\Models\EkspedisiAlamat;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 
@@ -24,30 +26,26 @@ class EkspedisiController extends Controller
             $load_num->save();
         }
 
-        $show_dump = false;
-        $show_hidden_dump = false;
-        $run_db = true;
-        $load_num_ignore = true;
-
-        if ($show_hidden_dump) {
-            dump("load_num_value: " . $load_num->value);
-        }
-
-        if ($load_num->value > 0 && !$load_num_ignore) {
-            $run_db = false;
-        }
-
         $ekspedisis = Ekspedisi::orderBy('nama')->get();
-
-        if ($show_dump) {
-            dump('ekspedisis');
-            dump($ekspedisis);
+        $alamats=array();
+        foreach ($ekspedisis as $ekspedisi) {
+            $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi['id'])->where('tipe','UTAMA')->first();
+            $alamat=Alamat::find($ekspedisi_alamat['alamat_id']);
+            $alamats[]=$alamat;
         }
 
-        $data = [
-            'ekspedisis' => $ekspedisis,
+        $menus=[
+            ['route'=>'NewEkspedisi','nama'=>'+ Ekspedisi','method'=>'get'],
         ];
 
+        $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
+            'ekspedisis' => $ekspedisis,
+            'alamats' => $alamats,
+            'menus' => $menus,
+        ];
+        dump($data);
         return view('ekspedisi.ekspedisis', $data);
     }
 

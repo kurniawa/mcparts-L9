@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('nota_id')->nullable()->constrained()->onDelete('CASCADE');
             $table->integer('harga_price_list')->nullable();
             $table->integer('harga_khusus')->nullable();
+            $table->enum('is_aktual',['yes','no'])->nullable()->default('no'); // ini untuk tujuan bila harga yang terakhir belum tentu itu yang seharusnya otomatis tercantum di nota
             $table->timestamps();
         });
     }

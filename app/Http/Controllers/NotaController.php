@@ -494,7 +494,7 @@ class NotaController extends Controller
         $produk_id=$post['produk_id'];
         $harga_price_list=$post['harga_price_list'];
 
-        dd('post', $post);
+        // dd('post', $post);
 
         $harga_baru=(int)$harga_baru;
         $harga_price_list=(int)$harga_price_list;
@@ -520,7 +520,7 @@ class NotaController extends Controller
                         'harga_price_list'=>$harga_price_list,
                         'harga_khusus'=>$harga_baru,
                     ]);
-                    $success_logs[]='Berhasil create pelanggan_produk baru dan input harga khusus yang baru';
+                    $success_logs[]='Belum ada pelanggan_produk yang sama -> Berhasil create pelanggan_produk baru dan input harga khusus yang baru!';
                 }
             }
 
