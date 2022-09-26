@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alamat;
 use App\Models\Ekspedisi;
+use App\Models\EkspedisiAlamat;
+use App\Models\Kontak;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -76,6 +79,8 @@ class EkspedisiEdit extends Controller
         return view('layouts.db-result', $data);
     }
 
+    // ALAMAT
+
     public function tambah_alamat(Request $request)
     {
         $load_num = SiteSetting::find(1);
@@ -98,6 +103,178 @@ class EkspedisiEdit extends Controller
         return view('ekspedisi.tambah_alamat', $data);
     }
 
+    public function tambah_alamat_db(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $run_db = true; // true apabila siap melakukan CRUD ke DB
+        $success_logs=$warning_logs=$error_logs=array();
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $error_logs[]='WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+        }
+
+        $post = $request->post();
+        // dd('$post: ', $post);
+        $long=$post['long'];
+        $jalan=$post['jalan'];
+        $komplek=$post['komplek'];
+        $rt=$post['rt'];
+        $rw=$post['rw'];
+        $desa=$post['desa'];
+        $kelurahan=$post['kelurahan'];
+        $kecamatan=$post['kecamatan'];
+        $kota=$post['kota'];
+        $kabupaten=$post['kabupaten'];
+        $provinsi=$post['provinsi'];
+        $kodepos=$post['kodepos'];
+        $pulau=$post['pulau'];
+        $negara=$post['negara'];
+        $short=$post['short'];
+        $ekspedisi_id=$post['ekspedisi_id'];
+
+        $long=json_encode($long);
+        // dd($long);
+
+        if ($run_db) {
+            $alamat=Alamat::create([
+                'jalan'=>$jalan,'rt'=>$rt,'rw'=>$rw,'komplek'=>$komplek,'kecamatan'=>$kecamatan,'kelurahan'=>$kelurahan,
+                'desa'=>$desa,'kota'=>$kota,'kabupaten'=>$kabupaten,'provinsi'=>$provinsi,'kodepos'=>$kodepos,
+                'pulau'=>$pulau,'short'=>$short,'negara'=>$negara,'long'=>$long,
+            ]);
+            $success_logs[]="Alamat baru berhasil dibuat.";
+
+            $ekspedisi_alamat=EkspedisiAlamat::create([
+                'ekspedisi_id'=>$ekspedisi_id,
+                'alamat_id'=>$alamat['id'],
+            ]);
+            $success_logs[]="Relasi antara Alamat dan Ekspedisi berhasil dibuat.";
+
+            $load_num->value += 1;
+            $load_num->save();
+
+            $main_log = "SUCCESS";
+        }
+
+        $route='DetailEkspedisi';
+        $route_btn='Ke Detail Ekspedisi';
+        $params=['ekspedisi_id'=>$ekspedisi_id];
+
+        $data = [
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
+        ];
+
+        return view('layouts.db-result', $data);
+    }
+
+    public function edit_alamat(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        if ($load_num !== 0) {
+            $load_num->value = 0;
+            $load_num->save();
+        }
+
+        $get = $request->query();
+        // dd($get);
+        $ekspedisi_id=$get['ekspedisi_id'];
+        $alamat_id=$get['alamat_id'];
+        // dump($get);
+        $alamat=Alamat::find($alamat_id);
+        $alamat_long=json_decode($alamat['long'],true);
+        $ekspedisi = Ekspedisi::find($ekspedisi_id);
+        $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi_id)->where('alamat_id',$alamat_id)->first();
+
+        $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
+            'ekspedisi' => $ekspedisi,
+            'alamat' => $alamat,
+            'alamat_long' => $alamat_long,
+            'ekspedisi_alamat' => $ekspedisi_alamat,
+        ];
+        // dd($data);
+        return view('ekspedisi.edit_alamat', $data);
+    }
+
+    public function edit_alamat_db(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $run_db = true; // true apabila siap melakukan CRUD ke DB
+        $success_logs=$warning_logs=$error_logs=array();
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $error_logs[]='WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+        }
+
+        $post = $request->post();
+        // dump($post);
+        // dd('$post: ', $post);
+        $long=$post['long'];$jalan=$post['jalan'];$komplek=$post['komplek'];$rt=$post['rt'];$rw=$post['rw'];
+        $desa=$post['desa'];$kelurahan=$post['kelurahan'];$kecamatan=$post['kecamatan'];$kota=$post['kota'];
+        $kabupaten=$post['kabupaten'];$provinsi=$post['provinsi'];$kodepos=$post['kodepos'];$pulau=$post['pulau'];
+        $negara=$post['negara'];$short=$post['short'];$ekspedisi_id=$post['ekspedisi_id'];$alamat_id=$post['alamat_id'];
+
+        $alamat_utama=$post['alamat_utama'];
+        $tipe_alamat='CADANGAN';
+        if ($alamat_utama=='yes') {
+            $tipe_alamat='UTAMA';
+        }
+
+        $long=json_encode($long);
+        // dd($long);
+
+        if ($run_db) {
+            $alamat=Alamat::find($alamat_id);
+            $alamat->jalan=$jalan;$alamat->komplek=$komplek;$alamat->rt=$rt;$alamat->rw=$rw;$alamat->kecamatan=$kecamatan;
+            $alamat->kelurahan=$kelurahan;$alamat->desa=$desa;$alamat->kota=$kota;$alamat->kabupaten=$kabupaten;$alamat->provinsi=$provinsi;
+            $alamat->kodepos=$kodepos;$alamat->pulau=$pulau;$alamat->negara=$negara;$alamat->short=$short;$alamat->long=$long;
+            $alamat->save();
+
+            $success_logs[]="Alamat berhasil di edit/update.";
+
+            // Update ekspedisi_alamat->tipe=$tipe_alamat
+            // Apabila tipe_alamat adalah UTAMA maka alamat yang lain harus di set menjadi CADANGAN terlebih dahulu.
+            if ($tipe_alamat==="UTAMA") {
+                $ekspedisi_alamat_utama=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi_id)->where('alamat_id','!=',$alamat_id)->where('tipe','UTAMA')->get();
+                if (count($ekspedisi_alamat_utama)!==0) {
+                    foreach ($ekspedisi_alamat_utama as $eks_alm) {
+                        $eks_alm->tipe='CADANGAN';$eks_alm->save();
+                        $success_logs[]="ekspedisi_alamat dengan ID $eks_alm[id] diupdate: tipe yang tadinya UTAMA menjadi CADANGAN";
+                        // dump($eks_alm);
+                    }
+                }
+            }
+            $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi_id)->where('alamat_id',$alamat_id)->first();
+            $ekspedisi_alamat->tipe=$tipe_alamat;
+            $ekspedisi_alamat->save();
+            $success_logs[]="EkspedisiAlamat berhasil di edit/update.";
+
+            $load_num->value += 1;
+            $load_num->save();
+
+            $main_log = "SUCCESS";
+        }
+
+        $route='DetailEkspedisi';
+        $route_btn='Ke Detail Ekspedisi';
+        $params=['ekspedisi_id'=>$ekspedisi_id];
+
+        $data = [
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
+        ];
+
+        return view('layouts.db-result', $data);
+    }
+
+    /**END OF ALAMAT */
+    /**KONTAK */
+
     public function tambah_kontak(Request $request)
     {
         $load_num = SiteSetting::find(1);
@@ -119,6 +296,89 @@ class EkspedisiEdit extends Controller
 
         return view('ekspedisi.tambah_kontak', $data);
     }
+
+    public function tambah_kontak_db(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $run_db = true; // true apabila siap melakukan CRUD ke DB
+        $success_logs=$warning_logs=$error_logs=array();
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $error_logs[]='WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+        }
+
+        $post = $request->post();
+        // dd('$post: ', $post);
+        $tipe=$post['tipekontak'];
+        $kodearea=$post['kodearea'];
+        $nomor=$post['nomor'];
+        $lokasi=$post['lokasi'];
+        $ekspedisi_id=$post['ekspedisi_id'];
+
+        if ($run_db) {
+            // Kalau belum punya kontak sebelumnya, maka nomor baru ini di set otomasis sebagai aktual
+            $is_aktual='no';
+            $pelanggan_kontak=Kontak::where('ekspedisi_id',$ekspedisi_id)->get();
+            if (count($pelanggan_kontak)==null) {
+                $is_aktual='yes';
+                $success_logs[]="Belum ditemukan adanya kontak terkait dengan ekspedisi ini. is_aktual=yes";
+            } else {
+                $success_logs[]="Sudah ditemukan adanya kontak terkait dengan ekspedisi ini. is_aktual=no";
+            }
+
+            $kontak=Kontak::create([
+                'ekspedisi_id'=>$ekspedisi_id,
+                'nomor'=>$nomor,
+                'kodearea'=>$kodearea,
+                'tipe'=>$tipe,
+                'lokasi'=>$lokasi,
+                'is_aktual'=>$is_aktual,
+            ]);
+            $success_logs[]="Kontak baru berhasil dibuat. Relasi antara ekspedisi dan kontak berhasil dibuat.";
+
+            $load_num->value += 1;
+            $load_num->save();
+
+            $main_log = "SUCCESS";
+        }
+
+        $route='DetailEkspedisi';
+        $route_btn='Ke Detail Ekspedisi';
+        $params=['ekspedisi_id'=>$ekspedisi_id];
+
+        $data = [
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
+        ];
+
+        return view('layouts.db-result', $data);
+    }
+
+    public function edit_kontak(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        if ($load_num !== 0) {
+            $load_num->value = 0;
+            $load_num->save();
+        }
+
+        $get = $request->query();
+        // dump($get);
+
+        $ekspedisi = Ekspedisi::find($get['ekspedisi_id']);
+
+        $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
+            'ekspedisi' => $ekspedisi
+        ];
+
+        return view('ekspedisi.edit_kontak', $data);
+    }
+
+    /**END OF KONTAK */
 
     public function ekspedisi_hapus(Request $request)
     {

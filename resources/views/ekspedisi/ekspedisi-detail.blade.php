@@ -21,18 +21,22 @@
     </div>
 
     <div class="row">
-        @foreach ($alamats as $alamat)
+        @for ($i = 0; $i < count($alamats); $i++)
         <div class="col">
+            @if ($ekspedisi_alamats[$i]['tipe']==="UTAMA")
+            <div class="d-inline-block border border-primary rounded p-2 border-3">
+            @else
             <div class="d-inline-block border border-secondary rounded p-2">
+            @endif
                 <div class="d-flex flex-row mt-2 mb-2 align-items-center">
                     <img class="w-2_5rem" src="{{ asset('img/icons/address.svg') }}" alt="">
                     <div class="ms-2">
-                        @foreach (json_decode($alamat['long']) as $alm)
+                        @foreach (json_decode($alamats[$i]['long']) as $alm)
                         <div>{{ $alm }}</div>
                         @endforeach
                     </div>
                     <div class="ms-3 align-self-end">
-                        <a href="{{ route('ekspedisi_edit_alamat') }}"><img style="width: 1rem;" src="{{ asset('img/icons/edit.svg') }}"></a>
+                        <a href="{{ route('ekspedisi_edit_alamat',['alamat_id'=>$alamats[$i]['id'],'ekspedisi_id'=>$ekspedisi['id']]) }}"><img style="width: 1rem;" src="{{ asset('img/icons/edit.svg') }}"></a>
                         <form action="{{ route('ekspedisi_hapus_alamat') }}" method="POST" onsubmit="return confirm('Apa Anda yakin ingin menghapus alamat ini?')" class="mt-2">
                             <button type="submit" class="btn-no-styling"><img src="{{ asset('img/icons/delete.svg') }}" style="width: 1rem;"></button>
                         </form>
@@ -40,13 +44,17 @@
                 </div>
             </div>
         </div>
-        @endforeach
+        @endfor
     </div>
 
     <div class="row mt-2">
         @foreach ($kontaks as $kontak)
         <div class="col">
+            @if ($kontak['is_aktual']=='yes')
+            <div class="d-inline-block border border-success rounded p-2 border-3">
+            @else
             <div class="d-inline-block border border-secondary rounded p-2">
+            @endif
                 <div class="d-flex flex-row mt-2 mb-2 align-items-center">
                     <img class="w-2_5rem" src="{{ asset('img/icons/call.svg') }}" alt="">
                     <span class="ms-2">

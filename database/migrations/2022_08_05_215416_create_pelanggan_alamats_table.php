@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pelanggan_id');
             $table->foreignId('alamat_id');
-            $table->string('tipe',20)->default('UTAMA');
+            $table->enum('tipe',['UTAMA','CADANGAN'])->default('CADANGAN');
             $table->timestamps();
         });
     }

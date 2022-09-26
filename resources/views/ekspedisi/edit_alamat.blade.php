@@ -6,21 +6,23 @@
     <div class="d-flex align-items-center mt-3">
         <div><img class="w-2rem" src="{{ asset('img/icons/pencil.svg') }}" alt=""></div>
         <div class="fw-bold ms-2">
-            Tambah Alamat Ekspedisi: {{ $ekspedisi['nama'] }}
+            Edit Alamat Ekspedisi: {{ $ekspedisi['nama'] }}
         </div>
     </div>
 
-    <form action="{{ route('ekspedisi_tambah_alamat_db') }}" onsubmit="return formValidation()" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('ekspedisi_edit_alamat_db') }}" onsubmit="return formValidation()" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mt-3">
             <label style="font-weight: bold">Alamat Lengkap:</label>
-            <input type="text" class="form-control ipt-long" name="long[]" placeholder="Baris 1">
-            <input type="text" class="form-control ipt-long" name="long[]" placeholder="Baris 2">
-            <input type="text" class="form-control ipt-long" name="long[]" placeholder="Baris 3">
-            <input type="text" class="form-control ipt-long" name="long[]" placeholder="Baris 4">
-            <input type="text" class="form-control ipt-long" name="long[]" placeholder="Baris 5">
+            @for ($i = 0; $i < 5; $i++)
+            @if (isset($alamat_long[$i]))
+            <input type="text" class="form-control ipt-long" name="long[]" value="{{ $alamat_long[$i] }}">
+            @else
+            <input type="text" class="form-control ipt-long" name="long[]" placeholder="Baris Alamat">
+            @endif
+            @endfor
         </div>
-        <div class="invalid-feedback" id="inv-long"></div>
+        <div class="invalid-feedback" id="inv_long"></div>
 
         <div class="row mb-3">
             <div class="col opsi" id="opsi-jl">
@@ -28,7 +30,7 @@
                     <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-jl', 'opsi-jl')">X</button>
                 </div>
                 <div class="form-floating">
-                    <input id="jalan" type="text" name="jalan" class="form-control" placeholder="Nama Jalan">
+                    <input id="jalan" type="text" name="jalan" class="form-control" placeholder="Nama Jalan" value="{{ $alamat['jalan'] }}">
                     <label for="jalan" style="font-weight: bold">Nama Jalan:</label>
                 </div>
             </div>
@@ -39,7 +41,7 @@
                     <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-komplek', 'opsi-komplek')">X</button>
                 </div>
                 <div class="form-floating">
-                    <input id="komplek" type="text" name="komplek" class="form-control" placeholder="Nama Komplek">
+                    <input id="komplek" type="text" name="komplek" class="form-control" placeholder="Nama Komplek" value="{{ $alamat['komplek'] }}">
                     <label for="komplek" style="font-weight: bold">Nama Komplek:</label>
                 </div>
             </div>
@@ -49,24 +51,24 @@
             <div class="col opsi" id="opsi-rt">
                 <label for="rt" style="font-weight: bold">RT:</label>
                 <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-rt', 'opsi-rt')">X</button>
-                <input id="rt" type="text" name="rt" class="form-control" placeholder="RT">
+                <input id="rt" type="text" name="rt" class="form-control" placeholder="RT" value="{{ $alamat['rt'] }}">
             </div>
             <div class="col opsi" id="opsi-rw">
                 <label for="rw" style="font-weight: bold">RW:</label>
                 <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-rw', 'opsi-rw')">X</button>
-                <input id="rw" type="text" name="rw" class="form-control" placeholder="RW">
+                <input id="rw" type="text" name="rw" class="form-control" placeholder="RW" value="{{ $alamat['rw'] }}">
             </div>
         </div>
         <div class="row">
             <div class="col opsi" id="opsi-desa">
                 <label for="desa" style="font-weight: bold">Desa:</label>
                 <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-desa', 'opsi-desa')">X</button>
-                <input id="desa" type="text" name="desa" class="form-control" placeholder="Desa">
+                <input id="desa" type="text" name="desa" class="form-control" placeholder="Desa" value="{{ $alamat['desa'] }}">
             </div>
             <div class="col opsi" id="opsi-kel">
                 <label for="kelurahan" style="font-weight: bold">Keluarahan:</label>
                 <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-kel', 'opsi-kel')">X</button>
-                <input id="kelurahan" type="text" name="kelurahan" class="form-control" placeholder="Keluarahan">
+                <input id="kelurahan" type="text" name="kelurahan" class="form-control" placeholder="Keluarahan" value="{{ $alamat['kelurahan'] }}">
             </div>
         </div>
 
@@ -74,12 +76,12 @@
             <div class="col opsi" id="opsi-kec">
                 <label for="kecamatan" style="font-weight: bold">Kecamatan:</label>
                 <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-kec', 'opsi-kec')">X</button>
-                <input id="kecamatan" type="text" name="kecamatan" class="form-control" placeholder="Kecamatan">
+                <input id="kecamatan" type="text" name="kecamatan" class="form-control" placeholder="Kecamatan" value="{{ $alamat['kecamatan'] }}">
             </div>
             <div class="col opsi" id="opsi-kota">
                 <label for="kota" style="font-weight: bold">Kota:</label>
                 <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-kota', 'opsi-kota')">X</button>
-                <input id="kota" type="text" name="kota" class="form-control" placeholder="Kota">
+                <input id="kota" type="text" name="kota" class="form-control" placeholder="Kota" value="{{ $alamat['kota'] }}">
             </div>
         </div>
 
@@ -87,25 +89,25 @@
             <div class="col opsi" id="opsi-kab">
                 <label for="kabupaten" style="font-weight: bold">Kabupaten:</label>
                 <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-kab', 'opsi-kab')">X</button>
-                <input name="kabupaten" id="kabupaten" class="form-control" type="text" placeholder="Kabupaten">
+                <input name="kabupaten" id="kabupaten" class="form-control" type="text" placeholder="Kabupaten" value="{{ $alamat['kabupaten'] }}">
             </div>
             <div class="col opsi" id="opsi-prov">
                 <label for="provinsi" style="font-weight: bold">Provinsi:</label>
                 <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-prov', 'opsi-prov')">X</button>
-                <input id="provinsi" type="text" name="provinsi" class="form-control" placeholder="Provinsi">
+                <input id="provinsi" type="text" name="provinsi" class="form-control" placeholder="Provinsi" value="{{ $alamat['provinsi'] }}">
             </div>
         </div>
         <div class="row">
             <div class="col opsi" id="opsi-kodepos">
                 <label for="kodepos" style="font-weight: bold">Kode Pos:</label>
                 <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-kodepos', 'opsi-kodepos')">X</button>
-                <input name="kodepos" id="kodepos" class="form-control" type="text" placeholder="Kode Pos">
+                <input name="kodepos" id="kodepos" class="form-control" type="text" placeholder="Kode Pos" value="{{ $alamat['kodepos'] }}">
             </div>
 
             <div class="col opsi" id="opsi-pulau">
                 <label for="pulau" style="font-weight: bold">Pulau:</label>
                 <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-pulau', 'opsi-pulau')">X</button>
-                <input name="pulau" id="pulau" class="form-control" type="text" placeholder="Pulau">
+                <input name="pulau" id="pulau" class="form-control" type="text" placeholder="Pulau" value="{{ $alamat['pulau'] }}">
             </div>
         </div>
 
@@ -113,13 +115,20 @@
             <div class="col opsi" id="opsi-negara">
                 <label for="negara" style="font-weight: bold">Negara:</label>
                 <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-negara', 'opsi-negara')">X</button>
-                <input id="negara" type="text" name="negara" class="form-control" placeholder="Negara">
+                <input id="negara" type="text" name="negara" class="form-control" placeholder="Negara" value="{{ $alamat['negara'] }}">
             </div>
             <div class="col">
                 <label for="short" style="font-weight: bold">Short:</label>
-                <input name="short" id="short" class="form-control" type="text" placeholder="Short">
+                <input name="short" id="short" class="form-control" type="text" placeholder="Short" value="{{ $alamat['short'] }}">
                 <div class="invalid-feedback" id="inv_short"></div>
             </div>
+        </div>
+        Tetapkan sebagai alamat utama?<br>
+        <div class="form-check">
+            <input type="radio" name="alamat_utama" id="alamat_utama_yes" value="yes" class="form-check-input"><label for="alamat_utama_yes" class="form-check-label">Ya</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" name="alamat_utama" id="alamat_utama_no" value="no" class="form-check-input"><label for="alamat_utama_no" class="form-check-label">Tidak</label>
         </div>
         <br><br>
         <div>
@@ -138,13 +147,12 @@
             <button type="button" class="btn btn-outline-danger btn-sm" id="btn-negara" onclick="showHide('opsi-negara', this.id)">+Negara</button>
         </div>
         <input type="hidden" name="ekspedisi_id" value="{{ $ekspedisi['id'] }}">
+        <input type="hidden" name="alamat_id" value="{{ $alamat['id'] }}">
         <br><br>
         <div class="text-center">
-            <button type="submit" class="fw-bold btn btn-warning">Tambah Alamat Baru</button>
+            <button type="submit" class="fw-bold btn btn-warning">Konfirm Edit Alamat</button>
         </div>
     </form>
-
-
 
 </div>
 
@@ -154,7 +162,7 @@
         console.log(longs);
         var valid=true;
         if (longs[0].value.trim()=="") {
-            var inv_long=document.getElementById('inv-long');
+            var inv_long=document.getElementById('inv_long');
             inv_long.textContent="Alamat pada baris pertama belum diisi!";
             inv_long.style.display='block';
             valid=false;

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('ekspedisi_alamats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ekspedisi_id');
-            $table->foreignId('alamat_id');
-            $table->string('tipe',20)->default('UTAMA');
+            $table->foreignId('ekspedisi_id')->constrained()->onDelete('NO ACTION');
+            $table->foreignId('alamat_id')->constrained()->onDelete('NO ACTION');
+            $table->enum('tipe',['UTAMA','CADANGAN'])->default('CADANGAN');
             $table->timestamps();
         });
     }

@@ -1633,6 +1633,7 @@ class EkspedisiSeeder extends Seeder
                     EkspedisiAlamat::create([
                         'ekspedisi_id'=>$ekspedisi_new['id'],
                         'alamat_id'=>$alamat_new['id'],
+                        'tipe'=>'UTAMA',
                     ]);
                 }
             }

@@ -110,6 +110,7 @@ class EkspedisiController extends Controller
             'navbar_bg'=>'bg-color-orange-2',
             'menus' => $menus,
             'ekspedisi' => $ekspedisi,
+            'ekspedisi_alamats' => $ekspedisi_alamats,
             'alamats' => $alamats,
             'kontaks' => $kontaks,
         ];

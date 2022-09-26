@@ -107,7 +107,7 @@ class EkspedisiBaru extends Controller
                 ]);
                 $success_logs[] = "SUCC: Ekspedisi_alamat: $ekspedisi_alamat[ekspedisi_id] - $ekspedisi_alamat[alamat_id] berhasil dibuat!";
             } else {
-                $warning_logs[]="Tidak tersedia input alamat, maka alamat tidak dibuat dan tidak dihubungkan dengan ekspedisi ini";
+                $warning_logs[]="Tidak tersedia input alamat. Maka alamat tidak dibuat dan tidak dihubungkan dengan ekspedisi ini.";
             }
 
             if ($nomor!==null) {
@@ -120,7 +120,7 @@ class EkspedisiBaru extends Controller
                 ]);
                 $success_logs[] = "SUCC: Nomor Baru dengan nomor $kontak[nomor] berhasil dibuat!";
             } else {
-                $warning_logs[]='Tidak ada input nomor. Maka tidak create nomor';
+                $warning_logs[]='Tidak ada input nomor. Maka nomor tidak dibuat dan tidak dihubungkan dengan ekspedisi ini.';
             }
 
 
