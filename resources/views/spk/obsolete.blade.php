@@ -9,109 +9,40 @@
     </div>
 </header>
 
-<div class="b-1px-solid-grey">
-    <div class="text-center">
-        <h2>Surat Perintah Kerja</h2>
+<div class="threeDotMenu" style="z-index: 200">
+    <div class="threeDot">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
     </div>
-    <div class="grid-3-25_10_auto m-0_5em grid-row-gap-1em">
-        <div>No.</div>
-        <div>:</div>
-        <div class="divSPKNumber fw-bold">(Auto Generated)</div>
-        <div>Tanggal</div>
-        <div>:</div>
-        <div class="divSPKDate fw-bold">{{ $tanggal }}</div>
-        <div>Untuk</div>
-        <div>:</div>
-        <div class="divSPKCustomer fw-bold">
-            @if ($reseller !== null)
-            {{ $reseller['nama'] }}:
-            @endif
-            {{ $pelanggan['nama'] }} - {{ $alamat['short'] }}
+    <div class="divThreeDotMenuContent">
+        {{-- <form method='post' action="nota/nota-editNota" id="" class="threeDotMenuItem">
+            <img src="/img/icons/edit.svg" alt=""><span>Edit Nota</span>
+        </form> --}}
+        <!-- <div id="downloadExcel" class="threeDotMenuItem" onclick="goToPrintOutSPK();">
+            <img src="img/icons/download.svg" alt=""><span>Download Excel</span>
+        </div> -->
+        <form action="/ekspedisi/edit" method='GET'>
+            <button id="" type="submit" class="threeDotMenuItem">
+                <img src="/img/icons/edit.svg" alt=""><span>Edit Ekspedisi</span>
+            </button>
+            <input type="hidden" name="ekspedisi_id" value={{ $ekspedisi['id'] }}>
+        </form>
+        {{-- <form action="/nota/nota-hapus" method='POST'>
+            @csrf
+            <button id="hapusNota" type="submit" class="threeDotMenuItem" id="konfirmasiHapusEkspedisi" style="width: 100%">
+                <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Nota</span>
+            </button>
+            <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
+        </form> --}}
+        <div id="konfirmasiHapusEkspedisi" class="threeDotMenuItem">
+            <img src="/img/icons/trash-can.svg" alt=""><span>Hapus Ekspedisi</span>
         </div>
-    </div>
-    <div class="grid-1-auto justify-items-right m-0_5em">
-        <div>
-            <img class="w-1em" src="/img/icons/edit-grey.svg" alt="">
-        </div>
+        <!-- <div id="deleteSPK" class="threeDotMenuItem" onclick="goToDeleteSPK();">
+            <img src="img/icons/trash-can.svg" alt=""><span>Cancel/Hapus SPK</span>
+        </div> -->
     </div>
 </div>
-
-<div class="divTitleDesc grid-1-auto justify-items-center mt-0_5em"></div>
-
-
-<div id="divItemList" class="bt-1px-solid-grey"></div>
-{{-- <input id="inputHargaTotalSPK" type="hidden" name="total_harga"> --}}
-
-<div id="divJmlTotal" class="text-right">
-    <div id="divJmlTotal2" class="fw-bold fs-5 text-success"></div>
-    <div class="fw-bold color-red">Total</div>
-</div>
-
-<div id="divAddItems" class="h-9em position-relative mt-1em">
-    <form method="GET" action="/spk/inserting-general" class="text-center productType">
-        @csrf
-        <input type="hidden" name="spk_id" value=null>
-        <input type="hidden" name="mode" value="SPK_BARU">
-        {{-- <button type="submit" name="tipe" value="varia" class="fw-bold position-absolute top-0 left-50 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">SJ<br>Varia</button>
-        <button type="submit" name="tipe" value="kombinasi" class="fw-bold position-absolute top-1em left-35 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">Kombi<br>Motif</button>
-        <button type="submit" name="tipe" value="standar" class="fw-bold position-absolute top-1em left-65 transform-translate--50_0 circle-L bg-color-orange-1 grid-1-auto justify-items-center">SJ<br>Std</button>
-        <button type="submit" name="tipe" value="tankpad" class="fw-bold position-absolute top-5em left-30 transform-translate--50_0 circle-L bg-color-soft-red grid-1-auto justify-items-center">TP</button>
-        <button type="submit" name="tipe" value="busastang" class="fw-bold position-absolute top-5em left-70 transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center">Busa<br>Stang</button>
-        <button type="submit" name="tipe" value="tspjap" class="fw-bold position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:30%">T.SP<br>Jap</button>
-        <button type="submit" name="tipe" value="stiker" class="fw-bold position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:10em;left:70%">Stiker</button> --}}
-        {{-- <button type="submit" name="tipe" value="motif" class="fw-bold position-absolute transform-translate--50_0 circle-L bg-color-grey grid-1-auto justify-items-center" style="top:15em;left:35%">Motif</button> --}}
-
-        {{-- <div style="height:100vh"></div>
-        <button type="submit" class="position-absolute top-5em left-50 transform-translate--50_0 circle-medium bg-color-orange-2 grid-1-auto justify-items-center">
-            <span class="color-white font-weight-bold font-size-1_5em">+</span>
-        </button> --}}
-
-    </form>
-
-</div>
-
-<!-- EDIT ITEM SPK -->
-{{-- <div id="divBtnShowEditOptItemSPK" class="text-center">
-    <div class="d-inline-block btn-1 bg-color-purple-blue fw-bold color-white" onclick="showEditOptItemSPK();">Edit Item</div>
-</div> --}}
-{{-- <div id="divBtnHideEditOptItemSPK" class="text-center">
-    <div class="d-inline-block btn-1 fw-bold color-white" style="background-color: gray;" onclick="hideEditOptItemSPK();">Finish Editing</div>
-</div> --}}
-<!-- END - EDIT ITEM SPK -->
-{{-- INPUT HIDDEN YANG NANTI NYA DI KIRIM VIA POST --}}
-<div class="container">
-    <form action="/spk/proceed-spk" method="POST" id="containerBeginSPK" class="m-0_5em">
-    @csrf
-        <input id="inputIDCustomer" type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
-        <input type="hidden" name="reseller_id" value="{{ $reseller_id }}">
-        <input type="hidden" name="tgl_pembuatan" value="{{ $tanggal }}">
-        <input type="hidden" name="judul" value="{{ $judul }}">
-        <input type="hidden" name="submit_type" value="proceed_spk">
-
-        <div class="text-center">
-            <button type="submit"  class="btn btn-warning fw-bold">PROSES SPK</button>
-        </div>
-    </form>
-</div>
-
-<!-- <div id="closingGreyArea" class="closingGreyArea" style="display: none;"></div>
-<form action="07-04-hapusNota.php" method="POST" class="lightBox" style="display:none;">
-    <div class="grid-2-10_auto">
-        <div><img src="/img/icons/speech-bubble.svg" alt="" style="width: 2em;"></div>
-        <div class="font-weight-bold">Yakin ingin menghapus nota?</div>
-    </div>
-    <br><br>
-    <input type="hidden" name="idNota" value=" $idNota">
-    <div class="text-center">
-        <div class="btn-tipis bg-color-orange-1 d-inline-block" onclick="closingLightBox();">Tidak</div>
-        <button type="submit" id="btnSPKSelesai" class="btn-tipis bg-color-soft-red d-inline-block">Ya</button>
-    </div>
-</form> -->
-
-{{-- <div class="divLogError"></div>
-<div class="divLogWarning"></div>
-<div class="divLogOK"></div>
-<div class="h-4em"></div> --}}
 
 <script>
     $('#divJmlTotal').hide();

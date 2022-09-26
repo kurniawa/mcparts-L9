@@ -19,70 +19,55 @@
 </div>
 
 <div class="container">
-    <table id="list_ekspedisi" style="width:100%">
+    <table id="list_ekspedisi" style="width:100%;border-collapse:collapse;">
+        @for ($i = 0; $i < count($ekspedisis); $i++)
+        <tr style="border-top: 1px solid gray">
+            <td class="fw-bold pt-2 pb-2">
+            @if ($ekspedisis[$i]['bentuk']!==null)
+            {{ $ekspedisis[$i]['nama'] }} - {{ $ekspedisis[$i]['bentuk'] }}</td>
+            @else
+            {{ $ekspedisis[$i]['nama'] }}</td>
+            @endif
+            @if ($kontaks[$i]!==null)
+            <td class="fw-bold color-blue-purple">
+            @if ($kontaks[$i]['kodearea']!==null)
+            ({{ $kontaks[$i]['kodearea'] }}) {{ $kontaks[$i]['nomor'] }}
+            @else
+            {{ $kontaks[$i]['nomor'] }}
+            @endif
+            </td>
+            @else
+            <td>-</td>
+            @endif
+            <td id='divDropdownIcon-{{ $i }}' onclick='showDropdown({{ $i }});'><img src='{{ asset('img/icons/dropdown.svg') }}' style='width:0.7rem'></td>
+            <tr id="divDetailDropdown-{{ $i }}" class='b-1px-solid-grey p-0_5rem mt-1rem' style='display:none'>
+                <td colspan=3>
+                    <table style="width:100%">
+                        <tr>
+                            <td><img class='w-2rem' src='{{ asset('img/icons/address.svg') }}'></td>
+                            <td style="width:50%;">
+                                @if ($alamats[$i]!==null)
+                                @foreach (json_decode($alamats[$i]['long'],true) as $alamat)
+                                <div>{{ $alamat }}</div>
+                                @endforeach
+                                @endif
+                            </td>
+                            <td valign="bottom" align="right">
+                                <form action='{{ route('DetailEkspedisi') }}' method='GET'>
+                                    <input type="hidden" name="ekspedisi_id" value={{ $ekspedisis[$i]['id'] }}>
+                                    <button class="btn btn-warning">Detail</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </tr>
+        @endfor
     </table>
 </div>
 
 <script>
-    const ekspedisis = {!! json_encode($ekspedisis, JSON_HEX_TAG) !!};
-    const alamats = {!! json_encode($alamats, JSON_HEX_TAG) !!};
-
-    if (show_console === true) {
-        console.log('ekspedisis');
-        console.log(ekspedisis);
-    }
-
-    var i=0;
-    for (const ekspedisi of ekspedisis) {
-        // console.log(alamats[i].long);
-        // const arr_alamat_eks = JSON.parse(alamats[i].long);
-        const arr_alamat_eks = alamats[i].long.split(',');
-        console.log(arr_alamat_eks);
-        var html_alamat_eks = '';
-        arr_alamat_eks.forEach(alamat_eks => {
-            html_alamat_eks += alamat_eks + '<br>';
-        });
-
-        var eks_nama_x_bentuk = ekspedisi.nama;
-        if (ekspedisi.bentuk !== null) {
-            eks_nama_x_bentuk = `${ekspedisi.nama} - ${ekspedisi.bentuk}`;
-        }
-
-            // "<div class='grid-4-8-auto-auto-5'>" +
-        $htmlEkspedisi =
-            "<tr>" +
-                "<td class='font-weight-bold'>" + eks_nama_x_bentuk + "</td>" +
-                "<td class='font-weight-bold color-blue-purple'>" + ekspedisi.no_kontak + "</td>" +
-                "<td id='divDropdownIcon-" + ekspedisi.id + "' onclick='showDropdown(" + ekspedisi.id + ");'><img src='/img/icons/dropdown.svg' style='width:0.7rem'></td>" +
-            "</tr>" +
-            "<tr id='divDetailDropdown-" + ekspedisi.id + "' class='b-1px-solid-grey p-0_5rem mt-1rem' style='display:none'>" +
-            `<td colspan=3 style="padding:1rem;">
-                <table style="width:100%">
-                    <tr>
-                        <td style="width:50%;">
-                            <div><img class='w-2rem' src='/img/icons/address.svg'></div>
-                            <br>
-                            <div>${html_alamat_eks}</div>
-                        </td>
-                        <td valign="bottom" align="right">
-                            <form action='ekspedisi/detail' method='GET'>
-                                <input type="hidden" name="ekspedisi_id" value="${ekspedisi.id}">
-                                <button class="btn btn-warning">Lebih Detail</button>
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-
-            </tr>
-            <tr class='alamat text-right' style='display:none'>${html_alamat_eks}</tr>
-            `;
-
-
-
-        $("#list_ekspedisi").append($htmlEkspedisi);
-        i++;
-    }
 
 </script>
 

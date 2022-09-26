@@ -82,19 +82,29 @@ Route::controller(PelangganResellerController::class)->group(function ()
  */
 // Route::get('/ekspedisi', [EkspedisiController::class, "index"]);
 Route::controller(EkspedisiController::class)->group(function () {
-    Route::get('/ekspedisi', "index");
-    Route::get('/ekspedisi/detail', 'ekspedisi_detail');
+    Route::get('/ekspedisi', "index")->name('Ekspedisis');
+    Route::get('/ekspedisi/detail', 'ekspedisi_detail')->name('DetailEkspedisi')->middleware('auth');
 });
 
 // group route by controller. Dapat dilakukan mulai dari Laravel 9:
 Route::controller(EkspedisiBaru::class)->group(function () {
     Route::get('/ekspedisi/ekspedisi-baru', "index")->name('NewEkspedisi')->middleware('auth');
-    Route::post('/ekspedisi/ekspedisi-baru-db', "ekspedisi_baru_db")->middleware('auth');
+    Route::post('/ekspedisi/ekspedisi-baru-db', "ekspedisi_baru_db")->name('NewEkspedisiDB')->middleware('auth');
 });
 Route::controller(EkspedisiEdit::class)->group(function () {
-    Route::get('/ekspedisi/edit', "ekspedisi_edit");
-    Route::post('/ekspedisi/edit-db', "ekspedisi_edit_db")->middleware('auth');
-    Route::post('/ekspedisi/hapus', "ekspedisi_hapus")->middleware('auth');
+    Route::get('/ekspedisi/edit', "ekspedisi_edit")->name('EditEkspedisi')->middleware('auth');
+    Route::post('/ekspedisi/edit-db', "ekspedisi_edit_db")->name('EditEkspedisiDB')->middleware('auth');
+    Route::get('/ekspedisi/tambah_alamat', "tambah_alamat")->name('ekspedisi_tambah_alamat')->middleware('auth');
+    Route::post('/ekspedisi/tambah_alamat_db', "tambah_alamat_db")->name('ekspedisi_tambah_alamat_db')->middleware('auth');
+    Route::get('/ekspedisi/tambah_kontak', "tambah_kontak")->name('ekspedisi_tambah_kontak')->middleware('auth');
+    Route::post('/ekspedisi/tambah_kontak_db', "tambah_kontak_db")->name('ekspedisi_tambah_kontak_db')->middleware('auth');
+    Route::get('/ekspedisi/edit_alamat', "edit_alamat")->name('ekspedisi_edit_alamat')->middleware('auth');
+    Route::post('/ekspedisi/edit_alamat_db', "edit_alamat_db")->name('ekspedisi_edit_alamat_db')->middleware('auth');
+    Route::post('/ekspedisi/hapus_alamat', "hapus_alamat")->name('ekspedisi_hapus_alamat')->middleware('auth');
+    Route::get('/ekspedisi/edit_kontak', "edit_kontak")->name('ekspedisi_edit_kontak')->middleware('auth');
+    Route::post('/ekspedisi/edit_kontak_db', "edit_kontak_db")->name('ekspedisi_edit_kontak_db')->middleware('auth');
+    Route::post('/ekspedisi/hapus_kontak', "hapus_kontak")->name('ekspedisi_hapus_kontak')->middleware('auth');
+    Route::post('/ekspedisi/hapus', "ekspedisi_hapus")->name('HapusEkspedisi')->middleware('auth');
 });
 
 /**

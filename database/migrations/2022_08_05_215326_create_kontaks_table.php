@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('kontaks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pelanggan_id')->nullable();
-            $table->foreignId('ekspedisi_id')->nullable();
+            $table->foreignId('pelanggan_id')->nullable();// pelanggan_id dan ekspedisi_id bisa null, karena memang butuh salah satu nya aja.
+            $table->foreignId('ekspedisi_id')->nullable();//
             $table->string('tipe', 20)->nullable(); // kantor, rumah, hp
             $table->string('kodearea', 10)->nullable();
             $table->string('nomor', 20)->nullable();
+            $table->enum('is_aktual',['yes','no'])->nullable()->default('no'); // ini untuk tujuan bila nomor terakhir belum tentu itu yang seharusnya otomatis tercantum di nota
+            $table->string('lokasi',20)->nullable();// keterangan lokasi apabila di perlukan, terutama apabila nomor ini ber relasi dengan alamat.
             $table->timestamps();
         });
     }

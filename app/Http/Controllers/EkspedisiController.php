@@ -7,7 +7,9 @@ use App\Http\Requests\StoreEkspedisiRequest;
 use App\Http\Requests\UpdateEkspedisiRequest;
 use App\Models\Alamat;
 use App\Models\EkspedisiAlamat;
+use App\Models\Kontak;
 use App\Models\SiteSetting;
+use Exception;
 use Illuminate\Http\Request;
 
 class EkspedisiController extends Controller
@@ -27,11 +29,22 @@ class EkspedisiController extends Controller
         }
 
         $ekspedisis = Ekspedisi::orderBy('nama')->get();
-        $alamats=array();
+        $alamats=$kontaks=array();
         foreach ($ekspedisis as $ekspedisi) {
             $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi['id'])->where('tipe','UTAMA')->first();
-            $alamat=Alamat::find($ekspedisi_alamat['alamat_id']);
-            $alamats[]=$alamat;
+            if ($ekspedisi_alamat!==null) {
+                $alamat=Alamat::find($ekspedisi_alamat['alamat_id']);
+                $alamats[]=$alamat;
+            } else {
+                $alamats[]=null;
+            }
+
+            $kontak=Kontak::where('ekspedisi_id',$ekspedisi['id'])->where('is_aktual','yes')->first();
+            if ($kontak!==null) {
+                $kontaks[]=$kontak;
+            } else {
+                $kontaks[]=null;
+            }
         }
 
         $menus=[
@@ -43,9 +56,24 @@ class EkspedisiController extends Controller
             'navbar_bg' => 'bg-color-orange-2',
             'ekspedisis' => $ekspedisis,
             'alamats' => $alamats,
+            'kontaks' => $kontaks,
             'menus' => $menus,
         ];
-        dump($data);
+        // for ($i=0; $i < count($alamats); $i++) {
+        //     if ($alamats[$i]!==null) {
+        //         if ($alamats[$i]['long']!==null) {
+        //             dump($alamats[$i]['id']);
+        //             try {
+        //                 foreach (json_decode($alamats[$i]['long'],true) as $alamat) {
+        //                     echo $alamat;
+        //                 }
+        //             } catch (Exception $e) {
+        //                 echo $e->getMessage();
+        //             }
+        //         }
+        //     }
+        // }
+        // dd($data);
         return view('ekspedisi.ekspedisis', $data);
     }
 
@@ -57,32 +85,35 @@ class EkspedisiController extends Controller
             $load_num->save();
         }
 
-        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
-        $run_db = false; // true apabila siap melakukan CRUD ke DB
-        $load_num_ignore = true; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = false;
+        $get = $request->query();
 
-        if ($show_hidden_dump) {
-            dump("load_num_value: " . $load_num->value);
-        }
+        // dd($get);
 
-        if ($load_num->value > 0 && !$load_num_ignore) {
-            $run_db = false;
-        }
-
-        $get = $request->input();
-
-        if ($show_dump) {
-            dump("get:");
-            dump($get);
-        }
         $ekspedisi = Ekspedisi::find($get['ekspedisi_id']);
+        $ekspedisi_alamats=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi['id'])->get();
+        $alamats =array();
+        foreach ($ekspedisi_alamats as $ekspedisi_alamat) {
+            $alamat=Alamat::find($ekspedisi_alamat['alamat_id']);
+            $alamats[]=$alamat;
+        }
+        $kontaks=Kontak::where('ekspedisi_id',$ekspedisi['id'])->get();
 
-        $data = [
-            'ekspedisi' => $ekspedisi,
-            'csrf' => csrf_token()
+        $menus=[
+            ['route'=>'EditEkspedisi','nama'=>'Edit','method'=>'get','params'=>[['name'=>'ekspedisi_id','value'=>$ekspedisi['id']],]],
+            ['route'=>'ekspedisi_tambah_alamat','nama'=>'+Alamat','method'=>'get','params'=>[['name'=>'ekspedisi_id','value'=>$ekspedisi['id']],]],
+            ['route'=>'ekspedisi_tambah_kontak','nama'=>'+Kontak','method'=>'get','params'=>[['name'=>'ekspedisi_id','value'=>$ekspedisi['id']],]],
+            ['route'=>'HapusEkspedisi','nama'=>'Hapus','method'=>'post','params'=>[['name'=>'ekspedisi_id','value'=>$ekspedisi['id']],],'confirm'=>'Anda yakin ingin menghapus Ekspedisi ini?'],
         ];
 
+        $data = [
+            'go_back'=>true,
+            'navbar_bg'=>'bg-color-orange-2',
+            'menus' => $menus,
+            'ekspedisi' => $ekspedisi,
+            'alamats' => $alamats,
+            'kontaks' => $kontaks,
+        ];
+        // dump($data);
         return view('ekspedisi.ekspedisi-detail', $data);
     }
 

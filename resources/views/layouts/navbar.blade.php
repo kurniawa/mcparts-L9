@@ -21,30 +21,30 @@
           @if (isset($menus))
               @foreach ($menus as $menu)
               @if (isset($menu['params']))
-              @if (isset($menu['alert']))
-              <li class="nav-item">
-                <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}" onsubmit="return alert('{{ $menu['alert'] }}')">
+              @if (isset($menu['confirm']))
+              <li class="nav-item ms-1">
+                <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}" onsubmit="return confirm('{{ $menu['confirm'] }}')">
                     @csrf
                     @foreach ($menu['params'] as $param)
                     <input type="hidden" name="{{ $param['name'] }}" value="{{ $param['value'] }}">
                     @endforeach
-                    <button type="submit" class="nav-link btn fw-bold" style="color: white">{{ $menu['nama'] }}</button>
+                    <button type="submit" class="nav-link btn btn-danger fw-bold" style="color: white">{{ $menu['nama'] }}</button>
                 </form>
               </li>
               @else
-              <li class="nav-item">
+              <li class="nav-item ms-1">
                 <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}">
                     @csrf
                     @foreach ($menu['params'] as $param)
                     <input type="hidden" name="{{ $param['name'] }}" value="{{ $param['value'] }}">
                     @endforeach
-                    <button type="submit" class="nav-link btn fw-bold" style="color: white">{{ $menu['nama'] }}</button>
+                    <button type="submit" class="nav-link btn btn-danger fw-bold" style="color: white">{{ $menu['nama'] }}</button>
                 </form>
               </li>
               @endif
               @else
-              <li class="nav-item">
-                <a href="{{ route($menu['route']) }}" class="nav-link fw-bold" style="color: white">{{ $menu['nama'] }}</a>
+              <li class="nav-item ms-1">
+                <a href="{{ route($menu['route']) }}" class="nav-link btn btn-danger fw-bold" style="color: white">{{ $menu['nama'] }}</a>
               </li>
               @endif
               @endforeach

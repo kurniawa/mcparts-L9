@@ -1057,7 +1057,7 @@ class EkspedisiSeeder extends Seeder
                     'pulau'=>'Jawa',
                     'short'=>'Sawah Besar',
                     'negara'=>'Indonesia',
-                    'long'=>'["Jl. Sukarjo Wiryo Pranoto No.11D", "Depan Stasiun KA. Sawah Besar"]"]',
+                    'long'=>'["Jl. Sukarjo Wiryo Pranoto No.11D", "Depan Stasiun KA. Sawah Besar"]',
                 ]],
                 'kontak' => [
                     [
@@ -1643,6 +1643,7 @@ class EkspedisiSeeder extends Seeder
                         'tipe'=>$kontak['tipe'],
                         'kodearea'=>$kontak['kodearea'],
                         'nomor'=>$kontak['nomor'],
+                        'is_aktual'=>'yes',
                     ]);
                 }
             }

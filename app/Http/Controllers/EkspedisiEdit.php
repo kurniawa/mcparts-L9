@@ -17,29 +17,14 @@ class EkspedisiEdit extends Controller
             $load_num->save();
         }
 
-        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
-        $run_db = false; // true apabila siap melakukan CRUD ke DB
-        $load_num_ignore = true; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = false;
-
-        if ($show_hidden_dump) {
-            dump("load_num_value: " . $load_num->value);
-        }
-
-        if ($load_num->value > 0 && !$load_num_ignore) {
-            $run_db = false;
-        }
-
-        $get = $request->input();
-
-        if ($show_dump) {
-            dump("get");
-            dump($get);
-        }
+        $get = $request->query();
+        // dump($get);
 
         $ekspedisi = Ekspedisi::find($get['ekspedisi_id']);
 
         $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
             'ekspedisi' => $ekspedisi
         ];
 
@@ -49,111 +34,125 @@ class EkspedisiEdit extends Controller
     public function ekspedisi_edit_db(Request $request)
     {
         $load_num = SiteSetting::find(1);
-
-        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = true; // true apabila siap melakukan CRUD ke DB
-        $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = false;
-
-        $ada_error = true;
+        $success_logs=$warning_logs=$error_logs=array();
         $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
-        $class_div_pesan_db = 'alert-danger';
 
-        if ($show_hidden_dump) {
-            dump("load_num_value: " . $load_num->value);
-        }
-
-        if ($load_num->value > 0 && !$load_num_ignore) {
+        if ($load_num->value > 0) {
             $run_db = false;
-            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
-            $ada_error = true;
-            $class_div_pesan_db = 'alert-danger';
+            $error_logs[]='WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
         }
 
-        $post = $request->input();
-        $ekspedisi = Ekspedisi::find($post['ekspedisi_id']);
-        $bentuk_perusahaan = null;
-        if (isset($post['bentuk_perusahaan']) && $post['bentuk_perusahaan'] !== null && $post['bentuk_perusahaan'] !== '') {
-            $bentuk_perusahaan = $post['bentuk_perusahaan'];
-        }
+        $post = $request->post();
+        // dd('$post: ', $post);
+        $nama=$post['nama_ekspedisi'];
+        $bentuk=$post['bentuk_perusahaan'];
+        $ktrg=$post['keterangan'];
 
-        if ($show_dump) {
-            dump('$post: ', $post);
-        }
 
-        // $alamat_ekspedisi = json_encode(Arr::whereNotNull($post['alamat_ekspedisi']));
-        $alamat_ekspedisi = json_encode(array_filter($post['alamat_ekspedisi']));
-
-        $keterangan = $post['keterangan'];
-
-        if ($keterangan === null || $keterangan === '') {
-            $keterangan = null;
-        }
-
-        if ($run_db === true) {
-            $ekspedisi->bentuk = $bentuk_perusahaan;
-            $ekspedisi->nama = $post['nama_ekspedisi'];
-            $ekspedisi->alamat = $alamat_ekspedisi;
-            $ekspedisi->no_kontak = $post['kontak_ekspedisi'];
-            $ekspedisi->ktrg = $keterangan;
+        if ($run_db) {
+            $ekspedisi = Ekspedisi::find($post['ekspedisi_id']);
+            $ekspedisi->bentuk = $bentuk;
+            $ekspedisi->nama = $nama;
+            $ekspedisi->ktrg = $ktrg;
             $ekspedisi->save();
+            $success_logs[]="Data Ekspedisi telah diupdate.";
 
             $load_num->value += 1;
             $load_num->save();
 
-            $main_log = "SUCCESS: Data $ekspedisi[nama] berhasil diubah!";
-            $ada_error = false;
-            $class_div_pesan_db = 'alert-success';
+            $main_log = "SUCCESS";
         }
 
+        $route='DetailEkspedisi';
+        $route_btn='Ke Detail Ekspedisi';
+        $params=['ekspedisi_id'=>$ekspedisi['id']];
+
         $data = [
-            'go_back_number' => -2,
-            'pesan_db' => $main_log,
-            'ada_error' => $ada_error,
-            'class_div_pesan_db' => $class_div_pesan_db
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
         ];
 
-        return view('layouts.go-back-page', $data);
+        return view('layouts.db-result', $data);
+    }
+
+    public function tambah_alamat(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        if ($load_num !== 0) {
+            $load_num->value = 0;
+            $load_num->save();
+        }
+
+        $get = $request->query();
+        // dump($get);
+
+        $ekspedisi = Ekspedisi::find($get['ekspedisi_id']);
+
+        $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
+            'ekspedisi' => $ekspedisi
+        ];
+
+        return view('ekspedisi.tambah_alamat', $data);
+    }
+
+    public function tambah_kontak(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        if ($load_num !== 0) {
+            $load_num->value = 0;
+            $load_num->save();
+        }
+
+        $get = $request->query();
+        // dump($get);
+
+        $ekspedisi = Ekspedisi::find($get['ekspedisi_id']);
+
+        $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
+            'ekspedisi' => $ekspedisi
+        ];
+
+        return view('ekspedisi.tambah_kontak', $data);
     }
 
     public function ekspedisi_hapus(Request $request)
     {
         $load_num = SiteSetting::find(1);
-
-        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $success_logs=$warning_logs=$error_logs=array();
+        $main_log=null;
         $run_db = true; // true apabila siap melakukan CRUD ke DB
-        $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = false;
 
-        if ($show_hidden_dump) {
-            dump("load_num_value: " . $load_num->value);
-        }
-
-        if ($load_num->value > 0 && !$load_num_ignore) {
+        if ($load_num->value > 0) {
             $run_db = false;
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
         }
 
-        $post = $request->input();
+        $post = $request->post();
+        $ekspedisi_id=$post['ekspedisi_id'];
 
-        if ($show_dump) {
-            dump('$post: ', $post);
-        }
-
-        $ekspedisi = Ekspedisi::find($post['id']);
+        // dd('$post: ', $post);
 
         if ($run_db === true) {
+            $ekspedisi = Ekspedisi::find($ekspedisi_id);
             $ekspedisi->delete();
-        }
-
-        $data = [
-            'go_back_number' => -2
-        ];
-
-
-        if ($run_db) {
+            $warning_logs[]="Ekspedisi $ekspedisi[nama] berhasil dihapus!";
+            $main_log='SUCCESS';
             $load_num->value += 1;
             $load_num->save();
         }
-        return view('layouts.go-back-page', $data);
+
+        $route='Ekspedisis';
+        $route_btn='Ke Daftar Ekspedisi';
+        $data = [
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,
+        ];
+
+        return view('layouts.db-result', $data);
     }
 }

@@ -1,111 +1,52 @@
 @extends('layouts.main_layout')
+@extends('layouts.navbar')
 
 @section('content')
 
-<div class="header grid-1-auto">
-    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
+<div class="container">
+    <div class="d-flex align-items-center">
+        <img class="w-2rem" src="/img/icons/pencil.svg">
+        <span class="fs-1">Edit Data Ekspedisi</span>
+    </div>
 </div>
 
-<div class="grid-2-10_auto mt-1em ml-1em">
-    <div>
-        <img class="w-2em" src="/img/icons/pencil.svg">
-    </div>
-    <h1>Edit Data Ekspedisi</h1>
+<div class="container mt-3">
+    <form action="{{ route('EditEkspedisiDB') }}" method="POST">
+        @csrf
+        <input type="hidden" name="ekspedisi_id" value="{{ $ekspedisi['id'] }}">
+        <div class="row">
+            <div class="col-3">
+                <label for="selectBentukPerusahaan">Bentuk:</label><br>
+                <select class="form-control" name="bentuk_perusahaan" id="selectBentukPerusahaan">
+                    <option value="" disabled>Bentuk</option>
+                    <option value="" @if ($ekspedisi['bentuk'] === '')
+                        selected
+                    @endif >-</option>
+                    <option value="PT" @if ($ekspedisi['bentuk'] === 'PT')
+                        selected
+                    @endif >PT</option>
+                    <option value="CV" @if ($ekspedisi['bentuk'] === 'CV')
+                        selected
+                    @endif >CV</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="namaEdited">Nama Ekspedisi:</label>
+                <input id="namaEdited" class="form-control" name="nama_ekspedisi" type="text" placeholder="Nama Ekspedisi" value="{{ $ekspedisi['nama'] }}" required>
+            </div>
+        </div>
+        <label for="keteranganEdited">Keterangan:</label>
+        <textarea id="keteranganEdited" class="form-control" name="keterangan" rows="5" placeholder="Keterangan lain (opsional)">{{ $ekspedisi['ktrg'] }}</textarea>
+
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
+        </div>
+    </form>
+
 </div>
-
-<form action="/ekspedisi/edit-db" method="POST" class="ml-1em mr-1rem mt-2em">
-    @csrf
-    <input type="hidden" name="ekspedisi_id" value="{{ $ekspedisi['id'] }}">
-    <div class="grid-2-auto grid-column-gap-1em">
-        <div class="bb-0_5px-grey pb-1em">
-            <label for="selectBentukPerusahaan">Bentuk:</label><br>
-            <select class="b-none" name="bentuk_perusahaan" id="selectBentukPerusahaan">
-                <option value="" disabled>Bentuk</option>
-                <option value="" @if ($ekspedisi['bentuk'] === '')
-                    selected
-                @endif >-</option>
-                <option value="PT" @if ($ekspedisi['bentuk'] === 'PT')
-                    selected
-                @endif >PT</option>
-                <option value="CV" @if ($ekspedisi['bentuk'] === 'CV')
-                    selected
-                @endif >CV</option>
-            </select>
-        </div>
-        <div>
-            <label for="namaEdited">Nama Ekspedisi:</label>
-            <input id="namaEdited" class="input-1 pb-1em" name="nama_ekspedisi" type="text" placeholder="Nama Ekspedisi" value="{{ $ekspedisi['nama'] }}">
-        </div>
-    </div>
-
-    <br>
-    <label style="font-weight:bold">Alamat:</label>
-    <div id="div_alamat_eks"></div>
-    <div id="btn_tbh_baris" class="btn btn-secondary">+ Tambah Baris</div>
-
-    {{-- <textarea id="alamatEdited" class="text-area-mode-1 mt-1em pt-1em pl-1rem" name="alamat_ekspedisi" placeholder="Alamat">{{ $ekspedisi['alamat'] }}</textarea> --}}
-
-    <div class="mt-1em">
-        <label for="kontakEdited">Kontak:</label>
-        <input id="kontakEdited" name="kontak_ekspedisi" class="input-1 pb-1em" type="text" placeholder="No. Kontak" value="{{ $ekspedisi['no_kontak'] }}">
-    </div>
-
-    <br>
-    {{-- <label for="divTujuanEkspedisi">Tujuan Ekspedisi:</label>
-    <div id="divTujuanEkspedisi" class="mt-1em grid-2-auto grid-column-gap-1em">
-        <input id="pulauTujuan" class="input-1 pb-1em" type="text" placeholder="Pulau Tujuan Ekspedisi" name="pulau_tujuan">
-        <input id="daerahTujuan" class="input-1 pb-1em" type="text" placeholder="Daerah Tujuan Ekspedisi" name="daerah_tujuan">
-    </div> --}}
-
-    <br>
-    <label for="keteranganEdited">Keterangan:</label>
-    <textarea id="keteranganEdited" class="text-area-mode-1 mt-1em pt-1em pl-1rem" name="keterangan" placeholder="Keterangan lain (opsional)">{{ $ekspedisi['ktrg'] }}</textarea>
-
-    <div id="peringatan" class="d-none color-red p-1em">
-
-    </div>
-
-    <div class="m-1em">
-        <button type="submit" class="h-4em bg-color-orange-2 grid-1-auto w-100">
-            <span class="justify-self-center font-weight-bold">Simpan Perubahan</span>
-        </button>
-    </div>
-</form>
 
 
 <script>
-    const ekspedisi = {!! json_encode($ekspedisi, JSON_HEX_TAG) !!};
-
-    const arr_alamat_eks = JSON.parse(ekspedisi.alamat);
-
-    if (show_console === true) {
-        console.log("ekspedisi");
-        console.log(ekspedisi);
-        console.log('arr_alamat_eks');
-        console.log(arr_alamat_eks);
-    }
-
-    var htmlAlamatEks = '';
-    var i_arrAlamatEks = 1;
-    arr_alamat_eks.forEach(alamat_eks => {
-        htmlAlamatEks += `<label>Baris ${i_arrAlamatEks}:<br></label><input class="form-control" type="text" name='alamat_ekspedisi[]' value="${alamat_eks}">`;
-        i_arrAlamatEks++;
-    });
-
-    document.getElementById('div_alamat_eks').innerHTML = htmlAlamatEks;
-
-    document.getElementById('btn_tbh_baris').addEventListener('click', function () {
-        var label_tbh_baris = document.createElement('label');
-        label_tbh_baris.textContent = `Baris ${i_arrAlamatEks}:`;
-        var ipt_tbh_baris = document.createElement('input');
-        ipt_tbh_baris.name = "alamat_ekspedisi[]";
-        ipt_tbh_baris.className = "form-control";
-        ipt_tbh_baris.type = "text";
-        document.getElementById('div_alamat_eks').appendChild(label_tbh_baris);
-        document.getElementById('div_alamat_eks').appendChild(ipt_tbh_baris);
-        i_arrAlamatEks++;
-        // https://stackoverflow.com/questions/195951/how-can-i-change-an-elements-class-with-javascript
-    });
 
 </script>
 

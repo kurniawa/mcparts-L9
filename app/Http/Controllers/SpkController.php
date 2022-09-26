@@ -104,7 +104,7 @@ class SpkController extends Controller
             ['route'=>'SPK_AddItems','nama'=>'Tambah Item','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']],]],
             ['route'=>'NotaAll','nama'=>'N-All','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']],]],
             ['route'=>'SjAll','nama'=>'Sr-All','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']],]],
-            ['route'=>'HapusSPK','nama'=>'Hapus','method'=>'post','params'=>[['name'=>'spk_id','value'=>$spk['id']],],'alert'=>'Anda yakin ingin menghapus SPK ini?'],
+            ['route'=>'HapusSPK','nama'=>'Hapus','method'=>'post','params'=>[['name'=>'spk_id','value'=>$spk['id']],],'confirm'=>'Anda yakin ingin menghapus SPK ini?'],
         ];
         $data = [
             'navbar_bg'=>'bg-color-orange-2',
