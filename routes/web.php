@@ -60,8 +60,8 @@ Route::controller(PelangganController::class)->group(function ()
 });
 Route::controller(PelangganBaruController::class)->group(function ()
 {
-   Route::get('/pelanggan/pelanggan-baru', 'pelanggan_baru')->middleware('auth');
-   Route::post('/pelanggan/pelanggan-baru-db', 'create')->middleware('auth');
+   Route::get('/pelanggan/pelanggan-baru', 'pelanggan_baru')->name('pelanggan_baru')->middleware('auth');
+   Route::post('/pelanggan/pelanggan-baru-db', 'create')->name('pelanggan_baru_db')->middleware('auth');
 });
 Route::controller(PelangganEditController::class)->group(function ()
 {

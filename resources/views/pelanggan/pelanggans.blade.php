@@ -1,15 +1,7 @@
-@extends('layouts/main_layout')
+@extends('layouts.main_layout')
+@extends('layouts.navbar_v2')
 
 @section('content')
-
-<header class="header grid-2-auto">
-    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
-    <div class="justify-self-right pr-0_5rem">
-        <a href="pelanggan/pelanggan-baru" class="btn-atas-kanan">
-            + Pelanggan Baru
-        </a>
-    </div>
-</header>
 
 <div class="grid-2-auto mt-1rem ml-1rem mr-1rem pb-1rem div-cari-filter">
     <div class="justify-self-left grid-2-auto b-1px-solid-grey b-radius-50px mr-1rem pl-1rem pr-0_4rem w-11rem">

@@ -16,7 +16,6 @@ option {
     color: black;
 }
 .header {
-    height: 4rem;
     background-color: #ffb800;
 }
 .btn-1 {
@@ -520,14 +519,10 @@ option {
 
 /* PACAKGE: BUTTON */
 
-.btn-atas-kanan {
-    display: inline;
+.btn-lonjong-kuning {
     border-radius: 25px;
     background-color: #ffed50;
     padding: 0.5rem 1rem 0.5rem 1rem;
-    position: absolute;
-    top: 1rem;
-    right: 0.5rem;
 }
 
 .btn-atas-kanan2 {

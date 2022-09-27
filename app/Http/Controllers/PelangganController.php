@@ -26,21 +26,16 @@ class PelangganController extends Controller
     {
         SiteSettings::loadNumToZero();
 
-        $show_dump = false;
-
         $pelanggans = Pelanggan::all();
 
-        if ($show_dump) {
-            dump("pelanggans: ", $pelanggans);
-        }
-
+        $menus=[
+            ['route'=>'pelanggan_baru','nama'=>'+Pelanggan Baru','method'=>'get'],
+        ];
         $data = [
+            "menus" => $menus,
             "pelanggans" => $pelanggans,
         ];
 
-        if ($show_dump) {
-            dump("data: ", $data);
-        }
         return view('pelanggan.pelanggans', $data);
     }
 

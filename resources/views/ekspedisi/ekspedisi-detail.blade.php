@@ -38,6 +38,10 @@
                     <div class="ms-3 align-self-end">
                         <a href="{{ route('ekspedisi_edit_alamat',['alamat_id'=>$alamats[$i]['id'],'ekspedisi_id'=>$ekspedisi['id']]) }}"><img style="width: 1rem;" src="{{ asset('img/icons/edit.svg') }}"></a>
                         <form action="{{ route('ekspedisi_hapus_alamat') }}" method="POST" onsubmit="return confirm('Apa Anda yakin ingin menghapus alamat ini?')" class="mt-2">
+                            @csrf
+                            <input type="hidden" name="alamat_id" value="{{ $alamats[$i]['id'] }}">
+                            <input type="hidden" name="ekspedisi_id" value="{{ $ekspedisi['id'] }}">
+                            <input type="hidden" name="ekspedisi_alamat_id" value="{{ $ekspedisi_alamats[$i]['id'] }}">
                             <button type="submit" class="btn-no-styling"><img src="{{ asset('img/icons/delete.svg') }}" style="width: 1rem;"></button>
                         </form>
                     </div>
@@ -67,6 +71,7 @@
                     <div class="ms-3 align-self-end">
                         <a href="{{ route('ekspedisi_edit_kontak') }}"><img style="width: 1rem;" src="{{ asset('img/icons/edit.svg') }}"></a>
                         <form action="{{ route('ekspedisi_hapus_kontak') }}" method="POST" onsubmit="return confirm('Apa Anda yakin ingin menghapus kontak ini?')" class="mt-2">
+                            @csrf
                             <button type="submit" class="btn-no-styling"><img src="{{ asset('img/icons/delete.svg') }}" style="width: 1rem;"></button>
                         </form>
                     </div>

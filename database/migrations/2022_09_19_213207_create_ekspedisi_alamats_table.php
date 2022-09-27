@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('ekspedisi_alamats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ekspedisi_id')->constrained()->onDelete('NO ACTION');
-            $table->foreignId('alamat_id')->constrained()->onDelete('NO ACTION');
+            $table->foreignId('ekspedisi_id')->constrained()->onDelete('CASCADE');// hapus mah hapus aja, supaya ga menuh2 in database
+            $table->foreignId('alamat_id')->constrained()->onDelete('CASCADE');
             $table->enum('tipe',['UTAMA','CADANGAN'])->default('CADANGAN');
             $table->timestamps();
         });

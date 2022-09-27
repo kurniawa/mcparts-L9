@@ -20,33 +20,8 @@ class PelangganBaruController extends Controller
             $load_num->save();
         }
 
-        $show_dump = false;
-        $show_hidden_dump = false;
-        $run_db = false;
-        $load_num_ignore = true;
-
-        if ($show_hidden_dump) {
-        }
-
-        if ($load_num->value > 0 && !$load_num_ignore) {
-            $run_db = false;
-        }
-
-        $label_negaras = getLabelNegara();
-        $label_pulaus = getLabelPulau();
-        $arr_label_daerahs = getLabelDaerah();
-
-
-        if ($show_dump) {
-            dump('label_negaras:', $label_negaras);
-            dump('label_pulaus:', $label_pulaus);
-            dump('arr_label_daerahs:', $arr_label_daerahs);
-        }
 
         $data = [
-            'label_negaras' => $label_negaras,
-            'label_pulaus' => $label_pulaus,
-            'arr_label_daerahs' => $arr_label_daerahs
         ];
 
         return view('pelanggan.pelanggan-baru', $data);
