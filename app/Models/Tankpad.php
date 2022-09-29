@@ -19,7 +19,7 @@ class Tankpad extends Model
             ->groupBy('id', 'tankpad_id', 'harga', 'created_at');
 
         $label_tankpads = DB::table('tankpads')
-            ->select('tankpads.id', 'tankpads.nama AS label', 'tankpads.nama AS value', 'tp_terbaru.harga', 'tankpads.ktrg')
+            ->select('tankpads.id', 'tankpads.nama AS label', 'tankpads.nama AS value', 'tp_terbaru.harga', 'tankpads.keterangan')
             ->joinSub($tp_terbaru, 'tp_terbaru', function ($join) {
                 $join->on('tankpads.id', '=', 'tp_terbaru.tankpad_id');
             })

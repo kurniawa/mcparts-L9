@@ -7,6 +7,7 @@ use App\Http\Requests\StoreEkspedisiRequest;
 use App\Http\Requests\UpdateEkspedisiRequest;
 use App\Models\Alamat;
 use App\Models\EkspedisiAlamat;
+use App\Models\EkspedisiKontak;
 use App\Models\Kontak;
 use App\Models\SiteSetting;
 use Exception;
@@ -29,7 +30,7 @@ class EkspedisiController extends Controller
         }
 
         $ekspedisis = Ekspedisi::orderBy('nama')->get();
-        $alamats=$kontaks=array();
+        $alamats=$ekspedisi_kontaks=array();
         foreach ($ekspedisis as $ekspedisi) {
             $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi['id'])->where('tipe','UTAMA')->first();
             if ($ekspedisi_alamat!==null) {
@@ -39,11 +40,11 @@ class EkspedisiController extends Controller
                 $alamats[]=null;
             }
 
-            $kontak=Kontak::where('ekspedisi_id',$ekspedisi['id'])->where('is_aktual','yes')->first();
-            if ($kontak!==null) {
-                $kontaks[]=$kontak;
+            $ekspedisi_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi['id'])->where('is_aktual','yes')->first();
+            if ($ekspedisi_kontak!==null) {
+                $ekspedisi_kontaks[]=$ekspedisi_kontak;
             } else {
-                $kontaks[]=null;
+                $ekspedisi_kontaks[]=null;
             }
         }
 
@@ -56,7 +57,7 @@ class EkspedisiController extends Controller
             'navbar_bg' => 'bg-color-orange-2',
             'ekspedisis' => $ekspedisis,
             'alamats' => $alamats,
-            'kontaks' => $kontaks,
+            'ekspedisi_kontaks' => $ekspedisi_kontaks,
             'menus' => $menus,
         ];
         // for ($i=0; $i < count($alamats); $i++) {
@@ -96,7 +97,7 @@ class EkspedisiController extends Controller
             $alamat=Alamat::find($ekspedisi_alamat['alamat_id']);
             $alamats[]=$alamat;
         }
-        $kontaks=Kontak::where('ekspedisi_id',$ekspedisi['id'])->get();
+        $ekspedisi_kontaks=EkspedisiKontak::where('ekspedisi_id',$ekspedisi['id'])->get();
 
         $menus=[
             ['route'=>'EditEkspedisi','nama'=>'Edit','method'=>'get','params'=>[['name'=>'ekspedisi_id','value'=>$ekspedisi['id']],]],
@@ -112,7 +113,7 @@ class EkspedisiController extends Controller
             'ekspedisi' => $ekspedisi,
             'ekspedisi_alamats' => $ekspedisi_alamats,
             'alamats' => $alamats,
-            'kontaks' => $kontaks,
+            'ekspedisi_kontaks' => $ekspedisi_kontaks,
         ];
         // dump($data);
         return view('ekspedisi.ekspedisi-detail', $data);

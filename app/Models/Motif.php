@@ -17,7 +17,7 @@ class Motif extends Model
         $motif_terbaru = DB::table('motif_hargas')->select('id', 'motif_id', 'harga', DB::raw('MAX(created_at)'))
             ->groupBy('id', 'motif_id', 'harga', 'created_at');
 
-        $motif_harga = DB::table('motifs')->select('motifs.id', 'motifs.nama', 'motif_terbaru.harga', 'motifs.ktrg')
+        $motif_harga = DB::table('motifs')->select('motifs.id', 'motifs.nama', 'motif_terbaru.harga', 'motifs.keterangan')
             ->joinSub($motif_terbaru, 'motif_terbaru', function ($join) {
                 $join->on('motifs.id', '=', 'motif_terbaru.motif_id');
             })

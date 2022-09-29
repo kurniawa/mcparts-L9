@@ -227,12 +227,12 @@ GUA BUAT MANUAL LAGI AJA DAH!
     var element_to_toggle = "";
 
     $('#divSPKNumber').html(spk.id);
-    $('#divTitleDesc').html(spk.ktrg);
+    $('#divTitleDesc').html(spk.keterangan);
     // $('#divItemList').html(htmlSPKItem);
     // $('#divTglPembuatan').html(tgl_pembuatan_dmY);
     // $('#divSPKCustomer').html(`${pelanggan.nama} - ${pelanggan.daerah}`);
     $('#divTitleDesc').html(spk.judul);
-    $('#taKeteranganTambahan').html(spk.ktrg);
+    $('#taKeteranganTambahan').html(spk.keterangan);
 
     function checkAll(mainCheckbox_id, classCheckboxChilds) {
         // console.log('mainCheckbox_id, classCheckboxChilds');

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Alamat;
 use App\Models\Ekspedisi;
 use App\Models\EkspedisiAlamat;
+use App\Models\EkspedisiKontak;
 use App\Models\Kontak;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -1639,7 +1640,7 @@ class EkspedisiSeeder extends Seeder
             }
             if (isset($ekspedisis[$i]['kontak']) && $ekspedisis[$i]['kontak'] !== null) {
                 foreach ($ekspedisis[$i]['kontak'] as $kontak) {
-                    Kontak::create([
+                    EkspedisiKontak::create([
                         'ekspedisi_id'=>$ekspedisi_new['id'],
                         'tipe'=>$kontak['tipe'],
                         'kodearea'=>$kontak['kodearea'],

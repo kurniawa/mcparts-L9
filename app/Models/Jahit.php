@@ -26,7 +26,7 @@ class Jahit extends Model
         //     ->selectRaw('id, jahit_id, harga, MAX(created_at) GROUP BY jahit_id');
 
         $jahits_harga = DB::table('jahits')
-            ->select('jahits.id', 'jahits.nama', 'jahit_terbaru.harga', 'jahits.ktrg')
+            ->select('jahits.id', 'jahits.nama', 'jahit_terbaru.harga', 'jahits.keterangan')
             ->joinSub($jahit_terbaru, 'jahit_terbaru', function ($join) {
                 $join->on('jahits.id', '=', 'jahit_terbaru.jahit_id');
             })

@@ -28,12 +28,12 @@
             @else
             {{ $ekspedisis[$i]['nama'] }}</td>
             @endif
-            @if ($kontaks[$i]!==null)
+            @if ($ekspedisi_kontaks[$i]!==null)
             <td class="fw-bold color-blue-purple">
-            @if ($kontaks[$i]['kodearea']!==null)
-            ({{ $kontaks[$i]['kodearea'] }}) {{ $kontaks[$i]['nomor'] }}
+            @if ($ekspedisi_kontaks[$i]['kodearea']!==null)
+            ({{ $ekspedisi_kontaks[$i]['kodearea'] }}) {{ $ekspedisi_kontaks[$i]['nomor'] }}
             @else
-            {{ $kontaks[$i]['nomor'] }}
+            {{ $ekspedisi_kontaks[$i]['nomor'] }}
             @endif
             </td>
             @else

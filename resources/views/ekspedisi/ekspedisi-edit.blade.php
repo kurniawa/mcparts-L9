@@ -36,7 +36,7 @@
             </div>
         </div>
         <label for="keteranganEdited">Keterangan:</label>
-        <textarea id="keteranganEdited" class="form-control" name="keterangan" rows="5" placeholder="Keterangan lain (opsional)">{{ $ekspedisi['ktrg'] }}</textarea>
+        <textarea id="keteranganEdited" class="form-control" name="keterangan" rows="5" placeholder="Keterangan lain (opsional)">{{ $ekspedisi['keterangan'] }}</textarea>
 
         <div class="text-center mt-3">
             <button type="submit" class="btn btn-warning">Simpan Perubahan</button>

@@ -273,11 +273,11 @@ GUA BUAT MANUAL LAGI AJA DAH!
 
 
 
-    //     var ktrg = data_spk_item[i].ktrg;
-    //     if (ktrg == null) {
-    //         ktrg = "";
+    //     var keterangan = data_spk_item[i].keterangan;
+    //     if (keterangan == null) {
+    //         keterangan = "";
     //     } else {
-    //         ktrg = ktrg.replace(new RegExp('\n?\r', 'g'), '<br />');
+    //         keterangan = keterangan.replace(new RegExp('\n?\r', 'g'), '<br />');
     //     }
 
 
@@ -314,12 +314,12 @@ GUA BUAT MANUAL LAGI AJA DAH!
     // }, 1000);
 
     $('#divSPKNumber').html(spk.id);
-    $('#divTitleDesc').html(spk.ktrg);
+    $('#divTitleDesc').html(spk.keterangan);
     // $('#divItemList').html(htmlSPKItem);
     $('#divTglPembuatan').html(tgl_pembuatan_dmY);
     $('#divSPKCustomer').html(`${pelanggan.nama} - ${pelanggan.daerah}`);
     $('#divTitleDesc').html(spk.judul);
-    $('#taKeteranganTambahan').html(spk.ktrg);
+    $('#taKeteranganTambahan').html(spk.keterangan);
 
     function checkAll(mainCheckbox_id, classCheckboxChilds) {
         // console.log('mainCheckbox_id, classCheckboxChilds');

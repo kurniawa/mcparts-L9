@@ -22,7 +22,7 @@ class Variasi extends Model
         //     ->selectRaw('id, variasi_id, harga, MAX(created_at) GROUP BY variasi_id');
 
         $variasi_harga = DB::table('variasis')
-            ->select('variasis.id', 'variasis.nama', 'variasi_terbaru.harga', 'variasis.ktrg')
+            ->select('variasis.id', 'variasis.nama', 'variasi_terbaru.harga', 'variasis.keterangan')
             ->joinSub($variasi_terbaru, 'variasi_terbaru', function ($join) {
                 $join->on('variasis.id', '=', 'variasi_terbaru.variasi_id');
             })

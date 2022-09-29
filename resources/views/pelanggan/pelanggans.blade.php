@@ -19,6 +19,54 @@
 </div>
 
 <div id="list_pelanggan">
+    @for ($i = 0; $i < count($pelanggans); $i++)
+    <div class='ml-1rem mr-1rem pb-1rem bb-1px-solid-grey pt-1rem font-size-0_9rem'>
+        <div class='grid-3-10_80_10'>
+            <div class='initial circle-medium grid-1-auto justify-items-center font-weight-bold' style='background-color:#D1FFCA'>{{ $pelanggans[$i]['initial'] }}</div>
+            @if ($alamats[$i]!==null)
+            <div class='justify-self-left font-weight-bold'>{{ $pelanggans[$i]['nama'] }} - {{ $alamats[$i]['short'] }}</div>
+            @else
+            <div class='justify-self-left font-weight-bold'>{{ $pelanggans[$i]['nama'] }}</div>
+            @endif
+            <div id='divDropdownIcon-{{ $pelanggans[$i]['id'] }}' class='justify-self-right' onclick="showDropdown({{ $pelanggans[$i]['id'] }});"><img class='w-0_7rem' src='{{ asset('img/icons/dropdown.svg') }}'></div>
+        </div>
+
+    {{-- DROPDOWN --}}
+        <div id='divDetailDropdown-{{ $pelanggans[$i]['id'] }}' class='b-1px-solid-grey p-0_5rem mt-1rem' style='display:none'>
+            <div class='grid-2-10_auto'>
+                <div><img class='w-2rem' src='{{ asset('img/icons/address.svg') }}'></div>
+                <div>
+                    @if ($alamats[$i]!==null)
+                    @if ($alamats[$i]['long']!==null)
+                    @foreach (json_decode($alamats[$i]['long'],true) as $alamat)
+                    {{ $alamat }}<br>
+                    @endforeach
+                    @endif
+                    @else
+                    -
+                    @endif
+                </div>
+                <div><img class='w-2rem' src='{{ asset('img/icons/call.svg') }}'></div>
+                <div>
+                    @if ($pelanggan_kontaks[$i]!==null)
+                    @if ($pelanggan_kontaks[$i]['kodearea']!==null)
+                    {{ $pelanggan_kontaks[$i]['kodearea'] }} {{ $pelanggan_kontaks[$i]['nomor'] }}
+                    @else
+                    {{ $pelanggan_kontaks[$i]['nomor'] }}
+                    @endif
+                    @else
+                    -
+                    @endif
+                </div>
+            </div>
+            <div class='grid-1-auto justify-items-right mt-1rem'>
+                <a href="{{ route('pelanggan_detail',['pelanggan_id'=>$pelanggans[$i]['id']]) }}" class='bg-color-orange-1 b-radius-50px pl-1rem pr-1rem'>Lebih Detail >></a>
+            </div>
+        </div>
+    </div>
+
+    {{-- END OF DROPDOWN --}}
+    @endfor
 </div>
 
 <script>
@@ -30,59 +78,7 @@
         console.log('pelanggans');console.log(pelanggans);
     }
 
-    if (pelanggans == undefined || pelanggans.length == 0) {
-        console.log("Tidak ada list pelanggan di database!");
-        throw new Error('Tidak ada list pelanggan di database, jadi program di stop disini.');
-    }
-
     $arrayBgColors = ["#FFB08E", "#DEDEDE", "#D1FFCA", "#FFB800"];
-    var iPelanggan = 0;
-    for (const pelanggan of pelanggans) {
-        $randomIndex = Math.floor(Math.random() * 4);
-        var initial = "";
-
-        if (pelanggan.initial !== null && typeof pelanggan.initial !== 'undefined') {
-            initial = pelanggan.initial;
-        }
-
-        // const arr_alamat = JSON.parse(pelanggan.alamat);
-        var html_alamat = 'alamat pelanggan';
-        // for (let i_arrAlamat = 0; i_arrAlamat < arr_alamat.length; i_arrAlamat++) {
-        //     html_alamat += `${arr_alamat[i_arrAlamat]}<br>`;
-        // }
-
-        $htmlPelanggan = "<div class='ml-1rem mr-1rem pb-1rem bb-1px-solid-grey pt-1rem font-size-0_9rem'>" +
-            "<div class='grid-3-10_80_10'>" +
-            "<div class='initial circle-medium grid-1-auto justify-items-center font-weight-bold' style='background-color: " + $arrayBgColors[$randomIndex] + "'>" + initial + "</div>" +
-            "<div class='justify-self-left font-weight-bold'>" + pelanggan.nama + " - " + "daerah" + "</div>" +
-            "<div id='divDropdownIcon-" + pelanggan.id + "' class='justify-self-right' onclick='showDropdown(" + pelanggan.id + ");'><img class='w-0_7rem' src='img/icons/dropdown.svg'></div>" +
-            "</div>" +
-
-            // DROPDOWN
-            "<div id='divDetailDropdown-" + pelanggan.id + "' class='b-1px-solid-grey p-0_5rem mt-1rem' style='display:none'>" +
-
-            "<div class='grid-2-10_auto'>" +
-
-            "<div><img class='w-2rem' src='/img/icons/address.svg'></div>" +
-            "<div>" + html_alamat + "</div>" +
-            "<div><img class='w-2rem' src='/img/icons/call.svg'></div>" +
-            "<div>" + pelanggan.no_kontak + "</div>" +
-
-            "</div>" +
-
-            "<div class='grid-1-auto justify-items-right mt-1rem'>" +
-            "<a href='pelanggan/pelanggan-detail?cust_id=" + pelanggan.id + "' class='bg-color-orange-1 b-radius-50px pl-1rem pr-1rem'>Lebih Detail >></a>" +
-            "</div>" +
-            "</div>" +
-            // END OF DROPDOWN
-
-            "</div>";
-        $("#list_pelanggan").append($htmlPelanggan);
-
-        iPelanggan++;
-    }
-
-
 </script>
 
 <style>

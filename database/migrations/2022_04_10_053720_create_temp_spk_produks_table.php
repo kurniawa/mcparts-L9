@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('produk_id');
             $table->smallInteger('jumlah');
             $table->foreignId('temp_spk_id')->constrained()->onDelete('CASCADE');
-            $table->string('ktrg')->nullable();
+            $table->string('keterangan')->nullable();
         });
     }
 

@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kontaks', function (Blueprint $table) {
+        Schema::create('pelanggan_kontaks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pelanggan_id')->nullable();// pelanggan_id dan ekspedisi_id bisa null, karena memang butuh salah satu nya aja.
-            $table->foreignId('ekspedisi_id')->nullable();//
+            $table->foreignId('pelanggan_id')->constrained()->onDelete('CASCADE');
             $table->string('tipe', 20)->nullable(); // kantor, rumah, hp
             $table->string('kodearea', 10)->nullable();
             $table->string('nomor', 20)->nullable();
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kontaks');
+        Schema::dropIfExists('pelanggan_kontaks');
     }
 };

@@ -1,253 +1,189 @@
-@extends('layouts/main_layout')
-
+@extends('layouts.main_layout')
+@extends('layouts.navbar_v2')
 @section('content')
 
-<header class="header grid-2-auto">
-    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
-    <div>
-        <h2 style="color: white">Pelanggan: Edit Info Pelanggan</h2>
-    </div>
-</header>
-
-<form action="/pelanggan/pelanggan-edit-db" method="POST">
-    @csrf
-    <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
-    <div class="ml-1em mr-1rem mt-2em">
-        <label for="nama" style="font-weight: bold">Nama:</label>
-        <input name="nama_pelanggan" id="nama" class="form-control @error('nama_pelanggan') is-invalid @enderror" type="text" placeholder="Nama/Perusahaan/Pabrik" value="{{ $pelanggan['nama'] }}">
-        @error('nama_pelanggan')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-
-        <label style="font-weight:bold">Alamat:</label>
-        <div id="div_alamat_cust"></div>
-        <div id="btn_tbh_baris" class="btn btn-secondary">+ Tambah Baris Alamat</div>
-        <br><br>
-
-        <label for="ipt_negara" style="font-weight: bold">Negara:</label>
-        <input id="ipt_negara" type="text" name="negara" class="form-control" placeholder="Negara">
-        <input id="ipt_negara_id" type="hidden" name="negara_id">
-
-        <div class="grid-2-auto grid-column-gap-1em mt-1em">
-            <div>
-                <label for="pulau" style="font-weight: bold">Pulau:</label>
-                <input name="pulau" id="pulau" class="form-control @error('pulau') is-invalid @enderror" type="text" placeholder="Pulau">
-                <input type="hidden" id="pulau_id" name="pulau_id">
-                @error('pulau')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            <div>
-                <label for="daerah" style="font-weight: bold">Daerah:</label>
-                <input name="daerah" id="daerah" class="form-control @error('daerah') is-invalid @enderror" type="text" placeholder="Daerah">
-                <input type="hidden" id="daerah_id" name="daerah_id">
-                @error('daerah')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-1">
+            <img class="w-2rem" src="{{ asset('img/icons/pencil.svg') }}" alt="">
         </div>
-        <div class="grid-2-auto grid-column-gap-1em mt-1em">
-            <div>
-                <label for="kontak" style="font-weight: bold">No. Kontak:</label>
-                <input name="kontak_pelanggan" id="kontak" class="input-1 pb-1em" type="text" placeholder="No. Kontak">
+        <div class="col fw-bold fs-4">
+            Edit Data Pelanggan
+        </div>
+    </div>
+
+    <form id="form-new_ekspedisi" action="{{ route('pelanggan_baru_db') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="row mb-3 mt-3">
+            <div class="col-5">
+                <label for="bentuk" style="font-weight: bold">Bentuk:</label>
+                <select name="bentuk" id="bentuk" class="form-select">
+                    <option value="">-</option>
+                    <option value="CV">CV</option>
+                    <option value="PT">PT</option>
+                </select>
             </div>
-            <div>
-                <label for="singkatan" style="font-weight: bold">Initial/Singkatan:</label>
-                <input name="singkatan_pelanggan" id="singkatan" class="input-1 pb-1em" type="text" placeholder="Singkatan (opsional)">
+
+            <div class="col opsi" id="opsi-nik">
+                <div class="text-end">
+                    <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-nik', 'opsi-nik')">X</button>
+                </div>
+                <div class="form-floating">
+                    <input name="nik" id="nik" class="form-control" type="text" placeholder="NIK">
+                    <label for="nik" style="font-weight: bold">NIK:</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="nama" style="font-weight: bold">Nama:</label>
+                <input name="nama" id="nama" class="form-control" type="text" placeholder="Nama" required>
+                <div id="nama-invalid" class="invalid-feedback">Nama harus diisi!</div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-6 opsi" id="opsi-gender">
+                <label for="gender" style="font-weight: bold">Gender:</label>
+                <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-gender', 'opsi-gender')">X</button>
+                <input name="gender" id="gender" class="form-control" type="text" placeholder="Gender">
+            </div>
+            <div class="col-6 opsi" id="opsi-alias">
+                <label for="alias" style="font-weight: bold">Alias:</label>
+                <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-alias', 'opsi-alias')">X</button>
+                <input name="alias" id="alias" class="form-control" type="text" placeholder="Alias">
+            </div>
+            <div class="col-6 opsi" id="opsi-sapaan">
+                <label for="sapaan" style="font-weight: bold">Sapaan:</label>
+                <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-sapaan', 'opsi-sapaan')">X</button>
+                <input name="sapaan" id="sapaan" class="form-control" type="text" placeholder="Sapaan">
+            </div>
+            <div class="col-6 opsi" id="opsi-gelar">
+                <label for="gelar" style="font-weight: bold">Gelar:</label>
+                <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-gelar', 'opsi-gelar')">X</button>
+                <input name="gelar" id="gelar" class="form-control" type="text" placeholder="Gelar">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-6 opsi" id="opsi-initial">
+                <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-initial', 'opsi-initial')">X</button>
+                <div class="form-floating">
+                    <input name="initial" id="initial" class="form-control" type="text" placeholder="Singkatan (opsional)">
+                    <label for="initial" style="font-weight: bold">Initial/Singkatan:</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3 opsi" id="opsi-fpelanggan">
+            <label for="fpelanggan" class="form-label">Foto Pelanggan</label>
+            <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-fpelanggan', 'opsi-fpelanggan')">X</button>
+            <input class="form-control mb-3" type="file" id="fpelanggan" name="pathfpelanggan[]" onchange="previewImage(this.id, 'fpelanggan-preview');">
+            <div class="text-center">
+                {{-- @if ($post->pathfpelanggan)
+                <img src="{{ asset('storage/' . $post->pathfpelanggan) }}" id="fpelanggan-preview" style="max-width: 17rem">
+                @else
+                <img id="fpelanggan-preview" style="max-width: 17rem">
+                @endif --}}
+                <img id="fpelanggan-preview" style="max-width: 17rem">
+            </div>
+        </div>
+
+        <div class="mb-3 opsi" id="opsi-fktp">
+            <label for="fktp" class="form-label">Foto KTP</label>
+            <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-fktp', 'opsi-fktp')">X</button>
+            <input class="form-control mb-3" type="file" id="fktp" name="pathfpelanggan[]" onchange="previewImage(this.id, 'fpelanggan-preview');">
+            <div class="text-center">
+                <img id="fktp-preview" style="max-width: 17rem">
             </div>
         </div>
 
         <br>
         <label for="keterangan" style="font-weight:bold">Keterangan lain:</label>
-        <textarea id="keterangan" class="mt-1em pt-1em pl-1rem text-area-mode-1" name="keterangan" placeholder="Keterangan lain (opsional)"></textarea>
-        <br>
-        <br>
-        <h6>Apakah Pelanggan ini akan ditetapkan sebagai Reseller juga?</h6>
-        <input type="radio" name="is_reseller" id="is_reseller_no" value="no" checked> <label for="is_reseller_no">TIDAK</label>
-        <br>
-        <input type="radio" name="is_reseller" id="is_reseller_yes" value="yes" @if ($pelanggan['is_reseller']==='yes') checked @endif> <label for="is_reseller_yes">YA</label>
-    </div>
+        <textarea id="keterangan" class="form-control" name="keterangan" placeholder="Keterangan lain (opsional)" rows="3"></textarea>
 
-    <br><br>
+        <br><br>
+        <div>
+            <label for="">Opsional:</label><br>
+            <button type="button" class="btn btn-outline-primary btn-sm" id="btn-nik" onclick="showHide('opsi-nik', this.id)">+NIK</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="btn-alias" onclick="showHide('opsi-alias', this.id)">+Alias</button>
+            <button type="button" class="btn btn-outline-success btn-sm" id="btn-gender" onclick="showHide('opsi-gender', this.id)">+Gender</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" id="btn-gelar" onclick="showHide('opsi-gelar', this.id)">+Gelar</button>
+            <button type="button" class="btn btn-outline-warning btn-sm" id="btn-sapaan" onclick="showHide('opsi-sapaan', this.id)">+Sapaan</button>
+            <button type="button" class="btn btn-outline-info btn-sm" id="btn-initial" onclick="showHide('opsi-initial', this.id)">+Initial</button>
+            {{-- <button type="button" class="btn btn-outline-dark btn-sm" id="btn-fpelanggan" onclick="showHide('opsi-fpelanggan', this.id)">+Foto</button> --}}
+            {{-- <button type="button" class="btn btn-outline-primary btn-sm" id="btn-fktp" onclick="showHide('opsi-fktp', this.id)">+F.KTP</button> --}}
+        </div>
 
-    <div class="m-1em">
-        <button type="submit" class="h-4em bg-color-orange-2 w-100 grid-1-auto">
-            <span class="justify-self-center font-weight-bold">Konfirmasi Perubahan</span>
-        </button>
-    </div>
-</form>
+
+        <br><br>
+        <div class="text-center">
+            <button type="submit" class="btn btn-warning">
+                <span class="justify-self-center font-weight-bold">Simpan Perubahan</span>
+            </button>
+        </div>
+    </form>
+
+
+
+</div>
+
+
+<style>
+
+</style>
 
 <script>
-    const pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
-    const negara = {!! json_encode($negara, JSON_HEX_TAG) !!};
-    const pulau = {!! json_encode($pulau, JSON_HEX_TAG) !!};
-    const daerah = {!! json_encode($daerah, JSON_HEX_TAG) !!};
-    const label_negaras = {!! json_encode($label_negaras, JSON_HEX_TAG) !!};
-    const label_pulaus = {!! json_encode($label_pulaus, JSON_HEX_TAG) !!};
-    const arr_label_daerahs = {!! json_encode($arr_label_daerahs, JSON_HEX_TAG) !!};
+    // Just use a simple button instead of a submit button. And call a JavaScript function to handle form submit:
 
-    var iLabelDaerahs = 0;
+    // <input type="button" name="submit" value="submit" onclick="submit_form();"/>
+    // Function within a script tag:
 
-    if (show_console) {
-        console.log('pelanggan');console.log(pelanggan);
-        console.log('negara');console.log(negara);
-        console.log('pulau');console.log(pulau);
-        console.log('daerah');console.log(daerah);
-        console.log('label_pulaus');console.log(label_pulaus);
-        console.log('arr_label_daerahs');console.log(arr_label_daerahs);
-    }
+    // function submit_form() {
+    //     if (conditions) {
+    //         document.forms['myform'].submit();
+    //     }
+    //     else {
+    //         returnToPreviousPage();
+    //     }
+    // }
 
-    /* NEGARA, PULAU, DAERAH */
+    function formValidation() {
+        $nama = $("#nama").val();
+        $alamat = $("#alamat").val();
+        $peringatan = $("#peringatan");
 
-    $ipt_negara = $('#ipt_negara');
-    $ipt_negara_id = $('#ipt_negara_id');
-    var ipt_pulau = document.getElementById('pulau');
-    var ipt_pulau_id = document.getElementById('pulau_id');
-    var ipt_daerah = document.getElementById('daerah');
-    var ipt_daerah_id = document.getElementById('daerah_id');
-
-    $ipt_negara.val(negara.nama);
-    $ipt_negara_id.val(negara.id);
-
-    $ipt_negara.autocomplete({
-        source: label_negaras,
-        select: function(event, ui) {
-            $ipt_negara_id.val(ui.item.id);
-            ubahNegara(ui.item.id);
-        }
-    });
-
-    ubahNegara(parseInt($ipt_negara_id.val())); // Settingan awal page behavior untuk pulau dan daerah
-
-    if (pulau !== null) {
-        ipt_pulau.value = pulau.nama;
-        ipt_pulau_id.value = pulau.id;
-        iLabelDaerahs = pulau.id-1;
-
-        if (show_console) {
-            console.log(`arr_label_daerahs[${iLabelDaerahs}]`);console.log(arr_label_daerahs[iLabelDaerahs]);
-        }
-
-        $('#daerah').autocomplete({
-            source: arr_label_daerahs[iLabelDaerahs],
-            select: function(event, ui) {
-                if (show_console) {
-                    console.log(ui.item);
-                }
-                $('#daerah_id').val(ui.item.id);
+        if ($nama === "") {
+            $peringatan.html("Nama Ekspedisi harus diisi!");
+            if ($peringatan.css("display") == "none") {
+                $peringatan.show();
             }
-        });
-    }
+            alert("Nama Ekspedisi harus diisi!");
+            history.back();
+            return false;
+        }
 
-    if (daerah !== null) {
-        ipt_daerah.value = daerah.nama;
-        ipt_daerah_id.value = daerah.id;
-    }
-
-    $("#pulau").autocomplete({
-        source: label_pulaus,
-        select: function(event, ui) {
-            if (show_console) {
-                console.log(ui.item);
+        if ($alamat === '') {
+            $peringatan.html("Alamat Ekspedisi harus diisi!");
+            if ($peringatan.css("display") == "none") {
+                $peringatan.show();
             }
-            $("#pulau_id").val(ui.item.id);
-            autcompleteIptDaerah();
+            history.back();
+            return false;
         }
-    });
 
-    function autcompleteIptDaerah() {
-        iLabelDaerahs = $('#pulau_id').val()-1;
-        if (show_console) {
-            console.log('iLabelDaerahs:');console.log(iLabelDaerahs);
-        }
-        $('#daerah').autocomplete({
-            source: arr_label_daerahs[iLabelDaerahs],
-            select: function(event, ui) {
-                if (show_console) {
-                    console.log(ui.item);
-                }
-                $('#daerah_id').val(ui.item.id);
-            }
-        });
+        return true;
     }
 
-    function ubahNegara(idNegaraTerpilih) {
-        // if (show_console) {
-        //     console.log('idNegaraTerpilih');console.log(idNegaraTerpilih);
-        // }
-        if (idNegaraTerpilih !== 1) {
-            ipt_pulau.value = '-';
-            ipt_pulau.readOnly = true;
-            ipt_pulau_id.value = null;
-            /*
-            Fungsi ini belum selesai karena belum ada tindakan untuk daerah nya harus
-            jadi gimana, ketika negara diubah.
-            */
-           return;
-        }
-        ipt_pulau.readOnly = false;
-        ipt_pulau.value = pulau.nama;
-        ipt_pulau_id.value = pulau.id;
+    function showHide(toshow, tohide) {
+        $(`#${toshow}`).show();
+        $(`#${tohide}`).hide();
     }
 
-    /* ALAMAT */
 
-    var htmlAlamatEks = '';
-    var i_arrAlamatEks = 1;
-    const arr_alamat_cust = JSON.parse(pelanggan.alamat);
-
-    if (show_console === true) {
-        console.log('arr_alamat_cust');
-        console.log(arr_alamat_cust);
-    }
-
-    arr_alamat_cust.forEach(alamat_eks => {
-        htmlAlamatEks += `<label>Baris ${i_arrAlamatEks}:<br></label><input class="form-control" type="text" name='alamat_pelanggan[]' value="${alamat_eks}">`;
-        i_arrAlamatEks++;
-    });
-
-    document.getElementById('div_alamat_cust').innerHTML = htmlAlamatEks;
-
-    document.getElementById('btn_tbh_baris').addEventListener('click', function () {
-        var label_tbh_baris = document.createElement('label');
-        label_tbh_baris.textContent = `Baris ${i_arrAlamatEks}:`;
-        var ipt_tbh_baris = document.createElement('input');
-        ipt_tbh_baris.name = "alamat_pelanggan[]";
-        ipt_tbh_baris.className = "form-control";
-        ipt_tbh_baris.type = "text";
-        document.getElementById('div_alamat_cust').appendChild(label_tbh_baris);
-        document.getElementById('div_alamat_cust').appendChild(ipt_tbh_baris);
-        i_arrAlamatEks++;
-    });
-
-    /* NO KONTAK & SINGKATAN & KETERANGAN LAIN */
-    if (pelanggan.no_kontak !== null) {
-        document.getElementById('kontak').value = pelanggan.no_kontak;
-    }
-    if (pelanggan.initial !== null) {
-        document.getElementById('singkatan').value = pelanggan.initial;
-    }
-    if (pelanggan.ktrg !== null) {
-        document.getElementById('keterangan').value = pelanggan.ktrg;
-    }
 </script>
 
 <style>
-    #divToggleReseller {
-        height: 1.5em;
-    }
-
-    .btn-atas-kanan {
-        display: inline;
-        border-radius: 25px;
-        background-color: #FFED50;
-        padding: 0.5em 1em 0.5em 1em;
-        position: absolute;
-        top: 1em;
-        right: 0.5em;
-    }
-
     .div-filter-icon {
         justify-self: end;
     }
@@ -261,8 +197,8 @@
 
     .circle-medium {
         border-radius: 100%;
-        width: 2.5em;
-        height: 2.5em;
+        width: 3em;
+        height: 3em;
     }
 
     .icon-img {
@@ -275,6 +211,9 @@
     .div-cari-filter {
         border-bottom: 0.5px solid #E4E4E4;
     }
-
+    .opsi {
+        display: none;
+    }
 </style>
 @endsection
+

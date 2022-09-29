@@ -52,7 +52,7 @@
     </div>
 
     <div class="row mt-2">
-        @foreach ($kontaks as $kontak)
+        @foreach ($ekspedisi_kontaks as $kontak)
         <div class="col">
             @if ($kontak['is_aktual']=='yes')
             <div class="d-inline-block border border-success rounded p-2 border-3">
@@ -84,7 +84,7 @@
     <div class="row mt-2">
         <div class="col-1">Ktrg.:</div>
         <div class="col">
-            <textarea class="form-control" readonly>{{ $ekspedisi['ktrg'] }}</textarea>
+            <textarea class="form-control" readonly>{{ $ekspedisi['keterangan'] }}</textarea>
         </div>
     </div>
 

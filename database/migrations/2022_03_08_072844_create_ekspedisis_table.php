@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('bentuk', 10)->nullable(); // Bentuk perusahaan, bisa CV, PT, dll.
             $table->string('nama');
-            $table->string('ktrg')->nullable();
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

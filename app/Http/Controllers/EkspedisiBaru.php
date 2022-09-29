@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Alamat;
 use App\Models\Ekspedisi;
 use App\Models\EkspedisiAlamat;
+use App\Models\EkspedisiKontak;
 use App\Models\Kontak;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
@@ -77,7 +78,7 @@ class EkspedisiBaru extends Controller
             $ekspedisi = Ekspedisi::create([
                 'bentuk' => $bentuk,
                 'nama' => $nama,
-                'ktrg' => $keterangan,
+                'keterangan' => $keterangan,
             ]);
             $success_logs[] = "SUCCESS: Ekspedisi Baru dengan nama $ekspedisi[nama] berhasil dibuat!";
 
@@ -111,14 +112,14 @@ class EkspedisiBaru extends Controller
             }
 
             if ($nomor!==null) {
-                $kontak=Kontak::create([
+                $ekspedisi_kontak=EkspedisiKontak::create([
                     'ekspedisi_id'=>$ekspedisi['id'],
                     'nomor'=>$nomor,
                     'kodearea'=>$kodearea,
                     'tipe'=>$tipekontak,
                     'is_aktual'=>'yes'
                 ]);
-                $success_logs[] = "SUCC: Nomor Baru dengan nomor $kontak[nomor] berhasil dibuat!";
+                $success_logs[] = "SUCC: Nomor Baru dengan nomor $ekspedisi_kontak[nomor] berhasil dibuat!";
             } else {
                 $warning_logs[]='Tidak ada input nomor. Maka nomor tidak dibuat dan tidak dihubungkan dengan ekspedisi ini.';
             }

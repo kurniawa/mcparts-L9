@@ -19,7 +19,7 @@ class Tsixpack extends Model
             ->groupBy('id', 'tsixpack_id', 'harga', 'tipe_bahan', 'created_at');
 
         $label_tsixpacks = DB::table('tsixpacks')
-            ->select('tsixpacks.id', 'tsixpacks.nama AS label', 'tsixpacks.nama AS value', 'tsixpack_terbaru.harga', 'tsixpack_terbaru.tipe_bahan', 'tsixpacks.ktrg')
+            ->select('tsixpacks.id', 'tsixpacks.nama AS label', 'tsixpacks.nama AS value', 'tsixpack_terbaru.harga', 'tsixpack_terbaru.tipe_bahan', 'tsixpacks.keterangan')
             ->joinSub($tsixpack_terbaru, 'tsixpack_terbaru', function ($join) {
                 $join->on('tsixpacks.id', '=', 'tsixpack_terbaru.tsixpack_id');
             })
@@ -36,7 +36,7 @@ class Tsixpack extends Model
             ->groupBy('id', 'tsixpack_id', 'harga', 'tipe_bahan', 'created_at');
 
         $label_tsixpacks = DB::table('tsixpacks')
-            ->select('tsixpacks.id', 'tsixpacks.nama AS label', 'tsixpacks.nama AS value', 'tsixpack_terbaru.harga', 'tsixpack_terbaru.tipe_bahan', 'tsixpacks.ktrg')
+            ->select('tsixpacks.id', 'tsixpacks.nama AS label', 'tsixpacks.nama AS value', 'tsixpack_terbaru.harga', 'tsixpack_terbaru.tipe_bahan', 'tsixpacks.keterangan')
             ->joinSub($tsixpack_terbaru, 'tsixpack_terbaru', function ($join) {
                 $join->on('tsixpacks.id', '=', 'tsixpack_terbaru.tsixpack_id');
             })
@@ -53,7 +53,7 @@ class Tsixpack extends Model
             ->groupBy('id', 'tsixpack_id', 'harga', 'tipe_bahan', 'created_at');
 
         $label_tsixpacks = DB::table('tsixpacks')
-            ->select('tsixpacks.id', 'tsixpacks.nama AS label', 'tsixpacks.nama AS value', 'tsixpack_terbaru.harga', 'tsixpack_terbaru.tipe_bahan', 'tsixpacks.ktrg')
+            ->select('tsixpacks.id', 'tsixpacks.nama AS label', 'tsixpacks.nama AS value', 'tsixpack_terbaru.harga', 'tsixpack_terbaru.tipe_bahan', 'tsixpacks.keterangan')
             ->joinSub($tsixpack_terbaru, 'tsixpack_terbaru', function ($join) {
                 $join->on('tsixpacks.id', '=', 'tsixpack_terbaru.tsixpack_id');
             })

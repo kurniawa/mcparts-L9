@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kontak extends Model
+class PelangganKontak extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
-
+    protected $guarded=['id'];
 }

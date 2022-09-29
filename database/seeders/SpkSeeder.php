@@ -26,7 +26,7 @@ class SpkSeeder extends Seeder
         //         'nama_nota' => 'SJ BigDot(MC) Polos uk.JB + jht.JB',
         //         'jumlah' => 150,
         //         'harga' => 18000,
-        //         'ktrg' => null,
+        //         'keterangan' => null,
         //         'spk_produk_id' => 1,
         //         'status' => 'PROSES',
         //     ], [
@@ -35,7 +35,7 @@ class SpkSeeder extends Seeder
         //         'nama_nota' => 'SJ Motif Sixpack 2 Warna + jht.Univ',
         //         'harga' => 27500,
         //         'jumlah' => 150,
-        //         'ktrg' => null,
+        //         'keterangan' => null,
         //         'spk_produk_id' => 2,
         //         'status' => 'PROSES',
         //     ], [
@@ -44,7 +44,7 @@ class SpkSeeder extends Seeder
         //         'nama_nota' => 'SJ Standar Supra Fit',
         //         'harga' => 12500,
         //         'jumlah' => 150,
-        //         'ktrg' => null,
+        //         'keterangan' => null,
         //         'spk_produk_id' => 3,
         //         'status' => 'PROSES',
         //     ], [
@@ -53,7 +53,7 @@ class SpkSeeder extends Seeder
         //         'nama_nota' => 'TP Fox Dimensi',
         //         'harga' => 5500,
         //         'jumlah' => 300,
-        //         'ktrg' => null,
+        //         'keterangan' => null,
         //         'spk_produk_id' => 4,
         //         'status' => 'PROSES',
         //     ], [
@@ -61,7 +61,7 @@ class SpkSeeder extends Seeder
         //         'nama' => 'Busa-Stang',
         //         'nama_nota' => 'Busa-Stang',
         //         'harga' => 8000, 'jumlah' => 150,
-        //         'ktrg' => null,
+        //         'keterangan' => null,
         //         'spk_produk_id' => 5,
         //         'status' => 'PROSES',
         //     ], [
@@ -71,7 +71,7 @@ class SpkSeeder extends Seeder
         //         'nama_nota' => 'SJ Bahan(A) T.Sixpack + Busa uk.JB + jht.JB',
         //         'harga' => 30000,
         //         'jumlah' => 150,
-        //         'ktrg' => null,
+        //         'keterangan' => null,
         //         'spk_produk_id' => 6,
         //         'status' => 'PROSES',
         //     ], [
@@ -80,7 +80,7 @@ class SpkSeeder extends Seeder
         //         'nama_nota' => 'Stiker Api',
         //         'harga' => 4000,
         //         'jumlah' => 300,
-        //         'ktrg' => null,
+        //         'keterangan' => null,
         //         'spk_produk_id' => 7,
         //         'status' => 'PROSES',
         //     ]

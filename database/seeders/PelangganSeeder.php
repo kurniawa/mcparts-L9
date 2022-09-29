@@ -8,6 +8,7 @@ use App\Models\Kontak;
 use App\Models\Pelanggan;
 use App\Models\PelangganAlamat;
 use App\Models\PelangganEkspedisi;
+use App\Models\PelangganKontak;
 use Illuminate\Database\Seeder;
 
 class PelangganSeeder extends Seeder
@@ -1654,7 +1655,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'NUS',
-                'ktrg' => null,
+                'keterangan' => null,
                 'reseller' => 'Akong',
                 'ekspedisi' => [['nama'=>'Mitra Buana']],
             ], [
@@ -2546,16 +2547,18 @@ class PelangganSeeder extends Seeder
                     PelangganAlamat::create([
                         'pelanggan_id'=>$pelanggan_new['id'],
                         'alamat_id'=>$alamat_new['id'],
+                        'tipe'=>'UTAMA',
                     ]);
                 }
             }
             if (isset($pelanggan[$i]['kontak']) && $pelanggan[$i]['kontak'] !== null) {
                 foreach ($pelanggan[$i]['kontak'] as $kontak) {
-                    Kontak::create([
+                    PelangganKontak::create([
                         'pelanggan_id'=>$pelanggan_new['id'],
                         'tipe'=>$kontak['tipe'],
                         'kodearea'=>$kontak['kodearea'],
                         'nomor'=>$kontak['nomor'],
+                        'is_aktual'=>'yes',
                     ]);
                 }
             }

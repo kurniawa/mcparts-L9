@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tsixpacks', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('ktrg')->nullable();
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

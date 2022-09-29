@@ -62,8 +62,8 @@
     for (var i = 0; i < spk_items.length; i++) {
         var keterangan = "";
 
-        if (spk_items[i].ktrg !== null) {
-            keterangan = spk_items[i].ktrg.replace(new RegExp('\r?\n', 'g'), '<br />');
+        if (spk_items[i].keterangan !== null) {
+            keterangan = spk_items[i].keterangan.replace(new RegExp('\r?\n', 'g'), '<br />');
         }
         htmlItemList = htmlItemList +
             `<form method='POST' action='/spk/spkBaru-spkItem-editDelete' class='divItem grid-3-auto_auto_10 pt-0_5em pb-0_5em bb-1px-solid-grey'>

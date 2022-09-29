@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string("tipe", 20)->nullable(); // pribadi, organisasi/badan/perusahaan
             $table->string("bentuk", 10)->nullable(); // PT, CV, Yayasan, Sekolah, dll.
             $table->string("nama", 100);
-            $table->string("nama_org", 100)->nullable();
+            $table->string("nama_organisasi", 100)->nullable();
+            $table->string("nama_toko", 100)->nullable();
+            $table->string("nama_pemilik", 100)->nullable();
             $table->enum("gender", ['pria', 'wanita'])->nullable();
             $table->string("nik", 50)->nullable();
             $table->string("alias", 100)->nullable();

@@ -20,7 +20,7 @@ class Standar extends Model
             ->groupBy('id', 'standar_id', 'harga', 'created_at');
 
         $label_standars = DB::table('standars')
-            ->select('standars.id', 'standars.nama AS label', 'standars.nama AS value', 'std_terbaru.harga', 'standars.ktrg')
+            ->select('standars.id', 'standars.nama AS label', 'standars.nama AS value', 'std_terbaru.harga', 'standars.keterangan')
             ->joinSub($std_terbaru, 'std_terbaru', function ($join) {
                 $join->on('standars.id', '=', 'std_terbaru.standar_id');
             })

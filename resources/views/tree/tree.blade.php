@@ -12,7 +12,7 @@
             <tr><th>Jml Sls</th><td>:</td><td>{{ $spk_produk['jml_selesai'] }}</td></tr>
             <tr><th>Jml Sudah Nota</th><td>:</td><td>{{ $spk_produk['jml_sdh_nota'] }}</td></tr>
             <tr><th>Jml Sudah SJ</th><td>:</td><td>{{ $spk_produk['jumlah_sudah_srjalan'] }}</td></tr>
-            <tr><th>Keterangan</th><td>:</td><td>{{ $spk_produk['ktrg'] }}</td></tr>
+            <tr><th>Keterangan</th><td>:</td><td>{{ $spk_produk['keterangan'] }}</td></tr>
         </table>
     </div>
 </div>

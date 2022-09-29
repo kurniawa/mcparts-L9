@@ -199,7 +199,7 @@ class SpkBaruController extends Controller
                     'jml_blm_sls' => $post['jumlah'],
                     'jml_t' => $post['jumlah'],
                     'harga' => $produk_harga['harga'],
-                    'ktrg' => null,
+                    'keterangan' => null,
                     'status' => 'PROSES',
                 ]);
                 $success_logs[]="Item baru berhasil di tambahkan ke SPK-$post[spk_id]";
@@ -382,7 +382,7 @@ class SpkBaruController extends Controller
                     'jml_blm_sls' => $temp_spk_produks[$i]->jumlah,
                     'jml_t' => $temp_spk_produks[$i]->jumlah,
                     'harga' => $produk_harga['harga'],
-                    'ktrg' => $temp_spk_produks[$i]->ktrg,
+                    'keterangan' => $temp_spk_produks[$i]->keterangan,
                     'status' => 'PROSES',
                 ]);
             }

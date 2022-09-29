@@ -19,7 +19,7 @@ class Busastang extends Model
             ->groupBy('id', 'busastang_id', 'harga', 'created_at');
 
         $label_busastangs = DB::table('busastangs')
-            ->select('busastangs.id', 'busastangs.nama AS label', 'busastangs.nama AS value', 'busastang_terbaru.harga', 'busastangs.ktrg')
+            ->select('busastangs.id', 'busastangs.nama AS label', 'busastangs.nama AS value', 'busastang_terbaru.harga', 'busastangs.keterangan')
             ->joinSub($busastang_terbaru, 'busastang_terbaru', function ($join) {
                 $join->on('busastangs.id', '=', 'busastang_terbaru.busastang_id');
             })

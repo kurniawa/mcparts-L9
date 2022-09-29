@@ -26,7 +26,7 @@ class Bahan extends Model
         //     ->selectRaw('id, bahan_id, harga, MAX(created_at) GROUP BY bahan_id');
 
         $label_bahans = DB::table('bahans')
-            ->select('bahans.id', 'bahans.nama AS label', 'bahans.nama AS value', 'bahan_terbaru.harga', 'bahans.ktrg')
+            ->select('bahans.id', 'bahans.nama AS label', 'bahans.nama AS value', 'bahan_terbaru.harga', 'bahans.keterangan')
             ->joinSub($bahan_terbaru, 'bahan_terbaru', function ($join) {
                 $join->on('bahans.id', '=', 'bahan_terbaru.bahan_id');
             })

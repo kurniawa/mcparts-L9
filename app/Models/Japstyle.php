@@ -19,7 +19,7 @@ class Japstyle extends Model
             ->groupBy('id', 'japstyle_id', 'harga', 'tipe_bahan', 'created_at');
 
         $label_japstyles = DB::table('japstyles')
-            ->select('japstyles.id', 'japstyles.nama AS label', 'japstyles.nama AS value', 'japstyle_terbaru.harga', 'japstyle_terbaru.tipe_bahan', 'japstyles.ktrg')
+            ->select('japstyles.id', 'japstyles.nama AS label', 'japstyles.nama AS value', 'japstyle_terbaru.harga', 'japstyle_terbaru.tipe_bahan', 'japstyles.keterangan')
             ->joinSub($japstyle_terbaru, 'japstyle_terbaru', function ($join) {
                 $join->on('japstyles.id', '=', 'japstyle_terbaru.japstyle_id');
             })
@@ -36,7 +36,7 @@ class Japstyle extends Model
             ->groupBy('id', 'japstyle_id', 'harga', 'tipe_bahan', 'created_at');
 
         $label_japstyles = DB::table('japstyles')
-            ->select('japstyles.id', 'japstyles.nama AS label', 'japstyles.nama AS value', 'japstyle_terbaru.harga', 'japstyle_terbaru.tipe_bahan', 'japstyles.ktrg')
+            ->select('japstyles.id', 'japstyles.nama AS label', 'japstyles.nama AS value', 'japstyle_terbaru.harga', 'japstyle_terbaru.tipe_bahan', 'japstyles.keterangan')
             ->joinSub($japstyle_terbaru, 'japstyle_terbaru', function ($join) {
                 $join->on('japstyles.id', '=', 'japstyle_terbaru.japstyle_id');
             })
@@ -53,7 +53,7 @@ class Japstyle extends Model
             ->groupBy('id', 'japstyle_id', 'harga', 'tipe_bahan', 'created_at');
 
         $label_japstyles = DB::table('japstyles')
-            ->select('japstyles.id', 'japstyles.nama AS label', 'japstyles.nama AS value', 'japstyle_terbaru.harga', 'japstyle_terbaru.tipe_bahan', 'japstyles.ktrg')
+            ->select('japstyles.id', 'japstyles.nama AS label', 'japstyles.nama AS value', 'japstyle_terbaru.harga', 'japstyle_terbaru.tipe_bahan', 'japstyles.keterangan')
             ->joinSub($japstyle_terbaru, 'japstyle_terbaru', function ($join) {
                 $join->on('japstyles.id', '=', 'japstyle_terbaru.japstyle_id');
             })

@@ -1,296 +1,112 @@
-@extends('layouts/main_layout')
+@extends('layouts.main_layout')
+@extends('layouts.navbar')
 
 @section('content')
 
-<div class="header grid-2-auto">
-    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
-</div>
-
-<div class="threeDotMenu" style="z-index: 200">
-    <div class="threeDot">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-    </div>
-    <div class="divThreeDotMenuContent">
-        <form action="/pelanggan/pelanggan-edit" method="GET">
-            <button style="width: 100%" class="threeDotMenuItem">
-                <img class="w-1em" src="/img/icons/edit.svg" alt="">
-                <span class="">Edit Informasi Pelanggan</span>
-            </button>
-            <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
-        </form>
-        <form action="/pelanggan/pelanggan-ekspedisi" method="GET">
-            <button style="width: 100%" class="threeDotMenuItem">
-                <img class="w-1em" src="/img/icons/edit.svg" alt="">
-                <span class="">Pelanggan <-> Ekspedisi</span>
-            </button>
-            <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
-        </form>
-        <form action="/pelanggan/tetapkan-reseller" method="GET">
-            <button style="width: 100%" class="threeDotMenuItem">
-                <img class="w-1em" src="/img/icons/edit.svg" alt="">
-                <span class="">Pelanggan <-> Reseller</span>
-            </button>
-            <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
-        </form>
-        <form action="/pelanggan/hapus" method="POST" onsubmit="return confirm('Yakin ingin menghapus Pelanggan ini?')">
-            @csrf
-            <button style="width: 100%" class="threeDotMenuItem">
-                <img class="w-1em" src="/img/icons/trash-can.svg" alt="">
-                <span class="">Hapus Pelanggan</span>
-            </button>
-            <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
-        </form>
-
-    </div>
-</div>
-
-<div id="areaClosingDotMenu" onclick="closingDotMenuContent();"></div>
-
-<div class="ml-1em mr-0_5em mt-0_5em">
-    <div class="grid-1-auto justify-items-center">
-        <div id="customerAbbr" class="circle-medium bg-color-soft-red grid-1-auto font-weight-bold justify-items-center">{{ $pelanggan['initial'] }}</div>
-        <h2 id="customerName" class="">Nama Customer</h2>
-    </div>
-</div>
-
-<!-- INFO PELANGGAN DAN EKSPEDISI -->
-<div class="grid-2-50_50 grid-row-gap-0_5em grid-column-gap-0_5em ml-0_5em mr-0_5em">
-
-    <div class="b-1px-solid-grey">
-
-        <div class="p-2">
-            <div class="grid-1-auto justify-items-center">
-                <img class="w-2_5em" src="/img/icons/address.svg" alt="">
-            </div>
-            <div id="customerInfo" class="mt-0_5em font-size-0_9em font-weight-bold">Alamat Customer</div>
+<div class="container">
+    <div class="d-flex align-items-center">
+        <div>
+            <img class="w-2_5rem" src="{{ asset('img/icons/boy.svg') }}">
         </div>
-
+        <span class="fs-2 ms-2">Detail Pelanggan:</span>
+    </div>
+    <div style="text-align: center">
+        <h1>{{ $pelanggan['nama'] }}</h1>
     </div>
 
-    <?php
-    function createElementEkspedisi($index)
-    {
-        echo "<div class='b-1px-solid-grey'>
-
-            <div class='p-2'>
-                <div class='grid-1-auto justify-items-center'>
-                    <img class='w-2_5em' src='/img/icons/truck.svg' alt=''>
+    <div class="row">
+        @for ($i = 0; $i < count($alamats); $i++)
+        <div class="col">
+            @if ($pelanggan_alamats[$i]['tipe']==="UTAMA")
+            <div class="d-inline-block border border-primary rounded p-2 border-3">
+            @else
+            <div class="d-inline-block border border-secondary rounded p-2">
+            @endif
+                <div class="d-flex flex-row mt-2 mb-2 align-items-center">
+                    <img class="w-2_5rem" src="{{ asset('img/icons/address.svg') }}" alt="">
+                    <div class="ms-2">
+                        @foreach (json_decode($alamats[$i]['long']) as $alm)
+                        <div>{{ $alm }}</div>
+                        @endforeach
+                    </div>
+                    <div class="ms-3 align-self-end">
+                        <a href="{{ route('pelanggan_edit_alamat',['alamat_id'=>$alamats[$i]['id'],'pelanggan_id'=>$pelanggan['id']]) }}"><img style="width: 1rem;" src="{{ asset('img/icons/edit.svg') }}"></a>
+                        <form action="{{ route('pelanggan_hapus_alamat') }}" method="POST" onsubmit="return confirm('Apa Anda yakin ingin menghapus alamat ini?')" class="mt-2">
+                            @csrf
+                            <input type="hidden" name="alamat_id" value="{{ $alamats[$i]['id'] }}">
+                            <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
+                            <input type="hidden" name="pelanggan_alamat_id" value="{{ $pelanggan_alamats[$i]['id'] }}">
+                            <button type="submit" class="btn-no-styling"><img src="{{ asset('img/icons/delete.svg') }}" style="width: 1rem;"></button>
+                        </form>
+                    </div>
                 </div>
-                <div id='customerExpedition-$index' class='mt-0_5em font-size-0_9em font-weight-bold'>Data ekspedisi belum ada</div>
             </div>
-
-            <!-- <div class='grid-1-auto justify-items-right'>
-    <img class='w-1em' src='/img/icons/edit-grey.svg' alt=''>
-</div> -->
-
-        </div>";
-    }
-    // echo $jml_ekspedisi;
-    // br_2x();
-    if ($jml_ekspedisi == 0) {
-        createElementEkspedisi(0);
-    } elseif ($jml_ekspedisi >= 1) {
-        for ($i = 0; $i < $jml_ekspedisi; $i++) {
-            createElementEkspedisi($i);
-        }
-    }
-    ?>
-
-
-</div>
-<!-- END - INFO PELANGGAN DAN EKSPEDISI -->
-
-<div id="divReseller" class="m-2"></div>
-
-<!-- DAFTAR PRODUK CUSTOMER INI -->
-<div class="ml-0_5em mr-0_5em mt-1em">
-
-    <div class="grid-2-10_auto grid-row-gap-0_5em">
-        <img class="w-2_5em" src="/img/icons/shopping-cart.svg" alt="">
-        <div style="font-weight:bold;">Daftar Produk Orderan Pelanggan ini:</div>
+        </div>
+        @endfor
     </div>
+
+    <div class="row mt-2">
+        @foreach ($pelanggan_kontaks as $kontak)
+        <div class="col">
+            @if ($kontak['is_aktual']=='yes')
+            <div class="d-inline-block border border-success rounded p-2 border-3">
+            @else
+            <div class="d-inline-block border border-secondary rounded p-2">
+            @endif
+                <div class="d-flex flex-row mt-2 mb-2 align-items-center">
+                    <img class="w-2_5rem" src="{{ asset('img/icons/call.svg') }}" alt="">
+                    <span class="ms-2">
+                        @if ($kontak['kodearea']!==null)
+                        ({{ $kontak['kodearea'] }}) {{ $kontak['nomor'] }}
+                        @else
+                        {{ $kontak['nomor'] }}
+                        @endif
+                    </span>
+                    <div class="ms-3 align-self-end">
+                        <a href="{{ route('pelanggan_edit_kontak') }}"><img style="width: 1rem;" src="{{ asset('img/icons/edit.svg') }}"></a>
+                        <form action="{{ route('pelanggan_hapus_kontak') }}" method="POST" onsubmit="return confirm('Apa Anda yakin ingin menghapus kontak ini?')" class="mt-2">
+                            @csrf
+                            <button type="submit" class="btn-no-styling"><img src="{{ asset('img/icons/delete.svg') }}" style="width: 1rem;"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-1">Ktrg.:</div>
+        <div class="col">
+            <textarea class="form-control" readonly>{{ $pelanggan['keterangan'] }}</textarea>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row mt-2 mb-2 align-items-center">
+        <img class="w-2_5rem" src="{{ asset('img/icons/truck.svg') }}" alt="">
+        <div class="font-weight-bold">Daftar Pelanggan dengan Ekspedisi ini:</div>
+    </div>
+
+    <div class="d-flex flex-row mt-2 mb-2 align-items-center">
+        <img class="w-2_5rem" src="{{ asset('img/icons/letter.svg') }}" alt="">
+        <div class="font-weight-bold">Daftar Surat Jalan dengan Ekspedisi ini:</div>
+    </div>
+
 </div>
-<!-- END - DAFTAR PRODUK CUSTOMER INI -->
-@if (count($produks) !== 0)
-<table id="containerOrderanPelanggan" class="m-1em" style="width: 100%">
-    <tr><th>Nama Nota</th><th>Price List</th><th>Harga Khusus</th><th>Nota Terakhir</th></tr>
-    @for ($i = 0; $i < count($produks); $i++)
-        <tr>
-            <td>{{ $produks[$i]['nama_nota'] }}</td>
-            <td>{{ $hargas[$i]['harga'] }}</td>
-            <td>{{ $pelanggan_produks[$i]['harga_khusus'] }}</td>
-            <td>
-                <a href="/nota/nota-detail?nota_id={{ $pelanggan_produks[$i]['nota_id'] }}">
-                    <span style="color: royalblue">N-{{ $pelanggan_produks[$i]['nota_id'] }}</span>
-                </a>
-            </td>
-        </tr>
-    @endfor
-</table>
-@endif
+
+<style>
+.btn-no-styling {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+</style>
 
 <script>
-const cust_id = {!! json_encode($cust_id, JSON_HEX_TAG) !!};
-var pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
-var pelanggan_ekspedisi = {!! json_encode($pelanggan_ekspedisi, JSON_HEX_TAG) !!};
-var ekspedisis = {!! json_encode($ekspedisis, JSON_HEX_TAG) !!};
-var pelanggan_produks = {!! json_encode($pelanggan_produks, JSON_HEX_TAG) !!};
-var produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
-
-if (show_console === true) {
-    console.log("pelanggan:");console.log(pelanggan);
-    console.log("pelanggan_ekspedisi:");console.log(pelanggan_ekspedisi);
-    console.log("DAFTAR EKSPEDISI:");console.log(ekspedisis);
-    console.log("pelanggan_produks:");console.log(pelanggan_produks);
-    console.log("produks:");console.log(produks);
-}
-
-const arr_alamat = JSON.parse(pelanggan.alamat);
-var html_alamat = '';
-for (let i_arrAlamat = 0; i_arrAlamat < arr_alamat.length; i_arrAlamat++) {
-    html_alamat += `${arr_alamat[i_arrAlamat]}<br>`;
-}
-
-// SET DATA CUSTOMER
-$("#customerAbbr").html(pelanggan.singkatan);
-$("#customerName").html(pelanggan.nama);
-$("#customerInfo").html(html_alamat).append("<br>" + pelanggan.no_kontak);
-
-// SET DATA EKSPEDISI
-if (ekspedisis !== "EMPTY" && ekspedisis !== "ERROR" && ekspedisis.length !== 0) {
-    for (var i = 0; i < ekspedisis.length; i++) {
-        $htmlEkspedisi = "";
-        var namaLengkapEkspedisi = "";
-
-        namaLengkapEkspedisi += `${ekspedisis[i].nama} - <small style="font-weight: normal;">${pelanggan_ekspedisi[i]['tipe']}</small>`
-        namaLengkapEkspedisi = namaLengkapEkspedisi.trim();
-
-        const arr_alamat_eks = JSON.parse(ekspedisis[i].alamat);
-        var html_alamat_eks = '';
-        for (let i_arrAlamatEks = 0; i_arrAlamatEks < arr_alamat_eks.length; i_arrAlamatEks++) {
-            html_alamat_eks += `${arr_alamat_eks[i_arrAlamatEks]}<br>`;
-        }
-
-        $htmlEkspedisi +=
-            `
-            <span style='font-weight: 900;font-size:1.4em;'>${namaLengkapEkspedisi}</span><br>
-            ${html_alamat_eks}
-            `;
-
-        $(`#customerExpedition-${i}`).html($htmlEkspedisi);
-        console.log(`HTML EKSPEDISI-${i}`);
-        console.log($htmlEkspedisi);
-    }
-
-}
-
-function showMenu() {
-    $("#showDotMenuContent").toggle(200);
-    $("#areaClosingDotMenu").css("display", "block");
-
-}
-
-function closingDotMenuContent() {
-    $("#showDotMenuContent").toggle();
-    $("#areaClosingDotMenu").css("display", "none");
-
-}
-
-function backToCustomer() {
-    // window.location.replace("04-01-pelanggan.php");
-    window.history.back();
-}
-
-var resellers = {!! json_encode($resellers, JSON_HEX_TAG) !!};
-console.log("resellers");
-console.log(resellers);
-
-if (resellers.length !== 0) {
-    var html_reseller = `
-        <span style="font-weight: bold">Perhatian! Pelanggan ini memiliki Reseller, yakni:</span>
-    `;
-    // console.log("cust_id");
-    // console.log(cust_id);
-
-    html_reseller += '<table style="width:100%">';
-    i_reseller=0;
-    resellers.forEach(reseller => {
-        var html_alamat_reseller = '';
-        var arr_alamat_reseller = JSON.parse(reseller.alamat);
-        arr_alamat_reseller.forEach(baris_alamat_reseller => {
-            html_alamat_reseller += baris_alamat_reseller + '<br>';
-        });
-
-        var html_reseller_dropdown = `
-        <div id="dd-${i_reseller}" class='border p-2' style='display:none'>
-            <table style='width:100%'>
-                <tr><td style=''><img src='/img/icons/address.svg' style='width:2em'></td><td>${html_alamat_reseller}</td></tr>
-                <tr>
-                    <td style=''><img src='/img/icons/call.svg' style='width:2em'></td><td>${reseller.no_kontak}</td>
-                </tr>
-            </table>
-        </div>
-        `;
-
-        html_reseller += `
-        <tr><td style="text-align:center"><img src="/img/icons/boy.svg" style="width:2rem"></td><td>${reseller.nama}<br></td><td id='dd-icon-${i_reseller}' style="text-align:center" onclick="showDD('#dd-${i_reseller}', '#dd-icon-${i_reseller}');"><img src="/img/icons/dropdown.svg" style="width:1em"></td></tr>
-        <tr><td colspan='3'>${html_reseller_dropdown}</td></tr>
-        `;
-        i_reseller++;
-    });
-    html_reseller += `</table>`;
-
-    $('#divReseller').html(html_reseller);
-
-    // var list_params = {
-    //     json_obj: [reseller[0]],
-    //     keys: ['nama', 'daerah'],
-    //     dd_keys: ['alamat', 'no_kontak'],
-    //     delete: {
-    //         table: 'pelanggan_reseller',
-    //         input: [{
-    //             key: 'id',
-    //             name: 'id_reseller'
-    //         }, {
-    //             value: cust_id,
-    //             name: 'cust_id'
-    //         }],
-    //         goBackNum: -2
-    //     },
-    //     detail: {
-    //         link: `/pelanggan/pelanggan-detail`,
-    //         key: 'id'
-    //     }
-    // };
-
-    // var ListReseller = createList(list_params);
-
-
-    // document.getElementById('divReseller').classList = "m-1em";
-    // $('#divReseller').html(html_reseller + ListReseller);
-
-}
-
-
-// document.getElementById("konfirmasiHapusPelanggan").addEventListener("click", function() {
-//         var deleteProperties = {
-//             title: "Yakin ingin menghapus Pelanggan ini?",
-//             yes: "Ya",
-//             no: "Batal",
-//             table: "pelanggans",
-//             column: "id",
-//             columnValue: pelanggan.id,
-//             action: "/pelanggan/hapus",
-//             csrf: my_csrf,
-//             goBackNumber: -2,
-//             goBackStatement: "Daftar Pelanggan"
-//         };
-
-//         var deletePropertiesStringified = JSON.stringify(deleteProperties);
-//         showLightBoxGlobal(deletePropertiesStringified);
-//     });
 
 </script>
 

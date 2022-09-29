@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\SiteSettings;
-use App\Models\Daerah;
-use App\Models\Negara;
 use App\Models\Pelanggan;
-use App\Models\Pulau;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 
@@ -14,55 +11,16 @@ class PelangganEditController extends Controller
 {
     public function pelanggan_edit(Request $request)
     {
-        $load_num = SiteSettings::loadNumToZero();
-        [$show_dump, $show_hidden_dump, $load_num_ignore, $run_db] = SiteSettings::variablesNeeded();
-
-        if ($show_hidden_dump) {
-        }
-
-        if ($load_num->value > 0 && !$load_num_ignore) {
-            $run_db = false;
-        }
+        SiteSettings::loadNumToZero();
 
         $get = $request->query();
+        // dd($get);
         $pelanggan = Pelanggan::find($get['pelanggan_id']);
-        $negara = Negara::find(1);
-        if ($pelanggan['negara_id'] !== 1 && $pelanggan['negara_id'] !== null) {
-            $negara = Negara::find($pelanggan['negara_id']);
-        }
-        $pulau = null;
-        if ($pelanggan['pulau_id'] !== null) {
-            $pulau = Pulau::find($pelanggan['pulau_id']);
-        }
-        $daerah = null;
-        if ($pelanggan['daerah_id'] !== null) {
-            $daerah = Daerah::find($pelanggan['daerah_id']);
-        }
-
-        $label_negaras = getLabelNegara();
-        $label_pulaus = getLabelPulau();
-        $arr_label_daerahs = getLabelDaerah();
-
-
-        if ($show_dump) {
-            // dump('load_num', $load_num);
-            // dump('label_pulaus:', $label_pulaus);
-            // dd('arr_label_daerahs:', $arr_label_daerahs);
-            dump('pelanggan:', $pelanggan);
-            dump('negara:', $negara);
-            dump('pulau:', $pulau);
-            dump('daerah:', $daerah);
-        }
 
         $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
             'pelanggan' => $pelanggan,
-            'negara' => $negara,
-            'pulau' => $pulau,
-            'daerah' => $daerah,
-            'label_negaras' => $label_negaras,
-            'label_pulaus' => $label_pulaus,
-            'arr_label_daerahs' => $arr_label_daerahs,
-            'csrf' => csrf_token()
         ];
 
         return view('pelanggan.pelanggan-edit', $data);
@@ -121,7 +79,7 @@ class PelangganEditController extends Controller
             $pelanggan->daerah_id = $post['daerah_id'];
             $pelanggan->no_kontak = $post['kontak_pelanggan'];
             $pelanggan->initial = $post['singkatan_pelanggan'];
-            $pelanggan->ktrg = $post['keterangan'];
+            $pelanggan->keterangan = $post['keterangan'];
             $pelanggan->is_reseller = $post['is_reseller'];
             $pelanggan->save();
             $load_num->value += 1;

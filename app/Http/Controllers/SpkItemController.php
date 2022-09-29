@@ -79,7 +79,7 @@ class SpkItemController extends Controller
                 $main_log='Success';
             }
         } else if ($post['tipe']==='keterangan') {
-            $spk_produk->ktrg=$post['keterangan'];
+            $spk_produk->keterangan=$post['keterangan'];
             if ($run_db) {
                 $spk_produk->save();
                 $success_logs[]='Berhasil update keterangan!';

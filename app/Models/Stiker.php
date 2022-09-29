@@ -19,7 +19,7 @@ class Stiker extends Model
             ->groupBy('id', 'stiker_id', 'harga', 'created_at');
 
         $label_stikers = DB::table('stikers')
-            ->select('stikers.id', 'stikers.nama AS label', 'stikers.nama AS value', 'stiker_terbaru.harga', 'stikers.ktrg')
+            ->select('stikers.id', 'stikers.nama AS label', 'stikers.nama AS value', 'stiker_terbaru.harga', 'stikers.keterangan')
             ->joinSub($stiker_terbaru, 'stiker_terbaru', function ($join) {
                 $join->on('stikers.id', '=', 'stiker_terbaru.stiker_id');
             })

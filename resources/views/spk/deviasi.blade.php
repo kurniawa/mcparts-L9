@@ -12,7 +12,7 @@
             <tr><th>Deviasi(+/-)</th><td>:</td><td>{{ $spk_produk['deviasi_jml'] }}</td></tr>
             <tr><th>Jumlah_t</th><td>:</td><td>{{ $spk_produk['jml_t'] }}</td></tr>
             <tr><th>Jml. Sls</th><td>:</td><td>{{ $spk_produk['jml_selesai'] }}</td></tr>
-            <tr><th>Keterangan</th><td>:</td><td>{{ $spk_produk['ktrg'] }}</td></tr>
+            <tr><th>Keterangan</th><td>:</td><td>{{ $spk_produk['keterangan'] }}</td></tr>
         </table>
     </div>
     <form action="{{ route('DeviasiDB') }}" method="POST">

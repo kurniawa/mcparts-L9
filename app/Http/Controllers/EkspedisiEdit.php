@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Alamat;
 use App\Models\Ekspedisi;
 use App\Models\EkspedisiAlamat;
+use App\Models\EkspedisiKontak;
 use App\Models\Kontak;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
@@ -50,14 +51,14 @@ class EkspedisiEdit extends Controller
         // dd('$post: ', $post);
         $nama=$post['nama_ekspedisi'];
         $bentuk=$post['bentuk_perusahaan'];
-        $ktrg=$post['keterangan'];
+        $keterangan=$post['keterangan'];
 
 
         if ($run_db) {
             $ekspedisi = Ekspedisi::find($post['ekspedisi_id']);
             $ekspedisi->bentuk = $bentuk;
             $ekspedisi->nama = $nama;
-            $ekspedisi->ktrg = $ktrg;
+            $ekspedisi->keterangan = $keterangan;
             $ekspedisi->save();
             $success_logs[]="Data Ekspedisi telah diupdate.";
 
@@ -403,15 +404,15 @@ class EkspedisiEdit extends Controller
         if ($run_db) {
             // Kalau belum punya kontak sebelumnya, maka nomor baru ini di set otomasis sebagai aktual
             $is_aktual='no';
-            $pelanggan_kontak=Kontak::where('ekspedisi_id',$ekspedisi_id)->get();
-            if (count($pelanggan_kontak)==null) {
+            $ekspedisi_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi_id)->get();
+            if (count($ekspedisi_kontak)==null) {
                 $is_aktual='yes';
                 $success_logs[]="Belum ditemukan adanya kontak terkait dengan ekspedisi ini. is_aktual=yes";
             } else {
                 $success_logs[]="Sudah ditemukan adanya kontak terkait dengan ekspedisi ini. is_aktual=no";
             }
 
-            $kontak=Kontak::create([
+            $ekspedisi_kontak=EkspedisiKontak::create([
                 'ekspedisi_id'=>$ekspedisi_id,
                 'nomor'=>$nomor,
                 'kodearea'=>$kodearea,

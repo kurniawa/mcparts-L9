@@ -38,7 +38,7 @@
         <tr>
             <td class="pt-2 pb-2">
                 <div>{{ $produks[$i]['nama'] }}</div>
-                <div style="color:gray">{{ $spk_produks[$i]['ktrg'] }}</div>
+                <div style="color:gray">{{ $spk_produks[$i]['keterangan'] }}</div>
             </td>
             <td>{{ $spk_produks[$i]['jumlah'] }}@if ($spk_produks[$i]['deviasi_jml']!==0)
             @if ($spk_produks[$i]['deviasi_jml']>0)<span style="color:darkgreen">+{{ $spk_produks[$i]['deviasi_jml'] }}</span>

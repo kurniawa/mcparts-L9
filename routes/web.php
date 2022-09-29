@@ -7,10 +7,12 @@ use App\Http\Controllers\EkspedisiEdit;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\NotaItemController;
+use App\Http\Controllers\PelangganAlamatController;
 use App\Http\Controllers\PelangganBaruController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PelangganEditController;
 use App\Http\Controllers\PelangganEkspedisiController;
+use App\Http\Controllers\PelangganKontakController;
 use App\Http\Controllers\PelangganResellerController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RegisterController;
@@ -55,25 +57,35 @@ Route::post('/logout', [LoginController::class, "logout"])->middleware('auth');
 // PELANGGAN
 Route::controller(PelangganController::class)->group(function ()
 {
-    Route::get('/pelanggan', 'index');
-    Route::get('/pelanggan/pelanggan-detail', 'pelanggan_detail');
+    Route::get('/pelanggan', 'index')->name('Pelanggans');
+    Route::get('/pelanggan/pelanggan-detail', 'pelanggan_detail')->name('pelanggan_detail')->middleware('auth');
 });
 Route::controller(PelangganBaruController::class)->group(function ()
 {
-   Route::get('/pelanggan/pelanggan-baru', 'pelanggan_baru')->name('pelanggan_baru')->middleware('auth');
+   Route::get('/pelanggan/pelanggan-baru', function (){return view('pelanggan.pelanggan-baru');})->name('pelanggan_baru')->middleware('auth');
    Route::post('/pelanggan/pelanggan-baru-db', 'create')->name('pelanggan_baru_db')->middleware('auth');
 });
 Route::controller(PelangganEditController::class)->group(function ()
 {
-   Route::get('/pelanggan/pelanggan-edit', 'pelanggan_edit')->middleware('auth');
-   Route::post('/pelanggan/pelanggan-edit-db', 'edit_db')->middleware('auth');
-   Route::post('/pelanggan/hapus', 'destroy')->middleware('auth');
+   Route::get('/pelanggan/pelanggan-edit', 'pelanggan_edit')->name('pelanggan_edit')->middleware('auth');
+   Route::post('/pelanggan/pelanggan-edit-db', 'edit_db')->name('pelanggan_edit_db')->middleware('auth');
+   Route::post('/pelanggan/hapus', 'destroy')->name('pelanggan_hapus')->middleware('auth');
 });
 Route::controller(PelangganResellerController::class)->group(function ()
 {
-   Route::get('/pelanggan/tetapkan-reseller', 'index');
-   Route::post('/pelanggan/tetapkan-reseller-db', 'tetapkan_reseller_db')->middleware('auth');
+   Route::get('/pelanggan/tambah-reseller', 'index')->name('pelanggan_tambah_reseller')->middleware('auth');
+   Route::post('/pelanggan/tambah-reseller-db', 'tambah_reseller_db')->middleware('auth');
    Route::post('/pelanggan/hapus-reseller', 'hapus_reseller')->middleware('auth');
+});
+Route::controller(PelangganAlamatController::class)->group(function ()
+{
+   Route::get('/pelanggan/edit-alamat', 'edit_alamat')->name('pelanggan_edit_alamat')->middleware('auth');
+   Route::post('/pelanggan/hapus-alamat', 'hapus_alamat')->name('pelanggan_hapus_alamat')->middleware('auth');
+});
+Route::controller(PelangganKontakController::class)->group(function ()
+{
+   Route::get('/pelanggan/edit-kontak', 'edit_kontak')->name('pelanggan_edit_kontak')->middleware('auth');
+   Route::post('/pelanggan/hapus-kontak', 'hapus_kontak')->name('pelanggan_hapus_kontak')->middleware('auth');
 });
 // Route::delete('/pelanggan/hapus/{id}', PelangganEditController::class, 'destroy')->name('pelanggan.hapus');
 
@@ -112,8 +124,8 @@ Route::controller(EkspedisiEdit::class)->group(function () {
  */
 Route::controller(PelangganEkspedisiController::class)->group(function ()
 {
-    Route::get('/pelanggan/pelanggan-ekspedisi', 'index');
-    Route::post('/pelanggan/tambah-ekspedisi-db', 'tambah_ekspedisi_db')->middleware('auth');
+    Route::get('/pelanggan/tambah-ekspedisi', 'index')->name('pelanggan_tambah_ekspedisi')->middleware('auth');
+    Route::post('/pelanggan/tambah-ekspedisi-db', 'tambah_ekspedisi_db')->name('pelanggan_tambah_ekspedisi_db')->middleware('auth');
     Route::post('/pelanggan/hapus-relasi-ekspedisi', 'hapus_relasi_ekspedisi')->middleware('auth');
 });
 

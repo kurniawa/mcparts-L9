@@ -38,8 +38,8 @@
             <tr>
                 <td colspan='2'>
                     <div>{{ $produks[$i]['nama'] }}</div>
-                    @if ($spk_produks[$i]['ktrg'] !== null)
-                    <div style='font-style: italic;color:gray' class="fw-bold">{{ $spk_produks[$i]['ktrg'] }}</div>
+                    @if ($spk_produks[$i]['keterangan'] !== null)
+                    <div style='font-style: italic;color:gray' class="fw-bold">{{ $spk_produks[$i]['keterangan'] }}</div>
                     @endif
                 </td>
                 <td>{{ $spk_produks[$i]['jumlah'] }}</td>
