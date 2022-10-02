@@ -34,6 +34,7 @@
                         @foreach (json_decode($alamats[$i]['long']) as $alm)
                         <div>{{ $alm }}</div>
                         @endforeach
+                        @if ($alamats[$i]['short']!==null)<div style="color: gray;">{{ $alamats[$i]['short'] }}</div>@endif
                     </div>
                     <div class="ms-3 align-self-end">
                         <a href="{{ route('ekspedisi_edit_alamat',['alamat_id'=>$alamats[$i]['id'],'ekspedisi_id'=>$ekspedisi['id']]) }}"><img style="width: 1rem;" src="{{ asset('img/icons/edit.svg') }}"></a>
@@ -67,11 +68,14 @@
                         @else
                         {{ $kontak['nomor'] }}
                         @endif
+                        @if ($kontak['lokasi']!==null)<div style="color: gray;">{{ $kontak['lokasi'] }}</div>@endif
                     </span>
                     <div class="ms-3 align-self-end">
-                        <a href="{{ route('ekspedisi_edit_kontak') }}"><img style="width: 1rem;" src="{{ asset('img/icons/edit.svg') }}"></a>
+                        <a href="{{ route('ekspedisi_edit_kontak',['ekspedisi_kontak_id'=>$kontak['id'],'ekspedisi_id'=>$ekspedisi['id']]) }}"><img style="width: 1rem;" src="{{ asset('img/icons/edit.svg') }}"></a>
                         <form action="{{ route('ekspedisi_hapus_kontak') }}" method="POST" onsubmit="return confirm('Apa Anda yakin ingin menghapus kontak ini?')" class="mt-2">
                             @csrf
+                            <input type="hidden" name="ekspedisi_id" value="{{ $ekspedisi['id'] }}">
+                            <input type="hidden" name="ekspedisi_kontak_id" value="{{ $kontak['id'] }}">
                             <button type="submit" class="btn-no-styling"><img src="{{ asset('img/icons/delete.svg') }}" style="width: 1rem;"></button>
                         </form>
                     </div>

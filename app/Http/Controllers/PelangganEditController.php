@@ -101,44 +101,37 @@ class PelangganEditController extends Controller
 
     public function destroy(Request $request)
     {
-
         $load_num = SiteSetting::find(1);
-
-        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
+        $success_logs=$warning_logs=$error_logs=array();
+        $main_log=null;
         $run_db = true; // true apabila siap melakukan CRUD ke DB
-        $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = false;
 
-        if ($show_hidden_dump) {
-            dump("load_num_value: " . $load_num->value);
-        }
-
-        if ($load_num->value > 0 && !$load_num_ignore) {
+        if ($load_num->value > 0) {
             $run_db = false;
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
         }
 
         $post = $request->post();
+        $pelanggan_id=$post['pelanggan_id'];
 
-        if ($show_dump) {
-            dump('$post:');
-            dump($post);
-        }
+        // dd('$post: ', $post);
 
-        $pelanggan = Pelanggan::find($post['pelanggan_id']);
-
-        if ($run_db) {
+        if ($run_db === true) {
+            $pelanggan = Pelanggan::find($pelanggan_id);
             $pelanggan->delete();
-        }
-
-        $data = [
-            'go_back_number' => -2
-        ];
-
-        if ($run_db) {
+            $warning_logs[]="Pelanggan $pelanggan[nama] berhasil dihapus!";
+            $main_log='SUCCESS';
             $load_num->value += 1;
             $load_num->save();
         }
 
-        return view('layouts.go-back-page', $data);
+        $route='Pelanggans';
+        $route_btn='Ke Daftar Pelanggan';
+        $data = [
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,
+        ];
+
+        return view('layouts.db-result', $data);
     }
 }

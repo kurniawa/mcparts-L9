@@ -91,6 +91,8 @@ class PelangganController extends Controller
             ['route'=>'pelanggan_edit','nama'=>'Edit','method'=>'get','params'=>[['name'=>'pelanggan_id','value'=>$pelanggan['id']],]],
             ['route'=>'pelanggan_tambah_ekspedisi','nama'=>'+Ekspedisi','method'=>'get','params'=>[['name'=>'pelanggan_id','value'=>$pelanggan['id']],]],
             ['route'=>'pelanggan_tambah_reseller','nama'=>'+Reseller','method'=>'get','params'=>[['name'=>'pelanggan_id','value'=>$pelanggan['id']],]],
+            ['route'=>'pelanggan_tambah_alamat','nama'=>'+Alamat','method'=>'get','params'=>[['name'=>'pelanggan_id','value'=>$pelanggan['id']],]],
+            ['route'=>'pelanggan_tambah_kontak','nama'=>'+Kontak','method'=>'get','params'=>[['name'=>'pelanggan_id','value'=>$pelanggan['id']],]],
             ['route'=>'pelanggan_hapus','nama'=>'Hapus','method'=>'post','params'=>[['name'=>'pelanggan_id','value'=>$pelanggan['id']],],'confirm'=>'Anda yakin ingin menghapus Pelanggan ini?'],
         ];
 
@@ -111,6 +113,8 @@ class PelangganController extends Controller
             "pelanggan_alamats" => $pelanggan_alamats,
             "pelanggan_kontaks" => $pelanggan_kontaks,
         ];
+
+        // dd($data);
 
         return view('pelanggan.pelanggan-detail', $data);
     }

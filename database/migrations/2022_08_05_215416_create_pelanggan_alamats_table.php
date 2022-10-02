@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('pelanggan_alamats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pelanggan_id');
-            $table->foreignId('alamat_id');
+            $table->foreignId('pelanggan_id')->constrained()->onDelete('CASCADE');
+            $table->foreignId('alamat_id')->constrained()->onDelete('CASCADE');
             $table->enum('tipe',['UTAMA','CADANGAN'])->default('CADANGAN');
             $table->timestamps();
         });

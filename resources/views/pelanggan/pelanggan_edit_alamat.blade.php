@@ -6,11 +6,11 @@
     <div class="d-flex align-items-center mt-3">
         <div><img class="w-2rem" src="{{ asset('img/icons/pencil.svg') }}" alt=""></div>
         <div class="fw-bold ms-2">
-            Edit Alamat Ekspedisi: {{ $ekspedisi['nama'] }}
+            Edit Alamat Pelanggan: {{ $pelanggan['nama'] }}
         </div>
     </div>
 
-    <form action="{{ route('ekspedisi_edit_alamat_db') }}" onsubmit="return formValidation()" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('pelanggan_edit_alamat_db') }}" onsubmit="return formValidation()" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mt-3">
             <label style="font-weight: bold">Alamat Lengkap:</label>
@@ -125,10 +125,10 @@
         </div>
         Tetapkan sebagai alamat utama?<br>
         <div class="form-check">
-            <input type="radio" name="alamat_utama" id="alamat_utama_yes" value="yes" class="form-check-input"@if($ekspedisi_alamat['tipe']==='UTAMA')checked="checked"@endif><label for="alamat_utama_yes" class="form-check-label">Ya</label>
+            <input type="radio" name="alamat_utama" id="alamat_utama_yes" value="yes" class="form-check-input"@if($pelanggan_alamat['tipe']==='UTAMA')checked="checked"@endif><label for="alamat_utama_yes" class="form-check-label">Ya</label>
         </div>
         <div class="form-check">
-            <input type="radio" name="alamat_utama" id="alamat_utama_no" value="no" class="form-check-input"@if($ekspedisi_alamat['tipe']==='CADANGAN')checked="checked"@endif><label for="alamat_utama_no" class="form-check-label">Tidak</label>
+            <input type="radio" name="alamat_utama" id="alamat_utama_no" value="no" class="form-check-input"@if($pelanggan_alamat['tipe']==='CADANGAN')checked="checked"@endif><label for="alamat_utama_no" class="form-check-label">Tidak</label>
         </div>
         <br><br>
         <div>
@@ -146,7 +146,7 @@
             <button type="button" class="btn btn-outline-success btn-sm" id="btn-pulau" onclick="showHide('opsi-pulau', this.id)">+Pulau</button>
             <button type="button" class="btn btn-outline-danger btn-sm" id="btn-negara" onclick="showHide('opsi-negara', this.id)">+Negara</button>
         </div>
-        <input type="hidden" name="ekspedisi_id" value="{{ $ekspedisi['id'] }}">
+        <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
         <input type="hidden" name="alamat_id" value="{{ $alamat['id'] }}">
         <br><br>
         <div class="text-center">

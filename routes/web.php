@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EkspedisiAlamatController;
 use App\Http\Controllers\EkspedisiBaru;
 use App\Http\Controllers\EkspedisiController;
 use App\Http\Controllers\EkspedisiEdit;
+use App\Http\Controllers\EkspedisiKontakController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotaController;
 use App\Http\Controllers\NotaItemController;
@@ -80,11 +82,17 @@ Route::controller(PelangganResellerController::class)->group(function ()
 Route::controller(PelangganAlamatController::class)->group(function ()
 {
    Route::get('/pelanggan/edit-alamat', 'edit_alamat')->name('pelanggan_edit_alamat')->middleware('auth');
+   Route::post('/pelanggan/edit-alamat-db', 'edit_alamat_db')->name('pelanggan_edit_alamat_db')->middleware('auth');
+   Route::get('/pelanggan/tambah-alamat', 'tambah_alamat')->name('pelanggan_tambah_alamat')->middleware('auth');
+   Route::post('/pelanggan/tambah-alamat', 'tambah_alamat_db')->name('pelanggan_tambah_alamat_db')->middleware('auth');
    Route::post('/pelanggan/hapus-alamat', 'hapus_alamat')->name('pelanggan_hapus_alamat')->middleware('auth');
 });
 Route::controller(PelangganKontakController::class)->group(function ()
 {
    Route::get('/pelanggan/edit-kontak', 'edit_kontak')->name('pelanggan_edit_kontak')->middleware('auth');
+   Route::post('/pelanggan/edit-kontak-db', 'edit_kontak_db')->name('pelanggan_edit_kontak_db')->middleware('auth');
+   Route::get('/pelanggan/tambah-kontak', 'tambah_kontak')->name('pelanggan_tambah_kontak')->middleware('auth');
+   Route::post('/pelanggan/tambah-kontak-db', 'tambah_kontak_db')->name('pelanggan_tambah_kontak_db')->middleware('auth');
    Route::post('/pelanggan/hapus-kontak', 'hapus_kontak')->name('pelanggan_hapus_kontak')->middleware('auth');
 });
 // Route::delete('/pelanggan/hapus/{id}', PelangganEditController::class, 'destroy')->name('pelanggan.hapus');
@@ -106,17 +114,23 @@ Route::controller(EkspedisiBaru::class)->group(function () {
 Route::controller(EkspedisiEdit::class)->group(function () {
     Route::get('/ekspedisi/edit', "ekspedisi_edit")->name('EditEkspedisi')->middleware('auth');
     Route::post('/ekspedisi/edit-db', "ekspedisi_edit_db")->name('EditEkspedisiDB')->middleware('auth');
+    Route::post('/ekspedisi/hapus', "ekspedisi_hapus")->name('HapusEkspedisi')->middleware('auth');
+});
+Route::controller(EkspedisiAlamatController::class)->group(function ()
+{
     Route::get('/ekspedisi/tambah_alamat', "tambah_alamat")->name('ekspedisi_tambah_alamat')->middleware('auth');
     Route::post('/ekspedisi/tambah_alamat_db', "tambah_alamat_db")->name('ekspedisi_tambah_alamat_db')->middleware('auth');
-    Route::get('/ekspedisi/tambah_kontak', "tambah_kontak")->name('ekspedisi_tambah_kontak')->middleware('auth');
-    Route::post('/ekspedisi/tambah_kontak_db', "tambah_kontak_db")->name('ekspedisi_tambah_kontak_db')->middleware('auth');
     Route::get('/ekspedisi/edit_alamat', "edit_alamat")->name('ekspedisi_edit_alamat')->middleware('auth');
     Route::post('/ekspedisi/edit_alamat_db', "edit_alamat_db")->name('ekspedisi_edit_alamat_db')->middleware('auth');
     Route::post('/ekspedisi/hapus_alamat', "hapus_alamat")->name('ekspedisi_hapus_alamat')->middleware('auth');
+});
+Route::controller(EkspedisiKontakController::class)->group(function ()
+{
+    Route::get('/ekspedisi/tambah_kontak', "tambah_kontak")->name('ekspedisi_tambah_kontak')->middleware('auth');
+    Route::post('/ekspedisi/tambah_kontak_db', "tambah_kontak_db")->name('ekspedisi_tambah_kontak_db')->middleware('auth');
     Route::get('/ekspedisi/edit_kontak', "edit_kontak")->name('ekspedisi_edit_kontak')->middleware('auth');
     Route::post('/ekspedisi/edit_kontak_db', "edit_kontak_db")->name('ekspedisi_edit_kontak_db')->middleware('auth');
     Route::post('/ekspedisi/hapus_kontak', "hapus_kontak")->name('ekspedisi_hapus_kontak')->middleware('auth');
-    Route::post('/ekspedisi/hapus', "ekspedisi_hapus")->name('HapusEkspedisi')->middleware('auth');
 });
 
 /**
