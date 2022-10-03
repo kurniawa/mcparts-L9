@@ -1,5 +1,4 @@
 @extends('layouts.main_layout')
-
 @extends('layouts.navbar')
 
 @section('content')
@@ -567,6 +566,11 @@ function cekProduk(id) {
         return false;
     }
 }
+
+function showHide(toshow, tohide) {
+        $(`#${toshow}`).show();
+        $(`#${tohide}`).hide();
+    }
 
 // document.getElementById('formAddProduk').addEventListener('submit', event=> {
 //     event.preventDefault();

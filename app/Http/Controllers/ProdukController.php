@@ -22,8 +22,6 @@ use App\Models\ProdukSpec;
 use App\Models\ProdukStandar;
 use App\Models\ProdukStiker;
 use App\Models\ProdukTankpad;
-use App\Models\ProdukVarian;
-use App\Models\ProdukVariasi;
 use App\Models\ProdukVariasiVarian;
 use App\Models\Rol;
 use App\Models\Rotan;
@@ -85,7 +83,13 @@ class ProdukController extends Controller
             $btn_tipe[$i]['color']=$colors[$j];
         }
         // dd($btn_tipe);
+        $menus=[
+            ['route'=>'tambah-produk','nama'=>'+Tambah Produk'],
+        ];
         $data = [
+            // 'go_back'=>true,
+            // 'navbar_bg'=>'$orange-300',
+            'menus'=>$menus,
             'sjvariasis'=>$sjvariasis,
             'sjkombinasis'=>$sjkombinasis,
             'sjmotifs'=>$sjmotifs,
@@ -147,6 +151,8 @@ class ProdukController extends Controller
         $produks = Produk::orderBy('nama')->get('nama')->toArray();
 
         $data = [
+            'go_back'=>true,
+            'navbar_bg'=>'bg-color-orange-2',
             'tipe'=>$tipe,
             'bahans'=>$bahans,
             'variasis'=>$variasis,
@@ -191,7 +197,7 @@ class ProdukController extends Controller
         }
 
         $input = $request->input();
-        dump('$input', $input);
+        // dump('$input', $input);
 
         $produk = [
             'tipe'=>$input['tipe'],
@@ -312,6 +318,7 @@ class ProdukController extends Controller
 
 
         $data = [
+            'navbar_bg'=>'bg-color-orange-2',
             'route'=>'produks',
             'route_btn'=>'Ke Daftar Produk',
             'success_logs'=>$success_logs,

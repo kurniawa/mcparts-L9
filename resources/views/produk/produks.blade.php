@@ -1,14 +1,7 @@
-@extends('layouts/main_layout')
+@extends('layouts.main_layout')
+@extends('layouts.navbar_v2')
 
 @section('content')
-
-
-<header class="header grid-2-auto">
-    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
-    <div class="text-end pe-3">
-        <a href="{{ route('tambah-produk') }}" class="btn btn-danger btn-sm">+Tambah Produk</a>
-    </div>
-</header>
 
 <div class="mt-1rem ml-1rem mr-1rem pb-1rem bb-0_5px-solid-grey">
     <div class="grid-2-auto mb-1">

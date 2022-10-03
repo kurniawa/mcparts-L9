@@ -331,10 +331,6 @@
     function showHide(toshow, tohide) {
         $(`#${toshow}`).show();
         $(`#${tohide}`).hide();
-        // document.querySelector(`#${toshow} input`).disabled=false;
-        // document.querySelector(`#${toshow} select`).disabled=false;
-        // document.querySelector(`#${tohide} input`).disabled=true;
-        // document.querySelector(`#${tohide} select`).disabled=true;
     }
 
 
