@@ -30,25 +30,38 @@
         </tr>
     </table>
 
-    <form action="{{ route('edit_harga_item_nota') }}" method="GET" class="p-0_5rem">
-        <table id="divDaftarItemNota" style="width: 100%">
-            <tr><th>No.</th><th>Nama Nota</th><th>Jml.</th><th>Hrg/Pcs</th><th>Harga</th><th>Opsi</th></tr>
-            @for ($i = 0; $i < count($produks); $i++)
-            <tr>
-                <td>{{ $i+1 }}</td>
-                <td>{{ $produks[$i]['nama_nota'] }}</td>
-                <td>{{ $spk_produk_notas[$i]['jumlah'] }}</td>
-                <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga'] }}</td>
-                <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga_t'] }}</td>
-                <td>
-                    <button type="submit" class="btn btn-primary" name="data_item" value='{{ json_encode($data_items[$i]) }}'>E.Hrg</button>
-                </td>
-            </tr>
-            @endfor
-        </table>
-        <input type="hidden" name="nota_id" value={{ $nota['id'] }}>
-        <input type="hidden" name="pelanggan_id" value={{ $pelanggan['id'] }}>
-    </form>
+    <table id="divDaftarItemNota" style="width: 100%">
+        <tr><th>No.</th><th>Nama Nota</th><th>Jml.</th><th>Hrg/Pcs</th><th>Harga</th><th>Opsi</th></tr>
+        @for ($i = 0; $i < count($produks); $i++)
+        <tr>
+            <td>{{ $i+1 }}</td>
+            <td>{{ $produks[$i]['nama_nota'] }}</td>
+            <td>{{ $spk_produk_notas[$i]['jumlah'] }}</td>
+            <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga'] }}</td>
+            <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga_t'] }}</td>
+            <td id='divDropdownIcon-{{ $i }}' onclick='showDropdown({{ $i }});' class="text-center"><img class='w-0_7rem' src='{{ asset('img/icons/dropdown.svg') }}'></td>
+        </tr>
+        <tr class="border-bottom" id='divDetailDropdown-{{ $i }}' style="display: none">
+            <td colspan="6" class="text-end">
+                <a class="btn btn-primary btn-sm" href="{{ route('edit_harga_item_nota',['data_item'=>json_encode($data_items[$i]),'nota_id'=>$nota['id'],'pelanggan_id'=>$pelanggan['id']]) }}">E.Hrg</a>
+                <a class="btn btn-dd btn-sm" href="{{ route('Deviasi',['tipe'=>'keterangan','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >E.NaNo</a>
+                {{-- <a class="btn btn-warning btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'deviasi','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >+/-</a>
+                <a class="btn btn-primary btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'jumlah','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Jml</a>
+                <a class="btn btn-info btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'selesai','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Sls</a>
+                <a class="btn btn-success btn-sm me-1" href="{{ route('Tree',['spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Tree</a> --}}
+                {{-- <a class="btn btn-info btn-sm me-1" href="{{ route('NotaItemBaru',['spk_id'=>$spk['id'],'spk_produk_id'=>$spk_produks[$i]['id']]) }}" >N+</a>
+                <a class="btn btn-success btn-sm me-1" href="{{ route('NotaItemAva',['spk_id'=>$spk['id'],'spk_produk_id'=>$spk_produks[$i]['id']]) }}" >N</a>
+                <a class="btn btn-dark btn-sm me-1" href="{{ route('SjItemBaru',['spk_id'=>$spk['id'],'spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Sj+</a>
+                <a class="btn btn-secondary btn-sm me-1" href="{{ route('SjItemAva',['spk_id'=>$spk['id'],'spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Sj</a> --}}
+                <form action="{{ route('hapusItemSPK') }}" method="POST" class="d-inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus item ini?')">
+                @csrf
+                <button type="submit" name="spk_produk_id" value="{{ $spk_produks[$i]['id'] }}" class="btn btn-danger btn-sm" >Del</button>
+                </form>
+            </td>
+        </tr>
+        @endfor
+    </table>
+
     <div class="text-end mt-2">
         <div class="fw-bold text-success fs-5 numberToFormat">{{ $nota['harga_total'] }}</div>
         <div class="fw-bold text-danger fs-5">Total</div>

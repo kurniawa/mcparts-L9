@@ -25,14 +25,14 @@
     </div>
 </div>
 
-<form action="" class="container" method="GET">
+<form action="{{ route('produk_detail') }}" class="container" method="GET">
     <div id="div-var" class="items">
         <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-Variasi</div>
         <table style="width: 100%">
             @foreach ($sjvariasis as $sjvariasi)
             <tr>
                 <td>{{ $sjvariasi['nama'] }}</td>
-                <td class="text-end"><button name="id" type="submit" class="btn btn-warning btn-sm" value={{ $sjvariasi['id'] }}>>></button></td>
+                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $sjvariasi['id'] }}>>></button></td>
             </tr>
             @endforeach
         </table>
@@ -43,7 +43,7 @@
             @foreach ($sjkombinasis as $sjkombinasi)
             <tr>
                 <td>{{ $sjkombinasi['nama'] }}</td>
-                <td class="text-end"><button name="id" type="submit" class="btn btn-warning btn-sm" value={{ $sjkombinasi['id'] }}>>></button></td>
+                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $sjkombinasi['id'] }}>>></button></td>
             </tr>
             @endforeach
         </table>
@@ -54,7 +54,7 @@
             @foreach ($sjmotifs as $sjmotif)
             <tr>
                 <td>{{ $sjmotif['nama'] }}</td>
-                <td class="text-end"><button name="id" type="submit" class="btn btn-warning btn-sm" value={{ $sjmotif['id'] }}>>></button></td>
+                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $sjmotif['id'] }}>>></button></td>
             </tr>
             @endforeach
         </table>
@@ -65,7 +65,7 @@
             @foreach ($sjtsixpacks as $sjtsixpack)
             <tr>
                 <td>{{ $sjtsixpack['nama'] }}</td>
-                <td class="text-end"><button name="id" type="submit" class="btn btn-warning btn-sm" value={{ $sjtsixpack['id'] }}>>></button></td>
+                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $sjtsixpack['id'] }}>>></button></td>
             </tr>
             @endforeach
         </table>
@@ -76,7 +76,7 @@
             @foreach ($sjstandars as $sjstandar)
             <tr>
                 <td>{{ $sjstandar['nama'] }}</td>
-                <td class="text-end"><button name="id" type="submit" class="btn btn-warning btn-sm" value={{ $sjstandar['id'] }}>>></button></td>
+                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $sjstandar['id'] }}>>></button></td>
             </tr>
             @endforeach
         </table>
@@ -87,7 +87,7 @@
             @foreach ($sjjapstyles as $sjjapstyle)
             <tr>
                 <td>{{ $sjjapstyle['nama'] }}</td>
-                <td class="text-end"><button name="id" type="submit" class="btn btn-warning btn-sm" value={{ $sjjapstyle['id'] }}>>></button></td>
+                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $sjjapstyle['id'] }}>>></button></td>
             </tr>
             @endforeach
         </table>
@@ -98,7 +98,7 @@
             @foreach ($jokassies as $jokassy)
             <tr>
                 <td>{{ $jokassy['nama'] }}</td>
-                <td class="text-end"><button name="id" type="submit" class="btn btn-warning btn-sm" value={{ $jokassy['id'] }}>>></button></td>
+                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $jokassy['id'] }}>>></button></td>
             </tr>
             @endforeach
         </table>
@@ -109,7 +109,7 @@
             @foreach ($tankpads as $tankpad)
             <tr>
                 <td>{{ $tankpad['nama'] }}</td>
-                <td class="text-end"><button name="id" type="submit" class="btn btn-warning btn-sm" value={{ $tankpad['id'] }}>>></button></td>
+                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $tankpad['id'] }}>>></button></td>
             </tr>
             @endforeach
         </table>
@@ -120,7 +120,7 @@
             @foreach ($stikers as $stiker)
             <tr>
                 <td>{{ $stiker['nama'] }}</td>
-                <td class="text-end"><button name="id" type="submit" class="btn btn-warning btn-sm" value={{ $stiker['id'] }}>>></button></td>
+                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $stiker['id'] }}>>></button></td>
             </tr>
             @endforeach
         </table>
@@ -131,7 +131,7 @@
             @foreach ($busastangs as $busastang)
             <tr>
                 <td>{{ $busastang['nama'] }}</td>
-                <td class="text-end"><button name="id" type="submit" class="btn btn-warning btn-sm" value={{ $busastang['id'] }}>>></button></td>
+                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $busastang['id'] }}>>></button></td>
             </tr>
             @endforeach
         </table>
@@ -142,7 +142,7 @@
             @foreach ($rols as $rol)
             <tr>
                 <td>{{ $rol['nama'] }}</td>
-                <td class="text-end"><button name="id" type="submit" class="btn btn-warning btn-sm" value={{ $rol['id'] }}>>></button></td>
+                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $rol['id'] }}>>></button></td>
             </tr>
             @endforeach
         </table>
@@ -153,7 +153,7 @@
             @foreach ($rotans as $rotan)
             <tr>
                 <td>{{ $rotan['nama'] }}</td>
-                <td class="text-end"><button name="id" type="submit" class="btn btn-warning btn-sm" value={{ $rotan['id'] }}>>></button></td>
+                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $rotan['id'] }}>>></button></td>
             </tr>
             @endforeach
         </table>

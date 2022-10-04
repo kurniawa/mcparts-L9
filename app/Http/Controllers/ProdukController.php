@@ -384,69 +384,22 @@ class ProdukController extends Controller
         return $data;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function produk_detail(Request $request)
     {
-        //
-    }
+        SiteSettings::loadNumToZero();
+        $get = $request->query();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreProdukRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreProdukRequest $request)
-    {
-        //
-    }
+        dd($get);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Produk  $produk
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Produk $produk)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Produk  $produk
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Produk $produk)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateProdukRequest  $request
-     * @param  \App\Models\Produk  $produk
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateProdukRequest $request, Produk $produk)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Produk  $produk
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Produk $produk)
-    {
-        //
+        // $menus=[
+        //     ['route'=>'PrintOutNota','nama'=>'Print Out','method'=>'get','params'=>[['name'=>'nota_id','value'=>$nota['id']],]],
+        // ];
+        $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
+        ];
+        // dd($data);
+        // dump($data);
+        return view('produk.produk_detail', $data);
     }
 }

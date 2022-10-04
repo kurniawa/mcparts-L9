@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 class NotaController extends Controller
 {
     //
-    public function index(Request $request)
+    public function index()
     {
 
         // Metode untuk reset value pada pencegahan reload pada insert dan update DB
@@ -295,7 +295,7 @@ class NotaController extends Controller
             'menus' => $menus,
         ];
         // dd($data);
-        dump($data);
+        // dump($data);
         return view('nota.nota-detail', $data);
     }
 
@@ -437,13 +437,15 @@ class NotaController extends Controller
         $spk_produk_nota = SpkProdukNota::find($data_item['spk_produk_nota_id']);
         $spk_produk = SpkProduk::find($data_item['spk_produk_id']);
         $produk = Produk::find($data_item['produk_id']);
-        $produk_harga=ProdukHarga::where('produk_id',$produk['id'])->latest()->first();
+        $produk_hargas=ProdukHarga::where('produk_id',$produk['id'])->get();
+        $produk_harga_terbaru=ProdukHarga::where('produk_id',$produk['id'])->latest()->first();
         $nota = Nota::find($get['nota_id']);
         $pelanggan = Pelanggan::find($get['pelanggan_id']);
-        $pelanggan_produk = PelangganProduk::where('pelanggan_id',$pelanggan['id'])->where('produk_id',$produk['id'])->latest()->first();
-        $harga_khusus_pelanggan=null;
-        if ($pelanggan_produk!==null) {
-            $harga_khusus_pelanggan=$pelanggan_produk['harga_khusus'];
+        $pelanggan_produk_hargas = PelangganProduk::where('pelanggan_id',$pelanggan['id'])->where('produk_id',$produk['id'])->get();
+        $pelanggan_produk_harga_terbaru = PelangganProduk::where('pelanggan_id',$pelanggan['id'])->where('produk_id',$produk['id'])->latest()->first();
+        $harga_khusus_pelanggan_terbaru=null;
+        if ($pelanggan_produk_harga_terbaru!==null) {
+            $harga_khusus_pelanggan_terbaru=$pelanggan_produk_harga_terbaru['harga_khusus'];
         }
         $reseller = null;
         $reseller_id=null;
@@ -462,9 +464,11 @@ class NotaController extends Controller
             'spk_produk_nota' => $spk_produk_nota,
             'spk_produk' => $spk_produk,
             'produk' => $produk,
-            'produk_harga' => $produk_harga,
-            'pelanggan_produk' => $pelanggan_produk,
-            'harga_khusus_pelanggan' => $harga_khusus_pelanggan,
+            'produk_hargas' => $produk_hargas,
+            'produk_harga_terbaru' => $produk_harga_terbaru,
+            'pelanggan_produk_hargas' => $pelanggan_produk_hargas,
+            'pelanggan_produk_harga_terbaru' => $pelanggan_produk_harga_terbaru,
+            'harga_khusus_pelanggan_terbaru' => $harga_khusus_pelanggan_terbaru,
         ];
 
         dump($data);
@@ -472,7 +476,7 @@ class NotaController extends Controller
         return view('nota.edit_harga_item_nota', $data);
     }
 
-    public function edit_harga_item_nota_db(Request $request)
+    public function edit_harga_item_nota_input_baru(Request $request)
     {
         $load_num = SiteSetting::find(1);
         $run_db = true;
@@ -488,7 +492,10 @@ class NotaController extends Controller
         $post = $request->post();
         $harga_baru=$post['harga_baru'];
         $nota_id=$post['nota_id'];
-        $saveAsHargaKhusus=$post['saveAsHargaKhusus'];
+        $saveAsHargaKhusus='no';
+        if (isset($post['saveAsHargaKhusus'])) {
+            $saveAsHargaKhusus=$post['saveAsHargaKhusus'];
+        }
         $pelanggan_id=$post['pelanggan_id'];
         $reseller_id=$post['reseller_id'];
         $produk_id=$post['produk_id'];
@@ -499,6 +506,103 @@ class NotaController extends Controller
         $harga_baru=(int)$harga_baru;
         $harga_price_list=(int)$harga_price_list;
         if ($run_db) {
+            $is_harga_exist='no';$pelanggan_produk_id=null;$produk_harga_id=null;
+            $pelanggan_produk_harga=PelangganProduk::where('produk_id',$produk_id)->where('pelanggan_id',$pelanggan_id)->where('harga_khusus',$harga_baru)->first();
+            $produk_harga=ProdukHarga::where('produk_id',$produk_id)->where('harga',$harga_baru)->first();
+            if ($produk_harga!==null) {
+                $produk_harga_id=$produk_harga['id'];
+                $success_logs[]='Harga yang diinput sudah exist di table produk_harga, maka produk_harga_id menjadi bukan null.';
+                $is_harga_exist='yes';
+            }
+            if ($pelanggan_produk_harga!==null) {
+                $pelanggan_produk_id=$pelanggan_produk_harga['id'];
+                $success_logs[]='Harga yang diinput sudah exist di table pelanggan_produk, maka pelanggan_produk_id menjadi bukan null.';
+                $is_harga_exist='yes';
+            }
+            if ($is_harga_exist==='no') {
+                // Simpan harga khusus pelanggan
+                if ($saveAsHargaKhusus=='yes') {
+                    $pelanggan_produk=PelangganProduk::where('pelanggan_id',$pelanggan_id)->where('produk_id',$produk_id)->where('harga_khusus',$harga_baru)->first();
+                    if ($pelanggan_produk==null) {
+                        PelangganProduk::create([
+                            'pelanggan_id'=>$pelanggan_id,
+                            'reseller_id'=>$reseller_id,
+                            'produk_id'=>$produk_id,
+                            'nota_id'=>$nota_id,
+                            'harga_price_list'=>$harga_price_list,
+                            'harga_khusus'=>$harga_baru,
+                        ]);
+                        $success_logs[]='Belum ada pelanggan_produk yang sama -> Berhasil create pelanggan_produk baru dan input harga khusus yang baru!';
+                    }
+                } else {
+                    $success_logs[]='Harga tidak di temukan baik pada table produk_harga, maupun pada table pelanggan_produk. Maka harga yang baru diinput ini akan diinput ke dalam table produk_harga BARU dari produk ini.';
+                    $produk_harga=ProdukHarga::create([
+                        'produk_id'=>$produk_id,
+                        'harga'=>$harga_baru,
+                        'status'=>'BARU'
+                    ]);
+                    $produk_harga_id=$produk_harga['id'];
+                }
+            }
+
+            $spk_produk_nota = SpkProdukNota::find($post['spk_produk_nota_id']);
+            $spk_produk_nota->harga=$harga_baru;
+            $spk_produk_nota->harga_t=$harga_baru*$spk_produk_nota['jumlah'];
+            $spk_produk_nota->produk_harga_id=$produk_harga_id;
+            $spk_produk_nota->pelanggan_produk_id=$pelanggan_produk_id;
+            $spk_produk_nota->save();
+            $success_logs[]='Berhasil update harga item dan harga_t item nota!';
+            // Karena adanya perubahan harga, maka perlu update data nota
+            UpdateDataSPK::Nota_JmlT_HargaT($nota_id);
+            $success_logs[]='nota: Jumlah dan Harga Total Nota diupdate.';
+
+            $main_log='SUCCESS';
+            $load_num->value+=1;
+            $load_num->save();
+        }
+
+        $route='Nota-Detail';
+        $route_btn='Ke Detail Nota';
+        $params=['nota_id'=>$nota_id];
+        $data = [
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
+        ];
+
+        return view('layouts.db-result', $data);
+    }
+
+    public function edit_harga_item_nota_pilih_dari_histori(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $run_db = true;
+
+        $success_logs = $error_logs =$warning_logs= array();
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+        }
+
+        $post = $request->post();
+        $harga_baru=$post['harga_baru'];
+        $nota_id=$post['nota_id'];
+        $saveAsHargaKhusus='no';
+        if (isset($post['saveAsHargaKhusus'])) {
+            $saveAsHargaKhusus=$post['saveAsHargaKhusus'];
+        }
+        $pelanggan_id=$post['pelanggan_id'];
+        $reseller_id=$post['reseller_id'];
+        $produk_id=$post['produk_id'];
+        $harga_price_list=$post['harga_price_list'];
+
+        // dd('post', $post);
+
+        $harga_baru=(int)$harga_baru;
+        $harga_price_list=(int)$harga_price_list;
+        if ($run_db) {
+
             $spk_produk_nota = SpkProdukNota::find($post['spk_produk_nota_id']);
             $spk_produk_nota->harga=$harga_baru;
             $spk_produk_nota->harga_t=$harga_baru*$spk_produk_nota['jumlah'];

@@ -4012,8 +4012,8 @@ class ProdukSeeder extends Seeder
         ],
         ];
 
-        for ($i = 0; $i < count($produk); $i++) {
-        // for ($i = 0; $i < 20; $i++) {
+        // for ($i = 0; $i < count($produk); $i++) {
+        for ($i = 0; $i < 20; $i++) {
             dump($produk[$i]['nama']);
             $inserted_produk = Produk::create([
                 'tipe' => $produk[$i]['tipe'],
@@ -4026,6 +4026,7 @@ class ProdukSeeder extends Seeder
             ProdukHarga::create([
                 'produk_id' => $inserted_produk['id'],
                 'harga' => $produk[$i]['harga'],
+                'status' => 'DEFAULT',
             ]);
 
             if (isset($produk[$i]['bahan']) && $produk[$i]['bahan'] !== null) {

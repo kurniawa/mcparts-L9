@@ -1,15 +1,7 @@
 @extends('layouts.main_layout')
+@extends('layouts.navbar')
 
 @section('content')
-
-<header class="header grid-2-auto">
-    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
-    <div class="justify-self-right pr-0_5rem">
-        <!-- <a href="06-02-produk-baru.php" id="btnNewProduct" class="btn-atas-kanan2">
-            + Tambah Produk Baru
-        </a> -->
-    </div>
-</header>
 
 <form action="/spk/edit-kop-spk-db" method="POST">
     @csrf

@@ -9,11 +9,17 @@ class RegisterController extends Controller
 {
     public function index()
     {
-        return view('login.register');
+        $data=[
+            'go_back'=>true,
+            'navbar_bg'=>'bg-color-orange-2',
+        ];
+        return view('login.register',$data);
     }
 
     public function store(Request $request)
     {
+        // $post=$request->post();
+        // dd($post);
         $validatedData = $request->validate([
             'nama' => 'required|min:3|max:255',
             'username' => 'required|min:3|max:50|unique:users',

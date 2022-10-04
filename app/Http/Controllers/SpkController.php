@@ -150,6 +150,8 @@ class SpkController extends Controller
         }
 
         $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
             'spk' => $spk,
             'pelanggan' => $pelanggan,
             'reseller' => $reseller,

@@ -281,7 +281,7 @@ class SrjalanController extends Controller
             'produks' => $produks,
             'menus' => $menus,
         ];
-        dump($data);
+        // dump($data);
         return view('srjalan.sj-detailSJ', $data);
     }
 

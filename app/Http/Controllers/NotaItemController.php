@@ -158,18 +158,32 @@ class NotaItemController extends Controller
         $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
 
         $post = $request->input();
+        $spk_produk_nota_id=$post['spk_produk_nota_id'];
         // return $post;
         if ($run_db) {
-            $spk_produk_nota=SpkProdukNota::find($post['spk_produk_nota_id']);
-            $spk_produk_nota->delete();
-            $success_logs[]='spk_produk_nota: berhasil dihapus!';
+            // Cari terlebih dahulu apakah ada spk_produk_nota lain dengan nota yang sama?
+            // Kalau tidak ada, maka hapus nota aja, dan harusnya otomatis kehapus juga spk_produk_nota nya.
 
-            //UPDATE spk_produk->jml_sdh_nota
-            UpdateDataSPK::SpkProduk_JmlNota_Status($spk_produk_nota['spk_produk_id']);
-            $success_logs[]='spk_produk: Jumlah Sudah Nota diupdate.';
+            $spk_produk_nota=SpkProdukNota::find($spk_produk_nota_id);
+            $spk_produk_nota_other=SpkProdukNota::where('nota_id',$spk_produk_nota['nota_id'])->where('id','!=',$spk_produk_nota_id)->first();
+            if ($spk_produk_nota_other===null) {
+                $nota=Nota::find($spk_produk_nota['nota_id']);
+                $nota->delete();
+                $success_logs[]='Tidak ada lagi spk_produk_nota yang sama, oleh karena itu nota akan langsung dihapus saja. Dengan demikan otomatis spk_produk_nota yang ingin di hapus juga akan ikut terhapus.';
 
-            UpdateDataSPK::Nota_JmlT_HargaT($spk_produk_nota['nota_id']);
-            $success_logs[]='nota: Jumlah dan Harga Total Nota diupdate.';
+                //UPDATE spk_produk->jml_sdh_nota
+                UpdateDataSPK::SpkProduk_JmlNota_Status($spk_produk_nota['spk_produk_id']);
+                $success_logs[]='spk_produk: Jumlah Sudah Nota diupdate.';
+            } else {
+                $spk_produk_nota->delete();
+                $success_logs[]='spk_produk_nota: berhasil dihapus!';
+                //UPDATE spk_produk->jml_sdh_nota
+                UpdateDataSPK::SpkProduk_JmlNota_Status($spk_produk_nota['spk_produk_id']);
+                $success_logs[]='spk_produk: Jumlah Sudah Nota diupdate.';
+
+                UpdateDataSPK::Nota_JmlT_HargaT($spk_produk_nota['nota_id']);
+                $success_logs[]='nota: Jumlah dan Harga Total Nota diupdate.';
+            }
 
             $main_log='Success';
 

@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="grid-2-10_auto p-0_5rem">
-        <img class="w-2rem" src="/img/icons/pencil.svg" alt="">
+        <img class="w-2rem" src="{{ asset('img/icons/pencil.svg') }}" alt="">
         <h2 class="">Detail Surat Jalan: {{ $srjalan['no_srjalan'] }} </h2>
     </div>
 </div>
@@ -33,11 +33,11 @@
     </table>
     <form action="/srjalan/edit-item-srjalan" method="GET" class="p-0_5rem">
         <table id="divDaftarItemsrjalan" style="width: 100%">
-            <tr><th>No.</th><th>Nama srjalan</th><th>Jml.</th><th>Jml. Packing</th><th>Tipe Packing</th></tr>
+            <tr><th>No.</th><th>Nama</th><th>Jml.</th><th>Jml.P</th><th>Tipe.P</th></tr>
             @for ($i = 0; $i < count($produks); $i++)
             <tr>
                 <td>{{ $i+1 }}</td>
-                <td>{{ $produks[$i]['nama_srjalan'] }}</td>
+                <td>{{ $produks[$i]['nama'] }}</td>
                 <td>{{ $spk_produk_nota_srjalans[$i]['jumlah'] }}</td>
                 <td class="numberToFormat">{{ $spk_produk_nota_srjalans[$i]['jml_packing'] }}</td>
                 <td>{{ $spk_produk_nota_srjalans[$i]['tipe_packing'] }}</td>
@@ -47,9 +47,14 @@
         <input type="hidden" name="srjalan_id" value={{ $srjalan['id'] }}>
         <input type="hidden" name="pelanggan_id" value={{ $pelanggan['id'] }}>
     </form>
-    <div class="text-right p-1em">
-        <div class="font-weight-bold font-size-2rem color-green numberToFormat">{{ $srjalan['harga_total'] }}</div>
-        <div class="font-weight-bold color-red font-size-1_5rem">Total</div>
+    <div class="text-end fw-bold fs-5">
+        @if ($srjalan['jml_colly']!==null)
+        <div style="color: darkgreen"><span class="numberToFormat">{{ $srjalan['jml_colly'] }}</span> Koli</div>
+        @endif
+        @if ($srjalan['jml_dus']!==null)
+        <div style="color: darkgreen"><span class="numberToFormat">{{ $srjalan['jml_dus'] }}</span> Dus</div>
+        @endif
+        <div class="fw-bold fs-4 color-red">Total</div>
     </div>
 </div>
 

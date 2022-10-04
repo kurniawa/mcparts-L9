@@ -373,6 +373,7 @@
             if (isNaN(parseInt(el_jumlahs[i].value))) {
                 divs_invalid_feedback[i].style.display='block';
                 divs_invalid_feedback[i].textContent='Format jumlah tidak tepat!';
+                console.log('index tidak valid:' + i);
             } else {
                 i_ready.push(i);
             }
@@ -381,13 +382,16 @@
             return false;
         }
 
+        console.log('i_ready:');
+        console.log(i_ready);
         var i_ready2=new Array()
         for (let j = 0; j < i_ready.length; j++) {
             if (parseInt(el_jumlahs[i_ready[j]].value)<=0) {
                 divs_invalid_feedback[i_ready[j]].style.display='block';
                 divs_invalid_feedback[i_ready[j]].textContent='jumlah harus lebih daripada 0!';
+                console.log('i_ready tidak valid:' + i_ready);
             } else {
-                i_ready2.push(j);
+                i_ready2.push(i_ready[j]);
             }
         }
         if (i_ready2.length==0) {
@@ -397,15 +401,22 @@
         // cek apakah ada input jumlah yang melebihi dari jumlah item yang sudah nota
         var i_ready3=new Array();
         var jml_spkProdukNotas=document.querySelectorAll('.newN_jmlSPKProNo');
+        console.log('i_ready2:');
+        console.log(i_ready2);
         for (let k = 0; k < i_ready2.length; k++) {
+            console.log('i_ready2[k]:' + i_ready2[k]);
+            console.log('el_jumlahs[i_ready2[k]].value : ' + el_jumlahs[i_ready2[k]].value);
+            console.log('jumlah diinput > jumlah spk_produk_nota ?');
+            console.log(parseInt(el_jumlahs[i_ready2[k]].value) + ">" + parseInt(jml_spkProdukNotas[i_ready2[k]].value));
             if (parseInt(el_jumlahs[i_ready2[k]].value)>parseInt(jml_spkProdukNotas[i_ready2[k]].value)) {
                 divs_invalid_feedback[i_ready2[k]].style.display='block';
                 divs_invalid_feedback[i_ready2[k]].textContent='Input jumlah melebihi dari pada yang seharusnya tercantum di Nota!';
             } else {
-                i_ready3.push(i_ready[k]);
+                i_ready3.push(i_ready2[k]);
             }
         }
         console.log('i_ready3',i_ready3);
+        // return false;
         if (i_ready3.length==0) {
             return false;
         }
@@ -455,6 +466,7 @@
         }
 
         // setelah itu, baru jalankan fungsi ajax nya.
+        // return false;
         $.ajax({
             type:'POST',
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},

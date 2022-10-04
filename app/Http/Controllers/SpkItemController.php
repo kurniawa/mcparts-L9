@@ -34,6 +34,8 @@ class SpkItemController extends Controller
         }
 
         $data=[
+            'go_back'=>true,
+            'navbar_bg'=>'bg-color-orange-2',
             'tipe'=>$tipe,
             'spk_produk'=>$spk_produk,
             'produk'=>$produk,

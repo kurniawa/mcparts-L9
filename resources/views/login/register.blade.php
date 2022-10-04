@@ -1,4 +1,5 @@
 @extends('layouts.main_layout')
+@extends('layouts.navbar')
 
 @section('header-back')
     @parent
@@ -21,7 +22,7 @@
     }
   </style>
 
-  
+
   <!-- Custom styles for this template -->
   <link href="/css/signin.css" rel="stylesheet">
 <div class="form-container">
@@ -29,7 +30,7 @@
     <form action="/register" method="POST">
         @csrf
       <img class="mb-4" src="/img/icons/boy.svg" alt="" width="72" height="57">
-      <h1 class="h3 mb-3 fw-normal">Form Registrasi Admin</h1>
+      <h1 class="h3 mb-3 fw-normal">Form Registrasi User</h1>
       <div class="form-floating">
         <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Nama" value="{{ old('nama') }}" required>
         <label for="nama">Nama</label>
@@ -61,7 +62,7 @@
         </div>
         @enderror
       </div>
-    
+
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Remember me
@@ -72,5 +73,5 @@
     </form>
     {{-- <small>Belum terdaftar? <a href="/register" class="a-link">Daftar sekarang!</a></small> --}}
     </main>
-</div>  
+</div>
 @endsection

@@ -204,7 +204,8 @@ Route::controller(NotaController::class)->group(function ()
     Route::get('/nota/nota-print-out', 'nota_print_out')->name('PrintOutNota')->middleware('auth');
     Route::post('/nota/nota-hapus', 'nota_hapus')->middleware('auth');
     Route::get('/nota/edit-harga-item-nota', 'edit_harga_item_nota')->name('edit_harga_item_nota')->middleware('auth');
-    Route::post('/nota/edit-harga-item-nota-DB', 'edit_harga_item_nota_db')->name('edit_harga_item_nota_db')->middleware('auth');
+    Route::post('/nota/edit-harga-item-nota-input-baru', 'edit_harga_item_nota_input_baru')->name('edit_harga_item_nota_input_baru')->middleware('auth');
+    Route::post('/nota/edit-harga-item-nota-pilih-dari-histori', 'edit_harga_item_nota_pilih_dari_histori')->name('edit_harga_item_nota_pilih_dari_histori')->middleware('auth');
     // Route::post('/nota/hapus-item-nota', 'hapus_item_nota')->middleware('auth');
     // Route::get('/nota/tambah-item', 'tambah_item')->middleware('auth');
     // Route::get('/nota/tambah-item-pilih-item', 'tambah_item_pilih_item')->middleware('auth');
@@ -270,6 +271,7 @@ Route::controller(ProdukController::class)->group(function ()
     Route::get('/produk/tambah-produk/{tipe}', 'tambahProduk')->name('tambahProduk')->middleware('auth');
     Route::post('/produk/tambah-produk-db', 'tambahProdukDB')->name('tambahProdukDB')->middleware('auth');
     Route::get('/produk/cek-produk', 'cekProduk')->name('cekProduk')->middleware('auth');
+    Route::get('/produk/produk-detail', 'produk_detail')->name('produk_detail')->middleware('auth');
 });
 
 /**

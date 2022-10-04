@@ -10,6 +10,7 @@
         <div class="col-5 text-center fw-bold">
             <table>
                 <tr><th>No. Nota</th><th>:</th><th>{{ $nota['no_nota'] }}</th></tr>
+                <tr><th>Kepada</th><th>:</th><th>{{ $pelanggan['nama'] }}</th></tr>
                 <tr><td>Tanggal</td><td>:</td><td>{{ date('d-m-Y', strtotime($nota['created_at'])) }}</td></tr>
                 <tr style="vertical-align: top"><td>Alamat</td><td>:</td>
                     <td>
@@ -167,21 +168,21 @@
 
     $('#tableItemNota').append(htmlTotalHarga);
 
-    document.querySelector('.closingGreyArea').addEventListener('click', (event) => {
-        $('.closingGreyArea').hide();
-        $('.lightBox').hide();
-    });
+    // document.querySelector('.closingGreyArea').addEventListener('click', (event) => {
+    //     $('.closingGreyArea').hide();
+    //     $('.lightBox').hide();
+    // });
 
-    function showLightBox() {
-        $('.lightBox').show();
-        $('#closingGreyArea').show();
-        $('.divThreeDotMenuContent').hide();
-    }
+    // function showLightBox() {
+    //     $('.lightBox').show();
+    //     $('#closingGreyArea').show();
+    //     $('.divThreeDotMenuContent').hide();
+    // }
 
-    function closingLightBox() {
-        $('.closingGreyArea').hide();
-        $('.lightBox').hide();
-    }
+    // function closingLightBox() {
+    //     $('.closingGreyArea').hide();
+    //     $('.lightBox').hide();
+    // }
 </script>
 
 @endsection

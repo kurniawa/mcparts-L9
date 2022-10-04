@@ -2517,8 +2517,8 @@ class PelangganSeeder extends Seeder
             ],
         ];
 
-        for ($i = 0; $i < count($pelanggan); $i++) {
-        // for ($i = 0; $i < 20; $i++) {
+        // for ($i = 0; $i < count($pelanggan); $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $bentuk = null;
             if (isset($pelanggan[$i]['bentuk']) && $pelanggan[$i]['bentuk'] !== null) {
                 $bentuk = $pelanggan[$i]['bentuk'];

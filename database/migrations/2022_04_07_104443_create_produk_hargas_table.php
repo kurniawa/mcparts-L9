@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('produk_id')->nullable()->constrained()->onDelete('NO ACTION');
             $table->integer('harga');
+            $table->enum('status',['DEFAULT','BARU','LAMA'])->nullable()->default('LAMA'); // Kalau tidak ada harga baru, maka harga default dianggap juga harga terbaru.
             $table->timestamps();
         });
     }

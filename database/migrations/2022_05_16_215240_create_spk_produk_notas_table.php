@@ -22,6 +22,8 @@ return new class extends Migration
             $table->foreignId('nota_id')->nullable()->constrained()->onDelete('CASCADE');
             $table->smallInteger('jumlah');
             $table->integer('harga');
+            $table->foreignId('produk_harga_id')->nullable()->constrained()->onDelete('NO ACTION'); // Ini perlu untuk acuan dalam pengeditan harga nantinya
+            $table->foreignId('pelanggan_produk_id')->nullable()->constrained()->onDelete('NO ACTION');
             $table->integer('harga_t');
             $table->enum('is_price_updated',['yes','no'])->nullable()->default('no');
             $table->timestamps();
