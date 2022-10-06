@@ -31,6 +31,7 @@
         <tr><td>Harga Tercantum Saat Ini</td><td>:</td><td class="toFormatNumber">{{ $spk_produk_nota['harga'] }}</td></tr>
     </table>
     <br>
+    {{-- UBAH HARGA Berdasarkan Histori --}}
     <form action="{{ route('edit_harga_item_nota_pilih_dari_histori') }}" method="POST" class="border border-primary rounded border-2 p-2">
         <h4>Pengubahan Harga Berdasarkan Histori Harga</h4>
         <div class="row">
@@ -40,8 +41,11 @@
                     <tr><th>Tgl.</th><th>Harga</th><th></th></tr>
                     @foreach ($produk_hargas as $produk_harga)
                     <tr>
-                        <td>{{ date('d-m-Y', strtotime($produk_harga['created_at'])) }}</td><td class="toFormatNumber">{{ $produk_harga['harga'] }}</td>
-                        <td><input type="radio" name="pilihan_harga" id="" value="['produk_harga_id'=>{{ $produk_harga['id'] }}]"></td>
+                        <td>{{ date('d-m-Y', strtotime($produk_harga['created_at'])) }}</td>
+                        <td class="toFormatNumber">{{ $produk_harga['harga'] }}</td>
+                        <td>
+                            <input type="radio" name="data_harga" id="" value="['id'=>{{ $produk_harga['id'] }},'table'=>'produk_hargas','harga'=>{{ $produk_harga['harga'] }}]">
+                        </td>
                     </tr>
                     @endforeach
                 </table>
@@ -52,18 +56,31 @@
                     <tr><th>Tgl.</th><th>Harga</th><th></th></tr>
                     @foreach ($pelanggan_produk_hargas as $pelanggan_produk_harga)
                     <tr>
-                        <td>{{ date('d-m-Y', strtotime($pelanggan_produk_harga['created_at'])) }}</td><td class="toFormatNumber">{{ $pelanggan_produk_harga['harga_khusus'] }}</td>
-                        <td><input type="radio" name="pilihan_harga" id="" value="['pelanggan_produk_harga_id'=>{{ $pelanggan_produk_harga['id'] }}]"></td>
+                        <td>{{ date('d-m-Y', strtotime($pelanggan_produk_harga['created_at'])) }}</td>
+                        <td class="toFormatNumber">{{ $pelanggan_produk_harga['harga_khusus'] }}</td>
+                        <td>
+                            <input type="radio" name="data_harga" id="" value="['id'=>{{ $pelanggan_produk_harga['id'] }},'table'=>'pelanggan_produks','harga'=>{{ $pelanggan_produk_harga['harga_khusus'] }}]">
+                        </td>
                     </tr>
                     @endforeach
                 </table>
             </div>
         </div>
         <div class="text-center mt-2">
+            <input type='hidden' name='nota_id' value={{ $nota['id'] }}>
+            <input type='hidden' name='spk_produk_nota_id' value={{ $spk_produk_nota['id'] }}>
+            <input type='hidden' name='spk_produk_id' value={{ $spk_produk['id'] }}>
+            <input type='hidden' name='produk_id' value={{ $produk['id'] }}>
+            <input type='hidden' name='jumlah_selesai' value={{ $spk_produk['jml_selesai'] }}>
+            <input type='hidden' name='pelanggan_id' value={{ $pelanggan['id'] }}>
+            <input type='hidden' name='reseller_id' value={{ $reseller_id }}>
+            <input type='hidden' name='harga_price_list' value={{ $produk_harga['harga'] }}>
             <button type="submit" class="btn btn-warning">Konfirmasi Ubah Harga</button>
         </div>
         @csrf
     </form>
+
+    {{-- Input Harga Baru --}}
     <form class="border border-success rounded border-2 p-2" action="{{ route('edit_harga_item_nota_input_baru') }}" method="POST" onsubmit="return isInputNumberValid('harga_baru','invalid-feedback-harga-baru');">
         @csrf
         <h4>Input Harga Baru</h4>

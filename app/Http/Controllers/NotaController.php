@@ -586,6 +586,20 @@ class NotaController extends Controller
         }
 
         $post = $request->post();
+        dd($post);
+        $spk_produk_nota_id=$post['spk_produk_nota_id'];
+        $data_harga=json_decode($post['data_harga'],true);
+        $table_id=$data_harga['id'];
+        $table_name=$data_harga['table'];
+        $harga=$data_harga['harga'];
+
+        $produk_harga_id=null;$pelanggan_produk_id=null;
+        if ($table_name==='produk_hargas') {
+            $produk_harga_id=$table_id;
+        } else if ($table_name==='pelanggan_produks') {
+            $pelanggan_produk_id=$table_id;
+        }
+
         $harga_baru=$post['harga_baru'];
         $nota_id=$post['nota_id'];
         $saveAsHargaKhusus='no';
@@ -599,7 +613,6 @@ class NotaController extends Controller
 
         // dd('post', $post);
 
-        $harga_baru=(int)$harga_baru;
         $harga_price_list=(int)$harga_price_list;
         if ($run_db) {
 
