@@ -44,7 +44,7 @@
         <tr class="border-bottom" id='divDetailDropdown-{{ $i }}' style="display: none">
             <td colspan="6" class="text-end">
                 <a class="btn btn-primary btn-sm" href="{{ route('edit_harga_item_nota',['data_item'=>json_encode($data_items[$i]),'nota_id'=>$nota['id'],'pelanggan_id'=>$pelanggan['id']]) }}">E.Hrg</a>
-                <a class="btn btn-dd btn-sm" href="{{ route('Deviasi',['tipe'=>'keterangan','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >E.NaNo</a>
+                <a class="btn btn-dd btn-sm" href="{{ route('edit_nama_item_nota',['data_item'=>json_encode($data_items[$i]),'nota_id'=>$nota['id'],'pelanggan_id'=>$pelanggan['id']]) }}" >E.NaNo</a>
                 {{-- <a class="btn btn-warning btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'deviasi','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >+/-</a>
                 <a class="btn btn-primary btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'jumlah','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Jml</a>
                 <a class="btn btn-info btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'selesai','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Sls</a>

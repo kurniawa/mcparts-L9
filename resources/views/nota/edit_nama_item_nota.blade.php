@@ -6,7 +6,7 @@
 <div class="container">
     <div class="d-flex mt-2">
         <img class="w-2rem" src="{{ asset('img/icons/pencil.svg') }}" alt="">
-        <h2 class="ms-2">Edit Harga Item Nota {{ $nota['no_nota'] }}</h2>
+        <h2 class="ms-2">Edit Nama Item Nota {{ $nota['no_nota'] }}</h2>
     </div>
 
     <table class="mt-2">
@@ -14,7 +14,7 @@
         @if ($reseller !== null)
         <tr><td></td><td></td><td><span style="font-weight: bold">{{ $reseller['nama'] }}</span> sebagai Reseller untuk Nota ini</td></tr>
         @endif
-        <tr><th>Tanggal</th><th>:</th><td>{{ date('d-m-Y', strtotime($nota['created_at'])) }}</td></tr>
+        <tr><th>Tanggal Nota</th><th>:</th><td>{{ date('d-m-Y', strtotime($nota['created_at'])) }}</td></tr>
     </table>
     <br>
     <p style="font-weight:bold;font-size:1.5rem">{{ $produk['nama_nota'] }}</p>

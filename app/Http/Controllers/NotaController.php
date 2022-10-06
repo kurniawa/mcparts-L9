@@ -471,7 +471,7 @@ class NotaController extends Controller
             'harga_khusus_pelanggan_terbaru' => $harga_khusus_pelanggan_terbaru,
         ];
 
-        dump($data);
+        // dump($data);
 
         return view('nota.edit_harga_item_nota', $data);
     }
@@ -577,7 +577,7 @@ class NotaController extends Controller
         $load_num = SiteSetting::find(1);
         $run_db = true;
 
-        $success_logs = $error_logs =$warning_logs= array();
+        $success_logs=$error_logs=$warning_logs=array();
         $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
 
         if ($load_num->value > 0) {
@@ -586,12 +586,22 @@ class NotaController extends Controller
         }
 
         $post = $request->post();
-        dd($post);
+        // dd($post);
+        // dump($post);
+        // $test_data='[["id"=>3,"table"=>"produk_hargas","harga"=>20500]]';
+        // $test_data=json_decode($test_data, true);
+        // dump($test_data);
+        // $test_data2="[['id'=>3,'table'=>'produk_hargas','harga'=>20500]]";
+        // $test_data2=json_decode($test_data2, true);
+        // dump($test_data2);
         $spk_produk_nota_id=$post['spk_produk_nota_id'];
         $data_harga=json_decode($post['data_harga'],true);
+        // $data_harga=json_encode($post['data_harga']);
+        // json_last_error();
+        // dd($data_harga);
         $table_id=$data_harga['id'];
         $table_name=$data_harga['table'];
-        $harga=$data_harga['harga'];
+        $harga_histori_terpilih=(int)$data_harga['harga'];
 
         $produk_harga_id=null;$pelanggan_produk_id=null;
         if ($table_name==='produk_hargas') {
@@ -600,46 +610,23 @@ class NotaController extends Controller
             $pelanggan_produk_id=$table_id;
         }
 
-        $harga_baru=$post['harga_baru'];
-        $nota_id=$post['nota_id'];
-        $saveAsHargaKhusus='no';
-        if (isset($post['saveAsHargaKhusus'])) {
-            $saveAsHargaKhusus=$post['saveAsHargaKhusus'];
-        }
         $pelanggan_id=$post['pelanggan_id'];
         $reseller_id=$post['reseller_id'];
         $produk_id=$post['produk_id'];
         $harga_price_list=$post['harga_price_list'];
+        $nota_id=$post['nota_id'];
 
-        // dd('post', $post);
-
-        $harga_price_list=(int)$harga_price_list;
         if ($run_db) {
-
-            $spk_produk_nota = SpkProdukNota::find($post['spk_produk_nota_id']);
-            $spk_produk_nota->harga=$harga_baru;
-            $spk_produk_nota->harga_t=$harga_baru*$spk_produk_nota['jumlah'];
+            $spk_produk_nota = SpkProdukNota::find($spk_produk_nota_id);
+            $spk_produk_nota->harga=$harga_histori_terpilih;
+            $spk_produk_nota->harga_t=$harga_histori_terpilih*$spk_produk_nota['jumlah'];
+            $spk_produk_nota->produk_harga_id=$produk_harga_id;
+            $spk_produk_nota->pelanggan_produk_id=$pelanggan_produk_id;
             $spk_produk_nota->save();
             $success_logs[]='Berhasil update harga item dan harga_t item nota!';
             // Karena adanya perubahan harga, maka perlu update data nota
             UpdateDataSPK::Nota_JmlT_HargaT($nota_id);
             $success_logs[]='nota: Jumlah dan Harga Total Nota diupdate.';
-
-            // Simpan harga khusus pelanggan
-            if ($saveAsHargaKhusus=='yes') {
-                $pelanggan_produk=PelangganProduk::where('pelanggan_id',$pelanggan_id)->where('produk_id',$produk_id)->where('harga_khusus',$harga_baru)->first();
-                if ($pelanggan_produk==null) {
-                    PelangganProduk::create([
-                        'pelanggan_id'=>$pelanggan_id,
-                        'reseller_id'=>$reseller_id,
-                        'produk_id'=>$produk_id,
-                        'nota_id'=>$nota_id,
-                        'harga_price_list'=>$harga_price_list,
-                        'harga_khusus'=>$harga_baru,
-                    ]);
-                    $success_logs[]='Belum ada pelanggan_produk yang sama -> Berhasil create pelanggan_produk baru dan input harga khusus yang baru!';
-                }
-            }
 
             $main_log='SUCCESS';
             $load_num->value+=1;

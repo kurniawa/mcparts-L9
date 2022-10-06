@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Helpers\SiteSettings;
 use App\Helpers\UpdateDataSPK;
 use App\Models\Nota;
+use App\Models\Pelanggan;
+use App\Models\PelangganNamaproduk;
+use App\Models\PelangganProduk;
 use App\Models\Produk;
 use App\Models\ProdukHarga;
 use App\Models\SiteSetting;
@@ -274,5 +277,46 @@ class NotaItemController extends Controller
             'route'=>$route,'route_btn'=>$route_btn,'params'=>$params
         ];
         return view('layouts.db-result', $data);
+    }
+
+    public function edit_nama_item_nota(Request $request)
+    {
+        SiteSettings::loadNumToZero();
+
+        $get = $request->query();
+
+        dd('$get:', $get);
+
+        $data_item = json_decode($get['data_item'], true);
+
+        $spk_produk_nota = SpkProdukNota::find($data_item['spk_produk_nota_id']);
+        $spk_produk = SpkProduk::find($data_item['spk_produk_id']);
+        $produk = Produk::find($data_item['produk_id']);
+        $nota = Nota::find($get['nota_id']);
+        $pelanggan = Pelanggan::find($get['pelanggan_id']);
+        $reseller = null;
+        $reseller_id=null;
+        if ($nota['reseller_id'] !== null) {
+            $reseller = Pelanggan::find($nota['reseller_id']);
+            $reseller_id=$reseller['id'];
+        }
+        $pelanggan_namaproduks=PelangganNamaproduk::where('pelanggan_id',$pelanggan['id'])->get();
+
+        $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
+            'nota' => $nota,
+            'pelanggan' => $pelanggan,
+            'reseller' => $reseller,
+            'reseller_id' => $reseller_id,
+            'spk_produk_nota' => $spk_produk_nota,
+            'spk_produk' => $spk_produk,
+            'produk' => $produk,
+            'pelanggan_namaproduks'=>$pelanggan_namaproduks,
+        ];
+
+        // dump($data);
+
+        return view('nota.edit_nama_item_nota', $data);
     }
 }
