@@ -285,7 +285,7 @@ class NotaItemController extends Controller
 
         $get = $request->query();
 
-        dd('$get:', $get);
+        // dd('$get:', $get);
 
         $data_item = json_decode($get['data_item'], true);
 
@@ -301,6 +301,18 @@ class NotaItemController extends Controller
             $reseller_id=$reseller['id'];
         }
         $pelanggan_namaproduks=PelangganNamaproduk::where('pelanggan_id',$pelanggan['id'])->get();
+        $pelanggan_namaproduk=PelangganNamaproduk::where('pelanggan_id',$pelanggan['id'])->where('status','DEFAULT')->latest()->first();
+        $namanota_khusus_pelanggan='-';
+        if ($pelanggan_namaproduk!==null) {
+            $namanota_khusus_pelanggan=$pelanggan_namaproduk['nama_nota'];
+        }
+        $namanota_now=null;
+        if ($spk_produk_nota['namaproduk_id']!==null) {
+            $pelanggan_namaproduk=PelangganNamaproduk::find($spk_produk_nota['namaproduk_id']);
+            $namaproduk_now=$pelanggan_namaproduk['nama_nota'];
+        } else {
+            $namanota_now=$produk['nama_nota'];
+        }
 
         $data = [
             'go_back' => true,
@@ -313,9 +325,11 @@ class NotaItemController extends Controller
             'spk_produk' => $spk_produk,
             'produk' => $produk,
             'pelanggan_namaproduks'=>$pelanggan_namaproduks,
+            'namanota_now'=>$namanota_now,
+            'namanota_khusus_pelanggan'=>$namanota_khusus_pelanggan,
         ];
 
-        // dump($data);
+        dump($data);
 
         return view('nota.edit_nama_item_nota', $data);
     }
