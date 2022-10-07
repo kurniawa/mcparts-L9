@@ -222,7 +222,8 @@ Route::controller(NotaItemController::class)->group(function ()
     Route::post('/nota/editJmlSpkPN', 'editJmlSpkPN')->name('editJmlSpkPN')->middleware('auth');
     Route::post('/nota/delSpkPN', 'delSpkPN')->name('delSpkPN')->middleware('auth');
     Route::get('/nota/edit-nama-item-nota', 'edit_nama_item_nota')->name('edit_nama_item_nota')->middleware('auth');
-    Route::post('/nota/edit-nama-item-nota-db', 'edit_nama_item_nota_db')->name('edit_nama_item_nota_db')->middleware('auth');
+    Route::post('/nota/input-nama-nota_item', 'input_nama_nota_item')->name('input_nama_nota_item')->middleware('auth');
+    Route::post('/nota/pilih-nama-nota_item', 'pilih_nama_nota_item')->name('pilih_nama_nota_item')->middleware('auth');
 });
 
 /**

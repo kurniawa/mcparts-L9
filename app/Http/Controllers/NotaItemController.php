@@ -333,4 +333,138 @@ class NotaItemController extends Controller
 
         return view('nota.edit_nama_item_nota', $data);
     }
+
+    public function input_nama_nota_item(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $run_db = true;
+
+        $success_logs = $error_logs =$warning_logs= array();
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+        }
+
+        $post = $request->post();
+        // dd($post);
+        $nama_baru=$post['nama_baru'];
+        $nota_id=$post['nota_id'];
+        $pelanggan_id=$post['pelanggan_id'];
+        $reseller_id=$post['reseller_id'];
+        $produk_id=$post['produk_id'];
+
+        // dd('post', $post);
+
+        if ($run_db) {
+            $pelanggan_namaproduk_id=null;
+            $pelanggan_namaproduk=PelangganNamaproduk::where('produk_id',$produk_id)->where('pelanggan_id',$pelanggan_id)->where('nama_nota',$nama_baru)->first();
+            if ($pelanggan_namaproduk!==null) {
+                $pelanggan_namaproduk_id=$pelanggan_namaproduk['id'];
+                $success_logs[]='Nama yang diinput sudah exist di table pelanggan_namaproduks, maka pelanggan_namaproduk_id ditetapkan.';
+                // dd($pelanggan_namaproduk);
+            } else {
+                $pelanggan_namaproduk_new=PelangganNamaproduk::create([
+                    'pelanggan_id'=>$pelanggan_id,
+                    'reseller_id'=>$reseller_id,
+                    'produk_id'=>$produk_id,
+                    'nama_nota'=>$nama_baru,
+                ]);
+                $pelanggan_namaproduk_id=$pelanggan_namaproduk_new['id'];
+                $success_logs[]='Belum ada pelanggan_namaproduk yang sama -> Berhasil create pelanggan_namaproduk baru!';
+            }
+
+            $spk_produk_nota = SpkProdukNota::find($post['spk_produk_nota_id']);
+            $spk_produk_nota->namaproduk_id=$pelanggan_namaproduk_id;
+            $spk_produk_nota->save();
+            $success_logs[]='Berhasil update nama_nota item!';
+
+            $main_log='SUCCESS';
+            $load_num->value+=1;
+            $load_num->save();
+        }
+
+        $route='Nota-Detail';
+        $route_btn='Ke Detail Nota';
+        $params=['nota_id'=>$nota_id];
+        $data = [
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
+        ];
+
+        return view('layouts.db-result', $data);
+    }
+
+    public function pilih_nama_nota_item(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $run_db = true;
+
+        $success_logs=$error_logs=$warning_logs=array();
+        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
+
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+        }
+
+        $post = $request->post();
+        dd($post);
+        // dump($post);
+        // $test_data='[["id"=>3,"table"=>"produk_hargas","harga"=>20500]]';
+        // $test_data=json_decode($test_data, true);
+        // dump($test_data);
+        // $test_data2="[['id'=>3,'table'=>'produk_hargas','harga'=>20500]]";
+        // $test_data2=json_decode($test_data2, true);
+        // dump($test_data2);
+        $spk_produk_nota_id=$post['spk_produk_nota_id'];
+        $data_harga=json_decode($post['data_harga'],true);
+        // $data_harga=json_encode($post['data_harga']);
+        // json_last_error();
+        // dd($data_harga);
+        $table_id=$data_harga['id'];
+        $table_name=$data_harga['table'];
+        $harga_histori_terpilih=(int)$data_harga['harga'];
+
+        $produk_harga_id=null;$pelanggan_produk_id=null;
+        if ($table_name==='produk_hargas') {
+            $produk_harga_id=$table_id;
+        } else if ($table_name==='pelanggan_produks') {
+            $pelanggan_produk_id=$table_id;
+        }
+
+        $pelanggan_id=$post['pelanggan_id'];
+        $reseller_id=$post['reseller_id'];
+        $produk_id=$post['produk_id'];
+        $harga_price_list=$post['harga_price_list'];
+        $nota_id=$post['nota_id'];
+
+        if ($run_db) {
+            $spk_produk_nota = SpkProdukNota::find($spk_produk_nota_id);
+            $spk_produk_nota->harga=$harga_histori_terpilih;
+            $spk_produk_nota->harga_t=$harga_histori_terpilih*$spk_produk_nota['jumlah'];
+            $spk_produk_nota->produk_harga_id=$produk_harga_id;
+            $spk_produk_nota->pelanggan_produk_id=$pelanggan_produk_id;
+            $spk_produk_nota->save();
+            $success_logs[]='Berhasil update harga item dan harga_t item nota!';
+            // Karena adanya perubahan harga, maka perlu update data nota
+            UpdateDataSPK::Nota_JmlT_HargaT($nota_id);
+            $success_logs[]='nota: Jumlah dan Harga Total Nota diupdate.';
+
+            $main_log='SUCCESS';
+            $load_num->value+=1;
+            $load_num->save();
+        }
+
+        $route='Nota-Detail';
+        $route_btn='Ke Detail Nota';
+        $params=['nota_id'=>$nota_id];
+        $data = [
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
+        ];
+
+        return view('layouts.db-result', $data);
+    }
 }
