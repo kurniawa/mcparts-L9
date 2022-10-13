@@ -46,6 +46,8 @@ class SpkBaruController extends Controller
         }
 
         $data = [
+            'go_back'=>true,
+            'navbar_bg'=>'bg-color-orange-2',
             'label_pelanggans' => $label_pelanggans,
             'temp_spks' => $temp_spks,
             'pelanggans' => $pelanggans,

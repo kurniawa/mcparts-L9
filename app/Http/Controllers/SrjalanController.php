@@ -264,8 +264,11 @@ class SrjalanController extends Controller
         list($srjalan, $pelanggan, $alamat, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks) = $sj->get_one_srjalan_and_components($get['srjalan_id']);
 
         $menus=[
-            ['route'=>'SJ-PrintOut','nama'=>'PrintOut SJ','method'=>'GET','params'=>[['name'=>'srjalan_id','value'=>$srjalan['id']]]]
+            ['route'=>'SJ-PrintOut','nama'=>'PrintOut SJ','method'=>'GET','params'=>[['name'=>'srjalan_id','value'=>$srjalan['id']]]],
+            ['route'=>'editColly','nama'=>'E.Col','method'=>'GET','params'=>[['name'=>'srjalan_id','value'=>$srjalan['id']]]]
         ];
+
+        $alamatOfEkspedisi=Alamat::find($srjalan['ekspedisi_id']);
 
         $data = [
             'navbar_bg'=>'bg-color-orange-2',
@@ -280,6 +283,7 @@ class SrjalanController extends Controller
             'spk_produks' => $spk_produks,
             'produks' => $produks,
             'menus' => $menus,
+            'alamatOfEkspedisi' => $alamatOfEkspedisi,
         ];
         // dump($data);
         return view('srjalan.sj-detailSJ', $data);

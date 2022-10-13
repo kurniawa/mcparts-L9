@@ -23,7 +23,40 @@
         </div>
     </div>
     <table id="tableItemNota" style="width: 100%;" class="mt-3">
-        <tr class="tr-border-bottom tr-border-left-right"><th>Jumlah</th><th>Nama Barang</th><th>Hrg./pcs</th><th>Harga</th></tr>
+        <tr class="tr-border-bottom tr-border-left-right">
+            <th class="text-center">Jumlah</th><th class="text-center">Nama Barang</th><th class="text-center">Hrg./pcs</th><th class="text-center">Harga</th>
+        </tr>
+        @for ($i = 0; $i < count($spk_produk_notas); $i++)
+        <tr class='tr-border-left-right height-1_5em'>
+            <td class="toFormatNumber text-end pe-2">{{ $spk_produk_notas[$i]['jumlah'] }}</td>
+            <td class="ps-2 pe-2">{{ $nama_notas[$i] }}</td>
+            <td class="ps-2 pe-2">
+                <div class="d-flex justify-content-between">
+                    <span>Rp.</span>
+                    <div><span class="toFormatNumber">{{ $spk_produk_notas[$i]['harga'] }}</span>,-</div>
+                </div>
+            </td>
+            <td class="ps-2 pe-2">
+                <div class="d-flex justify-content-between">
+                    <span>Rp.</span>
+                    <div><span class="toFormatNumber">{{ $spk_produk_notas[$i]['harga_t'] }}</span>,-</div>
+                </div>
+            </td>
+        @endfor
+        @for ($j = 0; $j < $rest_row; $j++)
+        <tr class='tr-border-left-right height-1_5em'><td></td><td></td><td></td><td></td></tr>
+        @endfor
+        <tr class='tr-border-left-right tr-border-bottom'><td></td><td></td><td></td><td></td></tr>
+        <tr>
+            <td></td><td></td>
+            <th class='blrb-total text-center'>Total Harga</th>
+            <td class="blrb-total ps-2 pe-2">
+                <div class="d-flex justify-content-between">
+                    <span>Rp.</span>
+                    <div><span class="toFormatNumber">{{ $nota['harga_total'] }}</span>,-</div>
+                </div>
+            </td>
+        </tr>
     </table>
 
     <br>
@@ -109,80 +142,7 @@
 </style>
 
 <script>
-    // OVERWRITE BEBERAPA VARIABLE DIATAS DENGAN VERSI BARU
-    var nota = {!! json_encode($nota, JSON_HEX_TAG) !!};
-    var pelanggan = {!! json_encode($pelanggan, JSON_HEX_TAG) !!};
-    var reseller = {!! json_encode($reseller, JSON_HEX_TAG) !!};
-    var spk_produk_notas = {!! json_encode($spk_produk_notas, JSON_HEX_TAG) !!};
-    var spk_produks = {!! json_encode($spk_produks, JSON_HEX_TAG) !!};
-    var produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
 
-    if (show_console) {
-        console.log("nota");console.log(nota);
-        console.log("pelanggan");console.log(pelanggan);
-        console.log("reseller");console.log(reseller);
-        console.log("spk_produk_notas");console.log(spk_produk_notas);
-        console.log("spk_produks");console.log(spk_produks);
-        console.log("produks");console.log(produks);
-    }
-
-    var tglNota = ' $tglNota';
-    var namaPelanggan = ' $namaPelanggan';
-    var alamatPelanggan = ` $alamatPelanggan`;
-    var totalHarga = 0;
-
-    for (var i = 0; i < spk_produk_notas.length; i++) {
-        var htmlItem =
-            `
-        <tr class='tr-border-left-right height-1_5em'><td>${formatHarga(spk_produk_notas[i].jumlah.toString())}</td><td>${produks[i].nama_nota}</td><td>${formatHarga(spk_produk_notas[i].harga.toString())}</td><td>${formatHarga(spk_produk_notas[i].harga_t.toString())}</td></tr>
-        `;
-        $('#tableItemNota').append(htmlItem);
-    }
-
-    var restRow = 16 - spk_produk_notas.length;
-    console.log("restRow");
-    console.log(restRow);
-
-    for (var i = 0; i < restRow; i++) {
-        var htmlRestRow =
-            `
-        <tr class='tr-border-left-right height-1_5em'><td></td><td></td><td></td><td></td></tr>
-        `;
-        $('#tableItemNota').append(htmlRestRow);
-    }
-
-    var htmlLastRow =
-        `
-    <tr class='tr-border-left-right tr-border-bottom'><td></td><td></td><td></td><td></td></tr>
-    `;
-
-    $('#tableItemNota').append(htmlLastRow);
-
-    var htmlTotalHarga =
-        `
-        <tr><td></td><td></td>
-        <th class='blrb-total'>Total Harga</th>
-        <td class='blrb-total'>${formatHarga(nota.harga_total.toString())}</td>
-        </tr>
-        `;
-
-    $('#tableItemNota').append(htmlTotalHarga);
-
-    // document.querySelector('.closingGreyArea').addEventListener('click', (event) => {
-    //     $('.closingGreyArea').hide();
-    //     $('.lightBox').hide();
-    // });
-
-    // function showLightBox() {
-    //     $('.lightBox').show();
-    //     $('#closingGreyArea').show();
-    //     $('.divThreeDotMenuContent').hide();
-    // }
-
-    // function closingLightBox() {
-    //     $('.closingGreyArea').hide();
-    //     $('.lightBox').hide();
-    // }
 </script>
 
 @endsection

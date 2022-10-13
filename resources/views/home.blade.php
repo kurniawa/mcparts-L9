@@ -74,8 +74,33 @@
                 <div>Info Icons/<br>About</div>
             </a>
         </div>
+        @if ($user!==null)
+        @if ($user['clearance']!=='User')
+        <div class="gridMenuItem">
+            <a href="{{ route('penjualan') }}" class="menuIcons">
+                <img src="img/icons/money-bag.png" alt="Icon SPK">
+                <div>Penjualan</div>
+            </a>
+        </div>
+        @endif
+        @if ($user['clearance']==='SuperAdmin' || $user['clearance']==='Developer')
+        <div class="gridMenuItem">
+            <a href="{{ route('adminControlCenter') }}" class="menuIcons">
+                <img src="{{ asset('img/icons/manager.png') }}" alt="Icon SPK">
+                <div>Admin</div>
+            </a>
+        </div>
+        @endif
+        @endif
+        {{-- <a href="{{ route('SPKSeeder') }}">Create SPK Seeder</a> --}}
     </div>
+    @if (session('error'))
+    <div class="alert alert-danger">
+        <span>{{ session('error') }}</span>
+    </div>
+    @endif
 </div>
+
 
 <style>
     body {

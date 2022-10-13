@@ -6,6 +6,7 @@ use App\Helpers\SiteSettings;
 use App\Helpers\UpdateDataSPK;
 use App\Models\Nota;
 use App\Models\Pelanggan;
+use App\Models\PelangganNamaproduk;
 use App\Models\PelangganProduk;
 use App\Models\Produk;
 use App\Models\ProdukHarga;
@@ -252,8 +253,12 @@ class NotaController extends Controller
 
         // Update Harga Khusus dimulai dari sini
         // Apakah sudah sempat diupdate? Kalo sudah, maka tidak perlu update lagi, tinggal di edit harga nya saja apabila ingin diubah
+        // Selagi Update Harga Khusus, juga sekalian Update Nama Nota
+        $nama_notas=array();
         for ($i=0; $i < count($spk_produk_notas); $i++) {
+            $firstTimeDetail=false;
             if ($spk_produk_notas[$i]['is_price_updated']==='no') {
+                $firstTimeDetail=true;
                 $pelanggan_produk=PelangganProduk::where('pelanggan_id',$pelanggan['id'])->where('produk_id',$produks[$i]['id'])->latest()->first();
                 // dump($pelanggan_produk);
                 if ($pelanggan_produk!==null) { // kalau ternyata ada pelanggan_produk yang berkaitan dengan produk ini, maka dibandingkan harga nya
@@ -276,6 +281,28 @@ class NotaController extends Controller
                     }
                 }
             }
+            // Settingan nama_nota dimulai dari sini
+            // Apabila pertama kali masuk ke halaman detail, spk_produk_nota['namaproduk_id'] == null. Jadi untuk firstTimeDetail, akan langsung di assign nama_nota khusus pelanggan, apabila tersedia
+            // Apabila bukan pertama kali masuk ke detail, maka tidak di kutak katik nama_nota nya. Sesuai saja dengan yang udah di input/dipilih sebelumnya.
+            $nama_nota=$produks[$i]['nama_nota'];
+            if ($spk_produk_notas[$i]['namaproduk_id']!==null) {
+                $pelanggan_namaproduk=PelangganNamaproduk::find($spk_produk_notas[$i]['namaproduk_id']);
+                if ($pelanggan_namaproduk!==null) {
+                    $spk_produk_notas[$i]->namaproduk_id=$pelanggan_namaproduk['id'];
+                    $spk_produk_notas[$i]->save();
+                    $nama_nota=$pelanggan_namaproduk['nama_nota'];
+                }
+            } else {
+                // Kalo firstTimeDetail, maka set nama_nota nya menjadi nama_nota khusus pelanggan, apabila memang tersedia.
+                if ($firstTimeDetail) {
+                    $pelanggan_namaproduk=PelangganNamaproduk::where('produk_id',$produks[$i])->where('pelanggan_id',$pelanggan['id'])->where('status','DEFAULT')->first();
+                    if ($pelanggan_namaproduk!==null) {
+                        $spk_produk_notas[$i]->namaproduk_id=$pelanggan_namaproduk['id'];
+                        $spk_produk_notas[$i]->save();
+                    }
+                }
+            }
+            $nama_notas[]=$nama_nota;
         }
 
         $menus=[
@@ -293,6 +320,7 @@ class NotaController extends Controller
             'produks' => $produks,
             'data_items' => $data_items,
             'menus' => $menus,
+            'nama_notas' => $nama_notas,
         ];
         // dd($data);
         // dump($data);
@@ -314,6 +342,19 @@ class NotaController extends Controller
         $pbj_nota = new Nota();
         list($nota, $pelanggan, $alamat, $reseller, $spk_produk_notas, $spk_produks, $produks) = $pbj_nota->getOneNotaAndComponents($get['nota_id']);
 
+        // Setting untuk nama nota khusus pelanggan apabila tersedia
+        $nama_notas=array();
+        for ($i=0; $i < count($spk_produk_notas); $i++) {
+            $nama_nota=$produks[$i]['nama_nota'];
+            if ($spk_produk_notas[$i]['namaproduk_id']!==null) {
+                $pelanggan_namaproduk=PelangganNamaproduk::find($spk_produk_notas[$i]['namaproduk_id']);
+                $nama_nota=$pelanggan_namaproduk['nama_nota'];
+            }
+            $nama_notas[]=$nama_nota;
+        }
+
+        $rest_row=16-count($spk_produk_notas);
+
         $data = [
             'csrf' => csrf_token(),
             'go_back' => true,
@@ -325,6 +366,8 @@ class NotaController extends Controller
             'spk_produk_notas' => $spk_produk_notas,
             'spk_produks' => $spk_produks,
             'produks' => $produks,
+            'nama_notas' => $nama_notas,
+            'rest_row' => $rest_row,
         ];
         // dump($data);
         return view('nota.nota-print-out', $data);

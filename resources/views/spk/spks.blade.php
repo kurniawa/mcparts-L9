@@ -20,7 +20,7 @@
 
 <div class="container">
     <form method='GET' action="{{ route('SPK-Detail') }}" class="mt-1">
-    <table class="table table-success table-striped">
+    <table class="table table-info table-striped">
     @for ($i = 0; $i < count($spks); $i++)
         <tr style="vertical-align: middle">
             <td><div class='rounded-circle d-flex align-items-center justify-content-center font-weight-bold' style='background-color:salmon;width:2rem;height:2rem'>{{ $pelanggans[$i]['initial'] }}</div></td>

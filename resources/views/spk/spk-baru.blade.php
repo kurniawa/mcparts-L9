@@ -1,15 +1,8 @@
 @extends('layouts.main_layout')
+@extends('layouts.navbar')
 
 @section('content')
 
-<header class="header grid-2-auto">
-    <img class="w-0_8rem ml-1_5rem" src="/img/icons/back-button-white.svg" alt="" onclick="goBack();">
-    <div class="justify-self-right pr-0_5rem">
-        <!-- <a href="06-02-produk-baru.php" id="btnNewProduct" class="btn-atas-kanan2">
-            + Tambah Produk Baru
-        </a> -->
-    </div>
-</header>
 <form action="{{ route('SPKBaruDB') }}" method="POST" id="SPKBaru">
     {{-- diputuskan untuk memakai get, supaya tidak pusing ketika berpindah-pindah halaman --}}
     {{-- diputuskan untuk memakai post, caranya adalah langsung input ke database temp_spks --}}

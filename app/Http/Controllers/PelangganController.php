@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\SiteSettings;
 use App\Models\Alamat;
 use App\Models\Ekspedisi;
+use App\Models\EkspedisiAlamat;
 use App\Models\Pelanggan;
 use App\Models\PelangganAlamat;
 use App\Models\PelangganEkspedisi;
@@ -61,15 +62,20 @@ class PelangganController extends Controller
         // dump($get);
         $pelanggan_id=$get['pelanggan_id'];
         $pelanggan = Pelanggan::find($pelanggan_id);
-        $pelanggan_ekspedisi = PelangganEkspedisi::where('pelanggan_id', $pelanggan['id'])->get();
-        $ekspedisis=array();
-        $jml_ekspedisi = count($pelanggan_ekspedisi);
+        $pelanggan_ekspedisis = PelangganEkspedisi::where('pelanggan_id', $pelanggan['id'])->get();
+        $ekspedisis=$ekspedisi_alamats=$alamat_v_ekspedisis=array();
+        $jml_ekspedisi = count($pelanggan_ekspedisis);
         $resellers = $pelanggan->resellers;
 
-        if (count($pelanggan_ekspedisi) !== 0) {
-            for ($i_pelangganEkspedisi=0; $i_pelangganEkspedisi < count($pelanggan_ekspedisi); $i_pelangganEkspedisi++) {
-                $ekspedisi = Ekspedisi::find($pelanggan_ekspedisi[$i_pelangganEkspedisi]['ekspedisi_id']);
+        if (count($pelanggan_ekspedisis) !== 0) {
+            for ($i=0; $i < count($pelanggan_ekspedisis); $i++) {
+                $ekspedisi = Ekspedisi::find($pelanggan_ekspedisis[$i]['ekspedisi_id']);
+                $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi['id'])->where('tipe','UTAMA')->first();
+                $alamat_v_ekspedisi = Alamat::find($ekspedisi_alamat['alamat_id']);
+
                 array_push($ekspedisis, $ekspedisi);
+                $ekspedisi_alamats[]=$ekspedisi_alamat;
+                $alamat_v_ekspedisis[]=$alamat_v_ekspedisi;
             }
         }
 
@@ -101,8 +107,10 @@ class PelangganController extends Controller
             'navbar_bg'=>'bg-color-orange-2',
             "pelanggan_id" => $pelanggan['id'],
             "pelanggan" => $pelanggan,
-            "pelanggan_ekspedisi" => $pelanggan_ekspedisi,
+            "pelanggan_ekspedisis" => $pelanggan_ekspedisis,
             "ekspedisis" => $ekspedisis,
+            "ekspedisi_alamats" => $ekspedisi_alamats,
+            "alamat_v_ekspedisis" => $alamat_v_ekspedisis,
             "jml_ekspedisi" => $jml_ekspedisi,
             "resellers" => $resellers,
             "pelanggan_produks" => $pelanggan_produks,
@@ -115,6 +123,7 @@ class PelangganController extends Controller
         ];
 
         // dd($data);
+        // dump($data);
 
         return view('pelanggan.pelanggan-detail', $data);
     }

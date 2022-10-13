@@ -30,6 +30,7 @@ return new class extends Migration
             // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('type',20)->nullable();
+            $table->enum('clearance',['Developer','SuperAdmin','Admin','User'])->nullable()->default('User');
             // $table->rememberToken();
             $table->timestamps();
         });

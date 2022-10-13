@@ -19,8 +19,7 @@
 </div>
 
 <div class="container">
-    <form method='GET' action="{{ route('Nota-Detail') }}" class="mt-1">
-    <table class="table table-success table-striped">
+    <table class="table table-warning table-striped" class="mt-1">
     @for ($i = 0; $i < count($notas); $i++)
         <tr style="vertical-align: middle">
             <td><div class='rounded-circle d-flex align-items-center justify-content-center font-weight-bold' style='background-color:salmon;width:2rem;height:2rem'>{{ $pelanggans[$i]['initial'] }}</div></td>
@@ -54,13 +53,17 @@
                         <td class="harga_t">{{ $arr_spk_produk_notas[$i][$j]['harga_t'] }}</td>
                     </tr>
                     @endfor
-                    <tr><td colspan="4" class='text-end'><button type="submit" name='nota_id' value="{{ $notas[$i]['id'] }}" class="btn btn-warning btn-sm">Detail</button></td></tr>
+                    <tr>
+                        <td colspan="4" class='text-end'>
+                            <a href="{{ route('notaSelesai',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-success btn-sm">N.Sls</a>
+                            <a href="{{ route('Nota-Detail',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-warning btn-sm">Detail</a>
+                        </td>
+                    </tr>
                 </table>
             </td>
         </tr>
     @endfor
     </table>
-    </form>
 </div>
 
 <script>

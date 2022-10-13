@@ -16,8 +16,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         $user = [
-            ['nama' => 'Adi Kurniawan', 'username' => 'kuruniawa', 'password' => 'ddloveakunsomuch'],
-            ['nama' => 'Albert', 'username' => 'albert', 'password' => '1234'],
+            ['nama' => 'Adi Kurniawan', 'username' => 'cibinongguy', 'password' => 'ddloveakunsomuch','clearance'=>'Developer'],
+            ['nama' => 'Adi Kurniawan', 'username' => 'kuruniawa', 'password' => 'ddloveakunsomuch','clearance'=>'SuperAdmin'],
+            ['nama' => 'Aldebaran', 'username' => 'aldebaran', 'password' => 'aldebaran','clearance'=>'User'],
         ];
 
         for ($i = 0; $i < count($user); $i++) {
@@ -25,6 +26,7 @@ class UserSeeder extends Seeder
                 'nama' => $user[$i]['nama'],
                 'username' => $user[$i]['username'],
                 'password' => bcrypt($user[$i]['password']),
+                'clearance' => $user[$i]['clearance'],
             ]);
         }
     }

@@ -17,9 +17,9 @@ return new class extends Migration
         Schema::create('srjalans', function (Blueprint $table) {
             $table->id();
             $table->string('no_srjalan', 20)->nullable();
-            $table->foreignId('pelanggan_id')->constrained();
-            $table->foreignId('ekspedisi_id')->nullable()->constrained();
-            $table->foreignId('ekspedisi_transit_id')->nullable();
+            $table->foreignId('pelanggan_id')->constrained()->onDelete('NO ACTION');
+            $table->foreignId('ekspedisi_id')->nullable()->constrained()->onDelete('NO ACTION');// constrained tetapi ketika ekspedisi dihapus, surat jalan janganlah dihapus
+            $table->foreignId('ekspedisi_transit_id')->nullable()->constrained('ekspedisis','id')->onDelete('NO ACTION');
             $table->bigInteger('reseller_id')->nullable();
             $table->string('status', 50)->default('PROSES KIRIM');
             // $table->smallInteger('jumlah')->nullable(); tidak perlu ada detail jumlah disini, karena sudah ada di spk_produk_nota_srjalan

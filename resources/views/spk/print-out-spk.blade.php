@@ -14,18 +14,18 @@
                 <td colspan="3" style="text-align: center;"><span style="font-weight: bold;">SURAT PERINTAH KERJA<br>PENGAMBILAN STOK</span></td>
             </tr>
             <tr>
-                <td>NO.</td>
-                <td>{{ $spk['id'] }}</td>
+                <td class="ps-2">NO.</td>
+                <td class="ps-2">{{ $spk['id'] }}</td>
                 <td rowspan="3" style='text-align:center;'><span style="font-weight:bold;">@if ($j === 0) ASLI @else COPY @endif</span></td>
             </tr>
             <tr>
-                <td>TGL.</td>
-                <td>{{ date('d-m-Y', strtotime($spk['created_at'])) }}</td>
+                <td class="ps-2">TGL.</td>
+                <td class="ps-2">{{ date('d-m-Y', strtotime($spk['created_at'])) }}</td>
                 {{-- <td></td> --}}
             </tr>
             <tr>
-                <td>UTK.</td>
-                <td>{{ $pelanggan_nama }}</td>
+                <td class="ps-2">UTK.</td>
+                <td class="ps-2">{{ $pelanggan_nama }}</td>
                 {{-- <td></td> --}}
             </tr>
             <tr>
@@ -36,13 +36,21 @@
             @for ($i = 0; $i < 15; $i++)
             @if ($i < count($spk_produks))
             <tr>
-                <td colspan='2'>
+                <td class="ps-2" colspan='2'>
                     <div>{{ $produks[$i]['nama'] }}</div>
                     @if ($spk_produks[$i]['keterangan'] !== null)
                     <div style='font-style: italic;color:gray' class="fw-bold">{{ $spk_produks[$i]['keterangan'] }}</div>
                     @endif
                 </td>
-                <td>{{ $spk_produks[$i]['jumlah'] }}</td>
+                <td class="ps-2">
+                    {{ $spk_produks[$i]['jumlah'] }}
+                    @if ($spk_produks[$i]['deviasi_jml'])
+                    @if ($spk_produks[$i]['deviasi_jml']>0)
+                        +
+                    @endif
+                    {{ $spk_produks[$i]['deviasi_jml'] }}
+                    @endif
+                </td>
             </tr>
             @else
             <tr style="height: 1.5em;">
@@ -56,7 +64,7 @@
                     Total
                     <div style='display: inline-block;width: 0.5em;'></div>
                 </td>
-                <td style='font-weight: bold;'>{{ $spk['jumlah_total'] }}</td>
+                <td class="ps-2" style='font-weight: bold;'>{{ $spk['jumlah_total'] }}</td>
             </tr>
         </table>
     </div>

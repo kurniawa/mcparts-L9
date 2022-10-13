@@ -4,41 +4,53 @@
 @section('content')
 
 <div class="container">
-    <div class="grid-2-10_auto p-0_5rem">
+    <div class="d-flex">
         <img class="w-2rem" src="/img/icons/pencil.svg" alt="">
-        <h2 class="">Detail Nota: {{ $nota['no_nota'] }} </h2>
+        <h2 class="ms-2">Detail Nota: {{ $nota['no_nota'] }} </h2>
     </div>
 
-    <table style="border-collapse:unset;border-spacing:0.5rem">
-        <tr><th>Pelanggan</th><th>:</th><th>{{ $pelanggan['nama'] }}</th></tr>
-        @if ($reseller !== null)
-        <tr><td></td><td></td><td><span style="font-weight: bold">{{ $reseller['nama'] }}</span> sebagai Reseller untuk Nota ini</td></tr>
-        @endif
-        <tr><th>No. Nota</th><th>:</th><td>{{ $nota['no_nota'] }}</td></tr>
-        <tr><th>Tanggal</th><th>:</th><td>{{ date('d-m-Y', strtotime($nota['created_at'])) }}</td></tr>
-        <tr>
-            <th style="vertical-align: top;">Alamat</th>
-            <th style="vertical-align: top;">:</th>
-            <td>
-            {{-- @php
-                dd($alamat)
-            @endphp --}}
-            @foreach (json_decode($alamat['long'], true) as $long)
-            {{ $long }}<br>
-            @endforeach
-            </td>
-        </tr>
-    </table>
+    <div class="border border-2">
+        <table style="border-collapse:unset;border-spacing:0.5rem">
+            <tr><th>Pelanggan</th><th>:</th><th>{{ $pelanggan['nama'] }}</th></tr>
+            @if ($reseller !== null)
+            <tr><td></td><td></td><td><span style="font-weight: bold">{{ $reseller['nama'] }}</span> sebagai Reseller untuk Nota ini</td></tr>
+            @endif
+            <tr><th>No. Nota</th><th>:</th><td>{{ $nota['no_nota'] }}</td></tr>
+            <tr><th>Tanggal</th><th>:</th><td>{{ date('d-m-Y', strtotime($nota['created_at'])) }}</td></tr>
+            <tr>
+                <th style="vertical-align: top;">Alamat</th>
+                <th style="vertical-align: top;">:</th>
+                <td>
+                {{-- @php
+                    dd($alamat)
+                @endphp --}}
+                @foreach (json_decode($alamat['long'], true) as $long)
+                {{ $long }}<br>
+                @endforeach
+                </td>
+            </tr>
+        </table>
+    </div>
 
-    <table id="divDaftarItemNota" style="width: 100%">
+    <table id="divDaftarItemNota" style="width: 100%" class="mt-3 fancy-table">
         <tr><th>No.</th><th>Nama Nota</th><th>Jml.</th><th>Hrg/Pcs</th><th>Harga</th><th>Opsi</th></tr>
         @for ($i = 0; $i < count($produks); $i++)
         <tr>
-            <td>{{ $i+1 }}</td>
-            <td>{{ $produks[$i]['nama_nota'] }}</td>
-            <td>{{ $spk_produk_notas[$i]['jumlah'] }}</td>
-            <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga'] }}</td>
-            <td class="numberToFormat">{{ $spk_produk_notas[$i]['harga_t'] }}</td>
+            <td class="text-end">{{ $i+1 }}</td>
+            <td>{{ $nama_notas[$i] }}</td>
+            <td class="text-end">{{ $spk_produk_notas[$i]['jumlah'] }}</td>
+            <td>
+                <div class="d-flex justify-content-between">
+                    <div>Rp.</div>
+                    <div><span class="numberToFormat">{{ $spk_produk_notas[$i]['harga'] }}</span><span>,-</span></div>
+                </div>
+            </td>
+            <td>
+                <div class="d-flex justify-content-between">
+                    <div>Rp.</div>
+                    <div><span class="numberToFormat">{{ $spk_produk_notas[$i]['harga_t'] }}</span>,-</div>
+                </div>
+            </td>
             <td id='divDropdownIcon-{{ $i }}' onclick='showDropdown({{ $i }});' class="text-center"><img class='w-0_7rem' src='{{ asset('img/icons/dropdown.svg') }}'></td>
         </tr>
         <tr class="border-bottom" id='divDetailDropdown-{{ $i }}' style="display: none">

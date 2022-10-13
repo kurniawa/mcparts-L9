@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('reseller_id')->nullable()->constrained('pelanggans','id')->onDelete('NO ACTION');
             $table->foreignId('produk_id')->nullable()->constrained()->onDelete('CASCADE');
             // $table->foreignId('nota_id')->nullable()->constrained()->onDelete('NO ACTION');
-            $table->integer('nama_nota')->nullable();
+            $table->string('nama_nota')->nullable();
             $table->enum('status',['DEFAULT','BARU','LAMA'])->nullable()->default('LAMA');
             $table->timestamps();
         });

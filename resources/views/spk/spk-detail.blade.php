@@ -32,7 +32,7 @@
 </form>
 
 <div class="container mt-3">
-    <table style="width: 100%" class="">
+    <table style="width: 100%" class="fancy-table">
         <tr><th>Item</th><th>Jml</th><th>Sls</th><th>N</th><th>Sr</th><th></th></tr>
         @for ($i = 0; $i < count($spk_produks); $i++)
         <tr>

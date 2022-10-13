@@ -1,12 +1,7 @@
-@extends('layouts/main_layout')
+@extends('layouts.main_layout')
+@extends('layouts.navbar')
 
 @section('content')
-
-{{-- {{ dd($pelanggans) }} --}}
-<header class="header grid-2-auto">
-    <img class="w-0_8rem ml-1_5rem" src="img/icons/back-button-white.svg" alt="" onclick="goBack();">
-
-</header>
 
 <div class="container">
     <h2>Icons used in this App</h2>
@@ -32,6 +27,10 @@
         <img src="img/icons/stok_barang.svg" alt="stok_barang.svg" style="width:3em">
         <img src="img/icons/trash-can.svg" alt="trash-can.svg" style="width:3em">
         <img src="img/icons/truck.svg" alt="truck.svg" style="width:3em">
+        <a href="https://www.flaticon.com/free-icons/admin" title="admin icons">
+            <img src="{{ asset('img/icons/manager.png') }}" alt="" style="width:3em">
+            Admin icons created by Freepik - Flaticon
+        </a>
     </div>
     <br>
     <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Go to Flaticon/Author/Freepik --></a>
@@ -51,6 +50,10 @@
     <br>
     <div class="grid-5-auto grid-row-gap-1em">
         <img src="img/icons/invoice.svg" alt="invoice.svg" style="width:3em">
+        <a href="https://www.flaticon.com/free-icons/money" title="money icons">
+            <img src="{{ asset('img/icons/money-bag.png') }}" alt="money.png" style="width:3em">
+            Money icons created by Smashicons - Flaticon
+        </a>
     </div>
     <br>
     <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Go to Flaticon/Author/Smashicons --></a>

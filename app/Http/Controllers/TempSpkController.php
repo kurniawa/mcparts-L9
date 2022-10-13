@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nota;
 use App\Models\SiteSetting;
 use App\Models\Spk;
+use App\Models\SpkProduk;
+use App\Models\SpkProdukNota;
+use App\Models\SpkProdukNotaSrjalan;
+use App\Models\Srjalan;
 use App\Models\TempSpk;
 use Illuminate\Http\Request;
 
@@ -43,5 +48,32 @@ class TempSpkController extends Controller
         ];
 
         return view('layouts.db-result', $data);
+    }
+
+    public function SPKSeeder()
+    {
+        $spks=Spk::all()->toArray();
+        // dump($spks);
+        $arr_spk_produk=$arr_spk_produk_nota=$arr_spk_produk_nota_sj=$notas=$sjs=array();
+        for ($i=0; $i < count($spks); $i++) {
+            $spk_produks=SpkProduk::where('spk_id',$spks[$i]['id'])->get()->toArray();
+            $spk_produk_notas=SpkProdukNota::where('spk_id',$spks[$i]['id'])->get()->toArray();
+            $nota=Nota::find($spk_produk_notas[0]['nota_id'])->toArray();
+            $spk_produk_nota_sjs=SpkProdukNotaSrjalan::where('spk_id',$spks[$i]['id'])->get()->toArray();
+            $sj=Srjalan::find($spk_produk_nota_sjs[0]['srjalan_id'])->toArray();
+
+            $arr_spk_produk[]=$spk_produks;
+            $arr_spk_produk_nota[]=$spk_produk_notas;
+            $notas[]=$nota;
+            $arr_spk_produk_nota_sj[]=$spk_produk_nota_sjs;
+            $sjs[]=$sj;
+
+        }
+        dump(json_encode($spks));
+        dump(json_encode($arr_spk_produk));
+        dump(json_encode($arr_spk_produk_nota));
+        dump(json_encode($notas));
+        dump(json_encode($arr_spk_produk_nota_sj));
+        dump(json_encode($sjs));
     }
 }

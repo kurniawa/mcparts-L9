@@ -8,6 +8,7 @@ use App\Http\Controllers\EkspedisiEdit;
 use App\Http\Controllers\EkspedisiKontakController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotaController;
+use App\Http\Controllers\NotaDetailController;
 use App\Http\Controllers\NotaItemController;
 use App\Http\Controllers\PelangganAlamatController;
 use App\Http\Controllers\PelangganBaruController;
@@ -16,8 +17,10 @@ use App\Http\Controllers\PelangganEditController;
 use App\Http\Controllers\PelangganEkspedisiController;
 use App\Http\Controllers\PelangganKontakController;
 use App\Http\Controllers\PelangganResellerController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SjDetailController;
 use App\Http\Controllers\SjItemController;
 use App\Http\Controllers\SpkBaruController;
 use App\Http\Controllers\SpkController;
@@ -26,6 +29,7 @@ use App\Http\Controllers\SrjalanController;
 use App\Http\Controllers\TempSpkController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TreeController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,9 +47,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', function () {return view('home');})->name('Home');
-Route::get('/home', function () {return view('home');})->name('Home');
-Route::get('/about', function () {return view('about.about');});
+Route::controller(UserController::class)->group(function ()
+{
+    Route::get('/', 'home')->name('Home');
+    Route::get('/home', 'home');
+    Route::get('/about', 'about')->name('About');
+    Route::get('/admin', 'adminControlCenter')->name('adminControlCenter')->middleware('admin');
+});
 
 // LOGIN & REGISTER
 Route::get('/login', [LoginController::class, "index"])->middleware('guest')->name('login');
@@ -174,6 +182,7 @@ Route::controller(SpkBaruController::class)->group(function ()
 Route::controller(TempSpkController::class)->group(function ()
 {
     Route::post('/temp_spk/hapus_temp_spk', "delete_temp_spk")->name('delete_temp_spk')->middleware('auth');
+    Route::get('/temp_spk/spk-seeder', "SPKSeeder")->name('SPKSeeder')->middleware('auth');
 });
 
 Route::controller(SpkItemController::class)->group(function ()
@@ -194,7 +203,7 @@ Route::controller(TreeController::class)->group(function ()
 
 Route::controller(NotaController::class)->group(function ()
 {
-    Route::get('/nota', 'index');
+    Route::get('/nota', 'index')->name('daftar_nota');
     // Route::get('/nota/nota_baru-pilih_spk', 'notaBaru_pilihSPK')->middleware('auth');
     // Route::get('/nota/notaBaru-pSPK-pItem', 'notaBaru_pSPK_pItem')->middleware('auth');
     // Route::post('/nota/notaBaru-pSPK-pItem-DB', 'notaBaru_pSPK_pItem_DB')->middleware('auth');
@@ -226,6 +235,13 @@ Route::controller(NotaItemController::class)->group(function ()
     Route::post('/nota/pilih-nama-nota_item', 'pilih_nama_nota_item')->name('pilih_nama_nota_item')->middleware('auth');
 });
 
+Route::controller(NotaDetailController::class)->group(function ()
+{
+    Route::post('/nota/delItNoFrDet', 'delItNoFrDet')->name('delItNoFrDet')->middleware('auth');
+    Route::get('/nota/notaSelesai', 'notaSelesai')->name('notaSelesai')->middleware('auth');
+    Route::post('/nota/notaSelesaiDB', 'notaSelesaiDB')->name('notaSelesaiDB')->middleware('auth');
+});
+
 /**
  * SURAT JALAN
  */
@@ -255,6 +271,15 @@ Route::controller(SjItemController::class)->group(function ()
     // Route::get('/sj/delSpkPNSJ', 'delSpkPNSJ')->name('delSpkPNSJ')->middleware('auth');
 });
 
+Route::controller(SjDetailController::class)->group(function ()
+{
+    Route::get('/sj/editColly', 'editColly')->name('editColly')->middleware('auth');
+    Route::post('/sj/editCollyDB', 'editCollyDB')->name('editCollyDB')->middleware('auth');
+    Route::get('/sj/sjSelesai', 'sjSelesai')->name('sjSelesai')->middleware('auth');
+    Route::post('/sj/sjSelesaiDB', 'sjSelesaiDB')->name('sjSelesaiDB')->middleware('auth');
+    Route::post('/sj/delSpkPNSJ', 'delSpkPNSJ')->name('delSpkPNSJ')->middleware('auth');
+});
+
 /**
  * TESTING CONTROLLER
  */
@@ -277,6 +302,13 @@ Route::controller(ProdukController::class)->group(function ()
     Route::get('/produk/produk-detail', 'produk_detail')->name('produk_detail')->middleware('auth');
 });
 
+
+/**PENJUALAN */
+Route::controller(PenjualanController::class)->group(function ()
+{
+    Route::get('/penjualan', 'index')->name('penjualan');
+    Route::get('/penjualan/saleBasedOnFilter', 'saleBasedOnFilter')->name('saleBasedOnFilter')->middleware('auth');
+});
 /**
  * AJAX CONTROLLER
  */

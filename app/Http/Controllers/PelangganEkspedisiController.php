@@ -13,34 +13,9 @@ class PelangganEkspedisiController extends Controller
 {
     public function index(Request $request)
     {
-        $load_num = SiteSettings::loadNumToZero();
-        // $load_num = SiteSetting::find(1);
-
-        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
-        $run_db = true; // true apabila siap melakukan CRUD ke DB
-        $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = false;
-        $ada_error = true;
-        $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem ini, coba hubungi Admin atau Developer sistem ini!';
-        $class_div_pesan_db = 'alert-danger';
-
-        if ($show_hidden_dump) {
-            dump("load_num_value: " . $load_num->value);
-        }
-
-        // if ($load_num->value > 0 && !$load_num_ignore) {
-        //     $run_db = false;
-        //     $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
-        //     $ada_error = true;
-        //     $class_div_pesan_db = 'alert-danger';
-        // }
-
+        SiteSettings::loadNumToZero();
 
         $get = $request->query();
-
-        if ($show_dump) {
-            dump('$get:', $get);
-        }
 
         $pelanggan = Pelanggan::find($get['pelanggan_id']);
         $ekspedisis = $pelanggan->ekspedisis;
@@ -48,56 +23,33 @@ class PelangganEkspedisiController extends Controller
         $all_ekspedisis = new Ekspedisi();
         $label_ekspedisis = $all_ekspedisis->label_ekspedisis();
 
-        if ($show_dump) {
-            dump('$pelanggan:', $pelanggan);
-            dump('$ekspedisis:', $ekspedisis);
-            dump('$pelanggan_ekspedisis:', $pelanggan_ekspedisis);
-        }
-
-
         $data = [
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
             'pelanggan' => $pelanggan,
             'ekspedisis' => $ekspedisis,
             'pelanggan_ekspedisis' => $pelanggan_ekspedisis,
             'label_ekspedisis' => $label_ekspedisis,
             'csrf' => csrf_token(),
         ];
-
-        if ($show_dump) {
-            dump("data:", $data);
-        }
-        return view('pelanggan.pelanggan-ekspedisi', $data);
+        dump($data);
+        return view('pelanggan.tambah-ekspedisi', $data);
     }
 
     public function tambah_ekspedisi_db(Request $request)
     {
-        // $load_num = SiteSettings::loadNumToZero();
         $load_num = SiteSetting::find(1);
 
-        $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
-        $run_db = true; // true apabila siap melakukan CRUD ke DB
-        $load_num_ignore = false; // false apabila proses CRUD sudah sesuai dengan ekspektasi. Ini mencegah apabila terjadi reload page.
-        $show_hidden_dump = false;
-        $ada_error = true;
         $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem ini, coba hubungi Admin atau Developer sistem ini!';
-        $class_div_pesan_db = 'alert-danger';
 
-        if ($show_hidden_dump) {
-            dump("load_num_value: " . $load_num->value);
-        }
-
-        if ($load_num->value > 0 && !$load_num_ignore) {
+        if ($load_num->value > 0) {
             $run_db = false;
             $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
-            $ada_error = true;
-            $class_div_pesan_db = 'alert-danger';
         }
 
         $post = $request->post();
 
-        if ($show_dump) {
             dump('$post:', $post);
-        }
 
         $request->validate([
             'ekspedisi_nama' => 'required',
@@ -113,9 +65,7 @@ class PelangganEkspedisiController extends Controller
                 'ekspedisi_id' => $post['ekspedisi_id'],
                 'tipe' => $post['tipe_ekspedisi'],
             ]);
-            if ($show_dump) {
                 dump('$pelanggan_ekspedisi', $pelanggan_ekspedisi);
-            }
             $main_log = "Ekspedisi $ekspedisi[nama] berhasil dijadikan ekspedisi $pelanggan_ekspedisi[tipe] dari Pelanggan $pelanggan[nama]";
             $class_div_pesan_db = 'alert-success';
             $ada_error = false;
@@ -131,9 +81,7 @@ class PelangganEkspedisiController extends Controller
             'ada_error' => $ada_error,
         ];
 
-        if ($show_dump) {
             dump("data:", $data);
-        }
 
         return view('layouts.go-back-page', $data);
     }

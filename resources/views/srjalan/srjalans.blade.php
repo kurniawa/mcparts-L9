@@ -19,9 +19,8 @@
 </div>
 
 <div class="container">
-    <form method='GET' action="{{ route('SJ-Detail') }}" class="mt-1">
-    <table class="table table-success table-striped">
-    @for ($i = 0; $i < count($srjalans); $i++)
+    <table class="table table-danger table-striped">
+        @for ($i = 0; $i < count($srjalans); $i++)
         <tr style="vertical-align: middle">
             <td><div class='rounded-circle d-flex align-items-center justify-content-center font-weight-bold' style='background-color:salmon;width:2rem;height:2rem'>{{ $pelanggans[$i]['initial'] }}</div></td>
             <td>
@@ -49,13 +48,17 @@
                     @for ($j = 0; $j < count($arr_spk_produks[$i]); $j++)
                     <tr><td>{{ $arr_produks[$i][$j]['nama'] }}</td><td>{{ $arr_spk_produks[$i][$j]['jml_t'] }}</td></tr>
                     @endfor
-                    <tr><td colspan="2" class='text-end'><button type="submit" name='srjalan_id' value="{{ $srjalans[$i]['id'] }}" class="btn btn-warning btn-sm">Detail</button></td></tr>
+                    <tr>
+                        <td colspan="2" class='text-end'>
+                            <a href="{{ route('sjSelesai',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-success btn-sm">Sj.Sls</a>
+                            <a href="{{ route('SJ-Detail',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-warning btn-sm">Detail</a>
+                        </td>
+                    </tr>
                 </table>
             </td>
         </tr>
     @endfor
     </table>
-    </form>
 </div>
 
 <script>

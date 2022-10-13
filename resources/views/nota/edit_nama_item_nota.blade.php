@@ -32,7 +32,7 @@
                     <tr>
                         <td>{{ $produk['nama_nota'] }}</td>
                         <td>
-                            <input type="radio" class="pilih_nama" name="data_nama" id="" value='{"table":"produks","nama":{{ $produk["nama_nota"] }}}'>
+                            <input type="radio" class="pilih_nama" name="data_nama" id="" value='{"table":"produks","nama":"{{ $produk['nama_nota'] }}"}'>
                         </td>
                     </tr>
                 </table>
@@ -46,7 +46,7 @@
                         <td>{{ date('d-m-Y', strtotime($pelanggan_namaproduk['created_at'])) }}</td>
                         <td>{{ $pelanggan_namaproduk['nama_nota'] }}</td>
                         <td>
-                            <input type="radio" class="pilih_nama" name="data_nama" id="" value='{"id":{{ $pelanggan_namaproduk["id"] }},"table":"pelanggan_namaproduks","nama":{{ $pelanggan_namaproduk["nama_nota"] }}}'>
+                            <input type="radio" class="pilih_nama" name="data_nama" id="" value='{"id":{{ $pelanggan_namaproduk["id"] }},"table":"pelanggan_namaproduks","nama":"{{ $pelanggan_namaproduk["nama_nota"] }}"}'>
                         </td>
                     </tr>
                     @endforeach
@@ -82,7 +82,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3" class="alert alert-primary">Nama ini akan ditetapkan menjadi harga khusus untuk pelanggan ini.</td>
+                <td colspan="3" class="alert alert-primary">Nama ini akan ditetapkan menjadi "Nama Khusus" untuk pelanggan ini.</td>
             </tr>
             <tr>
                 <td>

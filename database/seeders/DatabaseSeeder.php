@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
             RolSeeder::class,
             RotanSeeder::class,
             ProdukSeeder::class,
-            // SpkSeeder::class,
+            SpkSeeder::class,
             // AttsjvariasiSeeder::class, deleted
             // ProdukBahanSeeder::class, deleted
             // ProdukSpecSeeder::class, deleted

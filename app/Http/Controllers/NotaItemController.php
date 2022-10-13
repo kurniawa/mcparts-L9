@@ -309,7 +309,7 @@ class NotaItemController extends Controller
         $namanota_now=null;
         if ($spk_produk_nota['namaproduk_id']!==null) {
             $pelanggan_namaproduk=PelangganNamaproduk::find($spk_produk_nota['namaproduk_id']);
-            $namaproduk_now=$pelanggan_namaproduk['nama_nota'];
+            $namanota_now=$pelanggan_namaproduk['nama_nota'];
         } else {
             $namanota_now=$produk['nama_nota'];
         }
@@ -329,7 +329,7 @@ class NotaItemController extends Controller
             'namanota_khusus_pelanggan'=>$namanota_khusus_pelanggan,
         ];
 
-        dump($data);
+        // dump($data);
 
         return view('nota.edit_nama_item_nota', $data);
     }
@@ -370,9 +370,17 @@ class NotaItemController extends Controller
                     'reseller_id'=>$reseller_id,
                     'produk_id'=>$produk_id,
                     'nama_nota'=>$nama_baru,
+                    'status'=>'DEFAULT',
                 ]);
                 $pelanggan_namaproduk_id=$pelanggan_namaproduk_new['id'];
-                $success_logs[]='Belum ada pelanggan_namaproduk yang sama -> Berhasil create pelanggan_namaproduk baru!';
+                $success_logs[]='Belum ada pelanggan_namaproduk yang sama -> Berhasil create pelanggan_namaproduk baru! Nama Nota ini dijadikan sebagai nama default!';
+                // Cek apakah ada nama produk lain yang sudah diset sebagai default? Kalau ada maka harus diganti menjadi lama
+                $pelanggan_namaproduk_other=PelangganNamaproduk::where('produk_id',$produk_id)->where('pelanggan_id',$pelanggan_id)->where('id','!=',$pelanggan_namaproduk_new['id'])->where('status','DEFAULT')->first();
+                if ($pelanggan_namaproduk_other!==null) {
+                    $pelanggan_namaproduk_other->status='LAMA';
+                    $pelanggan_namaproduk_other->save();
+                    $success_logs[]='Terdapat nama nota DEFAULT selain dari yang sudah diinput ini. Oleh karena itu nama nota tersebut dijadikan nama LAMA';
+                }
             }
 
             $spk_produk_nota = SpkProdukNota::find($post['spk_produk_nota_id']);
@@ -410,47 +418,27 @@ class NotaItemController extends Controller
         }
 
         $post = $request->post();
-        dd($post);
-        // dump($post);
-        // $test_data='[["id"=>3,"table"=>"produk_hargas","harga"=>20500]]';
-        // $test_data=json_decode($test_data, true);
-        // dump($test_data);
-        // $test_data2="[['id'=>3,'table'=>'produk_hargas','harga'=>20500]]";
-        // $test_data2=json_decode($test_data2, true);
-        // dump($test_data2);
+        // dd($post);
         $spk_produk_nota_id=$post['spk_produk_nota_id'];
-        $data_harga=json_decode($post['data_harga'],true);
-        // $data_harga=json_encode($post['data_harga']);
-        // json_last_error();
-        // dd($data_harga);
-        $table_id=$data_harga['id'];
-        $table_name=$data_harga['table'];
-        $harga_histori_terpilih=(int)$data_harga['harga'];
+        $data_nama=json_decode($post['data_nama'],true);
+        $table_id=null;
+        if (isset($data_nama['id'])) {
+            $table_id=$data_nama['id'];
+        }
+        $table_name=$data_nama['table'];
 
-        $produk_harga_id=null;$pelanggan_produk_id=null;
-        if ($table_name==='produk_hargas') {
-            $produk_harga_id=$table_id;
-        } else if ($table_name==='pelanggan_produks') {
-            $pelanggan_produk_id=$table_id;
+        $namaproduk_id=null;
+        if ($table_name==='pelanggan_namaproduks') {
+            $namaproduk_id=$table_id;
         }
 
-        $pelanggan_id=$post['pelanggan_id'];
-        $reseller_id=$post['reseller_id'];
-        $produk_id=$post['produk_id'];
-        $harga_price_list=$post['harga_price_list'];
         $nota_id=$post['nota_id'];
 
         if ($run_db) {
             $spk_produk_nota = SpkProdukNota::find($spk_produk_nota_id);
-            $spk_produk_nota->harga=$harga_histori_terpilih;
-            $spk_produk_nota->harga_t=$harga_histori_terpilih*$spk_produk_nota['jumlah'];
-            $spk_produk_nota->produk_harga_id=$produk_harga_id;
-            $spk_produk_nota->pelanggan_produk_id=$pelanggan_produk_id;
+            $spk_produk_nota->namaproduk_id=$namaproduk_id;
             $spk_produk_nota->save();
-            $success_logs[]='Berhasil update harga item dan harga_t item nota!';
-            // Karena adanya perubahan harga, maka perlu update data nota
-            UpdateDataSPK::Nota_JmlT_HargaT($nota_id);
-            $success_logs[]='nota: Jumlah dan Harga Total Nota diupdate.';
+            $success_logs[]='Berhasil update nama_nota item';
 
             $main_log='SUCCESS';
             $load_num->value+=1;
