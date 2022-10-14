@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         $user = [
             ['nama' => 'Adi Kurniawan', 'username' => 'cibinongguy', 'password' => 'ddloveakunsomuch','clearance'=>'Developer'],
             ['nama' => 'Adi Kurniawan', 'username' => 'kuruniawa', 'password' => 'ddloveakunsomuch','clearance'=>'SuperAdmin'],
-            ['nama' => 'Aldebaran', 'username' => 'aldebaran', 'password' => 'aldebaran','clearance'=>'User'],
+            ['nama' => 'Aldebaran', 'username' => 'aldebaran', 'password' => 'aldebaranloveandin','clearance'=>'User'],
         ];
 
         for ($i = 0; $i < count($user); $i++) {

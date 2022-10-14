@@ -2256,7 +2256,7 @@ class PelangganSeeder extends Seeder
                     'pulau'=>'Jawa',
                     'short'=>'Cibinong',
                     'negara'=>'Indonesia',
-                    'long'=>'["Cibinong]',
+                    'long'=>'["Cibinong"]',
                 ]],
                 'kontak' => null,
                 'initial' => 'T86',
@@ -2276,7 +2276,7 @@ class PelangganSeeder extends Seeder
                     'pulau'=>'Jawa',
                     'short'=>'Depok',
                     'negara'=>'Indonesia',
-                    'long'=>'["Depok]',
+                    'long'=>'["Depok"]',
                 ]],
                 'kontak' => null,
                 'initial' => 'TOM',
@@ -2322,7 +2322,7 @@ class PelangganSeeder extends Seeder
                     'pulau'=>'Jawa',
                     'short'=>'Cibinong',
                     'negara'=>'Indonesia',
-                    'long'=>'["Cibinong]',
+                    'long'=>'["Cibinong"]',
                 ]],
                 'kontak' => null,
                 'initial' => 'TL',
@@ -2517,8 +2517,8 @@ class PelangganSeeder extends Seeder
             ],
         ];
 
-        // for ($i = 0; $i < count($pelanggan); $i++) {
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < count($pelanggan); $i++) {
+        // for ($i = 0; $i < 20; $i++) {
             $bentuk = null;
             if (isset($pelanggan[$i]['bentuk']) && $pelanggan[$i]['bentuk'] !== null) {
                 $bentuk = $pelanggan[$i]['bentuk'];

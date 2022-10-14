@@ -50,6 +50,20 @@ class PelangganController extends Controller
             "pelanggan_kontaks" => $pelanggan_kontaks,
         ];
 
+        // for ($i=0; $i < count($alamats); $i++) {
+        //     try {
+        //         $longs=json_decode($alamats[$i]['long'],true);
+        //         foreach ($longs as $long) {
+        //             echo $long;
+        //         }
+        //     } catch (\Throwable $err) {
+        //         dump($err);
+        //         dump($longs);
+        //         dump($alamats[$i]);
+        //     }
+        // }
+        // dd($alamats);
+
         return view('pelanggan.pelanggans', $data);
     }
 

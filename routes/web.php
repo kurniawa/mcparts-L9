@@ -211,7 +211,7 @@ Route::controller(NotaController::class)->group(function ()
     Route::post('/nota/NotaAll_DB', 'NotaAll_DB')->name('NotaAll_DB')->middleware('auth');
     Route::get('/nota/nota-detail', 'nota_detail')->name('Nota-Detail');
     Route::get('/nota/nota-print-out', 'nota_print_out')->name('PrintOutNota')->middleware('auth');
-    Route::post('/nota/nota-hapus', 'nota_hapus')->middleware('auth');
+    Route::post('/nota/nota-hapus', 'nota_hapus')->middleware('auth')->name('hapusNota');
     Route::get('/nota/edit-harga-item-nota', 'edit_harga_item_nota')->name('edit_harga_item_nota')->middleware('auth');
     Route::post('/nota/edit-harga-item-nota-input-baru', 'edit_harga_item_nota_input_baru')->name('edit_harga_item_nota_input_baru')->middleware('auth');
     Route::post('/nota/edit-harga-item-nota-pilih-dari-histori', 'edit_harga_item_nota_pilih_dari_histori')->name('edit_harga_item_nota_pilih_dari_histori')->middleware('auth');

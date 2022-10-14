@@ -307,6 +307,7 @@ class NotaController extends Controller
 
         $menus=[
             ['route'=>'PrintOutNota','nama'=>'Print Out','method'=>'get','params'=>[['name'=>'nota_id','value'=>$nota['id']],]],
+            ['route'=>'hapusNota','nama'=>'Hapus','method'=>'post','params'=>[['name'=>'nota_id','value'=>$nota['id']],],'confirm'=>'Anda yakin ingin menghapus Nota ini? Warning: Sr. Jalan yang berkaitan juga akan dihapus!'],
         ];
         $data = [
             'go_back' => true,
@@ -377,44 +378,30 @@ class NotaController extends Controller
     {
 
         $load_num = SiteSetting::find(1);
-        $show_dump = true;
         $run_db = true;
 
-        $success_logs = $error_logs = array();
+        $success_logs = $error_logs = $warning_logs=array();
         $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
-        $class_div_pesan_db = 'alert-danger';
 
         if ($load_num->value > 0) {
             $run_db = false;
             $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
-            $class_div_pesan_db = 'alert-danger';
         }
 
         $post = $request->post();
-
-        if ($show_dump) {
-            dump('post', $post);
-        }
-
-        $nota_id = (int)$post['nota_id'];
-
+        $nota_id = $post['nota_id'];
         $nota = Nota::find($nota_id);
         /**
-         * Setelah nota, kita cari relasi nya dengan spkcp_nota untuk memperoleh spkcp_id. sehingga
+         * Setelah nota, kita cari relasi nya dengan spkcp_nota untuk memperoleh spkcp_id. (spk_produk_id) sehingga
          * bisa ketemu dengan spk_produk yang berkaitan.
+         * Ini bertujuan untuk update jumlah yang sudah nota di data table spks nya.
+         * Lalu karena Sr. Jalan bergantung pada nota, maka jumlah_sdh_srjalan juga harus dihapus serta srjalan yang berkaitan juga akan dihapus
          */
         $spkcp_notas = SpkProdukNota::where('nota_id', $nota_id)->get();
-        if ($show_dump) {
-            dump("spkcp_notas");
-            dump($spkcp_notas);
-        }
 
         foreach ($spkcp_notas as $spkcp_nota) {
             $spk_produk = SpkProduk::find($spkcp_nota['spk_produk_id']);
             $spk = Spk::find($spkcp_nota['spk_id']);
-
-            // dump($spkcp_nota);
-            // dump($spk_produk);
 
             $status_nota = 'SEMUA';
             $jml_sdh_nota = $spk_produk['jml_sdh_nota'] - $spkcp_nota['jumlah'];
@@ -425,11 +412,6 @@ class NotaController extends Controller
                 $status_nota = 'SEBAGIAN';
             }
 
-            if ($show_dump) {
-                dump($spk_produk['jml_sdh_nota']);
-                dump($spkcp_nota['jumlah']);
-                dump('$jml_sdh_nota', $jml_sdh_nota);
-            }
 
             if ($run_db) {
                 $spk_produk->status_nota = $status_nota;
@@ -440,31 +422,26 @@ class NotaController extends Controller
                 $obj_spk = new Spk();
                 $success_logs[] = $obj_spk->updateStatusNota_JumlahSudahNota($spk['id']);
             }
-        }
 
-        # UPDATE status_nota PADA SPK
-
-        if ($run_db) {
+            # UPDATE status_nota PADA SPK
             $nota->delete();
 
             $load_num->value += 1;
             $load_num->save();
 
             $main_log = 'SUCCESS:';
-            $class_div_pesan_db = 'alert-success';
             $success_logs[] = 'success_: Berhasil delete nota terkait!';
         }
 
+        $route='SPK-Detail';
+        $route_btn='Ke Detail SPK';
+        $params=['spk_id'=>$spk['id']];
         $data = [
-            'go_back_number' => -2,
-            'pesan_db' => $main_log,
-            'class_div_pesan_db' => $class_div_pesan_db,
-            'error_logs' => $error_logs,
-            'success_logs' => $success_logs,
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
         ];
 
-
-        return view('layouts.go-back-page', $data);
+        return view('layouts.db-result', $data);
     }
 
     public function edit_harga_item_nota(Request $request)
