@@ -15,6 +15,8 @@ use App\Models\Spk;
 use App\Models\SpkNota;
 use App\Models\SpkProduk;
 use App\Models\SpkProdukNota;
+use App\Models\SpkProdukNotaSrjalan;
+use App\Models\Srjalan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -412,8 +414,8 @@ class NotaController extends Controller
                 $status_nota = 'SEBAGIAN';
             }
 
-
             if ($run_db) {
+                # UPDATE status_nota PADA SPK
                 $spk_produk->status_nota = $status_nota;
                 $spk_produk->jml_sdh_nota = $jml_sdh_nota;
                 $spk_produk->save();
@@ -421,21 +423,43 @@ class NotaController extends Controller
 
                 $obj_spk = new Spk();
                 $success_logs[] = $obj_spk->updateStatusNota_JumlahSudahNota($spk['id']);
+
+                // next: coding untuk jumlah_sudah_srjalan
+
+                //
+            }
+        }
+
+        // Mulai delete Nota dan Sr. Jalan
+        if ($run_db) {
+            // Cari srjalan mana saja yang terkait dengan nota ini.
+            $sj_ids=array();
+            $spk_produk_nota_sjs=SpkProdukNotaSrjalan::where('nota_id',$nota_id)->get();
+            foreach ($spk_produk_nota_sjs as $spk_produk_nota_sj) {
+                $is_sj_id_in_array=array_search($spk_produk_nota_sj['srjalan_id'], $sj_ids);
+                if ($is_sj_id_in_array === false) {
+                    $sj_ids[]=$spk_produk_nota_sj['srjalan_id'];
+                }
             }
 
-            # UPDATE status_nota PADA SPK
+            foreach ($sj_ids as $sj_id) {
+                $sj_to_delete=Srjalan::find($sj_id);
+                $sj_to_delete->delete();
+                $warning_logs[]="Sr. Jalan terkait: $sj_to_delete[no_srjalan] berhasil dihapus!";
+            }
+
             $nota->delete();
+            $success_logs[]="Berhasil hapus Nota!";
 
             $load_num->value += 1;
             $load_num->save();
 
             $main_log = 'SUCCESS:';
-            $success_logs[] = 'success_: Berhasil delete nota terkait!';
         }
 
-        $route='SPK-Detail';
-        $route_btn='Ke Detail SPK';
-        $params=['spk_id'=>$spk['id']];
+        $route='daftar-nota';
+        $route_btn='Ke Daftar Nota';
+        $params=null;
         $data = [
             'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
             'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,

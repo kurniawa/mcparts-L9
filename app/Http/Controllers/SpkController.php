@@ -7,13 +7,17 @@ use App\Helpers\SiteSettings;
 use App\Http\Requests\StoreSpkRequest;
 use App\Http\Requests\UpdateSpkRequest;
 use App\Models\Alamat;
+use App\Models\Nota;
 use App\Models\Pelanggan;
 use App\Models\PelangganAlamat;
 use App\Models\Produk;
 use App\Models\SiteSetting;
 use App\Models\Spk;
 use App\Models\SpkProduk;
+use App\Models\SpkProdukNota;
+use App\Models\SpkProdukNotaSrjalan;
 use App\Models\SpkProdukSelesai;
+use App\Models\Srjalan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -104,7 +108,7 @@ class SpkController extends Controller
             ['route'=>'SPK_AddItems','nama'=>'Tambah Item','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']],]],
             ['route'=>'NotaAll','nama'=>'N-All','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']],]],
             ['route'=>'SjAll','nama'=>'Sr-All','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']],]],
-            ['route'=>'HapusSPK','nama'=>'Hapus','method'=>'post','params'=>[['name'=>'spk_id','value'=>$spk['id']],],'confirm'=>'Anda yakin ingin menghapus SPK ini?'],
+            ['route'=>'HapusSPK','nama'=>'Hapus','method'=>'post','params'=>[['name'=>'spk_id','value'=>$spk['id']],],'confirm'=>'Anda yakin ingin menghapus SPK ini? (Menghapus SPK akan turut menghapus Nota dan Sr. Jalan yang terkait!)'],
         ];
         $data = [
             'navbar_bg'=>'bg-color-orange-2',
@@ -276,15 +280,50 @@ class SpkController extends Controller
         }
 
         $post = $request->post();
-
+        $spk_id=$post['spk_id'];
         // dump('$post:', $post);
 
-        $spk = Spk::find($post['spk_id']);
-
         if ($run_db) {
-            $spk->delete();
+            // Cari SPK-> Cari Nota terkait -> Cari Sr. Jalan terkait, supaya bisa dihapus semua sekaligus
+            $spk = Spk::find($spk_id);
+            $spk_produk_notas=SpkProdukNota::where('spk_id', $spk['id'])->get();
+            // Cari Nota terkait
+            $nota_ids=array();
+            foreach ($spk_produk_notas as $spk_produk_nota) {
+                $is_nota_id_in_array=array_search($spk_produk_nota['nota_id'], $nota_ids);
+                if ($is_nota_id_in_array === false) {
+                    $nota_ids[]=$spk_produk_nota['nota_id'];
+                }
+            }
+            // dump($nota_ids);
+            // Cari Sr. Jalan terkait
+            $sj_ids=array();
+            foreach ($nota_ids as $nota_id) {
+                $spk_produk_nota_sjs=SpkProdukNotaSrjalan::where('nota_id',$nota_id)->get();
+                foreach ($spk_produk_nota_sjs as $spk_produk_nota_sj) {
+                    $is_sj_id_in_array=array_search($spk_produk_nota_sj['srjalan_id'], $sj_ids);
+                    if ($is_sj_id_in_array === false) {
+                        $sj_ids[]=$spk_produk_nota_sj['srjalan_id'];
+                    }
+                }
+            }
+            // dd($sj_ids);
 
-            $main_log = "SUCCESS: SPK dengan ID: $spk[id] berhasil dihapus!";
+            $spk->delete();
+            $warning_logs[]="$spk[no_spk] berhasil dihapus!";
+            foreach ($nota_ids as $nota_id) {
+                $nota_to_delete=Nota::find($nota_id);
+                $nota_to_delete->delete();
+                $warning_logs[]="Nota terkait: $nota_to_delete[no_nota] berhasil dihapus!";
+            }
+
+            foreach ($sj_ids as $sj_id) {
+                $sj_to_delete=Srjalan::find($sj_id);
+                $sj_to_delete->delete();
+                $warning_logs[]="Sr. Jalan terkait: $sj_to_delete[no_srjalan] berhasil dihapus!";
+            }
+
+            $main_log = "SUCCESS:";
         }
 
         $route='SPK';

@@ -17,11 +17,11 @@ return new class extends Migration
         Schema::create('spk_produk_nota_srjalans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('spk_id')->nullable()->constrained()->onDelete('CASCADE');
-            $table->foreignId('produk_id')->nullable()->constrained()->onDelete('CASCADE');
+            $table->foreignId('produk_id')->nullable()->constrained()->onDelete('NO ACTION');
             $table->foreignId('nota_id')->nullable()->constrained()->onDelete('CASCADE');
             $table->foreignId('srjalan_id')->nullable()->constrained()->onDelete('CASCADE');
-            $table->foreignId('spk_produk_id')->nullable()->constrained()->onDelete('CASCADE');
-            $table->foreignId('spk_produk_nota_id')->nullable()->constrained()->onDelete('CASCADE');
+            $table->foreignId('spk_produk_id')->nullable()->constrained()->onDelete('NO ACTION');
+            $table->foreignId('spk_produk_nota_id')->nullable()->constrained()->onDelete('NO ACTION');
             $table->smallInteger('jumlah');
             $table->string('tipe_packing', 20)->nullable();
             $table->smallInteger('jml_packing')->nullable();
