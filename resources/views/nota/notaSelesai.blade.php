@@ -23,9 +23,11 @@
             {{-- @php
                 dd($alamat)
             @endphp --}}
+            @if ($alamat!==null)
             @foreach (json_decode($alamat['long'], true) as $long)
             {{ $long }}<br>
             @endforeach
+            @endif
             </td>
         </tr>
     </table>
@@ -35,7 +37,13 @@
         @for ($i = 0; $i < count($produks); $i++)
         <tr>
             <td>{{ $i+1 }}</td>
-            <td>{{ $nama_notas[$i] }}</td>
+            <td>
+                @if ($spk_produk_notas[$i]['nama_nota']!==null)
+                {{ $spk_produk_notas[$i]['nama_nota'] }}
+                @else
+                {{ $produks[$i]['nama_nota'] }}
+                @endif
+            </td>
             <td>{{ $spk_produk_notas[$i]['jumlah'] }}</td>
             <td class="toFormatNumber">{{ $spk_produk_notas[$i]['harga'] }}</td>
             <td class="toFormatNumber">{{ $spk_produk_notas[$i]['harga_t'] }}</td>
@@ -62,6 +70,8 @@
             <tr>
                 <td>
                     <input type='hidden' name='nota_id' value={{ $nota['id'] }}>
+                    <input type='hidden' name='pelanggan_id' value={{ $pelanggan['id'] }}>
+                    <input type='hidden' name='reseller_id' value={{ $reseller_id }}>
                 </td>
             </tr>
         </table>

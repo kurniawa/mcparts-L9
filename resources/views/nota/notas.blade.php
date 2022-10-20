@@ -24,7 +24,13 @@
         <tr style="vertical-align: middle">
             <td><div class='rounded-circle d-flex align-items-center justify-content-center font-weight-bold' style='background-color:salmon;width:2rem;height:2rem'>{{ $pelanggans[$i]['initial'] }}</div></td>
             <td>
-                <div class="row"><div class="col fw-bold" style="color: blue">{{ $notas[$i]['no_nota'] }}</div></div>
+                <div>
+                    <div class="d-flex">
+                        <div class="fw-bold" style="color: blue">{{ $notas[$i]['no_nota'] }}</div>
+                        <a href="{{ route('SPK-Detail',['spk_id'=>$spks[$i]]) }}" class="ms-2 fw-bold" style="color:brown">SPK-{{ $spks[$i] }}</a>
+                    </div>
+
+                </div>
                 @if ($resellers[$i] !== null)
                 <div class="row"><div class="col">{{ $resellers[$i]['nama'] }}-{{ $pelanggans[$i]['nama'] }}</div></div>
                 @else
@@ -47,14 +53,17 @@
                 <table style="width: 100%">
                     @for ($j = 0; $j < count($arr_spk_produks[$i]); $j++)
                     <tr>
-                        <td>{{ $arr_produks[$i][$j]['nama'] }}</td>
-                        <td>{{ $arr_spk_produks[$i][$j]['jml_t'] }}</td>
+                        <td>{{ $arr_nama_notas[$i][$j] }}</td>
+                        <td>{{ $arr_spk_produk_notas[$i][$j]['jumlah'] }}</td>
                         <td class="harga_item">{{ $arr_spk_produk_notas[$i][$j]['harga'] }}</td>
                         <td class="harga_t">{{ $arr_spk_produk_notas[$i][$j]['harga_t'] }}</td>
                     </tr>
                     @endfor
                     <tr>
                         <td colspan="4" class='text-end'>
+                            {{-- <form action="{{ route('CreateArsipNotaDB') }}" onsubmit="return confirm('Setelah diarsipkan maka nota akan dihapus dari daftar nota aktif dan tidak dapat di edit kembali. Anda yakin ingin mengarsipkan Nota?')">
+                                <input type="hidden" name="nota_id" value="">
+                            </form> --}}
                             <a href="{{ route('notaSelesai',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-success btn-sm">N.Sls</a>
                             <a href="{{ route('Nota-Detail',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-warning btn-sm">Detail</a>
                         </td>

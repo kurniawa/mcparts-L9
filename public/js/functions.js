@@ -115,6 +115,18 @@ function formatNumber(number, element){
     }
 }
 
+function formatCurrencyRp(number, element){
+    // console.log(element);
+    var formatted_number=formatHarga(number.toString());
+    if (element==null) {
+        return formatted_number;
+    } else {
+        element.innerHTML=`<div><div class="d-flex justify-content-between"><span>Rp</span><span>${formatted_number},-</span></div></div>`;
+        // console.log(element);
+        return true;
+    }
+}
+
 function formatNewLine (line) {
     arr_line = line.split("[br]");
     var string_formated = "";

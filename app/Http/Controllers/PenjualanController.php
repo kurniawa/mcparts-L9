@@ -112,7 +112,90 @@ class PenjualanController extends Controller
             $penjualan_totals[]=$penjualan_total;
             $arr_notas_spesific_pelanggan[]=$notas_spesific_pelanggan;
         }
+        array_unique($pelanggan_namas);
+        // dd($pelanggan_namas);
         // dump($arr_notas_spesific_pelanggan);
+
+        // notas + subtotal
+        $notasXsubtotal=array();
+        $nota_copies=$notas->toArray();
+        $pelanggan_nama_copies=$pelanggan_namas;
+        for ($i=0; $i < count($pelanggan_nama_copies); $i++) {
+            $res=$notas->where('pelanggan_nama',$pelanggan_nama_copies[$i])->toArray();
+            $subtotal=0;
+            $res=array_values($res);
+            // dump($res);
+            try {
+                for ($j=0; $j < count($res); $j++) {
+                    $subtotal+=$res[$j]['harga_total'];
+                    if ($j===count($res)-1) {
+
+                        $noXsub=[
+                            "id"=>$res[$j]['id'],
+                            "no_nota"=>$res[$j]['no_nota'],
+                            "pelanggan_id"=>$res[$j]['pelanggan_id'],
+                            "reseller_id"=>$res[$j]['reseller_id'],
+                            "status_bayar"=>$res[$j]['status_bayar'],
+                            "jumlah_total"=>$res[$j]['jumlah_total'],
+                            "harga_total"=>$res[$j]['harga_total'],
+                            "alamat_id"=>$res[$j]['alamat_id'],
+                            "alamat_reseller_id"=>$res[$j]['alamat_reseller_id'],
+                            "kontak_id"=>$res[$j]['kontak_id'],
+                            "kontak_reseller_id"=>$res[$j]['kontak_reseller_id'],
+                            "created_by"=>$res[$j]['created_by'],
+                            "updated_by"=>$res[$j]['updated_by'],
+                            "finished_at"=>$res[$j]['finished_at'],
+                            "pelanggan_nama"=>$res[$j]['pelanggan_nama'],
+                            "cust_long_ala"=>$res[$j]['cust_long_ala'],
+                            "cust_kontak"=>$res[$j]['cust_kontak'],
+                            "reseller_nama"=>$res[$j]['reseller_nama'],
+                            "reseller_long_ala"=>$res[$j]['reseller_long_ala'],
+                            "reseller_kontak"=>$res[$j]['reseller_kontak'],
+                            "keterangan"=>$res[$j]['keterangan'],
+                            "created_at"=>$res[$j]['created_at'],
+                            "updated_at"=>$res[$j]['updated_at'],
+                            "subtotal"=>$subtotal,
+                        ];
+
+                        $notasXsubtotal[]=$noXsub;
+                    } else {
+                        $noXsub=[
+                            "id"=>$res[$j]['id'],
+                            "no_nota"=>$res[$j]['no_nota'],
+                            "pelanggan_id"=>$res[$j]['pelanggan_id'],
+                            "reseller_id"=>$res[$j]['reseller_id'],
+                            "status_bayar"=>$res[$j]['status_bayar'],
+                            "jumlah_total"=>$res[$j]['jumlah_total'],
+                            "harga_total"=>$res[$j]['harga_total'],
+                            "alamat_id"=>$res[$j]['alamat_id'],
+                            "alamat_reseller_id"=>$res[$j]['alamat_reseller_id'],
+                            "kontak_id"=>$res[$j]['kontak_id'],
+                            "kontak_reseller_id"=>$res[$j]['kontak_reseller_id'],
+                            "created_by"=>$res[$j]['created_by'],
+                            "updated_by"=>$res[$j]['updated_by'],
+                            "finished_at"=>$res[$j]['finished_at'],
+                            "pelanggan_nama"=>$res[$j]['pelanggan_nama'],
+                            "cust_long_ala"=>$res[$j]['cust_long_ala'],
+                            "cust_kontak"=>$res[$j]['cust_kontak'],
+                            "reseller_nama"=>$res[$j]['reseller_nama'],
+                            "reseller_long_ala"=>$res[$j]['reseller_long_ala'],
+                            "reseller_kontak"=>$res[$j]['reseller_kontak'],
+                            "keterangan"=>$res[$j]['keterangan'],
+                            "created_at"=>$res[$j]['created_at'],
+                            "updated_at"=>$res[$j]['updated_at'],
+                            "subtotal"=>null,
+                        ];
+
+                        $notasXsubtotal[]=$noXsub;
+                    }
+                }
+            } catch (\Throwable $th) {
+                dump($th);
+            }
+
+        }
+
+
 
         $data = [
             'go_back'=>true,
@@ -130,8 +213,10 @@ class PenjualanController extends Controller
             'penjualan_totals'=>$penjualan_totals,
             'pelanggans_v_notas'=>$pelanggans_v_notas,
             'notas'=>$notas,
+            'notasXsubtotal'=>$notasXsubtotal,
         ];
         // dd($data);
+        // dump($data);
         return view('penjualan.penjualan', $data);
     }
 }

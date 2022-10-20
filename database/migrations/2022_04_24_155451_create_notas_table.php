@@ -20,13 +20,26 @@ return new class extends Migration
             $table->foreignId('pelanggan_id')->nullable()->constrained('pelanggans')->onDelete('NO ACTION');
             $table->foreignId('reseller_id')->nullable()->constrained('pelanggans')->onDelete('NO ACTION');
             $table->string('status_bayar', 50)->default('BELUM');
-            $table->string('status_sj', 50)->default('BELUM');
-            $table->integer('jumlah_sj')->nullable()->default(0);
+            // $table->string('status_sj', 50)->default('BELUM');// Keliatannya sih tidak diperlukan
+            // $table->integer('jumlah_sj')->nullable()->default(0);
             $table->integer('jumlah_total')->nullable();
             $table->integer('harga_total')->nullable();
+            $table->foreignId('alamat_id')->nullable()->constrained()->onDelete('NO ACTION'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
+            $table->foreignId('alamat_reseller_id')->nullable()->constrained('alamats','id')->onDelete('NO ACTION'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
+            $table->foreignId('kontak_id')->nullable()->constrained('pelanggan_kontaks','id')->onDelete('NO ACTION');
+            $table->foreignId('kontak_reseller_id')->nullable()->constrained('pelanggan_kontaks','id')->onDelete('NO ACTION');
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamp('finished_at')->nullable();
+            // Data ketika selesai
+            $table->string('pelanggan_nama',100)->nullable();
+            $table->string('cust_long_ala')->nullable();
+            $table->string('cust_kontak')->nullable();
+            $table->string('reseller_nama',100)->nullable();
+            $table->string('reseller_long_ala')->nullable();
+            $table->string('reseller_kontak')->nullable();
+            // Keterangan Lain
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

@@ -80,6 +80,8 @@
             <tr>
                 <td>
                     <input type='hidden' name='srjalan_id' value={{ $srjalan['id'] }}>
+                    <input type='hidden' name='pelanggan_id' value={{ $pelanggan['id'] }}>
+                    <input type='hidden' name='reseller_id' value={{ $reseller_id }}>
                 </td>
             </tr>
         </table>

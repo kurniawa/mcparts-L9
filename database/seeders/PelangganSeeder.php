@@ -484,7 +484,7 @@ class PelangganSeeder extends Seeder
                 'kontak' => null,
                 'initial' => 'CEN',
                 'reseller'=>'Akong',
-                'ekspedisi' => [['nama'=>'Citramas'],['nama'=>'Multi Intim','tipe'=>'TRANSIT']],
+                'ekspedisi' => [['nama'=>'Citramas'],['nama'=>'Multi Intim','is_transit'=>'yes','tipe'=>'UTAMA']],
             ], [
                 'nama' => 'Central Young Hero',
                 'alamat' => [[
@@ -675,7 +675,7 @@ class PelangganSeeder extends Seeder
                 ]],
                 'kontak' => null,
                 'initial' => 'FOR',
-                'ekspedisi' => [['nama'=>'Citramas'], ['nama'=>'Bintang Khatulistiwa','tipe'=>'TRANSIT']],
+                'ekspedisi' => [['nama'=>'Citramas'], ['nama'=>'Bintang Khatulistiwa','is_transit'=>'yes','tipe'=>'UTAMA']],
             ], [
                 'nama' => 'Endang',
                 'sapaan' => 'Bpk.',
@@ -1148,7 +1148,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'JOY',
-                'ekspedisi' => [['nama'=>'Citramas'], ['nama'=>'Rinjani Jaya Trans','tipe'=>'TRANSIT']],
+                'ekspedisi' => [['nama'=>'Citramas'], ['nama'=>'Rinjani Jaya Trans','is_transit'=>'yes','tipe'=>'UTAMA']],
             ], [
                 'nama' => 'Kalbar Motoshop',
                 'alamat' => [[
@@ -1403,7 +1403,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'MIJA',
-                'ekspedisi' => [['nama'=>'Citramas'],['nama'=>'Jasa Tunggal Bahari','tipe'=>'TRANSIT']],
+                'ekspedisi' => [['nama'=>'Citramas'],['nama'=>'Jasa Tunggal Bahari','is_transit'=>'yes','tipe'=>'UTAMA']],
             ], [
                 'nama' => 'Mitra Usaha Mandiri',
                 'alamat' => [[
@@ -1911,7 +1911,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'SCO',
-                'ekspedisi' => [['nama'=>'Tesa Logistic'],['nama'=>'Rinjani Jaya Trans','tipe'=>'TRANSIT']],
+                'ekspedisi' => [['nama'=>'Citramas'],['nama'=>'Rinjani Jaya Trans','is_transit'=>'yes','tipe'=>'UTAMA']],
             ], [
                 'nama' => 'Sejati Jaya Sondy',
                 'alamat' => [[
@@ -2517,8 +2517,8 @@ class PelangganSeeder extends Seeder
             ],
         ];
 
-        for ($i = 0; $i < count($pelanggan); $i++) {
-        // for ($i = 0; $i < 20; $i++) {
+        // for ($i = 0; $i < count($pelanggan); $i++) {
+        for ($i = 0; $i < 25; $i++) {
             $bentuk = null;
             if (isset($pelanggan[$i]['bentuk']) && $pelanggan[$i]['bentuk'] !== null) {
                 $bentuk = $pelanggan[$i]['bentuk'];
@@ -2569,9 +2569,14 @@ class PelangganSeeder extends Seeder
                     if (isset($data['tipe'])) {
                         $tipe = $data['tipe'];
                     }
+                    $is_transit='no';
+                    if (isset($data['is_transit'])) {
+                        $is_transit=$data['is_transit'];
+                    }
                     PelangganEkspedisi::create([
                         'pelanggan_id'=>$pelanggan_new['id'],
                         'ekspedisi_id'=>$ekspedisi['id'],
+                        'is_transit'=>$is_transit,
                         'tipe'=>$tipe,
                     ]);
                 }

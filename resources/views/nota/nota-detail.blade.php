@@ -11,9 +11,12 @@
 
     <div class="border border-2">
         <table style="border-collapse:unset;border-spacing:0.5rem">
-            <tr><th>Pelanggan</th><th>:</th><th>{{ $pelanggan['nama'] }}</th></tr>
-            @if ($reseller !== null)
-            <tr><td></td><td></td><td><span style="font-weight: bold">{{ $reseller['nama'] }}</span> sebagai Reseller untuk Nota ini</td></tr>
+            <tr><th>Pelanggan</th><th>:</th><th>@if ($pelanggan_nama!==null){{ $pelanggan_nama }}@else{{ $pelanggan['nama'] }}@endif</th></tr>
+            @if ($reseller!==null)
+            <tr>
+                <td></td><td></td>
+                <td><span style="font-weight: bold">@if ($reseller_nama!==null){{ $reseller_nama }}@else{{ $reseller['nama'] }}@endif</span> sebagai Reseller untuk Nota ini</td>
+            </tr>
             @endif
             <tr><th>No. Nota</th><th>:</th><td>{{ $nota['no_nota'] }}</td></tr>
             <tr><th>Tanggal</th><th>:</th><td>{{ date('d-m-Y', strtotime($nota['created_at'])) }}</td></tr>
@@ -21,12 +24,25 @@
                 <th style="vertical-align: top;">Alamat</th>
                 <th style="vertical-align: top;">:</th>
                 <td>
-                {{-- @php
-                    dd($alamat)
-                @endphp --}}
-                @foreach (json_decode($alamat['long'], true) as $long)
-                {{ $long }}<br>
-                @endforeach
+                    @if ($cust_long_ala!==null)
+                    @foreach (json_decode($cust_long_ala,true) as $long)
+                    <div>{{ $long }}</div>
+                    @endforeach
+                    @else
+                    @if ($alamat!==null)
+                    @foreach (json_decode($alamat['long'], true) as $alm)
+                    <div>{{ $alm }}</div>
+                    @endforeach
+                    @endif
+                    @endif
+                    @if ($cust_kontak!==null)
+                    @if ($cust_kontak['kodearea']!==null)
+                    <span>({{ $cust_kontak['kodearea'] }}) </span>
+                    @endif
+                    <span class="toFormatPhoneNumber">{{ $cust_kontak['nomor'] }}</span>
+                    @else
+
+                    @endif
                 </td>
             </tr>
         </table>
@@ -57,14 +73,6 @@
             <td colspan="6" class="text-end">
                 <a class="btn btn-primary btn-sm" href="{{ route('edit_harga_item_nota',['data_item'=>json_encode($data_items[$i]),'nota_id'=>$nota['id'],'pelanggan_id'=>$pelanggan['id']]) }}">E.Hrg</a>
                 <a class="btn btn-dd btn-sm" href="{{ route('edit_nama_item_nota',['data_item'=>json_encode($data_items[$i]),'nota_id'=>$nota['id'],'pelanggan_id'=>$pelanggan['id']]) }}" >E.NaNo</a>
-                {{-- <a class="btn btn-warning btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'deviasi','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >+/-</a>
-                <a class="btn btn-primary btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'jumlah','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Jml</a>
-                <a class="btn btn-info btn-sm me-1" href="{{ route('Deviasi',['tipe'=>'selesai','spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Sls</a>
-                <a class="btn btn-success btn-sm me-1" href="{{ route('Tree',['spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Tree</a> --}}
-                {{-- <a class="btn btn-info btn-sm me-1" href="{{ route('NotaItemBaru',['spk_id'=>$spk['id'],'spk_produk_id'=>$spk_produks[$i]['id']]) }}" >N+</a>
-                <a class="btn btn-success btn-sm me-1" href="{{ route('NotaItemAva',['spk_id'=>$spk['id'],'spk_produk_id'=>$spk_produks[$i]['id']]) }}" >N</a>
-                <a class="btn btn-dark btn-sm me-1" href="{{ route('SjItemBaru',['spk_id'=>$spk['id'],'spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Sj+</a>
-                <a class="btn btn-secondary btn-sm me-1" href="{{ route('SjItemAva',['spk_id'=>$spk['id'],'spk_produk_id'=>$spk_produks[$i]['id']]) }}" >Sj</a> --}}
                 <form action="{{ route('hapusItemSPK') }}" method="POST" class="d-inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus item ini?')">
                 @csrf
                 <button type="submit" name="spk_produk_id" value="{{ $spk_produks[$i]['id'] }}" class="btn btn-danger btn-sm" >Del</button>

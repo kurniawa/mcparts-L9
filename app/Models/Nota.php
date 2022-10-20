@@ -42,13 +42,58 @@ class Nota extends Model
     public function getOneNotaAndComponents($nota_id)
     {
         $nota = Nota::find($nota_id);
-
+        // Data Pelanggan
         $pelanggan = Pelanggan::find($nota['pelanggan_id']);
-        $pelanggan_alamat=PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->latest()->first();
-        $alamat=Alamat::find($pelanggan_alamat['alamat_id']);
-        $reseller = null;
-        if ($nota['reseller_id'] !== null && $nota['reseller_id'] !== '') {
+        $pelanggan_nama=$nota['pelanggan_nama'];
+        $cust_long_ala=$nota['cust_long_ala'];
+        $alamat=null;
+        if ($nota['alamat_id']!==null) {
+            $alamat=Alamat::find($nota['alamat_id']);
+        }
+        $pelanggan_alamats=PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->get();
+        $alamat_avas=array();
+        foreach ($pelanggan_alamats as $pelanggan_alamat) {
+            $alamat_ava=Alamat::find($pelanggan_alamat['alamat_id']);
+            $alamat_avas[]=$alamat_ava;
+        }
+
+        $cust_kontak=$nota['cust_kontak'];
+        $kontak=null;
+        if ($nota['kontak_id'!==null]) {
+            $kontak=PelangganKontak::find($nota['kontak_id']);
+        }
+        $kontak_avas=PelangganKontak::where('pelanggan_id',$pelanggan['id'])->get();
+
+        // Data Reseller
+        $reseller_nama=$nota['reseller_nama'];
+        $reseller=null;
+        if ($nota['reseller_id']!==null) {
             $reseller = Pelanggan::find($nota['reseller_id']);
+        }
+        $reseller_long_ala=$nota['reseller_long_ala'];
+        $alamat_reseller=null;
+        if ($nota['alamat_reseller_id']!==null) {
+            $alamat_reseller=Alamat::find($nota['alamat_reseller_id']);
+        }
+        $reseller_alamats=$alamat_reseller_avas=array();
+        if ($reseller!==null) {
+            $reseller_alamats=PelangganAlamat::where('pelanggan_id',$reseller['id'])->get();
+            if (count($reseller_alamats)!==0) {
+                foreach ($reseller_alamats as $reseller_alamat) {
+                    $alamat_reseller_ava=Alamat::find($reseller_alamat['alamat_id']);
+                    $alamat_reseller_avas[]=$alamat_reseller_ava;
+                }
+            }
+        }
+
+        $reseller_kontak=$nota['reseller_kontak'];
+        $kontak_reseller=null;
+        if ($nota['kontak_reseller_id']!==null) {
+            $kontak_reseller=PelangganKontak::find($nota['kontak_reseller_id']);
+        }
+        $kontak_reseller_avas=array();
+        if ($reseller!==null) {
+            $kontak_reseller_avas=PelangganKontak::where('pelanggan_id',$reseller['id'])->get();
         }
 
         $spk_produk_notas = SpkProdukNota::where('nota_id', $nota['id'])->get();
@@ -71,7 +116,7 @@ class Nota extends Model
         // dump('$spk_produk_notas:', $spk_produk_notas);
         // dump('$spk_produks:', $spk_produks);
 
-        return array($nota, $pelanggan, $alamat,$reseller, $spk_produk_notas, $spk_produks, $produks, $data_items);
+        return array($nota,$pelanggan,$pelanggan_nama,$alamat,$cust_long_ala,$alamat_avas,$cust_kontak,$kontak,$kontak_avas,$reseller,$reseller_nama,$alamat_reseller,$reseller_long_ala,$alamat_reseller_avas,$reseller_kontak,$kontak_reseller,$kontak_reseller_avas,$spk_produk_notas, $spk_produks, $produks, $data_items);
     }
 
     public function getAvailableSPKItemFromNotaID($nota_id)
@@ -122,7 +167,7 @@ class Nota extends Model
             $nama_spks[] = $nama_spk;
         }
 
-        return array($pelanggan, $daerah, $reseller, $reseller_id, $av_spks2, $arr_spk_produks, $arr_produks, $nama_spks);
+        return array($pelanggan, $reseller, $reseller_id, $av_spks2, $arr_spk_produks, $arr_produks, $nama_spks);
     }
 
     public function getAvailableSpkItemToAddToNotaFromSPK($spk_id)
@@ -141,5 +186,55 @@ class Nota extends Model
 
         return array($spk, $spk_produks, $produks);
     }
+
+    public function deletingOneSj_updateDataSPK($sj_id)
+    {
+        // Setelah delete, diupdate data jumlah_sudah_sj dan status_sj
+        // Lalu diupdate juga yang di spk_produk
+        $success_logs=array();
+        $srjalan=Srjalan::find($sj_id);
+        // cari spk_produk yang berkaitan
+        $spk_produk_nota_sjs=SpkProdukNotaSrjalan::where('srjalan_id',$srjalan['id'])->get();
+        foreach ($spk_produk_nota_sjs as $spk_produk_nota_sj) {
+            // Update data spk_produk
+            $spk_produk=SpkProduk::find($spk_produk_nota_sj['spk_produk_id']);
+            $spk_produk->jumlah_sudah_srjalan-=$spk_produk_nota_sj['jumlah'];
+            $spk_produk->save();
+            $success_logs[]="spk_produk->jumlah_sudah_srjalan telah diupdate!";
+
+            $status_srjalan="SEMUA";
+            if ($spk_produk['jumlah_sudah_srjalan']===0) {
+                $status_srjalan="BELUM";
+            } else if ($spk_produk['jumlah_sudah_srjalan']>0 && $spk_produk['jumlah_sudah_srjalan']< $spk_produk['jml_t']) {
+                $status_srjalan="SEBAGIAN";
+            }
+
+            $spk_produk->status_srjalan=$status_srjalan;
+            $success_logs[]="spk_produk->status_srjalan telah diupdate!";
+
+            // Update data SPK status_sj dan jumlah_sudah_sj
+            $spk=Spk::find($spk_produk_nota_sj['spk_id']);
+            // dump($spk);
+            $spk->jumlah_sudah_sj-=$spk_produk_nota_sj['jumlah'];
+            $spk->save();
+            $success_logs[]="spk->jumlah_sudah_sj telah diupdate!";
+            // dump('spk[jumlah_sudah_sj]',$spk['jumlah_sudah_sj']);
+
+            $status_sj="SEMUA";
+            if ($spk['jumlah_sudah_sj']===0) {
+                $status_sj="BELUM";
+            } else if ($spk['jumlah_sudah_sj']>0 && $spk['jumlah_sudah_sj']< $spk['jumlah_total']) {
+                $status_sj="SEBAGIAN";
+            } else if($spk['jumlah_sudah_sj']<0){
+                $status_sj="ERROR";
+            }
+            $spk->status_sj=$status_sj;
+            $spk->save();
+            $success_logs[]="spk->status_sj telah diupdate!";
+        }
+        return $success_logs;
+    }
+
+
 
 }

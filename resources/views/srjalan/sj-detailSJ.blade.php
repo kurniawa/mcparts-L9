@@ -14,9 +14,12 @@
     <div class="d-flex justify-content-between">
         <div class="border border-2">
             <table style="border-collapse:unset;border-spacing:0.5rem">
-                <tr><th>Pelanggan</th><th>:</th><th>{{ $pelanggan['nama'] }}</th></tr>
+                <tr><th>Pelanggan</th><th>:</th><th>@if ($pelanggan_nama!==null){{ $pelanggan_nama }}@else{{ $pelanggan['nama'] }}@endif</th></tr>
                 @if ($reseller !== null)
-                <tr><td></td><td></td><td><span style="font-weight: bold">{{ $reseller['nama'] }}</span> sebagai Reseller untuk srjalan ini</td></tr>
+                <tr>
+                    <td></td><td></td>
+                    <td><span style="font-weight: bold">@if ($reseller_nama!==null){{ $reseller_nama }}@else{{ $reseller['nama'] }}@endif</span> sebagai Reseller untuk Nota ini</td>
+                </tr>
                 @endif
                 <tr><th>No. srjalan</th><th>:</th><td>{{ $srjalan['no_srjalan'] }}</td></tr>
                 <tr><th>Tanggal</th><th>:</th><td>{{ date('d-m-Y', strtotime($srjalan['created_at'])) }}</td></tr>
@@ -24,29 +27,140 @@
                     <th style="vertical-align: top;">Alamat</th>
                     <th style="vertical-align: top;">:</th>
                     <td>
-                    {{-- @php
-                        dd($alamat)
-                    @endphp --}}
-                    @foreach (json_decode($alamat['long'], true) as $long)
-                    {{ $long }}<br>
-                    @endforeach
+                        @if ($cust_long_ala!==null)
+                        @foreach (json_decode($cust_long_ala,true) as $long)
+                        <div>{{ $long }}</div>
+                        @endforeach
+                        @else
+                        @if ($alamat!==null)
+                        @foreach (json_decode($alamat['long'], true) as $alm)
+                        <div>{{ $alm }}</div>
+                        @endforeach
+                        @endif
+                        @endif
                     </td>
                 </tr>
+                @if ($cust_kontak!==null)
+                <tr>
+                    <th></th><th></th>
+                    <td>
+                        @if ($cust_kontak['kodearea']!==null)
+                        <span>({{ $cust_kontak['kodearea'] }}) </span>
+                        @endif
+                        <span class="toFormatPhoneNumber">{{ $cust_kontak['nomor'] }}</span>
+                    </td>
+                </tr>
+                @endif
             </table>
         </div>
         <div class="border border-2">
+            @if ($ekspedisi!==null)
             <table style="border-collapse:unset;border-spacing:0.5rem">
-                <tr><th>Ekspedisi</th><th>:</th><td class="fw-bold">{{ $ekspedisi['nama'] }}</td></tr>
+                <tr>
+                    <th>Ekspedisi</th><th>:</th>
+                    <td class="fw-bold">
+                        @if ($ekspedisi_nama!==null)
+                        {{ $ekspedisi_nama }}
+                        @else
+                        {{ $ekspedisi['nama'] }}
+                        @endif
+                    </td>
+                </tr>
                 <tr>
                     <th style="vertical-align: top;">Alamat</th>
                     <th style="vertical-align: top;">:</th>
                     <td>
-                    @foreach (json_decode($alamatOfEkspedisi['long'], true) as $long)
-                    {{ $long }}<br>
-                    @endforeach
+                        @if ($eks_long_ala!==null)
+                        @foreach (json_decode($eks_long_ala, true) as $long)
+                        <div>{{ $long }}</div>
+                        @endforeach
+                        @else
+                        @if ($alamat_ekspedisi!==null)
+                        @foreach (json_decode($alamat_ekspedisi['long'], true) as $long)
+                        <div>{{ $long }}</div>
+                        @endforeach
+                        @endif
+                        @endif
                     </td>
                 </tr>
+                @if ($eks_kontak!==null)
+                <tr>
+                    <th></th><th></th>
+                    <td>
+                        @if ($eks_kontak['kodearea']!==null)
+                        <span>({{ $eks_kontak['kodearea'] }}) </span>
+                        @endif
+                        <span class="toFormatPhoneNumber">{{ $eks_kontak['nomor'] }}</span>
+
+                    </td>
+                </tr>
+                @else
+                @if ($kontak_ekspedisi!==null)
+                <tr>
+                    <th></th><th></th>
+                    <td>
+                        @if ($kontak_ekspedisi['kodearea']!==null)
+                        <span>({{ $kontak_ekspedisi['kodearea'] }}) </span>
+                        @endif
+                        <span class="toFormatPhoneNumber">{{ $kontak_ekspedisi['nomor'] }}</span>
+
+                    </td>
+                </tr>
+                @endif
+                @endif
             </table>
+            @else
+            <div>Ekspedisi belum ditetapkan!</div>
+            @endif
+            @if ($transit!==null)
+            <table style="border-collapse:unset;border-spacing:0.5rem">
+                <tr>
+                    <th style="color: red">Via Ekspedisi</th><th>:</th>
+                    <td class="fw-bold">
+                        @if ($transit_nama!==null)
+                        {{ $transit_nama }}
+                        @else
+                        {{ $transit['nama'] }}
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th style="vertical-align: top;">Alamat</th>
+                    <th style="vertical-align: top;">:</th>
+                    <td>
+                        @if ($trans_long_ala!==null)
+                        @foreach (json_decode($trans_long_ala, true) as $long)
+                        <div>{{ $long }}</div>
+                        @endforeach
+                        @else
+                        @if ($alamat_transit!==null)
+                        @foreach (json_decode($alamat_transit['long'], true) as $long)
+                        <div>{{ $long }}</div>
+                        @endforeach
+                        @endif
+                        @endif
+                    </td>
+                </tr>
+                @if ($kontak_transit!==null)
+                <tr>
+                    <th></th><th></th>
+                    <td>
+                        @if ($trans_kontak!==null)
+                        @if ($trans_kontak['kodearea']!==null)
+                        <span>({{ $trans_kontak['kodearea'] }}) </span>
+                        @endif
+                        <span class="toFormatPhoneNumber">{{ $trans_kontak['nomor'] }}</span>
+                        @else
+                        @if ($kontak_transit['kodearea']!==null)
+                        <span>({{ $kontak_transit['kodearea'] }}) </span>
+                        @endif
+                        <span class="toFormatPhoneNumber">{{ $kontak_transit['nomor'] }}</span>
+                        @endif
+                    </td>
+                </tr>
+                @endif
+            </table>
+            @endif
         </div>
     </div>
     <table id="divDaftarItemsrjalan" style="width: 100%" class="mt-3 fancy-table">

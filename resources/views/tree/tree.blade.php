@@ -114,15 +114,22 @@
                 </div>
                 <div class="text-end" id='ddIconSJ-{{ $param['srjalan_id'] }}' onclick="showDD('#ddElSJ-{{ $param['srjalan_id'] }}','#ddIconSJ-{{ $param['srjalan_id'] }}');"><small>Edit</small> <img class="w-0_7rem" src="{{ asset('img/icons/dropdown.svg') }}" alt=""></div>
                 <div class="text-end mt-2" id='ddElSJ-{{ $param['srjalan_id'] }}' style="display: none">
-                    <button class="btn btn-danger" onclick="hapusSPKProdukNotaSJ({{ $param['spk_produk_nota_sj_id'] }})">Hapus</button>
-                    <button class="btn btn-warning" onclick="editJmlSPKProdukNotaSJ({{ $param['nota_id'] }},{{ $param['srjalan_id'] }},{{ $param['spk_produk_nota_sj_id'] }},'jml_sj-{{ $param['srjalan_id'] }}',{{ $param['jumlah'] }},'invalid-feedback-edit_spk_produk_nota_sj-{{ $param['srjalan_id'] }}')">Konfirm</button>
+                    <div class="d-flex">
+                        <form action="{{ route('delSpkPNSJ') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="spk_produk_nota_sj_id" value="{{ $param['spk_produk_nota_sj_id'] }}">
+                            <input type="hidden" name="spk_produk_id" value="{{ $spk_produk['id'] }}">
+                            <button class="btn btn-danger" onclick="hapusSPKProdukNotaSJ({{ $param['spk_produk_nota_sj_id'] }})">Hapus</button>
+                        </form>
+                        <div class="ms-1"><button class="btn btn-warning" onclick="editJmlSPKProdukNotaSJ({{ $param['nota_id'] }},{{ $param['srjalan_id'] }},{{ $param['spk_produk_nota_sj_id'] }},'jml_sj-{{ $param['srjalan_id'] }}',{{ $param['jumlah'] }},'invalid-feedback-edit_spk_produk_nota_sj-{{ $param['srjalan_id'] }}')">Konfirm</button></div>
+                    </div>
                 </div>
             </div>
             @endif
         </div>
         @endforeach
         {{-- SJ BARU PISAN --}}
-        <div class="col" id="opsi-sj_baru" style="display: none">
+        <form action="{{ route('SjItemBaru_DB') }}" method="POST" class="col" id="opsi-sj_baru" style="display: none">
             <div class="alert alert-danger">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="fw-bold" style="display: inline-block">SJ Baru</div>
@@ -132,26 +139,38 @@
                 @if ($param['spk_produk_id']==$spk_produk['id'])
                 <div class="form-group mt-2">
                     <label for="jml_sj_new-{{ $param['nota_id'] }}">Jml. <span>(terkait N-{{ $param['nota_id'] }}) :</span></label>
-                    <input type="number" class="form-control jml_sj_new" id="jml_sj_new-{{ $param['nota_id'] }}">
+                    <input type="number" name="jumlahs[]" class="form-control jml_sj_new" id="jml_sj_new-{{ $param['nota_id'] }}">
                     <div class="invalid-feedback invalid-feedback-sj"></div>
-                    <input type="hidden" class="newN_notaID" value={{ $param['nota_id'] }}>
-                    <input type="hidden" class="newN_spkProNoID" value={{ $param['spk_produk_nota_id'] }}>
+                    <input type="hidden" name="nota_ids[]" class="newN_notaID" value={{ $param['nota_id'] }}>
+                    <input type="hidden" name="spk_produk_nota_ids[]" class="newN_spkProNoID" value={{ $param['spk_produk_nota_id'] }}>
                     <input type="hidden" class="newN_jmlSPKProNo" value={{ $param['jumlah'] }}>
                 </div>
                 @endif
                 @endforeach
                 @if (count($params_nota)!==0)
+                <input type="hidden" name="spk_produk_id" value="{{ $spk_produk['id'] }}">
                 <div class="text-end mt-2"><button class="btn btn-warning" id="btn-sj-baru">Konfirm</button></div>
                 @endif
             </div>
-        </div>
+            @csrf
+        </form>
     </div>
 </div>
 
 <div class="container"><div class="alert alert-danger" id="invalid-feedback-main" style="display: none"><span class="fw-bold">Warning</span></div></div>
 
-<br><br>
-<div class="container">
+@if (session()->has('error'))
+<div class="container alert alert-danger mt-2">
+    {{ session('error') }}
+</div>
+@endif
+@if (session()->has('success'))
+<div class="container alert alert-success mt-2">
+    {{ session('success') }}
+</div>
+@endif
+
+<div class="container mt-3">
     <div>
         <label for="">Opsi:</label><br>
         <button type="button" class="btn btn-outline-info btn-sm" id="btn-nota_baru" onclick="showHide('opsi-nota_baru', this.id)">+N</button>
@@ -362,132 +381,6 @@
 
     }
 
-    document.getElementById('btn-sj-baru').addEventListener('click', function (event) {
-        var el_jumlahs=document.querySelectorAll('.jml_sj_new');
-        var divs_invalid_feedback=document.querySelectorAll('.invalid-feedback-sj');
-
-        // cek apakah ada input jumlah yang invalid sekaligus apakah ada jumlah yang valid
-        // cari mana index yang valid yang bisa di proses, mana index yang invalid yang tidak perlu di proses.
-        var i_ready=new Array();
-        for (let i = 0; i < el_jumlahs.length; i++) {
-            if (isNaN(parseInt(el_jumlahs[i].value))) {
-                divs_invalid_feedback[i].style.display='block';
-                divs_invalid_feedback[i].textContent='Format jumlah tidak tepat!';
-                console.log('index tidak valid:' + i);
-            } else {
-                i_ready.push(i);
-            }
-        }
-        if (i_ready.length==0) {
-            return false;
-        }
-
-        console.log('i_ready:');
-        console.log(i_ready);
-        var i_ready2=new Array()
-        for (let j = 0; j < i_ready.length; j++) {
-            if (parseInt(el_jumlahs[i_ready[j]].value)<=0) {
-                divs_invalid_feedback[i_ready[j]].style.display='block';
-                divs_invalid_feedback[i_ready[j]].textContent='jumlah harus lebih daripada 0!';
-                console.log('i_ready tidak valid:' + i_ready);
-            } else {
-                i_ready2.push(i_ready[j]);
-            }
-        }
-        if (i_ready2.length==0) {
-            return false;
-        }
-
-        // cek apakah ada input jumlah yang melebihi dari jumlah item yang sudah nota
-        var i_ready3=new Array();
-        var jml_spkProdukNotas=document.querySelectorAll('.newN_jmlSPKProNo');
-        console.log('i_ready2:');
-        console.log(i_ready2);
-        for (let k = 0; k < i_ready2.length; k++) {
-            console.log('i_ready2[k]:' + i_ready2[k]);
-            console.log('el_jumlahs[i_ready2[k]].value : ' + el_jumlahs[i_ready2[k]].value);
-            console.log('jumlah diinput > jumlah spk_produk_nota ?');
-            console.log(parseInt(el_jumlahs[i_ready2[k]].value) + ">" + parseInt(jml_spkProdukNotas[i_ready2[k]].value));
-            if (parseInt(el_jumlahs[i_ready2[k]].value)>parseInt(jml_spkProdukNotas[i_ready2[k]].value)) {
-                divs_invalid_feedback[i_ready2[k]].style.display='block';
-                divs_invalid_feedback[i_ready2[k]].textContent='Input jumlah melebihi dari pada yang seharusnya tercantum di Nota!';
-            } else {
-                i_ready3.push(i_ready2[k]);
-            }
-        }
-        console.log('i_ready3',i_ready3);
-        // return false;
-        if (i_ready3.length==0) {
-            return false;
-        }
-
-        // setelah cek validasi, cari nota_id dan spk_produk_nota_id yang berkaitan.
-        var el_notas=document.querySelectorAll('.newN_notaID');
-        var el_spkPN=document.querySelectorAll('.newN_spkProNoID');
-        var nota_ids=new Array();var spk_produk_nota_ids=new Array();var jumlahs_valid=new Array();
-        var jml_sdh_notas=new Array();var index_ready=new Array();
-        // console.log(i_ready3);
-        for (let l = 0; l < i_ready3.length; l++) {
-            // console.log(el_notas[i_ready3[l]]);
-            // console.log(el_notas[i_ready3[l]].value);
-            nota_ids.push(el_notas[i_ready3[l]].value);
-            spk_produk_nota_ids.push(el_spkPN[i_ready3[l]].value);
-            jumlahs_valid.push(parseInt(el_jumlahs[i_ready3[l]].value));
-            jml_sdh_notas.push(parseInt(jml_spkProdukNotas[i_ready3[l]].value));
-            index_ready.push(i_ready3[l]);
-        }
-        console.log('nota_ids');console.log(nota_ids);
-        console.log('spk_produk_nota_sjs_terkait_item');console.log(spk_produk_nota_sjs_terkait_item);
-
-        // cek apakah item ini sempat di input ke surat jalan lain, apakah masih ada sisa nya yang belum diinput ke surat jalan, dan apakah jumlah input nya sesuai dengan jumlah sisanya?
-        var i_ready4=new Array();
-        for (let m = 0; m < spk_produk_nota_ids.length; m++) {
-            if (spk_produk_nota_sjs_terkait_item.length!==0) {
-                spk_produk_nota_sjs_terkait_item.forEach(spk_pro_no_sj => {
-                    if (spk_pro_no_sj['spk_produk_nota_id']==spk_produk_nota_ids[m]) {
-                        var jml_blm_sj=jml_sdh_notas[m]-spk_pro_no_sj['jumlah'];
-                        console.log('jml_blm_sj dari nota:',nota_ids[m],' -> ',jml_blm_sj)
-                        if (jumlahs_valid[m]>jml_blm_sj) {
-                            divs_invalid_feedback[index_ready[m]].style.display='block';
-                            divs_invalid_feedback[index_ready[m]].textContent='jumlah sudah melebihi dari jumlah yang belum diinput ke surat jalan!';
-                        } else {
-                            i_ready4.push(index_ready[m]);
-                        }
-                    }
-                });
-            } else {
-                // belum ada surat jalan sama sekali yang terkait item ini
-                i_ready4.push(index_ready[m]);
-            }
-        }
-        console.log('i_ready4',i_ready4);
-        if (i_ready4.length==0) {
-            return false;
-        }
-
-        // setelah itu, baru jalankan fungsi ajax nya.
-        // return false;
-        $.ajax({
-            type:'POST',
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            url:'{{ route("SjItemBaru_DB") }}',
-            data: {
-                spk_produk_id:{{ $spk_produk['id'] }},
-                jumlahs:jumlahs_valid,
-                nota_ids:nota_ids,
-                spk_produk_nota_ids:spk_produk_nota_ids,
-            },
-            success:function (res) {
-                console.log(res);
-                setTimeout(() => {
-                    location.reload();
-                }, 500);
-            }
-        });
-
-        return true;
-    });
-
     // SURAT JALAN
 
     function editJmlSPKProdukNotaSJ(nota_id,sj_id,spk_produk_nota_sj_id,el_jumlah_id,jml_spk_produk_nota_sj_awal,div_invalid_id) {
@@ -552,31 +445,6 @@
             });
         }
         // testing get url: http://127.0.0.1:8000/sj/editJmlSpkPNSJ?spk_produk_id=2&spk_produk_nota_sj_id=11&jumlah=40
-    }
-
-    function hapusSPKProdukNotaSJ(spk_produk_nota_sj_id) {
-        console.log(spk_produk_nota_sj_id);
-        var confirm_delete=confirm('Anda yakin ingin menghapus item di Surat Jalan ini?');
-        console.log(confirm_delete);
-        if (confirm_delete) {
-            $.ajax({
-                type:'POST',
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                url:'{{ route("delSpkPNSJ") }}',
-                data: {
-                    spk_produk_nota_sj_id:spk_produk_nota_sj_id,
-                    spk_produk_id:spk_produk['id'],
-                },
-                success:function (res) {
-                    console.log(res);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
-                }
-            });
-        }
-
-        // testing $get: http://127.0.0.1:8000/sj/delSpkPNSJ?spk_produk_nota_sj_id=13&spk_produk_id=2
     }
 
     function showHide(toshow, tohide) {

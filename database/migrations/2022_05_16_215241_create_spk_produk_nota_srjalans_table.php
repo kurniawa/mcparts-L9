@@ -22,8 +22,9 @@ return new class extends Migration
             $table->foreignId('srjalan_id')->nullable()->constrained()->onDelete('CASCADE');
             $table->foreignId('spk_produk_id')->nullable()->constrained()->onDelete('NO ACTION');
             $table->foreignId('spk_produk_nota_id')->nullable()->constrained()->onDelete('NO ACTION');
-            $table->smallInteger('jumlah');
             $table->string('tipe_packing', 20)->nullable();
+            // Penetapan Data Sr. Jalan Selesai:
+            $table->smallInteger('jumlah');
             $table->smallInteger('jml_packing')->nullable();
             $table->timestamps();
         });

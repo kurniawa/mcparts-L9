@@ -19,15 +19,23 @@
         <select class="form-control" name="tipe_ekspedisi" id="tipe_ekspedisi">
             <option value="UTAMA">UTAMA</option>
             <option value="CADANGAN">CADANGAN</option>
-            <option value="TRANSIT">TRANSIT</option>
         </select>
     </div>
     <div style="display:inline-block; max-width:70%">
         <label for="ipt_pilih_ekspedisi">Pilih Ekspedisi:</label>
-        <input name="ekspedisi_nama" id="ipt_pilih_ekspedisi" type="text" class="form-control @error('ekspedisi_nama') is-invalid @enderror" >
-        @error('ekspedisi_nama')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+        <input name="ekspedisi_nama" id="ipt_pilih_ekspedisi" type="text" class="form-control" >
+
+    </div>
+    <input type="hidden" name="ekspedisi_nama_err" id="ekspedisi_nama_err" class="@error('ekspedisi_nama_err') is-invalid @enderror">
+    @error('ekspedisi_nama_err')
+    <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+    <div class="mt-3">Apakah ini merupakan ekspedisi "transit"?</div>
+    <div class="form-check">
+        <input type="radio" name="is_transit" id="radioTransitYes" value="yes" class="form-check-input"><label for="radioTransitYes" class="form-check-label">Ya</label>
+    </div>
+    <div class="form-check">
+        <input type="radio" name="is_transit" id="radioTransitNo" value="no" class="form-check-input"><label for="radioTransitNo" class="form-check-label">Tidak</label>
     </div>
     {{-- <input name="pulau" id="pulau" class="form-control" type="text" placeholder="Pulau"> --}}
     <input id="ipt_id_ekspedisi_terpilih" type="hidden" name="ekspedisi_id">

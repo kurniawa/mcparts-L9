@@ -70,11 +70,31 @@ class Srjalan extends Model
         $srjalan = Srjalan::find($srjalan_id);
         $pelanggan = Pelanggan::find($srjalan['pelanggan_id']);
         $alamat=$pelanggan->alamat->first();
-        $reseller = null;
+        // Kontak Pelanggan
+        $pelanggan_kontak=PelangganKontak::where('pelanggan_id',$pelanggan['id'])->where('is_aktual','yes')->first();
+
+        $reseller=$reseller_kontak=null;
         if ($srjalan['reseller_id'] !== null) {
             $reseller = Pelanggan::find($srjalan['reseller_id']);
+            $reseller_kontak=PelangganKontak::where('pelanggan_id',$reseller['id'])->where('is_aktual','yes')->first();
         }
+        // Ekspedisi dan Transit
+        // Ekspedisi Normal dan Kontak
         $ekspedisi = Ekspedisi::find($srjalan['ekspedisi_id']);
+        $ekspedisi_kontak=null;
+        if ($ekspedisi!==null) {
+            $ekspedisi_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi['id'])->where('is_aktual','yes')->first();
+        }
+
+        // Ekspedisi Transit dan Kontak
+        // Transit harus sudah di tetapkan pada kolom ekspedisi_transit_id pada srjalan. Supaya nanti ketika detail, memang muncul yang sudah diset saja.
+        $transit=$alamat_transit=$transit_kontak=null;
+        if ($srjalan['ekspedisi_transit_id']!==null) {
+            $transit=Ekspedisi::find($srjalan['ekspedisi_transit_id']);
+            $transit_alamat=EkspedisiAlamat::where('ekspedisi_id',$transit['id'])->where('tipe','UTAMA')->first();
+            $alamat_transit=Alamat::find($transit_alamat['alamat_id']);
+            $transit_kontak=EkspedisiKontak::where('ekspedisi_id',$transit['id'])->where('is_aktual','yes')->first();
+        }
         $spk_produk_nota_srjalans = SpkProdukNotaSrjalan::where('srjalan_id', $srjalan['id'])->get()->toArray();
 
         $spk_produk_notas = $spk_produks = $produks = array();
@@ -89,7 +109,7 @@ class Srjalan extends Model
             $produks[] = $produk;
         }
 
-        return array($srjalan, $pelanggan,$alamat, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks);
+        return array($srjalan, $pelanggan,$alamat,$pelanggan_kontak,$reseller,$reseller_kontak,$ekspedisi,$ekspedisi_kontak,$transit,$alamat_transit,$transit_kontak,$spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks);
     }
 
 
@@ -101,19 +121,61 @@ class Srjalan extends Model
         $spk_produk=SpkProduk::find($spk_produk_id);
         $produk=Produk::find($spk_produk['produk_id']);
         $spk=Spk::find($spk_produk['spk_id']);
+        // Data Pelanggan
         $pelanggan=Pelanggan::find($spk['pelanggan_id']);
+        $pelanggan_alamat=PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->first();
+        $alamat_id=null;
+        if ($pelanggan_alamat!==null) {
+            $alamat=Alamat::find($pelanggan_alamat['alamat_id']);
+            $alamat_id=$alamat['id'];
+        }
+        $pelanggan_kontak=PelangganKontak::where('pelanggan_id',$pelanggan['id'])->where('is_aktual','yes')->first();
+        $kontak_id=null;
+        if ($pelanggan_kontak!==null) {
+            $kontak_id=$pelanggan_kontak['id'];
+        }
         // cek langsung apakah ada ekspedisi transit
-        $pelanggan_ekspedisi_transit=PelangganEkspedisi::where('pelanggan_id',$pelanggan['id'])->where('tipe','TRANSIT')->first();
-        $ekspedisi_id=$ekspedisi_transit_id=null;
+        $pelanggan_ekspedisi_transit=PelangganEkspedisi::where('pelanggan_id',$pelanggan['id'])->where('is_transit','yes')->where('tipe','UTAMA')->first();
+        $transit_kontak_id=$ekspedisi_id=$ekspedisi_transit_id=$alamat_transit_id=null;
         if ($pelanggan_ekspedisi_transit!==null) {
             // ada ekspedisi transit
             $ekspedisi_transit_id=$pelanggan_ekspedisi_transit['ekspedisi_id'];
             $success_logs[]="Ditemukan ekspedisi transit ID:$ekspedisi_transit_id";
+            $transit_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi_transit_id)->where('tipe','UTAMA')->first();
+            $alamat_transit=Alamat::find($transit_alamat['alamat_id']);
+            $alamat_transit_id=$alamat_transit['id'];
+            $transit_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi_transit_id)->where('is_aktual','yes')->first();
+            if ($transit_kontak!==null) {
+                $transit_kontak_id=$transit_kontak['id'];
+            }
         }
         $pelanggan_ekspedisi_utama=PelangganEkspedisi::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->first();
+        $ekspedisi_kontak_id=$alamat_ekspedisi_id=null;
         if ($pelanggan_ekspedisi_utama!==null) {
             $ekspedisi_id=$pelanggan_ekspedisi_utama['ekspedisi_id'];
             $success_logs[]="Ditemukan ekspedisi utama ID:$ekspedisi_id";
+            $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi_id)->where('tipe','UTAMA')->first();
+            $alamat_ekspedisi=Alamat::find($ekspedisi_alamat['alamat_id']);
+            $alamat_ekspedisi_id=$alamat_ekspedisi['id'];
+            $ekspedisi_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi_id)->where('is_aktual','yes')->first();
+            if ($ekspedisi_kontak!==null) {
+                $ekspedisi_kontak_id=$ekspedisi_kontak['id'];
+            }
+        }
+        // Data Reseller
+        $reseller_id=$alamat_reseller_id=$kontak_reseller_id=null;
+        if ($spk['reseller_id']!==null) {
+            $reseller=Pelanggan::find($spk['reseller_id']);
+            $reseller_id=$reseller['id'];
+            $reseller_alamat=PelangganAlamat::where('pelanggan_id',$reseller_id)->where('tipe','UTAMA')->first();
+            if ($reseller_alamat!==null) {
+                $alamat_reseller=Alamat::find($reseller_alamat['alamat_id']);
+                $alamat_reseller_id=$alamat_reseller['id'];
+            }
+            $reseller_kontak=PelangganKontak::where('pelanggan_id',$reseller_id)->where('is_aktual','yes')->first();
+            if ($reseller_kontak!==null) {
+                $kontak_reseller_id=$reseller_kontak['id'];
+            }
         }
 
         $spk_produk_notas=SpkProdukNota::where('spk_produk_id',$spk_produk->id)->get();
@@ -128,9 +190,19 @@ class Srjalan extends Model
                 $success_logs[]="Masuk ke loop pertama dari spk_produk_notas";
                 $new_srjalan=Srjalan::create([
                     'pelanggan_id'=>$spk['pelanggan_id'],
-                    'reseller_id'=>$spk['reseller_id'],
+                    'reseller_id'=>$reseller_id,
                     'ekspedisi_id'=>$ekspedisi_id,
                     'ekspedisi_transit_id'=>$ekspedisi_transit_id,
+                    // alamat
+                    'alamat_id'=>$alamat_id,
+                    'alamat_reseller_id'=>$alamat_reseller_id,
+                    'alamat_ekspedisi_id'=>$alamat_ekspedisi_id,
+                    'alamat_transit_id'=>$alamat_transit_id,
+                    // kontak
+                    'kontak_id'=>$kontak_id,
+                    'kontak_reseller_id'=>$kontak_reseller_id,
+                    'kontak_ekspedisi_id'=>$ekspedisi_kontak_id,
+                    'kontak_transit_id'=>$transit_kontak_id,
                     'created_by'=>$user['username'],
                     'updated_by'=>$user['username'],
                 ]);
@@ -227,33 +299,142 @@ class Srjalan extends Model
         return $success_logs;
     }
 
-    static function Update_SPK_JmlSj_Status_Packing($spk_produk_id)
-{
-    $spk_produk=SpkProduk::find($spk_produk_id);
-    $spk_produk_notas=SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
-    $jml_sdh_srjalan=0;
-    // dd('spk_produk_notas',$spk_produk_notas);
-    foreach ($spk_produk_notas as $spk_produk_nota) {
+    static function Update_SPK_JmlSj_Status_Packing($spk_produks)
+    {
         $jml_colly=$jml_dus=0;
-        $spkProdukNoSjs=SpkProdukNotaSrjalan::where('spk_produk_nota_id',$spk_produk_nota['id'])->get(); //setiap pake get, ga bisa akses index
-        if (count($spkProdukNoSjs)!==0) {
-            $srjalan_id=null;
-            $i=0;
-            foreach ($spkProdukNoSjs as $spkProdukNoSj) {
-                if ($i===0) {
-                    $srjalan_id=$spkProdukNoSj['srjalan_id'];
+        // dump($spk_produks);
+        for ($i=0; $i < count($spk_produks); $i++) {
+            $spk_produk_notas=SpkProdukNota::where('spk_produk_id',$spk_produks[$i]['id'])->get();
+            $jml_sdh_srjalan=0;
+            // dd('spk_produk_notas',$spk_produk_notas);
+            foreach ($spk_produk_notas as $spk_produk_nota) {
+                $spkProdukNoSjs=SpkProdukNotaSrjalan::where('spk_produk_nota_id',$spk_produk_nota['id'])->get(); //setiap pake get, ga bisa akses index
+                // dump('spkProdukNoSjs',$spkProdukNoSjs);
+                if (count($spkProdukNoSjs)!==0) {
+                    $srjalan_id=null;
+                    $j=0;
+                    foreach ($spkProdukNoSjs as $spkProdukNoSj) {
+                        if ($j===0) {
+                            $srjalan_id=$spkProdukNoSj['srjalan_id'];
+                        }
+                        $jml_sdh_srjalan+=$spkProdukNoSj['jumlah'];
+                        if ($spkProdukNoSj['tipe_packing']==='colly') {
+                            $jml_colly+=$spkProdukNoSj['jml_packing'];
+                        } elseif ($spkProdukNoSj['tipe_packing']==='dus') {
+                            $jml_dus+=$spkProdukNoSj['jml_packing'];
+                        }
+                        // Update status spk
+                        $spk=Spk::find($spkProdukNoSj['spk_id']);
+                        $spk->jumlah_sudah_sj+=$spkProdukNoSj['jumlah'];
+                        $spk->save();
+
+                        $status_sj="SEMUA";
+                        if ($spk['jumlah_sudah_sj']===0) {
+                            $status_sj="BELUM";
+                        } else if ($spk['jumlah_sudah_sj']>0 && $spk['jumlah_sudah_sj']< $spk['jumlah_total']) {
+                            $status_sj="SEBAGIAN";
+                        } else if($spk['jumlah_sudah_sj']<0){
+                            $status_sj="ERROR";
+                        }
+                        $spk->status_sj=$status_sj;
+                        $spk->save();
+                        $success_logs[]="spk->status_sj telah diupdate!";
+                        $j++;
+                    }
+
                 }
-                $jml_sdh_srjalan+=$spkProdukNoSj['jumlah'];
-                if ($spkProdukNoSj['tipe_packing']==='colly') {
-                    $jml_colly+=$spkProdukNoSj['jml_packing'];
-                } elseif ($spkProdukNoSj['tipe_packing']==='dus') {
-                    $jml_dus+=$spkProdukNoSj['jml_packing'];
-                }
-                $i++;
+                // dump('jml_colly',$jml_colly);
+                // dump('jml_dus',$jml_dus);
+
             }
 
-            $srjalan=Srjalan::find($srjalan_id);
+            $spk_produks[$i]->jumlah_sudah_srjalan=$jml_sdh_srjalan;
+            if ($jml_sdh_srjalan===$spk_produks[$i]->jml_t) {
+                $spk_produks[$i]->status_srjalan='SELESAI';
+            } else if ($jml_sdh_srjalan===0) {
+                $spk_produks[$i]->status_srjalan='PROSES';
+            } else if ($jml_sdh_srjalan>0) {
+                $spk_produks[$i]->status_srjalan='SEBAGIAN';
+            }
+            $spk_produks[$i]->save();
+        }
+        $srjalan=Srjalan::find($srjalan_id);
 
+        // dump('jml_colly cek',$jml_colly);
+        // dump('jml_dus cek',$jml_dus);
+        if ($jml_colly!==0) {
+            $srjalan->jml_colly=$jml_colly;
+        }
+        if ($jml_dus!==0) {
+            $srjalan->jml_dus=$jml_dus;
+        }
+
+        $srjalan->save();
+    }
+
+    static function Update_SPK_JmlSj_Status_Packing_BasedOn_SPKProID($spk_produk_id)
+    {
+        $jml_colly=$jml_dus=0;
+        // dump($spk_produks);
+        $spk_produk=SpkProduk::find($spk_produk_id);
+        $spk_produk_notas=SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
+        $jml_sdh_srjalan=0;
+        // dd('spk_produk_notas',$spk_produk_notas);
+        $srjalan_id=null;
+        foreach ($spk_produk_notas as $spk_produk_nota) {
+            $spkProdukNoSjs=SpkProdukNotaSrjalan::where('spk_produk_nota_id',$spk_produk_nota['id'])->get(); //setiap pake get, ga bisa akses index
+            // dump('spkProdukNoSjs',$spkProdukNoSjs);
+            if (count($spkProdukNoSjs)!==0) {
+                $j=0;
+                foreach ($spkProdukNoSjs as $spkProdukNoSj) {
+                    if ($j===0) {
+                        $srjalan_id=$spkProdukNoSj['srjalan_id'];
+                    }
+                    $jml_sdh_srjalan+=$spkProdukNoSj['jumlah'];
+                    if ($spkProdukNoSj['tipe_packing']==='colly') {
+                        $jml_colly+=$spkProdukNoSj['jml_packing'];
+                    } elseif ($spkProdukNoSj['tipe_packing']==='dus') {
+                        $jml_dus+=$spkProdukNoSj['jml_packing'];
+                    }
+                    // Update status spk
+                    $spk=Spk::find($spkProdukNoSj['spk_id']);
+                    $spk->jumlah_sudah_sj+=$spkProdukNoSj['jumlah'];
+                    $spk->save();
+
+                    $status_sj="SEMUA";
+                    if ($spk['jumlah_sudah_sj']===0) {
+                        $status_sj="BELUM";
+                    } else if ($spk['jumlah_sudah_sj']>0 && $spk['jumlah_sudah_sj']< $spk['jumlah_total']) {
+                        $status_sj="SEBAGIAN";
+                    } else if($spk['jumlah_sudah_sj']<0){
+                        $status_sj="ERROR";
+                    }
+                    $spk->status_sj=$status_sj;
+                    $spk->save();
+                    $success_logs[]="spk->status_sj telah diupdate!";
+                    $j++;
+                }
+
+            }
+            // dump('jml_colly',$jml_colly);
+            // dump('jml_dus',$jml_dus);
+
+        }
+
+        $spk_produk->jumlah_sudah_srjalan=$jml_sdh_srjalan;
+        if ($jml_sdh_srjalan===$spk_produk->jml_t) {
+            $spk_produk->status_srjalan='SELESAI';
+        } else if ($jml_sdh_srjalan===0) {
+            $spk_produk->status_srjalan='PROSES';
+        } else if ($jml_sdh_srjalan>0) {
+            $spk_produk->status_srjalan='SEBAGIAN';
+        }
+        $spk_produk->save();
+
+        $srjalan=Srjalan::find($srjalan_id);
+        if ($srjalan!==null) {
+            // dump('jml_colly cek',$jml_colly);
+            // dump('jml_dus cek',$jml_dus);
             if ($jml_colly!==0) {
                 $srjalan->jml_colly=$jml_colly;
             }
@@ -263,19 +444,7 @@ class Srjalan extends Model
 
             $srjalan->save();
         }
-
     }
-
-    $spk_produk->jumlah_sudah_srjalan=$jml_sdh_srjalan;
-    if ($jml_sdh_srjalan===$spk_produk->jml_t) {
-        $spk_produk->status_srjalan='SELESAI';
-    } else if ($jml_sdh_srjalan===0) {
-        $spk_produk->status_srjalan='PROSES';
-    } else if ($jml_sdh_srjalan>0) {
-        $spk_produk->status_srjalan='SEBAGIAN';
-    }
-    $spk_produk->save();
-}
 
     static function newSrjalan_basedOn_SpkProdukNotaID_a_Jml($spk_produk_nota_id,$jumlah)
     {
@@ -285,28 +454,84 @@ class Srjalan extends Model
         $spk_produk=SpkProduk::find($spk_produk_nota['spk_produk_id']);
         $produk=Produk::find($spk_produk['produk_id']);
         $spk=Spk::find($spk_produk['spk_id']);
+        // Data Pelanggan
         $pelanggan=Pelanggan::find($spk['pelanggan_id']);
+        $pelanggan_alamat=PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->first();
+        $alamat_id=null;
+        if ($pelanggan_alamat!==null) {
+            $alamat=Alamat::find($pelanggan_alamat['alamat_id']);
+            $alamat_id=$alamat['id'];
+        }
+        $pelanggan_kontak=PelangganKontak::where('pelanggan_id',$pelanggan['id'])->where('is_aktual','yes')->first();
+        $kontak_id=null;
+        if ($pelanggan_kontak!==null) {
+            $kontak_id=$pelanggan_kontak['id'];
+        }
         // cek langsung apakah ada ekspedisi transit
-        $pelanggan_ekspedisi_transit=PelangganEkspedisi::where('pelanggan_id',$pelanggan['id'])->where('tipe','TRANSIT')->first();
-        $ekspedisi_id=$ekspedisi_transit_id=null;
+        $pelanggan_ekspedisi_transit=PelangganEkspedisi::where('pelanggan_id',$pelanggan['id'])->where('is_transit','yes')->where('tipe','UTAMA')->first();
+        $ekspedisi_transit_id=$alamat_transit_id=$transit_kontak_id=null;
         if ($pelanggan_ekspedisi_transit!==null) {
             // ada ekspedisi transit
             $ekspedisi_transit_id=$pelanggan_ekspedisi_transit['ekspedisi_id'];
             $success_logs[]="Ditemukan ekspedisi transit ID:$ekspedisi_transit_id";
+            $transit_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi_transit_id)->where('tipe','UTAMA')->first();
+            if ($transit_alamat!==null) {
+                $alamat_transit=Alamat::find($transit_alamat['alamat_id']);
+                $alamat_transit_id=$alamat_transit['id'];
+            }
+            $transit_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi_transit_id)->where('is_aktual','yes')->first();
+            if ($transit_kontak!==null) {
+                $transit_kontak_id=$transit_kontak['id'];
+            }
         }
         $pelanggan_ekspedisi_utama=PelangganEkspedisi::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->first();
+        $ekspedisi_id=$alamat_ekspedisi_id=$ekspedisi_kontak_id=null;
         if ($pelanggan_ekspedisi_utama!==null) {
             $ekspedisi_id=$pelanggan_ekspedisi_utama['ekspedisi_id'];
             $success_logs[]="Ditemukan ekspedisi utama ID:$ekspedisi_id";
+            $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi_id)->where('tipe','UTAMA')->first();
+            if ($ekspedisi_alamat!==null) {
+                $alamat_ekspedisi=Alamat::find($ekspedisi_alamat['alamat_id']);
+                $alamat_ekspedisi_id=$alamat_ekspedisi['id'];
+            }
+            $ekspedisi_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi_id)->where('is_aktual','yes')->first();
+            if ($ekspedisi_kontak!==null) {
+                $ekspedisi_kontak_id=$ekspedisi_kontak['id'];
+            }
+        }
+        // Data Reseller
+        $reseller_id=$alamat_reseller_id=$kontak_reseller_id=null;
+        if ($spk['reseller_id']!==null) {
+            $reseller=Pelanggan::find($spk['reseller_id']);
+            $reseller_id=$reseller['id'];
+            $reseller_alamat=PelangganAlamat::where('pelanggan_id',$reseller_id)->where('tipe','UTAMA')->first();
+            if ($reseller_alamat!==null) {
+                $alamat_reseller=Alamat::find($reseller_alamat['alamat_id']);
+                $alamat_reseller_id=$alamat_reseller['id'];
+            }
+            $reseller_kontak=PelangganKontak::where('pelanggan_id',$reseller_id)->where('is_aktual','yes')->first();
+            if ($reseller_kontak!==null) {
+                $kontak_reseller_id=$reseller_kontak['id'];
+            }
         }
 
         $user=auth()->user();
         // dd($spk_produk_notas);
         $new_srjalan=Srjalan::create([
             'pelanggan_id'=>$spk['pelanggan_id'],
-            'reseller_id'=>$spk['reseller_id'],
+            'reseller_id'=>$reseller_id,
             'ekspedisi_id'=>$ekspedisi_id,
             'ekspedisi_transit_id'=>$ekspedisi_transit_id,
+            // alamat
+            'alamat_id'=>$alamat_id,
+            'alamat_reseller_id'=>$alamat_reseller_id,
+            'alamat_ekspedisi_id'=>$alamat_ekspedisi_id,
+            'alamat_transit_id'=>$alamat_transit_id,
+            // kontak
+            'kontak_id'=>$kontak_id,
+            'kontak_reseller_id'=>$kontak_reseller_id,
+            'kontak_ekspedisi_id'=>$ekspedisi_kontak_id,
+            'kontak_transit_id'=>$transit_kontak_id,
             'created_by'=>$user['username'],
             'updated_by'=>$user['username'],
         ]);
@@ -328,6 +553,8 @@ class Srjalan extends Model
             'tipe_packing'=>$produk['tipe_packing'],
             'jml_packing'=>$jml_packing,
         ]);
+        // dump('jumlah:',$jumlah);
+        // dump('new_spk_produk_nota_srjalan', $new_spk_produk_nota_srjalan);
         $success_logs[]="Membuat spk_produk_nota_srjalan ID: $new_spk_produk_nota_srjalan[id]";
 
         //update jumlah packing dari srjalan
@@ -396,6 +623,160 @@ class Srjalan extends Model
             'jml_packing'=>$jml_packing,
         ]);
         $success_logs[]="Membuat spk_produk_nota_srjalan baru dengan srjalan_id yang sudah ditentukan";
+        return $success_logs;
+    }
+
+    public function getOneSjAndComponents($srjalan_id)
+    {
+        $srjalan = Srjalan::find($srjalan_id);
+        // Data Pelanggan
+        $pelanggan = Pelanggan::find($srjalan['pelanggan_id']);
+        $pelanggan_nama=$srjalan['pelanggan_nama'];
+        $cust_long_ala=$srjalan['cust_long_ala'];
+        $alamat=null;
+        if ($srjalan['alamat_id']!==null) {
+            $alamat=Alamat::find($srjalan['alamat_id']);
+        }
+        $pelanggan_alamats=PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->get();
+        $alamat_avas=array();
+        foreach ($pelanggan_alamats as $pelanggan_alamat) {
+            $alamat_ava=Alamat::find($pelanggan_alamat['alamat_id']);
+            $alamat_avas[]=$alamat_ava;
+        }
+
+        $cust_kontak=$srjalan['cust_kontak'];
+        $kontak=null;
+        if ($srjalan['kontak_id'!==null]) {
+            $kontak=PelangganKontak::find($srjalan['kontak_id']);
+        }
+        $kontak_avas=PelangganKontak::where('pelanggan_id',$pelanggan['id'])->get();
+
+        // Data Reseller
+        $reseller_nama=$srjalan['reseller_nama'];
+        $reseller=null;
+        if ($srjalan['reseller_id']!==null) {
+            $reseller = Pelanggan::find($srjalan['reseller_id']);
+        }
+        $reseller_long_ala=$srjalan['reseller_long_ala'];
+        $alamat_reseller=null;
+        if ($srjalan['alamat_reseller_id']!==null) {
+            $alamat_reseller=Alamat::find($srjalan['alamat_reseller_id']);
+        }
+        $reseller_alamats=$alamat_reseller_avas=array();
+        if ($reseller!==null) {
+            $reseller_alamats=PelangganAlamat::where('pelanggan_id',$reseller['id'])->get();
+            if (count($reseller_alamats)!==0) {
+                foreach ($reseller_alamats as $reseller_alamat) {
+                    $alamat_reseller_ava=Alamat::find($reseller_alamat['alamat_id']);
+                    $alamat_reseller_avas[]=$alamat_reseller_ava;
+                }
+            }
+        }
+
+        $reseller_kontak=$srjalan['reseller_kontak'];
+        $kontak_reseller=null;
+        if ($srjalan['kontak_reseller_id']!==null) {
+            $kontak_reseller=PelangganKontak::find($srjalan['kontak_reseller_id']);
+        }
+        $kontak_reseller_avas=array();
+        if ($reseller!==null) {
+            $kontak_reseller_avas=PelangganKontak::where('pelanggan_id',$reseller['id'])->get();
+        }
+
+
+
+        $spk_produk_nota_sjs = SpkProdukNotaSrjalan::where('srjalan_id', $srjalan['id'])->get();
+        $spk_produks = $produks = $data_items = array();
+        foreach ($spk_produk_nota_sjs as $spk_produk_nota_sj) {
+            $spk_produk = SpkProduk::find($spk_produk_nota_sj['spk_produk_id'])->toArray();
+            $produk = Produk::find($spk_produk['produk_id'])->toArray();
+
+            $spk_produks[] = $spk_produk;
+            $produks[] = $produk;
+            // dump($spk_produk_nota_sj['id'], $spk_produk['id']);
+
+            $data_items[] = [
+                'spk_produk_nota_sj_id' => $spk_produk_nota_sj['id'],
+                'spk_produk_id' => $spk_produk['id'],
+                'produk_id' => $produk['id'],
+            ];
+        }
+
+        // dump('$spk_produk_notas:', $spk_produk_notas);
+        // dump('$spk_produks:', $spk_produks);
+
+        return array($srjalan,$pelanggan,$pelanggan_nama,$alamat,$cust_long_ala,$alamat_avas,$cust_kontak,$kontak,$kontak_avas,$reseller,$reseller_nama,$alamat_reseller,$reseller_long_ala,$alamat_reseller_avas,$reseller_kontak,$kontak_reseller,$kontak_reseller_avas,$spk_produk_nota_sjs, $spk_produks, $produks, $data_items);
+    }
+
+    public function sjDetail_getEkspedisi($srjalan)
+    {
+        // Data Ekspedisi -> sj Selesai
+        $ekspedisi_nama=$srjalan['ekspedisi_nama'];
+        $eks_long_ala=$srjalan['eks_long_ala'];
+        $eks_kontak=$srjalan['eks_kontak'];
+        // Data Ekspedisi -> awal
+        $ekspedisi=null;
+        if ($srjalan['ekspedisi_id']!==null) {
+            $ekspedisi=Ekspedisi::find($srjalan['ekspedisi_id']);
+        }
+        $alamat_ekspedisi=null;
+        if ($srjalan['alamat_ekspedisi_id']!==null) {
+            $alamat_ekspedisi=Alamat::find($srjalan['alamat_ekspedisi_id']);
+        }
+        $kontak_ekspedisi=null;
+        if ($srjalan['kontak_ekspedisi_id']!==null) {
+            $kontak_ekspedisi=EkspedisiKontak::find($srjalan['kontak_ekspedisi_id']);
+        }
+
+        // Data Transit->sj Selesai
+        $transit_nama=$srjalan['transit_nama'];
+        $trans_long_ala=$srjalan['trans_long_ala'];
+        $trans_kontak=$srjalan['trans_kontak'];
+
+        // Data Transit-> awal
+        $transit=$alamat_transit=$kontak_transit=null;
+        if ($srjalan['ekspedisi_transit_id']!==null) {
+            $transit=Ekspedisi::find($srjalan['ekspedisi_transit_id']);
+        }
+        if ($srjalan['alamat_transit_id']!==null) {
+            $alamat_transit=Alamat::find($srjalan['alamat_transit_id']);
+        }
+        // else {
+        //     $transit_alamat=EkspedisiAlamat::where('ekspedisi_id',$transit['id'])->where('tipe','UTAMA')->first();
+        //     $alamat_transit=Alamat::find($transit_alamat['alamat_id']);
+        // }
+        if ($srjalan['kontak_transit_id']!==null) {
+            $kontak_transit=EkspedisiKontak::find($srjalan['kontak_transit_id']);
+        }
+        // else {
+        //     $kontak_transit=EkspedisiKontak::where('ekspedisi_id',$transit['id'])->where('is_aktual','yes')->first();
+        // }
+
+        return array($ekspedisi_nama,$eks_long_ala,$eks_kontak,$ekspedisi,$alamat_ekspedisi,$kontak_ekspedisi,$transit_nama,$trans_long_ala,$trans_kontak,$transit,$alamat_transit,$kontak_transit);
+    }
+    static function deleteSJ_basedOn_SPKProNSJID($spk_produk_nota_srjalan_id)
+    {
+        $success_logs="";
+        $spk_produk_nota_sj=SpkProdukNotaSrjalan::find($spk_produk_nota_srjalan_id);
+        $spk_produk_id=$spk_produk_nota_sj['spk_produk_id'];
+        $spk_produk_nota_sj->delete();
+        $success_logs.='spk_produk_nota_sj: berhasil dihapus!';
+
+        //UPDATE spk_produk->jml_sdh_nota
+        Srjalan::Update_SPK_JmlSj_Status_Packing_BasedOn_SPKProID($spk_produk_id);
+        $success_logs.="Updating spk_produk->jumlah_sudah_srjalan dan status.";
+        $main_log='Success';
+
+        // cek apakah surat jalan masih memiliki spk_produk_nota_srjalan yang selain yang ini?
+        $srjalan=Srjalan::find($spk_produk_nota_sj['srjalan_id']);
+        $spk_produk_nota_sj_other=SpkProdukNotaSrjalan::where('srjalan_id',$srjalan['id'])->get();
+        if (count($spk_produk_nota_sj_other)===0) {
+            $srjalan->delete();
+            $success_logs.="Srjalan tidak memiliki spk_produk_nota_srjalan yang lain. Srjalan dihapus!";
+        } else {
+            $success_logs.="Srjalan masih memiliki spk_produk_nota_srjalan yang lain. Srjalan tidak dihapus.";
+        }
+
         return $success_logs;
     }
 }

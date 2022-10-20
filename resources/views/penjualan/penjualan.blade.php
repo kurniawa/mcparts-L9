@@ -57,9 +57,9 @@
 <div class="container mt-2">
     <h5>Total Penjualan Pelanggan</h5>
     <table class="fancy-table">
-        <tr><th>No.</th><th>Customer</th><th>Kota</th><th>Total Penjualan</th></tr>
+        <tr><th>No.</th><th>Customer</th><th>Total Penjualan</th></tr>
         @for ($i = 0; $i < count($penjualan_totals); $i++)
-        <tr><td>{{ $i+1 }}</td><td>{{ $pelanggan_namas[$i] }}</td><td></td><td class="toFormatNumber">{{ $penjualan_totals[$i] }}</td></tr>
+        <tr><td>{{ $i+1 }}</td><td>{{ $pelanggan_namas[$i] }}</td><td class="toFormatCurrencyRp">{{ $penjualan_totals[$i] }}</td></tr>
         @endfor
     </table>
 </div>
@@ -67,12 +67,20 @@
 <div class="container mt-3">
     <h5>Daftar Nota Terkait</h5>
     <table class="fancy-table w-100">
-        <tr><th>No.</th><th>Pelanggan</th><th>Kota</th><th>Harga</th></tr>
-        @for ($k = 0; $k < count($notas); $k++)
-        <tr><td>{{ $notas[$k]['no_nota'] }}</td><td>{{ $pelanggans_v_notas[$k]['nama'] }}</td><td></td><td class="toFormatNumber">{{ $notas[$k]['harga_total'] }}</td></tr>
+        <tr><th>No.</th><th>Tanggal</th><th>Pelanggan</th><th>Harga</th><th>Subtotal</th></tr>
+        @for ($k = 0; $k < count($notasXsubtotal); $k++)
+        <tr><td>{{ $notasXsubtotal[$k]['no_nota'] }}</td><td>{{ date('d-m-Y',strtotime($notasXsubtotal[$k]['created_at'])) }}</td><td>{{ $notasXsubtotal[$k]['pelanggan_nama'] }}</td><td class="toFormatCurrencyRp">{{ $notasXsubtotal[$k]['harga_total'] }}</td>
+            @if ($notasXsubtotal[$k]['subtotal']!==null)
+            <td class="toFormatCurrencyRp">{{ $notasXsubtotal[$k]['subtotal'] }}</td>
+            @else
+            <td></td>
+            @endif
+        </tr>
         @endfor
     </table>
 </div>
+
+<div style="height: 5rem"></div>
 @endif
 
 

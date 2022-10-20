@@ -24,7 +24,13 @@
         <tr style="vertical-align: middle">
             <td><div class='rounded-circle d-flex align-items-center justify-content-center font-weight-bold' style='background-color:salmon;width:2rem;height:2rem'>{{ $pelanggans[$i]['initial'] }}</div></td>
             <td>
-                <div class="row"><div class="col fw-bold" style="color: blue">{{ $srjalans[$i]['no_srjalan'] }}</div></div>
+                <div>
+                    <div class="d-flex">
+                        <div class="fw-bold" style="color: darkgreen">{{ $srjalans[$i]['no_srjalan'] }}</div>
+                        <a class="ms-2 fw-bold" style="color: darkred" href="{{ route('SPK-Detail',['spk_id'=>$spks[$i]]) }}">SPK-{{ $spks[$i] }}</a>
+                        <a class="ms-2 fw-bold" style="color:darkviolet" href="{{ route('Nota-Detail',['nota_id'=>$notas[$i]]) }}">Nota-{{ $notas[$i] }}</a>
+                    </div>
+                </div>
                 @if ($resellers[$i] !== null)
                 <div class="row"><div class="col">{{ $resellers[$i]['nama'] }}-{{ $pelanggans[$i]['nama'] }}</div></div>
                 @else
@@ -46,7 +52,7 @@
             <td colspan="7">
                 <table style="width: 100%">
                     @for ($j = 0; $j < count($arr_spk_produks[$i]); $j++)
-                    <tr><td>{{ $arr_produks[$i][$j]['nama'] }}</td><td>{{ $arr_spk_produks[$i][$j]['jml_t'] }}</td></tr>
+                    <tr><td>{{ $arr_produks[$i][$j]['nama'] }}</td><td>{{ $arr_spk_produk_nota_srjalans[$i][$j]['jumlah'] }}</td></tr>
                     @endfor
                     <tr>
                         <td colspan="2" class='text-end'>

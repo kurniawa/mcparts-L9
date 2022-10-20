@@ -8,17 +8,17 @@
     <div class="hr-line border-top border-2 mt-1 mb-1"></div>
     <div class="row align-items-center">
         <div class="col-3"><img class="logo-mc" src="{{ asset('img/images/logo-mc.jpg') }}" alt=""></div>
-        <div class="col-3"><span class="fw-bold">CV. MC-Parts</span><br>Jl. Raya Karanggan No. 96<br>Kec. Gn. Putri/Kab. Bogor<br>0812 9335 218<br>0812 8655 6500</div>
+        <div class="col-3"><span class="fw-bold">CV. MC-Parts</span><br>Jl. Raya Karanggan No. 96<br>Kec. Gn. Putri/Kab. Bogor</div>
         <div class="col-6 text-center fw-bold"><span class="judul-sj">SURAT JALAN /</span><br><span class="judul-sj">TANDA TERIMA BARANG</span></div>
     </div>
 
     <div class="hr-line border-top border-2 mt-1 mb-1"></div>
     <div class="row align-items-center">
-        <div class="col-4">
+        <div class="col">
             <div class="fw-bold font-big">Untuk:</div>
             <div class="fw-bold font-large">{{ $pelanggan['nama'] }}</div>
         </div>
-        <div class="col-4">
+        <div class="col">
             <div class="fw-bold font-big">Alamat:</div>
             <div class="font-big">
                 @for ($i = 0; $i < count($alamat_long); $i++)
@@ -27,9 +27,17 @@
                     @endif --}}
                     <div>{{ $alamat_long[$i] }}</div>
                 @endfor
+                @if ($pelanggan_kontak!==null)
+                <div>
+                    @if ($pelanggan_kontak['kodearea']!==null)
+                    <span>{{ $pelanggan_kontak['kodearea'] }} </span>
+                    @endif
+                    <span>{{ $pelanggan_kontak['nomor'] }}</span>
+                </div>
+                @endif
             </div>
         </div>
-        <div class="col-4">
+        <div class="col">
             <table style="display: inline-table">
                 <tr><td>No</td><td>:</td><td id="no_sj">{{ $srjalan['no_srjalan'] }}</td></tr>
                 <tr><td>Tanggal</td><td>:</td><td>{{ date("d-m-Y", strtotime($srjalan['created_at'])) }}</td></tr>
@@ -39,8 +47,32 @@
                         @foreach (json_decode($alamat_ekspedisi['long'], true) as $alm_ekspedisi)
                         <div>{{ $alm_ekspedisi }}</div>
                         @endforeach
-                        <div>{{ $ekspedisi['no_kontak'] }}</div>
+                        @if ($ekspedisi_kontak!==null)
+                        <div>
+                            @if ($ekspedisi_kontak['kodearea']!==null)
+                            <span>{{ $ekspedisi_kontak['kodearea'] }} </span>
+                            @endif
+                            <span>{{ $ekspedisi_kontak['nomor'] }}</span>
+                        </div>
+                        @endif
                     </td>
+                    @if ($transit!==null)
+                    <td>
+                        <div style="color: red">Via Ekspedisi:</div>
+                        <span class="fw-bold">{{ $transit['nama'] }}</span>
+                        @foreach (json_decode($alamat_transit['long'], true) as $alm_transit)
+                        <div>{{ $alm_transit }}</div>
+                        @endforeach
+                        @if ($transit_kontak!==null)
+                        <div>
+                            @if ($transit_kontak['kodearea']!==null)
+                            <span>{{ $transit_kontak['kodearea'] }} </span>
+                            @endif
+                            <span>{{ $transit_kontak['nomor'] }}</span>
+                        </div>
+                        @endif
+                    </td>
+                    @endif
                 </tr>
             </table>
         </div>

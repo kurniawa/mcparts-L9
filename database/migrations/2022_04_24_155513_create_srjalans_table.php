@@ -21,6 +21,14 @@ return new class extends Migration
             $table->foreignId('ekspedisi_id')->nullable()->constrained()->onDelete('NO ACTION');// constrained tetapi ketika ekspedisi dihapus, surat jalan janganlah dihapus
             $table->foreignId('ekspedisi_transit_id')->nullable()->constrained('ekspedisis','id')->onDelete('NO ACTION');
             $table->bigInteger('reseller_id')->nullable();
+            $table->foreignId('alamat_id')->nullable()->constrained()->onDelete('NO ACTION'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
+            $table->foreignId('alamat_reseller_id')->nullable()->constrained('alamats','id')->onDelete('NO ACTION'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
+            $table->foreignId('alamat_ekspedisi_id')->nullable()->constrained('alamats','id')->onDelete('NO ACTION'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
+            $table->foreignId('alamat_transit_id')->nullable()->constrained('alamats','id')->onDelete('NO ACTION'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
+            $table->foreignId('kontak_id')->nullable()->constrained('pelanggan_kontaks','id')->onDelete('NO ACTION');
+            $table->foreignId('kontak_reseller_id')->nullable()->constrained('pelanggan_kontaks','id')->onDelete('NO ACTION');
+            $table->foreignId('kontak_ekspedisi_id')->nullable()->constrained('ekspedisi_kontaks','id')->onDelete('NO ACTION');
+            $table->foreignId('kontak_transit_id')->nullable()->constrained('ekspedisi_kontaks','id')->onDelete('NO ACTION');
             $table->string('status', 50)->default('PROSES KIRIM');
             // $table->smallInteger('jumlah')->nullable(); tidak perlu ada detail jumlah disini, karena sudah ada di spk_produk_nota_srjalan
             $table->smallInteger('jml_colly')->nullable();
@@ -28,6 +36,21 @@ return new class extends Migration
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamp('finished_at')->nullable();
+            // Data ketika selesai
+            $table->string('pelanggan_nama',100)->nullable();
+            $table->string('cust_long_ala')->nullable();
+            $table->string('cust_kontak')->nullable();
+            $table->string('ekspedisi_nama',100)->nullable();
+            $table->string('eks_long_ala')->nullable();
+            $table->string('eks_kontak')->nullable();
+            $table->string('transit_nama',100)->nullable();
+            $table->string('trans_long_ala')->nullable();
+            $table->string('trans_kontak')->nullable();
+            $table->string('reseller_nama',100)->nullable();
+            $table->string('reseller_long_ala')->nullable();
+            $table->string('reseller_kontak')->nullable();
+            // Keterangan Lain
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

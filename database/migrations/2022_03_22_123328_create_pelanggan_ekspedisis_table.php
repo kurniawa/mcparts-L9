@@ -16,9 +16,10 @@ return new class extends Migration
     {
         Schema::create('pelanggan_ekspedisis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pelanggan_id');
-            $table->foreignId('ekspedisi_id');
-            $table->string('tipe', 20)->nullable()->default('UTAMA');
+            $table->foreignId('pelanggan_id')->constrained()->onDelete('CASCADE');
+            $table->foreignId('ekspedisi_id')->constrained()->onDelete('CASCADE');
+            $table->enum('is_transit', ['yes','no'])->nullable()->default('no');
+            $table->enum('tipe', ['UTAMA','CADANGAN'])->nullable()->default('UTAMA');
             $table->timestamps();
         });
     }

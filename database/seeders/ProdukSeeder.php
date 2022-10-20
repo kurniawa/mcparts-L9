@@ -4012,8 +4012,8 @@ class ProdukSeeder extends Seeder
         ],
         ];
 
-        for ($i = 0; $i < count($produk); $i++) {
-        // for ($i = 0; $i < 20; $i++) {
+        // for ($i = 0; $i < count($produk); $i++) {
+        for ($i = 0; $i < 20; $i++) {
             dump($produk[$i]['nama']);
             $inserted_produk = Produk::create([
                 'tipe' => $produk[$i]['tipe'],

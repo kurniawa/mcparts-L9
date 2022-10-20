@@ -88,11 +88,12 @@
         </div>
     </div>
 
-    <h5 class="mt-3">Ekspedisi</h5>
     <div class="row">
-        @for ($i = 0; $i < count($ekspedisis); $i++)
+        {{-- Ekspedisi Normal --}}
         <div class="col">
-            @if ($pelanggan_ekspedisis[$i]['tipe']==="UTAMA")
+            <h5 class="mt-3">Ekspedisi Normal</h5>
+            @for ($i = 0; $i < count($eks_normals); $i++)
+            @if ($cust_eks_normals[$i]['tipe']==="UTAMA")
             <div class="d-inline-block border border-danger rounded p-2 border-3">
             @else
             <div class="d-inline-block border border-secondary rounded p-2">
@@ -100,26 +101,60 @@
                 <div class="d-flex flex-row mt-2 mb-2 align-items-center">
                     <img class="w-2_5rem" src="{{ asset('img/icons/truck.svg') }}" alt="">
                     <div class="ms-2">
-                        <div class="fw-bold">{{ $ekspedisis[$i]['nama'] }}</div>
-                        @foreach (json_decode($alamat_v_ekspedisis[$i]['long']) as $alm)
+                        <div class="fw-bold">{{ $eks_normals[$i]['nama'] }}</div>
+                        @foreach (json_decode($alamat_of_eks_normals[$i]['long']) as $alm)
                         <div>{{ $alm }}</div>
                         @endforeach
-                        @if ($alamat_v_ekspedisis[$i]['short']!==null)<div style="color: gray;">{{ $alamat_v_ekspedisis[$i]['short'] }}</div>@endif
+                        @if ($alamat_of_eks_normals[$i]['short']!==null)<div style="color: gray;">{{ $alamat_of_eks_normals[$i]['short'] }}</div>@endif
                     </div>
                     <div class="ms-3 align-self-end">
-                        <a href="{{ route('pelanggan_edit_alamat',['alamat_id'=>$ekspedisis[$i]['id'],'pelanggan_id'=>$pelanggan['id']]) }}"><img style="width: 1rem;" src="{{ asset('img/icons/edit.svg') }}"></a>
-                        <form action="{{ route('pelanggan_hapus_alamat') }}" method="POST" onsubmit="return confirm('Apa Anda yakin ingin menghapus alamat ini?')" class="mt-2">
+                        <a href="{{ route('pelanggan_ekspedisi_edit',['ekspedisis_id'=>$eks_normals[$i]['id'],'pelanggan_id'=>$pelanggan['id']]) }}"><img style="width: 1rem;" src="{{ asset('img/icons/edit.svg') }}"></a>
+                        <form action="{{ route('pelanggan_ekspedisi_hapus') }}" method="POST" onsubmit="return confirm('Apa Anda yakin ingin menghapus ekspedisis ini?')" class="mt-2">
                             @csrf
-                            <input type="hidden" name="alamat_id" value="{{ $ekspedisis[$i]['id'] }}">
+                            <input type="hidden" name="ekspedisi_id" value="{{ $eks_normals[$i]['id'] }}">
                             <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
-                            <input type="hidden" name="pelanggan_alamat_id" value="{{ $pelanggan_ekspedisis[$i]['id'] }}">
+                            <input type="hidden" name="pelanggan_ekspedisis_id" value="{{ $cust_eks_normals[$i]['id'] }}">
                             <button type="submit" class="btn-no-styling"><img src="{{ asset('img/icons/delete.svg') }}" style="width: 1rem;"></button>
                         </form>
                     </div>
                 </div>
             </div>
+            @endfor
         </div>
-        @endfor
+
+        {{-- Ekspedisi Transit --}}
+
+        <div class="col">
+            <h5 class="mt-3">Ekspedisi Transit</h5>
+            @for ($i = 0; $i < count($eks_transits); $i++)
+            @if ($cust_eks_transits[$i]['tipe']==="UTAMA")
+            <div class="d-inline-block border border-danger rounded p-2 border-3">
+            @else
+            <div class="d-inline-block border border-secondary rounded p-2">
+            @endif
+                <div class="d-flex flex-row mt-2 mb-2 align-items-center">
+                    <img class="w-2_5rem" src="{{ asset('img/icons/truck.svg') }}" alt="">
+                    <div class="ms-2">
+                        <div class="fw-bold">{{ $eks_transits[$i]['nama'] }}</div>
+                        @foreach (json_decode($alamat_of_eks_transits[$i]['long']) as $alm)
+                        <div>{{ $alm }}</div>
+                        @endforeach
+                        @if ($alamat_of_eks_transits[$i]['short']!==null)<div style="color: gray;">{{ $alamat_of_eks_transits[$i]['short'] }}</div>@endif
+                    </div>
+                    <div class="ms-3 align-self-end">
+                        <a href="{{ route('pelanggan_ekspedisi_edit',['ekspedisis_id'=>$eks_transits[$i]['id'],'pelanggan_id'=>$pelanggan['id']]) }}"><img style="width: 1rem;" src="{{ asset('img/icons/edit.svg') }}"></a>
+                        <form action="{{ route('pelanggan_ekspedisi_hapus') }}" method="POST" onsubmit="return confirm('Apa Anda yakin ingin menghapus ekspedisis ini?')" class="mt-2">
+                            @csrf
+                            <input type="hidden" name="ekspedisi_id" value="{{ $eks_transits[$i]['id'] }}">
+                            <input type="hidden" name="pelanggan_id" value="{{ $pelanggan['id'] }}">
+                            <input type="hidden" name="pelanggan_ekspedisis_id" value="{{ $cust_eks_transits[$i]['id'] }}">
+                            <button type="submit" class="btn-no-styling"><img src="{{ asset('img/icons/delete.svg') }}" style="width: 1rem;"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endfor
+        </div>
     </div>
 </div>
 

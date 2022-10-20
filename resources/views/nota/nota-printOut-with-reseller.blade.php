@@ -15,18 +15,10 @@
                 <tr>
                     <th>Kepada</th><th>:</th>
                     <th>
-                        @if ($reseller!==null)
-                        @if ($reseller_nama!==null)
-                        {{ $reseller_nama }}
-                        @else
-                        {{ $reseller['nama'] }}
-                        @endif
-                        @else
                         @if ($pelanggan_nama!==null)
                         {{ $pelanggan_nama }}
                         @else
                         {{ $pelanggan['nama'] }}
-                        @endif
                         @endif
                     </th>
                 </tr>
@@ -42,14 +34,6 @@
                         @foreach (json_decode($alamat['long'], true) as $alm)
                         <div>{{ $alm }}</div>
                         @endforeach
-                        @endif
-                        @if ($cust_kontak!==null)
-                        @if ($cust_kontak['kodearea']!==null)
-                        <span>({{ $cust_kontak['kodearea'] }}) </span>
-                        @endif
-                        <span class="toFormatPhoneNumber">{{ $cust_kontak['nomor'] }}</span>
-                        @else
-
                         @endif
                         @endif
                     </td>

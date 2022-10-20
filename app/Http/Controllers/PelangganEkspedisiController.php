@@ -40,16 +40,23 @@ class PelangganEkspedisiController extends Controller
     {
         $load_num = SiteSetting::find(1);
 
+        $success_logs = $error_logs =$warning_logs= array();
         $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem ini, coba hubungi Admin atau Developer sistem ini!';
-
+        $run_db=true;
         if ($load_num->value > 0) {
             $run_db = false;
             $main_log = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
         }
 
         $post = $request->post();
-
-            dump('$post:', $post);
+        // dd('$post:', $post);
+        $pelanggan_id=$post['pelanggan_id'];
+        $ekspedisi_id=$post['ekspedisi_id'];
+        $tipe=$post['tipe_ekspedisi'];
+        $is_transit='no';
+        if (isset($post['is_transit'])) {
+            $is_transit=$post['is_transit'];
+        }
 
         $request->validate([
             'ekspedisi_nama' => 'required',
@@ -60,30 +67,43 @@ class PelangganEkspedisiController extends Controller
         $ekspedisi = Ekspedisi::find($post['ekspedisi_id']);
 
         if ($run_db) {
+            // Sebelum input ekspedisi baru, perlu dipastikan terlebih dahulu, bahwa ekspedisi yang dipilih memang belum diinput sebagai ekspedisi
+            // dari perlanggan ini.
+            $cek_cust_ekspedisi=PelangganEkspedisi::where('pelanggan_id',$pelanggan['id'])->where('ekspedisi_id',$ekspedisi['id'])->where('tipe',$tipe)->first();
+            if ($cek_cust_ekspedisi!== null) {
+                $request->validate(['ekspedisi_nama_err'=>'required'],['ekspedisi_nama_err.required'=>"Ekspedisi: $cek_cust_ekspedisi[nama] sudah ditetapkan sebagai ekspedisi dari pelanggan: $pelanggan[nama]!"]);
+            }
             $pelanggan_ekspedisi = PelangganEkspedisi::create([
-                'pelanggan_id' => $post['pelanggan_id'],
-                'ekspedisi_id' => $post['ekspedisi_id'],
-                'tipe' => $post['tipe_ekspedisi'],
+                'pelanggan_id' => $pelanggan_id,
+                'ekspedisi_id' => $ekspedisi_id,
+                'tipe' => $tipe,
+                'is_transit'=>$is_transit,
             ]);
-                dump('$pelanggan_ekspedisi', $pelanggan_ekspedisi);
-            $main_log = "Ekspedisi $ekspedisi[nama] berhasil dijadikan ekspedisi $pelanggan_ekspedisi[tipe] dari Pelanggan $pelanggan[nama]";
-            $class_div_pesan_db = 'alert-success';
-            $ada_error = false;
+
+            $success_logs[]="Ekspedisi $ekspedisi[nama] berhasil dijadikan ekspedisi $pelanggan_ekspedisi[tipe] dari Pelanggan $pelanggan[nama]";
+            // Setelah insert, maka apabila yang barusan diinsert di set sebagai UTAMA, maka apabila ditemukan ekspedisi UTAMA lain nya,
+            // harus dijadikan ekspedisi CADANGAN, sehingga ekspedisi yang UTAMA hanya satu saja.
+            $cust_eks_utama_other=PelangganEkspedisi::where('pelanggan_id',$pelanggan_id)->where('tipe','UTAMA')->where('is_transit',$is_transit)
+            ->where('id','!=',$pelanggan_ekspedisi['id'])->first();
+            if ($cust_eks_utama_other!==null) {
+                $cust_eks_utama_other->tipe='CADANGAN';
+                $cust_eks_utama_other->save();
+                $success_logs[]="Ditemukan ada ekspedisi UTAMA lain, selain yang baru saja diinput, oleh karena itu, ekspedisi lain tersebut dijadikan ekspedisi CADANGAN";
+            }
+            $main_log = "SUCCESS";
             $load_num->value += 1;
             $load_num->save();
         }
 
-
+        $route='pelanggan_detail';
+        $route_btn='Ke Detail Pelanggan';
+        $params=['pelanggan_id'=>$pelanggan_id];
         $data = [
-            'pesan_db' => $main_log,
-            'go_back_number' => -2,
-            'class_div_pesan_db' => $class_div_pesan_db,
-            'ada_error' => $ada_error,
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
         ];
 
-            dump("data:", $data);
-
-        return view('layouts.go-back-page', $data);
+        return view('layouts.db-result', $data);
     }
 
     public function hapus_relasi_ekspedisi(Request $request)

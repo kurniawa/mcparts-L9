@@ -77,19 +77,37 @@ class PelangganController extends Controller
         $pelanggan_id=$get['pelanggan_id'];
         $pelanggan = Pelanggan::find($pelanggan_id);
         $pelanggan_ekspedisis = PelangganEkspedisi::where('pelanggan_id', $pelanggan['id'])->get();
-        $ekspedisis=$ekspedisi_alamats=$alamat_v_ekspedisis=array();
         $jml_ekspedisi = count($pelanggan_ekspedisis);
         $resellers = $pelanggan->resellers;
 
+        $eks_normals=$eks_normal_alamats=$alamat_of_eks_normals=$cust_eks_normals=array();
+        $eks_transits=$eks_transit_alamats=$alamat_of_eks_transits=$cust_eks_transits=array();
         if (count($pelanggan_ekspedisis) !== 0) {
             for ($i=0; $i < count($pelanggan_ekspedisis); $i++) {
-                $ekspedisi = Ekspedisi::find($pelanggan_ekspedisis[$i]['ekspedisi_id']);
-                $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi['id'])->where('tipe','UTAMA')->first();
-                $alamat_v_ekspedisi = Alamat::find($ekspedisi_alamat['alamat_id']);
+                // dari ekspedisi_id, dikelompokkan apakah ekspedisi_normal atau ekspedisi_transit
+                if ($pelanggan_ekspedisis[$i]['is_transit']==='no') {
+                    $eks_normal = Ekspedisi::find($pelanggan_ekspedisis[$i]['ekspedisi_id']);
+                    if ($eks_normal!==null) {
+                        $eks_normal_alamat=EkspedisiAlamat::where('ekspedisi_id',$eks_normal['id'])->where('tipe','UTAMA')->first();
+                        $alamat_of_eks_normal= Alamat::find($eks_normal_alamat['alamat_id']);
 
-                array_push($ekspedisis, $ekspedisi);
-                $ekspedisi_alamats[]=$ekspedisi_alamat;
-                $alamat_v_ekspedisis[]=$alamat_v_ekspedisi;
+                        array_push($eks_normals, $eks_normal);
+                        $eks_normal_alamats[]=$eks_normal_alamat;
+                        $alamat_of_eks_normals[]=$alamat_of_eks_normal;
+                        $cust_eks_normals[]=$pelanggan_ekspedisis[$i];
+                    }
+                } else {
+                    $eks_transit = Ekspedisi::find($pelanggan_ekspedisis[$i]['ekspedisi_id']);
+                    if ($eks_transit!==null) {
+                        $eks_transit_alamat=EkspedisiAlamat::where('ekspedisi_id',$eks_transit['id'])->where('tipe','UTAMA')->first();
+                        $alamat_of_eks_transit= Alamat::find($eks_transit_alamat['alamat_id']);
+
+                        array_push($eks_transits, $eks_transit);
+                        $eks_transit_alamats[]=$eks_transit_alamat;
+                        $alamat_of_eks_transits[]=$alamat_of_eks_transit;
+                        $cust_eks_transits[]=$pelanggan_ekspedisis[$i];
+                    }
+                }
             }
         }
 
@@ -122,9 +140,14 @@ class PelangganController extends Controller
             "pelanggan_id" => $pelanggan['id'],
             "pelanggan" => $pelanggan,
             "pelanggan_ekspedisis" => $pelanggan_ekspedisis,
-            "ekspedisis" => $ekspedisis,
-            "ekspedisi_alamats" => $ekspedisi_alamats,
-            "alamat_v_ekspedisis" => $alamat_v_ekspedisis,
+            "eks_normals" => $eks_normals,
+            "eks_normal_alamats" => $eks_normal_alamats,
+            "alamat_of_eks_normals" => $alamat_of_eks_normals,
+            "cust_eks_normals" => $cust_eks_normals,
+            "eks_transits" => $eks_transits,
+            "eks_transit_alamats" => $eks_transit_alamats,
+            "alamat_of_eks_transits" => $alamat_of_eks_transits,
+            "cust_eks_transits" => $cust_eks_transits,
             "jml_ekspedisi" => $jml_ekspedisi,
             "resellers" => $resellers,
             "pelanggan_produks" => $pelanggan_produks,

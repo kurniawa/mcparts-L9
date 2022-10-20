@@ -37,7 +37,7 @@ class NotaController extends Controller
 
 
         $notas = Nota::limit(100)->orderByDesc('created_at')->get();
-        $pelanggans = $resellers = $alamats=$arr_spk_produk_notas = $arr_spk_produks = $arr_produks=$bg_color_tgl= array();
+        $spks=$pelanggans = $resellers = $alamats=$arr_spk_produk_notas = $arr_spk_produks = $arr_produks=$bg_color_tgl=$arr_nama_notas= array();
         for ($i = 0; $i < count($notas); $i++) {
             $pelanggan = Nota::find($notas[$i]->id)->pelanggan;
             array_push($pelanggans, $pelanggan);
@@ -52,17 +52,36 @@ class NotaController extends Controller
             }
 
             $spk_produk_notas = SpkProdukNota::where('nota_id', $notas[$i]['id'])->get()->toArray();
-            $spk_produks = $produks= array();
+            $spk_produks = $produks= $nama_notas=array();
+            $j=0;
             foreach ($spk_produk_notas as $spk_produk_nota) {
                 $spk_produk = SpkProduk::find($spk_produk_nota['spk_produk_id'])->toArray();
                 $produk = Produk::find($spk_produk['produk_id'])->toArray();
                 $spk_produks[] = $spk_produk;
                 $produks[] = $produk;
+
+                // Menentukan nama_nota
+                $nama_nota=$produk['nama_nota'];
+                if ($spk_produk_nota['nama_nota']!==null) {
+                    $nama_nota=$spk_produk_nota['nama_nota'];
+                } else if ($spk_produk_nota['namaproduk_id']!==null) {
+                    $pelanggan_namaproduk=PelangganNamaproduk::find($spk_produk_nota['namaproduk_id']);
+                    if ($pelanggan_namaproduk!==null) {
+                        $nama_nota=$pelanggan_namaproduk['nama_nota'];
+                    }
+                }
+
+                $nama_notas[]=$nama_nota;
+                if ($j===0) {
+                    $spks[]=$spk_produk['spk_id'];
+                }
+                $j++;
             }
 
             $arr_spk_produk_notas[] = $spk_produk_notas;
             $arr_spk_produks[] = $spk_produks;
             $arr_produks[] = $produks;
+            $arr_nama_notas[]=$nama_notas;
 
             // BG-Color Tanggal
             $bg_color=['bg-danger bg-gradient'];
@@ -73,6 +92,10 @@ class NotaController extends Controller
         }
         // $pelanggan = Pelanggan::find(3)->spk;
         // dd($pelanggans);
+        $menus=[
+            // ['route'=>'ArsipNota','nama'=>'Arsip Nota','method'=>'get'],
+            // ['route'=>'hapusNota','nama'=>'Hapus','method'=>'post','params'=>[['name'=>'nota_id','value'=>$nota['id']],],'confirm'=>'Anda yakin ingin menghapus Nota ini? Warning: Sr. Jalan yang berkaitan juga akan dihapus!'],
+        ];
         $data = [
             'go_back'=>true,
             'navbar_bg'=>'bg-color-orange-2',
@@ -84,6 +107,9 @@ class NotaController extends Controller
             'arr_spk_produks' => $arr_spk_produks,
             'arr_produks' => $arr_produks,
             'bg_color_tgl' => $bg_color_tgl,
+            'menus' => $menus,
+            'arr_nama_notas' => $arr_nama_notas,
+            'spks' => $spks,
         ];
         // dd($data);
         // $data = ['notas' => $notas, 'pelanggans' => $pelanggans];
@@ -246,7 +272,7 @@ class NotaController extends Controller
         }
 
         $obj_nota = new Nota();
-        list($nota, $pelanggan,$alamat, $reseller, $spk_produk_notas, $spk_produks, $produks, $data_items) = $obj_nota->getOneNotaAndComponents($get['nota_id']);
+        list($nota,$pelanggan,$pelanggan_nama,$alamat,$cust_long_ala,$alamat_avas,$cust_kontak,$kontak,$kontak_avas,$reseller,$reseller_nama,$alamat_reseller,$reseller_long_ala,$alamat_reseller_avas,$reseller_kontak,$kontak_reseller,$kontak_reseller_avas,$spk_produk_notas, $spk_produks, $produks,$data_items) = $obj_nota->getOneNotaAndComponents($get['nota_id']);
         if ($reseller==null) {
             $reseller_id=null;
         } else {
@@ -256,7 +282,6 @@ class NotaController extends Controller
         // Update Harga Khusus dimulai dari sini
         // Apakah sudah sempat diupdate? Kalo sudah, maka tidak perlu update lagi, tinggal di edit harga nya saja apabila ingin diubah
         // Selagi Update Harga Khusus, juga sekalian Update Nama Nota
-        $nama_notas=array();
         for ($i=0; $i < count($spk_produk_notas); $i++) {
             $firstTimeDetail=false;
             if ($spk_produk_notas[$i]['is_price_updated']==='no') {
@@ -287,7 +312,9 @@ class NotaController extends Controller
             // Apabila pertama kali masuk ke halaman detail, spk_produk_nota['namaproduk_id'] == null. Jadi untuk firstTimeDetail, akan langsung di assign nama_nota khusus pelanggan, apabila tersedia
             // Apabila bukan pertama kali masuk ke detail, maka tidak di kutak katik nama_nota nya. Sesuai saja dengan yang udah di input/dipilih sebelumnya.
             $nama_nota=$produks[$i]['nama_nota'];
-            if ($spk_produk_notas[$i]['namaproduk_id']!==null) {
+            if ($spk_produk_notas[$i]['nama_nota']!==null) {
+                $nama_nota=$spk_produk_notas[$i]['nama_nota'];
+            } else if ($spk_produk_notas[$i]['namaproduk_id']!==null) {
                 $pelanggan_namaproduk=PelangganNamaproduk::find($spk_produk_notas[$i]['namaproduk_id']);
                 if ($pelanggan_namaproduk!==null) {
                     $spk_produk_notas[$i]->namaproduk_id=$pelanggan_namaproduk['id'];
@@ -309,8 +336,12 @@ class NotaController extends Controller
 
         $menus=[
             ['route'=>'PrintOutNota','nama'=>'Print Out','method'=>'get','params'=>[['name'=>'nota_id','value'=>$nota['id']],]],
+            ['route'=>'notaDetail_assignAlamat','nama'=>'Ass.Alamat','method'=>'get','params'=>[['name'=>'nota_id','value'=>$nota['id']],]],
             ['route'=>'hapusNota','nama'=>'Hapus','method'=>'post','params'=>[['name'=>'nota_id','value'=>$nota['id']],],'confirm'=>'Anda yakin ingin menghapus Nota ini? Warning: Sr. Jalan yang berkaitan juga akan dihapus!'],
         ];
+        if ($cust_kontak!==null) {
+            $cust_kontak=json_decode($cust_kontak,true);
+        }
         $data = [
             'go_back' => true,
             'navbar_bg' => 'bg-color-orange-2',
@@ -324,6 +355,19 @@ class NotaController extends Controller
             'data_items' => $data_items,
             'menus' => $menus,
             'nama_notas' => $nama_notas,
+            'pelanggan_nama' => $pelanggan_nama,
+            'cust_long_ala' => $cust_long_ala,
+            'cust_kontak' => $cust_kontak,
+            'kontak' => $kontak,
+            'reseller_nama' => $reseller_nama,
+            'alamat_reseller' => $alamat_reseller,
+            'reseller_long_ala' => $reseller_long_ala,
+            'reseller_kontak' => $reseller_kontak,
+            'kontak_reseller' => $kontak_reseller,
+            'alamat_avas' => $alamat_avas,
+            'kontak_avas' => $kontak_avas,
+            'alamat_reseller_avas' => $alamat_reseller_avas,
+            'kontak_reseller_avas' => $kontak_reseller_avas,
         ];
         // dd($data);
         // dump($data);
@@ -342,14 +386,17 @@ class NotaController extends Controller
             dump($get);
         }
 
-        $pbj_nota = new Nota();
-        list($nota, $pelanggan, $alamat, $reseller, $spk_produk_notas, $spk_produks, $produks) = $pbj_nota->getOneNotaAndComponents($get['nota_id']);
+        $obj_nota = new Nota();
+        list($nota,$pelanggan,$pelanggan_nama,$alamat,$cust_long_ala,$alamat_avas,$cust_kontak,$kontak,$kontak_avas,$reseller,$reseller_nama,$alamat_reseller,$reseller_long_ala,$alamat_reseller_avas,$reseller_kontak,$kontak_reseller,$kontak_reseller_avas,$spk_produk_notas, $spk_produks, $produks,$data_items) = $obj_nota->getOneNotaAndComponents($get['nota_id']);
 
         // Setting untuk nama nota khusus pelanggan apabila tersedia
         $nama_notas=array();
         for ($i=0; $i < count($spk_produk_notas); $i++) {
+            // Menentukan nama_nota
             $nama_nota=$produks[$i]['nama_nota'];
-            if ($spk_produk_notas[$i]['namaproduk_id']!==null) {
+            if ($spk_produk_notas[$i]['nama_nota']!==null) {
+                $nama_nota=$spk_produk_notas[$i]['nama_nota'];
+            } elseif ($spk_produk_notas[$i]['namaproduk_id']!==null) {
                 $pelanggan_namaproduk=PelangganNamaproduk::find($spk_produk_notas[$i]['namaproduk_id']);
                 $nama_nota=$pelanggan_namaproduk['nama_nota'];
             }
@@ -371,8 +418,24 @@ class NotaController extends Controller
             'produks' => $produks,
             'nama_notas' => $nama_notas,
             'rest_row' => $rest_row,
+            'pelanggan_nama' => $pelanggan_nama,
+            'cust_long_ala' => $cust_long_ala,
+            'cust_kontak' => $cust_kontak,
+            'kontak' => $kontak,
+            'reseller_nama' => $reseller_nama,
+            'alamat_reseller' => $alamat_reseller,
+            'reseller_long_ala' => $reseller_long_ala,
+            'reseller_kontak' => $reseller_kontak,
+            'kontak_reseller' => $kontak_reseller,
+            'alamat_avas' => $alamat_avas,
+            'kontak_avas' => $kontak_avas,
+            'alamat_reseller_avas' => $alamat_reseller_avas,
+            'kontak_reseller_avas' => $kontak_reseller_avas,
         ];
         // dump($data);
+        // if ($reseller!==null) {
+        //     return view('nota.nota-printOut-with-reseller', $data);
+        // }
         return view('nota.nota-print-out', $data);
     }
 
@@ -433,6 +496,7 @@ class NotaController extends Controller
         // Mulai delete Nota dan Sr. Jalan
         if ($run_db) {
             // Cari srjalan mana saja yang terkait dengan nota ini.
+            // Cari SPK mana saja yang terkait dengan nota dan sr. jalan nya.
             $sj_ids=array();
             $spk_produk_nota_sjs=SpkProdukNotaSrjalan::where('nota_id',$nota_id)->get();
             foreach ($spk_produk_nota_sjs as $spk_produk_nota_sj) {
@@ -444,9 +508,15 @@ class NotaController extends Controller
 
             foreach ($sj_ids as $sj_id) {
                 $sj_to_delete=Srjalan::find($sj_id);
+                $deletingOneSj=new Nota();
+                $logs=$deletingOneSj->deletingOneSj_updateDataSPK($sj_id);
+                foreach ($logs as $log) {
+                    $warning_logs[]=$log;
+                }
                 $sj_to_delete->delete();
                 $warning_logs[]="Sr. Jalan terkait: $sj_to_delete[no_srjalan] berhasil dihapus!";
             }
+
 
             $nota->delete();
             $success_logs[]="Berhasil hapus Nota!";
@@ -457,7 +527,7 @@ class NotaController extends Controller
             $main_log = 'SUCCESS:';
         }
 
-        $route='daftar-nota';
+        $route='daftar_nota';
         $route_btn='Ke Daftar Nota';
         $params=null;
         $data = [

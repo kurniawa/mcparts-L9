@@ -254,6 +254,10 @@
     number_to_format.forEach(element => {
         formatNumber(parseInt(element.textContent), element);
     });
+    var number_to_format=document.querySelectorAll('.toFormatCurrencyRp');
+    number_to_format.forEach(element => {
+        formatCurrencyRp(parseInt(element.textContent), element);
+    });
     // history.pushState(null, document.title, location.href);
     // window.addEventListener('popstate', function (event)
     // {
