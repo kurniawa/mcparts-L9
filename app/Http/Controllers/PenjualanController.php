@@ -65,10 +65,14 @@ class PenjualanController extends Controller
         }
 
         $get=$request->query();
-        // dd($get);
+        dd($get);
         $tahun_set=$get['tahun'];
         $bulan_set=$get['bulan'];
         $tanggal_set=$get['tanggal'];
+        $detail=null;
+        if (isset($get['detail'])) {
+            $detail=$get['detail'];
+        }
 
         if ($bulan_set=='all' && $tanggal_set=='all') {
             $notas=Nota::whereYear('created_at',$tahun_set)->orderBy('pelanggan_id')->get();
@@ -118,6 +122,10 @@ class PenjualanController extends Controller
 
         // notas + subtotal
         $notasXsubtotal=array();
+        $arr_spk_produk_notas=array();
+        if ($detail==='checked') {
+
+        }
         $nota_copies=$notas->toArray();
         $pelanggan_nama_copies=$pelanggan_namas;
         for ($i=0; $i < count($pelanggan_nama_copies); $i++) {

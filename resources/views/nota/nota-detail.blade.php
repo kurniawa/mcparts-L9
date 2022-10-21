@@ -138,6 +138,34 @@
         background-color: white;
         padding: 1em;
     }
+
+    @media print {
+        .bg-color-orange-1 {
+            background-color: #FFED50;
+            -webkit-print-color-adjust: exact;
+        }
+        .navbar{
+            display:none;
+        }
+
+        @page {
+            size: A4;
+            /* DIN A4 standard, Europe */
+            margin: 3mm 5mm 0 5mm;
+        }
+
+        html,
+        body {
+            width: 210mm;
+            height: 297mm;
+            /* height: 282mm; */
+            /* font-size: 11px; */
+            background: #FFF;
+            overflow: visible;
+            padding-top: 0mm;
+        }
+
+    }
 </style>
 
 @endsection

@@ -4,10 +4,6 @@
 @section('content')
 
 <form class="container" action="{{ route('saleBasedOnFilter') }}" method="GET">
-    {{-- diputuskan untuk memakai get, supaya tidak pusing ketika berpindah-pindah halaman --}}
-    {{-- diputuskan untuk memakai post, caranya adalah langsung input ke database temp_spks --}}
-    @csrf
-
     <div class="d-flex mt-2">
         <img class="w-2rem" src="/img/icons/pencil.svg" alt="">
         <h4 class="ms-2">Accounting Penjualan</h4>
@@ -45,6 +41,12 @@
                         <option value="{{ $tanggal }}">{{ $tanggal }}</option>
                         @endforeach
                     </select>
+                </td>
+                <td>
+                    <div class="form-check">
+                        <input type="checkbox" name="detail" id="radio-detail" value="checked" class="form-check-input">
+                        <label for="radio-detail" class="form-check-label fw-bold">Detail</label>
+                    </div>
                 </td>
             </tr>
         </table>

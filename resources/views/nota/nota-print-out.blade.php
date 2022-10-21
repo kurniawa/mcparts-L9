@@ -6,7 +6,7 @@
 <div id="containerDetailNota">
     <div class="row align-items-center">
         <div class="col-3"><img class="logo-mc" src="{{ asset('img/images/logo-mc.jpg') }}" alt="" style="width: 100%;"></div>
-        <div class="col-4"><span class="fw-bold">CV. MC-Parts</span><br>Jl. Raya Karanggan No. 96<br>Kec. Gn. Putri/Kab. Bogor
+        <div class="col-4"><span class="fw-bold font-1_3">CV. MC-Parts</span><br>Jl. Raya Karanggan No. 96<br>Kec. Gn. Putri/Kab. Bogor
             {{-- <br>0812 9335 218<br>0812 8655 6500 --}}
         </div>
         <div class="col-5 text-center fw-bold">
@@ -35,7 +35,7 @@
                     <td>
                         @if ($cust_long_ala!==null)
                         @foreach (json_decode($cust_long_ala,true) as $long)
-                        <div>{{ $alm }}</div>
+                        <div>{{ $long }}</div>
                         @endforeach
                         @else
                         @if ($alamat!==null)
@@ -58,11 +58,11 @@
         </div>
     </div>
     <table id="tableItemNota" style="width: 100%;" class="mt-3">
-        <tr class="tr-border-bottom tr-border-left-right">
+        <tr class="tr-border-bottom tr-border-left-right font-1_3">
             <th class="text-center">Jumlah</th><th class="text-center">Nama Barang</th><th class="text-center">Hrg./pcs</th><th class="text-center">Harga</th>
         </tr>
         @for ($i = 0; $i < count($spk_produk_notas); $i++)
-        <tr class='tr-border-left-right height-1_5em'>
+        <tr class='tr-border-left-right height-1_5em font-1_1'>
             <td class="toFormatNumber text-end pe-2">{{ $spk_produk_notas[$i]['jumlah'] }}</td>
             <td class="ps-2 pe-2">{{ $nama_notas[$i] }}</td>
             <td class="ps-2 pe-2">
@@ -84,9 +84,9 @@
         <tr class='tr-border-left-right tr-border-bottom'><td></td><td></td><td></td><td></td></tr>
         <tr>
             <td></td><td></td>
-            <th class='blrb-total text-center'>Total Harga</th>
+            <th class='blrb-total text-center font-1_3'>Total Harga</th>
             <td class="blrb-total ps-2 pe-2">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between font-1_2">
                     <span>Rp.</span>
                     <div><span class="toFormatNumber">{{ $nota['harga_total'] }}</span>,-</div>
                 </div>
@@ -96,7 +96,7 @@
 
     <br>
     <div class="grid-1-auto justify-items-right">
-        <div class="grid-1-auto justify-items-center">
+        <div class="grid-1-auto justify-items-center font-1_2">
             <div class="">Hormat Kami,</div>
             <br><br><br>
             <div>(....................)</div>
@@ -148,31 +148,40 @@
     }
 
     @media print {
+        .logo-mc{
+            width: 15rem;
+        }
         .bg-color-orange-1 {
             background-color: #FFED50;
             -webkit-print-color-adjust: exact;
         }
+        .font-big {
+            font-size: 1.5rem;
+        }
+        .font-large{
+            font-size: 1.7rem;
+        }
+        .font-3xl{
+            font-size: 2rem;
+        }
+        .judul-sj{
+            font-size: 2rem;
+        }
+        hr{
+            display: block;
+        }
         .navbar{
             display:none;
         }
-
-        @page {
-            size: A4;
-            /* DIN A4 standard, Europe */
-            margin: 3mm 5mm 0 5mm;
+        .font-1_3 {
+            font-size: 1.3rem;
         }
-
-        html,
-        body {
-            width: 210mm;
-            height: 297mm;
-            /* height: 282mm; */
-            /* font-size: 11px; */
-            background: #FFF;
-            overflow: visible;
-            padding-top: 0mm;
+        .font-1_2 {
+            font-size: 1.2rem;
         }
-
+        .font-1_1 {
+            font-size: 1.1rem;
+        }
     }
 </style>
 

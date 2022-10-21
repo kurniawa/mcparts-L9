@@ -655,7 +655,7 @@ class PelangganSeeder extends Seeder
                     ]
                 ],
                 'initial' => 'FOR',
-                'ekspedisi' => [['nama'=>'Citramas'],['nama'=>'Anugrah Duta Prima','tipe'=>'TRANSIT']],
+                'ekspedisi' => [['nama'=>'Citramas'],['nama'=>'Anugrah Duta Prima','is_transit'=>'yes','tipe'=>'UTAMA']],
             ], [
                 'nama' => "Fortuner Motor (Luwuk)",
                 'alamat' => [[
@@ -2517,8 +2517,8 @@ class PelangganSeeder extends Seeder
             ],
         ];
 
-        // for ($i = 0; $i < count($pelanggan); $i++) {
-        for ($i = 0; $i < 25; $i++) {
+        for ($i = 0; $i < count($pelanggan); $i++) {
+        // for ($i = 0; $i < 25; $i++) {
             $bentuk = null;
             if (isset($pelanggan[$i]['bentuk']) && $pelanggan[$i]['bentuk'] !== null) {
                 $bentuk = $pelanggan[$i]['bentuk'];
@@ -2561,6 +2561,7 @@ class PelangganSeeder extends Seeder
                     ]);
                 }
             }
+            // 'ekspedisi' => [['nama'=>'Citramas'], ['nama'=>'Bintang Khatulistiwa','is_transit'=>'yes','tipe'=>'transit']],
 
             if (isset($pelanggan[$i]['ekspedisi']) && $pelanggan[$i]['ekspedisi'] !== null) {
                 foreach ($pelanggan[$i]['ekspedisi'] as $data) {
