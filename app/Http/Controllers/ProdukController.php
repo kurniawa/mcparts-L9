@@ -13,6 +13,7 @@ use App\Models\Motif;
 use App\Models\Produk;
 use App\Models\ProdukBahan;
 use App\Models\ProdukBusastang;
+use App\Models\ProdukHarga;
 use App\Models\ProdukJokassy;
 use App\Models\ProdukKombinasi;
 use App\Models\ProdukMotif;
@@ -126,7 +127,7 @@ class ProdukController extends Controller
         $bahans = Bahan::get(['nama as label','nama as value','grade'])->toArray();
         $variasis = Variasi::all();
         $varians = Varian::get(['nama as label', 'nama as value'])->toArray();
-        $ukurans = Spec::where('kategori','ukuran')->get(['nama as label','nama as value'])->toArray();
+        $ukurans = Spec::where('kategori','ukuran')->get(['nama as label','nama as value','nama_nota as nama_nota'])->toArray();
         $jahits = Spec::where('kategori','jahit')->get(['nama as label','nama as value'])->toArray();
         /**T.Sixpack */
         $tsixpacks = Tsixpack::get(['nama as label','nama as value'])->toArray();
@@ -138,7 +139,7 @@ class ProdukController extends Controller
         $alass = Spec::where('kategori','alas')->get(['nama as label','nama as value'])->toArray();
         $busas = Spec::where('kategori','busa')->get(['nama as label','nama as value'])->toArray();
         /**Standar */
-        $standars = Spec::where('kategori','standar')->get(['nama as label','nama as value'])->toArray();
+        $standars = Standar::get(['nama as label','nama as value'])->toArray();
         $sayaps = Spec::where('kategori','sayap')->get(['nama as label','nama as value'])->toArray();
         /**Jok Assy */
         $jokassies = Jokassy::get(['nama as label','nama as value'])->toArray();
@@ -181,22 +182,28 @@ class ProdukController extends Controller
     public function tambahProdukDB(Request $request)
     {
         $load_num = SiteSetting::find(1);
-
-        // $show_dump = false; // false apabila mode production, supaya tidak terlihat berantakan oleh customer
         $run_db = true; // true apabila siap melakukan CRUD ke DB
-        // $ada_error = true;
-        // $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
-        // $class_div_pesan_db = 'alert-danger';
         $success_logs = $warning_logs = $error_logs = array();
 
         if ($load_num->value > 0) {
             $run_db = false;
             $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
-            // $ada_error = true;
-            // $class_div_pesan_db = 'alert-danger';
         }
 
         $input = $request->input();
+        // dd($input);
+        $harga=0;
+        if (isset($input['harga']) && $input['harga']!==null) {
+            $harga=$input['harga'];
+        }
+
+        // else {
+        //     $request->validate(
+        //         ['validation_error'=>'required'],
+        //         ['validation_error.required'=>'Harga perlu ditentukan!']
+        //     );
+        // }
+        // $validate=$request->validate();
         // dump('$input', $input);
 
         $produk = [
@@ -312,18 +319,29 @@ class ProdukController extends Controller
             }
             /**END SPEC */
             $success_logs[] = 'Berhasil input produk baru ke database!';
+
+            /**Harga */
+            $produk_harga=ProdukHarga::create([
+                'produk_id'=>$new_produk['id'],
+                'harga'=>$harga,
+                'status'=>'DEFAULT',
+            ]);
+            $success_logs[]="Berhasil menetapkan harga produk menjadi Rp. $harga,-";
+
             $load_num->value += 1;
             $load_num->save();
+
+            $main_log="SUCCESS";
+
         }
 
 
+        $route='produks';
+        $route_btn='Ke Daftar Produk';
+        $params=null;
         $data = [
-            'navbar_bg'=>'bg-color-orange-2',
-            'route'=>'produks',
-            'route_btn'=>'Ke Daftar Produk',
-            'success_logs'=>$success_logs,
-            'warning_logs'=>$warning_logs,
-            'error_logs'=>$error_logs,
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
         ];
 
         return view('layouts.db-result', $data);
@@ -389,17 +407,105 @@ class ProdukController extends Controller
         SiteSettings::loadNumToZero();
         $get = $request->query();
 
-        dd($get);
+        // dd($get);
+        $produk_id=$get['produk_id'];
+        $produk=Produk::find($produk_id);
+        // // Cari semua properti produk
+        // $produk_hargas=ProdukHarga::where('produk_id',$produk['id'])->get();
+        // $bahans=Bahan::where('produk_id',$produk['id'])->get();
+        // $produk_variasi_varians=ProdukVariasiVarian::where('produk_id',$produk['id'])->get();
+        // $variasis=$varians=array();
+        // if (count($produk_variasi_varians)!==0) {
+        //     foreach ($produk_variasi_varians as $produk_variasi_varian) {
+        //         $variasi=Variasi::find($produk_variasi_varian['variasi_id']);
+        //         $varian=null;
+        //         if ($produk_variasi_varian['varian_id']!==null) {
+        //             $varian=Varian::find($produk_variasi_varian['varian_id']);
+        //         }
+        //         $variasis[]=$variasi;
+        //         $varians[]=$varian;
+        //     }
+        // }
+        // // Specs
+        // $produk_specs=ProdukSpec::where('produk_id',$produk['id'])->get();
+        // $specs=array();
+        // if (count($produk_specs)!==0) {
+        //     foreach ($produk_specs as $produk_spec) {
+        //         $spec=Spec::find($produk_spec['spec_id']);
+        //     }
+        //     $specs[]=$spec;
+        // }
+        // $grade_bahan=$ukuran=$jahit=$list=null;
+        // if (count($specs)!==0) {
+        //     foreach ($specs as $spec) {
+        //         if ($spec['kategori']==='grade_bahan') {
+        //             $grade_bahan=$spec['nama'];
+        //         } elseif ($spec['kategori']==='ukuran') {
+        //             $ukuran=$spec['nama'];
+        //         } elseif ($spec['kategori']==='jahit') {
+        //             $jahit=$spec['nama'];
+        //         } elseif ($spec['kategori']='list') {
+        //             $list=$spec['list'];
+        //         }
+        //     }
+        // }
+        // // Kombinasi
 
-        // $menus=[
-        //     ['route'=>'PrintOutNota','nama'=>'Print Out','method'=>'get','params'=>[['name'=>'nota_id','value'=>$nota['id']],]],
-        // ];
+        $produk_components=Produk::getProdukComponents($produk['id']);
+
+
+
+        $menus=[
+            ['route'=>'deleteProduct','nama'=>'Hapus','method'=>'POST','params'=>[['name'=>'produk_id','value'=>$produk['id']],],'confirm'=>'Anda yakin ingin menghapus produk ini?'],
+        ];
         $data = [
             'go_back' => true,
             'navbar_bg' => 'bg-color-orange-2',
+            'produk' => $produk,
+            'produk_components' => $produk_components,
+            'menus' => $menus,
         ];
         // dd($data);
         // dump($data);
         return view('produk.produk_detail', $data);
+    }
+
+    public function deleteProduct(Request $request)
+    {
+        $load_num = SiteSetting::find(1);
+        $run_db = true; // true apabila siap melakukan CRUD ke DB
+        $success_logs = $warning_logs = $error_logs = array();
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+        }
+
+        $post = $request->input();
+        // dd($post);
+        $produk_id=$post['produk_id'];
+
+        if ($run_db) {
+            $produk=Produk::find($produk_id);
+            $produk->delete();
+
+            $success_logs[]="Berhasil menghapus produk";
+
+            $load_num->value += 1;
+            $load_num->save();
+
+            $main_log="SUCCESS";
+
+        }
+
+
+        $route='produks';
+        $route_btn='Ke Daftar Produk';
+        $params=null;
+        $data = [
+            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
+        ];
+
+        return view('layouts.db-result', $data);
     }
 }

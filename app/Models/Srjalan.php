@@ -124,57 +124,75 @@ class Srjalan extends Model
         // Data Pelanggan
         $pelanggan=Pelanggan::find($spk['pelanggan_id']);
         $pelanggan_alamat=PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->first();
-        $alamat_id=null;
+        $pelanggan_nama=$pelanggan['nama'];
+        $alamat_id=$cust_long_ala=null;
         if ($pelanggan_alamat!==null) {
             $alamat=Alamat::find($pelanggan_alamat['alamat_id']);
             $alamat_id=$alamat['id'];
+            $cust_long_ala=$alamat['long'];
         }
         $pelanggan_kontak=PelangganKontak::where('pelanggan_id',$pelanggan['id'])->where('is_aktual','yes')->first();
-        $kontak_id=null;
+        $kontak_id=$cust_kontak=null;
         if ($pelanggan_kontak!==null) {
             $kontak_id=$pelanggan_kontak['id'];
+            $cust_kontak=json_encode($pelanggan_kontak->toArray());
         }
         // cek langsung apakah ada ekspedisi transit
         $pelanggan_ekspedisi_transit=PelangganEkspedisi::where('pelanggan_id',$pelanggan['id'])->where('is_transit','yes')->where('tipe','UTAMA')->first();
-        $transit_kontak_id=$ekspedisi_id=$ekspedisi_transit_id=$alamat_transit_id=null;
+        $transit_kontak_id=$ekspedisi_id=$ekspedisi_transit_id=$alamat_transit_id=$transit_nama=$trans_long_ala=$trans_kontak=null;
         if ($pelanggan_ekspedisi_transit!==null) {
             // ada ekspedisi transit
+            $transit=Ekspedisi::find($pelanggan_ekspedisi_transit['ekspedisi_id']);
+            $transit_nama=$transit['nama'];
             $ekspedisi_transit_id=$pelanggan_ekspedisi_transit['ekspedisi_id'];
             $success_logs[]="Ditemukan ekspedisi transit ID:$ekspedisi_transit_id";
             $transit_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi_transit_id)->where('tipe','UTAMA')->first();
-            $alamat_transit=Alamat::find($transit_alamat['alamat_id']);
-            $alamat_transit_id=$alamat_transit['id'];
+            if ($transit_alamat!==null) {
+                $alamat_transit=Alamat::find($transit_alamat['alamat_id']);
+                $alamat_transit_id=$alamat_transit['id'];
+                $trans_long_ala=$alamat_transit['long'];
+            }
             $transit_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi_transit_id)->where('is_aktual','yes')->first();
             if ($transit_kontak!==null) {
                 $transit_kontak_id=$transit_kontak['id'];
+                $trans_kontak=json_encode($transit_kontak->toArray());
             }
         }
         $pelanggan_ekspedisi_utama=PelangganEkspedisi::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->first();
-        $ekspedisi_kontak_id=$alamat_ekspedisi_id=null;
+        $ekspedisi_kontak_id=$alamat_ekspedisi_id=$ekspedisi_nama=$eks_long_ala=$eks_kontak=null;
         if ($pelanggan_ekspedisi_utama!==null) {
             $ekspedisi_id=$pelanggan_ekspedisi_utama['ekspedisi_id'];
             $success_logs[]="Ditemukan ekspedisi utama ID:$ekspedisi_id";
+            $ekspedisi=Ekspedisi::find($ekspedisi_id);
+            $ekspedisi_nama=$ekspedisi['nama'];
             $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi_id)->where('tipe','UTAMA')->first();
-            $alamat_ekspedisi=Alamat::find($ekspedisi_alamat['alamat_id']);
-            $alamat_ekspedisi_id=$alamat_ekspedisi['id'];
+            if ($ekspedisi_alamat!==null) {
+                $alamat_ekspedisi=Alamat::find($ekspedisi_alamat['alamat_id']);
+                $alamat_ekspedisi_id=$alamat_ekspedisi['id'];
+                $eks_long_ala=$alamat_ekspedisi['long'];
+            }
             $ekspedisi_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi_id)->where('is_aktual','yes')->first();
             if ($ekspedisi_kontak!==null) {
                 $ekspedisi_kontak_id=$ekspedisi_kontak['id'];
+                $eks_kontak=json_encode($ekspedisi_kontak->toArray());
             }
         }
         // Data Reseller
-        $reseller_id=$alamat_reseller_id=$kontak_reseller_id=null;
+        $reseller_id=$alamat_reseller_id=$kontak_reseller_id=$reseller_nama=$reseller_long_ala=$reseller_kontak=null;
         if ($spk['reseller_id']!==null) {
             $reseller=Pelanggan::find($spk['reseller_id']);
             $reseller_id=$reseller['id'];
+            $reseller_nama=$reseller['nama'];
             $reseller_alamat=PelangganAlamat::where('pelanggan_id',$reseller_id)->where('tipe','UTAMA')->first();
             if ($reseller_alamat!==null) {
                 $alamat_reseller=Alamat::find($reseller_alamat['alamat_id']);
                 $alamat_reseller_id=$alamat_reseller['id'];
+                $reseller_long_ala=$alamat_reseller['long'];
             }
-            $reseller_kontak=PelangganKontak::where('pelanggan_id',$reseller_id)->where('is_aktual','yes')->first();
-            if ($reseller_kontak!==null) {
-                $kontak_reseller_id=$reseller_kontak['id'];
+            $kontak_reseller=PelangganKontak::where('pelanggan_id',$reseller_id)->where('is_aktual','yes')->first();
+            if ($kontak_reseller!==null) {
+                $kontak_reseller_id=$kontak_reseller['id'];
+                $reseller_kontak=json_encode($kontak_reseller->toArray());
             }
         }
 
@@ -205,6 +223,19 @@ class Srjalan extends Model
                     'kontak_transit_id'=>$transit_kontak_id,
                     'created_by'=>$user['username'],
                     'updated_by'=>$user['username'],
+                    // selesai
+                    'pelanggan_nama'=>$pelanggan_nama,
+                    'cust_long_ala'=>$cust_long_ala,
+                    'cust_kontak'=>$cust_kontak,
+                    'ekspedisi_nama'=>$ekspedisi_nama,
+                    'eks_long_ala'=>$eks_long_ala,
+                    'eks_kontak'=>$eks_kontak,
+                    'transit_nama'=>$transit_nama,
+                    'trans_long_ala'=>$trans_long_ala,
+                    'trans_kontak'=>$trans_kontak,
+                    'reseller_nama'=>$reseller_nama,
+                    'reseller_long_ala'=>$reseller_long_ala,
+                    'reseller_kontak'=>$reseller_kontak,
                 ]);
                 $success_logs[]="Membuat srjalan baru ID:$new_srjalan[id]";
                 //update nomor surat jalan

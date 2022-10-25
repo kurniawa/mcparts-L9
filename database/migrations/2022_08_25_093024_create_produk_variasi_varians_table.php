@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('produk_variasi_varians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('produk_id');
-            $table->foreignId('variasi_id');
-            $table->foreignId('varian_id')->nullable();
+            $table->foreignId('produk_id')->constrained()->onDelete('CASCADE');
+            $table->foreignId('variasi_id')->nullable()->constrained()->onDelete('SET NULL');
+            $table->foreignId('varian_id')->nullable()->constrained()->onDelete('SET NULL');
             $table->timestamps();
         });
     }

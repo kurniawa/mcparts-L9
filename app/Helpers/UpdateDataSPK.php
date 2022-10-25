@@ -7,6 +7,7 @@ use App\Models\Nota;
 use App\Models\Pelanggan;
 use App\Models\PelangganAlamat;
 use App\Models\PelangganKontak;
+use App\Models\Produk;
 use App\Models\Spk;
 use App\Models\SpkProduk;
 use App\Models\SpkProdukNota;
@@ -191,12 +192,17 @@ static function NewNota($spk_produk_id)
     $new_nota->no_nota="N-$new_nota[id]";
     $new_nota->save();
     $success_logs[]='Nomor Nota diupdate.';
+
+    /**Componen nama spk_produk_nota */
+    $produk=Produk::find($spk_produk['produk_id']);
+    $nama_nota=$produk['nama_nota'];
     $spk_produk_nota=[
         'spk_id'=>$spk_produk['spk_id'],
         'produk_id'=>$spk_produk['produk_id'],
         'spk_produk_id'=>$spk_produk['id'],
         'nota_id'=>$new_nota['id'],
         'jumlah'=>$spk_produk['jml_selesai'],
+        'nama_nota'=>$nama_nota,
         'harga'=>$spk_produk['harga'],
         'harga_t'=>$spk_produk['harga']*(int)$spk_produk['jml_selesai'],
     ];
@@ -269,12 +275,16 @@ static function newNota_basedOn_spkProdukID_with_certainJumlah($spk_produk_id,$j
     $new_nota->no_nota="N-$new_nota[id]";
     $new_nota->save();
     $success_logs[]='Nomor Nota diupdate.';
+    /**Componen nama spk_produk_nota */
+    $produk=Produk::find($spk_produk['produk_id']);
+    $nama_nota=$produk['nama_nota'];
     $spk_produk_nota=[
         'spk_id'=>$spk_produk['spk_id'],
         'produk_id'=>$spk_produk['produk_id'],
         'spk_produk_id'=>$spk_produk['id'],
         'nota_id'=>$new_nota['id'],
         'jumlah'=>$jumlah,
+        'nama_nota'=>$nama_nota,
         'harga'=>$spk_produk['harga'],
         'harga_t'=>$spk_produk['harga']*(int)$jumlah,
     ];
@@ -289,12 +299,17 @@ static function NewSPKProdukNota($spk_produk_id, $nota_id)
     $success_logs=array();
     $spk_produk=SpkProduk::find($spk_produk_id);
 
+    /**Componen nama spk_produk_nota */
+    $produk=Produk::find($spk_produk['produk_id']);
+    $nama_nota=$produk['nama_nota'];
+
     $spk_produk_nota=[
         'spk_id'=>$spk_produk['spk_id'],
         'produk_id'=>$spk_produk['produk_id'],
         'spk_produk_id'=>$spk_produk['id'],
         'nota_id'=>$nota_id,
         'jumlah'=>$spk_produk['jml_selesai'],
+        'nama_nota'=>$nama_nota,
         'harga'=>$spk_produk['harga'],
         'harga_t'=>$spk_produk['harga']*(int)$spk_produk['jml_selesai'],
     ];
@@ -307,6 +322,9 @@ static function newSPKProdukNota_certainJumlah($spk_produk_id,$nota_id,$jumlah)
 {
     $success_logs=array();
     $spk_produk=SpkProduk::find($spk_produk_id);
+    /**Componen nama spk_produk_nota */
+    $produk=Produk::find($spk_produk['produk_id']);
+    $nama_nota=$produk['nama_nota'];
 
     $spk_produk_nota=[
         'spk_id'=>$spk_produk['spk_id'],
@@ -314,6 +332,7 @@ static function newSPKProdukNota_certainJumlah($spk_produk_id,$nota_id,$jumlah)
         'spk_produk_id'=>$spk_produk['id'],
         'nota_id'=>$nota_id,
         'jumlah'=>$jumlah,
+        'nama_nota'=>$nama_nota,
         'harga'=>$spk_produk['harga'],
         'harga_t'=>$spk_produk['harga']*(int)$spk_produk['jml_selesai'],
     ];

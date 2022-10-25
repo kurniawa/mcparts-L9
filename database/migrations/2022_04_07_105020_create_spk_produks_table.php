@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('spk_produks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('spk_id')->constrained()->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->foreignId('produk_id')->constrained()->onDelete('NO ACTION');
+            $table->foreignId('produk_id')->nullable()->constrained()->onDelete('SET NULL');
             $table->string('keterangan')->nullable();
             $table->smallInteger('jumlah');
             $table->smallInteger('deviasi_jml')->nullable()->default(0);

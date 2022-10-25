@@ -78,6 +78,62 @@ class Produk extends Model
     public function variasis() { return $this->belongsToMany(Variasi::class, 'produk_variasis'); }
     public function varians() { return $this->belongsToMany(Varian::class, 'produk_varians'); }
 
+    static function getProdukComponents($produk_id)
+    {
+        $bahan = Produk::find($produk_id)->bahan;if (count($bahan)===0) {$bahan=null;}else{$bahan=$bahan[0];}
+        $kombinasi = Produk::find($produk_id)->kombinasi;if (count($kombinasi)===0) {$kombinasi=null;}else{$kombinasi=$kombinasi[0];}
+        $tsixpack = Produk::find($produk_id)->tsixpack;if (count($tsixpack)===0) {$tsixpack=null;}else{$tsixpack=$tsixpack[0];}
+        $japstyle = Produk::find($produk_id)->japstyle;if (count($japstyle)===0) {$japstyle=null;}else{$japstyle=$japstyle[0];}
+        $motif = Produk::find($produk_id)->motif;if (count($motif)===0) {$motif=null;}else{$motif=$motif[0];}
+        $standar = Produk::find($produk_id)->standar;if (count($standar)===0) {$standar=null;}else{$standar=$standar[0];}
+        $tankpad = Produk::find($produk_id)->tankpad;if (count($tankpad)===0) {$tankpad=null;}else{$tankpad=$tankpad[0];}
+        $stiker = Produk::find($produk_id)->stiker;if (count($stiker)===0) {$stiker=null;}else{$stiker=$stiker[0];}
+        $busastang = Produk::find($produk_id)->busastang;if (count($busastang)===0) {$busastang=null;}else{$busastang=$busastang[0];}
+        $rol = Produk::find($produk_id)->rol;if (count($rol)===0) {$rol=null;}else{$rol=$rol[0];}
+        $rotan = Produk::find($produk_id)->rotan;if (count($rotan)===0) {$rotan=null;}else{$rotan=$rotan[0];}
+        $specs = Produk::find($produk_id)->specs;if (count($specs)===0) {$specs=null;}
+        $variasis = $varians = array();
+        $variasi_varians = ProdukVariasiVarian::where('produk_id', $produk_id)->get();
+        $i=0;
+        if (count($variasi_varians) !== 0) {
+            foreach ($variasi_varians as $variasi_varian) {
+                $variasi = Variasi::find($variasi_varian['variasi_id']);
+                $varian = null;
+                if ($variasi_varian['varian_id']!==null) {
+                    $varian = Varian::find($variasi_varian['varian_id']);
+                }
+                $variasis[]=$variasi;
+                $varians[]=$varian;
+                $i++;
+            }
+        } else {
+            $variasis = $varians = null;
+        }
+
+        $produk_harga=ProdukHarga::where('produk_id',$produk_id)->first();
+
+
+        $data =[
+            'bahan'=>$bahan,
+            'kombinasi'=>$kombinasi,
+            'tsixpack'=>$tsixpack,
+            'japstyle'=>$japstyle,
+            'motif'=>$motif,
+            'standar'=>$standar,
+            'tankpad'=>$tankpad,
+            'stiker'=>$stiker,
+            'busastang'=>$busastang,
+            'rol'=>$rol,
+            'rotan'=>$rotan,
+            'specs'=>$specs,
+            'variasis'=>$variasis,
+            'varians'=>$varians,
+            'produk_harga'=>$produk_harga,
+        ];
+
+        return $data;
+    }
+
     /**
      * Halaman Produk
      * Komponen:

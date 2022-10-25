@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('pelanggan_resellers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('reseller_id')->nullable()->constrained('pelanggans')->onDelete('NO ACTION');
-            $table->foreignId('pelanggan_id')->nullable()->constrained()->onDelete('NO ACTION');
+            $table->foreignId('reseller_id')->nullable()->constrained('pelanggans')->onDelete('SET NULL');
+            $table->foreignId('pelanggan_id')->nullable()->constrained()->onDelete('CASCADE');
         });
     }
 

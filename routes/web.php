@@ -293,6 +293,7 @@ Route::controller(ProdukController::class)->group(function ()
     Route::post('/produk/tambah-produk-db', 'tambahProdukDB')->name('tambahProdukDB')->middleware('auth');
     Route::get('/produk/cek-produk', 'cekProduk')->name('cekProduk')->middleware('auth');
     Route::get('/produk/produk-detail', 'produk_detail')->name('produk_detail')->middleware('auth');
+    Route::post('/produk/delete-produk', 'deleteProduct')->name('deleteProduct')->middleware('auth');
 });
 
 

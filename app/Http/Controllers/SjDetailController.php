@@ -112,27 +112,48 @@ class SjDetailController extends Controller
             dump('get', $get);
         }
 
-        $sj = new Srjalan();
-        list($srjalan, $pelanggan, $alamat, $reseller, $ekspedisi, $spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks) = $sj->get_one_srjalan_and_components($get['srjalan_id']);
+        $obj_sj = new Srjalan();
+        list($srjalan,$pelanggan,$pelanggan_nama,$alamat,$cust_long_ala,$alamat_avas,$cust_kontak,$kontak,$kontak_avas,$reseller,$reseller_nama,$alamat_reseller,$reseller_long_ala,$alamat_reseller_avas,$reseller_kontak,$kontak_reseller,$kontak_reseller_avas,$spk_produk_nota_srjalans, $spk_produks, $produks,$data_items) = $obj_sj->getOneSjAndComponents($get['srjalan_id']);
+        // list($ekspedisi_nama,$eks_long_ala,$eks_kontak,$ekspedisi,$alamat_ekspedisi,$kontak_ekspedisi,$transit_nama,$trans_long_ala,$trans_kontak,$transit,$alamat_transit,$kontak_transit)=$obj_sj->sjDetail_getEkspedisi($srjalan);
 
         $reseller_id=null;
         if ($reseller!==null) {
             $reseller_id=$reseller['id'];
         }
+        if ($cust_kontak!==null) {
+            $cust_kontak=json_decode($cust_kontak,true);
+        }
+        if ($reseller_kontak!==null) {
+            $reseller_kontak=json_decode($reseller_kontak,true);
+        }
+
 
         $data = [
-            'navbar_bg'=>'bg-color-orange-2',
-            'go_back'=>true,
+            'go_back' => true,
+            'navbar_bg' => 'bg-color-orange-2',
             'srjalan' => $srjalan,
             'pelanggan' => $pelanggan,
             'alamat' => $alamat,
             'reseller' => $reseller,
-            'ekspedisi' => $ekspedisi,
+            'reseller_id' => $reseller_id,
             'spk_produk_nota_srjalans' => $spk_produk_nota_srjalans,
-            'spk_produk_notas' => $spk_produk_notas,
             'spk_produks' => $spk_produks,
             'produks' => $produks,
-            'reseller_id' => $reseller_id,
+            'data_items' => $data_items,
+            'pelanggan_nama' => $pelanggan_nama,
+            'cust_long_ala' => $cust_long_ala,
+            'cust_kontak' => $cust_kontak,
+            'kontak' => $kontak,
+            'reseller_nama' => $reseller_nama,
+            'alamat_reseller' => $alamat_reseller, // dari alamat_reseller_id di nota
+            'reseller_long_ala' => $reseller_long_ala,
+            'reseller_kontak' => $reseller_kontak,
+            'kontak_reseller' => $kontak_reseller,
+            'alamat_avas' => $alamat_avas,
+            'kontak_avas' => $kontak_avas,
+            'alamat_reseller_avas' => $alamat_reseller_avas,
+            'kontak_reseller_avas' => $kontak_reseller_avas,
+
         ];
         // dd($data);
         return view('srjalan.sjSelesai', $data);

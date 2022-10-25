@@ -81,11 +81,16 @@ class NotaItemController extends Controller
         $harga=$produk_harga['harga'];
         $harga_t=$harga*(int)$post['jumlah'];
         if ($run_db) {
+            /**Componen nama spk_produk_nota */
+            $produk=Produk::find($post['produk_id']);
+            $nama_nota=$produk['nama_nota'];
+
             $spk_produk_nota=SpkProdukNota::create([
                 'spk_id'=>$post['spk_id'],
                 'produk_id'=>$post['produk_id'],
                 'spk_produk_id'=>$post['spk_produk_id'],
                 'nota_id'=>$post['nota_id'],
+                'nama_nota'=>$nama_nota,
                 'jumlah'=>(int)$post['jumlah'],
                 'harga'=>(int)$harga,
                 'harga_t'=>$harga_t,
@@ -294,12 +299,17 @@ class NotaItemController extends Controller
                 if ($post['spk_produk_nota_id_terkait_item'][$i]===null) {
                     dump('masuk ke spk_produk_nota baru');
                     // Pembuatan spk_produk_nota baru
+                    /**Componen nama spk_produk_nota */
+                    $produk=Produk::find($post['produk_id']);
+                    $nama_nota=$produk['nama_nota'];
+
                     $spk_produk_nota=SpkProdukNota::create([
                         'spk_id'=>$spk['id'],
                         'produk_id'=>$spk_produk['produk_id'],
                         'spk_produk_id'=>$spk_produk['id'],
                         'nota_id'=>$nota_id,
                         'jumlah'=>(int)$post['jumlah'][$i],
+                        'nama_nota'=>$nama_nota,
                         'harga'=>(int)$spk_produk['harga'],
                         'harga_t'=>$spk_produk['harga']*(int)$post['jumlah'][$i],
                     ]);

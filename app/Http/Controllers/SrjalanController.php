@@ -278,6 +278,22 @@ class SrjalanController extends Controller
             ['route'=>'sj_hapus','nama'=>'Hapus','method'=>'POST','params'=>[['name'=>'srjalan_id','value'=>$srjalan['id']]],'confirm'=>'Apakah Anda yakin ingin menghapus Sr. Jalan ini? (Jumlah sudah Sr. Jalan pada Tree akan disesuaikan kembali.)'],
         ];
 
+        $reseller_id=null;
+        if ($reseller!==null) {
+            $reseller_id=$reseller['id'];
+        }
+        if ($cust_kontak!==null) {
+            $cust_kontak=json_decode($cust_kontak,true);
+        }
+        if ($reseller_kontak!==null) {
+            $reseller_kontak=json_decode($reseller_kontak,true);
+        }
+        if ($eks_kontak!==null) {
+            $eks_kontak=json_decode($eks_kontak,true);
+        }
+        if ($trans_kontak!==null) {
+            $trans_kontak=json_decode($trans_kontak,true);
+        }
         $data = [
             'navbar_bg'=>'bg-color-orange-2',
             'go_back'=>true,

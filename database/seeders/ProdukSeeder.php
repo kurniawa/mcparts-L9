@@ -3996,7 +3996,7 @@ class ProdukSeeder extends Seeder
         ], [
             'tipe' => 'Rol',
             'nama' => 'LuckyHole Hitam Rol',
-            'nama_nota' => 'SJ LuckyHole Hitam Rol',
+            'nama_nota' => 'LuckyHole Hitam Rol',
             'tipe_packing' => null,
             'aturan_packing' => null, // 34
             'harga' => 327000,
@@ -4004,7 +4004,7 @@ class ProdukSeeder extends Seeder
         ], [
             'tipe' => 'Rotan',
             'nama' => 'Rotan Hitam',
-            'nama_nota' => 'SJ Rotan Hitam',
+            'nama_nota' => 'Rotan Hitam',
             'tipe_packing' => null,
             'aturan_packing' => null, // 34
             'harga' => 30000,
@@ -4012,8 +4012,8 @@ class ProdukSeeder extends Seeder
         ],
         ];
 
-        for ($i = 0; $i < count($produk); $i++) {
-        // for ($i = 0; $i < 20; $i++) {
+        // for ($i = 0; $i < count($produk); $i++) {
+        for ($i = 0; $i < 20; $i++) {
             dump($produk[$i]['nama']);
             $inserted_produk = Produk::create([
                 'tipe' => $produk[$i]['tipe'],

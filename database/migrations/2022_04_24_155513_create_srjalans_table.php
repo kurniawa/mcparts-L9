@@ -17,18 +17,18 @@ return new class extends Migration
         Schema::create('srjalans', function (Blueprint $table) {
             $table->id();
             $table->string('no_srjalan', 20)->nullable();
-            $table->foreignId('pelanggan_id')->constrained()->onDelete('NO ACTION');
-            $table->foreignId('ekspedisi_id')->nullable()->constrained()->onDelete('NO ACTION');// constrained tetapi ketika ekspedisi dihapus, surat jalan janganlah dihapus
-            $table->foreignId('ekspedisi_transit_id')->nullable()->constrained('ekspedisis','id')->onDelete('NO ACTION');
+            $table->foreignId('pelanggan_id')->nullable()->constrained()->onDelete('SET NULL');
+            $table->foreignId('ekspedisi_id')->nullable()->constrained()->onDelete('SET NULL');// constrained tetapi ketika ekspedisi dihapus, surat jalan janganlah dihapus
+            $table->foreignId('ekspedisi_transit_id')->nullable()->constrained('ekspedisis','id')->onDelete('SET NULL');
             $table->bigInteger('reseller_id')->nullable();
-            $table->foreignId('alamat_id')->nullable()->constrained()->onDelete('NO ACTION'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
-            $table->foreignId('alamat_reseller_id')->nullable()->constrained('alamats','id')->onDelete('NO ACTION'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
-            $table->foreignId('alamat_ekspedisi_id')->nullable()->constrained('alamats','id')->onDelete('NO ACTION'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
-            $table->foreignId('alamat_transit_id')->nullable()->constrained('alamats','id')->onDelete('NO ACTION'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
-            $table->foreignId('kontak_id')->nullable()->constrained('pelanggan_kontaks','id')->onDelete('NO ACTION');
-            $table->foreignId('kontak_reseller_id')->nullable()->constrained('pelanggan_kontaks','id')->onDelete('NO ACTION');
-            $table->foreignId('kontak_ekspedisi_id')->nullable()->constrained('ekspedisi_kontaks','id')->onDelete('NO ACTION');
-            $table->foreignId('kontak_transit_id')->nullable()->constrained('ekspedisi_kontaks','id')->onDelete('NO ACTION');
+            $table->foreignId('alamat_id')->nullable()->constrained()->onDelete('SET NULL'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
+            $table->foreignId('alamat_reseller_id')->nullable()->constrained('alamats','id')->onDelete('SET NULL'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
+            $table->foreignId('alamat_ekspedisi_id')->nullable()->constrained('alamats','id')->onDelete('SET NULL'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
+            $table->foreignId('alamat_transit_id')->nullable()->constrained('alamats','id')->onDelete('SET NULL'); // penting kalo sewaktu-waktu alamat utama pelanggan di edit.
+            $table->foreignId('kontak_id')->nullable()->constrained('pelanggan_kontaks','id')->onDelete('SET NULL');
+            $table->foreignId('kontak_reseller_id')->nullable()->constrained('pelanggan_kontaks','id')->onDelete('SET NULL');
+            $table->foreignId('kontak_ekspedisi_id')->nullable()->constrained('ekspedisi_kontaks','id')->onDelete('SET NULL');
+            $table->foreignId('kontak_transit_id')->nullable()->constrained('ekspedisi_kontaks','id')->onDelete('SET NULL');
             $table->string('status', 50)->default('PROSES KIRIM');
             // $table->smallInteger('jumlah')->nullable(); tidak perlu ada detail jumlah disini, karena sudah ada di spk_produk_nota_srjalan
             $table->smallInteger('jml_colly')->nullable();

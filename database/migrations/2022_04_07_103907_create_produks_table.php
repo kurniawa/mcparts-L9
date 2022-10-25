@@ -21,6 +21,11 @@ return new class extends Migration
         Schema::create('produks', function (Blueprint $table) {
             $table->id();
             $table->string('tipe', 50);
+            // SJ-Variasi, SJ-Kombinasi, SJ-Japstyle,
+            // SJ-Motif, SJ-Standar,SJ-T.Sixpack,
+            // Jok Assy, Tankpad, Busa-Stang
+            // Stiker,Rol,Rotan
+
             // $table->foreignId('bahan_id')->nullable();
             // $table->foreignId('variasi_id')->nullable();
             // $table->foreignId('varian_id')->nullable();

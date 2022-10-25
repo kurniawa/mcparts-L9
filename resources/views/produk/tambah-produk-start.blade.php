@@ -39,6 +39,24 @@
         </div>
 
         <div class="row mb-2">
+            <div class="col" id="div-tsixpack" style="display: none">
+                <div class="form-floating">
+                    <input type="text" id="tsixpack" name="tsixpack" class="form-control autoname" style="border-radius:5px;" placeholder="T.Sixpack" value="T.Sixpack" readonly>
+                    <label for="tsixpack">T.Sixpack</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col" id="div-japstyle" style="display: none">
+                <div class="form-floating">
+                    <input type="text" id="japstyle" name="japstyle" class="form-control autoname" style="border-radius:5px;" placeholder="Japstyle" value="Japstyle" readonly>
+                    <label for="japstyle">Japstyle</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2">
             <div class="col" id="div-standar" style="display: none">
                 <div class="form-floating">
                     <input type="text" id="standar" name="standar" class="form-control autoname" style="border-radius:5px;" placeholder="Standar">
@@ -294,6 +312,11 @@
             </small>
         </div>
 
+        {{-- Validation Error --}}
+        <input type="hidden" name="validation_error" class="@error('validation_error') is-invalid @enderror">
+        @error('validation_error')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
         <div>
             Opsi:<br>
             <button type="button" class="btn btn-outline-primary btn-sm" style="display: none" id="btn-bahan" onclick="showHide('div-bahan', this.id)">+Bahan</button>
@@ -343,6 +366,8 @@ const kombinasis = {!! json_encode($kombinasis, JSON_HEX_TAG) !!};
 const lists = {!! json_encode($lists, JSON_HEX_TAG) !!};
 /*Motif*/
 const motifs = {!! json_encode($motifs, JSON_HEX_TAG) !!};
+/*Japstyle*/
+// const japstyles = {-!! json_encode($japstyles, JSON_HEX_TAG) !!};
 /*Standar*/
 const standars = {!! json_encode($standars, JSON_HEX_TAG) !!};
 const sayaps = {!! json_encode($sayaps, JSON_HEX_TAG) !!};
@@ -356,7 +381,10 @@ const rotans = {!! json_encode($rotans, JSON_HEX_TAG) !!};
 /*Produks*/
 const produks = {!! json_encode($produks, JSON_HEX_TAG) !!};
 
-console.log('produks',produks);
+console.log('tankpads',tankpads);
+console.log('stikers',stikers);
+console.log('rols',rols);
+console.log('rotans',rotans);
 
 var attToShow = new Array();
 var btnToShow = new Array();
@@ -371,7 +399,7 @@ if (tipe === 'SJ-Variasi') {
 if (tipe === 'SJ-Kombinasi') {
     attToShow=['div-kombinasi'];
     btnToShow=['btn-variasi_1','btn-close-variasi_1','btn-varian_1','btn-grade_bahan','btn-bahan','btn-close-bahan','btn-ukuran','btn-jahit','btn-list'];
-    noticedInputs=['kombinasi','bahan','variasi_1','varian_1','ukuran','jahit','list']
+    noticedInputs=['kombinasi','bahan','grade_bahan','variasi_1','varian_1','ukuran','jahit','list']
 }
 
 if (tipe === 'SJ-Motif') {
@@ -381,13 +409,14 @@ if (tipe === 'SJ-Motif') {
 }
 
 if (tipe === 'SJ-T.Sixpack') {
-    attToShow=['div-bahan'];
+    attToShow=['div-bahan','div-tsixpack'];
     btnToShow=['btn-grade_bahan','btn-ukuran','btn-jahit','btn-alas','btn-busa'];
-    noticedInputs=['tsixpack','bahan','grade_bahan','variasi_1','varian_1','ukuran','jahit','alas','busa']
+    noticedInputs=['bahan','grade_bahan','tsixpack','variasi_1','varian_1','ukuran','jahit','alas','busa']
 }
 
 if (tipe === 'SJ-Japstyle') {
-    attToShow=['div-bahan'];
+    attToShow=['div-bahan','div-japstyle'];
+    noticedInputs=['bahan','japstyle']
 }
 
 if (tipe === 'SJ-Standar') {
@@ -478,27 +507,31 @@ function autoname() {
     var i = 0;
     noticedInputs.forEach(id => {
         var input = document.getElementById(id);
+        // console.log('id',id);
+        // console.log('input',input);
         $div_input = $(`#div-${id}`);
         // console.log(`#div-${id}, display:`,$div_input.css('display'));
         if ($div_input.css('display') !== 'none'&&input.value!==null&&input.value!=='') {
             if (i===0) {
-                if (tipe!=='Tankpad'&&tipe!=='Busa-Stang'&&tipe!=='Stiker'&&tipe!=='Rol'&&tipe!=='Jok Assy') {
+                if (tipe!=='Tankpad'&&tipe!=='Busa-Stang'&&tipe!=='Stiker'&&tipe!=='Rol'&&tipe!=='Jok Assy'&&tipe!=='Rotan') {
                     nama_nota += 'SJ ';
                 } else {
-                    if (tipe==='Tankpad'||tipe==='Stiker') {
+                    if (tipe==='Stiker') {
                         nama += `${tipe} `;
                         nama_nota += `${tipe} `;
                     }
                 }
             }
             if (id==='bahan') {
-                if (tipe!=='SJ-Variasi'&&tipe!=='SJ-T.Sixpack') {
-                    nama += ' b.';
-                    nama_nota += ' b.';
+                if (tipe!=='SJ-Variasi'&&tipe!=='SJ-T.Sixpack'&&tipe!=='SJ-Japstyle') {
+                    nama += ` b.`;
+                    nama_nota += ` b.`;
                 }
             } else if (id==='grade_bahan') {
-                nama += '(';
-                nama_nota += '(';
+                if (input.value!=='A') {
+                    nama += '(';
+                    nama_nota += '(';
+                }
             } else if(id==='ukuran'){
                 nama += ' + uk.';
                 nama_nota += ' + uk.';
@@ -506,8 +539,23 @@ function autoname() {
                 nama += ' + jht.';
                 nama_nota += ' + jht.';
             } else if (id==='kombinasi') {
-                nama += 'Kombinasi ';
-                nama_nota += 'Kombinasi ';
+                nama += `Kombinasi `;
+                nama_nota += `Kombinasi `;
+            } else if (id==='motif') {
+                nama += 'Motif ';
+                nama_nota += 'Motif ';
+            } else if (id==='standar') {
+                nama += 'Standar ';
+                nama_nota += 'Standar ';
+            }  else if (id==='jokassy') {
+                nama += 'Jok Assy ';
+                nama_nota += 'Jok Assy ';
+            }  else if (id==='rotan') {
+                nama += 'Rotan ';
+                nama_nota += 'Rotan ';
+            }  else if (id==='tankpad') {
+                nama += 'TP ';
+                nama_nota += 'TP ';
             } else {
                 if (i===1||id==='varian_1'||id==='varian_2') {
                     nama += ' ';
@@ -519,14 +567,24 @@ function autoname() {
             }
 
             if (id==='grade_bahan') {
-                nama += `${input.value})`;
-                nama_nota += `${input.value})`;
+                if (input.value!=='A') {
+                    nama += `${input.value})`;
+                    nama_nota += `${input.value})`;
+                }
+            } else if (id==='ukuran') {
+                console.log(input.value);
+                var res_ukuran=ukurans.find(ukuran=>ukuran.value===input.value);
+                // console.log(find_ukuran);
+                nama += `${input.value}`;
+                nama_nota += `${res_ukuran.nama_nota}`;
+            } else if (id==='rol') {
+                nama += `${input.value} Rol`;
+                nama_nota += `${input.value} Rol`;
             } else {
                 nama += `${input.value}`;
                 nama_nota += `${input.value}`;
             }
-            // nama += `${input.value}`;
-            // nama_nota += `${input.value}`;
+
         }
 
         i++;

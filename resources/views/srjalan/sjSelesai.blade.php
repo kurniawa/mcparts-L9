@@ -40,16 +40,16 @@
             <td>{{ $spk_produk_nota_srjalans[$i]['jumlah'] }}</td>
             <td class="numberToFormat">{{ $spk_produk_nota_srjalans[$i]['jml_packing'] }}</td>
             <td>{{ $spk_produk_nota_srjalans[$i]['tipe_packing'] }}</td>
-            <td id='divDropdownIcon-{{ $i }}' onclick='showDropdown({{ $i }});' class="text-center"><img class='w-0_7rem' src='{{ asset('img/icons/dropdown.svg') }}'></td>
+            {{-- <td id='divDropdownIcon-{{ $i }}' onclick='showDropdown({{ $i }});' class="text-center"><img class='w-0_7rem' src='{{ asset('img/icons/dropdown.svg') }}'></td> --}}
         </tr>
-        <tr class="border-bottom" id='divDetailDropdown-{{ $i }}' style="display: none">
+        {{-- <tr class="border-bottom" id='divDetailDropdown-{{ $i }}' style="display: none">
             <td colspan="6" class="text-end">
                 <form action="{{ route('hapusItemSPK') }}" method="POST" class="d-inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus item ini?')">
                 @csrf
                 <button type="submit" name="spk_produk_id" value="{{ $spk_produks[$i]['id'] }}" class="btn btn-danger btn-sm" >Del</button>
                 </form>
             </td>
-        </tr>
+        </tr> --}}
         @endfor
     </table>
 

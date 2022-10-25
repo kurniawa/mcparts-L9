@@ -13,8 +13,9 @@
     <link rel="stylesheet" href="/js/jquery-ui-1.12.1/jquery-ui.css">
     <script src="/js/jquery-3.5.1.js"></script>
     <script src="/js/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <script src="{{ asset('js/jquery.table2excel.js') }}"></script>
     <link href="/bootstrap-css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <script>
         var reloadable_page = true;
