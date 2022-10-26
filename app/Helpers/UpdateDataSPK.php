@@ -138,11 +138,12 @@ static function NewNota($spk_produk_id)
     $pelanggan=Pelanggan::find($spk['pelanggan_id']);
     $pelanggan_nama=$pelanggan['nama'];
     $pelanggan_alamat=PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->first();
-    $alamat_id=$cust_long_ala=null;
+    $alamat_id=$cust_long_ala=$cust_short=null;
     if ($pelanggan_alamat!==null) {
         $alamat=Alamat::find($pelanggan_alamat['alamat_id']);
         $alamat_id=$alamat['id'];
         $cust_long_ala=$alamat['long'];
+        $cust_short=$alamat['short'];
     }
     $pelanggan_kontak=PelangganKontak::where('pelanggan_id',$pelanggan['id'])->where('is_aktual','yes')->first();
     $kontak_id=$cust_kontak=null;
@@ -151,7 +152,7 @@ static function NewNota($spk_produk_id)
         $cust_kontak=json_encode($pelanggan_kontak->toArray());
     }
     // Data Reseller
-    $alamat_reseller_id=$kontak_reseller_id=$reseller_nama=$reseller_long_ala=$reseller_kontak=null;
+    $alamat_reseller_id=$kontak_reseller_id=$reseller_nama=$reseller_long_ala=$reseller_short=$reseller_kontak=null;
     if ($spk['reseller_id']!==null) {
         $reseller=Pelanggan::find($spk['reseller_id']);
         $reseller_nama=$reseller['nama'];
@@ -160,6 +161,7 @@ static function NewNota($spk_produk_id)
             $alamat_reseller=Alamat::find($reseller_alamat['alamat_id']);
             $alamat_reseller_id=$alamat_reseller['id'];
             $reseller_long_ala=$alamat_reseller['long'];
+            $reseller_short=$alamat_reseller['short'];
         }
         $kontak_reseller=PelangganKontak::where('pelanggan_id',$spk['reseller_id'])->where('is_aktual','yes')->first();
         if ($reseller_kontak!==null) {
@@ -182,9 +184,11 @@ static function NewNota($spk_produk_id)
         'updated_by'=>$user['username'],
         'pelanggan_nama'=>$pelanggan_nama,
         'cust_long_ala'=>$cust_long_ala,
+        'cust_short'=>$cust_short,
         'cust_kontak'=>$cust_kontak,
         'reseller_nama'=>$reseller_nama,
         'reseller_long_ala'=>$reseller_long_ala,
+        'reseller_short'=>$reseller_short,
         'reseller_kontak'=>$reseller_kontak,
     ];
     $new_nota=Nota::create($data_nota);
@@ -221,11 +225,12 @@ static function newNota_basedOn_spkProdukID_with_certainJumlah($spk_produk_id,$j
     $pelanggan=Pelanggan::find($spk['pelanggan_id']);
     $pelanggan_nama=$pelanggan['nama'];
     $pelanggan_alamat=PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->first();
-    $alamat_id=$cust_long_ala=null;
+    $alamat_id=$cust_long_ala=$cust_short=null;
     if ($pelanggan_alamat!==null) {
         $alamat=Alamat::find($pelanggan_alamat['alamat_id']);
         $alamat_id=$alamat['id'];
         $cust_long_ala=$alamat['long'];
+        $cust_short=$alamat['short'];
     }
     $pelanggan_kontak=PelangganKontak::where('pelanggan_id',$pelanggan['id'])->where('is_aktual','yes')->first();
     $kontak_id=$cust_kontak=null;
@@ -234,7 +239,7 @@ static function newNota_basedOn_spkProdukID_with_certainJumlah($spk_produk_id,$j
         $cust_kontak=json_encode($pelanggan_kontak->toArray());
     }
     // Data Reseller
-    $alamat_reseller_id=$kontak_reseller_id=$reseller_nama=$reseller_long_ala=$reseller_kontak=null;
+    $alamat_reseller_id=$kontak_reseller_id=$reseller_nama=$reseller_long_ala=$reseller_short=$reseller_kontak=null;
     if ($spk['reseller_id']!==null) {
         $reseller=Pelanggan::find($spk['reseller_id']);
         $reseller_nama=$reseller['nama'];
@@ -243,6 +248,7 @@ static function newNota_basedOn_spkProdukID_with_certainJumlah($spk_produk_id,$j
             $alamat_reseller=Alamat::find($reseller_alamat['alamat_id']);
             $alamat_reseller_id=$alamat_reseller['id'];
             $reseller_long_ala=$alamat_reseller['long'];
+            $reseller_short=$alamat_reseller['short'];
         }
         $kontak_reseller=PelangganKontak::where('pelanggan_id',$spk['reseller_id'])->where('is_aktual','yes')->first();
         if ($kontak_reseller!==null) {
@@ -265,9 +271,11 @@ static function newNota_basedOn_spkProdukID_with_certainJumlah($spk_produk_id,$j
         'updated_by'=>$user['username'],
         'pelanggan_nama'=>$pelanggan_nama,
         'cust_long_ala'=>$cust_long_ala,
+        'cust_short'=>$cust_short,
         'cust_kontak'=>$cust_kontak,
         'reseller_nama'=>$reseller_nama,
         'reseller_long_ala'=>$reseller_long_ala,
+        'reseller_short'=>$reseller_short,
         'reseller_kontak'=>$reseller_kontak,
     ];
     $new_nota=Nota::create($data_nota);

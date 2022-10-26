@@ -89,47 +89,7 @@ class PenjualanController extends Controller
             $notas=Nota::whereYear('created_at',$tahun_set)->whereMonth('created_at',$bulan_set)->orderBy('pelanggan_id')->get();
         }
 
-        // Menghitung harga total berdasarkan pelanggan
-        $pelanggan_ids=$pelanggans_v_notas=array();
-        foreach ($notas as $nota) {
-            // dump($nota['pelanggan_id']);
-            // dump($pelanggan_ids);
-            // $is_pelanggan_in_array=data_get($pelanggan_ids,$nota['pelanggan_id']);
-            $is_pelanggan_in_array=array_search($nota['pelanggan_id'],$pelanggan_ids);
-
-            // dump($is_pelanggan_in_array);
-            if ($is_pelanggan_in_array === false) {
-                $pelanggan_ids[]=$nota['pelanggan_id'];
-            }
-            $pelanggan=Pelanggan::find($nota['pelanggan_id']);
-            $pelanggans_v_notas[]=$pelanggan;
-        }
-
-        // dump($notas);
-        // dump($pelanggan_ids);
-        $pelanggan_namas=$penjualan_totals=$arr_notas_spesific_pelanggan=array();
-        foreach ($pelanggan_ids as $pelanggan_id) {
-            $pelanggan=Pelanggan::find($pelanggan_id);
-            $pelanggan_namas[]=$pelanggan['nama'];
-
-            $notas_spesific_pelanggan=$notas->where('pelanggan_id',$pelanggan['id']);
-            $penjualan_total=0;
-            foreach ($notas_spesific_pelanggan as $nota) {
-                $penjualan_total+=$nota['harga_total'];
-            }
-
-            $penjualan_totals[]=$penjualan_total;
-            $arr_notas_spesific_pelanggan[]=$notas_spesific_pelanggan;
-        }
-        array_unique($pelanggan_namas);
-        // dd($pelanggan_namas);
-        // dump($arr_notas_spesific_pelanggan);
-
-        // notas + subtotal
-        $notasXsubtotal=array();
-        /**Detail Checked: Menambahkan keterangan spk_produk_nota dan ekspedisi */
-
-        $sales_components=PenjualanHelper::getSalesComponents($pelanggan_namas,$notas);
+        $sales_components=PenjualanHelper::getSalesComponents($notas);
 
         $data = [
             'go_back'=>true,
@@ -143,15 +103,11 @@ class PenjualanController extends Controller
             'tahun_set'=>$tahun_set,
             'bulan_set'=>$bulan_set,
             'tanggal_set'=>$tanggal_set,
-            'pelanggan_namas'=>$pelanggan_namas,
-            'penjualan_totals'=>$penjualan_totals,
-            'pelanggans_v_notas'=>$pelanggans_v_notas,
             'notas'=>$notas,
-            'notasXsubtotal'=>$notasXsubtotal,
             'sales_components'=>$sales_components,
         ];
         // dd($data);
-        // dump($data);
+        dump($data);
         return view('penjualan.penjualan', $data);
     }
 }

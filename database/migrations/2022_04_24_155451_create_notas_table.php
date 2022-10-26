@@ -34,9 +34,11 @@ return new class extends Migration
             // Data ketika selesai
             $table->string('pelanggan_nama',100)->nullable();
             $table->string('cust_long_ala')->nullable();
+            $table->string('cust_short')->nullable();
             $table->string('cust_kontak')->nullable();
             $table->string('reseller_nama',100)->nullable();
             $table->string('reseller_long_ala')->nullable();
+            $table->string('reseller_short')->nullable();
             $table->string('reseller_kontak')->nullable();
             // Keterangan Lain
             $table->string('keterangan')->nullable();

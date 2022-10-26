@@ -8,12 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class PenjualanHelper extends Model
 {
     use HasFactory;
-    static function getSalesComponents($pelanggan_namas,$notas)
+    static function getSalesComponents($notas)
     {
-        $notasXsubtotal=array();
-        for ($i=0; $i < count($pelanggan_namas); $i++) {
+        // mengumpulkan semua pelanggan_ids, lalu dicari nama nya
+        $pelanggan_ids=$pelanggan_namas=array();
+        foreach ($notas as $nota) {
+            $pelanggan_ids[]=$nota['pelanggan_id'];
+            $pelanggan=Pelanggan::find($nota['pelanggan_id']);
+            $pelanggan_namas[]=$pelanggan['nama'];
+            // Alamat pelanggan
 
-            $notas_filtered=$notas->where('pelanggan_nama',$pelanggan_namas[$i])->toArray();
+        }
+        $pelanggan_namas_unique=array_unique($pelanggan_namas);
+        // dump($pelanggan_namas);
+        // dd($pelanggan_namas_unique);
+
+        $notasXsubtotal=array();
+
+        for ($i=0; $i < count($pelanggan_namas_unique); $i++) {
+
+            $notas_filtered=$notas->where('pelanggan_nama',$pelanggan_namas_unique[$i])->toArray();
             $subtotal=0;
             $notas_filtered=array_values($notas_filtered);
             // dump($notas_filtered);
@@ -42,9 +56,6 @@ class PenjualanHelper extends Model
                         $ekspedisis[]=$ekspedisi;
                         $srjalan_ids[]=$spkpronosj['srjalan_id'];
                     }
-
-
-
 
                     $subtotal+=$notas_filtered[$j]['harga_total'];
                     if ($j===count($notas_filtered)-1) {
@@ -119,6 +130,20 @@ class PenjualanHelper extends Model
             }
 
         }
-        return $notasXsubtotal;
+
+        // Membuat object untuk rekap_penjualan_detail_item
+        $rekap_penjualan_detail_items=array();
+        $k=0;
+        foreach ($notas as $nota) {
+            $rekap_penjualan_detail_item=[
+                'tanggal'=>date('d-m-Y',strtotime($nota['created_at'])),
+                'nama_pelanggan'=>$pelanggan_namas[$k],
+                'short'=>''
+            ];
+            $rekap_penjualan_detail_items[]=$rekap_penjualan_detail_item;
+            $k++;
+        }
+
+        return array($notasXsubtotal, $rekap_penjualan_detail_items);
     }
 }

@@ -179,7 +179,7 @@ function showSalesDetail(params) {
 
 function downloadRekapPenjualan(tableToExcelDownload) {
     $(tableToExcelDownload).table2excel({
-        filename:'rekap_penjualan.xlsx'
+        filename:'rekap_penjualan.xls'
     });
 }
 </script>
