@@ -19,6 +19,7 @@ use App\Http\Controllers\PelangganKontakController;
 use App\Http\Controllers\PelangganResellerController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProdukSpecController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SjDetailController;
 use App\Http\Controllers\SjItemController;
@@ -288,12 +289,19 @@ Route::controller(ProdukController::class)->group(function ()
 {
     Route::get('/produk', 'index')->name('produks');
     Route::get('/produk/tipe-variasi', 'tipe_variasi');
-    Route::get('/produk/tambah-produk', function () {$data=['go_back'=>true,'navbar_bg'=>'bg-color-orange-2',];return view('produk.tambah-produk',$data);})->name('tambah-produk')->middleware('auth');
     Route::get('/produk/tambah-produk/{tipe}', 'tambahProduk')->name('tambahProduk')->middleware('auth');
     Route::post('/produk/tambah-produk-db', 'tambahProdukDB')->name('tambahProdukDB')->middleware('auth');
     Route::get('/produk/cek-produk', 'cekProduk')->name('cekProduk')->middleware('auth');
     Route::get('/produk/produk-detail', 'produk_detail')->name('produk_detail')->middleware('auth');
     Route::post('/produk/delete-produk', 'deleteProduct')->name('deleteProduct')->middleware('auth');
+});
+Route::controller(ProdukSpecController::class)->group(function ()
+{
+    Route::get('/produk/produk-dan-specs', 'produkDanSpecs')->name('produkDanSpecs')->middleware('auth');
+    Route::get('/produk/daftar-spec/{mode}', 'daftarSpec')->name('daftarSpec')->middleware('auth');
+    Route::post('/produk/tambah-spec-db', 'tambahSpecDB')->name('tambahSpecDB')->middleware('auth');
+    Route::get('/produk/edit-spec', 'editSpec')->name('editSpec')->middleware('auth');
+    Route::post('/produk/hapus-spec', 'hapusSpec')->name('hapusSpec')->middleware('auth');
 });
 
 

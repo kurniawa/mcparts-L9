@@ -23,7 +23,11 @@
               @if (isset($menu['params']))
               @if (isset($menu['confirm']))
               <li class="nav-item ms-1">
+                @if (isset($menu['parameters']))
+                <form action="{{ route($menu['route'],$menu['parameters']) }}" method="{{ $menu['method'] }}" onsubmit="return confirm('{{ $menu['confirm'] }}')">
+                @else
                 <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}" onsubmit="return confirm('{{ $menu['confirm'] }}')">
+                @endif
                     @csrf
                     @foreach ($menu['params'] as $param)
                     <input type="hidden" name="{{ $param['name'] }}" value="{{ $param['value'] }}">
@@ -33,8 +37,11 @@
               </li>
               @else
               <li class="nav-item ms-1">
+                @if (isset($menu['parameters']))
+                <form action="{{ route($menu['route'],$menu['parameters']) }}" method="{{ $menu['method'] }}">
+                @else
                 <form action="{{ route($menu['route']) }}" method="{{ $menu['method'] }}">
-                    @csrf
+                @endif
                     @foreach ($menu['params'] as $param)
                     <input type="hidden" name="{{ $param['name'] }}" value="{{ $param['value'] }}">
                     @endforeach

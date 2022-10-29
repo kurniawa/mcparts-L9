@@ -6,9 +6,11 @@
 <div id="containerDetailsj">
     {{-- SJ PELANGGAN TANPA RESELLER --}}
     <div class="hr-line border-top border-2 mt-1 mb-1"></div>
-    <div class="row align-items-center">
+    <div class="row align-items-center" style="font-size: 0.8rem">
         <div class="col-3"><img class="logo-mc" src="{{ asset('img/images/logo-mc.jpg') }}" alt=""></div>
-        <div class="col-3"><span class="fw-bold font-1_3">CV. MC-Parts</span><br>Jl. Raya Karanggan No. 96<br>Kec. Gn. Putri/Kab. Bogor</div>
+        <div class="col-3"><div class="fw-bold font-1_3">CV. MC-Parts</div>
+        <div>Jl. Raya Karanggan No. 96</div><div>Kec. Gn. Putri/Kab. Bogor</div>
+    </div>
         <div class="col-6 text-center fw-bold"><span class="judul-sj">SURAT JALAN /</span><br><span class="judul-sj">TANDA TERIMA BARANG</span></div>
     </div>
 
@@ -18,7 +20,7 @@
             <div class="fw-bold font-big">Untuk:</div>
             <div class="fw-bold font-large">{{ $pelanggan['nama'] }}</div>
         </div>
-        <div class="col-3">
+        <div class="col-3" style="font-size: 0.8rem">
             <div class="fw-bold font-big">Alamat:</div>
             <div class="font-big">
                 @for ($i = 0; $i < count($alamat_long); $i++)
@@ -38,10 +40,10 @@
             </div>
         </div>
         <div class="col-6 font-1_2">
-            <table style="display: inline-table;width:100%;">
-                <tr><td>No</td><td>:</td><td id="no_sj">{{ $srjalan['no_srjalan'] }}</td></tr>
-                <tr><td>Tanggal</td><td>:</td><td>{{ date("d-m-Y", strtotime($srjalan['created_at'])) }}</td></tr>
-                <tr style="vertical-align: top"><td>Ekspedisi</td><td>:</td>
+            <table style="display: inline-table;width:100%;" style="font-size: 0.8rem">
+                <tr class="fw-bold" style="font-size: 0.8rem"><td>No</td><td>:</td><td id="no_sj">{{ $srjalan['no_srjalan'] }}</td></tr>
+                <tr style="font-size: 0.8rem"><td>Tanggal</td><td>:</td><td>{{ date("d-m-Y", strtotime($srjalan['created_at'])) }}</td></tr>
+                <tr style="vertical-align: top;font-size:0.8rem"><td>Ekspedisi</td><td>:</td>
                     <td>
                         <div class="d-flex">
                             <div>
@@ -92,13 +94,13 @@
             <th class="thTableItemsj font-large" style="text-align: center;">Jumlah</th>
         </tr>
         <tr>
-            <td class="tdTableItemsj fw-bold font-3xl">Sarung Jok Motor</td>
-            <td class="tdTableItemsj fw-bold" style="font-size: 3rem;">
+            <td class="tdTableItemsj fw-bold font-3xl" style="font-size: 1.2rem">Sarung Jok Motor</td>
+            <td class="tdTableItemsj fw-bold" style="font-size: 2rem;">
                 <div class="grid-2-auto grid-column-gap-0_5em">
                     <div id="divJmlKoli" class="justify-self-right">
                         @if ($srjalan['jml_colly']!==null)
                         <span id="jmlKoli">{{ $srjalan['jml_colly'] }}</span>
-                        <img style="width: 3rem;" class="d-inline-block" src="/img/icons/koli.svg" alt="">
+                        <img style="width: 2rem;" class="d-inline-block" src="/img/icons/koli.svg" alt="">
                         @endif
                         @if ($srjalan['jml_dus']!==null && $srjalan['jml_dus']!==0)
                         @if ($srjalan['jml_colly']!==null)
@@ -111,24 +113,23 @@
             </td>
         </tr>
     </table>
-    <span style="font-style: italic;" class="font-big">*Barang sudah diterima dengan baik dan sesuai, oleh:</span>
+    <span style="font-style: italic;font-size:0.8rem" class="font-big">*Barang sudah diterima dengan baik dan sesuai, oleh:</span>
 
     <br><br>
 
     <div class="grid-2-auto">
         <div class="grid-1-auto justify-items-center">
             <div class="font-large">Penerima,</div>
-            <br><br><br><br>
+            <br><br>
             <div>(....................)</div>
         </div>
         <div class="grid-1-auto justify-items-center">
             <div class="font-large">Hormat Kami,</div>
-            <br><br><br><br>
+            <br><br>
             <div>(....................)</div>
         </div>
     </div>
-    <br><br>
-    <div class="hr-line border-top border-2"></div>
+    <div class="hr-line border-top border-2 mt-2"></div>
 </div>
 
 <style>
@@ -155,17 +156,36 @@
         border-bottom: 1px solid black;
     }
 
-    .thTableItemsj {
-        height: 3em;
-    }
-
     .tdTableItemsj {
-        height: 10rem;
+        height: 8rem;
         text-align: center;
     }
 
     @media print {
-        .logo-mc{
+        @page {
+            size: A4;
+            /* DIN A4 standard, Europe */
+            margin: 3mm 5mm 0 5mm;
+        }
+
+        html,
+        body {
+            width: 210mm;
+            height: 297mm;
+            /* height: 282mm; */
+            /* font-size: 11px; */
+            background: #FFF;
+            overflow: visible;
+            padding-top: 0mm;
+        }
+        .navbar{
+            display:none;
+        }
+
+        .judul-sj{
+            font-size: 1.5rem;
+        }
+        /* .logo-mc{
             width: 15rem;
         }
         .bg-color-orange-1 {
@@ -181,21 +201,14 @@
         .font-3xl{
             font-size: 2rem;
         }
-        .judul-sj{
-            font-size: 2rem;
-        }
         hr{
             display: block;
-        }
-        .navbar{
-            display:none;
-        }
         .font-1_3 {
             font-size: 1.3rem;
         }
         .font-1_2 {
             font-size: 1.2rem;
-        }
+        } */
     }
 </style>
 

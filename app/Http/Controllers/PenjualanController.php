@@ -89,8 +89,17 @@ class PenjualanController extends Controller
             $notas=Nota::whereYear('created_at',$tahun_set)->whereMonth('created_at',$bulan_set)->orderBy('pelanggan_id')->get();
         }
 
-        $sales_components=PenjualanHelper::getSalesComponents($notas);
+        list($pelanggan_namas_unique,$penjualan_totals,$notasXsubtotal,$notaXdetail_item)=PenjualanHelper::getSalesComponents($notas);
 
+        /**Format bulan dan tanggal minimal 2 digit */
+        $bulan_2_digit=$bulan_set;
+        if (strlen($bulan_set)===1) {
+            $bulan_2_digit="0$bulan_set";
+        }
+        $tanggal_2_digit=$tanggal_set;
+        if (strlen($tanggal_set)===1) {
+            $tanggal_2_digit="0$tanggal_set";
+        }
         $data = [
             'go_back'=>true,
             'navbar_bg'=>'bg-color-orange-2',
@@ -104,10 +113,15 @@ class PenjualanController extends Controller
             'bulan_set'=>$bulan_set,
             'tanggal_set'=>$tanggal_set,
             'notas'=>$notas,
-            'sales_components'=>$sales_components,
+            'notasXsubtotal'=>$notasXsubtotal,
+            'notaXdetail_item'=>$notaXdetail_item,
+            'penjualan_totals'=>$penjualan_totals,
+            'pelanggan_namas_unique'=>$pelanggan_namas_unique,
+            'bulan_2_digit'=>$bulan_2_digit,
+            'tanggal_2_digit'=>$tanggal_2_digit,
         ];
         // dd($data);
-        dump($data);
+        // dump($data);
         return view('penjualan.penjualan', $data);
     }
 }

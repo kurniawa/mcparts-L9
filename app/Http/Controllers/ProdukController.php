@@ -85,7 +85,7 @@ class ProdukController extends Controller
         }
         // dd($btn_tipe);
         $menus=[
-            ['route'=>'tambah-produk','nama'=>'+Tambah Produk'],
+            ['route'=>'produkDanSpecs','nama'=>'+Tambah Produk'],
         ];
         $data = [
             // 'go_back'=>true,

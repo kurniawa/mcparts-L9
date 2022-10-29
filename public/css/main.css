@@ -557,6 +557,13 @@ option {
     border-color: mediumslateblue;
 }
 
+.btn-ck {
+    color: white;
+    background-color: brown;
+    /* background-color: mediumpurple;
+    background-color: #706dff; */
+    border-color: brown;
+}
 .divLogError {
     margin: 1rem;
     padding: 1rem;
@@ -727,7 +734,7 @@ option {
 }
 
 .input-cari:focus {
-    box-shadow: 0 0 6px #23FFAD;
+    box-shadow: 0 0 6px #23ffad;
 }
 
 .field {
@@ -755,21 +762,110 @@ option {
 .fancy-table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-  }
+}
 
-  .fancy-table td, .fancy-table th {
+.fancy-table td,
+.fancy-table th {
     border: 1px solid #ddd;
     padding: 8px;
-  }
+}
 
-  .fancy-table tr:nth-child(even){background-color: #f2f2f2;}
+.fancy-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
-  .fancy-table tr:hover {background-color: #ddd;}
+.fancy-table tr:hover {
+    background-color: #ddd;
+}
 
-  .fancy-table th {
+.fancy-table th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #04AA6D;
+    background-color: #04aa6d;
     color: white;
-  }
+}
+/* End: Fancy Table */
+
+/*Table - Simple*/
+.table-simple {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table-simple caption {
+    font-size: 1.5em;
+    margin: 0.5em 0 0.75em;
+}
+
+.table-simple tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 0.35em;
+}
+
+.table-simple th,
+.table-simple td {
+    padding: 0.625em;
+    text-align: center;
+}
+
+.table-simple th {
+    font-size: 0.85em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+    .table-simple {
+        border: 0;
+    }
+
+    .table-simple caption {
+        font-size: 1.3em;
+    }
+
+    .table-simple thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    .table-simple tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: 0.625em;
+    }
+
+    .table-simple td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: 0.8em;
+        text-align: right;
+    }
+
+    .table-simple td::before {
+        /*
+      * aria-label has no advantage, it won't be read inside a .table-simple
+      content: attr(aria-label);
+      */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .table-simple td:last-child {
+        border-bottom: 0;
+    }
+}
+/*End: Table - Simple*/

@@ -3,6 +3,7 @@
 
 @section('content')
 
+
 <form class="container" action="{{ route('saleBasedOnFilter') }}" method="GET">
     <div class="d-flex mt-2">
         <img class="w-2rem" src="/img/icons/pencil.svg" alt="">
@@ -57,70 +58,74 @@
 
 <div style="position:fixed;top:15rem;left:5rem"><button id="show-hide-sales-details" class="btn btn-sm btn-outline-warning" onclick='showSalesDetail()'>D</button></div>
 
+
+{{-- if isset penjualan_totals sudah mewakili semua table yang ada --}}
 @if (isset($penjualan_totals))
+
+<div class="container mt-3">
+    <div><button class="btn btn-primary btn-sm" onclick="downloadRekapPenjualan('nota_plus_subtotal-{{ $tahun_set }}_{{ $bulan_2_digit }}_{{ $tanggal_2_digit }}');">Download: Nota + Subtotal</button></div>
+    <div class="mt-1"><button class="btn btn-warning btn-sm" onclick="downloadRekapPenjualan('nota_plus_detail_item-{{ $tahun_set }}_{{ $bulan_2_digit }}_{{ $tanggal_2_digit }}');">Download: Nota + Item Detail</button></div>
+</div>
+
 <div class="container mt-2">
     <h5>Total Penjualan Pelanggan</h5>
     <table class="fancy-table">
         <tr><th>No.</th><th>Customer</th><th>Total Penjualan</th></tr>
         @for ($i = 0; $i < count($penjualan_totals); $i++)
-        <tr><td>{{ $i+1 }}</td><td>{{ $pelanggan_namas[$i] }}</td><td class="toFormatCurrencyRp">{{ $penjualan_totals[$i] }}</td></tr>
+        <tr><td>{{ $i+1 }}</td><td>{{ $pelanggan_namas_unique[$i] }}</td><td class="toFormatCurrencyRp">{{ $penjualan_totals[$i] }}</td></tr>
         @endfor
     </table>
 </div>
 
 <div class="container mt-3">
-    <button class="btn btn-primary" onclick="downloadRekapPenjualan('#rekap-penjualan');">Dowload Excel</button>
-</div>
-
-<div class="container mt-3">
-    <h5>Daftar Nota Terkait</h5>
+    <h5>Nota + Subtotal</h5>
     <table id="rekap-penjualan" class="fancy-table w-100">
         <tr><th>No.</th><th>Tanggal</th><th>Pelanggan</th><th>Harga</th><th>Subtotal</th></tr>
-        @for ($k = 0; $k < count($sales_components); $k++)
+        @for ($k = 0; $k < count($notasXsubtotal); $k++)
         <tr>
-            <td>{{ $sales_components[$k]['no_nota'] }}</td><td>{{ date('d-m-Y',strtotime($sales_components[$k]['created_at'])) }}</td><td>{{ $sales_components[$k]['pelanggan_nama'] }}</td><td class="toFormatCurrencyRp">{{ $sales_components[$k]['harga_total'] }}</td>
-            @if ($sales_components[$k]['subtotal']!==null)
-            <td class="toFormatCurrencyRp">{{ $sales_components[$k]['subtotal'] }}</td>
+            <td>{{ $notasXsubtotal[$k]['no_nota'] }}</td><td>{{ date('d-m-Y',strtotime($notasXsubtotal[$k]['created_at'])) }}</td><td>{{ $notasXsubtotal[$k]['pelanggan_nama'] }}</td><td class="toFormatCurrencyRp">{{ $notasXsubtotal[$k]['harga_total'] }}</td>
+            @if ($notasXsubtotal[$k]['subtotal']!==null)
+            <td class="toFormatCurrencyRp">{{ $notasXsubtotal[$k]['subtotal'] }}</td>
             @else
             <td></td>
             @endif
         </tr>
         {{-- Detail Komponen Penjualan --}}
-        @if ($sales_components[$k]['spk_produk_notas']!==null)
+        @if ($notasXsubtotal[$k]['spk_produk_notas']!==null)
         <tr class="sales-detail d-none">
             <td colspan="5">
                 <table style="width: 100%">
-                    @for ($l = 0; $l < count($sales_components[$k]['spk_produk_notas']); $l++)
+                    @for ($l = 0; $l < count($notasXsubtotal[$k]['spk_produk_notas']); $l++)
                     <tr>
-                        <td>{{ $sales_components[$k]['spk_produk_notas'][$l]['nama_nota'] }}</td>
-                        <td>{{ $sales_components[$k]['spk_produk_notas'][$l]['jumlah'] }}</td>
-                        <td class="toFormatCurrencyRp">{{ $sales_components[$k]['spk_produk_notas'][$l]['harga'] }}</td>
-                        <td class="toFormatCurrencyRp">{{ $sales_components[$k]['spk_produk_notas'][$l]['harga_t'] }}</td>
+                        <td>{{ $notasXsubtotal[$k]['spk_produk_notas'][$l]['nama_nota'] }}</td>
+                        <td>{{ $notasXsubtotal[$k]['spk_produk_notas'][$l]['jumlah'] }}</td>
+                        <td class="toFormatCurrencyRp">{{ $notasXsubtotal[$k]['spk_produk_notas'][$l]['harga'] }}</td>
+                        <td class="toFormatCurrencyRp">{{ $notasXsubtotal[$k]['spk_produk_notas'][$l]['harga_t'] }}</td>
                     </tr>
                     @endfor
-                    @foreach ($sales_components[$k]['ekspedisis'] as $ekspedisi)
+                    @foreach ($notasXsubtotal[$k]['ekspedisis'] as $ekspedisi)
                     @endforeach
                 </table>
             </td>
         </tr>
         @endif
-        @if ($sales_components[$k]['srjalans']!==null)
+        @if ($notasXsubtotal[$k]['srjalans']!==null)
         <tr class="sales-detail d-none">
             <td colspan="5">
-                @for ($m = 0; $m < count($sales_components[$k]['srjalans']); $m++)
+                @for ($m = 0; $m < count($notasXsubtotal[$k]['srjalans']); $m++)
                 <div class="d-flex">
-                    <div>{{ $sales_components[$k]['srjalans'][$m]['no_srjalan'] }}:</div>
-                    <div class="ms-1">{{ $sales_components[$k]['ekspedisis'][$m]['ekspedisi_nama'] }} -></div>
+                    <div>{{ $notasXsubtotal[$k]['srjalans'][$m]['no_srjalan'] }}:</div>
+                    <div class="ms-1">{{ $notasXsubtotal[$k]['ekspedisis'][$m]['ekspedisi_nama'] }} -></div>
                     <div class="ms-1">
-                        @foreach (json_decode($sales_components[$k]['ekspedisis'][$m]['eks_long_ala'],true) as $long)
+                        @foreach (json_decode($notasXsubtotal[$k]['ekspedisis'][$m]['eks_long_ala'],true) as $long)
                         <div>{{ $long }}</div>
                         @endforeach
                     </div>
 
-                    @if ($sales_components[$k]['ekspedisis'][$m]['transit_nama']!==null)
+                    @if ($notasXsubtotal[$k]['ekspedisis'][$m]['transit_nama']!==null)
                     <div class="ms-1">via -></div>
-                    <div class="ms-1">{{ $sales_components[$k]['ekspedisis'][$m]['transit_nama'] }} -></div>
-                    @foreach (json_decode($sales_components[$k]['ekspedisis'][$m]['trans_long_ala'],true) as $long)
+                    <div class="ms-1">{{ $notasXsubtotal[$k]['ekspedisis'][$m]['transit_nama'] }} -></div>
+                    @foreach (json_decode($notasXsubtotal[$k]['ekspedisis'][$m]['trans_long_ala'],true) as $long)
                         <div>{{ $long }}</div>
                     @endforeach
                     @endif
@@ -133,21 +138,37 @@
     </table>
 </div>
 
-{{-- Test Table --}}
 <div class="container mt-3">
-    <h5>Test Table Download</h5>
-    <button class="btn btn-primary" onclick="downloadRekapPenjualan('#rekap-penjualan2');">Dowload Excel</button>
+    <h5>Nota + Detail Items</h5>
+    <table id="rekap-penjualan2" class="fancy-table w-100">
+        <tr><th>Tgl.</th><th>Ref.</th><th>Customer</th><th>Short</th><th>Nota Item</th><th>Jml.</th><th>Harga</th><th>Total Penjualan</th></tr>
+        @for ($k = 0; $k < count($notaXdetail_item); $k++)
+        @for ($l = 0; $l < count($notaXdetail_item[$k]['spk_produk_notas']); $l++)
+        <tr>
+            <td>{{ $notaXdetail_item[$k]['tanggal'] }}</td><td>{{ $notaXdetail_item[$k]['no_nota'] }}</td>
+            <td>{{ $notaXdetail_item[$k]['nama_pelanggan'] }}</td>
+            <td>{{ $notaXdetail_item[$k]['short'] }}</td>
+            <td class="">{{ $notaXdetail_item[$k]['spk_produk_notas'][$l]['nama_nota'] }}</td>
+            <td class="">{{ $notaXdetail_item[$k]['spk_produk_notas'][$l]['jumlah'] }}</td>
+            <td class="toFormatCurrencyRp">{{ $notaXdetail_item[$k]['spk_produk_notas'][$l]['harga'] }}</td>
+            <td class="toFormatCurrencyRp">{{ $notaXdetail_item[$k]['spk_produk_notas'][$l]['harga_t'] }}</td>
+        </tr>
+        @endfor
+        @endfor
+    </table>
 </div>
 
-<div class="container mt-3">
-    <h5>Daftar Nota Terkait</h5>
-    <table id="rekap-penjualan2" class="fancy-table w-100">
+{{-- Versi Untuk Download --}}
+<div class="container mt-3 d-none">
+    <h5>Nota + Subtotal - Download Version</h5>
+    <table id="nota_plus_subtotal-{{ $tahun_set }}_{{ $bulan_2_digit }}_{{ $tanggal_2_digit }}" class="fancy-table w-100">
         <tr><th>No.</th><th>Tanggal</th><th>Pelanggan</th><th>Harga</th><th>Subtotal</th></tr>
-        @for ($k = 0; $k < count($sales_components); $k++)
+        @for ($k = 0; $k < count($notasXsubtotal); $k++)
         <tr>
-            <td>{{ $sales_components[$k]['no_nota'] }}</td><td>{{ date('d-m-Y',strtotime($sales_components[$k]['created_at'])) }}</td><td>{{ $sales_components[$k]['pelanggan_nama'] }}</td><td class="toFormatCurrencyRp">{{ $sales_components[$k]['harga_total'] }}</td>
-            @if ($sales_components[$k]['subtotal']!==null)
-            <td class="toFormatCurrencyRp">{{ $sales_components[$k]['subtotal'] }}</td>
+            <td>{{ $notasXsubtotal[$k]['no_nota'] }}</td><td>{{ date('d-m-Y',strtotime($notasXsubtotal[$k]['created_at'])) }}</td>
+            <td>{{ $notasXsubtotal[$k]['pelanggan_nama'] }}</td><td class="">{{ $notasXsubtotal[$k]['harga_total'] }}</td>
+            @if ($notasXsubtotal[$k]['subtotal']!==null)
+            <td class="">{{ $notasXsubtotal[$k]['subtotal'] }}</td>
             @else
             <td></td>
             @endif
@@ -156,7 +177,30 @@
     </table>
 </div>
 
+<div class="container mt-3 d-none">
+    <h5>Nota + Detail Items - Download Version</h5>
+    <table id="nota_plus_detail_item-{{ $tahun_set }}_{{ $bulan_2_digit }}_{{ $tanggal_2_digit }}" class="fancy-table w-100">
+        <tr><th>Tgl.</th><th>Ref.</th><th>Customer</th><th>Short</th><th>Nota Item</th><th>Jml.</th><th>Harga</th><th>Total Penjualan</th></tr>
+        @for ($k = 0; $k < count($notaXdetail_item); $k++)
+        @for ($l = 0; $l < count($notaXdetail_item[$k]['spk_produk_notas']); $l++)
+        <tr>
+            <td>{{ $notaXdetail_item[$k]['tanggal'] }}</td><td>{{ $notaXdetail_item[$k]['no_nota'] }}</td>
+            <td>{{ $notaXdetail_item[$k]['nama_pelanggan'] }}</td>
+            <td>{{ $notaXdetail_item[$k]['short'] }}</td>
+            <td class="">{{ $notaXdetail_item[$k]['spk_produk_notas'][$l]['nama_nota'] }}</td>
+            <td class="">{{ $notaXdetail_item[$k]['spk_produk_notas'][$l]['jumlah'] }}</td>
+            <td class="">{{ $notaXdetail_item[$k]['spk_produk_notas'][$l]['harga'] }}</td>
+            <td class="">{{ $notaXdetail_item[$k]['spk_produk_notas'][$l]['harga_t'] }}</td>
+        </tr>
+        @endfor
+        @endfor
+    </table>
+</div>
+
+
+
 <div style="height: 5rem"></div>
+
 @endif
 
 
@@ -177,9 +221,9 @@ function showSalesDetail(params) {
     });
 }
 
-function downloadRekapPenjualan(tableToExcelDownload) {
-    $(tableToExcelDownload).table2excel({
-        filename:'rekap_penjualan.xls'
+function downloadRekapPenjualan(idTableToExcelDownload) {
+    $(`#${idTableToExcelDownload}`).table2excel({
+        filename:`${idTableToExcelDownload}.xls`
     });
 }
 </script>

@@ -19,11 +19,24 @@ class PenjualanHelper extends Model
             // Alamat pelanggan
 
         }
+        /**Penjualan Total Spesifik Pelanggan */
+        $pelanggan_ids_unique=array_unique($pelanggan_ids);
+        $penjualan_totals=array();
+        foreach ($pelanggan_ids_unique as $pel_id) {
+            $notas_spesific_pelanggan=$notas->where('pelanggan_id',$pel_id);
+            $penjualan_total=0;
+            foreach ($notas_spesific_pelanggan as $nota) {
+                $penjualan_total+=$nota['harga_total'];
+            }
+            $penjualan_totals[]=$penjualan_total;
+            $arr_notas_spesific_pelanggan[]=$notas_spesific_pelanggan;
+        }
         $pelanggan_namas_unique=array_unique($pelanggan_namas);
         // dump($pelanggan_namas);
         // dd($pelanggan_namas_unique);
 
         $notasXsubtotal=array();
+
 
         for ($i=0; $i < count($pelanggan_namas_unique); $i++) {
 
@@ -135,15 +148,18 @@ class PenjualanHelper extends Model
         $rekap_penjualan_detail_items=array();
         $k=0;
         foreach ($notas as $nota) {
+            $spk_produk_notas=SpkProdukNota::where('nota_id',$nota['id'])->get();
             $rekap_penjualan_detail_item=[
                 'tanggal'=>date('d-m-Y',strtotime($nota['created_at'])),
+                'no_nota'=>$nota['no_nota'],
                 'nama_pelanggan'=>$pelanggan_namas[$k],
-                'short'=>''
+                'short'=>$nota['cust_short'],
+                'spk_produk_notas'=>$spk_produk_notas,
             ];
             $rekap_penjualan_detail_items[]=$rekap_penjualan_detail_item;
             $k++;
         }
 
-        return array($notasXsubtotal, $rekap_penjualan_detail_items);
+        return array($pelanggan_namas_unique,$penjualan_totals,$notasXsubtotal, $rekap_penjualan_detail_items);
     }
 }

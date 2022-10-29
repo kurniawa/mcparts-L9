@@ -30,6 +30,18 @@
     </div>
 </div>
 
+<div class="container mt-3">
+    <h2>Spec/Komponen Produk</h2>
+    <div class="d-xxl-flex">
+        @for ($i=0,$k=0; $i < count($specs); $i++,$k++)
+        @if ($k===count($colors))
+        @php $k=0 @endphp
+        @endif
+        <a class="btn btn-{{ $colors[$k] }} mt-1" href="{{ route('daftarSpec',['tipe'=>$specs[$i],'mode'=>'view']) }}">+{{ $specs[$i] }}</a>
+        @endfor
+    </div>
+</div>
+
 <script>
 
 </script>
