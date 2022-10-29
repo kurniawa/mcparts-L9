@@ -5,28 +5,8 @@ namespace App\Http\Controllers;
 use App\Helpers\SiteSettings;
 use App\Models\Bahan;
 use App\Models\BahanHarga;
-use App\Models\Busastang;
-use App\Models\BusastangHarga;
-use App\Models\Jokassy;
-use App\Models\JokassyHarga;
-use App\Models\Kombinasi;
-use App\Models\KombinasiHarga;
-use App\Models\Motif;
-use App\Models\MotifHarga;
-use App\Models\Rol;
-use App\Models\RolHarga;
-use App\Models\Rotan;
-use App\Models\RotanHarga;
 use App\Models\SiteSetting;
 use App\Models\Spec;
-use App\Models\SpecHarga;
-use App\Models\Standar;
-use App\Models\Stiker;
-use App\Models\StikerHarga;
-use App\Models\Tankpad;
-use App\Models\TankpadHarga;
-use App\Models\Tsixpack;
-use App\Models\TsixpackHarga;
 use App\Models\Varian;
 use App\Models\Variasi;
 use App\Models\VariasiHarga;
@@ -45,7 +25,7 @@ class ProdukSpecController extends Controller
         return view('produk.tambah-produk',$data);
     }
 
-    public function daftarSpec($mode,Request $request)
+    public function daftarSpec(Request $request)
     {
         SiteSettings::loadNumToZero();
         $get=$request->query();
@@ -96,11 +76,6 @@ class ProdukSpecController extends Controller
         }
 
         $menus=null;
-        if ($mode==='view') {
-            $menus=[
-                ['route'=>'daftarSpec','nama'=>"+$tipe",'method'=>'get','params'=>[['name'=>'tipe','value'=>$tipe],],'parameters'=>['mode'=>'add']],
-            ];
-        }
 
         $data=[
             'go_back'=>true,'navbar_bg'=>'bg-color-orange-2',
@@ -146,18 +121,14 @@ class ProdukSpecController extends Controller
         ];
         // dd($data);
         // dd($motif_hargas);
-        if ($mode==='view') {
-            return view('produk.daftar-spec',$data);
-        } else {
-            return view('produk.tambah-spec',$data);
-        }
+        return view('produk.daftar-spec',$data);
     }
 
     public function tambahSpecDB(Request $request)
     {
         $load_num = SiteSetting::find(1);
         $run_db = true; // true apabila siap melakukan CRUD ke DB
-        $success_logs = $warning_logs = $error_logs = null;
+        $success_logs=$warning_logs=$error_logs='';
         $main_log=null;
         if ($load_num->value > 0) {
             $run_db = false;
@@ -165,18 +136,54 @@ class ProdukSpecController extends Controller
         }
 
         $post = $request->input();
-        dd($post);
+        // dd($post);
+        if (!isset($post['nama'])) {
+            $request->validate(
+                ['error'=>'required'],
+                ['error.required'=>'Nama perlu diisi!']
+            );
+        }
         $tipe=$post['tipe'];
+        $nama=$post['nama'];
+        $harga=0;
+        if (isset($post['harga'])) {
+            $harga=$post['harga'];
+        }
+        $grade_bahan=null;
+        if (isset($post['grade_bahan'])) {
+            $grade_bahan=$post['grade_bahan'];
+        }
 
-        $route='produks';
-        $route_btn='Ke Daftar Produk';
-        $params=null;
-        $data = [
-            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
-            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
-        ];
+        /** Mulai Insert */
+        if ($run_db) {
+            if ($tipe==='Bahan') {
+                $bahan=Bahan::create([
+                    'nama'=>$nama,
+                    'grade_bahan'=>$grade_bahan,
+                ]);
+                $success_logs.="_ $tipe baru telah diinput ke Database: $bahan[nama]";
+                $bahan_harga=BahanHarga::create([
+                    'bahan_id'=>$bahan['id'],
+                    'harga'=>$harga
+                ]);
+                $success_logs.="_ Harga untuk $tipe baru tersebut ditetapkan menjadi: $bahan_harga[harga]";
+            } elseif ($tipe==='Variasi') {
+                $variasi=Variasi::create([
+                    'nama'=>$nama,
+                ]);
+                $success_logs.="_ $tipe baru telah diinput ke Database: $variasi[nama]";
+                $variasi_harga=VariasiHarga::create([
+                    'variasi_id'=>$variasi['id'],
+                    'harga'=>$harga
+                ]);
+                $success_logs.="_ Harga untuk $tipe baru tersebut ditetapkan menjadi: $variasi_harga[harga]";
+            }
 
-        return view('layouts.db-result', $data);
+            $load_num->value+=1;
+            $load_num->save();
+        }
+
+        return back()->with(['_success'=>$success_logs,'_warning'=>$warning_logs,'_error'=>$error_logs]);
     }
 
     public function editSpec()
@@ -190,15 +197,45 @@ class ProdukSpecController extends Controller
         // dump($data);
         return view('produk.edit-spec',$data);
     }
-    public function hapusSpec()
+    public function hapusSpec(Request $request)
     {
-        SiteSettings::loadNumToZero();
+        $load_num = SiteSetting::find(1);
+        $run_db = true; // true apabila siap melakukan CRUD ke DB
+        $success_logs = $warning_logs = $error_logs = '';
+        $main_log=null;
+        if ($load_num->value > 0) {
+            $run_db = false;
+            $error_logs.= 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+        }
 
-        $data=[
-            'go_back'=>true,'navbar_bg'=>'bg-color-orange-2',
-        ];
-        // dd($data);
-        // dump($data);
-        return view('produk.tambah-produk',$data);
+        $post=$request->post();
+        $tipe=$post['tipe'];
+        $id=$post['id'];
+        // dd($post);
+
+        if ($run_db) {
+            if ($tipe==='Bahan') {
+                $bahan=Bahan::find($id);
+                $bahan->delete();
+                $warning_logs.="_ $tipe $bahan[nama] serta histori harganya telah dihapus dari Database!";
+            } elseif ($tipe==='Variasi') {
+                $variasi=Variasi::find($id);
+                $variasi->delete();
+                $warning_logs.="_ $tipe $variasi[nama] serta histori harganya telah dihapus dari Database!";
+            }
+            $load_num->value+=1;
+            $load_num->save();
+        }
+        // session([
+        //     '_success'=>$success_logs,
+        //     '_warning'=>$warning_logs,
+        //     '_error'=>$error_logs
+        // ]);
+        // $request->session()->put('_success',$success_logs);
+        // $request->session()->put('_warning',$warning_logs);
+        // $request->session()->put('_error',$error_logs);
+        // $request->session()->flash('_success',$success_logs);
+
+        return back()->with(['_success'=>$success_logs,'_warning'=>$warning_logs,'_error'=>$error_logs]);
     }
 }

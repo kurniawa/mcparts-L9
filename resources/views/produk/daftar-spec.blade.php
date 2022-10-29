@@ -10,16 +10,71 @@
     </div>
 </div>
 
+<div class="container mt-2">
+    <div class="d-flex align-items-center">
+        <span class="fw-bold">Tambah Komponen Produk: {{ $tipe }}</span>
+    </div>
+</div>
+
+<div class="container mt-2">
+    <form action="{{ route('tambahSpecDB') }}" method="POST">
+        @csrf
+        <label for="ipt-nama">Nama {{ $tipe }}</label>
+        <input id="ipt-nama" type="text" class="form-control" name="nama">
+        @if ($tipe==='Bahan')
+        <label for="grade_bahan" class="mt-2">Grade {{ $tipe }} (optional)</label>
+        <select name="grade_bahan" id="grade_bahan" class="form-select">
+            <option value="">-</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+        </select>
+        @endif
+        <label for="ipt-harga" class="mt-2">Harga {{ $tipe }}</label>
+        <input id="ipt-harga" type="number" class="form-control" name="harga">
+
+        <input type="hidden" name="tipe" value="{{ $tipe }}">
+        <input type="hidden" name="error" class="@error('error') is-invalid @enderror">
+        @error('error')
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
+        @enderror
+        <button class="btn btn-warning mt-3">Tambah {{ $tipe }}</button>
+    </form>
+</div>
+
+{{-- @php
+    dump(session()->all())
+@endphp --}}
+@if (session()->has('_success') && session('_success')!=='' && session('_success')!==null)
+<div class="container alert alert-success mt-2">
+    {{ session('_success') }}
+</div>
+@endif
+@if (session()->has('_warning') && session('_warning')!=='' && session('_warning')!==null)
+<div class="container alert alert-warning mt-2">
+    {{ session('_warning') }}
+</div>
+@endif
+@if (session()->has('_error') && session('_error')!=='' && session('_error')!==null)
+<div class="container alert alert-warning mt-2">
+    {{ session('_error') }}
+</div>
+@endif
+
 <div class="container mt-3">
+    <h5>Daftar {{ $tipe }}:</h5>
     <table class="table-simple">
         <tr><th>Nama {{ $tipe }}</th><th>Harga</th><th>Opsi</th></tr>
         @if ($tipe==='Bahan')
         @for ($i = 0; $i < count($bahans); $i++)
         <tr>
-            <td>{{ $bahans[$i]['nama'] }}</td><td>{{ $bahan_hargas[$i]['harga'] }}</td>
+            <td>{{ $bahans[$i]['nama'] }}</td>
+            <td>@if ($bahan_hargas[$i]!==null){{ $bahan_hargas[$i]['harga'] }}@else-@endif</td>
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $bahans[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -34,10 +89,12 @@
         @elseif ($tipe==='Variasi')
         @for ($i = 0; $i < count($variasis); $i++)
         <tr>
-            <td>{{ $variasis[$i]['nama'] }}</td><td>{{ $variasi_hargas[$i]['harga'] }}</td>
+            <td>{{ $variasis[$i]['nama'] }}</td>
+            <td>@if ($variasi_hargas[$i]!==null){{ $variasi_hargas[$i]['harga'] }}@else-@endif</td>
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $variasis[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -56,6 +113,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $varians[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -74,6 +132,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $ukurans[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -92,6 +151,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $jahits[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -115,6 +175,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $kombinasis[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -138,6 +199,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $motifs[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -156,6 +218,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $tsixpacks[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -174,6 +237,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $standars[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -192,6 +256,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $tankpads[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -210,6 +275,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $stikers[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -228,6 +294,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $busastangs[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -246,6 +313,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $jokassies[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -264,6 +332,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $rols[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -282,6 +351,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $rotans[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -300,6 +370,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $lists[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -318,6 +389,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $alass[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -336,6 +408,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $busas[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -354,6 +427,7 @@
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">
+                        @csrf
                         <input type="hidden" name="tipe" value="{{ $tipe }}">
                         <input type="hidden" name="id" value="{{ $grade_bahans[$i]['id'] }}">
                         <button type="submit"><img style="width: 1rem" src="{{ asset('img/icons/delete.svg') }}" alt=""></button>
@@ -368,6 +442,8 @@
         @endif
     </table>
 </div>
+
+<div style="height: 5rem"></div>
 
 <script>
 

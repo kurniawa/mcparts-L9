@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('variasi_hargas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('variasi_id');
+            $table->foreignId('variasi_id')->constrained()->onDelete('CASCADE');
             $table->integer("harga");
             // Karena suka ditanya, ini harga dari kapan naik nya misalnya.
             $table->timestamps();

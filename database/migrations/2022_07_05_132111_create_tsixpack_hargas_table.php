@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('tsixpack_hargas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tsixpack_id');
+            $table->foreignId('tsixpack_id')->constrained()->onDelete('CASCADE');
             // $table->char('grade_bahan', 1);
             $table->enum("grade_bahan", ['A', 'B'])->nullable();
             // $table->foreignId('bahan_id')->nullable();

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('bahans', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('grade', 2)->nullable(); // ada grade A dan B
+            $table->enum('grade', ['A','B'])->nullable(); // ada grade A dan B
             $table->string('keterangan', 1000)->nullable();
             $table->timestamps();
         });

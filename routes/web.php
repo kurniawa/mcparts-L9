@@ -298,7 +298,7 @@ Route::controller(ProdukController::class)->group(function ()
 Route::controller(ProdukSpecController::class)->group(function ()
 {
     Route::get('/produk/produk-dan-specs', 'produkDanSpecs')->name('produkDanSpecs')->middleware('auth');
-    Route::get('/produk/daftar-spec/{mode}', 'daftarSpec')->name('daftarSpec')->middleware('auth');
+    Route::get('/produk/daftar-spec', 'daftarSpec')->name('daftarSpec')->middleware('auth');
     Route::post('/produk/tambah-spec-db', 'tambahSpecDB')->name('tambahSpecDB')->middleware('auth');
     Route::get('/produk/edit-spec', 'editSpec')->name('editSpec')->middleware('auth');
     Route::post('/produk/hapus-spec', 'hapusSpec')->name('hapusSpec')->middleware('auth');

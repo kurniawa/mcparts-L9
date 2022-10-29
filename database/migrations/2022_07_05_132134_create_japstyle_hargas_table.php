@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('japstyle_hargas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('japstyle_id');
+            $table->foreignId('japstyle_id')->constrained()->onDelete('CASCADE');
             // $table->char('tipe_bahan', 1);
             $table->enum("tipe_bahan", ['A', 'B'])->nullable();
             $table->integer("harga");

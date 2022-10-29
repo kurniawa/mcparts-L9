@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('standar_variasis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('standar_id');
+            $table->foreignId('standar_id')->constrained()->onDelete('CASCADE');
             $table->foreignId('bahan_id')->nullable();
             $table->enum('grade_bahan', ['A', 'B'])->nullable();
             $table->enum('jahit_kepala', ['yes', 'no'])->default('yes');

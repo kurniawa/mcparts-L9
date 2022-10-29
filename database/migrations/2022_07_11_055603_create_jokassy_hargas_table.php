@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('jokassy_hargas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jokassy_id');
+            $table->foreignId('jokassy_id')->constrained()->onDelete('CASCADE');
             $table->integer("harga");
             $table->timestamps();
         });

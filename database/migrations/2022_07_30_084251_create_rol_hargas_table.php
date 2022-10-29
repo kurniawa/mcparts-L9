@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('rol_hargas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rol_id');
+            $table->foreignId('rol_id')->constrained()->onDelete('CASCADE');
             $table->integer('harga');
             $table->timestamps();
         });
