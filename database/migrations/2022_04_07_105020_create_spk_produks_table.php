@@ -34,6 +34,8 @@ return new class extends Migration
             $table->string('data_srjalan')->nullable();
             $table->string('status_nota')->nullable()->default('BELUM');
             $table->string('status_srjalan')->nullable()->default('BELUM');
+            // Ketika SPK Selesai: tanggal, nama_produk
+            $table->string('nama_produk')->nullable();
             $table->timestamp('finished_at')->nullable();
             $table->timestamps();
             // $table->timestamps();

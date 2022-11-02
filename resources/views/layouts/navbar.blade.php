@@ -46,6 +46,7 @@
                     <input type="hidden" name="{{ $param['name'] }}" value="{{ $param['value'] }}">
                     @endforeach
                     <button type="submit" class="nav-link btn btn-danger fw-bold" style="color: white">{{ $menu['nama'] }}</button>
+                    @csrf
                 </form>
               </li>
               @endif

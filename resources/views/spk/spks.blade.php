@@ -18,10 +18,13 @@
     </div>
 </div>
 
-<div class="container">
-    <form method='GET' action="{{ route('SPK-Detail') }}" class="mt-1">
-    <table class="table table-info table-striped">
-    @for ($i = 0; $i < count($spks); $i++)
+@if (session()->has('_success'))
+<div class="container mt-2 alert alert-success">{{ session('_success') }}</div>
+@endif
+
+<div class="container mt-2">
+    <table class="table table-light table-striped">
+        @for ($i = 0; $i < count($spks); $i++)
         <tr style="vertical-align: middle">
             <td><div class='rounded-circle d-flex align-items-center justify-content-center font-weight-bold' style='background-color:salmon;width:2rem;height:2rem'>{{ $pelanggans[$i]['initial'] }}</div></td>
             <td>
@@ -49,13 +52,24 @@
                     @for ($j = 0; $j < count($arr_spk_produks[$i]); $j++)
                     <tr><td>{{ $arr_produks[$i][$j]['nama'] }}</td><td>{{ $arr_spk_produks[$i][$j]['jml_t'] }}</td></tr>
                     @endfor
-                    <tr><td colspan="2" class='text-end'><button type="submit" name='spk_id' value="{{ $spks[$i]['id'] }}" class="btn btn-warning btn-sm">Detail</button></td></tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class='d-flex justify-content-end'>
+                                <form action="{{ route('spkFixData') }}" method="POST" style="margin:0">
+                                    @csrf
+                                    <input type="hidden" name="spk_id" value="{{ $spks[$i]['id'] }}">
+                                    <button type="submit" class="btn btn-dd btn-sm">Fix</button>
+                                </form>
+                                <a href="{{ route('spkSelesai',['spk_id'=>$spks[$i]['id']]) }}" class="ms-1 btn btn-primary btn-sm">Sls</a>
+                                <a href="{{ route('SPK-Detail',['spk_id'=>$spks[$i]['id']]) }}" class="ms-1 btn btn-warning btn-sm">Detail</a>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
             </td>
         </tr>
     @endfor
     </table>
-    </form>
 </div>
 
 <script>

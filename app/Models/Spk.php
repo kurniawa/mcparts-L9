@@ -234,4 +234,175 @@ class Spk extends Model
         $spk->save();
     }
 
+    static function proceedSPK($temp_spk)
+    {
+        $user=User::find($temp_spk['user_id'])->toArray();
+        $user_now=auth()->user();
+
+        // Data Pelanggan
+        $pelanggan=Pelanggan::find($temp_spk['pelanggan_id']);
+        $pelanggan_nama=$pelanggan['nama'];
+
+        // Data Pelanggan - Alamat
+        $cust_long_ala=$cust_short=null;
+        $pelanggan_alamat=PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->first();
+        if ($pelanggan_alamat!==null) {
+            $alamat=Alamat::find($pelanggan_alamat['alamat_id']);
+            $cust_long_ala=$alamat['long'];
+            $cust_short=$alamat['short'];
+        }
+        // Data Pelanggan - Kontak
+        $cust_kontak=PelangganKontak::where('pelanggan_id',$pelanggan['id'])->where('is_aktual','yes')->first();
+
+        // Data Reseller
+        $reseller=$reseller_id=$reseller_nama=$reseller_long_ala=$reseller_short=$reseller_kontak=null;
+
+        if ($temp_spk['reseller_id']!==null) {
+            $reseller=Pelanggan::find($temp_spk['reseller_id']);
+            $reseller_id=$reseller['id'];
+            $reseller_nama=$reseller['nama'];
+
+            // Data Reseller - Alamat
+            $reseller_alamat=PelangganAlamat::where('pelanggan_id',$reseller_id)->where('tipe','UTAMA')->first();
+            if ($reseller_alamat!==null) {
+                $alamat_reseller=Alamat::find($reseller_alamat['alamat_id']);
+                $reseller_long_ala=$alamat_reseller['long'];
+                $reseller_short=$alamat_reseller['short'];
+            }
+            // Data Reseller - Kontak
+            $reseller_kontak=PelangganKontak::where('pelanggan_id',$reseller_id)->where('is_aktual','yes')->first();
+        }
+
+        $new_spk=Spk::create([
+            'pelanggan_id'=>$temp_spk['pelanggan_id'],
+            'reseller_id'=>$temp_spk['reseller_id'],
+            'judul'=>$temp_spk['judul'],
+            'created_by'=>$user['username'],
+            'updated_by'=>$user_now['username'],
+            'created_at'=>$temp_spk['created_at'],
+            'pelanggan_nama'=>$pelanggan_nama,
+            'cust_long_ala'=>$cust_long_ala,
+            'cust_short'=>$cust_short,
+            'cust_kontak'=>$cust_kontak,
+            'reseller_nama'=>$reseller_nama,
+            'reseller_long_ala'=>$reseller_long_ala,
+            'reseller_short'=>$reseller_short,
+            'reseller_kontak'=>$reseller_kontak,
+
+        ]);
+
+        // update No SPK
+        $new_spk->update([
+            'no_spk'=>"SPK-$new_spk[id]"
+        ]);
+
+        return $new_spk;
+    }
+
+    static function getOneSPKNComponents($spk_id)
+    {
+        $spk = Spk::find($spk_id);
+        // Data Pelanggan
+        $pelanggan = Pelanggan::find($spk['pelanggan_id']);
+        $pelanggan_nama=$spk['pelanggan_nama'];
+        // Data Pelanggan - Alamat
+        $cust_long_ala=$spk['cust_long_ala'];
+        $cust_short=$spk['cust_short'];
+        // Data Pelanggan - Kontak
+        $pelanggan_kontak=$spk['cust_kontak'];
+
+        // Data Reseller
+        $reseller=$reseller_id=$reseller_nama=$reseller_long_ala=$reseller_short=$reseller_kontak=null;
+        if ($spk['reseller_id']!==null) {
+            $reseller=Pelanggan::find($spk['reseller_id']);
+            $reseller_id=$reseller['id'];
+            $reseller_nama=$reseller['nama'];
+
+            // Data Reseller - Alamat
+            $reseller_long_ala=$spk['reseller_long_ala'];
+            $reseller_short=$spk['reseller_short'];
+            // Data Reseller - Kontak
+            $reseller_kontak=$spk['reseller_kontak'];
+        }
+
+        // Get SpkProduk dan produks
+        $spk_produks = SpkProduk::where('spk_id', $spk['id'])->get();
+        $produks=array();
+        foreach ($spk_produks as $spk_produk) {
+            $produk = Produk::find($spk_produk['produk_id']);
+            $produks[]=$produk;
+        }
+
+        // dump('$spk_produks:', $spk_produks);
+        // dump('$spk_produks:', $spk_produks);
+        $data=[
+            'spk' => $spk,
+            'pelanggan' => $pelanggan,
+            'reseller' => $reseller,
+            'reseller_id' => $reseller_id,
+            'spk_produks' => $spk_produks,
+            'produks' => $produks,
+            'pelanggan_nama' => $pelanggan_nama,
+            'cust_long_ala' => $cust_long_ala,
+            'cust_short' => $cust_short,
+            'cust_kontak' => $pelanggan_kontak,
+            'reseller_nama' => $reseller_nama,
+            'reseller_long_ala' => $reseller_long_ala,
+            'reseller_short' => $reseller_short,
+            'reseller_kontak' => $reseller_kontak,
+        ];
+
+        return $data;
+    }
+
+    static function fixDataSPK($spk_id)
+    {
+        $spk = Spk::find($spk_id);
+        // Data Pelanggan
+        $pelanggan = Pelanggan::find($spk['pelanggan_id']);
+        $pelanggan_nama=$pelanggan['nama'];
+        // Data Pelanggan - Alamat
+        $cust_long_ala=$cust_short=null;
+        $pelanggan_alamat=PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->first();
+        if ($pelanggan_alamat!==null) {
+            $alamat=Alamat::find($pelanggan_alamat['alamat_id']);
+            $cust_long_ala=$alamat['long'];
+            $cust_short=$alamat['short'];
+        }
+        // Data Pelanggan - Kontak
+        $cust_kontak=PelangganKontak::where('pelanggan_id',$pelanggan['id'])->where('is_aktual','yes')->first();
+
+        // Data Reseller
+        $reseller=$reseller_id=$reseller_nama=$reseller_long_ala=$reseller_short=$reseller_kontak=null;
+        if ($spk['reseller_id']!==null) {
+            $reseller=Pelanggan::find($spk['reseller_id']);
+            $reseller_id=$reseller['id'];
+            $reseller_nama=$reseller['nama'];
+
+            // Data Reseller - Alamat
+            $reseller_alamat=PelangganAlamat::where('pelanggan_id',$reseller_id)->where('tipe','UTAMA')->first();
+            if ($reseller_alamat!==null) {
+                $alamat_reseller=Alamat::find($reseller_alamat['alamat_id']);
+                $reseller_long_ala=$alamat_reseller['long'];
+                $reseller_short=$alamat_reseller['short'];
+            }
+            // Data Reseller - Kontak
+            $reseller_kontak=PelangganKontak::where('pelanggan_id',$reseller_id)->where('is_aktual','yes')->first();
+        }
+
+        $spk->update([
+            'pelanggan_nama'=>$pelanggan_nama,
+            'cust_long_ala'=>$cust_long_ala,
+            'cust_short'=>$cust_short,
+            'cust_kontak'=>$cust_kontak,
+            'reseller_nama'=>$reseller_nama,
+            'reseller_long_ala'=>$reseller_long_ala,
+            'reseller_short'=>$reseller_short,
+            'reseller_kontak'=>$reseller_kontak,
+        ]);
+        $_success="_ Data SPK telah di repair/fix.";
+
+        return $_success;
+    }
+
 }

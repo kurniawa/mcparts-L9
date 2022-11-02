@@ -2539,7 +2539,7 @@ class PelangganSeeder extends Seeder
                 'is_reseller' => $is_reseller,
                 'reseller_id' => $reseller_id,
             ]);
-            dump($pelanggan_new['nama']);
+            // dump($pelanggan_new['nama']);
             if ($pelanggan[$i]['alamat']) {
                 foreach ($pelanggan[$i]['alamat'] as $alamat) {
                     $alamat_new = Alamat::create($alamat);

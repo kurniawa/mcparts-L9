@@ -63,16 +63,13 @@ class Ekspedisi extends Model
         $srjalan->cust_long_ala=$cust_long_ala;
 
         // Kontak Ekspedisi
-        $ekspedisi_nomor_kontak=null;
+        $eks_kontak=null;
         if ($srjalan['kontak_ekspedisi_id']!==null) {
-            $ekspedisi_kontak=EkspedisiKontak::find($srjalan['kontak_ekspedisi_id']);
+            $eks_kontak=EkspedisiKontak::find($srjalan['kontak_ekspedisi_id']);
         } else {
-            $ekspedisi_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi['id'])->where('is_aktual','yes')->first();
+            $eks_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi['id'])->where('is_aktual','yes')->first();
         }
-        if ($ekspedisi_kontak!==null) {
-            $ekspedisi_nomor_kontak=$ekspedisi_kontak['nomor'];
-        }
-        $srjalan->eks_kontak=$ekspedisi_nomor_kontak;
+        $srjalan->eks_kontak=$eks_kontak;
 
         // Transit
         $transit_nama=null;
@@ -105,18 +102,15 @@ class Ekspedisi extends Model
         $srjalan->trans_long_ala=$trans_long_ala;
 
         // Kontak Transit
-        $transit_nomor_kontak=null;
+        $trans_kontak=null;
         if ($srjalan['transit_id']!==null) {
             if ($srjalan['kontak_transit_id']!==null) {
-                $transit_kontak=EkspedisiKontak::find($srjalan['kontak_ekspedisi_id']);
+                $trans_kontak=EkspedisiKontak::find($srjalan['kontak_ekspedisi_id']);
             } else {
-                $transit_kontak=EkspedisiKontak::where('ekspedisi_id',$transit['id'])->where('is_aktual','yes')->first();
-            }
-            if ($transit_kontak!==null) {
-                $transit_nomor_kontak=$transit_kontak['nomor'];
+                $trans_kontak=EkspedisiKontak::where('ekspedisi_id',$transit['id'])->where('is_aktual','yes')->first();
             }
         }
-        $srjalan->trans_kontak=$transit_nomor_kontak;
+        $srjalan->trans_kontak=$trans_kontak;
         $srjalan->save();
     }
 

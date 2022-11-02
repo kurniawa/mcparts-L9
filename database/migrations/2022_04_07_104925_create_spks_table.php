@@ -30,6 +30,15 @@ return new class extends Migration
             $table->integer('harga_total')->nullable();
             $table->integer('jumlah_sudah_nota')->nullable()->default(0);
             $table->integer('jumlah_sudah_sj')->nullable()->default(0);
+            // SPK Selesai: tanggal, pelanggan_nama, reseller_nama
+            $table->string('pelanggan_nama',100)->nullable();
+            $table->string('cust_long_ala')->nullable();
+            $table->string('cust_short')->nullable();
+            $table->string('cust_kontak')->nullable();
+            $table->string('reseller_nama',100)->nullable();
+            $table->string('reseller_long_ala')->nullable();
+            $table->string('reseller_short')->nullable();
+            $table->string('reseller_kontak')->nullable();
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamp('finished_at')->nullable();

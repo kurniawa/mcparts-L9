@@ -183,4 +183,45 @@ class SpkItemController extends Controller
 
         return view('layouts.db-result', $data);
     }
+
+    public function spkFixData(Request $request)
+    {
+        $_success="";
+        $post=$request->post();
+        $spk_id=$post['spk_id'];
+        $_success.=Spk::fixDataSPK($spk_id);
+        return back()->with(['_success'=>$_success]);
+    }
+
+    public function spkSelesai(Request $request)
+    {
+        SiteSettings::loadNumToZero();
+
+        $get = $request->query();
+        // dd('$get:', $get);
+        $spk_id=$get['spk_id'];
+
+        $data=Spk::getOneSPKNComponents($spk_id);
+        // Setting untuk nama nota khusus pelanggan apabila tersedia
+        $data+=['go_back'=>true,'navbar_bg'=>'bg-color-orange-2'];
+
+        // dump($data);
+        // dd($data);
+        return view('spk.spk-selesai', $data);
+    }
+
+    public function spkSelesaiDB(Request $request)
+    {
+        $_success="";
+        $post=$request->post();
+        $spk_id=$post['spk_id'];
+        $finished_at=$post['tgl_selesai'];
+        // dd($post);
+        $spk=Spk::find($spk_id);
+        $spk->update([
+            'finished_at'=>$finished_at
+        ]);
+        $_success.="_ Tanggal Selesai untuk $spk[no_spk] telah ditetapkan.";
+        return redirect()->route('SPK')->with(['_success'=>$_success]);
+    }
 }

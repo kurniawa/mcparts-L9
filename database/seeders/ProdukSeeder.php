@@ -4014,7 +4014,7 @@ class ProdukSeeder extends Seeder
 
         for ($i = 0; $i < count($produk); $i++) {
         // for ($i = 0; $i < 20; $i++) {
-            dump($produk[$i]['nama']);
+            // dump($produk[$i]['nama']);
             $inserted_produk = Produk::create([
                 'tipe' => $produk[$i]['tipe'],
                 'nama' => $produk[$i]['nama'],
@@ -4071,7 +4071,7 @@ class ProdukSeeder extends Seeder
 
             if (isset($produk[$i]['ukuran']) && $produk[$i]['ukuran'] !== null) {
                 $ukuran = Spec::where('kategori', 'ukuran')->where('nama', $produk[$i]['ukuran'])->first();
-                dump("ukuran: $ukuran[nama]");
+                // dump("ukuran: $ukuran[nama]");
                 ProdukSpec::create([
                     'produk_id' => $inserted_produk['id'],
                     'spec_id' => $ukuran['id']

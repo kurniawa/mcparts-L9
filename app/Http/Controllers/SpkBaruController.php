@@ -346,38 +346,21 @@ class SpkBaruController extends Controller
         }
         /**END: PEMBATALAN */
 
-        /**PROCEED SPK */
-        $temp_spk=TempSpk::find($temp_spk_id);
-        $temp_spk_produks=TempSpkProduk::where('temp_spk_id',$temp_spk['id'])->get();
-
-
-        $user=User::find($temp_spk['user_id'])->toArray();
-        $user_now=auth()->user();
-        $data_new_spk = [
-            'pelanggan_id'=>$temp_spk['pelanggan_id'],
-            'reseller_id'=>$temp_spk['reseller_id'],
-            'judul'=>$temp_spk['judul'],
-            'created_by'=>$user['username'],
-            'updated_by'=>$user_now['username'],
-            'created_at'=>$temp_spk['created_at'],
-        ];
-
-        // INSERT SPK GET SPK_ID Karena untuk update jumlah_total dan harga_total
+        /**PROCEED SPK*/
         if ($run_db) {
-            $new_spk = Spk::create($data_new_spk);
-        }
+            // Data dari Temp_spk masuk ke spk - pembuatan spk baru
+            $temp_spk=TempSpk::find($temp_spk_id);
+            $new_spk=Spk::proceedSPK($temp_spk);
+            $success_logs[]="SPK baru telah dibuat. Nomor SPK: $new_spk[no_spk].";
 
-        $jumlah_total = 0;
-        $harga_total = 0;
+            $temp_spk_produks=TempSpkProduk::where('temp_spk_id',$temp_spk_id)->get();
+            // VARIABLE YANG NANTINYA AKAN DIINSERT KE TABLE PRODUKS
+            $jumlah_total=$harga_total=0;
+            for ($i = 0; $i < count($temp_spk_produks); $i++) {
+                $produk_harga = ProdukHarga::where('produk_id', $temp_spk_produks[$i]->produk_id)->first();
+                $produk=Produk::find($temp_spk_produks[$i]->produk_id);
 
-        // VARIABLE YANG NANTINYA AKAN DIINSERT KE TABLE PRODUKS
-        // $temp_spk_produk_ids=array();
-        for ($i = 0; $i < count($temp_spk_produks); $i++) {
-            $produk_harga = ProdukHarga::where('produk_id', $temp_spk_produks[$i]->produk_id)->first();
-            $jumlah_total += $temp_spk_produks[$i]->jumlah;
-            $harga_total += $produk_harga['harga']*$temp_spk_produks[$i]->jumlah;
-            if ($run_db) {
-                DB::table('spk_produks')->insert([
+                $new_spk_produk=SpkProduk::create([
                     'spk_id' => $new_spk['id'],
                     'produk_id' => $temp_spk_produks[$i]->produk_id,
                     'jumlah' => $temp_spk_produks[$i]->jumlah,
@@ -386,26 +369,27 @@ class SpkBaruController extends Controller
                     'harga' => $produk_harga['harga'],
                     'keterangan' => $temp_spk_produks[$i]->keterangan,
                     'status' => 'PROSES',
+                    'nama_produk' => $produk['nama'],
                 ]);
+                array_push($success_logs, "Input Item -> $new_spk_produk[nama_produk] ke Database. Relasi ke $new_spk[no_spk] dibuat.");
+
+                $harga_total+=$new_spk_produk['harga']*$new_spk_produk['jumlah'];
+                $jumlah_total+=$new_spk_produk['jumlah'];
             }
-            // $temp_spk_produk_ids[]=$temp_spk_produks[$i]['id'];
-            array_push($success_logs, 'success_detail: Inserting all item in spk_produk_id.');
-        }
-        // dump($temp_spk_produk_ids);
 
-        // UPDATE JUMLAH TOTAL DAN HARGA TOTAL DI SPK
-        if ($run_db) {
-            $new_spk->harga_total = $harga_total;
-            $new_spk->jumlah_total = $jumlah_total;
-            $new_spk->no_spk = "SPK-$new_spk[id]";
-            $new_spk->save();
+            // UPDATE JUMLAH TOTAL DAN HARGA TOTAL DI SPK
+            $new_spk->update([
+                'jumlah_total'=>$jumlah_total,
+                'harga_total'=>$harga_total,
+            ]);
 
-            $success_logs[] = 'Harga Total dan Jumlah Total SPK diupdate!';
-        }
+            $success_logs[] = 'Harga Total dan Jumlah Total SPK telah diupdate!';
 
-        if ($run_db) {
             $temp_spk->delete();
             array_push($success_logs, 'Related TempSpk deleted and all items in temp_spk_produks deleted.');
+
+            $load_num->value+=1;
+            $load_num->save();
         }
 
         $route = 'SPK';

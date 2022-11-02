@@ -32,7 +32,7 @@ class PelangganEkspedisiController extends Controller
             'label_ekspedisis' => $label_ekspedisis,
             'csrf' => csrf_token(),
         ];
-        dump($data);
+        // dump($data);
         return view('pelanggan.tambah-ekspedisi', $data);
     }
 
@@ -164,5 +164,10 @@ class PelangganEkspedisiController extends Controller
         }
 
         return view('layouts.go-back-page', $data);
+    }
+
+    public function pelanggan_ekspedisi_edit(Request $request)
+    {
+        return redirect()->route('pageInDev');
     }
 }

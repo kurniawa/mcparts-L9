@@ -42,4 +42,14 @@ class UserController extends Controller
         // dd($data);
         return view('admin.control-center', $data);
     }
+
+    public function pageInDev()
+    {
+        $data=[
+            'go_back'=>true,
+            'navbar_bg'=>'bg-color-orange-2'
+        ];
+        return view('layouts.page-in-dev',$data);
+    }
+
 }

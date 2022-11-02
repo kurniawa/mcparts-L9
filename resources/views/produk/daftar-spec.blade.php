@@ -29,16 +29,24 @@
             <option value="B">B</option>
         </select>
         @endif
+        {{-- Tidak semua tipe memiliki Harga --}}
+        @if ($tipe=='Varian')
+        <label for="ipt-kategori" class="mt-2">Kategori {{ $tipe }}</label>
+        <input id="ipt-kategori" type="text" class="form-control" name="kategori">
+        @else
         <label for="ipt-harga" class="mt-2">Harga {{ $tipe }}</label>
         <input id="ipt-harga" type="number" class="form-control" name="harga">
+        @endif
 
-        <input type="hidden" name="tipe" value="{{ $tipe }}">
+        {{-- Validation: Penanganan Input Invalid --}}
         <input type="hidden" name="error" class="@error('error') is-invalid @enderror">
         @error('error')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
         @enderror
+        {{-- End: Pengananan Input Invalid --}}
+        <input type="hidden" name="tipe" value="{{ $tipe }}">
         <button class="btn btn-warning mt-3">Tambah {{ $tipe }}</button>
     </form>
 </div>
@@ -65,7 +73,17 @@
 <div class="container mt-3">
     <h5>Daftar {{ $tipe }}:</h5>
     <table class="table-simple">
-        <tr><th>Nama {{ $tipe }}</th><th>Harga</th><th>Opsi</th></tr>
+        <tr>
+            <th>Nama {{ $tipe }}</th>
+            <th>
+                @if ($tipe==='Varian')
+                Kategori
+                @else
+                Harga
+                @endif
+            </th>
+            <th>Opsi</th>
+        </tr>
         @if ($tipe==='Bahan')
         @for ($i = 0; $i < count($bahans); $i++)
         <tr>
@@ -252,7 +270,8 @@
         @elseif ($tipe==='Tankpad')
         @for ($i = 0; $i < count($tankpads); $i++)
         <tr>
-            <td>{{ $tankpads[$i]['nama'] }}</td><td>{{ $tankpad_hargas[$i]['harga'] }}</td>
+            <td>{{ $tankpads[$i]['nama'] }}</td>
+            <td>@if ($tankpad_hargas[$i]!==null){{ $tankpad_hargas[$i]['harga'] }}@else-@endif</td>
             <td>
                 <div class="d-flex justify-content-center align-items-center">
                     <form action="{{ route('hapusSpec') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus {{ $tipe }} ini?')">

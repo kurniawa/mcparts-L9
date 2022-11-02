@@ -54,6 +54,7 @@ Route::controller(UserController::class)->group(function ()
     Route::get('/home', 'home');
     Route::get('/about', 'about')->name('About');
     Route::get('/admin', 'adminControlCenter')->name('adminControlCenter')->middleware('admin');
+    Route::get('/page-in-dev', 'pageInDev')->name('pageInDev')->middleware('admin');
 });
 
 // LOGIN & REGISTER
@@ -197,6 +198,9 @@ Route::controller(SpkItemController::class)->group(function ()
     // ItemSelesai_DB diatur oleh DeviasiDB
     // Route::post('/spk/item-selesai-db', 'ItemSelesai_DB')->name('ItemSelesai_DB')->middleware('auth');
     Route::post('/spk/hapus-item-spk', 'hapusItemSPK')->name('hapusItemSPK')->middleware('auth');
+    Route::get('/spk/spk-selesai', 'spkSelesai')->name('spkSelesai')->middleware('auth');
+    Route::post('/spk/spk-selesai-db', 'spkSelesaiDB')->name('spkSelesaiDB')->middleware('auth');
+    Route::post('/spk/spk-fix-data', 'spkFixData')->name('spkFixData')->middleware('auth');
 });
 
 Route::controller(TreeController::class)->group(function ()

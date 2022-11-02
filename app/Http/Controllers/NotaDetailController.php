@@ -115,6 +115,7 @@ class NotaDetailController extends Controller
                 $success_logs[]="Menetapkan Nama, Alamat, Kontak Reseller Fix.";
             }
 
+            // Menetapkan Tanggal Selesai Nota
             $nota->finished_at=$finished_at;
             $nota->save();
 
