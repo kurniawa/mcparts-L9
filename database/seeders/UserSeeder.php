@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             ['nama' => 'Adi Kurniawan', 'username' => 'cibinongguy', 'password' => 'ddloveakunsomuch','clearance'=>'Developer'],
             ['nama' => 'Adi Kurniawan', 'username' => 'kuruniawa', 'password' => 'ddloveakunsomuch','clearance'=>'SuperAdmin'],
             ['nama' => 'Aldebaran', 'username' => 'aldebaran', 'password' => 'aldebaranloveandin','clearance'=>'User'],
-            ['nama' => 'Dian', 'username' => 'Dian', 'password' => '$2y$10$ZdSEXODSL7Hwqudy.mRIZ.Z67umLpaB53ssHPVz9ACBHH7ey0ypk.','clearance'=>'Admin'],
+            ['nama' => 'Dian', 'username' => 'Dian', 'password' => '$2y$10$qspfvv/36ezAsiQZpVANv.0t3mrCzXQHGQ9sW.0pj0BBsrWnZXtTC','clearance'=>'Admin'],
             ['nama' => 'Albert', 'username' => 'Albert21', 'password' => '$2y$10$ya1Gh.oPGCJxAnT.ewhP8.rM/mRR9ref9W1nKyLp67IMjevl1rvG6','clearance'=>'Admin'],
         ];
 

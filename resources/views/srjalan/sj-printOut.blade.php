@@ -17,8 +17,8 @@
     <div class="hr-line border-top border-2 mt-1 mb-1"></div>
     <div class="row align-items-center">
         <div class="col-3">
-            <div class="fw-bold font-big">Untuk:</div>
-            <div class="fw-bold font-large">{{ $pelanggan['nama'] }}</div>
+            <div class="fw-bold">Untuk:</div>
+            <div class="fw-bold">{{ $pelanggan['nama'] }}</div>
         </div>
         <div class="col-3" style="font-size: 0.8rem">
             <div class="fw-bold font-big">Alamat:</div>
@@ -90,8 +90,8 @@
 
     <table id="tableItemsj">
         <tr>
-            <th class="thTableItemsj font-large" style="width: 50%;text-align: center;">Nama / Jenis Barang</th>
-            <th class="thTableItemsj font-large" style="text-align: center;">Jumlah</th>
+            <th class="thTableItemsj " style="width: 50%;text-align: center;">Nama / Jenis Barang</th>
+            <th class="thTableItemsj " style="text-align: center;">Jumlah</th>
         </tr>
         <tr>
             <td class="tdTableItemsj fw-bold font-3xl" style="font-size: 1.2rem">Sarung Jok Motor</td>
@@ -119,12 +119,12 @@
 
     <div class="grid-2-auto">
         <div class="grid-1-auto justify-items-center">
-            <div class="font-large">Penerima,</div>
+            <div class="">Penerima,</div>
             <br><br>
             <div>(....................)</div>
         </div>
         <div class="grid-1-auto justify-items-center">
-            <div class="font-large">Hormat Kami,</div>
+            <div class="">Hormat Kami,</div>
             <br><br>
             <div>(....................)</div>
         </div>

@@ -228,12 +228,15 @@ class SjDetailController extends Controller
 
         $get = $request->query();
         // dump('get', $get);
+        // dd($get);
         $srjalan_id=$get['srjalan_id'];
         $srjalan=Srjalan::find($srjalan_id);
+        // dd($srjalan);
         $pelanggan=Pelanggan::find($srjalan['pelanggan_id']);
+        // dd($pelanggan);
         $reseller=null;
         if ($srjalan['reseller_id']!==null) {
-            $reseller=Pelanggan::find('pelanggan_id',$srjalan['reseller_id']);
+            $reseller=Pelanggan::find($srjalan['reseller_id']);
         }
 
         // Ekspedisi Normal
@@ -274,6 +277,7 @@ class SjDetailController extends Controller
             'transit_chosen' => $transit_chosen,
         ];
         // dump($data);
+        // dd($data);
         return view('srjalan.sjEditEkspedisi', $data);
     }
 

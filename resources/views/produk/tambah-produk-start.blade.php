@@ -533,8 +533,8 @@ function autoname() {
                     nama_nota += '(';
                 }
             } else if(id==='ukuran'){
-                nama += ' + uk.';
-                nama_nota += ' + uk.';
+                nama += ' uk.';
+                nama_nota += ' uk.';
             } else if (id==='jahit') {
                 nama += ' + jht.';
                 nama_nota += ' + jht.';

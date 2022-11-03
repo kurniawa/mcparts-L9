@@ -1627,7 +1627,7 @@ class EkspedisiSeeder extends Seeder
                 'bentuk' => $bentuk,
                 'nama' => $ekspedisis[$i]['nama'],
             ]);
-            dump($ekspedisi_new['nama']);
+            // dump($ekspedisi_new['nama']);
             if ($ekspedisis[$i]['alamat']) {
                 foreach ($ekspedisis[$i]['alamat'] as $alamat) {
                     $alamat_new = Alamat::create($alamat);
