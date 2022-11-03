@@ -44,7 +44,12 @@
                 <div class="d-inline-block rounded ps-1 pe-1 {{ $bg_color_tgl[$i][1] }}" style="color:white"><div style="font-size:2.5em">{{ date('d',strtotime($srjalans[$i]['finished_at'])) }}</div><div>{{ date('m',strtotime($srjalans[$i]['finished_at'])) }}-{{ date('y',strtotime($srjalans[$i]['finished_at'])) }}</div></div>
                 @endif
             </td>
-            <td style="color: green">{{ $srjalans[$i]['jumlah_total'] }}</td>
+            <td style="color: green">
+                {{ $srjalans[$i]['jml_colly'] }} Koli
+                @if ($srjalans[$i]['jml_dus']!==null && $srjalans[$i]['jml_dus']!==0)
+                + {{ $srjalans[$i]['jml_dus'] }} Dus
+                @endif
+            </td>
             <td id='divDropdownIcon-{{ $i }}' onclick='showDropdown({{ $i }});' class="text-center"><img class='w-0_7rem' src='img/icons/dropdown.svg'></td>
         </tr>
         {{-- DropDown --}}
@@ -52,12 +57,30 @@
             <td colspan="7">
                 <table style="width: 100%">
                     @for ($j = 0; $j < count($arr_spk_produks[$i]); $j++)
-                    <tr><td>{{ $arr_produks[$i][$j]['nama'] }}</td><td>{{ $arr_spk_produk_nota_srjalans[$i][$j]['jumlah'] }}</td></tr>
+                    <tr>
+                        <td>{{ $arr_produks[$i][$j]['nama'] }}</td><td>{{ $arr_spk_produk_nota_srjalans[$i][$j]['jumlah'] }}</td>
+                        <td>
+                            {{ $arr_spk_produk_nota_srjalans[$i][$j]['jml_packing'] }}
+                            @if ($arr_spk_produk_nota_srjalans[$i][$j]['tipe_packing']==='colly')
+                            koli
+                            @else
+                            {{ $arr_spk_produk_nota_srjalans[$i][$j]['tipe_packing'] }}
+                            @endif
+                        </td>
+                    </tr>
                     @endfor
                     <tr>
-                        <td colspan="2" class='text-end'>
-                            <a href="{{ route('sjSelesai',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-success btn-sm">Sj.Sls</a>
-                            <a href="{{ route('SJ-Detail',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-warning btn-sm">Detail</a>
+                        <td colspan="3">
+                            <div class='d-flex align-items-center justify-content-end'>
+                                <form action="{{ route('sj_hapus') }}" class="m-0" onclick="return confirm('Apakah Anda yakin ingin menghapus Sr. Jalan ini? (Jumlah sudah Sr. Jalan pada Tree akan disesuaikan kembali.)');">
+                                    <input type="hidden" name="srjalan_id" value="{{ $srjalans[$i]['id'] }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                                <a href="{{ route('editColly',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-primary btn-sm ms-1">E.Col</a>
+                                <a href="{{ route('sjSelesai',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-success btn-sm ms-1">Sj.Sls</a>
+                                <a href="{{ route('SJ-PrintOut',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-dd btn-sm ms-1">PrintOut</a>
+                                <a href="{{ route('SJ-Detail',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-warning btn-sm ms-1">Detail</a>
+                            </div>
                         </td>
                     </tr>
                 </table>

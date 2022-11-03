@@ -60,12 +60,16 @@
                     </tr>
                     @endfor
                     <tr>
-                        <td colspan="4" class='text-end'>
-                            {{-- <form action="{{ route('CreateArsipNotaDB') }}" onsubmit="return confirm('Setelah diarsipkan maka nota akan dihapus dari daftar nota aktif dan tidak dapat di edit kembali. Anda yakin ingin mengarsipkan Nota?')">
-                                <input type="hidden" name="nota_id" value="">
-                            </form> --}}
-                            <a href="{{ route('notaSelesai',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-success btn-sm">N.Sls</a>
-                            <a href="{{ route('Nota-Detail',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-warning btn-sm">Detail</a>
+                        <td colspan="4">
+                            <div class='d-flex align-items-center justify-content-end'>
+                                <form action="{{ route('hapusNota') }}" class="m-0" onclick="return confirm('Anda yakin ingin menghapus Nota ini? Warning: Sr. Jalan yang berkaitan juga akan dihapus!');">
+                                    <input type="hidden" name="nota_id" value="{{ $notas[$i]['id'] }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                                <a href="{{ route('PrintOutNota',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-dd btn-sm ms-1">PrintOut</a>
+                                <a href="{{ route('notaSelesai',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-success btn-sm ms-1">N.Sls</a>
+                                <a href="{{ route('Nota-Detail',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-warning btn-sm ms-1">Detail</a>
+                            </div>
                         </td>
                     </tr>
                 </table>

@@ -183,7 +183,7 @@ class ProdukController extends Controller
     {
         $load_num = SiteSetting::find(1);
         $run_db = true; // true apabila siap melakukan CRUD ke DB
-        $success_logs = $warning_logs = $error_logs = array();
+        $success_logs = $warning_logs = $error_logs="";
 
         if ($load_num->value > 0) {
             $run_db = false;
@@ -197,14 +197,222 @@ class ProdukController extends Controller
             $harga=$input['harga'];
         }
 
-        // else {
-        //     $request->validate(
-        //         ['validation_error'=>'required'],
-        //         ['validation_error.required'=>'Harga perlu ditentukan!']
-        //     );
-        // }
-        // $validate=$request->validate();
-        // dump('$input', $input);
+        /**Sebelum mulai create produk baru, cek terlebih dahulu apakah spec yang diinput memang sudah terdapat di database */
+        $bahan=null;
+        if ($input['bahan']) {
+            $bahan = Bahan::where('nama',$input['bahan'])->first();
+            if ($bahan===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Jenis bahan harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $kombinasi=null;
+        if ($input['kombinasi']) {
+            $kombinasi = Kombinasi::where('nama',$input['kombinasi'])->first();
+            if ($kombinasi===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe kombinasi harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $motif=null;
+        if ($input['motif']) {
+            $motif = Motif::where('nama',$input['motif'])->first();
+            if ($motif===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe motif harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $standar=null;
+        if ($input['standar']) {
+            $standar = Standar::where('nama',$input['standar'])->first();
+            if ($standar===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe standar harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $jokassy=null;
+        if ($input['jokassy']) {
+            $jokassy = Jokassy::where('nama',$input['jokassy'])->first();
+            if ($jokassy===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe jokassy harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $tankpad=null;
+        if ($input['tankpad']) {
+            $tankpad = tankpad::where('nama',$input['tankpad'])->first();
+            if ($tankpad===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe tankpad harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $stiker=null;
+        if ($input['stiker']) {
+            $stiker = Stiker::where('nama',$input['stiker'])->first();
+            if ($stiker===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe stiker harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $busastang=null;
+        if ($input['busastang']) {
+            $busastang = Busastang::where('nama',$input['busastang'])->first();
+            if ($busastang===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe busastang harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $rotan=null;
+        if ($input['rotan']) {
+            $rotan = Rotan::where('nama',$input['rotan'])->first();
+            if ($rotan===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe rotan harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $rol=null;
+        if ($input['rol']) {
+            $rol = Rol::where('nama',$input['rol'])->first();
+            if ($rol===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe rol harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $varian_1=$varian_1=$varian_1_id=null;
+        if ($input['variasi_1']) {
+            $variasi_1 = Variasi::where('nama',$input['variasi_1'])->first();
+            if ($variasi_1===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe variasi_1 harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+            $varian_1_id=null;
+            if ($input['varian_1']) {
+                $varian_1 = Varian::where('nama',$input['varian_1'])->first();$varian_1_id=$varian_1['id'];
+                if ($varian_1===null) {
+                    $request->validate(
+                        ['error'=>'required'],
+                        ['error.required'=>'Tipe varian_1 harus dipilih dari yang sudah terdaftar di database.']
+                    );
+                }
+                $varian_1_id=$varian_1['id'];
+            }
+        }
+        $variasi_2=$varian_2=$varian_2_id=null;
+        if ($input['variasi_2']) {
+            $variasi_2 = Variasi::where('nama',$input['variasi_2'])->first();
+            if ($variasi_2===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe variasi_2 harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+            $varian_2_id=null;
+            if ($input['varian_2']) {
+                $varian_2 = Varian::where('nama',$input['varian_2'])->first();$varian_2_id=$varian_2['id'];
+                if ($varian_2===null) {
+                    $request->validate(
+                        ['error'=>'required'],
+                        ['error.required'=>'Tipe varian_2 harus dipilih dari yang sudah terdaftar di database.']
+                    );
+                }
+                $varian_2_id=$varian_2['id'];
+            }
+        }
+        /**SPEC */
+        $grade_bahan=null;
+        if ($input['grade_bahan']) {
+            $grade_bahan = Spec::where('nama',$input['grade_bahan'])->first();
+            if ($grade_bahan===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe grade_bahan harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $ukuran=null;
+        if ($input['ukuran']) {
+            $ukuran = Spec::where('nama',$input['ukuran'])->first();
+            if ($ukuran===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe ukuran harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $jahit=null;
+        if ($input['jahit']) {
+            $jahit = Spec::where('nama',$input['jahit'])->first();
+            if ($jahit===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe jahit harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $busa=null;
+        if ($input['busa']) {
+            $busa = Spec::where('nama',$input['busa'])->first();
+            if ($busa===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe busa harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $sayap=null;
+        if ($input['sayap']) {
+            $sayap = Spec::where('nama',$input['sayap'])->first();
+            if ($sayap===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe sayap harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $list=null;
+        if ($input['list']) {
+            $list = Spec::where('nama',$input['list'])->first();
+            if ($list===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe list harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        $alas=null;
+        if ($input['alas']) {
+            $alas = Spec::where('nama',$input['alas'])->first();
+            if ($alas===null) {
+                $request->validate(
+                    ['error'=>'required'],
+                    ['error.required'=>'Tipe alas harus dipilih dari yang sudah terdaftar di database.']
+                );
+            }
+        }
+        /**End Validating Specs */
+
 
         $produk = [
             'tipe'=>$input['tipe'],
@@ -218,107 +426,84 @@ class ProdukController extends Controller
         if ($run_db) {
             $new_produk = Produk::create($produk);
             if ($input['bahan']) {
-                $bahan = Bahan::where('nama',$input['bahan'])->first()->toArray();
                 $produk_bahan = ['produk_id'=>$new_produk['id'],'bahan_id'=>$bahan['id']];
                 $newProdukBahan = ProdukBahan::create($produk_bahan);
             }
             if ($input['kombinasi']) {
-                $kombinasi = Kombinasi::where('nama',$input['kombinasi'])->first()->toArray();
                 $produk_kombinasi = ['produk_id'=>$new_produk['id'],'kombinasi_id'=>$kombinasi['id']];
                 $newProdukKombinasi = ProdukKombinasi::create($produk_kombinasi);
             }
             if ($input['motif']) {
-                $motif = Motif::where('nama',$input['motif'])->first()->toArray();
                 $produk_motif = ['produk_id'=>$new_produk['id'],'motif_id'=>$motif['id']];
                 $newProdukmotif = ProdukMotif::create($produk_motif);
             }
             if ($input['standar']) {
-                $standar = Standar::where('nama',$input['standar'])->first()->toArray();
                 $produk_standar = ['produk_id'=>$new_produk['id'],'standar_id'=>$standar['id']];
                 $newProdukstandar = ProdukStandar::create($produk_standar);
             }
             if ($input['jokassy']) {
-                $jokassy = Jokassy::where('nama',$input['jokassy'])->first()->toArray();
                 $produk_jokassy = ['produk_id'=>$new_produk['id'],'jokassy_id'=>$jokassy['id']];
                 $newProdukJokassy = ProdukJokassy::create($produk_jokassy);
             }
             if ($input['tankpad']) {
-                $tankpad = tankpad::where('nama',$input['tankpad'])->first()->toArray();
                 $produk_tankpad = ['produk_id'=>$new_produk['id'],'tankpad_id'=>$tankpad['id']];
                 $newProdukTankpad = ProdukTankpad::create($produk_tankpad);
             }
             if ($input['stiker']) {
-                $stiker = Stiker::where('nama',$input['stiker'])->first()->toArray();
                 $produk_stiker = ['produk_id'=>$new_produk['id'],'stiker_id'=>$stiker['id']];
                 $newProdukStiker = ProdukStiker::create($produk_stiker);
             }
             if ($input['busastang']) {
-                $busastang = Busastang::where('nama',$input['busastang'])->first()->toArray();
                 $produk_busastang = ['produk_id'=>$new_produk['id'],'busastang_id'=>$busastang['id']];
                 $newProdukBusastang = ProdukBusastang::create($produk_busastang);
             }
             if ($input['rotan']) {
-                $rotan = Rotan::where('nama',$input['rotan'])->first()->toArray();
                 $produk_rotan = ['produk_id'=>$new_produk['id'],'rotan_id'=>$rotan['id']];
                 $newProdukRotan = ProdukRotan::create($produk_rotan);
             }
             if ($input['rol']) {
-                $rol = Rol::where('nama',$input['rol'])->first()->toArray();
                 $produk_rol = ['produk_id'=>$new_produk['id'],'rol_id'=>$rol['id']];
                 $newProdukRol = ProdukRol::create($produk_rol);
             }
             if ($input['variasi_1']) {
-                $variasi_1 = Variasi::where('nama',$input['variasi_1'])->first()->toArray();
-                $varian_1_id=null;
-                if ($input['varian_1']) {$varian_1 = Varian::where('nama',$input['varian_1'])->first()->toArray();$varian_1_id=$varian_1['id'];}
                 $produk_variasi_varian_1 = ['produk_id'=>$new_produk['id'],'variasi_id'=>$variasi_1['id'],'varian_id'=>$varian_1_id];
                 $newProdukVariasi1 = ProdukVariasiVarian::create($produk_variasi_varian_1);
             }
             if ($input['variasi_2']) {
-                $variasi_2 = Variasi::where('nama',$input['variasi_2'])->first()->toArray();
-                $varian_2_id=null;
-                if ($input['varian_2']) {$varian_2 = Varian::where('nama',$input['varian_2'])->first()->toArray();$varian_2_id=$varian_2['id'];}
                 $produk_variasi_varian_2 = ['produk_id'=>$new_produk['id'],'variasi_id'=>$variasi_2['id'],'varian_id'=>$varian_2_id];
                 $newProdukVariasi1 = ProdukVariasiVarian::create($produk_variasi_varian_2);
             }
             /**SPEC */
             if ($input['grade_bahan']) {
-                $spec = Spec::where('nama',$input['grade_bahan'])->first()->toArray();
-                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$spec['id']];
+                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$grade_bahan['id']];
                 $newProdukSpecGrade = ProdukSpec::create($produk_spec);
             }
             if ($input['ukuran']) {
-                $spec = Spec::where('nama',$input['ukuran'])->first()->toArray();
-                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$spec['id']];
+                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$ukuran['id']];
                 $newProdukSpecUkuran = ProdukSpec::create($produk_spec);
             }
             if ($input['jahit']) {
-                $spec = Spec::where('nama',$input['jahit'])->first()->toArray();
-                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$spec['id']];
+                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$jahit['id']];
                 $newProdukSpecJahit = ProdukSpec::create($produk_spec);
             }
             if ($input['busa']) {
-                $spec = Spec::where('nama',$input['busa'])->first()->toArray();
-                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$spec['id']];
+                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$busa['id']];
                 $newProdukSpecBusa = ProdukSpec::create($produk_spec);
             }
             if ($input['sayap']) {
-                $spec = Spec::where('nama',$input['sayap'])->first()->toArray();
-                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$spec['id']];
+                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$sayap['id']];
                 $newProdukSpecSayap = ProdukSpec::create($produk_spec);
             }
             if ($input['list']) {
-                $spec = Spec::where('nama',$input['list'])->first()->toArray();
-                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$spec['id']];
+                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$list['id']];
                 $newProdukSpecList = ProdukSpec::create($produk_spec);
             }
             if ($input['alas']) {
-                $spec = Spec::where('nama',$input['alas'])->first()->toArray();
-                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$spec['id']];
+                $produk_spec = ['produk_id'=>$new_produk['id'],'spec_id'=>$alas['id']];
                 $newProdukSpecAlas = ProdukSpec::create($produk_spec);
             }
             /**END SPEC */
-            $success_logs[] = 'Berhasil input produk baru ke database!';
+            $success_logs.="Berhasil input produk baru ke database!";
 
             /**Harga */
             $produk_harga=ProdukHarga::create([
@@ -326,7 +511,7 @@ class ProdukController extends Controller
                 'harga'=>$harga,
                 'status'=>'DEFAULT',
             ]);
-            $success_logs[]="Berhasil menetapkan harga produk menjadi Rp. $harga,-";
+            $success_logs.="Berhasil menetapkan harga produk menjadi Rp. $harga,-";
 
             $load_num->value += 1;
             $load_num->save();
@@ -336,15 +521,16 @@ class ProdukController extends Controller
         }
 
 
-        $route='produks';
-        $route_btn='Ke Daftar Produk';
-        $params=null;
-        $data = [
-            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
-            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
-        ];
+        // $route='produks';
+        // $route_btn='Ke Daftar Produk';
+        // $params=null;
+        // $data = [
+        //     'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+        //     'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
+        // ];
 
-        return view('layouts.db-result', $data);
+        // return view('layouts.db-result', $data);
+        return redirect()->route('produks')->with(['_success'=>$success_logs]);
     }
 
     public function getSpesifikasiProduk(Request $request)

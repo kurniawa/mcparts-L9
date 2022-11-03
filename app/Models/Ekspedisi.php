@@ -114,6 +114,62 @@ class Ekspedisi extends Model
         $srjalan->save();
     }
 
+    static function updateEkspedisiSJ($srjalan_id,$ekspedisi_id,$transit_id)
+    {
+        $_success="";
+        // Data Ekspedisi
+        $ekspedisi_nama=$eks_long_ala=$eks_short=$eks_kontak=$alamat_ekspedisi_id=$kontak_ekspedisi_id=null;
+        if ($ekspedisi_id!==null) {
+            $ekspedisi=Ekspedisi::find($ekspedisi_id);
+            $ekspedisi_nama=$ekspedisi['nama'];
+            $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi_id)->where('tipe','UTAMA')->first();
+            if ($ekspedisi_alamat!==null) {
+                $alamat_ekspedisi=Alamat::find($ekspedisi_alamat['alamat_id']);
+                $alamat_ekspedisi_id=$alamat_ekspedisi['id'];
+                $eks_long_ala=$alamat_ekspedisi['long'];
+                $eks_short=$alamat_ekspedisi['short'];
+            }
+            $eks_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi_id)->where('is_aktual','yes')->first();
+        }
+
+        // Data Transit
+        $transit_nama=$trans_long_ala=$trans_short=$trans_kontak=$alamat_transit_id=$kontak_transit_id=null;
+        if ($transit_id!==null) {
+            $transit=Ekspedisi::find($transit_id);
+            $transit_nama=$transit['nama'];
+            $transit_alamat=EkspedisiAlamat::where('ekspedisi_id',$transit_id)->where('tipe','UTAMA')->first();
+            if ($transit_alamat!==null) {
+                $alamat_transit=Alamat::find($transit_alamat['alamat_id']);
+                $alamat_transit_id=$alamat_transit['id'];
+                $trans_long_ala=$alamat_transit['long'];
+                $trans_short=$alamat_transit['short'];
+            }
+            $trans_kontak=EkspedisiKontak::where('ekspedisi_id',$transit_id)->where('is_aktual','yes')->first();
+        }
+        $srjalan = Srjalan::find($srjalan_id);
+        $srjalan->update([
+            'ekspedisi_id'=>$ekspedisi_id,
+            'ekspedisi_transit_id'=>$transit_id,
+            'alamat_ekspedisi_id'=>$alamat_ekspedisi_id,
+            'alamat_transit_id'=>$alamat_transit_id,
+            'kontak_ekspedisi_id'=>$kontak_ekspedisi_id,
+            'kontak_transit_id'=>$kontak_transit_id,
+            //
+            'ekspedisi_nama'=>$ekspedisi_nama,
+            'eks_long_ala'=>$eks_long_ala,
+            'eks_short'=>$eks_short,
+            'eks_kontak'=>$eks_kontak,
+            'transit_nama'=>$transit_nama,
+            'trans_long_ala'=>$trans_long_ala,
+            'trans_short'=>$trans_short,
+            'trans_kontak'=>$trans_kontak,
+        ]);
+
+        $_success.="_ Ekspedisi dari Sr. Jalan ini telah diupdate.";
+        return $_success;
+
+    }
+
     // public function sjSelesai_setEkspedisiReseller($srjalan,$reseller)
     // {
     //     // Ekspedisi

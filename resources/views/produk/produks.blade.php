@@ -25,6 +25,10 @@
     </div>
 </div>
 
+@if (session()->has('_success'))
+<div class="container alert alert-success">{{ session('_success') }}</div>
+@endif
+
 <form action="{{ route('produk_detail') }}" class="container" method="GET">
     <div id="div-var" class="items">
         <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-Variasi</div>

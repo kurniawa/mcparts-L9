@@ -286,7 +286,7 @@ class SjDetailController extends Controller
         $load_num = SiteSetting::find(1);
         $run_db = true;
 
-        $success_logs = $error_logs =$warning_logs= array();
+        $success_logs = $error_logs =$warning_logs= "";
         $main_log = 'Ooops! Sepertinya ada kesalahan pada sistem, coba hubungi Admin atau Developer sistem ini!';
 
         if ($load_num->value > 0) {
@@ -307,56 +307,24 @@ class SjDetailController extends Controller
         }
 
         if ($run_db) {
-            $alamat_ekspedisi_id=$kontak_ekspedisi_id=null;
-            if ($ekspedisi_id!==null) {
-                $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi_id)->where('tipe','UTAMA')->first();
-                if ($ekspedisi_alamat!==null) {
-                    $alamat_ekspedisi=Alamat::find($ekspedisi_alamat['alamat_id']);
-                    $alamat_ekspedisi_id=$alamat_ekspedisi['id'];
-                }
-                $ekspedisi_kontak=EkspedisiKontak::where('ekspedisi_id',$ekspedisi_id)->where('is_aktual','yes')->first();
-                if ($ekspedisi_kontak!==null) {
-                    $kontak_ekspedisi_id=$ekspedisi_kontak['id'];
-                }
-            }
+            $success_logs.=Ekspedisi::updateEkspedisiSJ($srjalan_id,$ekspedisi_id,$transit_id);
 
-            $alamat_transit_id=$kontak_transit_id=null;
-            if ($transit_id!==null) {
-                $transit_alamat=EkspedisiAlamat::where('ekspedisi_id',$transit_id)->where('tipe','UTAMA')->first();
-                if ($transit_alamat!==null) {
-                    $alamat_transit=Alamat::find($transit_alamat['alamat_id']);
-                    $alamat_transit_id=$alamat_transit['id'];
-                }
-                $transit_kontak=EkspedisiKontak::where('ekspedisi_id',$transit_id)->where('is_aktual','yes')->first();
-                if ($transit_kontak!==null) {
-                    $kontak_transit_id=$transit_kontak['id'];
-                }
-            }
-            $srjalan = Srjalan::find($srjalan_id);
-            $srjalan->ekspedisi_id=$ekspedisi_id;
-            $srjalan->ekspedisi_transit_id=$transit_id;
-            $srjalan->alamat_ekspedisi_id=$alamat_ekspedisi_id;
-            $srjalan->alamat_transit_id=$alamat_transit_id;
-            $srjalan->kontak_ekspedisi_id=$kontak_ekspedisi_id;
-            $srjalan->kontak_transit_id=$kontak_transit_id;
-            $srjalan->save();
-
-            $success_logs[]="Berhasil update ekspedisi Sr. Jalan!";
-
-            $main_log = 'SUCCESS:';
+            // $main_log = 'SUCCESS:';
             $load_num->value+=1;
             $load_num->save();
         }
 
-        $route='SJ-Detail';
-        $route_btn='Ke Detail Sr. Jalan';
-        $params=['srjalan_id'=>$srjalan_id];
-        $data = [
-            'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
-            'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
-        ];
+        // $route='SJ-Detail';
+        // $route_btn='Ke Detail Sr. Jalan';
+        // $params=['srjalan_id'=>$srjalan_id];
+        // $data = [
+        //     'success_logs'=>$success_logs,'error_logs'=>$error_logs,'warning_logs'=>$warning_logs,'main_log'=>$main_log,
+        //     'route'=>$route,'route_btn'=>$route_btn,'params'=>$params,
+        // ];
 
-        return view('layouts.db-result', $data);
+        // return view('layouts.db-result', $data);
+
+        return redirect()->route('SJ-Detail',['srjalan_id'=>$srjalan_id])->with(['_success'=>$success_logs]);
     }
 
     public function sjDetail_assignAlamat(Request $request)

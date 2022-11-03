@@ -5,6 +5,10 @@
 
 <div class="container">
     <h2>Produk Baru</h2>
+    <input type="hidden" name="error" class="@error('error') is-invalid @enderror">
+    @error('error')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
     <h6>Tipe: {{ $tipe }}</h6>
     <form id="formAddProduk" action="{{ route('tambahProdukDB') }}" method="POST" enctype="multipart/form-data">
         @csrf
