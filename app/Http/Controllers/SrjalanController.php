@@ -97,6 +97,7 @@ class SrjalanController extends Controller
             'spks' => $spks,
             'notas' => $notas,
         ];
+        // dump($data);
         // dd($data);
         return view('srjalan.srjalans', $data);
     }

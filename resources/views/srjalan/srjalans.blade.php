@@ -46,7 +46,7 @@
             </td>
             <td style="color: green">
                 {{ $srjalans[$i]['jml_colly'] }} Koli
-                @if ($srjalans[$i]['jml_dus']!==null && $srjalans[$i]['jml_dus']!==0)
+                @if ($srjalans[$i]['jml_dus']!==null && $srjalans[$i]['jml_dus']!=0)
                 + {{ $srjalans[$i]['jml_dus'] }} Dus
                 @endif
             </td>
