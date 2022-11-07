@@ -21,12 +21,13 @@ class PenjualanHelper extends Model
         }
         /**Penjualan Total Spesifik Pelanggan */
         $pelanggan_ids_unique=array_unique($pelanggan_ids);
-        $penjualan_totals=array();
+        $penjualan_totals=array();$grand_total=0;
         foreach ($pelanggan_ids_unique as $pel_id) {
             $notas_spesific_pelanggan=$notas->where('pelanggan_id',$pel_id);
             $penjualan_total=0;
             foreach ($notas_spesific_pelanggan as $nota) {
                 $penjualan_total+=$nota['harga_total'];
+                $grand_total+=$nota['harga_total'];
             }
             $penjualan_totals[]=$penjualan_total;
             $arr_notas_spesific_pelanggan[]=$notas_spesific_pelanggan;
@@ -160,6 +161,6 @@ class PenjualanHelper extends Model
             $k++;
         }
 
-        return array($pelanggan_namas_unique,$penjualan_totals,$notasXsubtotal, $rekap_penjualan_detail_items);
+        return array($pelanggan_namas_unique,$penjualan_totals,$grand_total,$notasXsubtotal, $rekap_penjualan_detail_items);
     }
 }

@@ -89,7 +89,7 @@ class PenjualanController extends Controller
             $notas=Nota::whereYear('created_at',$tahun_set)->whereMonth('created_at',$bulan_set)->orderBy('pelanggan_id')->get();
         }
 
-        list($pelanggan_namas_unique,$penjualan_totals,$notasXsubtotal,$notaXdetail_item)=PenjualanHelper::getSalesComponents($notas);
+        list($pelanggan_namas_unique,$penjualan_totals,$grand_total,$notasXsubtotal,$notaXdetail_item)=PenjualanHelper::getSalesComponents($notas);
 
         /**Format bulan dan tanggal minimal 2 digit */
         $bulan_2_digit=$bulan_set;
@@ -116,6 +116,7 @@ class PenjualanController extends Controller
             'notasXsubtotal'=>$notasXsubtotal,
             'notaXdetail_item'=>$notaXdetail_item,
             'penjualan_totals'=>$penjualan_totals,
+            'grand_total'=>$grand_total,
             'pelanggan_namas_unique'=>$pelanggan_namas_unique,
             'bulan_2_digit'=>$bulan_2_digit,
             'tanggal_2_digit'=>$tanggal_2_digit,

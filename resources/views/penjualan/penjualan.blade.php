@@ -74,6 +74,7 @@
         @for ($i = 0; $i < count($penjualan_totals); $i++)
         <tr><td>{{ $i+1 }}</td><td>{{ $pelanggan_namas_unique[$i] }}</td><td class="toFormatCurrencyRp">{{ $penjualan_totals[$i] }}</td></tr>
         @endfor
+        <tr><td></td><td class="fw-bold">Grand Total</td><td class="toFormatCurrencyRp">{{ $grand_total }}</td></tr>
     </table>
 </div>
 
