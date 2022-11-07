@@ -336,4 +336,16 @@ class SpkController extends Controller
         return view('layouts.db-result', $data);
     }
 
+    public function spkEditTglPembuatan(Request $request)
+    {
+        $_success=$_warnings=$_errors="";
+        $get=$request->query();
+        $spk_id=$get['spk_id'];
+        $spk=Spk::find($spk_id);
+
+        return view();
+        $_logs=["_success"=>$_success,"_warnings"=>$_warnings,"_errors"=>$_errors];
+        return back()->with($_logs);
+    }
+
 }

@@ -60,7 +60,8 @@
                                     <input type="hidden" name="spk_id" value="{{ $spks[$i]['id'] }}">
                                     <button type="submit" class="btn btn-dd btn-sm">Fix</button>
                                 </form>
-                                <a href="{{ route('spkSelesai',['spk_id'=>$spks[$i]['id']]) }}" class="ms-1 btn btn-primary btn-sm">Sls</a>
+                                <a href="{{ route('spkEditTglPembuatan',['spk_id'=>$spks[$i]['id']]) }}" class="ms-1 btn btn-primary btn-sm">Tgl.P</a>
+                                <a href="{{ route('spkSelesai',['spk_id'=>$spks[$i]['id']]) }}" class="ms-1 btn btn-primary btn-sm">Tgl.S</a>
                                 <a href="{{ route('SPK-Detail',['spk_id'=>$spks[$i]['id']]) }}" class="ms-1 btn btn-warning btn-sm">Detail</a>
                             </div>
                         </td>

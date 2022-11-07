@@ -31,6 +31,22 @@
 
 </form>
 
+@if (session()->has("_success"))
+<div class="container alert alert-success">
+    {{ session('_success') }}
+</div>
+@endif
+@if (session()->has("_warning"))
+<div class="container alert alert-warning">
+    {{ session('_warning') }}
+</div>
+@endif
+@if (session()->has("_error"))
+<div class="container alert alert-danger">
+    {{ session('_error') }}
+</div>
+@endif
+
 <div class="container mt-3">
     <table style="width: 100%" class="fancy-table">
         <tr><th>Item</th><th>Jml</th><th>Sls</th><th>N</th><th>Sr</th><th></th></tr>

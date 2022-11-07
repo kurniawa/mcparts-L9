@@ -181,6 +181,7 @@ Route::controller(SpkBaruController::class)->group(function ()
     Route::post('/spk/proceed-spk', 'proceed_spk')->name('ProceedSPK')->middleware('auth');
     Route::get('/spk/SPK_AddItems', "SPK_AddItems")->name('SPK_AddItems')->middleware('auth');
     Route::post('/spk/SPK_AddItems-DB', "SPK_AddItems_DB")->name('SPK_AddItems-DB')->middleware('auth');
+    Route::get('/spk/edit-tgl-pembuatan', "spkEditTglPembuatan")->name('spkEditTglPembuatan')->middleware('auth');
 });
 
 Route::controller(TempSpkController::class)->group(function ()

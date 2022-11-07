@@ -48,26 +48,26 @@
                 </div>
             </a>
         </div>
-        <div class="gridMenuItem">
+        {{-- <div class="gridMenuItem">
             <div class="menuIcons">
                 <img src="img/icons/stok_barang.svg" alt="Icon SPK">
             </div>
             Database<br>
             Stok
-        </div>
+        </div> --}}
         <div class="gridMenuItem">
             <a href="/produk" class="menuIcons">
                 <img src="img/icons/products.svg" alt="Icon SPK">
                 <div>Produk</div>
             </a>
         </div>
-        <div class="gridMenuItem">
+        {{-- <div class="gridMenuItem">
             <div class="menuIcons">
                 <img src="img/icons/paper-roll.svg" alt="Icon SPK">
             </div>
             Bahan<br>
             Baku
-        </div>
+        </div> --}}
         <div class="gridMenuItem">
             <a href="/about" class="menuIcons">
                 <img src="img/icons/info.svg" alt="Icon SPK">
