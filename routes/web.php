@@ -169,7 +169,7 @@ Route::controller(SpkController::class)->group(function ()
     Route::get('/spk/print-out-spk', 'print_out_spk')->name('PrintOutSPK')->middleware('auth');
     Route::post('/spk/hapus-spk', 'hapus_spk')->name('HapusSPK')->middleware('auth');
     Route::post('/spk/tetapkan-item-selesai-db', 'tetapkan_item_selesai_db')->middleware('auth');
-
+    Route::post('/spk/edit-tgl-pembuatan', "spkEditTglPembuatan")->name('spkEditTglPembuatan')->middleware('auth');
 });
 
 Route::controller(SpkBaruController::class)->group(function ()
@@ -181,7 +181,6 @@ Route::controller(SpkBaruController::class)->group(function ()
     Route::post('/spk/proceed-spk', 'proceed_spk')->name('ProceedSPK')->middleware('auth');
     Route::get('/spk/SPK_AddItems', "SPK_AddItems")->name('SPK_AddItems')->middleware('auth');
     Route::post('/spk/SPK_AddItems-DB', "SPK_AddItems_DB")->name('SPK_AddItems-DB')->middleware('auth');
-    Route::get('/spk/edit-tgl-pembuatan', "spkEditTglPembuatan")->name('spkEditTglPembuatan')->middleware('auth');
 });
 
 Route::controller(TempSpkController::class)->group(function ()

@@ -339,11 +339,18 @@ class SpkController extends Controller
     public function spkEditTglPembuatan(Request $request)
     {
         $_success=$_warnings=$_errors="";
-        $get=$request->query();
-        $spk_id=$get['spk_id'];
+        $post=$request->post();
+        $spk_id=$post['spk_id'];
+        $created_at=$post['tgl_pembuatan'];
+        // $created_at=date('d-m-Y H:i:s', strtotime($post['tgl_pembuatan']));
+        // dd($post);
         $spk=Spk::find($spk_id);
 
-        return view();
+        $spk->update([
+            'created_at'=>$created_at
+        ]);
+        $_success.="_ Tanggal pembuatan $spk[no_spk] telah diupdate!";
+
         $_logs=["_success"=>$_success,"_warnings"=>$_warnings,"_errors"=>$_errors];
         return back()->with($_logs);
     }

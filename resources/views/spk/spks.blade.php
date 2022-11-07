@@ -18,8 +18,14 @@
     </div>
 </div>
 
-@if (session()->has('_success'))
+@if (session()->has('_success') && session('_success')!=="")
 <div class="container mt-2 alert alert-success">{{ session('_success') }}</div>
+@endif
+@if (session()->has('_warnings') && session('_warnings')!=="")
+<div class="container mt-1 alert alert-warning">{{ session('_warnings') }}</div>
+@endif
+@if (session()->has('_errors') && session('_errors')!=="")
+<div class="container mt-1 alert alert-danger">{{ session('_errors') }}</div>
 @endif
 
 <div class="container mt-2">
@@ -60,9 +66,25 @@
                                     <input type="hidden" name="spk_id" value="{{ $spks[$i]['id'] }}">
                                     <button type="submit" class="btn btn-dd btn-sm">Fix</button>
                                 </form>
-                                <a href="{{ route('spkEditTglPembuatan',['spk_id'=>$spks[$i]['id']]) }}" class="ms-1 btn btn-primary btn-sm">Tgl.P</a>
+                                <button id="btn-edit-tgl-pembuatan-spk-{{ $spks[$i]['id'] }}" href="{{ route('spkEditTglPembuatan',['spk_id'=>$spks[$i]['id']]) }}" class="ms-1 btn btn-outline-info btn-sm" onclick="showHideActive(this.id,'div-edit-tgl-pembuatan-spk-{{ $spks[$i]['id'] }}')">Tgl.P</button>
                                 <a href="{{ route('spkSelesai',['spk_id'=>$spks[$i]['id']]) }}" class="ms-1 btn btn-primary btn-sm">Tgl.S</a>
                                 <a href="{{ route('SPK-Detail',['spk_id'=>$spks[$i]['id']]) }}" class="ms-1 btn btn-warning btn-sm">Detail</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        {{-- <td></td> --}}
+                        <td colspan="2">
+                            <div id="div-edit-tgl-pembuatan-spk-{{ $spks[$i]['id'] }}" class='d-flex justify-content-end mt-1 d-none'>
+                                <form action="{{ route('spkEditTglPembuatan') }}" method="POST">
+                                    @csrf
+                                    <label for="">Edit Tgl.Pembuatan:</label>
+                                    <input type="datetime-local" class="form-control" value="{{ date("Y-m-d\TH:i:s") }}" name="tgl_pembuatan">
+                                    <input type="hidden" name="spk_id" value="{{ $spks[$i]['id'] }}">
+                                    <div class="text-end mt-1">
+                                        <button type="submit" class="btn btn-warning">Konfirmasi</button>
+                                    </div>
+                                </form>
                             </div>
                         </td>
                     </tr>
@@ -74,6 +96,18 @@
 </div>
 
 <script>
+
+function showHideActive(btn_id,div_id) {
+    var button=document.getElementById(btn_id);
+    var element=document.getElementById(div_id);
+    if (element.classList.contains('d-none')) {
+        element.classList.remove('d-none');
+        button.classList.add('active');
+    } else {
+        element.classList.add('d-none');
+        button.classList.remove('active');
+    }
+}
 
 </script>
 
