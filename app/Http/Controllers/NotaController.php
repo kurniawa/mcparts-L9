@@ -122,11 +122,11 @@ class NotaController extends Controller
         SiteSettings::loadNumToZero();
         $spk_id=$request->query('spk_id');
         $notas=SpkProdukNota::where('spk_id',$spk_id)->get('nota_id')->pluck('nota_id')->toArray();
-        if (count($notas)!==0) {
-            $spk=Spk::find($spk_id);
-            $_warning="_ Sudah ada Nota terbentuk untuk $spk[no_spk]. Oleh karena itu harap menggunakan Fitur Tree untuk menginput item SPK ke Nota.";
-            return back()->with(["_warning"=>$_warning]);
-        }
+        // if (count($notas)!==0) {
+        //     $spk=Spk::find($spk_id);
+        //     $_warning="_ Sudah ada Nota terbentuk untuk $spk[no_spk]. Oleh karena itu harap menggunakan Fitur Tree untuk menginput item SPK ke Nota.";
+        //     return back()->with(["_warning"=>$_warning]);
+        // }
 
         // dump($notas);
         $notas=array_unique($notas);
@@ -164,85 +164,85 @@ class NotaController extends Controller
         if (isset($post['nota_id'])) {
             /**Ketika sudah ada nota_id, maka untuk menginput item ke nota, lebih baik menggunakan tree */
 
-            // foreach ($spk_produks as $spk_produk) {
-            //     $spk_produk_notas=SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
-            //     if (count($spk_produk_notas)!==0) {
-            //         $success_logs[]="spk_produk_id:$spk_produk[id] sudah memiliki nota.";
-            //         $jml_nota_sama=$jml_nota_beda=0;
-            //         $SPKProdukNotaID_toUpdate=null;
-            //         //cek nota_id nya sama seperti yang di post atau tidak
-            //         foreach ($spk_produk_notas as $spk_produk_nota) {
-            //             if ($spk_produk_nota['nota_id']==$post['nota_id']) {
-            //                 $jml_nota_sama+=$spk_produk_nota['jumlah'];
-            //                 $SPKProdukNotaID_toUpdate=$spk_produk_nota['id'];
-            //             } else {
-            //                 $jml_nota_beda+=$spk_produk_nota['jumlah'];
-            //             }
-            //         }
-            //         if ($jml_nota_sama===0) {
-            //             $success_logs[]="spk_produk_id:$spk_produk[id] tidak memiliki nota sama seperti yang di post:$post[nota_id]";
-            //             $jml_av=$spk_produk['jml_selesai']-$jml_nota_beda;
-            //             if ($jml_av!==0) {
-            //                 if ($run_db) {
-            //                     /**Componen nama spk_produk_nota */
-            //                     $produk=Produk::find($spk_produk['produk_id']);
-            //                     $nama_nota=$produk['nama_nota'];
+            foreach ($spk_produks as $spk_produk) {
+                $spk_produk_notas=SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
+                if (count($spk_produk_notas)!==0) {
+                    $success_logs[]="spk_produk_id:$spk_produk[id] sudah memiliki nota.";
+                    $jml_nota_sama=$jml_nota_beda=0;
+                    $SPKProdukNotaID_toUpdate=null;
+                    //cek nota_id nya sama seperti yang di post atau tidak
+                    foreach ($spk_produk_notas as $spk_produk_nota) {
+                        if ($spk_produk_nota['nota_id']==$post['nota_id']) {
+                            $jml_nota_sama+=$spk_produk_nota['jumlah'];
+                            $SPKProdukNotaID_toUpdate=$spk_produk_nota['id'];
+                        } else {
+                            $jml_nota_beda+=$spk_produk_nota['jumlah'];
+                        }
+                    }
+                    if ($jml_nota_sama===0) {
+                        $success_logs[]="spk_produk_id:$spk_produk[id] tidak memiliki nota sama seperti yang di post:$post[nota_id]";
+                        $jml_av=$spk_produk['jml_selesai']-$jml_nota_beda;
+                        if ($jml_av!==0) {
+                            if ($run_db) {
+                                /**Componen nama spk_produk_nota */
+                                $produk=Produk::find($spk_produk['produk_id']);
+                                $nama_nota=$produk['nama_nota'];
 
-            //                     SpkProdukNota::create([
-            //                         'spk_id'=>$post['spk_id'],
-            //                         'produk_id'=>$spk_produk['produk_id'],
-            //                         'spk_produk_id'=>$spk_produk['id'],
-            //                         'nota_id'=>$post['nota_id'],
-            //                         'jumlah'=>$jml_av,
-            //                         'nama_nota'=>$nama_nota,
-            //                         'harga'=>$spk_produk['harga'],
-            //                         'harga_t'=>$spk_produk['harga']*$jml_av,
-            //                     ]);
-            //                     $success_logs[]="Membuat spk_produk_nota baru dengan jumlah yang tersedia, yakni setelah dikurang $jml_nota_beda";
-            //                 }
-            //             }
-            //         } else {
-            //             $success_logs[]="spk_produk_id:$spk_produk[id] memiliki nota sama seperti yang di post:$post[nota_id]";
-            //             $jml_av=$spk_produk['jml_selesai']-($jml_nota_sama+$jml_nota_beda);
-            //             $jml_to_update=$jml_av+$jml_nota_sama;
-            //             $SPKProdukNotaToUpdate=SpkProdukNota::find($SPKProdukNotaID_toUpdate);
-            //             $SPKProdukNotaToUpdate->jumlah=$jml_to_update;
-            //             if ($run_db) {
-            //                 $SPKProdukNotaToUpdate->save();
-            //                 $success_logs[]="Updating spk_produk_nota->jumlah";
-            //             }
-            //         }
-            //     } else {
-            //         //PEMBUATAN spk_produk_nota baru
-            //         $success_logs[]="spk_produk_id:$spk_produk[id] belum memiliki nota. Pembuatan spk_produk_nota baru.";
-            //         if ($run_db) {
-            //              /**Componen nama spk_produk_nota */
-            //              $produk=Produk::find($spk_produk['produk_id']);
-            //              $nama_nota=$produk['nama_nota'];
+                                SpkProdukNota::create([
+                                    'spk_id'=>$post['spk_id'],
+                                    'produk_id'=>$spk_produk['produk_id'],
+                                    'spk_produk_id'=>$spk_produk['id'],
+                                    'nota_id'=>$post['nota_id'],
+                                    'jumlah'=>$jml_av,
+                                    'nama_nota'=>$nama_nota,
+                                    'harga'=>$spk_produk['harga'],
+                                    'harga_t'=>$spk_produk['harga']*$jml_av,
+                                ]);
+                                $success_logs[]="Membuat spk_produk_nota baru dengan jumlah yang tersedia, yakni setelah dikurang $jml_nota_beda";
+                            }
+                        }
+                    } else {
+                        $success_logs[]="spk_produk_id:$spk_produk[id] memiliki nota sama seperti yang di post:$post[nota_id]";
+                        $jml_av=$spk_produk['jml_selesai']-($jml_nota_sama+$jml_nota_beda);
+                        $jml_to_update=$jml_av+$jml_nota_sama;
+                        $SPKProdukNotaToUpdate=SpkProdukNota::find($SPKProdukNotaID_toUpdate);
+                        $SPKProdukNotaToUpdate->jumlah=$jml_to_update;
+                        if ($run_db) {
+                            $SPKProdukNotaToUpdate->save();
+                            $success_logs[]="Updating spk_produk_nota->jumlah";
+                        }
+                    }
+                } else {
+                    //PEMBUATAN spk_produk_nota baru
+                    $success_logs[]="spk_produk_id:$spk_produk[id] belum memiliki nota. Pembuatan spk_produk_nota baru.";
+                    if ($run_db) {
+                         /**Componen nama spk_produk_nota */
+                         $produk=Produk::find($spk_produk['produk_id']);
+                         $nama_nota=$produk['nama_nota'];
 
-            //             SpkProdukNota::create([
-            //                 'spk_id'=>$post['spk_id'],
-            //                 'produk_id'=>$spk_produk['produk_id'],
-            //                 'spk_produk_id'=>$spk_produk['id'],
-            //                 'nota_id'=>$post['nota_id'],
-            //                 'jumlah'=>$spk_produk['jumlah'],
-            //                 'nama_nota'=>$nama_nota,
-            //                 'harga'=>$spk_produk['harga'],
-            //                 'harga_t'=>$spk_produk['harga']*$spk_produk['jumlah'],
-            //             ]);
-            //             $success_logs[]="Membuat spk_produk_nota baru";
-            //         }
+                        SpkProdukNota::create([
+                            'spk_id'=>$post['spk_id'],
+                            'produk_id'=>$spk_produk['produk_id'],
+                            'spk_produk_id'=>$spk_produk['id'],
+                            'nota_id'=>$post['nota_id'],
+                            'jumlah'=>$spk_produk['jumlah'],
+                            'nama_nota'=>$nama_nota,
+                            'harga'=>$spk_produk['harga'],
+                            'harga_t'=>$spk_produk['harga']*$spk_produk['jumlah'],
+                        ]);
+                        $success_logs[]="Membuat spk_produk_nota baru";
+                    }
 
-            //     }
-            //     UpdateDataSPK::SpkProduk_JmlNota_Status($spk_produk['id']);
-            //     $success_logs[]="Updating jml_sdh_nota dan status_nota pada spk_produk ID: $spk_produk[id]";
-            //     UpdateDataSPK::Nota_JmlT_HargaT($post['nota_id']);
-            //     $success_logs[]="Updating jumlah_total dan harga_total pada nota ID: $post[nota_id]";
+                }
+                UpdateDataSPK::SpkProduk_JmlNota_Status($spk_produk['id']);
+                $success_logs[]="Updating jml_sdh_nota dan status_nota pada spk_produk ID: $spk_produk[id]";
+                UpdateDataSPK::Nota_JmlT_HargaT($post['nota_id']);
+                $success_logs[]="Updating jumlah_total dan harga_total pada nota ID: $post[nota_id]";
 
-            //     $load_num->value+=1;
-            //     $load_num->save();
-            //     $main_log='Success';
-            // }
+                $load_num->value+=1;
+                $load_num->save();
+                $main_log='Success';
+            }
         } else {
             //kalo ada lebih dari satu item, tetep mesti cek lewat loop, karena loop pertama pasti sudah terbentuk nota baru.
             $nota_id=null; // setelah loop pertama, $nota_id akan memiliki value dan menjadi acuan untuk loop berikutnya.

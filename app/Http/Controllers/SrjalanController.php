@@ -107,11 +107,11 @@ class SrjalanController extends Controller
         SiteSettings::loadNumToZero();
         $spk_id=$request->query('spk_id');
         $srjalans=SpkProdukNotaSrjalan::where('spk_id',$spk_id)->get('srjalan_id')->pluck('srjalan_id')->toArray();
-        if (count($srjalans)!==0) {
-            $spk=Spk::find($spk_id);
-            $_warning="_ Sudah ada Sr. Jalan terbentuk untuk $spk[no_spk]. Oleh karena itu harap menggunakan Fitur Tree untuk menginput item SPK ke Sr. Jalan.";
-            return back()->with(["_warning"=>$_warning]);
-        }
+        // if (count($srjalans)!==0) {
+        //     $spk=Spk::find($spk_id);
+        //     $_warning="_ Sudah ada Sr. Jalan terbentuk untuk $spk[no_spk]. Oleh karena itu harap menggunakan Fitur Tree untuk menginput item SPK ke Sr. Jalan.";
+        //     return back()->with(["_warning"=>$_warning]);
+        // }
 
         // dump($srjalans);
         $srjalans=array_unique($srjalans);
@@ -148,83 +148,83 @@ class SrjalanController extends Controller
         if (isset($post['srjalan_id'])) {
             /**Ketika sudah ada srjalan yang terbentuk, maka untuk menginput item ke srjalan, lebih baik menggunakan tree */
 
-            // foreach ($spk_produks as $spk_produk) {
-            //     $produk=Produk::find($spk_produk['produk_id']);
-            //     $SPKProdukNotas=SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
-            //     if (count($SPKProdukNotas)===0) {
-            //         $error_logs[]='Item ini belum dibuat nota nya, silahkan membuat nota terlebih dahulu';
-            //         $run_db=false;
-            //     } else {
-            //         foreach ($SPKProdukNotas as $SPKProdukNota) {
-            //             $nota=Nota::find($SPKProdukNota['nota_id']);
-            //             $SPKProdukNoSjs=SpkProdukNotaSrjalan::where('spk_produk_nota_id',$SPKProdukNota['id'])->get();
-            //             if (count($SPKProdukNoSjs)!==0) {
-            //                 $success_logs[]="spk_produk_nota_id:$SPKProdukNota[id] sudah memiliki SrJalan.";
-            //                 $jml_srjalan_sama=$jml_srjalan_beda=0;
-            //                 $SPKProdukNoSjID_toUpdate=null;
-            //                 // Cari ID yang srjalan_id nya sama seperti yang di post
-            //                 //cek srjalan_id nya sama seperti yang di post atau tidak
-            //                 foreach ($SPKProdukNoSjs as $SPKProdukNoSj) {
-            //                     if ($SPKProdukNoSj['srjalan_id']==$post['srjalan_id']) {
-            //                         $jml_srjalan_sama+=$SPKProdukNoSj['jumlah'];
-            //                         $SPKProdukNoSjID_toUpdate=$SPKProdukNoSj['id'];
-            //                     } else {
-            //                         $jml_srjalan_beda+=$SPKProdukNoSj['jumlah'];
-            //                     }
-            //                 }
-            //                 if ($jml_srjalan_sama===0) {
-            //                     $success_logs[]="spk_produk_id:$spk_produk[id] tidak memiliki SrJalan sama seperti yang di post:$post[srjalan_id]";
-            //                     $jml_av=$spk_produk['jml_selesai']-$jml_srjalan_beda;
-            //                     if ($jml_av!==0) {
-            //                         $jml_packing=ceil($jml_av/$produk['aturan_packing']);
-            //                         if ($run_db) {
-            //                             SpkProdukNotaSrjalan::create([
-            //                                 'spk_id'=>$post['spk_id'],
-            //                                 'produk_id'=>$produk['id'],
-            //                                 'nota_id'=>$nota['id'],
-            //                                 'srjalan_id'=>$post['srjalan_id'],
-            //                                 'spk_produk_id'=>$spk_produk['id'],
-            //                                 'spk_produk_nota_id'=>$SPKProdukNota['id'],
-            //                                 'jumlah'=>$jml_av,
-            //                                 'tipe_packing'=>$produk['tipe_packing'],
-            //                                 'jml_packing'=>$jml_packing,
-            //                             ]);
-            //                             $success_logs[]="Membuat SPKProdukNoSj baru dengan jumlah yang tersedia, yakni setelah dikurang $jml_srjalan_beda";
-            //                         }
-            //                     }
-            //                 } else {
-            //                     $success_logs[]="spk_produk_nota_id:$SPKProdukNota[id] memiliki SrJalan sama seperti yang di post:$post[srjalan_id]";
-            //                     $jml_av=$spk_produk['jml_selesai']-($jml_srjalan_sama+$jml_srjalan_beda);
-            //                     $jml_to_update=$jml_av+$jml_srjalan_sama;
-            //                     $SPKProdukNoSjToUpdate=SpkProdukNotaSrjalan::find($SPKProdukNoSjID_toUpdate);
-            //                     $SPKProdukNoSjToUpdate->jumlah=$jml_to_update;
-            //                     if ($run_db) {
-            //                         $SPKProdukNoSjToUpdate->save();
-            //                         $success_logs[]="Updating SPKProdukNoSj->jumlah";
-            //                     }
-            //                 }
-            //             } else {
-            //                 //PEMBUATAN SPKProdukNoSj baru
-            //                 $success_logs[]="spk_produk_id:$spk_produk[id] belum memiliki SrJalan. Pembuatan SPKProdukNoSj baru.";
-            //                 if ($run_db) {
-            //                     $jml_packing=ceil($SPKProdukNota['jumlah']/$produk['aturan_packing']);
-            //                     SpkProdukNotaSrjalan::create([
-            //                         'spk_id'=>$post['spk_id'],
-            //                         'produk_id'=>$produk['id'],
-            //                         'nota_id'=>$nota['id'],
-            //                         'srjalan_id'=>$post['srjalan_id'],
-            //                         'spk_produk_id'=>$spk_produk['id'],
-            //                         'spk_produk_nota_id'=>$SPKProdukNota['id'],
-            //                         'jumlah'=>$SPKProdukNota['jumlah'],
-            //                         'tipe_packing'=>$produk['tipe_packing'],
-            //                         'jml_packing'=>$jml_packing,
-            //                     ]);
-            //                     $success_logs[]="Membuat SPKProdukNoSj baru";
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
+            foreach ($spk_produks as $spk_produk) {
+                $produk=Produk::find($spk_produk['produk_id']);
+                $SPKProdukNotas=SpkProdukNota::where('spk_produk_id',$spk_produk['id'])->get();
+                if (count($SPKProdukNotas)===0) {
+                    $error_logs[]='Item ini belum dibuat nota nya, silahkan membuat nota terlebih dahulu';
+                    $run_db=false;
+                } else {
+                    foreach ($SPKProdukNotas as $SPKProdukNota) {
+                        $nota=Nota::find($SPKProdukNota['nota_id']);
+                        $SPKProdukNoSjs=SpkProdukNotaSrjalan::where('spk_produk_nota_id',$SPKProdukNota['id'])->get();
+                        if (count($SPKProdukNoSjs)!==0) {
+                            $success_logs[]="spk_produk_nota_id:$SPKProdukNota[id] sudah memiliki SrJalan.";
+                            $jml_srjalan_sama=$jml_srjalan_beda=0;
+                            $SPKProdukNoSjID_toUpdate=null;
+                            // Cari ID yang srjalan_id nya sama seperti yang di post
+                            //cek srjalan_id nya sama seperti yang di post atau tidak
+                            foreach ($SPKProdukNoSjs as $SPKProdukNoSj) {
+                                if ($SPKProdukNoSj['srjalan_id']==$post['srjalan_id']) {
+                                    $jml_srjalan_sama+=$SPKProdukNoSj['jumlah'];
+                                    $SPKProdukNoSjID_toUpdate=$SPKProdukNoSj['id'];
+                                } else {
+                                    $jml_srjalan_beda+=$SPKProdukNoSj['jumlah'];
+                                }
+                            }
+                            if ($jml_srjalan_sama===0) {
+                                $success_logs[]="spk_produk_id:$spk_produk[id] tidak memiliki SrJalan sama seperti yang di post:$post[srjalan_id]";
+                                $jml_av=$spk_produk['jml_selesai']-$jml_srjalan_beda;
+                                if ($jml_av!==0) {
+                                    $jml_packing=ceil($jml_av/$produk['aturan_packing']);
+                                    if ($run_db) {
+                                        SpkProdukNotaSrjalan::create([
+                                            'spk_id'=>$post['spk_id'],
+                                            'produk_id'=>$produk['id'],
+                                            'nota_id'=>$nota['id'],
+                                            'srjalan_id'=>$post['srjalan_id'],
+                                            'spk_produk_id'=>$spk_produk['id'],
+                                            'spk_produk_nota_id'=>$SPKProdukNota['id'],
+                                            'jumlah'=>$jml_av,
+                                            'tipe_packing'=>$produk['tipe_packing'],
+                                            'jml_packing'=>$jml_packing,
+                                        ]);
+                                        $success_logs[]="Membuat SPKProdukNoSj baru dengan jumlah yang tersedia, yakni setelah dikurang $jml_srjalan_beda";
+                                    }
+                                }
+                            } else {
+                                $success_logs[]="spk_produk_nota_id:$SPKProdukNota[id] memiliki SrJalan sama seperti yang di post:$post[srjalan_id]";
+                                $jml_av=$spk_produk['jml_selesai']-($jml_srjalan_sama+$jml_srjalan_beda);
+                                $jml_to_update=$jml_av+$jml_srjalan_sama;
+                                $SPKProdukNoSjToUpdate=SpkProdukNotaSrjalan::find($SPKProdukNoSjID_toUpdate);
+                                $SPKProdukNoSjToUpdate->jumlah=$jml_to_update;
+                                if ($run_db) {
+                                    $SPKProdukNoSjToUpdate->save();
+                                    $success_logs[]="Updating SPKProdukNoSj->jumlah";
+                                }
+                            }
+                        } else {
+                            //PEMBUATAN SPKProdukNoSj baru
+                            $success_logs[]="spk_produk_id:$spk_produk[id] belum memiliki SrJalan. Pembuatan SPKProdukNoSj baru.";
+                            if ($run_db) {
+                                $jml_packing=ceil($SPKProdukNota['jumlah']/$produk['aturan_packing']);
+                                SpkProdukNotaSrjalan::create([
+                                    'spk_id'=>$post['spk_id'],
+                                    'produk_id'=>$produk['id'],
+                                    'nota_id'=>$nota['id'],
+                                    'srjalan_id'=>$post['srjalan_id'],
+                                    'spk_produk_id'=>$spk_produk['id'],
+                                    'spk_produk_nota_id'=>$SPKProdukNota['id'],
+                                    'jumlah'=>$SPKProdukNota['jumlah'],
+                                    'tipe_packing'=>$produk['tipe_packing'],
+                                    'jml_packing'=>$jml_packing,
+                                ]);
+                                $success_logs[]="Membuat SPKProdukNoSj baru";
+                            }
+                        }
+                    }
+                }
+            }
             // dd($spk_produks);
             Srjalan::Update_SPK_JmlSj_Status_Packing($spk_produks);
             $success_logs[]="Updating jumlah_sudah_srjalan, status, packing pada srjalan ID: $post[srjalan_id]";
