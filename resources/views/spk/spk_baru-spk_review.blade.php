@@ -36,6 +36,21 @@
 
 <div class="divTitleDesc grid-1-auto justify-items-center mt-0_5em"></div>
 
+@if (session()->has('_success') && session('_success')!=='' && session('_success')!==null)
+<div class="container alert alert-success mt-1">
+    {{ session('_success') }}
+</div>
+@endif
+@if (session()->has('_warning') && session('_warning')!=='' && session('_warning')!==null)
+<div class="container alert alert-warning mt-1">
+    {{ session('_warning') }}
+</div>
+@endif
+@if (session()->has('_error') && session('_error')!=='' && session('_error')!==null)
+<div class="container alert alert-warning mt-1">
+    {{ session('_error') }}
+</div>
+@endif
 
 <div id="divItemList" class="container border-top mt-3"></div>
 {{-- <input id="inputHargaTotalSPK" type="hidden" name="total_harga"> --}}

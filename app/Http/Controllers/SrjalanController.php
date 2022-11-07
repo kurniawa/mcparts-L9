@@ -161,6 +161,7 @@ class SrjalanController extends Controller
                         if (count($SPKProdukNoSjs)!==0) {
                             $success_logs[]="spk_produk_nota_id:$SPKProdukNota[id] sudah memiliki SrJalan.";
                             $jml_srjalan_sama=$jml_srjalan_beda=0;
+                            $apakah_ada_srjalan_yg_sama=false;
                             $SPKProdukNoSjID_toUpdate=null;
                             // Cari ID yang srjalan_id nya sama seperti yang di post
                             //cek srjalan_id nya sama seperti yang di post atau tidak
@@ -168,11 +169,12 @@ class SrjalanController extends Controller
                                 if ($SPKProdukNoSj['srjalan_id']==$post['srjalan_id']) {
                                     $jml_srjalan_sama+=$SPKProdukNoSj['jumlah'];
                                     $SPKProdukNoSjID_toUpdate=$SPKProdukNoSj['id'];
+                                    $apakah_ada_srjalan_yg_sama=true;
                                 } else {
                                     $jml_srjalan_beda+=$SPKProdukNoSj['jumlah'];
                                 }
                             }
-                            if ($jml_srjalan_sama===0) {
+                            if ($apakah_ada_srjalan_yg_sama===false) {
                                 $success_logs[]="spk_produk_id:$spk_produk[id] tidak memiliki SrJalan sama seperti yang di post:$post[srjalan_id]";
                                 $jml_av=$spk_produk['jml_selesai']-$jml_srjalan_beda;
                                 if ($jml_av!==0) {
@@ -197,9 +199,12 @@ class SrjalanController extends Controller
                                 $jml_av=$spk_produk['jml_selesai']-($jml_srjalan_sama+$jml_srjalan_beda);
                                 $jml_to_update=$jml_av+$jml_srjalan_sama;
                                 $SPKProdukNoSjToUpdate=SpkProdukNotaSrjalan::find($SPKProdukNoSjID_toUpdate);
-                                $SPKProdukNoSjToUpdate->jumlah=$jml_to_update;
                                 if ($run_db) {
-                                    $SPKProdukNoSjToUpdate->save();
+                                    // $SPKProdukNoSjToUpdate->jumlah=$jml_to_update;
+                                    // $SPKProdukNoSjToUpdate->save();
+                                    $SPKProdukNoSjToUpdate->update([
+                                        'jumlah'=>$jml_to_update,
+                                    ]);
                                     $success_logs[]="Updating SPKProdukNoSj->jumlah";
                                 }
                             }

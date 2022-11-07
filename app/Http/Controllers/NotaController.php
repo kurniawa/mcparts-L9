@@ -169,17 +169,19 @@ class NotaController extends Controller
                 if (count($spk_produk_notas)!==0) {
                     $success_logs[]="spk_produk_id:$spk_produk[id] sudah memiliki nota.";
                     $jml_nota_sama=$jml_nota_beda=0;
+                    $apakah_ada_nota_yang_sama=false;
                     $SPKProdukNotaID_toUpdate=null;
                     //cek nota_id nya sama seperti yang di post atau tidak
                     foreach ($spk_produk_notas as $spk_produk_nota) {
                         if ($spk_produk_nota['nota_id']==$post['nota_id']) {
                             $jml_nota_sama+=$spk_produk_nota['jumlah'];
                             $SPKProdukNotaID_toUpdate=$spk_produk_nota['id'];
+                            $apakah_ada_nota_yang_sama=true;
                         } else {
                             $jml_nota_beda+=$spk_produk_nota['jumlah'];
                         }
                     }
-                    if ($jml_nota_sama===0) {
+                    if ($apakah_ada_nota_yang_sama===false) {
                         $success_logs[]="spk_produk_id:$spk_produk[id] tidak memiliki nota sama seperti yang di post:$post[nota_id]";
                         $jml_av=$spk_produk['jml_selesai']-$jml_nota_beda;
                         if ($jml_av!==0) {
@@ -206,9 +208,13 @@ class NotaController extends Controller
                         $jml_av=$spk_produk['jml_selesai']-($jml_nota_sama+$jml_nota_beda);
                         $jml_to_update=$jml_av+$jml_nota_sama;
                         $SPKProdukNotaToUpdate=SpkProdukNota::find($SPKProdukNotaID_toUpdate);
-                        $SPKProdukNotaToUpdate->jumlah=$jml_to_update;
                         if ($run_db) {
-                            $SPKProdukNotaToUpdate->save();
+                            $SPKProdukNotaToUpdate->update([
+                                'jumlah'=>$jml_to_update,
+                                'harga_t'=>$jml_to_update*$spk_produk['harga']
+                            ]);
+                            // $SPKProdukNotaToUpdate->jumlah=$jml_to_update;
+                            // $SPKProdukNotaToUpdate->save();
                             $success_logs[]="Updating spk_produk_nota->jumlah";
                         }
                     }

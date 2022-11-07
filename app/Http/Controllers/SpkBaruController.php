@@ -63,11 +63,11 @@ class SpkBaruController extends Controller
         $load_num = SiteSetting::find(1);
 
         $run_db = true; // true apabila siap melakukan CRUD ke DB
-        $error_logs=$warning_logs=$success_logs = array();
+        $_errors=$_warnings=$_success="";
 
         if ($load_num->value > 0) {
             $run_db = false;
-            $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $_errors.= '_ WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
         }
 
         $post = $request->post();
@@ -83,18 +83,24 @@ class SpkBaruController extends Controller
         ];
         if ($run_db) {
             $insert_temp_spk = TempSpk::create($temp_spk);
-            $success_logs[] = 'Berhasil mempersiapkan cart untuk SPK Baru!';
+            $_success= 'Berhasil mempersiapkan cart untuk SPK Baru!';
         }
 
-        $route = 'SPK-Review';
-        $route_btn='Ke Review SPK';
-        $params=['temp_spk_id'=>$insert_temp_spk['id']];
-        $data = [
-            'error_logs' => $error_logs,'warning_logs' => $warning_logs,'success_logs' => $success_logs,
-            'route' => $route,'route_btn' => $route_btn,'params' => $params,
-        ];
+        // $route = 'SPK-Review';
+        // $route_btn='Ke Review SPK';
+        // $params=['temp_spk_id'=>$insert_temp_spk['id']];
+        // $data = [
+        //     'error_logs' => $error_logs,'warning_logs' => $warning_logs,'success_logs' => $success_logs,
+        //     'route' => $route,'route_btn' => $route_btn,'params' => $params,
+        // ];
 
-        return view('layouts.db-result', $data);
+        // return view('layouts.db-result', $data);
+        $_logs=[
+            '_success'=>$_success,
+            '_warnings'=>$_warnings,
+            '_errors'=>$_errors,
+        ];
+        return redirect()->route('SPK-Review',['temp_spk_id'=>$insert_temp_spk['id']])->with($_logs);
     }
 
     public function spk_review(Request $request)
@@ -180,16 +186,21 @@ class SpkBaruController extends Controller
         $load_num = SiteSetting::find(1);
 
         $run_db = true; // true apabila siap melakukan CRUD ke DB
-        $error_logs=$warning_logs=$success_logs = array();
+        // $error_logs=$warning_logs=$success_logs = array();
+        $_errors=$_warnings=$_success="";
 
         if ($load_num->value > 0) {
             $run_db = false;
-            $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            // $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $_errors.= 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
         }
 
         $post = $request->post();
         // dd('$post: ', $post);
 
+        /**Selection dibawah ini digunakan oleh 2 halaman, yakni halaman ketika add item pada saat pembuatan spk,
+         * serta halaman ketika add item pada tambah item spk lewat spk detail
+         */
         if (isset($post['spk_id']) && $post['spk_id']!==null) {
             $produk=Produk::find($post['produk_id']);
             $produk_harga =ProdukHarga::where('produk_id',$produk['id'])->first();
@@ -204,19 +215,26 @@ class SpkBaruController extends Controller
                     'keterangan' => null,
                     'status' => 'PROSES',
                 ]);
-                $success_logs[]="Item baru berhasil di tambahkan ke SPK-$post[spk_id]";
+                // $success_logs[]="Item baru berhasil di tambahkan ke SPK-$post[spk_id]";
+                $_success.="_ Item baru berhasil di tambahkan ke SPK-$post[spk_id]";
 
                 UpdateDataSPK::All($post['spk_id']);
                 $main_log='Success';
             }
 
-            $route = 'SPK-Detail';
-            $route_btn='Ke Detail SPK';
-            $params=['spk_id'=>$post['spk_id']];
-            $data = [
-                'error_logs' => $error_logs,'warning_logs' => $warning_logs,'success_logs' => $success_logs,'main_log'=>$main_log,
-                'route' => $route,'route_btn' => $route_btn,'params' => $params,
+            // $route = 'SPK-Detail';
+            // $route_btn='Ke Detail SPK';
+            // $params=['spk_id'=>$post['spk_id']];
+            // $data = [
+            //     'error_logs' => $error_logs,'warning_logs' => $warning_logs,'success_logs' => $success_logs,'main_log'=>$main_log,
+            //     'route' => $route,'route_btn' => $route_btn,'params' => $params,
+            // ];
+            $_logs=[
+                '_success'=>$_success,
+                '_warnings'=>$_warnings,
+                '_errors'=>$_errors,
             ];
+            return redirect()->route('SPK-Detail',['spk_id'=>$post['spk_id']])->with($_logs);
         } else {
             if ($run_db) {
                 $tempspkproduk_new = TempSpkProduk::create([
@@ -227,20 +245,27 @@ class SpkBaruController extends Controller
                 $load_num->value += 1;
                 $load_num->save();
                 $produk = Produk::find($tempspkproduk_new['produk_id']);
-                $success_logs[] = "Item $produk[nama] telah berhasil diinput ke temp_spk_produks";
+                // $success_logs[] = "Item $produk[nama] telah berhasil diinput ke temp_spk_produks";
+                $_success= "Item $produk[nama] telah berhasil diinput ke temp_spk_produks";
                 $main_log = "Succeed!";
             }
 
-            $route = 'SPK-Review';
-            $route_btn='Ke Review SPK';
-            $params=['temp_spk_id'=>$post['temp_spk_id']];
-            $data = [
-                'error_logs' => $error_logs,'warning_logs' => $warning_logs,'success_logs' => $success_logs,
-                'route' => $route,'route_btn' => $route_btn,'params' => $params,
+            // $route = 'SPK-Review';
+            // $route_btn='Ke Review SPK';
+            // $params=['temp_spk_id'=>$post['temp_spk_id']];
+            // $data = [
+            //     'error_logs' => $error_logs,'warning_logs' => $warning_logs,'success_logs' => $success_logs,
+            //     'route' => $route,'route_btn' => $route_btn,'params' => $params,
+            // ];
+            $_logs=[
+                '_success'=>$_success,
+                '_warnings'=>$_warnings,
+                '_errors'=>$_errors,
             ];
+            return redirect()->route('SPK-Review',['temp_spk_id'=>$post['temp_spk_id']])->with($_logs);
         }
 
-        return view('layouts.db-result', $data);
+        // return view('layouts.db-result', $data);
     }
 
     public function spkBaru_spkItem_editDelete(Request $request)
@@ -318,11 +343,13 @@ class SpkBaruController extends Controller
     {
         $load_num = SiteSetting::find(1);
         $run_db = true;
-        $success_logs = $warning_logs = $error_logs = array();
+        // $success_logs = $warning_logs = $error_logs = array();
+        $_errors=$_warnings=$_success="";
 
         if ($load_num->value > 0) {
             $run_db = false;
-            $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            // $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
+            $_errors.= 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
         }
 
         $temp_spk_id = $request->post('temp_spk_id');
@@ -334,15 +361,22 @@ class SpkBaruController extends Controller
             $temp_spk=TempSpk::find($post['temp_spk_id']);
             if ($run_db) {
                 $temp_spk->delete();
-                $warning_logs[]='Berhasil menghapus TempSPK dan TempSPKProduk';
+                // $warning_logs[]='_ Pembuatan SPK dibatalkan. Data TempSPK dan TempSPKProduk dihapus!';
+                $_warnings.='_ Pembuatan SPK dibatalkan. Data TempSPK dan TempSPKProduk dihapus!';
             }
-            $route='Home';
-            $route_btn='Ke Home';
-            $data=[
-                'success_logs'=>$success_logs,'warning_logs'=>$warning_logs,'error_logs'=>$error_logs,
-                'route'=>$route,'route_btn'=>$route_btn,
+            // $route='Home';
+            // $route_btn='Ke Home';
+            // $data=[
+            //     'success_logs'=>$success_logs,'warning_logs'=>$warning_logs,'error_logs'=>$error_logs,
+            //     'route'=>$route,'route_btn'=>$route_btn,
+            // ];
+            // return view('layouts.db-result',$data);
+            $_logs=[
+                '_success'=>$_success,
+                '_warnings'=>$_warnings,
+                '_errors'=>$_errors,
             ];
-            return view('layouts.db-result',$data);
+            return redirect()->route('SPK')->with($_logs);
         }
         /**END: PEMBATALAN */
 
@@ -351,7 +385,8 @@ class SpkBaruController extends Controller
             // Data dari Temp_spk masuk ke spk - pembuatan spk baru
             $temp_spk=TempSpk::find($temp_spk_id);
             $new_spk=Spk::proceedSPK($temp_spk);
-            $success_logs[]="SPK baru telah dibuat. Nomor SPK: $new_spk[no_spk].";
+            // $success_logs[]="SPK baru telah dibuat. Nomor SPK: $new_spk[no_spk].";
+            $_success.="_ SPK baru telah dibuat. Nomor SPK: $new_spk[no_spk].";
 
             $temp_spk_produks=TempSpkProduk::where('temp_spk_id',$temp_spk_id)->get();
             // VARIABLE YANG NANTINYA AKAN DIINSERT KE TABLE PRODUKS
@@ -371,7 +406,8 @@ class SpkBaruController extends Controller
                     'status' => 'PROSES',
                     'nama_produk' => $produk['nama'],
                 ]);
-                array_push($success_logs, "Input Item -> $new_spk_produk[nama_produk] ke Database. Relasi ke $new_spk[no_spk] dibuat.");
+                // array_push($success_logs, "Input Item -> $new_spk_produk[nama_produk] ke Database. Relasi ke $new_spk[no_spk] dibuat.");
+                $_success.= "_ Input Item -> $new_spk_produk[nama_produk] ke Database. Relasi ke $new_spk[no_spk] dibuat.";
 
                 $harga_total+=$new_spk_produk['harga']*$new_spk_produk['jumlah'];
                 $jumlah_total+=$new_spk_produk['jumlah'];
@@ -383,22 +419,31 @@ class SpkBaruController extends Controller
                 'harga_total'=>$harga_total,
             ]);
 
-            $success_logs[] = 'Harga Total dan Jumlah Total SPK telah diupdate!';
+            // $success_logs[] = 'Harga Total dan Jumlah Total SPK telah diupdate!';
+            $_success.= '_ Harga Total dan Jumlah Total SPK telah diupdate!';
 
             $temp_spk->delete();
-            array_push($success_logs, 'Related TempSpk deleted and all items in temp_spk_produks deleted.');
+            // array_push($success_logs, 'Related TempSpk deleted and all items in temp_spk_produks deleted.');
+            $_success.= '_ Related TempSpk deleted and all items in temp_spk_produks deleted.';
 
             $load_num->value+=1;
             $load_num->save();
         }
 
-        $route = 'SPK';
-        $route_btn = 'Daftar SPK';
-        $data = [
-            'success_logs' => $success_logs,'error_logs' => $error_logs,'warning_logs' => $warning_logs,
-            'route' => $route,'route_btn' => $route_btn,
-        ];
+        // $route = 'SPK';
+        // $route_btn = 'Daftar SPK';
+        // $data = [
+        //     'success_logs' => $success_logs,'error_logs' => $error_logs,'warning_logs' => $warning_logs,
+        //     'route' => $route,'route_btn' => $route_btn,
+        // ];
 
-        return view('layouts.db-result', $data);
+        // return view('layouts.db-result', $data);
+
+        $_logs=[
+            '_success'=>$_success,
+            '_warnings'=>$_warnings,
+            '_errors'=>$_errors,
+        ];
+        return redirect()->route('SPK')->with($_logs);
     }
 }
