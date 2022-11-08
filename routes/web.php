@@ -19,6 +19,7 @@ use App\Http\Controllers\PelangganKontakController;
 use App\Http\Controllers\PelangganResellerController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProdukHelperController;
 use App\Http\Controllers\ProdukSpecController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SjDetailController;
@@ -308,6 +309,10 @@ Route::controller(ProdukSpecController::class)->group(function ()
     Route::post('/produk/tambah-spec-db', 'tambahSpecDB')->name('tambahSpecDB')->middleware('auth');
     Route::get('/produk/edit-spec', 'editSpec')->name('editSpec')->middleware('auth');
     Route::post('/produk/hapus-spec', 'hapusSpec')->name('hapusSpec')->middleware('auth');
+});
+Route::controller(ProdukHelperController::class)->group(function ()
+{
+    Route::post('/produk/produk-edit-nama', 'produkEditNama')->name('produkEditNama')->middleware('auth');
 });
 
 

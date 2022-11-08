@@ -46,18 +46,18 @@ class ProdukController extends Controller
     public function index()
     {
         SiteSettings::loadNumToZero();
-        $sjvariasis = Produk::where('tipe','SJ-Variasi')->orderBy('nama')->get(['id','nama'])->toArray();
-        $sjkombinasis = Produk::where('tipe','SJ-Kombinasi')->orderBy('nama')->get(['id','nama'])->toArray();
-        $sjmotifs = Produk::where('tipe','SJ-Motif')->orderBy('nama')->get(['id','nama'])->toArray();
-        $sjtsixpacks = Produk::where('tipe','SJ-T.Sixpack')->orderBy('nama')->get(['id','nama'])->toArray();
-        $sjstandars = Produk::where('tipe','SJ-Standar')->orderBy('nama')->get(['id','nama'])->toArray();
-        $sjjapstyles = Produk::where('tipe','SJ-Japstyle')->orderBy('nama')->get(['id','nama'])->toArray();
-        $jokassies = Produk::where('tipe','Jok Assy')->orderBy('nama')->get(['id','nama'])->toArray();
-        $tankpads = Produk::where('tipe','Tankpad')->orderBy('nama')->get(['id','nama'])->toArray();
-        $stikers = Produk::where('tipe','Stiker')->orderBy('nama')->get(['id','nama'])->toArray();
-        $busastangs = Produk::where('tipe','Busa-Stang')->orderBy('nama')->get(['id','nama'])->toArray();
-        $rols = Produk::where('tipe','Rol')->orderBy('nama')->get(['id','nama'])->toArray();
-        $rotans = Produk::where('tipe','Rotan')->orderBy('nama')->get(['id','nama'])->toArray();
+        $sjvariasis = Produk::where('tipe','SJ-Variasi')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
+        $sjkombinasis = Produk::where('tipe','SJ-Kombinasi')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
+        $sjmotifs = Produk::where('tipe','SJ-Motif')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
+        $sjtsixpacks = Produk::where('tipe','SJ-T.Sixpack')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
+        $sjstandars = Produk::where('tipe','SJ-Standar')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
+        $sjjapstyles = Produk::where('tipe','SJ-Japstyle')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
+        $jokassies = Produk::where('tipe','Jok Assy')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
+        $tankpads = Produk::where('tipe','Tankpad')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
+        $stikers = Produk::where('tipe','Stiker')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
+        $busastangs = Produk::where('tipe','Busa-Stang')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
+        $rols = Produk::where('tipe','Rol')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
+        $rotans = Produk::where('tipe','Rotan')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
 
         $jumlah=count($sjvariasis)+count($sjkombinasis)+count($sjmotifs)+count($sjtsixpacks)+count($sjstandars)+count($sjjapstyles)+count($jokassies)+count($tankpads)+count($stikers)+count($busastangs)+count($rols)+count($rotans);
 

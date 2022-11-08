@@ -25,144 +25,449 @@
     </div>
 </div>
 
-@if (session()->has('_success'))
-<div class="container alert alert-success">{{ session('_success') }}</div>
+{{-- Penampilan Alert Success --}}
+@if (session()->has('_success') && session('_success')!=="")
+<div class="container mt-2 alert alert-success">{{ session('_success') }}</div>
+@endif
+@if (session()->has('_warnings') && session('_warnings')!=="")
+<div class="container mt-1 alert alert-warning">{{ session('_warnings') }}</div>
+@endif
+@if (session()->has('_errors') && session('_errors')!=="")
+<div class="container mt-1 alert alert-danger">{{ session('_errors') }}</div>
 @endif
 
-<form action="{{ route('produk_detail') }}" class="container" method="GET">
-    <div id="div-var" class="items">
-        <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-Variasi</div>
-        <table style="width: 100%">
-            @foreach ($sjvariasis as $sjvariasi)
-            <tr>
-                <td>{{ $sjvariasi['nama'] }}</td>
-                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $sjvariasi['id'] }}>>></button></td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-    <div id="div-komb" class="items">
-        <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-Kombinasi</div>
-        <table style="width: 100%">
-            @foreach ($sjkombinasis as $sjkombinasi)
-            <tr>
-                <td>{{ $sjkombinasi['nama'] }}</td>
-                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $sjkombinasi['id'] }}>>></button></td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-    <div id="div-mot" class="items">
-        <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-Motif</div>
-        <table style="width: 100%">
-            @foreach ($sjmotifs as $sjmotif)
-            <tr>
-                <td>{{ $sjmotif['nama'] }}</td>
-                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $sjmotif['id'] }}>>></button></td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-    <div id="div-t-sp" class="items">
-        <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-T.Sixpack</div>
-        <table style="width: 100%">
-            @foreach ($sjtsixpacks as $sjtsixpack)
-            <tr>
-                <td>{{ $sjtsixpack['nama'] }}</td>
-                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $sjtsixpack['id'] }}>>></button></td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-    <div id="div-std" class="items">
-        <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-Standar</div>
-        <table style="width: 100%">
-            @foreach ($sjstandars as $sjstandar)
-            <tr>
-                <td>{{ $sjstandar['nama'] }}</td>
-                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $sjstandar['id'] }}>>></button></td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-    <div id="div-jap" class="items">
-        <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-Japstyle</div>
-        <table style="width: 100%">
-            @foreach ($sjjapstyles as $sjjapstyle)
-            <tr>
-                <td>{{ $sjjapstyle['nama'] }}</td>
-                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $sjjapstyle['id'] }}>>></button></td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-    <div id="div-ass" class="items">
-        <div class="fw-bold border border-primary border-2 p-1 text-center">Jok Assy</div>
-        <table style="width: 100%">
-            @foreach ($jokassies as $jokassy)
-            <tr>
-                <td>{{ $jokassy['nama'] }}</td>
-                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $jokassy['id'] }}>>></button></td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-    <div id="div-tp" class="items">
-        <div class="fw-bold border border-primary border-2 p-1 text-center">Tankpad</div>
-        <table style="width: 100%">
-            @foreach ($tankpads as $tankpad)
-            <tr>
-                <td>{{ $tankpad['nama'] }}</td>
-                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $tankpad['id'] }}>>></button></td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-    <div id="div-sti" class="items">
-        <div class="fw-bold border border-primary border-2 p-1 text-center">Stiker</div>
-        <table style="width: 100%">
-            @foreach ($stikers as $stiker)
-            <tr>
-                <td>{{ $stiker['nama'] }}</td>
-                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $stiker['id'] }}>>></button></td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-    <div id="div-bs" class="items">
-        <div class="fw-bold border border-primary border-2 p-1 text-center">Busa Stang</div>
-        <table style="width: 100%">
-            @foreach ($busastangs as $busastang)
-            <tr>
-                <td>{{ $busastang['nama'] }}</td>
-                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $busastang['id'] }}>>></button></td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-    <div id="div-rol" class="items">
-        <div class="fw-bold border border-primary border-2 p-1 text-center">Rol</div>
-        <table style="width: 100%">
-            @foreach ($rols as $rol)
-            <tr>
-                <td>{{ $rol['nama'] }}</td>
-                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $rol['id'] }}>>></button></td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-    <div id="div-rot" class="items">
-        <div class="fw-bold border border-primary border-2 p-1 text-center">Rotan</div>
-        <table style="width: 100%">
-            @foreach ($rotans as $rotan)
-            <tr>
-                <td>{{ $rotan['nama'] }}</td>
-                <td class="text-end"><button name="produk_id" type="submit" class="btn btn-warning btn-sm" value={{ $rotan['id'] }}>>></button></td>
-            </tr>
-            @endforeach
-        </table>
-    </div>
-</form>
+<div id="div-var" class="items container">
+    <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-Variasi</div>
+    <table style="width: 100%">
+        @foreach ($sjvariasis as $sjvariasi)
+        <tr class="border">
+            <td>{{ $sjvariasi['nama'] }}</td>
+            <td>
+                <div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btn-edit-nama-produk-{{ $sjvariasi['id'] }}" class="btn btn-sm btn-outline-primary" onclick="showHideActive(this.id,'tr-edit-nama-produk-{{ $sjvariasi['id'] }}')">E.Nama</button>
+                        <a href="{{ route('produk_detail',['produk_id'=>$sjvariasi['id']]) }}" class="ms-1 btn btn-warning btn-sm">>></a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr id="tr-edit-nama-produk-{{ $sjvariasi['id'] }}" class="d-none">
+            <td>
+                <form action="{{ route('produkEditNama') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" value="{{ $sjvariasi['nama'] }}">
+                        <label for="nama_nota">Nama Nota:</label>
+                        <input type="text" name="nama_nota" id="nama_nota" class="form-control" placeholder="Nama Nota" value="{{ $sjvariasi['nama_nota'] }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <input type="hidden" name="produk_id" value="{{ $sjvariasi['id'] }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Konfirmasi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+<div id="div-komb" class="items container">
+    <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-Kombinasi</div>
+    <table style="width: 100%">
+        @foreach ($sjkombinasis as $sjkombinasi)
+        <tr>
+            <td>{{ $sjkombinasi['nama'] }}</td>
+            <td>
+                <div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btn-edit-nama-produk-{{ $sjkombinasi['id'] }}" class="btn btn-sm btn-outline-primary" onclick="showHideActive(this.id,'tr-edit-nama-produk-{{ $sjkombinasi['id'] }}')">E.Nama</button>
+                        <a href="{{ route('produk_detail',['produk_id'=>$sjkombinasi['id']]) }}" class="ms-1 btn btn-warning btn-sm">>></a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr id="tr-edit-nama-produk-{{ $sjkombinasi['id'] }}" class="d-none">
+            <td>
+                <form action="{{ route('produkEditNama') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" value="{{ $sjkombinasi['nama'] }}">
+                        <label for="nama_nota">Nama Nota:</label>
+                        <input type="text" name="nama_nota" id="nama_nota" class="form-control" placeholder="Nama Nota" value="{{ $sjkombinasi['nama_nota'] }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <input type="hidden" name="produk_id" value="{{ $sjkombinasi['id'] }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Konfirmasi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+<div id="div-mot" class="items container">
+    <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-Motif</div>
+    <table style="width: 100%">
+        @foreach ($sjmotifs as $sjmotif)
+        <tr>
+            <td>{{ $sjmotif['nama'] }}</td>
+            <td>
+                <div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btn-edit-nama-produk-{{ $sjmotif['id'] }}" onclick="showHideActive(this.id,'tr-edit-nama-produk-{{ $sjmotif['id'] }}')" class="btn btn-sm btn-outline-primary">E.Nama</button>
+                        <a href="{{ route('produk_detail',['produk_id'=>$sjmotif['id']]) }}" class="ms-1 btn btn-warning btn-sm">>></a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr id="tr-edit-nama-produk-{{ $sjmotif['id'] }}" class="d-none">
+            <td>
+                <form action="{{ route('produkEditNama') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" value="{{ $sjmotif['nama'] }}">
+                        <label for="nama_nota">Nama Nota:</label>
+                        <input type="text" name="nama_nota" id="nama_nota" class="form-control" placeholder="Nama Nota" value="{{ $sjmotif['nama_nota'] }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <input type="hidden" name="produk_id" value="{{ $sjmotif['id'] }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Konfirmasi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+<div id="div-t-sp" class="items container">
+    <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-T.Sixpack</div>
+    <table style="width: 100%">
+        @foreach ($sjtsixpacks as $sjtsixpack)
+        <tr>
+            <td>{{ $sjtsixpack['nama'] }}</td>
+            <td>
+                <div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btn-edit-nama-produk-{{ $sjtsixpack['id'] }}" onclick="showHideActive(this.id,'tr-edit-nama-produk-{{ $sjtsixpack['id'] }}')" class="btn btn-sm btn-outline-primary">E.Nama</button>
+                        <a href="{{ route('produk_detail',['produk_id'=>$sjtsixpack['id']]) }}" class="ms-1 btn btn-warning btn-sm">>></a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr id="tr-edit-nama-produk-{{ $sjtsixpack['id'] }}" class="d-none">
+            <td>
+                <form action="{{ route('produkEditNama') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" value="{{ $sjtsixpack['nama'] }}">
+                        <label for="nama_nota">Nama Nota:</label>
+                        <input type="text" name="nama_nota" id="nama_nota" class="form-control" placeholder="Nama Nota" value="{{ $sjtsixpack['nama_nota'] }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <input type="hidden" name="produk_id" value="{{ $sjtsixpack['id'] }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Konfirmasi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+<div id="div-std" class="items container">
+    <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-Standar</div>
+    <table style="width: 100%">
+        @foreach ($sjstandars as $sjstandar)
+        <tr>
+            <td>{{ $sjstandar['nama'] }}</td>
+            <td>
+                <div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btn-edit-nama-produk-{{ $sjstandar['id'] }}" onclick="showHideActive(this.id,'tr-edit-nama-produk-{{ $sjstandar['id'] }}')" class="btn btn-sm btn-outline-primary">E.Nama</button>
+                        <a href="{{ route('produk_detail',['produk_id'=>$sjstandar['id']]) }}" class="ms-1 btn btn-warning btn-sm">>></a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr id="tr-edit-nama-produk-{{ $sjstandar['id'] }}" class="d-none">
+            <td>
+                <form action="{{ route('produkEditNama') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" value="{{ $sjstandar['nama'] }}">
+                        <label for="nama_nota">Nama Nota:</label>
+                        <input type="text" name="nama_nota" id="nama_nota" class="form-control" placeholder="Nama Nota" value="{{ $sjstandar['nama_nota'] }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <input type="hidden" name="produk_id" value="{{ $sjstandar['id'] }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Konfirmasi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+<div id="div-jap" class="items container">
+    <div class="fw-bold border border-primary border-2 p-1 text-center">SJ-Japstyle</div>
+    <table style="width: 100%">
+        @foreach ($sjjapstyles as $sjjapstyle)
+        <tr>
+            <td>{{ $sjjapstyle['nama'] }}</td>
+            <td>
+                <div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btn-edit-nama-produk-{{ $sjjapstyle['id'] }}" onclick="showHideActive(this.id,'tr-edit-nama-produk-{{ $sjjapstyle['id'] }}')" class="btn btn-sm btn-outline-primary">E.Nama</button>
+                        <a href="{{ route('produk_detail',['produk_id'=>$sjjapstyle['id']]) }}" class="ms-1 btn btn-warning btn-sm">>></a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr id="tr-edit-nama-produk-{{ $sjjapstyle['id'] }}" class="d-none">
+            <td>
+                <form action="{{ route('produkEditNama') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" value="{{ $sjjapstyle['nama'] }}">
+                        <label for="nama_nota">Nama Nota:</label>
+                        <input type="text" name="nama_nota" id="nama_nota" class="form-control" placeholder="Nama Nota" value="{{ $sjjapstyle['nama_nota'] }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <input type="hidden" name="produk_id" value="{{ $sjjapstyle['id'] }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Konfirmasi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+<div id="div-ass" class="items container">
+    <div class="fw-bold border border-primary border-2 p-1 text-center">Jok Assy</div>
+    <table style="width: 100%">
+        @foreach ($jokassies as $jokassy)
+        <tr>
+            <td>{{ $jokassy['nama'] }}</td>
+            <td>
+                <div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btn-edit-nama-produk-{{ $jokassy['id'] }}" onclick="showHideActive(this.id,'tr-edit-nama-produk-{{ $jokassy['id'] }}')" class="btn btn-sm btn-outline-primary">E.Nama</button>
+                        <a href="{{ route('produk_detail',['produk_id'=>$jokassy['id']]) }}" class="ms-1 btn btn-warning btn-sm">>></a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr id="tr-edit-nama-produk-{{ $jokassy['id'] }}" class="d-none">
+            <td>
+                <form action="{{ route('produkEditNama') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" value="{{ $jokassy['nama'] }}">
+                        <label for="nama_nota">Nama Nota:</label>
+                        <input type="text" name="nama_nota" id="nama_nota" class="form-control" placeholder="Nama Nota" value="{{ $jokassy['nama_nota'] }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <input type="hidden" name="produk_id" value="{{ $jokassy['id'] }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Konfirmasi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+<div id="div-tp" class="items container">
+    <div class="fw-bold border border-primary border-2 p-1 text-center">Tankpad</div>
+    <table style="width: 100%">
+        @foreach ($tankpads as $tankpad)
+        <tr>
+            <td>{{ $tankpad['nama'] }}</td>
+            <td>
+                <div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btn-edit-nama-produk-{{ $tankpad['id'] }}" onclick="showHideActive(this.id,'tr-edit-nama-produk-{{ $tankpad['id'] }}')" class="btn btn-sm btn-outline-primary">E.Nama</button>
+                        <a href="{{ route('produk_detail',['produk_id'=>$tankpad['id']]) }}" class="ms-1 btn btn-warning btn-sm">>></a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr id="tr-edit-nama-produk-{{ $tankpad['id'] }}" class="d-none">
+            <td>
+                <form action="{{ route('produkEditNama') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" value="{{ $tankpad['nama'] }}">
+                        <label for="nama_nota">Nama Nota:</label>
+                        <input type="text" name="nama_nota" id="nama_nota" class="form-control" placeholder="Nama Nota" value="{{ $tankpad['nama_nota'] }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <input type="hidden" name="produk_id" value="{{ $tankpad['id'] }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Konfirmasi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+<div id="div-sti" class="items container">
+    <div class="fw-bold border border-primary border-2 p-1 text-center">Stiker</div>
+    <table style="width: 100%">
+        @foreach ($stikers as $stiker)
+        <tr>
+            <td>{{ $stiker['nama'] }}</td>
+            <td>
+                <div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btn-edit-nama-produk-{{ $stiker['id'] }}" onclick="showHideActive(this.id,'tr-edit-nama-produk-{{ $stiker['id'] }}')" class="btn btn-sm btn-outline-primary">E.Nama</button>
+                        <a href="{{ route('produk_detail',['produk_id'=>$stiker['id']]) }}" class="ms-1 btn btn-warning btn-sm">>></a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr id="tr-edit-nama-produk-{{ $stiker['id'] }}" class="d-none">
+            <td>
+                <form action="{{ route('produkEditNama') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" value="{{ $stiker['nama'] }}">
+                        <label for="nama_nota">Nama Nota:</label>
+                        <input type="text" name="nama_nota" id="nama_nota" class="form-control" placeholder="Nama Nota" value="{{ $stiker['nama_nota'] }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <input type="hidden" name="produk_id" value="{{ $stiker['id'] }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Konfirmasi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+<div id="div-bs" class="items container">
+    <div class="fw-bold border border-primary border-2 p-1 text-center">Busa Stang</div>
+    <table style="width: 100%">
+        @foreach ($busastangs as $busastang)
+        <tr>
+            <td>{{ $busastang['nama'] }}</td>
+            <td>
+                <div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btn-edit-nama-produk-{{ $busastang['id'] }}" onclick="showHideActive(this.id,'tr-edit-nama-produk-{{ $busastang['id'] }}')" class="btn btn-sm btn-outline-primary">E.Nama</button>
+                        <a href="{{ route('produk_detail',['produk_id'=>$busastang['id']]) }}" class="ms-1 btn btn-warning btn-sm">>></a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr id="tr-edit-nama-produk-{{ $busastang['id'] }}" class="d-none">
+            <td>
+                <form action="{{ route('produkEditNama') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" value="{{ $busastang['nama'] }}">
+                        <label for="nama_nota">Nama Nota:</label>
+                        <input type="text" name="nama_nota" id="nama_nota" class="form-control" placeholder="Nama Nota" value="{{ $busastang['nama_nota'] }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <input type="hidden" name="produk_id" value="{{ $busastang['id'] }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Konfirmasi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+<div id="div-rol" class="items container">
+    <div class="fw-bold border border-primary border-2 p-1 text-center">Rol</div>
+    <table style="width: 100%">
+        @foreach ($rols as $rol)
+        <tr>
+            <td>{{ $rol['nama'] }}</td>
+            <td>
+                <div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btn-edit-nama-produk-{{ $rol['id'] }}" onclick="showHideActive(this.id,'tr-edit-nama-produk-{{ $rol['id'] }}')" class="btn btn-sm btn-outline-primary">E.Nama</button>
+                        <a href="{{ route('produk_detail',['produk_id'=>$rol['id']]) }}" class="ms-1 btn btn-warning btn-sm">>></a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr id="tr-edit-nama-produk-{{ $rol['id'] }}" class="d-none">
+            <td>
+                <form action="{{ route('produkEditNama') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" value="{{ $rol['nama'] }}">
+                        <label for="nama_nota">Nama Nota:</label>
+                        <input type="text" name="nama_nota" id="nama_nota" class="form-control" placeholder="Nama Nota" value="{{ $rol['nama_nota'] }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <input type="hidden" name="produk_id" value="{{ $rol['id'] }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Konfirmasi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+<div id="div-rot" class="items container">
+    <div class="fw-bold border border-primary border-2 p-1 text-center">Rotan</div>
+    <table style="width: 100%">
+        @foreach ($rotans as $rotan)
+        <tr>
+            <td>{{ $rotan['nama'] }}</td>
+            <td>
+                <div>
+                    <div class="d-flex justify-content-end">
+                        <button id="btn-edit-nama-produk-{{ $rotan['id'] }}" onclick="showHideActive(this.id,'tr-edit-nama-produk-{{ $rotan['id'] }}')" class="btn btn-sm btn-outline-primary">E.Nama</button>
+                        <a href="{{ route('produk_detail',['produk_id'=>$rotan['id']]) }}" class="ms-1 btn btn-warning btn-sm">>></a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+        <tr id="tr-edit-nama-produk-{{ $rotan['id'] }}" class="d-none">
+            <td>
+                <form action="{{ route('produkEditNama') }}" method="POST">
+                    @csrf
+                    <div>
+                        <label for="nama">Nama:</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" value="{{ $rotan['nama'] }}">
+                        <label for="nama_nota">Nama Nota:</label>
+                        <input type="text" name="nama_nota" id="nama_nota" class="form-control" placeholder="Nama Nota" value="{{ $rotan['nama_nota'] }}">
+                    </div>
+                    <div class="text-end mt-1">
+                        <input type="hidden" name="produk_id" value="{{ $rotan['id'] }}">
+                        <button type="submit" class="btn btn-sm btn-warning">Konfirmasi</button>
+                    </div>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
 
 <script>
 // document.querySelectorAll('.filter-tipe').forEach(element => {
