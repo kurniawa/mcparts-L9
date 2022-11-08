@@ -88,8 +88,15 @@ class PelangganController extends Controller
                 if ($pelanggan_ekspedisis[$i]['is_transit']==='no') {
                     $eks_normal = Ekspedisi::find($pelanggan_ekspedisis[$i]['ekspedisi_id']);
                     if ($eks_normal!==null) {
-                        $eks_normal_alamat=EkspedisiAlamat::where('ekspedisi_id',$eks_normal['id'])->where('tipe','UTAMA')->first();
-                        $alamat_of_eks_normal= Alamat::find($eks_normal_alamat['alamat_id']);
+                        $eks_normal_alamat=EkspedisiAlamat::where('ekspedisi_id',$eks_normal['id'])->first();
+                        try {
+                            //code...
+                            $alamat_of_eks_normal= Alamat::find($eks_normal_alamat['alamat_id']);
+                        } catch (\Throwable $err) {
+                            dump($eks_normal);
+                            dump($eks_normal_alamat);
+                            dump($err);
+                        }
 
                         array_push($eks_normals, $eks_normal);
                         $eks_normal_alamats[]=$eks_normal_alamat;
