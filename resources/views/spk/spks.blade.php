@@ -17,7 +17,7 @@
         </div>
     </div>
 </div>
-
+{{-- Penampilan Alert Success --}}
 @if (session()->has('_success') && session('_success')!=="")
 <div class="container mt-2 alert alert-success">{{ session('_success') }}</div>
 @endif
@@ -97,17 +97,6 @@
 
 <script>
 
-function showHideActive(btn_id,div_id) {
-    var button=document.getElementById(btn_id);
-    var element=document.getElementById(div_id);
-    if (element.classList.contains('d-none')) {
-        element.classList.remove('d-none');
-        button.classList.add('active');
-    } else {
-        element.classList.add('d-none');
-        button.classList.remove('active');
-    }
-}
 
 </script>
 

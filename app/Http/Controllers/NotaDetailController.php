@@ -250,4 +250,23 @@ class NotaDetailController extends Controller
 
         return view('layouts.db-result', $data);
     }
+
+    public function notaEditTglPembuatan(Request $request)
+    {
+        $_success=$_warnings=$_errors="";
+        $post=$request->post();
+        $nota_id=$post['nota_id'];
+        $created_at=$post['tgl_pembuatan'];
+        // $created_at=date('d-m-Y H:i:s', strtotime($post['tgl_pembuatan']));
+        // dd($post);
+        $nota=Nota::find($nota_id);
+
+        $nota->update([
+            'created_at'=>$created_at
+        ]);
+        $_success.="_ Tanggal pembuatan $nota[no_nota] telah diupdate!";
+
+        $_logs=["_success"=>$_success,"_warnings"=>$_warnings,"_errors"=>$_errors];
+        return back()->with($_logs);
+    }
 }

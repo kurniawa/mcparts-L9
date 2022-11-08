@@ -18,6 +18,17 @@
     </div>
 </div>
 
+{{-- Penampilan Alert Success --}}
+@if (session()->has('_success') && session('_success')!=="")
+<div class="container mt-2 alert alert-success">{{ session('_success') }}</div>
+@endif
+@if (session()->has('_warnings') && session('_warnings')!=="")
+<div class="container mt-1 alert alert-warning">{{ session('_warnings') }}</div>
+@endif
+@if (session()->has('_errors') && session('_errors')!=="")
+<div class="container mt-1 alert alert-danger">{{ session('_errors') }}</div>
+@endif
+
 <div class="container">
     <table class="table table-danger table-striped">
         @for ($i = 0; $i < count($srjalans); $i++)
@@ -77,9 +88,25 @@
                                     <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                 </form>
                                 <a href="{{ route('editColly',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-primary btn-sm ms-1">E.Col</a>
-                                <a href="{{ route('sjSelesai',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-success btn-sm ms-1">Sj.Sls</a>
+                                <button id="btn-edit-tgl-pembuatan-srjalan-{{ $srjalans[$i]['id'] }}" href="{{ route('srjalanEditTglPembuatan',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="ms-1 btn btn-outline-info btn-sm" onclick="showHideActive(this.id,'div-edit-tgl-pembuatan-srjalan-{{ $srjalans[$i]['id'] }}')">Tgl.P</button>
+                                <a href="{{ route('sjSelesai',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-success btn-sm ms-1">Tgl.S</a>
                                 <a href="{{ route('SJ-PrintOut',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-dd btn-sm ms-1">PrintOut</a>
                                 <a href="{{ route('SJ-Detail',['srjalan_id'=>$srjalans[$i]['id']]) }}" class="btn btn-warning btn-sm ms-1">Detail</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div id="div-edit-tgl-pembuatan-srjalan-{{ $srjalans[$i]['id'] }}" class='d-flex justify-content-end mt-1 d-none'>
+                                <form action="{{ route('srjalanEditTglPembuatan') }}" method="POST">
+                                    @csrf
+                                    <label for="">Edit Tgl.Pembuatan:</label>
+                                    <input type="datetime-local" class="form-control" value="{{ date("Y-m-d\TH:i:s") }}" name="tgl_pembuatan">
+                                    <input type="hidden" name="srjalan_id" value="{{ $srjalans[$i]['id'] }}">
+                                    <div class="text-end mt-1">
+                                        <button type="submit" class="btn btn-warning">Konfirmasi</button>
+                                    </div>
+                                </form>
                             </div>
                         </td>
                     </tr>

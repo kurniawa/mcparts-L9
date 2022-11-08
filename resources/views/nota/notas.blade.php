@@ -18,6 +18,17 @@
     </div>
 </div>
 
+{{-- Penampilan Alert Success --}}
+@if (session()->has('_success') && session('_success')!=="")
+<div class="container mt-2 alert alert-success">{{ session('_success') }}</div>
+@endif
+@if (session()->has('_warnings') && session('_warnings')!=="")
+<div class="container mt-1 alert alert-warning">{{ session('_warnings') }}</div>
+@endif
+@if (session()->has('_errors') && session('_errors')!=="")
+<div class="container mt-1 alert alert-danger">{{ session('_errors') }}</div>
+@endif
+
 <div class="container">
     <table class="table table-warning table-striped" class="mt-1">
     @for ($i = 0; $i < count($notas); $i++)
@@ -66,9 +77,25 @@
                                     <input type="hidden" name="nota_id" value="{{ $notas[$i]['id'] }}">
                                     <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                 </form>
+                                <button id="btn-edit-tgl-pembuatan-nota-{{ $notas[$i]['id'] }}" href="{{ route('notaEditTglPembuatan',['nota_id'=>$notas[$i]['id']]) }}" class="ms-1 btn btn-outline-info btn-sm" onclick="showHideActive(this.id,'div-edit-tgl-pembuatan-nota-{{ $notas[$i]['id'] }}')">Tgl.P</button>
                                 <a href="{{ route('PrintOutNota',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-dd btn-sm ms-1">PrintOut</a>
-                                <a href="{{ route('notaSelesai',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-success btn-sm ms-1">N.Sls</a>
+                                <a href="{{ route('notaSelesai',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-success btn-sm ms-1">Tgl.S</a>
                                 <a href="{{ route('Nota-Detail',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-warning btn-sm ms-1">Detail</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <div id="div-edit-tgl-pembuatan-nota-{{ $notas[$i]['id'] }}" class='d-flex justify-content-end mt-1 d-none'>
+                                <form action="{{ route('notaEditTglPembuatan') }}" method="POST">
+                                    @csrf
+                                    <label for="">Edit Tgl.Pembuatan:</label>
+                                    <input type="datetime-local" class="form-control" value="{{ date("Y-m-d\TH:i:s") }}" name="tgl_pembuatan">
+                                    <input type="hidden" name="nota_id" value="{{ $notas[$i]['id'] }}">
+                                    <div class="text-end mt-1">
+                                        <button type="submit" class="btn btn-warning">Konfirmasi</button>
+                                    </div>
+                                </form>
                             </div>
                         </td>
                     </tr>

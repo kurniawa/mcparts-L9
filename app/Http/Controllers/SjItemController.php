@@ -259,4 +259,22 @@ class SjItemController extends Controller
             return back()->with('success',$success_logs);
         }
     }
+    public function srjalanEditTglPembuatan(Request $request)
+    {
+        $_success=$_warnings=$_errors="";
+        $post=$request->post();
+        $srjalan_id=$post['srjalan_id'];
+        $created_at=$post['tgl_pembuatan'];
+        // $created_at=date('d-m-Y H:i:s', strtotime($post['tgl_pembuatan']));
+        // dd($post);
+        $srjalan=Srjalan::find($srjalan_id);
+
+        $srjalan->update([
+            'created_at'=>$created_at
+        ]);
+        $_success.="_ Tanggal pembuatan $srjalan[no_srjalan] telah diupdate!";
+
+        $_logs=["_success"=>$_success,"_warnings"=>$_warnings,"_errors"=>$_errors];
+        return back()->with($_logs);
+    }
 }

@@ -241,6 +241,7 @@ Route::controller(NotaDetailController::class)->group(function ()
     Route::post('/nota/notaSelesaiDB', 'notaSelesaiDB')->name('notaSelesaiDB')->middleware('auth');
     Route::get('/nota/assign-alamat', 'notaDetail_assignAlamat')->name('notaDetail_assignAlamat')->middleware('auth');
     Route::post('/nota/assign-alamat-db', 'notaDetail_assignAlamatDB')->name('notaDetail_assignAlamatDB')->middleware('auth');
+    Route::post('/nota/edit-tgl-pembuatan', "notaEditTglPembuatan")->name('notaEditTglPembuatan')->middleware('auth');
 });
 
 
@@ -263,6 +264,7 @@ Route::controller(SjItemController::class)->group(function ()
     Route::post('/srjalan/SjItemAva_DB', 'SjItemAva_DB')->name('SjItemAva_DB')->middleware('auth');
     Route::post('/sj/editJmlSpkPNSJ', 'editJmlSpkPNSJ')->name('editJmlSpkPNSJ')->middleware('auth');
     Route::post('/sj/delSpkPNSJ', 'delSpkPNSJ')->name('delSpkPNSJ')->middleware('auth');
+    Route::post('/sj/edit-tgl-pembuatan', "srjalanEditTglPembuatan")->name('srjalanEditTglPembuatan')->middleware('auth');
 });
 
 Route::controller(SjDetailController::class)->group(function ()
