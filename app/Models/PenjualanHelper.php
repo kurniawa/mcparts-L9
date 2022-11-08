@@ -32,7 +32,7 @@ class PenjualanHelper extends Model
             $penjualan_totals[]=$penjualan_total;
             $arr_notas_spesific_pelanggan[]=$notas_spesific_pelanggan;
         }
-        $pelanggan_namas_unique=array_unique($pelanggan_namas);
+        $pelanggan_namas_unique=array_values(array_unique($pelanggan_namas));
         // dump($pelanggan_namas);
         // dd($pelanggan_namas_unique);
 
@@ -40,8 +40,14 @@ class PenjualanHelper extends Model
 
 
         for ($i=0; $i < count($pelanggan_namas_unique); $i++) {
-
-            $notas_filtered=$notas->where('pelanggan_nama',$pelanggan_namas_unique[$i])->toArray();
+            try {
+                //code...
+                $notas_filtered=$notas->where('pelanggan_nama',$pelanggan_namas_unique[$i])->toArray();
+            } catch (\Throwable $err) {
+                dump($pelanggan_namas);
+                dump($pelanggan_namas_unique);
+                dd($err);
+            }
             $subtotal=0;
             $notas_filtered=array_values($notas_filtered);
             // dump($notas_filtered);

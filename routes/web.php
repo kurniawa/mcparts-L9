@@ -266,6 +266,7 @@ Route::controller(SjItemController::class)->group(function ()
     Route::post('/sj/editJmlSpkPNSJ', 'editJmlSpkPNSJ')->name('editJmlSpkPNSJ')->middleware('auth');
     Route::post('/sj/delSpkPNSJ', 'delSpkPNSJ')->name('delSpkPNSJ')->middleware('auth');
     Route::post('/sj/edit-tgl-pembuatan', "srjalanEditTglPembuatan")->name('srjalanEditTglPembuatan')->middleware('auth');
+    Route::post('/sj/edit-jenis-barang', "srjalanEditJenisBarang")->name('srjalanEditJenisBarang')->middleware('auth');
 });
 
 Route::controller(SjDetailController::class)->group(function ()

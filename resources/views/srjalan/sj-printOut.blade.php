@@ -94,7 +94,18 @@
             <th class="thTableItemsj " style="text-align: center;">Jumlah</th>
         </tr>
         <tr>
-            <td class="tdTableItemsj fw-bold font-3xl" style="font-size: 1.2rem">Sarung Jok Motor</td>
+            <td class="tdTableItemsj" style="position: relative">
+                <div class="fw-bold font-3xl" style="font-size: 1.2rem">{{ $srjalan['jenis_barang'] }}</div>
+                <img id="icon-edit-jenis-barang" src="{{ asset('img/icons/edit.svg') }}" onclick="showHideFromIcon(this.id,'form-edit-jenis-barang')" alt="edit" style="width: 1rem;position: absolute;bottom:1rem;right:1rem;">
+                <div id="form-edit-jenis-barang" class="d-none">
+                    <form action="{{ route('srjalanEditJenisBarang') }}" method="POST">
+                        @csrf
+                        <input type="text" name="jenis_barang" id="" value="{{ $srjalan['jenis_barang'] }}" class="form-control">
+                        <input type="hidden" name="srjalan_id" value="{{ $srjalan['id'] }}">
+                        <button type="submit" class="btn btn-warning btn-sm mt-1">Konfirmasi</button>
+                    </form>
+                </div>
+            </td>
             <td class="tdTableItemsj fw-bold" style="font-size: 2rem;">
                 <div class="grid-2-auto grid-column-gap-0_5em">
                     <div id="divJmlKoli" class="justify-self-right">
@@ -132,6 +143,10 @@
     <div class="hr-line border-top border-2 mt-2"></div>
 </div>
 
+<script>
+
+</script>
+
 <style>
     .logo-mc {
         width: 10em;
@@ -160,6 +175,9 @@
         height: 8rem;
         text-align: center;
     }
+    #icon-edit-jenis-barang:hover{
+        cursor: pointer;
+    }
 
     @media print {
         @page {
@@ -178,7 +196,7 @@
             overflow: visible;
             padding-top: 0mm;
         }
-        .navbar{
+        #icon-edit-jenis-barang,#form-edit-jenis-barang,.navbar{
             display:none;
         }
 

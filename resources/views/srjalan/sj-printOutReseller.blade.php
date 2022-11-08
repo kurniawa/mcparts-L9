@@ -3,12 +3,6 @@
 
 @section('content')
 
-<div class="text-center mt-2">
-    {{-- <button class="btn btn-danger" onclick="toggleSJ('#sj-reseller','#sj-pelanggan');">SJ Reseller</button>
-    <button class="btn btn-danger" onclick="toggleSJ('#sj-pelanggan','#sj-reseller');">SJ Pelanggan</button> --}}
-    <button class="btn btn-secondary" onclick="toggleSJ('#sj-pelanggan','#sj-reseller');">Pelanggan/Reseller</button>
-</div>
-
 <div id="containerDetailsj">
     <div id="sj-pelanggan">
 
@@ -52,7 +46,7 @@
                 </div>
             </div>
             <div class="col-4">
-                <table style="display: inline-table">
+                <table style="display: inline-table" style="font-size: 0.8rem;">
                     <tr><td>No</td><td>:</td><td id="no_sj">{{ $srjalan['no_srjalan'] }}</td></tr>
                     <tr><td>Tanggal</td><td>:</td><td>{{ date("d-m-Y", strtotime($srjalan['created_at'])) }}</td></tr>
                     <tr style="vertical-align: top"><td>Ekspedisi</td><td>:</td>
@@ -74,13 +68,24 @@
                 <th class="thTableItemsj font-big" style="text-align: center;">Jumlah</th>
             </tr>
             <tr>
-                <td class="tdTableItemsj fw-bold font-3xl">Sarung Jok Motor</td>
-                <td class="tdTableItemsj fw-bold" style="font-size: 3rem;">
+                <td class="tdTableItemsj" style="position: relative">
+                    <div class="fw-bold font-3xl" style="font-size: 1.2rem">{{ $srjalan['jenis_barang'] }}</div>
+                    <img id="icon-edit-jenis-barang" src="{{ asset('img/icons/edit.svg') }}" onclick="showHideFromIcon(this.id,'form-edit-jenis-barang')" alt="edit" style="width: 1rem;position: absolute;bottom:1rem;right:1rem;">
+                    <div id="form-edit-jenis-barang" class="d-none">
+                        <form action="{{ route('srjalanEditJenisBarang') }}" method="POST">
+                            @csrf
+                            <input type="text" name="jenis_barang" id="" value="{{ $srjalan['jenis_barang'] }}" class="form-control">
+                            <input type="hidden" name="srjalan_id" value="{{ $srjalan['id'] }}">
+                            <button type="submit" class="btn btn-warning btn-sm mt-1">Konfirmasi</button>
+                        </form>
+                    </div>
+                </td>
+                <td class="tdTableItemsj fw-bold" style="font-size: 2rem;">
                     <div class="grid-2-auto grid-column-gap-0_5em">
                         <div id="divJmlKoli" class="justify-self-right">
                             <span id="jmlKoli">{{ $srjalan['jml_colly'] }}</span>
                         </div>
-                        <img style="width: 3rem;" class="d-inline-block" src="/img/icons/koli.svg" alt="">
+                        <img style="width: 2rem;" class="d-inline-block" src="/img/icons/koli.svg" alt="">
                     </div>
                 </td>
             </tr>
@@ -92,12 +97,12 @@
         <div class="grid-2-auto">
             <div class="grid-1-auto justify-items-center">
                 <div class="font-large">Penerima,</div>
-                <br><br><br><br>
+                <br><br>
                 <div>(....................)</div>
             </div>
             <div class="grid-1-auto justify-items-center">
                 <div class="font-large">Hormat Kami,</div>
-                <br><br><br><br>
+                <br><br>
                 <div>(....................)</div>
             </div>
         </div>
@@ -105,8 +110,11 @@
         <div class="hr-line border-top border-2"></div>
     </div>
     <br>
+    <div class="text-center mt-2">
+        <button id="btn-show-sj-reseller" class="btn btn-outline-primary" onclick="showHideActive(this.id,'sj-reseller')">Show Sr. Jalan Reseller</button>
+    </div>
     {{-- SJ RESELLER --}}
-    <div id="sj-reseller">
+    <div id="sj-reseller" class="d-none">
         <div class="hr-line border-top border-2 mt-1 mb-1"></div>
         <div class="row align-items-center">
             <div class="col-3"><img class="logo-mc" src="{{ asset('img/images/logo-mc.jpg') }}" alt=""></div>
@@ -114,8 +122,6 @@
                 <span class="fw-bold">CV. MC-Parts</span>
                 <div>Jl. Raya Karanggan No. 96</div>
                 <div>Kec. Gn. Putri/Kab. Bogor</div>
-                <div>0812 9335 218</div>
-                <div>0812 8655 6500</div>
             </div>
             <div class="col-6 text-center fw-bold"><span class="judul-sj">SURAT JALAN /</span><br><span class="judul-sj">TANDA TERIMA BARANG</span></div>
         </div>
@@ -163,18 +169,16 @@
             @endfor
         </table>
         <span style="font-style: italic;" class="font-big">*Barang sudah diterima dengan baik dan sesuai, oleh:</span>
-
         <br><br>
-
         <div class="grid-2-auto">
             <div class="grid-1-auto justify-items-center">
                 <div class="font-large">Penerima,</div>
-                <br><br><br><br>
+                <br><br>
                 <div>(....................)</div>
             </div>
             <div class="grid-1-auto justify-items-center">
                 <div class="font-large">Hormat Kami,</div>
-                <br><br><br><br>
+                <br><br>
                 <div>(....................)</div>
             </div>
         </div>
@@ -223,13 +227,12 @@
         border-bottom: 1px solid black;
     }
 
-    .thTableItemsj {
-        height: 3em;
-    }
-
     .tdTableItemsj {
-        height: 10rem;
+        height: 8rem;
         text-align: center;
+    }
+    #icon-edit-jenis-barang:hover{
+        cursor: pointer;
     }
 
     @media print {
@@ -249,7 +252,7 @@
             overflow: visible;
             padding-top: 0mm;
         }
-        .navbar{
+        #btn-show-sj-reseller,#icon-edit-jenis-barang,#form-edit-jenis-barang,.navbar{
             display:none;
         }
 
@@ -282,15 +285,5 @@
         } */
     }
 </style>
-
-<script>
-
-    function toggleSJ(idToShow,idToHide) {
-        // console.log(id);
-        $(idToShow).show(300);
-        $(idToHide).hide(300);
-    }
-
-</script>
 
 @endsection

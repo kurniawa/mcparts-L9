@@ -735,16 +735,37 @@ function showLightBoxGlobal(deletePropertiesStrigified) {
     });
 }
 
-
-function showHideActive(btn_id,div_id) {
-    var button=document.getElementById(btn_id);
-    var element=document.getElementById(div_id);
-    if (element.classList.contains('d-none')) {
-        element.classList.remove('d-none');
-        button.classList.add('active');
+function showHideActive(btn_id, div_id) {
+    var button = document.getElementById(btn_id);
+    var element = document.getElementById(div_id);
+    if (element.classList.contains("d-none")) {
+        element.classList.remove("d-none");
+        button.classList.add("active");
     } else {
-        element.classList.add('d-none');
-        button.classList.remove('active');
+        element.classList.add("d-none");
+        button.classList.remove("active");
+    }
+    /**Menggunakan J-Query hasil sama persis */
+    // $button = $(`#${btn_id}`);
+    // $element = $(`#${div_id}`);
+    // if ($element.hasClass("d-none")) {
+    //     $element.show();
+    //     $button.addClass("active");
+    //     $element.removeClass("d-none");
+    // } else {
+    //     $element.hide();
+    //     $button.removeClass("active");
+    //     $element.addClass("d-none");
+    // }
+}
+
+function showHideFromIcon(icon_id, element_id) {
+    var icon = document.getElementById(icon_id);
+    var element = document.getElementById(element_id);
+    if (element.classList.contains("d-none")) {
+        element.classList.remove("d-none");
+    } else {
+        element.classList.add("d-none");
     }
 }
 // function showHide(toshow, tohide) {

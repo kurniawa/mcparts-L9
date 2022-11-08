@@ -277,4 +277,22 @@ class SjItemController extends Controller
         $_logs=["_success"=>$_success,"_warnings"=>$_warnings,"_errors"=>$_errors];
         return back()->with($_logs);
     }
+    public function srjalanEditJenisBarang(Request $request)
+    {
+        $_success=$_warnings=$_errors="";
+        $post=$request->post();
+        $srjalan_id=$post['srjalan_id'];
+        $jenis_barang=$post['jenis_barang'];
+        // $created_at=date('d-m-Y H:i:s', strtotime($post['tgl_pembuatan']));
+        // dd($post);
+        $srjalan=Srjalan::find($srjalan_id);
+
+        $srjalan->update([
+            'jenis_barang'=>$jenis_barang
+        ]);
+        $_success.="_ jenis_barang dari $srjalan[no_srjalan] telah diupdate!";
+
+        $_logs=["_success"=>$_success,"_warnings"=>$_warnings,"_errors"=>$_errors];
+        return back()->with($_logs);
+    }
 }
