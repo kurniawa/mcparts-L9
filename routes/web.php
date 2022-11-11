@@ -19,6 +19,7 @@ use App\Http\Controllers\PelangganKontakController;
 use App\Http\Controllers\PelangganResellerController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\ProdukHargaController;
 use App\Http\Controllers\ProdukHelperController;
 use App\Http\Controllers\ProdukSpecController;
 use App\Http\Controllers\RegisterController;
@@ -243,6 +244,7 @@ Route::controller(NotaDetailController::class)->group(function ()
     Route::get('/nota/assign-alamat', 'notaDetail_assignAlamat')->name('notaDetail_assignAlamat')->middleware('auth');
     Route::post('/nota/assign-alamat-db', 'notaDetail_assignAlamatDB')->name('notaDetail_assignAlamatDB')->middleware('auth');
     Route::post('/nota/edit-tgl-pembuatan', "notaEditTglPembuatan")->name('notaEditTglPembuatan')->middleware('auth');
+    Route::post('/nota/fix', "notaFix")->name('notaFix')->middleware('auth');
 });
 
 
@@ -315,7 +317,11 @@ Route::controller(ProdukHelperController::class)->group(function ()
 {
     Route::post('/produk/produk-edit-nama', 'produkEditNama')->name('produkEditNama')->middleware('auth');
 });
-
+Route::controller(ProdukHargaController::class)->group(function ()
+{
+    Route::post('/produk/produk-edit-harga', 'produkHargaEdit')->name('produkHargaEdit')->middleware('auth');
+    Route::post('/produk/produk-hapus-harga', 'produkHargaHapus')->name('produkHargaHapus')->middleware('auth');
+});
 
 /**PENJUALAN */
 Route::controller(PenjualanController::class)->group(function ()

@@ -78,7 +78,12 @@
                                     <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                 </form>
                                 <button id="btn-edit-tgl-pembuatan-nota-{{ $notas[$i]['id'] }}" class="ms-1 btn btn-outline-info btn-sm" onclick="showHideActive(this.id,'div-edit-tgl-pembuatan-nota-{{ $notas[$i]['id'] }}')">Tgl.P</button>
-                                <a href="{{ route('PrintOutNota',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-dd btn-sm ms-1">PrintOut</a>
+                                <form action="{{ route('notaFix') }}" class="m-0" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin melakukan update/fix keseluruhan data Nota?')">
+                                    @csrf
+                                    <input type="hidden" name="nota_id" value="{{ $notas[$i]['id'] }}">
+                                    <button type="submit" class="btn btn-dd btn-sm ms-1">Fix</button>
+                                </form>
+                                <a href="{{ route('PrintOutNota',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-primary btn-sm ms-1">PrintOut</a>
                                 <a href="{{ route('notaSelesai',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-success btn-sm ms-1">Tgl.S</a>
                                 <a href="{{ route('Nota-Detail',['nota_id'=>$notas[$i]['id']]) }}" class="btn btn-warning btn-sm ms-1">Detail</a>
                             </div>

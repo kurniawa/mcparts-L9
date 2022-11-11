@@ -18,6 +18,11 @@ class Produk extends Model
         return $this->hasMany(ProdukHarga::class);
     }
 
+    public function hargas()
+    {
+        return $this->hasMany(ProdukHarga::class);
+    }
+
     public function spk()
     {
         return $this->belongsToMany(Spk::class);
@@ -110,8 +115,8 @@ class Produk extends Model
             $variasis = $varians = null;
         }
 
-        $produk_harga=ProdukHarga::where('produk_id',$produk_id)->first();
-
+        $produk_harga_latest=ProdukHarga::where('produk_id',$produk_id)->latest()->first();
+        $produk_hargas=ProdukHarga::where('produk_id',$produk_id)->get();
 
         $data =[
             'bahan'=>$bahan,
@@ -128,7 +133,8 @@ class Produk extends Model
             'specs'=>$specs,
             'variasis'=>$variasis,
             'varians'=>$varians,
-            'produk_harga'=>$produk_harga,
+            'produk_harga_latest'=>$produk_harga_latest,
+            'produk_hargas'=>$produk_hargas,
         ];
 
         return $data;

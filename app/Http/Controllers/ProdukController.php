@@ -34,6 +34,7 @@ use App\Models\Tankpad;
 use App\Models\Tsixpack;
 use App\Models\Varian;
 use App\Models\Variasi;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
@@ -46,21 +47,24 @@ class ProdukController extends Controller
     public function index()
     {
         SiteSettings::loadNumToZero();
-        $sjvariasis = Produk::where('tipe','SJ-Variasi')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
-        $sjkombinasis = Produk::where('tipe','SJ-Kombinasi')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
-        $sjmotifs = Produk::where('tipe','SJ-Motif')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
-        $sjtsixpacks = Produk::where('tipe','SJ-T.Sixpack')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
-        $sjstandars = Produk::where('tipe','SJ-Standar')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
-        $sjjapstyles = Produk::where('tipe','SJ-Japstyle')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
-        $jokassies = Produk::where('tipe','Jok Assy')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
-        $tankpads = Produk::where('tipe','Tankpad')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
-        $stikers = Produk::where('tipe','Stiker')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
-        $busastangs = Produk::where('tipe','Busa-Stang')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
-        $rols = Produk::where('tipe','Rol')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
-        $rotans = Produk::where('tipe','Rotan')->orderBy('nama')->get(['id','nama','nama_nota'])->toArray();
+        $produks=Produk::orderBy('nama')->get();
+        $produk_hargas=new Collection();
+        foreach ($produks as $produk) {
+            $harga=$produk->hargas->where('status','DEFAULT')->first();
+            $produk_harga=collect([
+                'produk_id'=>$produk->id,
+                'tipe'=>$produk->tipe,
+                'nama'=>$produk->nama,
+                'nama_nota'=>$produk->nama_nota,
+                'harga_id'=>$harga->id,
+                'harga'=>$harga->harga,
+            ]);
+            $produk_hargas->push($produk_harga);
+        }
+        $types=['SJ-Variasi','SJ-Kombinasi','SJ-Motif','SJ-T.Sixpack','SJ-Standar','SJ-Japstyle','Jok Assy','Tankpad','Stiker','Busa-Stang','Rol','Rotan'];
 
-        $jumlah=count($sjvariasis)+count($sjkombinasis)+count($sjmotifs)+count($sjtsixpacks)+count($sjstandars)+count($sjjapstyles)+count($jokassies)+count($tankpads)+count($stikers)+count($busastangs)+count($rols)+count($rotans);
 
+        $jumlah=count($produk_hargas);
         $colors = ['primary','success','danger','info','warning','dark'];
         $btn_tipe = [
             ['short'=>'all','tipe'=>null],
@@ -88,24 +92,11 @@ class ProdukController extends Controller
             ['route'=>'produkDanSpecs','nama'=>'+Tambah Produk'],
         ];
         $data = [
-            // 'go_back'=>true,
-            // 'navbar_bg'=>'$orange-300',
-            'menus'=>$menus,
-            'sjvariasis'=>$sjvariasis,
-            'sjkombinasis'=>$sjkombinasis,
-            'sjmotifs'=>$sjmotifs,
-            'sjtsixpacks'=>$sjtsixpacks,
-            'sjstandars'=>$sjstandars,
-            'sjjapstyles'=>$sjjapstyles,
-            'jokassies'=>$jokassies,
-            'tankpads'=>$tankpads,
-            'stikers'=>$stikers,
-            'busastangs'=>$busastangs,
-            'rols'=>$rols,
-            'rotans'=>$rotans,
             'btn_tipe'=>$btn_tipe,
             'colors'=>$colors,
             'jumlah'=>$jumlah,
+            'produk_hargas'=>$produk_hargas,
+            'types'=>$types,
         ];
 
         return view('produk.produks', $data);
@@ -596,50 +587,9 @@ class ProdukController extends Controller
         // dd($get);
         $produk_id=$get['produk_id'];
         $produk=Produk::find($produk_id);
-        // // Cari semua properti produk
-        // $produk_hargas=ProdukHarga::where('produk_id',$produk['id'])->get();
-        // $bahans=Bahan::where('produk_id',$produk['id'])->get();
-        // $produk_variasi_varians=ProdukVariasiVarian::where('produk_id',$produk['id'])->get();
-        // $variasis=$varians=array();
-        // if (count($produk_variasi_varians)!==0) {
-        //     foreach ($produk_variasi_varians as $produk_variasi_varian) {
-        //         $variasi=Variasi::find($produk_variasi_varian['variasi_id']);
-        //         $varian=null;
-        //         if ($produk_variasi_varian['varian_id']!==null) {
-        //             $varian=Varian::find($produk_variasi_varian['varian_id']);
-        //         }
-        //         $variasis[]=$variasi;
-        //         $varians[]=$varian;
-        //     }
-        // }
-        // // Specs
-        // $produk_specs=ProdukSpec::where('produk_id',$produk['id'])->get();
-        // $specs=array();
-        // if (count($produk_specs)!==0) {
-        //     foreach ($produk_specs as $produk_spec) {
-        //         $spec=Spec::find($produk_spec['spec_id']);
-        //     }
-        //     $specs[]=$spec;
-        // }
-        // $grade_bahan=$ukuran=$jahit=$list=null;
-        // if (count($specs)!==0) {
-        //     foreach ($specs as $spec) {
-        //         if ($spec['kategori']==='grade_bahan') {
-        //             $grade_bahan=$spec['nama'];
-        //         } elseif ($spec['kategori']==='ukuran') {
-        //             $ukuran=$spec['nama'];
-        //         } elseif ($spec['kategori']==='jahit') {
-        //             $jahit=$spec['nama'];
-        //         } elseif ($spec['kategori']='list') {
-        //             $list=$spec['list'];
-        //         }
-        //     }
-        // }
-        // // Kombinasi
+
 
         $produk_components=Produk::getProdukComponents($produk['id']);
-
-
 
         $menus=[
             ['route'=>'deleteProduct','nama'=>'Hapus','method'=>'POST','params'=>[['name'=>'produk_id','value'=>$produk['id']],],'confirm'=>'Anda yakin ingin menghapus produk ini?'],
