@@ -108,7 +108,7 @@
 <div class="container">
     <div class="row">
         {{-- Level Sr. Jalan -> sr. jalan yang berkaitan langsung dengan spk ini --}}
-        @foreach ($srjalan_terkait_spk as $sj_t_spk)
+        @foreach ($srjalan_terkait_spk_filtered as $sj_t_spk)
         <form action="{{ route('editJmlSpkPNSJ') }}" method="POST" class="col">
             @csrf
             <div class="alert alert-danger">
@@ -121,8 +121,8 @@
                     <input type="hidden" name="srjalan_id" value="{{ $sj_t_spk['srjalan_id'] }}">
                     <input type="hidden" name="spk_produk_id" value="{{ $spk_produk['id'] }}">
                 </div>
-                <div class="text-end" id='ddIconSJ-{{ $sj_t_spk['srjalan_id'] }}' onclick="showDD('#ddElSJ-{{ $sj_t_spk['srjalan_id'] }}','#ddIconSJ-{{ $sj_t_spk['srjalan_id'] }}');"><small>Edit</small> <img class="w-0_7rem" src="{{ asset('img/icons/dropdown.svg') }}" alt=""></div>
-                <div class="text-end mt-2" id='ddElSJ-{{ $sj_t_spk['srjalan_id'] }}' style="display: none">
+                <div class="text-end" id='ddIconSJ-{{ $sj_t_spk['produk_id'] }}{{ $sj_t_spk['srjalan_id'] }}' onclick="showDD('#ddElSJ-{{ $sj_t_spk['produk_id'] }}{{ $sj_t_spk['srjalan_id'] }}','#ddIconSJ-{{ $sj_t_spk['produk_id'] }}{{ $sj_t_spk['srjalan_id'] }}');"><small>Edit</small> <img class="w-0_7rem" src="{{ asset('img/icons/dropdown.svg') }}" alt=""></div>
+                <div class="text-end mt-2" id='ddElSJ-{{ $sj_t_spk['produk_id'] }}{{ $sj_t_spk['srjalan_id'] }}' style="display: none">
                     <div class="d-flex justify-content-end">
                         <div><button class="btn btn-danger" type="submit" name="submit" value="delete">Hapus</button></div>
                         <div class="ms-1"><button class="btn btn-warning" type="submit" name="submit" value="edit">Konfirm</button></div>
@@ -132,7 +132,7 @@
         </form>
         @endforeach
 
-        @foreach ($srjalan_terkait_item as $sj_t_item)
+        @foreach ($srjalan_terkait_item_filtered as $sj_t_item)
         <form action="{{ route('editJmlSpkPNSJ') }}" method="POST" class="col">
             @csrf
             <div class="alert alert-danger">

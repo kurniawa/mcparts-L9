@@ -16,12 +16,12 @@ return new class extends Migration
     {
         Schema::create('spk_produk_nota_srjalans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('spk_id')->nullable()->constrained()->onDelete('CASCADE');
-            $table->foreignId('produk_id')->nullable()->constrained()->onDelete('SET NULL');
-            $table->foreignId('nota_id')->nullable()->constrained()->onDelete('CASCADE');
-            $table->foreignId('srjalan_id')->nullable()->constrained()->onDelete('CASCADE');
-            $table->foreignId('spk_produk_id')->nullable()->constrained()->onDelete('SET NULL');
-            $table->foreignId('spk_produk_nota_id')->nullable()->constrained()->onDelete('SET NULL');
+            $table->foreignId('spk_id')->constrained()->onDelete('CASCADE');
+            $table->foreignId('produk_id')->constrained()->onDelete('SET NULL');
+            $table->foreignId('nota_id')->constrained()->onDelete('CASCADE');
+            $table->foreignId('srjalan_id')->constrained()->onDelete('CASCADE');
+            $table->foreignId('spk_produk_id')->constrained()->onDelete('SET NULL');
+            $table->foreignId('spk_produk_nota_id')->constrained()->onDelete('SET NULL');
             $table->string('tipe_packing', 20)->nullable();
             // Penetapan Data Sr. Jalan Selesai:
             $table->smallInteger('jumlah');

@@ -11,6 +11,7 @@ use App\Models\SpkProduk;
 use App\Models\SpkProdukNota;
 use App\Models\SpkProdukNotaSrjalan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class TreeController extends Controller
 {
@@ -292,14 +293,14 @@ class TreeController extends Controller
             $j=0;
             $nota_ids_sama=array();
             foreach ($spk_produk_notas as $spk_produk_no) {
-                if ($spk_produk_nota_sj['spk_produk_id']===$spk_produk['id'] && $spk_produk_nota_sj['nota_id']===$spk_produk_no['nota_id']) {
+                if ($spk_produk_nota_sj['spk_produk_id']==$spk_produk['id'] && $spk_produk_nota_sj['nota_id']==$spk_produk_no['nota_id']) {
                     $is_in_array_nota_ids_sama=false;
                     // dump("spk_produk_no[nota_id]: $spk_produk_no[nota_id]");
                     $is_in_array_nota_ids_sama=array_search($spk_produk_no['nota_id'],$nota_ids_sama);
                     // dump($is_in_array_nota_ids_sama);
                     // if ($j!==0) {
                     // }
-                    if ($is_in_array_nota_ids_sama===false) {
+                    if ($is_in_array_nota_ids_sama==false) {
                         // dump("Terjadi pengulangan yang diharapkan pada array 1, nota_id : $spk_produk_no[nota_id]");
                         $srjalan_terkait_item[]=$spk_produk_nota_sj;
                     } else {
@@ -308,13 +309,13 @@ class TreeController extends Controller
                         // }
                     }
                     $nota_ids_sama[]=$spk_produk_no['nota_id'];
-                } elseif ($spk_produk_nota_sj['spk_produk_id']!==$spk_produk['id'] && $spk_produk_nota_sj['nota_id']===$spk_produk_no['nota_id']) {
+                } elseif ($spk_produk_nota_sj['spk_produk_id']!==$spk_produk['id'] && $spk_produk_nota_sj['nota_id']==$spk_produk_no['nota_id']) {
                     $is_in_array_nota_ids_sama2=false;
 
                     // dump("spk_produk_no[nota_id]: $spk_produk_no[nota_id]");
                     $is_in_array_nota_ids_sama2=array_search($spk_produk_no['nota_id'],$nota_ids_sama2);
                     // dump($is_in_array_nota_ids_sama2);
-                    if ($is_in_array_nota_ids_sama2===false) {
+                    if ($is_in_array_nota_ids_sama2==false) {
                         // dump("Terjadi pengulangan yang diharapkan pada elif, nota_id : $spk_produk_no[nota_id]");
                         $spkpronoXspkpronosj=[
                             "id" => $spk_produk_no['id'],
@@ -333,6 +334,58 @@ class TreeController extends Controller
             }
             // dump($nota_ids_sama2);
         }
+
+        // Filter Srjalan terkait SPK yang dimana seringkali id srjaln sudah ada yang sama
+        // Filter akan berfungsi bila pada srjalan yang sama, produk hanya akan tercantum satu kali saja.
+        $srjalan_ids_terkait_spk=array();
+        foreach ($srjalan_terkait_spk as $srjalan_t_spk) {
+            $srjalan_ids_terkait_spk[]=$srjalan_t_spk['srjalan_id'];
+        }
+        $srjalan_ids_terkait_spk_unique=array_unique($srjalan_ids_terkait_spk);
+        $srjalan_terkait_spk_filtered=array();
+        foreach ($srjalan_ids_terkait_spk_unique as $srjalan_id) {
+            for ($i=0; $i < count($srjalan_terkait_spk); $i++) {
+                if ($srjalan_terkait_spk[$i]['srjalan_id']==$srjalan_id) {
+                    // Apakah di filtered sudah memiliki item dengan srjalan_id yang sama?
+                    $is_exist=false;
+                    foreach ($srjalan_terkait_spk_filtered as $srjalan_t_spk_filtered) {
+                        if ($srjalan_t_spk_filtered['srjalan_id']==$srjalan_id) {
+                            $is_exist=true;
+                        }
+                    }
+                    if ($is_exist===false) {
+                        $srjalan_terkait_spk_filtered[]=$srjalan_terkait_spk[$i];
+                    }
+                }
+            }
+        }
+        // dump($srjalan_terkait_spk_filtered);
+
+        // Filter Srjalan terkait Item yang dimana seringkali id srjaln sudah ada yang sama
+        // Filter akan beranggapan bahwa pada srjalan yang sama, produk hanya akan tercantum satu kali saja.
+        $srjalan_ids_terkait_item=array();
+        foreach ($srjalan_terkait_item as $srjalan_t_item) {
+            $srjalan_ids_terkait_item[]=$srjalan_t_item['srjalan_id'];
+        }
+        $srjalan_ids_terkait_item_unique=array_unique($srjalan_ids_terkait_item);
+        $srjalan_terkait_item_filtered=array();
+        foreach ($srjalan_ids_terkait_item_unique as $srjalan_id) {
+            for ($i=0; $i < count($srjalan_terkait_item); $i++) {
+                if ($srjalan_terkait_item[$i]['srjalan_id']==$srjalan_id) {
+                    // Apakah di filtered sudah memiliki item dengan srjalan_id yang sama?
+                    $is_exist=false;
+                    foreach ($srjalan_terkait_item_filtered as $srjalan_t_item_filtered) {
+                        if ($srjalan_t_item_filtered['srjalan_id']==$srjalan_id) {
+                            $is_exist=true;
+                        }
+                    }
+                    if ($is_exist===false) {
+                        $srjalan_terkait_item_filtered[]=$srjalan_terkait_item[$i];
+                    }
+                }
+            }
+        }
+        // dump($srjalan_terkait_item_filtered);
 
         $menus=[
             ['route'=>'SPK-Detail','nama'=>'Detail SPK','method'=>'get','params'=>[['name'=>'spk_id','value'=>$spk['id']]]],
@@ -353,11 +406,13 @@ class TreeController extends Controller
             'sj_t_pelanggan_belum_selesai_others'=>$sj_t_pelanggan_belum_selesai_others,
             'srjalan_terkait_item'=>$srjalan_terkait_item,
             'srjalan_terkait_spk'=>$srjalan_terkait_spk,
+            'srjalan_terkait_spk_filtered'=>$srjalan_terkait_spk_filtered,
+            'srjalan_terkait_item_filtered'=>$srjalan_terkait_item_filtered,
 
             'menus'=>$menus,
         ];
         // dd($data);
-        // dump($data);
+        dump($data);
         return view('tree.tree2', $data);
     }
 }
