@@ -69,7 +69,7 @@
     <a href="https://www.flaticon.com/authors/surang" title="surang">Go to Flaticon/Author/surang --></a>
 </div>
 
-
+<a href="https://www.flaticon.com/free-icons/samurai" title="samurai icons">Samurai icons created by Smashicons - Flaticon</a>
 <script>
 
 

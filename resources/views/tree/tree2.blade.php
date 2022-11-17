@@ -37,7 +37,7 @@
     <div class="row">
         {{-- Level Nota 1: spk_produk_nota / Nota yang berkaitan langsung dengan spk ini --}}
         @foreach ($spk_produk_notas as $spk_produk_nota)
-        @if ($spk_produk_nota['spk_produk_id']===$spk_produk['id'])
+        @if ($spk_produk_nota['spk_produk_id']==$spk_produk['id'])
         <form action="{{ route('editJmlSpkPN') }}" method="POST" class="col">
             @csrf
             <div class="alert alert-warning">

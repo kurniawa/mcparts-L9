@@ -97,6 +97,7 @@ class ProdukController extends Controller
             'jumlah'=>$jumlah,
             'produk_hargas'=>$produk_hargas,
             'types'=>$types,
+            'menus'=>$menus,
         ];
 
         return view('produk.produks', $data);
