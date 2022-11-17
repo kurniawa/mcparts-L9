@@ -412,7 +412,7 @@ class TreeController extends Controller
             'menus'=>$menus,
         ];
         // dd($data);
-        dump($data);
+        // dump($data);
         return view('tree.tree2', $data);
     }
 }
