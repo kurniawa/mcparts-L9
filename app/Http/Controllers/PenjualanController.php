@@ -123,6 +123,8 @@ class PenjualanController extends Controller
         ];
         // dd($data);
         // dump($data);
+
+        // dd($notasXsubtotal);
         return view('penjualan.penjualan', $data);
     }
 }

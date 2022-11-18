@@ -24,7 +24,7 @@ class PelangganController extends Controller
     {
         SiteSettings::loadNumToZero();
 
-        $pelanggans = Pelanggan::all();
+        $pelanggans = Pelanggan::orderBy('nama')->get();
         $pelanggan_alamats=$alamats=$pelanggan_kontaks=array();
         foreach ($pelanggans as $pelanggan) {
             $pelanggan_alamat=PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->where('tipe','UTAMA')->first();

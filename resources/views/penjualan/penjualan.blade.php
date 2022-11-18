@@ -126,9 +126,11 @@
                     @if ($notasXsubtotal[$k]['ekspedisis'][$m]['transit_nama']!==null)
                     <div class="ms-1">via -></div>
                     <div class="ms-1">{{ $notasXsubtotal[$k]['ekspedisis'][$m]['transit_nama'] }} -></div>
+                    @if ($notasXsubtotal[$k]['ekspedisis'][$m]['trans_long_ala']!==null)
                     @foreach (json_decode($notasXsubtotal[$k]['ekspedisis'][$m]['trans_long_ala'],true) as $long)
                         <div>{{ $long }}</div>
                     @endforeach
+                    @endif
                     @endif
                 </div>
                 @endfor
