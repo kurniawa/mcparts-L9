@@ -22,7 +22,7 @@ class PelangganEditController extends Controller
             'navbar_bg' => 'bg-color-orange-2',
             'pelanggan' => $pelanggan,
         ];
-
+        // dump($data);
         return view('pelanggan.pelanggan-edit', $data);
     }
 

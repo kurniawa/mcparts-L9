@@ -20,13 +20,13 @@
             <div class="col-5">
                 <label for="bentuk" style="font-weight: bold">Bentuk:</label>
                 <select name="bentuk" id="bentuk" class="form-select">
-                    @if ($pelanggan->bentuk==null||$pelanggan->bentuk=="")<option value="" active>-</option>@else<option value="">-</option>@endif
-                    @if ($pelanggan->bentuk=="CV")<option value="CV" active>CV</option>@else<option value="CV">CV</option>@endif
-                    @if ($pelanggan->bentuk=="PT")<option value="PT" active>PT</option>@else<option value="PT">PT</option>@endif
+                    @if ($pelanggan->bentuk===null||$pelanggan->bentuk==="")<option value="" active>-</option>@else<option value="">-</option>@endif
+                    @if ($pelanggan->bentuk==="CV")<option value="CV" active>CV</option>@else<option value="CV">CV</option>@endif
+                    @if ($pelanggan->bentuk==="PT")<option value="PT" active>PT</option>@else<option value="PT">PT</option>@endif
                 </select>
             </div>
 
-            @if ($pelanggan->nik==null||$pelanggan->nik="")
+            @if ($pelanggan->nik===null||$pelanggan->nik==="")
             <div class="col opsi" id="opsi-nik" style="display:none">
             @else
             <div class="col opsi" id="opsi-nik">
@@ -49,7 +49,7 @@
         </div>
 
         <div class="row mb-3">
-            @if ($pelanggan->gender==null||$pelanggan->gender=="")
+            @if ($pelanggan->gender===null||$pelanggan->gender==="")
             <div class="col-6 opsi" id="opsi-gender" style="display: none">
             @else
             <div class="col-6 opsi" id="opsi-gender">
@@ -57,13 +57,13 @@
                 <label for="gender" style="font-weight: bold">Gender:</label>
                 <button type="button" style="color: red;" class="btn btn-outline-danger btn-sm" onclick="showHide('btn-gender', 'opsi-gender')">X</button>
                 <select name="gender" id="gender" class="form-select">
-                    @if ($pelanggan->gender==null||$pelanggan->gender=="")<option value="" active>-</option>@else<option value="">-</option>@endif
-                    @if ($pelanggan->gender=="pria")<option value="pria" active>pria</option>@else<option value="pria">pria</option>@endif
-                    @if ($pelanggan->gender=="wanita")<option value="wanita" active>wanita</option>@else<option value="wanita">wanita</option>@endif
+                    @if ($pelanggan->gender===null||$pelanggan->gender==="")<option value="" active>-</option>@else<option value="">-</option>@endif
+                    @if ($pelanggan->gender==="pria")<option value="pria" active>pria</option>@else<option value="pria">pria</option>@endif
+                    @if ($pelanggan->gender==="wanita")<option value="wanita" active>wanita</option>@else<option value="wanita">wanita</option>@endif
                 </select>
             </div>
 
-            @if ($pelanggan->alias==null||$pelanggan->alias=="")
+            @if ($pelanggan->alias===null||$pelanggan->alias==="")
             <div class="col-6 opsi" id="opsi-alias" style="display: none">
             @else
             <div class="col-6 opsi" id="opsi-alias">
@@ -73,7 +73,7 @@
                 <input name="alias" id="alias" class="form-control" type="text" placeholder="Alias" value="{{ $pelanggan->alias }}">
             </div>
 
-            @if ($pelanggan->sapaan==null||$pelanggan->sapaan=="")
+            @if ($pelanggan->sapaan===null||$pelanggan->sapaan==="")
             <div class="col-6 opsi" id="opsi-sapaan" style="display: none">
             @else
             <div class="col-6 opsi" id="opsi-sapaan">
@@ -83,7 +83,7 @@
                 <input name="sapaan" id="sapaan" class="form-control" type="text" placeholder="Sapaan" value="{{ $pelanggan->sapaan }}">
             </div>
 
-            @if ($pelanggan->gelar==null||$pelanggan->gelar=="")
+            @if ($pelanggan->gelar===null||$pelanggan->gelar==="")
             <div class="col-6 opsi" id="opsi-gelar" style="display: none">
             @else
             <div class="col-6 opsi" id="opsi-gelar">
@@ -95,7 +95,8 @@
         </div>
 
         <div class="row mb-3">
-            @if ($pelanggan->initial==null||$pelanggan->intial=="")
+            @if ($pelanggan->initial===null||$pelanggan->intial==="")
+            {{-- @php dump($pelanggan->initial)@endphp --}}
             <div class="col-6 opsi" id="opsi-initial" style="display: none">
             @else
             <div class="col-6 opsi" id="opsi-initial">
