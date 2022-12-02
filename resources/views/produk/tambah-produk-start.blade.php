@@ -425,8 +425,8 @@ if (tipe === 'SJ-Japstyle') {
 
 if (tipe === 'SJ-Standar') {
     attToShow=['div-standar'];
-    btnToShow=['btn-grade_bahan','btn-bahan','btn-close-bahan','btn-alas','btn-sayap','btn-busa'];
-    noticedInputs=['standar','bahan','grade_bahan','alas','busa','sayap']
+    btnToShow=['btn-grade_bahan','btn-bahan','btn-close-bahan','btn-alas','btn-sayap','btn-busa','btn-jahit'];
+    noticedInputs=['standar','bahan','grade_bahan','alas','busa','sayap','jahit']
 }
 
 if (tipe === 'Jok Assy') {
