@@ -47,7 +47,8 @@
             </div>
             <div class="col-4">
                 <table style="display: inline-table" style="font-size: 0.8rem;">
-                    <tr><td>No</td><td>:</td><td id="no_sj">{{ $srjalan['no_srjalan'] }}</td></tr>
+                    {{-- Nomor Surat Jalan sementara ini masih tidak dicantumkan --}}
+                    {{-- <tr><td>No</td><td>:</td><td id="no_sj">{{ $srjalan['no_srjalan'] }}</td></tr> --}}
                     <tr><td>Tanggal</td><td>:</td><td>{{ date("d-m-Y", strtotime($srjalan['created_at'])) }}</td></tr>
                     <tr style="vertical-align: top"><td>Ekspedisi</td><td>:</td>
                         <td>
@@ -141,7 +142,7 @@
             </div>
             <div class="col-4">
                 <table style="display: inline-table">
-                    <tr><td>No</td><td>:</td><td id="no_sj">{{ $srjalan['no_srjalan'] }}</td></tr>
+                    {{-- <tr><td>No</td><td>:</td><td id="no_sj">{{ $srjalan['no_srjalan'] }}</td></tr> --}}
                     <tr><td>Tanggal</td><td>:</td><td>{{ date("d-m-Y", strtotime($srjalan['created_at'])) }}</td></tr>
                     <tr style="vertical-align: top"><td>Ekspedisi</td><td>:</td><td>-</td>
                     </tr>

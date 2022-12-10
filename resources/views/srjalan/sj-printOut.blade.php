@@ -41,7 +41,7 @@
         </div>
         <div class="col-6 font-1_2">
             <table style="display: inline-table;width:100%;" style="font-size: 0.8rem">
-                <tr class="fw-bold" style="font-size: 0.8rem"><td>No</td><td>:</td><td id="no_sj">{{ $srjalan['no_srjalan'] }}</td></tr>
+                {{-- <tr class="fw-bold" style="font-size: 0.8rem"><td>No</td><td>:</td><td id="no_sj">{{ $srjalan['no_srjalan'] }}</td></tr> --}}
                 <tr style="font-size: 0.8rem"><td>Tanggal</td><td>:</td><td>{{ date("d-m-Y", strtotime($srjalan['created_at'])) }}</td></tr>
                 <tr style="vertical-align: top;font-size:0.8rem"><td>Ekspedisi</td><td>:</td>
                     <td>

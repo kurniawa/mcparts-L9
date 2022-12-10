@@ -15,7 +15,7 @@
         </div>
         <div class="col-5 text-center fw-bold">
             <table style="font-size: 0.8rem">
-                <tr><th>No. Nota</th><th>:</th><th>{{ $nota['no_nota'] }}</th></tr>
+                <tr><th>No.</th><th>:</th><th>{{ $nomor_nota }}</th></tr>
                 <tr>
                     <th>Kepada</th><th>:</th>
                     <th>

@@ -382,6 +382,7 @@ class SrjalanController extends Controller
         if (count($produks)<10) {
             $jml_baris_produk=10;
         }
+
         $data = [
             'navbar_bg' => 'bg-color-orange-2',
             'go_back' => true,

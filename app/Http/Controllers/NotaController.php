@@ -429,6 +429,9 @@ class NotaController extends Controller
 
         $rest_row=16-count($spk_produk_notas);
 
+        /**Penampilan nomor Nota berdasarkan singkatan MCP/[Bulan]/[Tahun] */
+        $nomor_nota="MCP/". date('m') . "/" . date('y') . "/...";
+        // dd($nomor_nota);
         $data = [
             'csrf' => csrf_token(),
             'go_back' => true,
@@ -455,6 +458,7 @@ class NotaController extends Controller
             'kontak_avas' => $kontak_avas,
             'alamat_reseller_avas' => $alamat_reseller_avas,
             'kontak_reseller_avas' => $kontak_reseller_avas,
+            'nomor_nota' => $nomor_nota,
         ];
         // dump($data);
         // if ($reseller!==null) {

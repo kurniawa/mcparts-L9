@@ -398,63 +398,41 @@ if (tipe === 'SJ-Variasi') {
     attToShow=['div-bahan','div-variasi_1'];
     btnToShow=['btn-varian_1','btn-ukuran','btn-jahit','btn-variasi_2','btn-varian_2'];
     noticedInputs=['bahan','variasi_1','varian_1','variasi_2','varian_2','ukuran','jahit']
-}
-
-if (tipe === 'SJ-Kombinasi') {
+} else if (tipe === 'SJ-Kombinasi') {
     attToShow=['div-kombinasi'];
     btnToShow=['btn-variasi_1','btn-close-variasi_1','btn-varian_1','btn-grade_bahan','btn-bahan','btn-close-bahan','btn-ukuran','btn-jahit','btn-list'];
     noticedInputs=['kombinasi','bahan','grade_bahan','variasi_1','varian_1','ukuran','jahit','list']
-}
-
-if (tipe === 'SJ-Motif') {
+} else if (tipe === 'SJ-Motif') {
     attToShow=['div-motif'];
     btnToShow=['btn-grade_bahan','btn-bahan','btn-close-bahan','btn-ukuran','btn-jahit'];
     noticedInputs=['motif','bahan','grade_bahan','ukuran','jahit']
-}
-
-if (tipe === 'SJ-T.Sixpack') {
+} else if (tipe === 'SJ-T.Sixpack') {
     attToShow=['div-bahan','div-tsixpack'];
     btnToShow=['btn-grade_bahan','btn-ukuran','btn-jahit','btn-alas','btn-busa'];
     noticedInputs=['bahan','grade_bahan','tsixpack','variasi_1','varian_1','ukuran','jahit','alas','busa']
-}
-
-if (tipe === 'SJ-Japstyle') {
+} else if (tipe === 'SJ-Japstyle') {
     attToShow=['div-bahan','div-japstyle'];
     noticedInputs=['bahan','japstyle']
-}
-
-if (tipe === 'SJ-Standar') {
+} else if (tipe === 'SJ-Standar') {
     attToShow=['div-standar'];
     btnToShow=['btn-grade_bahan','btn-bahan','btn-close-bahan','btn-alas','btn-sayap','btn-busa','btn-jahit'];
     noticedInputs=['standar','bahan','grade_bahan','alas','busa','sayap','jahit']
-}
-
-if (tipe === 'Jok Assy') {
+} else if (tipe === 'Jok Assy') {
     attToShow=['div-jokassy'];
     noticedInputs=['jokassy']
-}
-
-if (tipe === 'Tankpad') {
+} else if (tipe === 'Tankpad') {
     attToShow=['div-tankpad'];
     noticedInputs=['tankpad']
-}
-
-if (tipe === 'Stiker') {
+} else if (tipe === 'Stiker') {
     attToShow=['div-stiker'];
     noticedInputs=['stiker']
-}
-
-if (tipe === 'Busa-Stang') {
+} else if (tipe === 'Busa-Stang') {
     attToShow=['div-busastang'];
     noticedInputs=['busastang']
-}
-
-if (tipe === 'Rotan') {
+} else if (tipe === 'Rotan') {
     attToShow=['div-rotan'];
     noticedInputs=['rotan']
-}
-
-if (tipe === 'Rol') {
+} else if (tipe === 'Rol') {
     attToShow=['div-rol'];
     noticedInputs=['rol']
 }

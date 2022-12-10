@@ -29,7 +29,7 @@ class PelangganBaruController extends Controller
         // dd($post);
 
         $nama=$post['nama'];$bentuk=$post['bentuk'];$nik=$post['nik'];
-        $gender=$post['gender'];$alias=$post['alias'];
+        $gender=$post['gender'];$alias=$post['alias'];$initial=$post['initial'];
         //alamat
         $jalan=$post['jalan'];$komplek=$post['komplek'];$rt=$post['rt'];$rw=$post['rw'];$desa=$post['desa'];
         $kelurahan=$post['kelurahan'];$kecamatan=$post['kecamatan'];$kota=$post['kota'];$provinsi=$post['provinsi'];$kabupaten=$post['kabupaten'];
@@ -49,6 +49,7 @@ class PelangganBaruController extends Controller
                 'nama' => $nama,
                 'gender' => $gender,
                 'alias' => $alias,
+                'initial' => $initial,
                 'keterangan' => $keterangan,
             ]);
             $success_logs[] = "SUCCESS: Pelanggan Baru dengan nama $pelanggan[nama] berhasil dibuat!";

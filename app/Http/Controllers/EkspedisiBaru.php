@@ -102,6 +102,7 @@ class EkspedisiBaru extends Controller
                 $ekspedisi_alamat=EkspedisiAlamat::create([
                     'ekspedisi_id'=>$ekspedisi['id'],
                     'alamat_id'=>$alamat['id'],
+                    'tipe'=>'UTAMA', // ekspedisi baru pasti alamatnya baru, oleh karena itu langsung ditetapkan sebagai alamat utama
                 ]);
                 $success_logs[] = "SUCC: Ekspedisi_alamat: $ekspedisi_alamat[ekspedisi_id] - $ekspedisi_alamat[alamat_id] berhasil dibuat!";
             } else {

@@ -80,6 +80,7 @@ class ProdukController extends Controller
             ['short'=>'bs','tipe'=>'Busa-Stang'],
             ['short'=>'rol','tipe'=>'Rol'],
             ['short'=>'rot','tipe'=>'Rotan'],
+            ['short'=>'dll','tipe'=>'Dll'],
         ];
         for ($i=0,$j=0; $i < count($btn_tipe); $i++,$j++) {
             if ($j===count($colors)) {
@@ -182,7 +183,7 @@ class ProdukController extends Controller
             $error_logs[] = 'WARNING: Laman ini telah ter load lebih dari satu kali. Apakah Anda tidak sengaja reload laman ini? Tidak ada yang di proses ke Database. Silahkan pilih tombol kembali!';
         }
 
-        $input = $request->input();
+        $input = $request->post();
         // dd($input);
         $harga=0;
         if (isset($input['harga']) && $input['harga']!==null) {
@@ -404,7 +405,14 @@ class ProdukController extends Controller
             }
         }
         /**End Validating Specs */
-
+        /**Validating names */
+        $is_name_exist=Produk::where('nama', $input['nama'])->orWhere('nama_nota',$input['nama_nota'])->first();
+        if ($is_name_exist!==null) {
+            $request->validate(
+                ['error'=>'required'],
+                ['error.required'=>'Nama produk sudah ada di database. Apakah Anda yakin produk yang Anda input adalah produk yang belum ada di database?']
+            );
+        }
 
         $produk = [
             'tipe'=>$input['tipe'],
