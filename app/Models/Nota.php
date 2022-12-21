@@ -235,6 +235,4 @@ class Nota extends Model
         return $success_logs;
     }
 
-
-
 }

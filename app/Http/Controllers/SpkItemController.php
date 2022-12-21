@@ -8,6 +8,8 @@ use App\Models\Produk;
 use App\Models\SiteSetting;
 use App\Models\Spk;
 use App\Models\SpkProduk;
+use App\Models\SpkProdukNota;
+use App\Models\SpkProdukNotaSrjalan;
 use Illuminate\Http\Request;
 
 class SpkItemController extends Controller
@@ -125,6 +127,21 @@ class SpkItemController extends Controller
 
         $spk_produk = SpkProduk::find($request->input('spk_produk_id'));
         if ($run_db) {
+            // Sebelum delete spk_produk, cari terlebih dahulu apakah spk_produk_nota_srjalan dan spk_produk_nota nya telah dibuat?
+            $spk_produk_nota_srjalans = SpkProdukNotaSrjalan::where('spk_produk_id',$spk_produk->id)->get();
+            if (count($spk_produk_nota_srjalans)!==0) {
+                foreach ($spk_produk_nota_srjalans as $item) {
+                    $item->delete();
+                }
+            }
+
+            $spk_produk_notas=SpkProdukNota::where('spk_produk_id',$spk_produk->id)->get();
+            if (count($spk_produk_notas)!==0) {
+                foreach ($spk_produk_notas as $item) {
+                    $item->delete();
+                }
+            }
+
             $spk_produk->delete();
             $warning_logs[]="Berhasil menghapus Item SPK!";
             $main_log='Success!';
