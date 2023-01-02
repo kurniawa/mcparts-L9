@@ -9,64 +9,92 @@
     {{-- <div id="divTableToPrint" class="grid-2-auto grid-column-gap-0_5em"> --}}
     @for ($j = 0; $j < 2; $j++)
     <div class="col">
-        <table style="width: 100%;">
-            <tr>
-                <td colspan="3" style="text-align: center;"><span style="font-weight: bold;">SURAT PERINTAH KERJA<br>PENGAMBILAN STOK</span></td>
-            </tr>
-            <tr>
-                <td class="ps-2">NO.</td>
-                <td class="ps-2">{{ $spk['id'] }}</td>
-                <td rowspan="3" style='text-align:center;'><span style="font-weight:bold;">@if ($j === 0) ASLI @else COPY @endif</span></td>
-            </tr>
-            <tr>
-                <td class="ps-2">TGL.</td>
-                <td class="ps-2">{{ date('d-m-Y', strtotime($spk['created_at'])) }}</td>
-                {{-- <td></td> --}}
-            </tr>
-            <tr>
-                <td class="ps-2">UTK.</td>
-                <td class="ps-2">{{ $pelanggan_nama }}</td>
-                {{-- <td></td> --}}
-            </tr>
-            <tr>
-                <th colspan='2' style="text-align: center">ITEM PRODUKSI</th>
-                <th style="text-align: center">JUMLAH</th>
-            </tr>
+        <div style="width: 48.5vw">
+            <table style="width: 100%">
+                <tr>
+                    <td colspan="3" style="text-align: center;"><span style="font-weight: bold;">SURAT PERINTAH KERJA<br>PENGAMBILAN STOK</span></td>
+                </tr>
+                <tr>
+                    <td class="ps-2">NO.</td>
+                    <td class="ps-2">{{ $spk['id'] }}</td>
+                    <td rowspan="3" style='text-align:center;'><span style="font-weight:bold;">@if ($j === 0) ASLI @else COPY @endif</span></td>
+                </tr>
+                <tr>
+                    <td class="ps-2">TGL.</td>
+                    <td class="ps-2">{{ date('d-m-Y', strtotime($spk['created_at'])) }}</td>
+                    {{-- <td></td> --}}
+                </tr>
+                <tr>
+                    <td class="ps-2">UTK.</td>
+                    <td class="ps-2">{{ $pelanggan_nama }}</td>
+                    {{-- <td></td> --}}
+                </tr>
+                <tr>
+                    <th colspan='2' style="text-align: center">ITEM PRODUKSI</th>
+                    <th style="text-align: center">JUMLAH</th>
+                </tr>
 
-            @for ($i = 0; $i < 15; $i++)
-            @if ($i < count($spk_produks))
-            <tr>
-                <td class="ps-2" colspan='2'>
-                    <div>{{ $produks[$i]['nama'] }}</div>
-                    @if ($spk_produks[$i]['keterangan'] !== null)
-                    <div style='font-style: italic;color:gray' class="fw-bold">{{ $spk_produks[$i]['keterangan'] }}</div>
-                    @endif
-                </td>
-                <td class="ps-2">
-                    {{ $spk_produks[$i]['jumlah'] }}
-                    @if ($spk_produks[$i]['deviasi_jml'])
-                    @if ($spk_produks[$i]['deviasi_jml']>0)
-                        +
-                    @endif
-                    {{ $spk_produks[$i]['deviasi_jml'] }}
-                    @endif
-                </td>
-            </tr>
-            @else
-            <tr style="height: 1.5em;">
-                <td colspan='2'></td>
-                <td></td>
-            </tr>
-            @endif
-            @endfor
-            <tr>
-                <td colspan='2' style='font-weight: bold; text-align: right;'>
-                    Total
-                    <div style='display: inline-block;width: 0.5em;'></div>
-                </td>
-                <td class="ps-2" style='font-weight: bold;'>{{ $spk['jumlah_total'] }}</td>
-            </tr>
-        </table>
+                @for ($i = 0; $i < 15; $i++)
+                @if ($i < count($spk_produks))
+                <tr>
+                    <td class="ps-2" colspan='2'>
+                        <div>{{ $produks[$i]['nama'] }}</div>
+                        @if ($spk_produks[$i]['keterangan'] !== null)
+                        <div style='font-style: italic;color:gray' class="fw-bold">{{ $spk_produks[$i]['keterangan'] }}</div>
+                        @endif
+                    </td>
+                    <td class="ps-2">
+                        {{ $spk_produks[$i]['jumlah'] }}
+                        @if ($spk_produks[$i]['deviasi_jml'])
+                        @if ($spk_produks[$i]['deviasi_jml']>0)
+                            +
+                        @endif
+                        {{ $spk_produks[$i]['deviasi_jml'] }}
+                        @endif
+                    </td>
+                </tr>
+                @else
+                <tr style="height: 1.5em;">
+                    <td colspan='2'></td>
+                    <td></td>
+                </tr>
+                @endif
+                @endfor
+                {{-- @for ($i = 0; $i <= count($spk_produks); $i++)
+                @if ($i < count($spk_produks))
+                <tr>
+                    <td class="ps-2" colspan='2'>
+                        <div>{{ $produks[$i]['nama'] }}</div>
+                        @if ($spk_produks[$i]['keterangan'] !== null)
+                        <div style='font-style: italic;color:gray' class="fw-bold">{{ $spk_produks[$i]['keterangan'] }}</div>
+                        @endif
+                    </td>
+                    <td class="ps-2">
+                        {{ $spk_produks[$i]['jumlah'] }}
+                        @if ($spk_produks[$i]['deviasi_jml'])
+                        @if ($spk_produks[$i]['deviasi_jml']>0)
+                            +
+                        @endif
+                        {{ $spk_produks[$i]['deviasi_jml'] }}
+                        @endif
+                    </td>
+                </tr>
+                @else
+                <tr style="height: 1.5em;">
+                    <td colspan='2'></td>
+                    <td></td>
+                </tr>
+                @endif
+                @endfor --}}
+                <tr>
+                    <td colspan='2' style='font-weight: bold; text-align: right;'>
+                        Total
+                        <div style='display: inline-block;width: 0.5em;'></div>
+                    </td>
+                    <td class="ps-2" style='font-weight: bold;'>{{ $spk['jumlah_total'] }}</td>
+                </tr>
+            </table>
+        </div>
     </div>
     @endfor
 </div>
@@ -115,7 +143,7 @@
         @page {
             size: A4;
             /* DIN A4 standard, Europe */
-            margin: 5mm 5mm 0 5mm;
+            margin: 2mm 0 0 2mm;
             padding-top: 0;
         }
 
