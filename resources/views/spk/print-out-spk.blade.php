@@ -26,7 +26,9 @@
                 </tr>
                 <tr>
                     <td class="ps-2">UTK.</td>
-                    <td class="ps-2">{{ $pelanggan_nama }}</td>
+                    <td class="ps-2">
+                        {{ $pelanggan_nama }}
+                    </td>
                     {{-- <td></td> --}}
                 </tr>
                 <tr>
@@ -38,7 +40,7 @@
                 @if ($i < count($spk_produks))
                 <tr>
                     <td class="ps-2" colspan='2'>
-                        <div>{{ $produks[$i]['nama'] }}</div>
+                        <div>{{ $spk_produks[$i]['nama_produk'] }}</div>
                         @if ($spk_produks[$i]['keterangan'] !== null)
                         <div style='font-style: italic;color:gray' class="fw-bold">{{ $spk_produks[$i]['keterangan'] }}</div>
                         @endif
@@ -143,7 +145,7 @@
         @page {
             size: A4;
             /* DIN A4 standard, Europe */
-            margin: 2mm 0 0 2mm;
+            margin: 5mm 5mm 0 5mm;
             padding-top: 0;
         }
 

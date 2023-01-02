@@ -233,33 +233,24 @@ class SpkController extends Controller
         // dump('$get:', $get);
 
         $spk = Spk::find($get['spk_id']);
-        $pelanggan = Pelanggan::find($spk['pelanggan_id']);
-        $reseller = null;
-        $reseller_id = null;
-        $pelanggan_nama = $pelanggan['nama'];
-
-        $spk_produks = SpkProduk::where('spk_id', $spk['id'])->get();
-        $produks = array();
-        foreach ($spk_produks as $spk_produk) {
-            $produk = Produk::find($spk_produk['produk_id']);
-            array_push($produks, $produk);
+        if ($spk->cust_short!==null) {
+            $pelanggan_nama = "$spk->pelanggan_nama - $spk->cust_short";
+        } else {
+            $pelanggan_nama = $spk->pelanggan_nama;
         }
 
         if ($spk['reseller_id'] !== null) {
-            $reseller = Pelanggan::find($spk['reseller_id']);
-            $reseller_id = $reseller['id'];
-            $pelanggan_nama = "$reseller[nama]: $pelanggan[nama]";
+            $pelanggan_nama = "$spk->reseller_nama: $pelanggan_nama";
         }
+
+        $spk_produks = SpkProduk::where('spk_id', $spk['id'])->get();
+
 
         $data = [
             'go_back' => true,
             'navbar_bg' => 'bg-color-orange-2',
             'spk' => $spk,
-            'pelanggan' => $pelanggan,
-            'reseller' => $reseller,
-            'reseller_id' => $reseller_id,
             'spk_produks' => $spk_produks,
-            'produks' => $produks,
             'pelanggan_nama' => $pelanggan_nama,
         ];
 
