@@ -1,5 +1,6 @@
 <div>
     <!-- If you do not have a consistent goal in life, you can not live it in a consistent way. - Marcus Aurelius -->
+    <!-- Smile, breathe, and go slowly. - Thich Nhat Hanh -->
     @if (session()->has('success_') && session('success_')!=="")
     <div class="container mt-2 alert alert-success">{{ session('success_') }}</div>
     @endif
