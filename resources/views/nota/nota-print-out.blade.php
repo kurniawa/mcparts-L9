@@ -23,9 +23,9 @@
                         <th>
                             @if ($reseller!==null)
                             @if ($reseller_nama!==null)
-                            {{ $reseller_nama }}
+                            {{ $reseller_nama }} -<br>{{ $pelanggan_nama }}
                             @else
-                            {{ $reseller['nama'] }}
+                            {{ $reseller['nama'] }} -<br>{{ $pelanggan['nama'] }}
                             @endif
                             @else
                             @if ($pelanggan_nama!==null)
@@ -136,9 +136,9 @@
                         <th>
                             @if ($reseller!==null)
                             @if ($reseller_nama!==null)
-                            {{ $reseller_nama }}
+                            {{ $reseller_nama }} -<br>{{ $pelanggan_nama }}
                             @else
-                            {{ $reseller['nama'] }}
+                            {{ $reseller['nama'] }} -<br>{{ $pelanggan['nama'] }}
                             @endif
                             @else
                             @if ($pelanggan_nama!==null)
