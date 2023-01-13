@@ -411,7 +411,7 @@ class NotaController extends Controller
         }
 
         $obj_nota = new Nota();
-        list($nota,$pelanggan,$pelanggan_nama,$alamat,$cust_long_ala,$alamat_avas,$cust_kontak,$kontak,$kontak_avas,$reseller,$reseller_nama,$alamat_reseller,$reseller_long_ala,$alamat_reseller_avas,$reseller_kontak,$kontak_reseller,$kontak_reseller_avas,$spk_produk_notas, $spk_produks, $produks,$data_items) = $obj_nota->getOneNotaAndComponents($get['nota_id']);
+        list($nota,$pelanggan,$pelanggan_nama,$alamat,$cust_long_ala,$cust_short,$alamat_avas,$cust_kontak,$kontak,$kontak_avas,$reseller,$reseller_nama,$alamat_reseller,$reseller_long_ala,$reseller_short,$alamat_reseller_avas,$reseller_kontak,$kontak_reseller,$kontak_reseller_avas,$spk_produk_notas, $spk_produks, $produks,$data_items) = $obj_nota->getOneNotaAndComponents($get['nota_id']);
 
         // Setting untuk nama nota khusus pelanggan apabila tersedia
         $nama_notas=array();
@@ -447,11 +447,13 @@ class NotaController extends Controller
             'rest_row' => $rest_row,
             'pelanggan_nama' => $pelanggan_nama,
             'cust_long_ala' => $cust_long_ala,
+            'cust_short' => $cust_short,
             'cust_kontak' => $cust_kontak,
             'kontak' => $kontak,
             'reseller_nama' => $reseller_nama,
             'alamat_reseller' => $alamat_reseller,
             'reseller_long_ala' => $reseller_long_ala,
+            'reseller_short' => $reseller_short,
             'reseller_kontak' => $reseller_kontak,
             'kontak_reseller' => $kontak_reseller,
             'alamat_avas' => $alamat_avas,

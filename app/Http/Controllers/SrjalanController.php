@@ -354,30 +354,66 @@ class SrjalanController extends Controller
     public function sj_printOut(Request $request)
     {
         SiteSettings::loadNumToZero();
-
-        $show_dump = false;
         // Pada development mode, load number boleh diignore. Yang perlu diperhatikan adalah
         // insert dan update database supaya tidak berantakan
 
         $get = $request->query();
-
-        if ($show_dump === true) {
-            dump('get:', $get);
+        $srjalan_id=$get['srjalan_id'];
+        $srjalan=Srjalan::find($srjalan_id);
+        $pelanggan_nama=$srjalan->pelanggan_nama;
+        $cust_kontak="";
+        if ($srjalan->cust_kontak!==null) {
+            $cust_kontak=json_decode($srjalan->cust_kontak,true);
+        }
+        $reseller_nama="";$reseller_kontak="";
+        if ($srjalan->reseller_id!==null) {
+            $reseller_nama=$srjalan->reseller_nama;
+            if ($srjalan->reseller_kontak!==null) {
+                $reseller_kontak=json_decode($srjalan->reseller_kontak,true);
+            }
+        }
+        $cust_long_ala=[];
+        if ($srjalan->cust_long_ala!==null) {
+            $cust_long_ala=json_decode($srjalan->cust_long_ala,true);
+        }
+        $reseller_long_ala=[];
+        if ($srjalan->reseller_long_ala!==null && $srjalan->reseller_long_ala!=="") {
+            $reseller_long_ala=json_decode($srjalan->reseller_long_ala,true);
+        }
+        $ekspedisi_nama="";$eks_kontak="";
+        $eks_long_ala=[];
+        if ($srjalan->ekspedisi_id!==null) {
+            $ekspedisi_nama=$srjalan->ekspedisi_nama;
+            $eks_long_ala=json_decode($srjalan->eks_long_ala,true);
+            if ($srjalan->eks_kontak!==null) {
+                $eks_kontak=json_decode($srjalan->eks_kontak,true);
+            }
         }
 
-        $sj = new Srjalan();
-        list($srjalan, $pelanggan,$alamat,$pelanggan_kontak,$reseller,$reseller_kontak,$ekspedisi,$ekspedisi_kontak,$transit,$alamat_transit,$transit_kontak,$spk_produk_nota_srjalans, $spk_produk_notas, $spk_produks, $produks) = $sj->get_one_srjalan_and_components($get['srjalan_id']);
-
-        $alamat_reseller=$alamat_reseller_long=null;
-        $alamat_long=json_decode($alamat['long'],true);
-        if ($reseller!==null) {
-            $alamat_reseller = $reseller->alamat->first();
-            $alamat_reseller_long=json_decode($alamat_reseller['long'],true);
+        $transit_nama="";$trans_kontak="";
+        $trans_long_ala=[];
+        if ($srjalan->ekspedisi_transit_id!==null) {
+            $transit_nama=$srjalan->transit_nama;
+            $trans_long_ala=json_decode($srjalan->trans_long_ala);
+            if ($srjalan->trans_kontak!==null) {
+                $trans_kontak=json_decode($srjalan->trans_kontak,true);
+            }
         }
-        // dd($alamat_reseller);
-        $ekspedisi_alamat=EkspedisiAlamat::where('ekspedisi_id',$ekspedisi['id'])->where('tipe','UTAMA')->latest()->first();
-        // dump($ekspedisi_alamat);
-        $alamat_ekspedisi =Alamat::find($ekspedisi_alamat['alamat_id']);
+
+        $spk_produk_nota_srjalans = SpkProdukNotaSrjalan::where('srjalan_id', $srjalan['id'])->get();
+
+        $spk_produk_notas = $spk_produks = $produks = array();
+
+        foreach ($spk_produk_nota_srjalans as $spk_produk_nota_srjalan) {
+            $spk_produk_nota = SpkProdukNota::find($spk_produk_nota_srjalan['spk_produk_nota_id']);
+            $spk_produk = SpkProduk::find($spk_produk_nota_srjalan['spk_produk_id']);
+            $produk = Produk::find($spk_produk_nota_srjalan['produk_id']);
+
+            $spk_produk_notas[] = $spk_produk_nota;
+            $spk_produks[] = $spk_produk;
+            $produks[] = $produk;
+        }
+
         $jml_baris_produk=count($produks);
         if (count($produks)<10) {
             $jml_baris_produk=10;
@@ -387,29 +423,28 @@ class SrjalanController extends Controller
             'navbar_bg' => 'bg-color-orange-2',
             'go_back' => true,
             'srjalan' => $srjalan,
-            'pelanggan' => $pelanggan,
-            'alamat' => $alamat,
-            'alamat_long' => $alamat_long,
-            'reseller' => $reseller,
-            'alamat_reseller' => $alamat_reseller,
-            'alamat_reseller_long' => $alamat_reseller_long,
-            'ekspedisi' => $ekspedisi,
-            'alamat_ekspedisi' => $alamat_ekspedisi,
+            'pelanggan_nama' => $pelanggan_nama,
+            'reseller_nama' => $reseller_nama,
+            'ekspedisi_nama' => $ekspedisi_nama,
+            'transit_nama' => $transit_nama,
+            'cust_kontak' => $cust_kontak,
+            'reseller_kontak' => $reseller_kontak,
+            'eks_kontak' => $eks_kontak,
+            'trans_kontak' => $trans_kontak,
+            'cust_long_ala'=>$cust_long_ala,
+            'reseller_long_ala'=>$reseller_long_ala,
+            'eks_long_ala'=>$eks_long_ala,
+            'trans_long_ala'=>$trans_long_ala,
             'spk_produk_nota_srjalans' => $spk_produk_nota_srjalans,
             'spk_produk_notas' => $spk_produk_notas,
             'spk_produks' => $spk_produks,
             'produks' => $produks,
             'jml_baris_produk' => $jml_baris_produk,
-            'pelanggan_kontak' => $pelanggan_kontak,
-            'reseller_kontak' => $reseller_kontak,
-            'ekspedisi_kontak' => $ekspedisi_kontak,
-            'transit' => $transit,
-            'alamat_transit' => $alamat_transit,
-            'transit_kontak' => $transit_kontak,
         ];
+        // dump($srjalan->cust_long_ala);
         // dd($data);
-        // dump($data);
-        if ($reseller!==null) {
+        // dd($eks_kontak);
+        if ($srjalan->reseller_id!==null) {
             return view('srjalan.sj-printOutReseller', $data);
         }
         return view('srjalan.sj-printOut', $data);

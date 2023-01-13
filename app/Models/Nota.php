@@ -46,6 +46,7 @@ class Nota extends Model
         $pelanggan = Pelanggan::find($nota['pelanggan_id']);
         $pelanggan_nama=$nota['pelanggan_nama'];
         $cust_long_ala=$nota['cust_long_ala'];
+        $cust_short=$nota->cust_short;
         $alamat=null;
         if ($nota['alamat_id']!==null) {
             $alamat=Alamat::find($nota['alamat_id']);
@@ -71,6 +72,7 @@ class Nota extends Model
             $reseller = Pelanggan::find($nota['reseller_id']);
         }
         $reseller_long_ala=$nota['reseller_long_ala'];
+        $reseller_short=$nota->reseller_short;
         $alamat_reseller=null;
         if ($nota['alamat_reseller_id']!==null) {
             $alamat_reseller=Alamat::find($nota['alamat_reseller_id']);
@@ -116,7 +118,7 @@ class Nota extends Model
         // dump('$spk_produk_notas:', $spk_produk_notas);
         // dump('$spk_produks:', $spk_produks);
 
-        return array($nota,$pelanggan,$pelanggan_nama,$alamat,$cust_long_ala,$alamat_avas,$cust_kontak,$kontak,$kontak_avas,$reseller,$reseller_nama,$alamat_reseller,$reseller_long_ala,$alamat_reseller_avas,$reseller_kontak,$kontak_reseller,$kontak_reseller_avas,$spk_produk_notas, $spk_produks, $produks, $data_items);
+        return array($nota,$pelanggan,$pelanggan_nama,$alamat,$cust_long_ala,$cust_short,$alamat_avas,$cust_kontak,$kontak,$kontak_avas,$reseller,$reseller_nama,$alamat_reseller,$reseller_long_ala,$reseller_short,$alamat_reseller_avas,$reseller_kontak,$kontak_reseller,$kontak_reseller_avas,$spk_produk_notas, $spk_produks, $produks, $data_items);
     }
 
     public function getAvailableSPKItemFromNotaID($nota_id)

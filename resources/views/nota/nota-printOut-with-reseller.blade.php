@@ -25,10 +25,11 @@
                 <tr><td>Tanggal</td><td>:</td><td>{{ date('d-m-Y', strtotime($nota['created_at'])) }}</td></tr>
                 <tr style="vertical-align: top"><td>Alamat</td><td>:</td>
                     <td>
-                        @if ($cust_long_ala!==null)
-                        @foreach (json_decode($cust_long_ala,true) as $long)
-                        <div>{{ $alm }}</div>
-                        @endforeach
+                        @if ($cust_short!==null)
+                        {{-- @foreach (json_decode($cust_long_ala,true) as $long)
+                        <div>{{ $long }}</div>
+                        @endforeach --}}
+                        <div>{{ $cust_short }}</div>
                         @else
                         @if ($alamat!==null)
                         @foreach (json_decode($alamat['long'], true) as $alm)
@@ -110,10 +111,11 @@
                 <tr><td>Tanggal</td><td>:</td><td>{{ date('d-m-Y', strtotime($nota['created_at'])) }}</td></tr>
                 <tr style="vertical-align: top"><td>Alamat</td><td>:</td>
                     <td>
-                        @if ($cust_long_ala!==null)
-                        @foreach (json_decode($cust_long_ala,true) as $long)
-                        <div>{{ $alm }}</div>
-                        @endforeach
+                        @if ($cust_short!==null)
+                        {{-- @foreach (json_decode($cust_long_ala,true) as $long)
+                        <div>{{ $long }}</div>
+                        @endforeach --}}
+                        <div>{{ $cust_short }}</div>
                         @else
                         @if ($alamat!==null)
                         @foreach (json_decode($alamat['long'], true) as $alm)
