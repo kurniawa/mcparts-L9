@@ -8,11 +8,11 @@
     <div class="sj-pelanggan">
         <div class="hr-line border-top border-2 mt-1 mb-1"></div>
         <div class="row align-items-center">
-            <div class="col-2 text-center">
+            <div class="col-3 text-center">
                 <div style="display: inline-block;" class="text-start">
                     <div>Pengirim:</div>
                     <span class="fw-bold">{{ $reseller_nama }}</span>
-                    <div>
+                    <div style="font-size: 0.8rem">
                         @for ($i = 0; $i < count($reseller_long_ala); $i++)
                         {{ $reseller_long_ala[$i] }}
                         @if ($i!==count($reseller_long_ala)-1)
@@ -34,9 +34,9 @@
                 </div>
             </div>
 
-            <div class="col-6 fw-bold text-center judul-sj" style="position: relative">
+            <div class="col-5 fw-bold text-center judul-sj" style="position: relative">
                 <span>SURAT JALAN /</span><br><span>TANDA TERIMA BARANG</span>
-                <span style="font-size: 1.2rem;position: absolute;right:1rem;top:1rem">
+                <span style="font-size: 0.9rem;position: absolute;right:1rem;top:1rem">
                     @if ($i_copy_sj===0)
                     ( Asli )
                     @else
@@ -306,7 +306,7 @@
         }
 
         .judul-sj{
-            font-size: 1.5rem;
+            font-size: 1.3rem;
         }
         /* .logo-mc{
             width: 15rem;
