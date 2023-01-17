@@ -83,7 +83,12 @@
                     <tr>
                         <td colspan="3">
                             <div class='d-flex align-items-center justify-content-end'>
-                                <form action="{{ route('sj_hapus') }}" method="POST" class="m-0" onclick="return confirm('Apakah Anda yakin ingin menghapus Sr. Jalan ini? (Jumlah sudah Sr. Jalan pada Tree akan disesuaikan kembali.)');">
+                                <form action="{{ route('sj_fix') }}" method="POST" class="m-0">
+                                    @csrf
+                                    <input type="hidden" name="srjalan_id" value="{{ $srjalans[$i]['id'] }}">
+                                    <button type="submit" class="btn btn-dd btn-sm">Fix</button>
+                                </form>
+                                <form action="{{ route('sj_hapus') }}" method="POST" class="m-0 ms-1" onclick="return confirm('Apakah Anda yakin ingin menghapus Sr. Jalan ini? (Jumlah sudah Sr. Jalan pada Tree akan disesuaikan kembali.)');">
                                     @csrf
                                     <input type="hidden" name="srjalan_id" value="{{ $srjalans[$i]['id'] }}">
                                     <button type="submit" class="btn btn-danger btn-sm">Hapus</button>

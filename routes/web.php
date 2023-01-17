@@ -259,6 +259,7 @@ Route::controller(SrjalanController::class)->group(function ()
     Route::post('/sj/sj-hapus', 'sj_hapus')->name('sj_hapus')->middleware('auth');
     Route::get('/sj/SjAll', 'SjAll')->name('SjAll')->middleware('auth');
     Route::post('/sj/SjAll_DB', 'SjAll_DB')->name('SjAll_DB')->middleware('auth');
+    Route::post('/sj/sjFix', 'sjFix')->name('sj_fix')->middleware('auth');
 });
 
 Route::controller(SjItemController::class)->group(function ()

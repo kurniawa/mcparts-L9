@@ -10,6 +10,7 @@ use App\Models\Ekspedisi;
 use App\Models\EkspedisiAlamat;
 use App\Models\Nota;
 use App\Models\Pelanggan;
+use App\Models\PelangganAlamat;
 use App\Models\PelangganEkspedisi;
 use App\Models\Produk;
 use App\Models\SiteSetting;
@@ -557,5 +558,21 @@ class SrjalanController extends Controller
         ];
 
         return view('layouts.db-result', $data);
+    }
+
+    public function sjFix(Request $request)
+    {
+        $post=$request->post();
+        $srjalan_id=$post['srjalan_id'];
+        $srjalan=Srjalan::find($srjalan_id);
+        $pelanggan=Pelanggan::find($srjalan->pelanggan_id);
+        $pelanggan_alamat=PelangganAlamat::where('pelanggan_id',$pelanggan->id)->where('tipe','UTAMA')->first();
+        $alamat=Alamat::find($pelanggan_alamat->alamat_id);
+        $srjalan->update([
+            'cust_long_ala'=>$alamat->long,
+            'cust_short'=>$alamat->short,
+        ]);
+        return back()->with(["_success"=>"Fix alamat_pelanggan!"]);
+
     }
 }
