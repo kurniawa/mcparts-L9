@@ -241,8 +241,12 @@
             console.log(document.readyState);
             // document.getElementById("PreLoaderBar").style.display = "none";
             // $('#loading-progress-icon').hide(300);
-            $('#loading-progress-icon').hide(500);
-            $('#loading-progress-icon2').hide(500);
+            $('#loading-progress-icon').hide(1000);
+            $('#loading-progress-icon2').hide(1000);
+            // setTimeout(() => {
+            //     $('#loading-progress-icon-php').remove();
+
+            // }, 1000);
         }
     };
 

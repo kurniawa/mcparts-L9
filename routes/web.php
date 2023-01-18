@@ -260,6 +260,7 @@ Route::controller(SrjalanController::class)->group(function ()
     Route::get('/sj/SjAll', 'SjAll')->name('SjAll')->middleware('auth');
     Route::post('/sj/SjAll_DB', 'SjAll_DB')->name('SjAll_DB')->middleware('auth');
     Route::post('/sj/sjFix', 'sjFix')->name('sj_fix')->middleware('auth');
+    Route::post('/sj/sjFixAll', 'sjFixAll')->name('sj_fix_all')->middleware('auth');
 });
 
 Route::controller(SjItemController::class)->group(function ()

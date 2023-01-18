@@ -573,6 +573,21 @@ class SrjalanController extends Controller
             'cust_short'=>$alamat->short,
         ]);
         return back()->with(["_success"=>"Fix alamat_pelanggan!"]);
+    }
 
+    public function sjFixAll()
+    {
+        $srjalans=Srjalan::all();
+        // dd($srjalans);
+        foreach ($srjalans as $srjalan) {
+            $pelanggan=Pelanggan::find($srjalan->pelanggan_id);
+            $pelanggan_alamat=PelangganAlamat::where('pelanggan_id',$pelanggan->id)->where('tipe','UTAMA')->first();
+            $alamat=Alamat::find($pelanggan_alamat->alamat_id);
+            $srjalan->update([
+                'cust_long_ala'=>$alamat->long,
+                'cust_short'=>$alamat->short,
+            ]);
+        }
+        return back()->with(["_success"=>"Fix semua alamat_pelanggan!"]);
     }
 }

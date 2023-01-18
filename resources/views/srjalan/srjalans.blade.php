@@ -17,7 +17,10 @@
         </div>
     </div>
 </div>
-
+<form action="{{ route('sj_fix_all') }}" method="POST" class="p-2 d-none">
+    @csrf
+    <button class="btn btn-dd" type="submit">Fix All</button>
+</form>
 {{-- Penampilan Alert Success --}}
 @if (session()->has('_success') && session('_success')!=="")
 <div class="container mt-2 alert alert-success">{{ session('_success') }}</div>
