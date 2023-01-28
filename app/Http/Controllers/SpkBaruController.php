@@ -214,6 +214,7 @@ class SpkBaruController extends Controller
                     'harga' => $produk_harga['harga'],
                     'keterangan' => null,
                     'status' => 'PROSES',
+                    'nama_produk' => $produk->nama,
                 ]);
                 // $success_logs[]="Item baru berhasil di tambahkan ke SPK-$post[spk_id]";
                 $_success.="_ Item baru berhasil di tambahkan ke SPK-$post[spk_id]";

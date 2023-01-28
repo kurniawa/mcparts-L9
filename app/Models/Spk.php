@@ -390,6 +390,13 @@ class Spk extends Model
             $reseller_kontak=PelangganKontak::where('pelanggan_id',$reseller_id)->where('is_aktual','yes')->first();
         }
 
+        // DATA SPK PRODUKS
+        $spk_produks=SpkProduk::where('spk_id',$spk_id)->get();
+        foreach ($spk_produks as $key) {
+            $produk=Produk::find($key->produk_id);
+            $key->update(['nama_produk'=>$produk->nama]);
+        }
+
         $spk->update([
             'pelanggan_nama'=>$pelanggan_nama,
             'cust_long_ala'=>$cust_long_ala,
