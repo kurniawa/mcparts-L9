@@ -17,7 +17,7 @@
                 <th>Tahun</th><th>:</th>
                 <td>
                     <select class="form-control" name="tahun" id="tahun">
-                        <option value="{{ $tahun_now }}">{{ $tahun_now }}</option>
+                        <option value="{{ $tahun_set }}">{{ $tahun_set }}</option>
                         @foreach ($arr_tahun as $tahun)
                         <option value="{{ $tahun }}">{{ $tahun }}</option>
                         @endforeach
@@ -26,7 +26,7 @@
                 <th>Bulan</th><th>:</th>
                 <td>
                     <select class="form-control" name="bulan" id="bulan">
-                        <option value="{{ $bulan_now }}">{{ $bulan_now }}</option>
+                        <option value="{{ $bulan_set }}">{{ $bulan_set }}</option>
                         <option value="all">All</option>
                         @foreach ($arr_bulan as $bulan)
                         <option value="{{ $bulan }}">{{ $bulan }}</option>
@@ -36,7 +36,7 @@
                 <th>Tanggal</th><th>:</th>
                 <td>
                     <select class="form-control" name="tanggal" id="tanggal">
-                        <option value="{{ $tanggal_now }}">{{ $tanggal_now }}</option>
+                        <option value="{{ $tanggal_set }}">{{ $tanggal_set }}</option>
                         <option value="all">All</option>
                         @foreach ($arr_tanggal as $tanggal)
                         <option value="{{ $tanggal }}">{{ $tanggal }}</option>
@@ -118,9 +118,11 @@
                     <div>{{ $notasXsubtotal[$k]['srjalans'][$m]['no_srjalan'] }}:</div>
                     <div class="ms-1">{{ $notasXsubtotal[$k]['ekspedisis'][$m]['ekspedisi_nama'] }} -></div>
                     <div class="ms-1">
+                        @if ($notasXsubtotal[$k]['ekspedisis'][$m]['eks_long_ala'] !== null)
                         @foreach (json_decode($notasXsubtotal[$k]['ekspedisis'][$m]['eks_long_ala'],true) as $long)
                         <div>{{ $long }}</div>
                         @endforeach
+                        @endif
                     </div>
 
                     @if ($notasXsubtotal[$k]['ekspedisis'][$m]['transit_nama']!==null)

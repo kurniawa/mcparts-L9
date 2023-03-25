@@ -17,20 +17,54 @@ class PenjualanController extends Controller
 {
     public function index(Request $request)
     {
-        SiteSettings::loadNumToZero();
+        $get = $request->query();
+        $notas = collect();
+        if (isset($get['filter'])) {
+            $tahun_set=$get['tahun'];
+            $bulan_set=$get['bulan'];
+            $tanggal_set=$get['tanggal'];
+
+
+            if ($bulan_set=='all' && $tanggal_set=='all') {
+                $notas=Nota::whereYear('created_at',$tahun_set)->orderBy('pelanggan_id')->get();
+            } else if ($bulan_set=='all' && $tanggal_set!=='all') {
+                $notas=Nota::whereYear('created_at',$tahun_set)->whereDay('created_at',$tanggal_set)->orderBy('pelanggan_id')->get();
+            } else if($bulan_set!=='all' && $tanggal_set!=='all'){
+                $notas=Nota::whereYear('created_at',$tahun_set)->whereMonth('created_at',$bulan_set)->whereDay('created_at',$tanggal_set)->orderBy('pelanggan_id')->get();
+            } else {
+                $notas=Nota::whereYear('created_at',$tahun_set)->whereMonth('created_at',$bulan_set)->orderBy('pelanggan_id')->get();
+            }
+        } else {
+            // Definisi Tahun
+            $tahun_set=date('Y');
+            $tahun_awal=(int)$tahun_set-20;
+            for ($i=0; $i < 100; $i++) {
+                $arr_tahun[]=$tahun_awal+$i;
+            }
+            // Definisi Bulan
+            $bulan_set=date('m');
+            for ($i=1; $i < 13; $i++) {
+                $arr_bulan[]=$i;
+            }
+            // Definisi Tanggal
+            $tanggal_set=date('d');
+            for ($i=1; $i < 32; $i++) {
+                $arr_tanggal[]=$i;
+            }
+        }
         // Definisi Tahun
-        $tahun_now=date('Y');
-        $tahun_awal=(int)$tahun_now-20;
+        $tahun_set=date('Y');
+        $tahun_awal=(int)$tahun_set-20;
         for ($i=0; $i < 100; $i++) {
             $arr_tahun[]=$tahun_awal+$i;
         }
         // Definisi Bulan
-        $bulan_now=date('m');
+        $bulan_set=date('m');
         for ($i=1; $i < 13; $i++) {
             $arr_bulan[]=$i;
         }
         // Definisi Tanggal
-        $tanggal_now=date('d');
+        $tanggal_set=date('d');
         for ($i=1; $i < 32; $i++) {
             $arr_tanggal[]=$i;
         }
@@ -38,11 +72,11 @@ class PenjualanController extends Controller
         $data = [
             'go_back'=>true,
             'navbar_bg'=>'bg-color-orange-2',
-            'tahun_now'=>$tahun_now,
+            'tahun_set'=>$tahun_set,
             'arr_tahun'=>$arr_tahun,
-            'bulan_now'=>$bulan_now,
+            'bulan_set'=>$bulan_set,
             'arr_bulan'=>$arr_bulan,
-            'tanggal_now'=>$tanggal_now,
+            'tanggal_set'=>$tanggal_set,
             'arr_tanggal'=>$arr_tanggal,
         ];
         // dd($data);
@@ -103,11 +137,11 @@ class PenjualanController extends Controller
         $data = [
             'go_back'=>true,
             'navbar_bg'=>'bg-color-orange-2',
-            'tahun_now'=>$tahun_set,
+            'tahun_set'=>$tahun_set,
             'arr_tahun'=>$arr_tahun,
-            'bulan_now'=>$bulan_set,
+            'bulan_set'=>$bulan_set,
             'arr_bulan'=>$arr_bulan,
-            'tanggal_now'=>$tanggal_set,
+            'tanggal_set'=>$tanggal_set,
             'arr_tanggal'=>$arr_tanggal,
             'tahun_set'=>$tahun_set,
             'bulan_set'=>$bulan_set,
