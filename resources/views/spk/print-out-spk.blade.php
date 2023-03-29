@@ -36,58 +36,29 @@
                     <th style="text-align: center">JUMLAH</th>
                 </tr>
 
-                @for ($i = 0; $i < 15; $i++)
-                @if ($i < count($spk_produks))
+                @foreach ($spk_produks as $spk_produk)
                 <tr>
                     <td class="ps-2" colspan='2'>
-                        <div>{{ $spk_produks[$i]['nama_produk'] }}</div>
-                        @if ($spk_produks[$i]['keterangan'] !== null)
-                        <div style='font-style: italic;color:gray' class="fw-bold">{{ $spk_produks[$i]['keterangan'] }}</div>
+                        <div>{{ $spk_produk->nama_produk }}</div>
+                        @if ($spk_produk->keterangan !== null)
+                        <div style='font-style: italic;color:gray' class="fw-bold">{{ $spk_produk->keterangan }}</div>
                         @endif
                     </td>
                     <td class="ps-2">
-                        {{ $spk_produks[$i]['jumlah'] }}
-                        @if ($spk_produks[$i]['deviasi_jml'])
-                        @if ($spk_produks[$i]['deviasi_jml']>0)
+                        {{ $spk_produk->jumlah }}
+                        @if ($spk_produk->deviasi_jml)
+                        @if ($spk_produk->deviasi_jml>0)
                             +
                         @endif
-                        {{ $spk_produks[$i]['deviasi_jml'] }}
+                        {{ $spk_produk->deviasi_jml }}
                         @endif
                     </td>
                 </tr>
-                @else
+                @endforeach
                 <tr style="height: 1.5em;">
                     <td colspan='2'></td>
                     <td></td>
                 </tr>
-                @endif
-                @endfor
-                {{-- @for ($i = 0; $i <= count($spk_produks); $i++)
-                @if ($i < count($spk_produks))
-                <tr>
-                    <td class="ps-2" colspan='2'>
-                        <div>{{ $produks[$i]['nama'] }}</div>
-                        @if ($spk_produks[$i]['keterangan'] !== null)
-                        <div style='font-style: italic;color:gray' class="fw-bold">{{ $spk_produks[$i]['keterangan'] }}</div>
-                        @endif
-                    </td>
-                    <td class="ps-2">
-                        {{ $spk_produks[$i]['jumlah'] }}
-                        @if ($spk_produks[$i]['deviasi_jml'])
-                        @if ($spk_produks[$i]['deviasi_jml']>0)
-                            +
-                        @endif
-                        {{ $spk_produks[$i]['deviasi_jml'] }}
-                        @endif
-                    </td>
-                </tr>
-                @else
-                <tr style="height: 1.5em;">
-                    <td colspan='2'></td>
-                    <td></td>
-                </tr>
-                @endif
-                @endfor --}}
                 <tr>
                     <td colspan='2' style='font-weight: bold; text-align: right;'>
                         Total
