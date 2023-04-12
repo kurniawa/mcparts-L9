@@ -28,6 +28,7 @@ use App\Http\Controllers\SjItemController;
 use App\Http\Controllers\SpkBaruController;
 use App\Http\Controllers\SpkController;
 use App\Http\Controllers\SpkItemController;
+use App\Http\Controllers\SpkNotaController;
 use App\Http\Controllers\SrjalanController;
 use App\Http\Controllers\TempSpkController;
 use App\Http\Controllers\TestController;
@@ -335,3 +336,5 @@ Route::controller(PenjualanController::class)->group(function ()
  * AJAX CONTROLLER
  */
 Route::get('/get-spesifikasi_produk', [ProdukController::class, 'getSpesifikasiProduk'])->name('getSpesifikasiProduk')->middleware('auth');
+
+Route::post('/alter_db/fix_relasi_spk_nota_srjalan', [SpkNotaController::class, 'fix_relasi_spk_nota_srjalan'])->name('alter_db.fix_realsi_spk_nota_srjalan')->middleware('auth');
