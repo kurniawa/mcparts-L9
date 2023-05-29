@@ -3,6 +3,8 @@
 
 @section('content')
 
+<x-feedback-validation></x-feedback-validation>
+
 <div class="container mt-2">
     <div class="d-flex align-items-center">
         <div>

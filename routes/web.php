@@ -89,8 +89,8 @@ Route::controller(PelangganEditController::class)->group(function ()
 Route::controller(PelangganResellerController::class)->group(function ()
 {
    Route::get('/pelanggan/tambah-reseller', 'index')->name('pelanggan_tambah_reseller')->middleware('auth');
-   Route::post('/pelanggan/tambah-reseller-db', 'tambah_reseller_db')->middleware('auth');
-   Route::post('/pelanggan/hapus-reseller', 'hapus_reseller')->middleware('auth');
+   Route::post('/pelanggan/tetapkan-reseller-db', 'tetapkan_reseller_db')->middleware('auth');
+   Route::post('/pelanggan/hapus-reseller', 'hapus_reseller')->name('hapus_reseller')->middleware('auth');
 });
 Route::controller(PelangganAlamatController::class)->group(function ()
 {
