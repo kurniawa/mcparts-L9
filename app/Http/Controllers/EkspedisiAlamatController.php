@@ -24,7 +24,7 @@ class EkspedisiAlamatController extends Controller
         $ekspedisi = Ekspedisi::find($get['ekspedisi_id']);
 
         $data = [
-            'go_back' => true,
+            '' => true,
             'navbar_bg' => 'bg-color-orange-2',
             'ekspedisi' => $ekspedisi
         ];
