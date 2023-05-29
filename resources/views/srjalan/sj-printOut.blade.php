@@ -119,7 +119,7 @@
             <td class="tdTableItemsj fw-bold" style="font-size: 2rem;">
                 <div class="grid-2-auto grid-column-gap-0_5em">
                     <div id="divJmlKoli" class="justify-self-right">
-                        @if ($srjalan['jml_colly']!==null)
+                        @if ($srjalan['jml_colly']!==null && $srjalan['jml_colly'] !== 0)
                         <span id="jmlKoli">{{ $srjalan['jml_colly'] }}</span>
                         <img style="width: 2rem;" class="d-inline-block" src="/img/icons/koli.svg" alt="">
                         @endif
@@ -128,6 +128,10 @@
                             +
                         <span>{{ $srjalan['jml_dus'] }}</span> Dus</div>
                         @endif
+                        @endif
+                        @if ($srjalan['jml_rol']!==null && $srjalan['jml_rol'] !== 0)
+                        {{-- {{ dump($srjalan['jml_rol']) }} --}}
+                        <span id="jmlKoli"> {{ $srjalan['jml_rol'] }}</span> Rol
                         @endif
                     </div>
                 </div>

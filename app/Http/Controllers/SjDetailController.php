@@ -75,11 +75,13 @@ class SjDetailController extends Controller
         $srjalan_id=$post['srjalan_id'];
         $jml_colly=$post['jml_colly'];
         $jml_dus=$post['jml_dus'];
+        $jml_rol=$post['jml_rol'];
 
         if ($run_db) {
             $srjalan=Srjalan::find($srjalan_id);
             $srjalan->jml_colly=$jml_colly;
             $srjalan->jml_dus=$jml_dus;
+            $srjalan->jml_rol=$jml_rol;
             $srjalan->save();
 
             $success_logs[]="Update Jumlah Packing Sr. Jalan berhasil!";

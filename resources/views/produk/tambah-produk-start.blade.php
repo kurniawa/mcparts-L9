@@ -251,6 +251,7 @@
                 <select name="tipe_packing" id="tipe_packing" class="form-select autoname">
                     <option value="colly">colly</option>
                     <option value="dus">dus</option>
+                    <option value="rol">rol</option>
                 </select>
             </div>
             <div class="col" id="div-aturan_packing" style="display: none">

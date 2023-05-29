@@ -33,6 +33,7 @@ return new class extends Migration
             // $table->smallInteger('jumlah')->nullable(); tidak perlu ada detail jumlah disini, karena sudah ada di spk_produk_nota_srjalan
             $table->smallInteger('jml_colly')->nullable();
             $table->smallInteger('jml_dus')->nullable();
+            $table->smallInteger('jml_rol')->nullable();
             $table->string('jenis_barang',30)->nullable()->default('Sarung Jok Motor');
             $table->string('created_by');
             $table->string('updated_by');

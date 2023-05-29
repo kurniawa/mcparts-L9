@@ -186,7 +186,7 @@
     </table>
 
     <div class="text-end fw-bold fs-5">
-        @if ($srjalan['jml_colly']!==null)
+        @if ($srjalan['jml_colly']!==null && $srjalan['jml_colly'] !== 0)
         <div style="color: darkgreen"><span class="numberToFormat">{{ $srjalan['jml_colly'] }}</span> Koli
         @endif
         @if ($srjalan['jml_dus']!==null && $srjalan['jml_dus']!==0)
@@ -194,6 +194,9 @@
             +
         @endif
         <span class="numberToFormat">{{ $srjalan['jml_dus'] }}</span> Dus</div>
+        @endif
+        @if ($srjalan['jml_rol']!==null)
+        <div style="color: darkgreen"><span class="numberToFormat">{{ $srjalan['jml_rol'] }}</span> Rol
         @endif
         <div class="fw-bold fs-4 color-red">Total</div>
     </div>

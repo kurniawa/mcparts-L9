@@ -55,6 +55,13 @@
                     <div class="invalid-feedback" id="invalid-feedback-jml-dus"></div>
                 </td>
             </tr>
+            <tr>
+                <td>Jml. Rol</td><td>:</td>
+                <td>
+                    <input id="jml_rol" type='number' name='jml_rol' class="form-control" value="{{ $srjalan['jml_rol'] }}">
+                    <div class="invalid-feedback" id="invalid-feedback-jml-rol"></div>
+                </td>
+            </tr>
 
             <tr>
                 <td>
@@ -73,8 +80,9 @@
 function formValidation() {
     var valid_1=isInputNumberValid('jml_colly', 'invalid-feedback-jml-colly');
     var valid_2=isInputNumberValid('jml_dus', 'invalid-feedback-jml-dus');
+    var valid_3=isInputNumberValid('jml_rol', 'invalid-feedback-jml-rol');
 
-    if (valid_1==false && valid_2==false) {
+    if (valid_1==false && valid_2==false && valid_3 === false) {
         return false;
     }
 
