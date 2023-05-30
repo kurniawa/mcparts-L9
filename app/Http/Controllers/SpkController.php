@@ -37,9 +37,20 @@ class SpkController extends Controller
         $pelanggans = $resellers = $alamats = $arr_spk_produks = $arr_produks = $arr_finished_at_last = $bg_color_tgl= array();
         for ($i = 0; $i < count($spks); $i++) {
             $spk = Spk::find($spks[$i]->id);
-            $pelanggan = $spk->pelanggan;
-            $pelanggan_alamat = PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->latest()->first()->toArray();
-            $alamat = Alamat::find($pelanggan_alamat['alamat_id']);
+            if ($spk->pelanggan !== null) {
+                $pelanggan = $spk->pelanggan;
+                $pelanggan_alamat = PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->latest()->first()->toArray();
+                $alamat = Alamat::find($pelanggan_alamat['alamat_id']);
+            } else {
+                $pelanggan_alamat = null;
+                $alamat = null;
+            }
+            // try {
+            //     $pelanggan_alamat = PelangganAlamat::where('pelanggan_id',$pelanggan['id'])->latest()->first()->toArray();
+            // } catch (\Throwable $th) {
+            //     dump($spk->id);
+            //     dd($th);
+            // }
             if ($spks[$i]->reseller_id !== null && $spks[$i]->reseller_id !== '') {
                 $reseller = Pelanggan::find($spks[$i]->reseller_id);
                 array_push($resellers, $reseller);
