@@ -405,8 +405,8 @@ if (tipe === 'SJ-Variasi') {
     noticedInputs=['kombinasi','bahan','grade_bahan','variasi_1','varian_1','ukuran','jahit','list']
 } else if (tipe === 'SJ-Motif') {
     attToShow=['div-motif'];
-    btnToShow=['btn-grade_bahan','btn-bahan','btn-close-bahan','btn-ukuran','btn-jahit'];
-    noticedInputs=['motif','bahan','grade_bahan','ukuran','jahit']
+    btnToShow=['btn-grade_bahan','btn-bahan','btn-close-bahan','btn-variasi_1','btn-close-variasi_1','btn-varian_1','btn-ukuran','btn-jahit'];
+    noticedInputs=['motif','bahan','grade_bahan','variasi_1','varian_1','ukuran','jahit']
 } else if (tipe === 'SJ-T.Sixpack') {
     attToShow=['div-bahan','div-tsixpack'];
     btnToShow=['btn-grade_bahan','btn-ukuran','btn-jahit','btn-alas','btn-busa'];
