@@ -398,7 +398,7 @@ var noticedInputs = new Array();
 if (tipe === 'SJ-Variasi') {
     attToShow=['div-bahan','div-variasi_1'];
     btnToShow=['btn-varian_1','btn-ukuran','btn-jahit','btn-variasi_2','btn-varian_2'];
-    noticedInputs=['bahan','variasi_1','varian_1','variasi_2','varian_2','ukuran','jahit']
+    noticedInputs=['bahan','variasi_1','varian_1','variasi_2','varian_2','ukuran','jahit'];
 } else if (tipe === 'SJ-Kombinasi') {
     attToShow=['div-kombinasi'];
     btnToShow=['btn-variasi_1','btn-close-variasi_1','btn-varian_1','btn-grade_bahan','btn-bahan','btn-close-bahan','btn-ukuran','btn-jahit','btn-list'];
@@ -410,32 +410,32 @@ if (tipe === 'SJ-Variasi') {
 } else if (tipe === 'SJ-T.Sixpack') {
     attToShow=['div-bahan','div-tsixpack'];
     btnToShow=['btn-grade_bahan','btn-ukuran','btn-jahit','btn-alas','btn-busa'];
-    noticedInputs=['bahan','grade_bahan','tsixpack','variasi_1','varian_1','ukuran','jahit','alas','busa']
+    noticedInputs=['bahan','grade_bahan','tsixpack','variasi_1','varian_1','ukuran','jahit','alas','busa'];
 } else if (tipe === 'SJ-Japstyle') {
     attToShow=['div-bahan','div-japstyle'];
-    noticedInputs=['bahan','japstyle']
+    noticedInputs=['bahan','japstyle'];
 } else if (tipe === 'SJ-Standar') {
     attToShow=['div-standar'];
-    btnToShow=['btn-grade_bahan','btn-bahan','btn-close-bahan','btn-alas','btn-sayap','btn-busa','btn-jahit'];
-    noticedInputs=['standar','bahan','grade_bahan','alas','busa','sayap','jahit']
+    btnToShow=['btn-grade_bahan','btn-bahan','btn-close-bahan','btn-alas','btn-sayap','btn-busa','btn-jahit', 'btn-list'];
+    noticedInputs=['standar','bahan','grade_bahan','alas','busa','sayap','jahit', 'list'];
 } else if (tipe === 'Jok Assy') {
     attToShow=['div-jokassy'];
-    noticedInputs=['jokassy']
+    noticedInputs=['jokassy'];
 } else if (tipe === 'Tankpad') {
     attToShow=['div-tankpad'];
-    noticedInputs=['tankpad']
+    noticedInputs=['tankpad'];
 } else if (tipe === 'Stiker') {
     attToShow=['div-stiker'];
-    noticedInputs=['stiker']
+    noticedInputs=['stiker'];
 } else if (tipe === 'Busa-Stang') {
     attToShow=['div-busastang'];
-    noticedInputs=['busastang']
+    noticedInputs=['busastang'];
 } else if (tipe === 'Rotan') {
     attToShow=['div-rotan'];
-    noticedInputs=['rotan']
+    noticedInputs=['rotan'];
 } else if (tipe === 'Rol') {
     attToShow=['div-rol'];
-    noticedInputs=['rol']
+    noticedInputs=['rol'];
 }
 
 toShow(attToShow);toShow(btnToShow);

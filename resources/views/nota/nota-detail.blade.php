@@ -25,6 +25,7 @@
                 <th style="vertical-align: top;">:</th>
                 <td>
                     @if ($cust_long_ala!==null)
+                    {{-- {{ dump(json_decode($cust_long_ala,true)) }} --}}
                     @foreach (json_decode($cust_long_ala,true) as $long)
                     <div>{{ $long }}</div>
                     @endforeach
